@@ -1,0 +1,54 @@
+Name      isel;
+Partno    v1;
+Date      10/08/85;
+Rev       01;
+Designer  Michael;
+Company   SufniFabrik;
+Assembly  None;
+Location  None;
+Device    p20l8lcc;
+
+/** Inputs **/
+Pin [5..3]      = [IEO_KIO_A,IEO_KIO_B,IEO_DMA_A];
+Pin [10..9,7]   = [IEO_DMA_B,IEO_DMA_C,IEO_DMA_D];
+Pin 12          = ISEL;
+/*pin 2,6,11,17*/
+
+/** Outputs **/
+Pin [18..20]    = [IEI_KIO_A,IEI_KIO_B,IEI_DMA_A];
+Pin [23..25]    = [IEI_DMA_B,IEI_DMA_C,IEI_DMA_D];
+/*pin 21,26*/
+
+/*
+[IEI_KIO_A,IEI_KIO_B,IEI_DMA_A].oe    = 'b'1;
+[IEI_DMA_B,IEI_DMA_C,IEI_DMA_D].oe    = 'b'1;
+*/
+!IEI_KIO_A.OE    = 'b'0;
+!IEI_KIO_B.OE    = 'b'0;
+!IEI_DMA_A.OE    = 'b'0;
+!IEI_DMA_B.OE    = 'b'0;
+!IEI_DMA_C.OE    = 'b'0;
+!IEI_DMA_D.OE    = 'b'0;
+
+/*
+0: KIO1 -> DMA1 -> DMA2 -> KIO2 -> DMA3 -> DMA4
+1: DMA4 -> KIO1 -> DMA1 -> DMA2 -> KIO2 -> DMA3
+*/
+IEI_KIO_A    = !ISEL & 'b'1
+             #  ISEL & (IEO_DMA_D)
+             ;
+IEI_KIO_B    = !ISEL & IEO_KIO_A & IEO_DMA_A & IEO_DMA_B
+             #  ISEL & IEO_DMA_D & IEO_KIO_A & IEO_DMA_A & IEO_DMA_B
+             ;
+IEI_DMA_A    = !ISEL & IEO_KIO_A
+             #  ISEL & IEO_DMA_D & IEO_KIO_A
+             ;
+IEI_DMA_B    = !ISEL & IEO_KIO_A & IEO_DMA_A
+             #  ISEL & IEO_DMA_D & IEO_KIO_A & IEO_DMA_A
+             ;
+IEI_DMA_C    = !ISEL & IEO_KIO_A & IEO_DMA_A & IEO_DMA_B & IEO_KIO_B
+             #  ISEL & IEO_DMA_D & IEO_KIO_A & IEO_DMA_A & IEO_DMA_B & IEO_KIO_B
+             ;
+IEI_DMA_D    = !ISEL & IEO_KIO_A & IEO_DMA_A & IEO_DMA_B & IEO_KIO_B & IEO_DMA_C
+             #  ISEL & 'b'1
+             ;

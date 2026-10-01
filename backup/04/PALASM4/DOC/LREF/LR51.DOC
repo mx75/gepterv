@@ -1,0 +1,62 @@
+ğ
+REVISION
+Overview
+This is the keyword that begins the statement defining the revision of
+the current design.  The design revision is useful for documentation
+purposes.
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+        REVISION         Design revision
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Device Support:  All PLD devices.
+ú
+Syntax
+You use this keyword in the declaration segment of Boolean and state-
+machine designs.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+        REVISION         Design Revision
+
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+        TITLE    
+        PATTERN    
+        REVISION              2.2B
+        AUTHOR    
+        COMPANY    
+        DATE    
+        CHIP  
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+
+Design Revision    Defines an optional combination of up to 59
+                   alphanumeric characters used to designate the
+                   current version of the design.
+
+
+                   ş    You can use other symbols or punctuation;
+                        however you cannot use the dollar sign, $.
+
+                   ş    You can use reserved words in this statement.
+
+ú
+Use
+The following error conditions pertain to the REVISION statement.
+
+ş    Without the REVISION statement, the software issues a warning and
+     continues processing the file.
+
+ş    With multiple REVISION statements, the software issues an error
+     and stops processing the file.
+ ú
+Related Topics
+AUTHOR
+COMPANY
+DATE
+PATTERN
+TITLE
+ú

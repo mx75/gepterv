@@ -1,0 +1,96 @@
+=====================================================================
+Trouble Shooting Problems Using OrCAD/SDT III Within PALASM 4.
+---------------------------------------------------------------------
+
+PALASM 4 should be compatible with all versions of OrCAD/SDT III from
+version 3.21 or later. Earlier versions or the latest version 4.0 will not
+work successfully with the PALASM 4 interface programs.
+
+Before installing the MACH libraries and the PALASM 4 interface you must
+have already successfully installed the OrCAD/SDT III software. Before
+starting your PALASM 4 installation you must note the drive and directory
+where the OrCAD/SDT executables are located. You will be requested to input
+this information during the installation process.
+
+The following OrCAD programs are used by PALASM 4 to process data:
+
+        1. DRAFT.EXE    ...     Schematic Editor.
+        2. FASTSCAN.EXE ...     Build list of all separate sheets.
+        3. CLEANUP.EXE  ...
+        4. ANNOTATE.EXE ...     Annotate signals across schematic.
+        5. ERC.EXE      ...     Schematic Error Check.
+        6. CROSSREF.EXE ...     Schematic signal cross-reference list
+        7. INETLIST.EXE ...     Schematic to JNL netlist translator.
+
+It should be noted that although PALASM 4 will successfully trap errors
+generated from the OrCAD software, the on-line help does not currently
+recognize them and give additional help.
+
+Errors while compiling Schematics
+---------------------------------
+
+The most common problem with an OrCAD/PALASM 4 installation is the
+correct definition of ORCADSDT.OVL. This file is used by the OrCAD
+software to define the paramters and libraries to be used by the OrCAD
+software. When ORCADSDT.OVL is not in the local working directory the
+PALASM 4 software automatically copies it from the directory used to
+store the OrCAD executables. So keep an up-to-date copy in this
+directory. To use the OrCAD software a copy of this file must be
+located in every working directory.
+           -----
+
+If there is a problem with the integration of the OrCAD and PALASM 4
+software, during the compilation, the OrCAD software will typically
+error with:
+
+        MS-DOS error #2 (or #3)
+
+To fix this error you must exit the PALASM 4 menu and return to the
+DOS command prompt.
+
+**********************************************************************
+* the steps below demonstrate how to update the ORCADSDT.OVL file
+* using default directory information. You must substitute the correct
+* directory information used during your install of PALASM 4 and OrCAD/SDT.
+*********************************************************************
+
+Move to the main ORCAD executable directory:
+
+        C: [enter]
+        CD \ORCAD [enter]              (note: default ORCAD path)
+
+Use the Orcad DRAFT utility to modify the ORCADSDT.OVL file by typing:
+
+        DRAFT /C [enter]
+
+The library path should point to the PALASM 4 library subdirectory, so
+update by typing
+
+        LP
+        C:\PALASM\LIB\                  (note: default PALASM path)
+
+Ensure the correct MACH libraries are installed, update by typing:
+
+        LF
+        A
+        1 [enter]
+        74XX.LIB [enter]
+        A
+        1 [enter]
+        LOGIC.LIB [enter]
+        A
+        1 [enter]
+        MACH.LIB [enter]
+        Q
+
+Exit the update of ORCADSDT.OVL by typing:
+
+        U
+        Q
+
+
+Once you have a correct ORCADSDT.OVL make a copy to your Orcad executable
+directory for future use. Restart the PALASM 4 menu and try compiling again.
+
+ÿ
+

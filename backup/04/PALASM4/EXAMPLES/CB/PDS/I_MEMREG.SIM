@@ -1,0 +1,97 @@
+;NOTE: The simulation output for this test file shows undetermined 
+;      values for the trace outputs.  This intentional to show the
+;      effect of delay through the chip when one side of the multi-
+;      plexer is disabled, and data from the enabled side has not
+;      yet reached the outputs due to registers in series with the
+;      trace outputs and the enabled side (gl_mem) of the multi-
+;      plexer.  You should be aware of internal delays when you use
+;      multiple chips in a single design.
+
+
+; Data & Control values
+
+; Inputs
+STRING N_INP_V1 '/sample0 /sample1 /sample2 /sample3'
+STRING N_INP_V2 '/sample4 /sample5 /sample6 /sample7'
+
+STRING INP_V1 ' sample0  sample1  sample2  sample3'
+STRING INP_V2 ' sample4  sample5  sample6  sample7'
+
+STRING N_G_IN1 '/glita0 /glita1 /glita2 /glita3'
+STRING N_G_IN2 '/glitb0 /glitb1 /glitb2 /glitb3'
+
+STRING G_IN1 ' glita0  glita1  glita2  glita3'
+STRING G_IN2 ' glitb0  glitb1  glitb2  glitb3'
+
+;Outputs
+STRING C_BUS1 ' tracea0  tracea1  tracea2  tracea3'
+STRING C_BUS2 ' traceb0  traceb1  traceb2  traceb3'
+
+STRING N_C_BUS1 ' /tracea0  /tracea1  /tracea2  /tracea3'
+STRING N_C_BUS2 ' /traceb0  /traceb1  /traceb2  /traceb3'
+
+STRING G_BUS1 ' gl_mema0  gl_mema1  gl_mema2  gl_mema3'
+STRING G_BUS2 ' gl_memb0  gl_memb1  gl_memb2  gl_memb3'
+
+STRING N_G_BUS1 ' /gl_mema0 /gl_mema1 /gl_mema2 /gl_mema3'
+STRING N_G_BUS2 ' /gl_memb0 /gl_memb1 /gl_memb2 /gl_memb3'
+
+STRING G_BUS_ON	'
+				G_BUS1 G_BUS2
+				'
+; Functions
+
+STRING INIT_ALL 'SETF INP_V1 INP_V2  G_IN1 G_IN2
+				  z_g_mem /gl_ie
+				  z_cbus  /gl_sel
+				'
+SIMULATION
+
+trace_on z_g_mem G_IN1 G_BUS1 gl_ie gl_sel z_cbus INP_V1 C_BUS1
+
+INIT_ALL
+clockf CLK1
+clockf CLK1
+clockf CLK1
+check G_BUS1
+clockf CLK1
+check C_BUS1
+setf N_INP_V1 N_G_IN1
+clockf CLK1
+check  N_G_BUS1
+clockf CLK1
+check N_C_BUS1
+clockf CLK1
+clockf CLK1
+setf /z_cbus
+clockf CLK1
+clockf CLK1
+check  N_G_BUS1
+clockf CLK1
+clockf CLK1
+setf /z_g_mem
+setf  z_cbus
+setf  gl_sel gl_ie
+clockf CLK1
+setf N_G_BUS1
+clockf CLK1
+clockf CLK1
+check N_G_BUS1
+clockf CLK1
+setf G_BUS1
+clockf CLK1
+clockf CLK1
+check C_BUS1
+clockf CLK1
+clockf CLK1
+setf N_G_BUS1
+clockf CLK1
+clockf CLK1
+clockf CLK1
+check N_C_BUS1
+clockf CLK1
+clockf CLK1
+clockf CLK1
+clockf CLK1
+clockf CLK1
+trace_off

@@ -1,0 +1,119 @@
+PALASM 4 v1.5h MACH FITR - MARKET RELEASE (10-11-94)
+ (C) - COPYRIGHT ADVANCED MICRO DEVICES INC., 1990,91,92,93,94
+
+ 
+Reading User Design (TRE File)...
+ 
+Reading Device Database ...
+
+********************************************************************************
+     Mach PLD Fitter - v 1.71          Memory controller for 512k sram board
+********************************************************************************
+
+PAIR Analysis...
+
+Pre-Placement & Equation Usage Checks... 
+ 
+
+
+
+
+
+*** Timing Analysis for Signals
+
+ Parameter   Min   Max           Signal List (Those having Max delay.)
+      Tpd     1     1                OUT 
+.
+
+ Key:
+ Tpd - Combinatorial propagation delay, input to output
+ Tsu - Combinatorial setup delay before clock
+ Tco - clock to output (register output to combinatorial output)
+ Tcr - Clock to register setup delay
+.......(Register output thru combinatorial logic to reg input)
+ All delay values are expressed in terms of array passes
+
+
+
+
+*** Device Resource Checks
+
+                Available        Used        Remaining
+        Clocks:     2              0              2
+          Pins:    38              4             34     ->    10%
+     I/O Macro:    32              1             31
+   Total Macro:    64              1             63
+ Product Terms:   256              2            252     ->     0%
+ 
+MACH-PLD Resource Checks OK!  
+
+
+
+Partitioning Design into Blocks...
+
+
+
+|> INFORMATION F050 - Device Utilization.............. *: 4 %
+
+
+
+*** Block Partitioning Results
+
+               Array   Product     # I/O    Buried    Signal    Macros
+              Inputs    Terms      Macro     Logic    Fanout    Remain
+   Block-> D     3         4         1         0         0        15
+
+
+
+*** Block Signal List
+
+Blk-> D            OUT   
+
+
+
+*** Block Input List
+
+Blk-> D              A  1              B  1              C  1
+
+
+Assigning Resources...
+
+
+Flags Used:             Unplace=False        Max Packing=False
+Flags Used:        Expand Small=False         Expand All=False
+
+Wiring Completion:  100% -> (  0 nc)
+
+|> INFORMATION F058 - Total Block Fanout (All Signals) *: 3 
+
+
+*** Signals - Tabular Information
+
+          Signal   #   P/N #   (Loc)      Type     Logic  # PT    Blocks
+            OUT    1    43      D  0      output    comb     2    .....
+              A    2    10      I  0       input       .     .    ....D
+              B    3    11      I  1       input       .     .    ....D
+              C    4    13      I  2       input       .     .    ....D
+.
+
+ Key:
+ P/N # - Pin/Node Number
+ .?. - Signal Unplaced
+ (Loc) - Macrocell Location (Block & Cell)
+ # PT - Number of used product terms in logic
+ Blocks- Device blocks driven by signal
+ comb - Combinatorial logic function
+ d-ff - D-Type Flip-flop
+ t-ff - T-Type Flip-flop
+ Note: Registered input storage equations (MACH-2xx family)
+ ..... are realized with 0 array product terms.
+
+
+
+The Jedec Data is  stored in ===> test4.jed
+The Placements are stored in ===> test4.plc
+The Design Doc is  stored in ===> test4.rpt
+ 
+%% FITR %% Error Count: 0, Warning Count: 0
+%% FITR %% File Processed Successfully. - File: test4.pds
+ 

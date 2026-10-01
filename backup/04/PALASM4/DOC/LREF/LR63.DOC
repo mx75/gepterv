@@ -1,0 +1,92 @@
+ð
+STATE TRANSITION EQUATION
+Overview
+For each state, transition equations specify what the next state will
+be under various conditions.
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+    STATE
+        ...
+        Present state     :=     Condition1 -> State1
+                                 + Condition2 -> State2
+                                 +-> Local default
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Device Support:
+PAL10H20EV8    PAL16R4    PAL16R6    PAL16R8     PAL16RP4    PAL16RP6
+PAL16RP8       PALCE16V8  PAL18U8    PAL20R4     PAL20R6     PAL20R8
+PAL20RS4       PAL20RS8   PAL20RS10  PALCE20V8   PAL20X4     PAL20X8
+PAL20X10       PAL22RX8   PAL22V10   PAL23S8     PAL24R10    PAL24R4
+PAL24R8        PAL26V12   PALCE29M16 PALCE29MA16 PAL32R16    PAL32VX10
+PAL64R32       PALCE610   PLS105     PLS167      PLS168      PLS30S16
+MACH 1         MACH 2
+ú
+Syntax
+Include state-transition equations in the state segment of
+state-machine designs.
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+    STATE
+        ...
+        Present state     :=     Condition1 -> State1
+                                 + Condition2 -> State2
+                                 +-> Local default
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+    STATE
+        ...
+        ;State Equations
+        ...
+        TWO               :=     COUNT_UP -> THREE
+                                 + COUNT_DWN -> ONE
+                                 +-> TWO
+        ...
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+
+Present State   Identifies the present state name, as defined in your
+                state diagram.
+
+                þ    Use any combination of up to 14 upper- or
+                     lowercase alphanumeric characters: A-Z, 0-9.
+
+                þ    Do not use keywords, reserved words, or logic
+                     operators.
+
+Condition       Identifies condition names as defined in the
+                conditions section of the state machine design.
+
+State           Identifies the next state, as defined in the state
+                diagram.
+
+Local Default   Defines the state the machine will go to if none of
+                the specified conditions are satisfied.
+ú
+Use
+You can place state transition equations anywhere within the state
+segment except in the CONDITIONS section.
+
+In creating transition equations, use the state equation operator, :=,
+to separate the present state from the transition.  Use the transition
+operator, ->, to identify the condition and corresponding transition
+state.  Use the OR operator (+) to indicate additional transitions.
+Use the default operator, +->, to identify the local default.
+
+In the syntax example, when the state machine is in state TWO, it will
+transition to state THREE if the input conditions specified for
+COUNT_UP are satisfied.  It will transition to state ONE if the
+conditions for COUNT_DWN are satisfied.  If neither of these
+conditions are satisfied, it will remain in state two.
+ú
+Related Topics
+CONDITIONS
+DEFAULT_BRANCH
+DEFAULT_OUTPUT
+State Assignment Equation
+State Equation
+ú

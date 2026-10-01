@@ -1,0 +1,79 @@
+ğ
+PRLDF
+Overview
+PRLDF assigns a value to a register output to force the specified
+value at the pin.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+    PRLDF Prefix_Rns
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Device Support:  PAL22IP6  PAL23S8  PAL16RA10  20RA10
+ú
+Syntax
+Use this keyword in the simulation segment of Boolean and
+state-machine designs.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+         PRLDF Prefix_Rns
+
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+    SIMULATION
+         PRLDF 01 /02
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+
+Prefix          The prefix specifies the logic state of the
+                corresponding register, node, or state.  Do not leave
+                a space between Prefix and Pns.  There are two
+                prefixes:  null and forward slash.
+
+
+                ş    The null prefix indicates that the pin value
+                     should be a logical 1 if the polarity is not
+                     inverted in the pin declaration of the design. In
+                     the syntax example, 01 has a null prefix.
+
+                ş    The forward slash, /, indicates that the pin or
+                     node should be a logical 0 if the polarity is not
+                     inverted in the pin declaration of the design.
+                     In the syntax example, 02 has a forward slash
+                     prefix.
+
+Pns             You specify the value to be preloaded immediately
+                following the corresponding prefix.
+
+
+                You can list more than one pin or node.  You can also
+                use groups and strings.
+
+ú
+Use
+PRLDF loads a value into a register so that specified logic values
+appear at the pin.  If an inverter exists between the register output
+and the pin, PRLDF compensates for the inversion by inverting the
+register contents.
+
+Some devices provide a hardware preload feature that is activated by a
+dedicated pin or product term.  Use the SETF command for control of
+these preload features.
+
+For devices with a preload pin, PRLDF disables the outputs, enables
+preload, loads the registers with the values, disables preload, and
+then enables the outputs.
+
+Note:  Even if a device does not physically support the preload
+       feature, you can simulate the design as if it did.
+
+PRLDF places a P in the clock field of the JEDEC vector for devices
+with supervoltage preloads.
+ú
+Related Topics
+CHECK
+.PRLD
+SETF
+ú

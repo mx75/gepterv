@@ -1,0 +1,140 @@
+;--------------------- IMPORTANT NOTICE --------------------
+; This file must be run with the Logic Synthesis option
+; for Polarity to be set "AS SPECIFIED IN DESIGN FILE".
+; Otherwise, the minimizer will alter the polarity of several
+; outputs, invalidating the CHECK statements present in the
+; Simulation section (Leading to Check Clashes).
+;-----------------------------------------------------------
+
+;***************** MODIFICATIONS 1/27/92 **************************
+;*  Added 2 states (All_Off and All_Red) to insure that when power
+;* is lost no cars are allowed to cross intersection. On power-up
+;* or if a glitch occurs, both lights turn red.
+;*******************************************************************
+
+;PALASM Design Description
+;---------------------------------- Declaration Segment ------------
+TITLE    TUTOR12.PDS
+PATTERN  A
+REVISION 3.0
+AUTHOR   J.ENGINEER
+COMPANY  ADVANCED MICRO DEVICES
+DATE     01/01/90
+
+CHIP   TRAFFIC   PAL22V10
+
+;---------------------------------- PIN Declarations ---------------
+PIN  1          CLOCK                COMBINATORIAL             ; INPUT
+PIN  2          SENSOR               COMBINATORIAL             ; INPUT
+PIN  3          RESTART              COMBINATORIAL             ; INPUT
+PIN  12         GND                                            ; INPUT
+PIN  14         RED1                 REGISTERED                ; OUTPUT
+PIN  15         YEL1                 REGISTERED                ; OUTPUT
+PIN  16         GRN1                 REGISTERED                ; OUTPUT
+PIN  17         RED2                 REGISTERED                ; OUTPUT
+PIN  18         YEL2                 REGISTERED                ; OUTPUT
+PIN  19         GRN2                 REGISTERED                ; OUTPUT
+PIN  24         VCC                                            ; INPUT
+
+;-----------------------------------State Segment ------------------
+STATE
+MOORE_MACHINE
+; START_UP := POWER_UP -> 1GREEN ; Removed previous START_UP 1/27/92
+START_UP := POWER_UP -> All_Off  ; Added new START_UP 1/27/92
+All_Off :=  VCC      -> All_Red  ; Added 1/27/92
+
+;STATE ASSIGNMENT EQUATIONS------------
+All_Off      = /RED1 * /YEL1 * /GRN1 * /RED2 * /YEL2 * /GRN2 ;Added 1/27/92
+All_Red      =  RED1 * /YEL1 * /GRN1 *  RED2 * /YEL2 * /GRN2 ;Added 1/27/92
+1GREEN       = /RED1 * /YEL1 *  GRN1 *  RED2 * /YEL2 * /GRN2
+1YELLOW      = /RED1 *  YEL1 * /GRN1 *  RED2 * /YEL2 * /GRN2
+2GREEN       =  RED1 * /YEL1 * /GRN1 * /RED2 * /YEL2 *  GRN2
+2YELLOW      =  RED1 * /YEL1 * /GRN1 * /RED2 *  YEL2 * /GRN2
+
+;TRANSITION EQUATIONS------------------
+All_Red   :=  CARCLEAR   -> 1GREEN      ; Added 1/27/92
+          +   CARWAITING -> 2GREEN      ; Added 1/27/92
+          +->              All_Red      ; Added 1/27/92
+
+1GREEN    :=  CARWAITING -> 1YELLOW
+          +->                1GREEN
+1YELLOW   :=  CARWAITING  -> 2GREEN
+          +->                 1GREEN
+2GREEN    :=  CARCLEAR   -> 2YELLOW
+          +   CARWAITING -> 2GREEN
+          +->                1GREEN
+2YELLOW   :=  VCC         -> 1GREEN
+
+;OUTPUT EQUATIONS----------------------
+;NOT USED IN THIS DESIGN (STATE BITS DOUBLE AS OUTPUTS)
+
+;CONDITION EQUATIONS-------------------
+CONDITIONS
+CARWAITING = /RESTART *  SENSOR
+CARCLEAR   = /RESTART * /SENSOR
+
+;----------------------------------- Simulation Segment ------------
+SIMULATION
+
+TRACE_ON SENSOR RESTART RED1 YEL1 GRN1 RED2 YEL2 GRN2
+
+SETF   /CLOCK    /restart  /sensor  ; added 1/27/92
+SETF    RESTART /SENSOR
+CHECK All_Off ; Added NAS 1/27/92
+
+CLOCKF  CLOCK
+CHECK All_Red ; Added NAS 1/27/92
+CLOCKF  CLOCK
+CHECK All_Red ; Added NAS 1/27/92
+; CHECK   1GREEN ;rmv
+
+SETF   /RESTART
+CLOCKF  CLOCK
+CHECK   1GREEN
+CLOCKF  CLOCK
+CHECK   1GREEN
+SETF   /RESTART  SENSOR
+CLOCKF  CLOCK
+CHECK   1YELLOW
+SETF    RESTART
+CLOCKF  CLOCK
+CHECK   1GREEN
+SETF   /RESTART /SENSOR
+CLOCKF  CLOCK
+CHECK   1GREEN
+SETF   /RESTART  SENSOR
+CLOCKF  CLOCK
+CHECK   1YELLOW
+CLOCKF  CLOCK
+CHECK   2GREEN
+CLOCKF  CLOCK
+CHECK   2GREEN
+SETF    RESTART
+CLOCKF  CLOCK
+CHECK   1GREEN
+SETF   /RESTART  SENSOR
+CLOCKF  CLOCK
+CHECK   1YELLOW
+CLOCKF  CLOCK
+CHECK   2GREEN
+SETF   /RESTART /SENSOR
+CLOCKF  CLOCK
+CHECK   2YELLOW
+SETF    RESTART
+CLOCKF  CLOCK
+CHECK   1GREEN
+SETF   /RESTART  SENSOR
+CLOCKF  CLOCK
+CHECK   1YELLOW
+CLOCKF  CLOCK
+CHECK   2GREEN
+SETF   /RESTART /SENSOR
+CLOCKF  CLOCK
+CHECK   2YELLOW
+SETF   /RESTART  SENSOR                ; CHECK UNCONDITIONAL TRANSITION
+CLOCKF  CLOCK
+CHECK   1GREEN
+
+TRACE_OFF
+;-------------------------------------------------------------------
+

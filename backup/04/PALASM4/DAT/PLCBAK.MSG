@@ -1,0 +1,43 @@
+110 |> ERROR K110  Cannot open input PDS file %s\n
+120 |> ERROR K120  Cannot open input PLC file %s\n
+130 |> ERROR K130  Cannot open output PDS file %s\n
+140 |> ERROR K140  Cannot find input PDS file %s\n
+150 |> ERROR K150  Cannot find input PLC file %s\n
+160 |> ERROR K160  Cannot create output PDS file %s\n
+200 |> ERROR K200  Input file %s is not a valid PDS file.\n
+210 |> ERROR K210  Input file %s is not a valid PLC file.\n
+220 |> ERROR K220  Not enough memory.\n
+230 |> ERROR K230  Pin %d (of unused signal %s) is assigned to %s.
+230               Remove unused signals (list is at the end of '%s').\n
+240 |> ERROR K240  Invalid group definition %s. \n
+300 |> WARNING K300  Input file %s doesn't have any floating pin/node.\n
+310 |> WARNING K310  All pins/nodes are floating in %s file. \n
+320 |> WARNING K320  -plc option is ignored due to -udo option \n
+330 |> WARNING K330  Pin number 0 is assigned to signal %s in %s file.\n
+331 |> WARNING K331  Negative pin (signal %s) is found in %s file.\n
+332 |> WARNING K332  Signal %s is not found in %s file.\n
+400 %%%%  PLCBAK  %%%% Program successful.  File  %s
+401 %%%%  UNDO PLCBAK  %%%% Program successful.  File  %s
+410 %%%%  PLCBAK  %%%% File processing terminated.  File  %s
+411 %%%%  UNDO PLCBAK  %%%% File processing terminated.  File  %s
+420 %%%%  PLCBAK  %%%% ERROR count  %d  WARNING count  %d\n
+421 %%%%  UNDO PLCBAK  %%%% ERROR count  %d  WARNING count  %d\n
+430 Backannotate PDS file is stored in %s\n
+431 Backup PDS file %s.bak is created\n
+440 Backannotate PDS file with errors is stored in %s.pbk\n
+500 PLCBAK HELP  Invalid options are used 
+510 PLCBAK HELP  -pbk and -udo options must be used exclusively
+520 PLCBAK HELP  Duplicate LOG filename is specified
+530 PLCBAK HELP  Input file is not specified
+600    Command format to invoke PLCBAK:
+600      PLCBAK <filename[.pds]> [OPTION...]
+600      OPTION -pbk [<filename[.pds]>] | -udo [<filename[.pds]>] 
+600             -plc [<filename[.plc]>]      
+600             -log [<filename[.log]>]
+600      option flag description:
+600         -pbk  assign pin/node numbers to floating pins/nodes
+600         -plc  specify plc input filename
+600         -udo  assign floating pin/node(?) to all pins/nodes
+600         -log  capture screen message to disk file\n
+
+

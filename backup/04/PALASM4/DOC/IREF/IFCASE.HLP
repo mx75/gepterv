@@ -1,0 +1,245 @@
+=====================================================================
+Some Notes On Using IF-THEN-ELSE And CASE Statements
+=====================================================================
+You may not use curly braces, ( i.e. { ...} ) inside of IF-THEN-ELSE clauses
+or inside of CASE statements. Instead of the curly-braced shorthand, the
+right-hand side of the referred-to logic equation must be copied in full as
+the right-hand side of the equivalent logic equation ( as in output pairing ).
+Furthermore, although it is legal to do so, it is not recommended that you use
+curly-braces outside of an IF-THEN-ELSE or CASE construct to refer to an
+equation that is defined inside of such constructs. The result may not be that
+which you desire or expect.
+
+---------------------------------------------------------------------
+For PALASM 4 version 1.1 the following applies only if you are using the
+default = DON'T CARE setting in the Logic Synthesis Options.
+---------------------------------------------------------------------
+
+The following rules apply to each pin or node for which outputs are defined 
+anywhere in the IF-THEN-ELSE or CASE statement.
+
+Specify the desired output for each test condition of the IF-THEN-ELSE or 
+CASE statement for which you want a specific output to be generated.   
+
+Note:   If you do not request a specific output, the PALASM software assumes 
+either you do not care about the output in this condition, or the output in 
+this condition is actually defined through some other equations.
+
+If you define the behavior of an output in an IF-THEN-ELSE or CASE statement, 
+and then define it further using a Boolean equation or a separate IF-THEN-
+ELSE or CASE statement, you must obey certain rules.  Specifically, you must 
+avoid situations when both of the following occur.
+
+ -     More than one of the resulting equations can be simultaneously
+       evaluated as true.
+ -     The output behavior defined in one equation contradicts behavior
+       defined in the other.
+
+If you violate these rules, the PALASM software reports the following error 
+message: Overlapping on/off covers (check equations for completeness).  
+Techniques for avoiding this error are discussed at the end of this release 
+note, under the heading Avoiding Overlap Errors.
+
+
+You can specify the behavior of each pin or node in four ways.
+
+1.     Define the output as a function of the same inputs for each
+       possible test condition.
+2.     Define the output as a function of different inputs for different
+       test conditions.
+3.     Define the output for some of the possible test conditions and not
+       for others.
+4.     Define the output two different ways for the same test condition.
+
+The following examples are given for the IF-THEN-ELSE statement, but they 
+apply to the CASE statement also.  The IF-THEN-ELSE statement is a special 
+instance of the CASE statement in which IF and ELSE portions replace the 
+individual test conditions of the CASE statement.  Sessions 6 and 7 of the 
+Boolean Tutorials explain the IF-THEN-ELSE and CASE statements in greater 
+detail.
+
+Example 1
+Defining the output as a function of the same inputs for each possible test 
+condition.
+
+IF X = 0 THEN
+     BEGIN
+          Q = A * B
+     END
+ELSE
+     BEGIN
+          Q = 0 ;equivalent to Q = GND or /Q = 1 or /Q = VCC
+     END
+
+The PALASM software interprets this statement as follows.
+
+ -     When X = 0, output Q is high when the expression A * B evaluates as
+       true and low when the expression A * B evaluates as false. 
+ -     When X = 1, output Q is always low. 
+
+The statement is reduced to the following Boolean form.
+
+          Q = A  *  B  * /X
+
+This is then combined with any other equations for Q by the minimizer, as 
+described above.
+
+Example 2
+Defining the output as a function of different inputs for different test 
+conditions.
+
+IF X = 0 THEN
+     BEGIN
+          Q = A * B
+     END
+ELSE
+     BEGIN
+          Q = C * D
+     END
+
+The PALASM software interprets this statement as follows.
+
+ -     When X = 0, output Q is high when the expression A * B evaluates as
+       true and low when the expression A * B evaluates as false. 
+ -     When X = 1, output Q is high when the expression C * D evaluates as
+       true and low when the expression C * D evaluates as false. 
+
+The statement is reduced to the following Boolean form.
+
+          Q =  C  *  D  *  X
+          +  A  *  B  * /X
+
+This is then combined with any other equations for Q by the minimizer, as 
+described above.
+
+Example 3
+Defining the output for some of the possible test conditions and not for 
+others.
+
+IF X = 0 THEN
+     BEGIN
+          Q = A * B
+     END     ; No ELSE condition or no output
+             ; equation
+             ; in some of the CASE conditions
+
+The PALASM software interprets this statement as follows.
+
+ -     When X = 0, output Q is high when the expression A * B evaluates as
+       true and low when the expression A * B evaluates as false. 
+ -     When X = 1, output Q is undefined.  In the Karnaugh map, don't-care
+       values are used for all map locations where X = 1, unless some of
+       these locations are defined by other equations for Q.
+
+The statement is reduced to the following Boolean form.
+
+          Q =  A  *  B  * /X
+          +  "don't care" * X
+
+This is then combined with any other equations for Q by the minimizer, as 
+described above.  In the event that there is no other equation for Q, this 
+equation reduces to Q = A * B, in which case output Q is no longer a function 
+of input X.  This occurs because of the don't-care values introduced by 
+omitting the definition of output Q when X = 1.  If you want output Q to 
+remain a function of X, rewrite the IF-THEN-ELSE statement, adding the ELSE 
+clause shown in boldface type below.
+
+IF X = 0 THEN
+     BEGIN
+          Q = A * B
+     END 
+ELSE
+     BEGIN
+          Q = 0
+     END
+
+Example 4
+Defining the output two different ways for the same test condition.
+
+IF X = 0 THEN
+     BEGIN
+           Q =  A * B
+          /Q = /A
+     END
+ELSE
+     BEGIN
+          Q = 0 ;equivalent to Q = GND or /Q = 1 or /Q = VCC
+     END
+
+Here, the designer has defined explicitly when the output should be high or 
+low, when X = 0.  The PALASM software interprets this statement as
+follows.
+
+ -     When X = 0, output Q is high when the expression A * B evaluates as
+       true and low when the expression input A is low. 
+ -     When X = 1, output Q is always low.
+
+The statement is reduced to the following Boolean form.
+
+          Q = A * /X
+
+This is then combined with any other equations for Q by the minimizer, as 
+described above.  Note that output Q is no longer a function of input B.  
+This occurs because the PALASM software assumes don't-care values for all 
+conditions that are not covered by the equations 
+
+          Q =  A * B and /Q = /A, where X = 0.
+
+Avoiding Overlap Errors
+The following example shows how two separate IF-THEN-ELSE statements can 
+interact to produce an Overlapping on/off covers (check equations for 
+completeness) error.  Most such errors are caused by unrealizability, as 
+illustrated in the following example.
+Example
+
+IF A = 1 THEN
+     BEGIN
+          Q = C * D
+     END
+IF B THEN
+     BEGIN
+          Q = 1
+     END
+
+The problem arises in this case when both A and B are high and C or D or both 
+C and D are low.  In this situation, the first IF statement tells output Q to 
+go low, while the second IF statement tells the same output to go high.  
+Since Q cannot be high and low simultaneously, the equation set is 
+unrealizable.
+
+There are several ways to avoid problems of this nature.  Two of them are 
+described below.
+
+Method 1
+Make it impossible to have more than one 
+IF-THEN-ELSE or CASE statement evaluate as 
+true simultaneously.
+
+Example
+IF A = 1 THEN
+         BEGIN
+                Q = C * D
+         END
+
+IF /A * B THEN                  ;Condition /A prevents both IF
+     BEGIN                      ;statements from evaluating as
+                        Q = 1   ;true simultaneously.
+         END
+
+Method 2
+Make it impossible for the output specifications to conflict by always using 
+the same output equation.
+Example
+
+IF A = 1 THEN
+     BEGIN
+          Q = 1     ;This output equation...
+     END
+
+IF B = 1 THEN
+     BEGIN
+          Q = 1     ;...is identical to this.
+     END
+
+ÿ
+

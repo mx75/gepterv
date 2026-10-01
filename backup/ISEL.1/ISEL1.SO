@@ -1,0 +1,68 @@
+CSIM: CUPL Simulation Program
+Version 3.2a Serial# MD-32A-6365
+Copyright (C)  1983,1989 Logical Devices, Inc.
+CREATED Wed Mar 24 12:35:37 2021
+
+LISTING FOR SIMULATION FILE: isel1.pld.si
+
+   1: Name      isel1;
+   2: Partno    v1;
+   3: Date      10/08/85;
+   4: Rev       01;
+   5: Designer  Michael;
+   6: Company   SufniFabrik;
+   7: Assembly  None;
+   8: Location  None;
+   9: Device    p20l8lcc;
+  10: 
+  11: ORDER:
+  12: /** Inputs **/
+  13: IEN,%1,ISEL1..0,%1,IEOZ3..0,%1,IEOR3..0,%3,
+  14: 
+  15: /** Outputs **/
+  16: IEIZ3..0,%1,IEIR3..0;
+  17: 
+
+===============================================================================
+                              Simulation Results
+===============================================================================
+                     |          
+        II IIII IIII | IIII IIII
+        SS EEEE EEEE | EEEE EEEE
+      I EE OOOO OOOO | IIII IIII
+      E LL ZZZZ RRRR | ZZZZ RRRR
+      N 10 3210 3210 | 3210 3210
+      ===============+==========
+0001: 0 00 1111 1111   ZZZZ ZZZZ
+      Z0 -> Z1 -> Z2 -> R0 -> R1 -> R2
+0002: 1 00 1111 1111   LHHH LHHH
+0003: 1 00 1111 1011   LHHH LHHH
+0004: 1 00 1111 1X01   LHHH LLHH
+0005: 1 00 1111 1XX0   LHHH LLLH
+0006: 1 00 1011 1XXX   LHHH LLLL
+0007: 1 00 1X01 1XXX   LLHH LLLL
+0008: 1 00 1XX0 1XXX   LLLH LLLL
+      R0 -> R1 -> R2 -> Z0 -> Z1 -> Z2
+0009: 1 01 1111 1111   LHHH LHHH
+0010: 1 01 1011 1111   LHHH LHHH
+0011: 1 01 1X01 1111   LLHH LHHH
+0012: 1 01 1XX0 1111   LLLH LHHH
+0013: 1 01 1XXX 1011   LLLL LHHH
+0014: 1 01 1XXX 1X01   LLLL LLHH
+0015: 1 01 1XXX 1XX0   LLLL LLLH
+      Z0 -> Z1 -> Z2 -> Z3 -> R0 -> R1
+0016: 1 10 1111 1111   HHHH LLHH
+0017: 1 10 1111 1101   HHHH LLHH
+0018: 1 10 1111 11X0   HHHH LLLH
+0019: 1 10 0111 11XX   HHHH LLLL
+0020: 1 10 X011 11XX   LHHH LLLL
+0021: 1 10 XX01 11XX   LLHH LLLL
+0022: 1 10 XXX0 11XX   LLLH LLLL
+      R0 -> R1 -> Z0 -> Z1 -> Z2 -> Z3
+0023: 1 11 1111 1111   HHHH LLHH
+0024: 1 11 0111 1111   HHHH LLHH
+0025: 1 11 X011 1111   LHHH LLHH
+0026: 1 11 XX01 1111   LLHH LLHH
+0027: 1 11 XXX0 1111   LLLH LLHH
+0028: 1 11 XXXX 1101   LLLL LLHH
+0029: 1 11 XXXX 11X0   LLLL LLLH

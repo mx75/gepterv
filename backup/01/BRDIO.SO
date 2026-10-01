@@ -1,0 +1,60 @@
+CSIM: CUPL Simulation Program
+Version 3.2a Serial# MD-32A-6365
+Copyright (C)  1983,1989 Logical Devices, Inc.
+CREATED Sat Mar 06 16:51:13 2021
+
+LISTING FOR SIMULATION FILE: brdio.pld.si
+
+   1: Name      brdio;
+   2: Partno    v1;
+   3: Date      10/08/85;
+   4: Rev       01;
+   5: Designer  Michael;
+   6: Company   SufniFabrik;
+   7: Assembly  None;
+   8: Location  None;
+   9: Device    p20l8lcc;
+  10: 
+  11: ORDER:
+  12: /** Inputs **/
+  13: A7..5,%1,BA7,BA6,BA5,%1,A4..0,%1,!MX,%1,!IOREQ,%1,!WR,%1,!RD,%3,
+  14: 
+  15: /** Outputs **/
+  16: !IACK,%1,TMPA,%1,!BREGW0,%1,!BREGW1,%1,!CS_I2C,%1,!CS_X,%1,!CS_Y;
+  17: 
+
+===============================================================================
+                              Simulation Results
+===============================================================================
+                            |              
+                            |     ! !      
+                      !     |     B B C    
+                      I     | !   R R S ! !
+                      O     | I T E E _ C C
+          BBB       ! R ! ! | A M G G I S S
+      AAA AAA AAAAA M E W R | C P W W 2 _ _
+      765 765 43210 X Q R D | K A 0 1 C X Y
+      ======================+==============
+0001: 111 000 00000 1 1 1 1   H L H H H H H
+0002: 111 000 00000 1 1 1 1   H L H H H H H
+0003: 010 010 00000 1 1 1 1   H L H H H H H
+!IACK:
+0004: 010 010 00000 0 0 1 1   L H H H H H H
+!BREGW0:
+0005: 010 010 00000 1 0 1 1   H H H H H H H
+0006: 010 010 00000 1 0 0 1   H H L H H H H
+0007: 010 010 00000 1 0 1 0   H H H H H H H
+!BREGW1:
+0008: 010 010 00001 1 0 1 1   H H H H H H H
+0009: 010 010 00001 1 0 0 1   H H H L H H H
+0010: 010 010 00001 1 0 1 0   H H H H H H H
+!CS_I2C:
+0011: 010 010 00100 1 0 0 1   H H H H L H H
+0012: 010 010 00111 1 0 0 1   H H H H L H H
+0013: 010 010 00100 1 0 1 0   H H H H L H H
+0014: 010 010 00111 1 0 1 0   H H H H L H H
+!CS_WS:
+0015: 010 010 01000 1 0 0 1   H H H H H L H
+0016: 010 010 01011 1 0 0 1   H H H H H L H
+0017: 010 010 01000 1 0 1 0   H H H H H L H
+0018: 010 010 01011 1 0 1 0   H H H H H L H

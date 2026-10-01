@@ -1,0 +1,13 @@
+
+PALASM4  PARSER   - MARKET RELEASE 1.5 (7-10-92)
+ (C) - COPYRIGHT ADVANCED MICRO DEVICES INC., 1992
+
+
+
+ %% PARSE %%    Processing design file.......test1.pds
+
+ %% PARSE %%    Listing file.................parse.lis
+
+ %% PARSE %%    No errors.  No warnings.
+
+ %% PARSE %%    File processed successfully.    File:  test1.pds

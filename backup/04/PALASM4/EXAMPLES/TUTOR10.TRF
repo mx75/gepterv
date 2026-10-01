@@ -1,0 +1,21 @@
+PALASM4  PLDSIM   - MARKET RELEASE 1.5 (7-10-92)
+ (C) - COPYRIGHT ADVANCED MICRO DEVICES INC., 1992
+
+PALASM SIMULATION SELECTIVE TRACE LISTING
+
+Title     : TUTOR10.PDS              Author   : J.ENGINEER       
+Pattern   : A                        Company  : ADVANCED MICRO DE
+Revision  : 1.0                      Date     : 01/01/90         
+
+PAL22V10       
+Page : 1 
+
+         gpc  gc  c  c  c  c  gc  c  c  c  c  c                      
+ SENSOR  LLLLLHHHHHHHHHHHHHHHHLLLLLLLLLLLLLLLLLLL                    
+ RED1    LLLLLLLLLLLLLHHHHHHHHHHHHHHHHLLLLLLLLLLL                    
+ YEL1    LLLLLLLLLLHHHLLLLLLLLLLLLLLLLLLLLLLLLLLL                    
+ GRN1    LLLHHHHHHHLLLLLLLLLLLLLLLLLLLHHHHHHHHHHH                    
+ RED2    LLLHHHHHHHHHHLLLLLLLLLLLLLLLLHHHHHHHHHHH                    
+ YEL2    LLLLLLLLLLLLLLLLLLLLLLLLLLHHHLLLLLLLLLLL                    
+ GRN2    LLLLLLLLLLLLLHHHHHHHHHHHHHLLLLLLLLLLLLLL                    
+

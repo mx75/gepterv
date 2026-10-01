@@ -1,0 +1,104 @@
+ğ
+DEFAULT_BRANCH
+Overview
+This keyword begins the statement that defines the global default
+branch for state machines as one of three possibilities.
+
+ş    A specific state
+
+ş    The present state
+
+ş    The next state listed on the left side of the state-transition
+     equation
+
+The default branch will be executed if none of the conditions in the
+transition equation are satisfied and no local default is defined.
+
+This statement can also utilize the complement array of certain
+devices.
+
+
+
+
+Device Support: All synchronous registered PAL devices.
+
+ú
+Syntax
+Include the keyword once only, anywhere in the state segment of
+state-machine designs.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+            DEFAULT_BRANCH  State  Comp
+            DEFAULT_BRANCH  HOLD_STATE
+            DEFAULT_BRANCH  NEXT_STATE
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+            STATE                       ;State Setup and Defaults
+            DEFAULT_BRANCH  INIT        ;defaults to INIT state
+            DEFAULT_BRANCH  INIT  Comp  ;uses complement array
+            DEFAULT_BRANCH  HOLD_STATE  ;defaults to present state
+            DEFAULT_BRANCH  NEXT_STATE  ;defaults to next state
+...
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+
+State           Defines the default state that is enabled when the
+                next state cannot be determined from the transition
+                equations.  The state name must adhere to the
+                following guidelines.
+
+                ş  It must be unique.
+
+                ş  It can include up to 14 alpha-numeric characters.
+
+                ş  It cannot include operators or reserved words.
+
+Comp            Define the name of the complement array node, which
+                must be listed in the pin and node statements.  This
+                use results in shorter equations and fewer product
+                terms; however, it slows device performance.
+
+                ş  You can use a complementary array node only for the
+                   PLS105, PLS167, PLS168, and PLS3016.
+
+                ş  You cannot use the complement array when specifying
+                   the next or hold state branches.
+
+HOLD_STATE      When the next state cannot be determined from the
+                transition equations, the machine will remain in its
+                present state.
+
+                If no Default_Branch or local default branch are
+                defined, the default becomes Hold_State.
+
+NEXT_STATE      When the next state cannot be determined from the
+                transition equations, the machine will transition to
+                the next state listed in the PDS file.
+ú
+Use
+The software recognizes two types of default states, global and local.
+
+ş    A local default state applies to a specific state and overrides
+     the global default.  Using a DEFAULT_BRANCH statement can
+     eliminate typing a local default statement for each state.
+
+ş    The global default state applies to all states.
+
+The following guidelines apply.
+
+ş    When the next state cannot be determined from the design, the
+     local or global default provides the state so the machine knows
+     where to branch next.
+
+ş  When you include multiple DEFAULT_BRANCH statements, only the last
+   one is used.
+
+Note: DEFAULT_BRANCH does not work for undefined states.
+ú
+Related Topics
+DEFAULT_OUTPUT
+Local Default
+.OUTF
+OUTPUT_HOLD
+STATE
+ú

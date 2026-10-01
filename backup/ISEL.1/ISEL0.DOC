@@ -1,0 +1,238 @@
+
+*******************************************************************************
+                                     isel0
+*******************************************************************************
+
+CUPL            3.2a Serial# MD-32A-6365
+Device          p20l8lcc  Library DLIB-h-25-8
+Created         Mon Sep 14 11:37:09 2026
+Name            isel0
+Partno          v1
+Revision        01
+Date            10/08/85
+Designer        Michael
+Company         SufniFabrik
+Assembly        None
+Location        None
+
+===============================================================================
+                            Expanded Product Terms
+===============================================================================
+
+IEIR0 =>
+    !IEOZ1 & !ISEL0 & !ISEL1
+  # !IEOZ0 & !ISEL0
+
+IEIR0.oe  =>
+    IEN
+
+IEIR1 =>
+    !IEOZ0 & ISEL1
+  # !IEOZ1 & !ISEL0
+  # !IEOZ0 & !ISEL0
+  # !IEOR0
+
+IEIR1.oe  =>
+    IEN
+
+IEIR2 =>
+    !IEOZ2 & !ISEL0
+  # !IEOZ1
+  # !IEOZ0
+  # !IEOR1
+  # !IEOR0
+
+IEIR2.oe  =>
+    IEN
+
+IEIR3 =>
+    1 
+
+IEIR3.oe  =>
+    IEN
+
+IEIZ0 =>
+    !IEOR1 & ISEL0 & !ISEL1
+  # !IEOR0 & ISEL0
+
+IEIZ0.oe  =>
+    IEN
+
+IEIZ1 =>
+    !IEOR0 & ISEL1
+  # !IEOR1 & ISEL0
+  # !IEOR0 & ISEL0
+  # !IEOZ0
+
+IEIZ1.oe  =>
+    IEN
+
+IEIZ2 =>
+    !IEOR2 & ISEL0
+  # !IEOZ1
+  # !IEOZ0
+  # !IEOR1
+  # !IEOR0
+
+IEIZ2.oe  =>
+    IEN
+
+IEIZ3 =>
+    1 
+
+IEIZ3.oe  =>
+    IEN
+
+
+===============================================================================
+                                 Symbol Table
+===============================================================================
+
+Pin Variable                                    Pterms   Max     Min    
+Pol   Name              Ext     Pin     Type     Used   Pterms  Level   
+--- --------            ---     ---     ----    ------  ------  -----   
+
+    IEIR0                       23       V        2       7       4     
+    IEIR0               oe      23       X        1       1       1     
+    IEIR1                       24       V        4       7       4     
+    IEIR1               oe      24       X        1       1       1     
+    IEIR2                       25       V        5       7       4     
+    IEIR2               oe      25       X        1       1       1     
+    IEIR3                       26       V        1       7       4     
+    IEIR3               oe      26       X        1       1       1     
+    IEIZ0                       18       V        2       7       4     
+    IEIZ0               oe      18       X        1       1       1     
+    IEIZ1                       19       V        4       7       4     
+    IEIZ1               oe      19       X        1       1       1     
+    IEIZ2                       20       V        5       7       4     
+    IEIZ2               oe      20       X        1       1       1     
+    IEIZ3                       21       V        1       7       4     
+    IEIZ3               oe      21       X        1       1       1     
+    IEN                         13       V        -       -       -     
+    IEOR0                       10       V        -       -       -     
+    IEOR1                       9        V        -       -       -     
+    IEOR2                       7        V        -       -       -     
+    IEOR3                       6        V        -       -       -     
+    IEOZ0                       5        V        -       -       -     
+    IEOZ1                       4        V        -       -       -     
+    IEOZ2                       3        V        -       -       -     
+    IEOZ3                       2        V        -       -       -     
+    ISEL0                       12       V        -       -       -     
+    ISEL1                       11       V        -       -       -     
+
+
+LEGEND    F : field      D : default variable        M : extended node
+          N : node       I : intermediate variable   T : function
+          V : variable   X : extended variable       U : undefined
+
+
+===============================================================================
+                                   Fuse Plot
+===============================================================================
+
+Pin #26 
+ 00000 ------------------------------------x--- 
+ 00040 ---------------------------------------- 
+ 00080 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00120 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00160 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00200 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00240 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00280 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #25 
+ 00320 ------------------------------------x--- 
+ 00360 -x-------------------------------x------ 
+ 00400 -----x---------------------------------- 
+ 00440 ---------x------------------------------ 
+ 00480 ---------------------x------------------ 
+ 00520 -------------------------x-------------- 
+ 00560 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00600 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #24 
+ 00640 ------------------------------------x--- 
+ 00680 ---------x------------------x----------- 
+ 00720 -----x---------------------------x------ 
+ 00760 ---------x-----------------------x------ 
+ 00800 -------------------------x-------------- 
+ 00840 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00880 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00920 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #23 
+ 00960 ------------------------------------x--- 
+ 01000 -----x-----------------------x---x------ 
+ 01040 ---------x-----------------------x------ 
+ 01080 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01120 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01160 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01200 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01240 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #21 
+ 00000 ------------------------------------x--- 
+ 00040 ---------------------------------------- 
+ 00080 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00120 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00160 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00200 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00240 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00280 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #20 
+ 00320 ------------------------------------x--- 
+ 00360 -x-------------------------------x------ 
+ 00400 -----x---------------------------------- 
+ 00440 ---------x------------------------------ 
+ 00480 ---------------------x------------------ 
+ 00520 -------------------------x-------------- 
+ 00560 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00600 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #19 
+ 00640 ------------------------------------x--- 
+ 00680 ---------x------------------x----------- 
+ 00720 -----x---------------------------x------ 
+ 00760 ---------x-----------------------x------ 
+ 00800 -------------------------x-------------- 
+ 00840 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00880 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00920 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #18 
+ 00960 ------------------------------------x--- 
+ 01000 -----x-----------------------x---x------ 
+ 01040 ---------x-----------------------x------ 
+ 01080 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01120 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01160 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01200 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01240 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+
+
+LEGEND    X : fuse not blown 
+          - : fuse blown 
+
+===============================================================================
+                                 Chip Diagram
+===============================================================================
+
+                                      NC
+                                IEOZ3  |  Vcc                    
+                             IEOZ2  |  |  |                         
+                          IEOZ1  |  |  |  |  |  IEIR3                  
+                              x  x  x  x  x  x  x   
+                            __|__|__|__|__|__|__|__ 
+                           |  4  3  2  1  2  2  2  |
+                           |              8  7  6  |
+                  IEOZ0 x--|5                    25|--x IEIR2                  
+                  IEOR3 x--|6                    24|--x IEIR1                  
+                  IEOR2 x--|7                    23|--x IEIR0                  
+                     NC x--|8       isel0        22|--x NC                     
+                  IEOR1 x--|9                    21|--x IEIZ3                  
+                  IEOR0 x--|10                   20|--x IEIZ2                  
+                  ISEL1 x--|11                   19|--x IEIZ1                  
+                           |  1  1  1  1  1  1  1  |
+                           |__2__3__4__5__6__7__8__|
+                              |  |  |  |  |  |  |   
+                              x  x  x  x  x  x  x   
+                          ISEL0  |  |  |  |  |  IEIZ0                  
+                               IEN  |  |  |                         
+                                  GND  |                         
+                                      NC
+
+

@@ -1,0 +1,77 @@
+ğ
+MINIMIZE_OFF, MINIMIZE_ON
+Overview
+These two keywords allow you to specify equations that will not
+undergo logic reduction during the minimization process.
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+            MINIMIZE_OFF
+            Boolean equations
+            MINIMIZE_ON
+
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Device Support:  All PLD devices.
+ú
+Syntax
+You use the keywords in the equations segment of Boolean designs.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+            MINIMIZE_OFF
+            Boolean equations
+            MINIMIZE_ON
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+            MINIMIZE_OFF
+            OUT1 = A * B :+: C
+            MINIMIZE_ON
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+
+Boolean         These equations control storage inputs and other
+Equation        combinatorial functions to produce the desired device
+                behavior.  These equations form the backbone of any
+                PDS file containing a Boolean description.
+
+MINIMIZE_OFF    This keyword prevents logic reduction from occurring
+                on the equation or equations that follow.  You can
+                suppress logic reduction only on entire equations.  Do
+                not place this keyword in the middle of an equation.
+
+MINIMIZE_ON     This keyword reactivates logic reduction on Boolean
+                equations after it has been suppressed using the
+                keyword MINIMIZE_OFF.
+ú
+Use
+During the minimization process, all Boolean equations are reduced to
+their simplest form.  However, in some cases, the results of logic
+reduction may produce final equations that are not functionally what
+you intend.  With the minimize commands you can selectively skip the
+logic reduction on certain equations by bracketing them within
+MINIMIZE_OFF, MINIMIZE_ON commands.
+
+However, these commands do not effect other logic conversions that
+occur during the minimization process.  The example below shows that
+parentheses are expanded for all expressions regardless of whether
+logic reduction is suppressed or not.
+
+        Before Minimization         After Minimization
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+        MINIMIZE_OFF                MINIMIZE_OFF
+        01 = A*B + A*/B             01 = A*B + A*/B
+        02 = /(A+B)                 02 = /A * /B
+        MINIMIZE_ON                 MINIMIZE_ON
+        03 = A*B + A*/B             03 = A
+        04 = /(A+B)                 04 = /A * /B
+
+You can have as many pairs of MINIMIZE_ON and MINIMIZE_OFF commands
+as you wish.  The software ignores redundant commands.
+
+You need not place the MINIMIZE_OFF command on its own line, but it
+makes the design easier to follow.
+ú
+Related Topics
+Boolean Equation
+EXPRESSION
+ú

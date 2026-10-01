@@ -1,0 +1,58 @@
+ğ
+OUTPUT_HOLD
+Overview
+This keyword defines a global default that allows you to hold the 
+present output value when there is no output defined for the current 
+state and input condition.
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+        OUTPUT_HOLD      Output pins
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Device Support:  PLS105    PLS167    PLS168.
+ú
+Syntax
+Use this keyword in the state segment of state-machine designs.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+        OUTPUT_HOLD      Output pins
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+    STATE
+    ;State Setup and Defaults
+        ...
+        OUTPUT_HOLD     OUT1 OUT2 OUT3
+        ...
+        ;State Bit Assignment
+        ...
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+
+Output pins     Identifies the user-defined output pins that are held
+                if the next output value cannot be determined from the
+                equations segment of the state- machine design.  Use a
+                space to separate the output pins.  Multiple spaces
+                are reduced to one space.
+ú
+Use
+You must place the OUTPUT_HOLD statement at the beginning of the state
+segment.  It can follow setup statements but must precede any state
+assignment and transition equations. If you use the state bits as
+outputs, do not use OUTPUT_HOLD.
+
+You can reduce the number of output equations required by specifying
+the global default as OUTPUT_HOLD.  Using this technique, you only
+need to write equations for outputs that differ from the default.
+ú
+Related Topics
+CONDITIONS
+DEFAULT_BRANCH
+DEFAULT_OUTPUT
+Local Default
+.OUTF
+STATE
+ú

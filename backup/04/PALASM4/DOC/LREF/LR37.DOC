@@ -1,0 +1,56 @@
+ğ
+MOORE_MACHINE
+Overview
+This reserved word identifies the type of state machine you are
+designing.
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+            MOORE_MACHINE
+
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Device Support:  All PLD devices.
+ú
+Syntax
+Include the reserved word in the state segment of state machine
+designs.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+            MOORE_MACHINE
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+            STATE                     ;State Setup and Defaults
+            MOORE_MACHINE
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+
+Moore_Machine   This reserved word defines a state-machine design as
+                one of the two possible types, either Moore or Mealy .
+                If you do not define a type in the state segment of
+                the design, the program defaults to Mealy machine.
+
+                A Moore machine determines its outputs from the
+                present state only.
+ú
+Use
+You can place the reserved word statement anywhere within the STATE
+segment.  However, for design clarity, the following guidelines are
+advised.
+
+ş    Place the reserved word statement at the beginning of the STATE
+     segment before the state global defaults.
+
+ş    Use this reserved word statement only once in a file.  The
+     software ignores redundant state-machine definitions.
+
+You cannot have both MOORE_MACHINE and MEALY_MACHINE statements in the
+same design file.  If you want to include both types of state machines
+in the design file, only one can be written using state-machine
+syntax.  The other type must be written using Boolean equations.
+ú
+Related Topics
+MEALY_MACHINE
+.OUTF
+STATE
+ú

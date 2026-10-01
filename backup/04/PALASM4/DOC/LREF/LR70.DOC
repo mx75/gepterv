@@ -1,0 +1,49 @@
+ğ
+TRACE_OFF
+Overview
+TRACE_OFF defines the end of the simulation section being traced by 
+TRACE_ON.  
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+    TRACE_OFF 
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Device Support:  All PLD devices.
+
+ú
+Syntax
+Use the reserved word in the simulation segment or auxiliary
+simulation  file of Boolean and state-machine designs.
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+    TRACE_OFF 
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+    SIMULATION
+    TRACE_ON
+    TRACE_OFF
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+
+TRACE_OFF       Identifies the reserved word that indicates when to
+                conclude the simulation section being traced by
+                TRACE_ON.
+ú
+Use
+Use the TRACE_OFF keyword to end the simulation section being traced
+by TRACE_ON.
+
+If you do not conclude a trace section with TRACE_OFF, the software
+terminates the trace at the end of the file and displays a warning.
+If you have multiple traces but do not conclude one, PALASM does so by
+assuming a TRACE_OFF before the next TRACE_ON statement.
+ú
+Related Topics
+SIMULATION
+TRACE_ON
+ú

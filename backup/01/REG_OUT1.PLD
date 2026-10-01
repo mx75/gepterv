@@ -1,0 +1,75 @@
+Name      reg_out1;
+Partno    v1;
+Date      10/08/85;
+Rev       01;
+Designer  Michael;
+Company   SufniFabrik;
+Assembly  None;
+Location  None;
+Device    p20r8lcc;
+
+/** Inputs **/
+Pin 2               =  SYSCLK;
+/*Pin [3..7,9..11]    =  [D0..7];*/
+Pin [3..6]    =  [D0..3];
+Pin 7         = DX;
+/*
+Pin 9               = RES0;
+Pin 10              = ;
+Pin 11              = ;
+*/
+Pin 12              =  TMPA;
+Pin 13              = !BREG;
+Pin 17              = !WR;
+Pin 27              = !SYSRESET;
+
+/** Outputs **/
+Pin 18              = !OUT0;
+Pin 19              = !OUT1;
+Pin 20              = !OUT2;
+Pin 21              = !OUT3;
+Pin 23              = !OUT4;
+Pin 24              = !OUT5;
+Pin 25              = !OUT6;
+Pin 26              = !OUT7;
+
+!OUT0.d   =  SYSRESET
+         # (!SYSRESET &    TMPA &  BREG & WR
+                      &  D0   &   !D1 & !D2 & !D3 & !DX)
+         # (!SYSRESET &  !OUT0
+                      & (!(TMPA &  BREG & WR) # !(!D1 & !D2 & !D3 & !DX)) );
+!OUT1.d   =  SYSRESET
+         # (!SYSRESET &    TMPA &  BREG &  WR
+                      &  D0    &   D1 & !D2 & !D3 & !DX)
+         # (!SYSRESET &  !OUT1
+                      & (!(TMPA &  BREG & WR) # !( D1 & !D2 & !D3 & !DX)) );
+!OUT2.d   =  SYSRESET
+         # (!SYSRESET &    TMPA &  BREG &  WR
+                      &  D0    &  !D1 &  D2 & !D3 & !DX)
+         # (!SYSRESET &  !OUT2
+                      & (!(TMPA &  BREG & WR) # !(!D1 &  D2 & !D3 & !DX)) );
+!OUT3.d   =  SYSRESET
+         # (!SYSRESET &    TMPA &  BREG &  WR
+                      &  D0    &   D1 &  D2 & !D3 & !DX)
+         # (!SYSRESET &  !OUT3
+                      & (!(TMPA &  BREG & WR) # !( D1 &  D2 & !D3 & !DX)) );
+!OUT4.d   =  SYSRESET
+         # (!SYSRESET &    TMPA &  BREG &  WR
+                      &  D0    &  !D1 & !D2 &  D3 & !DX)
+         # (!SYSRESET &  !OUT4
+                      & (!(TMPA &  BREG & WR) # !(!D1 & !D2 &  D3 & !DX)) );
+!OUT5.d   =  SYSRESET
+         # (!SYSRESET &    TMPA &  BREG &  WR
+                      &  D0    &   D1 & !D2 &  D3 & !DX)
+         # (!SYSRESET &  !OUT5
+                      & (!(TMPA &  BREG & WR) # !( D1 & !D2 &  D3 & !DX)) );
+!OUT6.d   =  SYSRESET
+         # (!SYSRESET &    TMPA &  BREG &  WR
+                      &  D0    &  !D1 &  D2 &  D3 & !DX)
+         # (!SYSRESET &  !OUT6
+                      & (!(TMPA &  BREG & WR) # !(!D1 &  D2 &  D3 & !DX)) );
+!OUT7.d   =  SYSRESET
+         # (!SYSRESET &    TMPA &  BREG &  WR
+                      &  D0    &   D1 &  D2 &  D3 & !DX)
+         # (!SYSRESET &  !OUT7
+                      & (!(TMPA &  BREG & WR) # !( D1 &  D2 &  D3 & !DX)) );

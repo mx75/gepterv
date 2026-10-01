@@ -1,0 +1,521 @@
+======================================================================
+MACH Design Examples
+----------------------------------------------------------------------
+
+
+
+
+************************* Disclaimer *********************************
+Note: The following applications examples are provided solely for the
+purposes of learning the MACH architecture and software. No implicit
+guarantee of functionality or usability for any other purpose is
+represented.
+**********************************************************************
+
+
+
+Overview
+       This section of the documentation provides several application
+       "shorts" to guide the beginning MACH user in learning the MACH
+       device. They also serve to instruct designers in alternate methods of
+       implementing useful structures.
+       
+       Each shows "clever and significant" design use of the device
+       resources. The logic in these files  may be described further in
+       applications notes, exploring their significance. These test cases
+       explore processing options, resource limits, simulation support, etc.
+
+
+
+
+
+Counters:
+------------------------
+
+CNT_SMPL.SCH    device=MACH110
+        16-bit up/down Counter with preload -- created with 74192 macros.
+        Shows "brute force" approach to counter. Explanation of connection
+        problems demonstrated.
+
+CNT_16B.SCH     device=MACH110
+        Better implementation of 16-bit counter, built with 74163 macros.
+
+AMD_C16.110   device=MACH110
+        16-bit up/down Counter with preload -- Vector PDS format. Shows use
+        of byte-carry to minimize number of inputs that have to communicate
+        between blocks.
+
+CNT_31.PDS    device=MACH110
+        31-bit up/down Counter with simulation
+
+Data Routing Functions:
+------------------------
+
+AMD_CM8.110   device=MACH110
+        Dual 8-bit data multiplexing function -- Preloadable Up/down counter
+        feeding a 2:1 mux taking its input from counter outputs & pre-load
+        data inputs. Extreme utilization of all device resources. Requires
+        use of FITR expand & Full flags.
+
+BRL_SHFT.PDS    device=MACH110
+        8-bit Barrel Shifter - Shows need to spaceout large functions
+        to allow sourcing of global inputs and use of feedback.
+
+Arithmetic Functions:
+------------------------
+
+ADD_11B.PDS     device=MACH110
+        11-bit Adder
+
+ADD_4B.PDS      device=MACH110
+        4-bit Adder
+
+ADD_8B.PDS      device=MACH110
+        8-bit Adder
+
+
+
+
+
+Miscellaneous Functions:
+------------------------
+
+ORCADDMA.SCH    device=MACH110
+        Design example used in the documentation tutorial shows how to
+        design for a MACH110 using the OrCAD/SDT III editor.
+
+
+A_TO_D.sch      device=MACH110
+        Successive approximation register for a analogue to digital
+        converter system with simulation.
+
+M7SEG1.PDS      device=MACH110
+        7 Segment counter plus decoder with simulation.
+
+
+SRAM1.PDS       device=MACH110
+        Simple state machine for controls of static RAM - from 29K handbook.
+
+DRAM.PDS       device=MACH210
+        Integration of 2 inter-linked state machines (originally 23S8
+        designs) from pg 2-187 of the PAL Handbook.
+
+RLLENDEC.PDS    device=MACH210
+        Integration of Codec functions
+
+
+
+
+
+Pre-Loadable U/D N-bit Counter
+Purpose
+       These examples show how to implement wide counters within MACH
+       architecture. They guide the user through some of the elementary
+       pitfalls and illustrate use of the FITR command line options for
+       successful fitting.
+
+       Large counters represent an important and useful application for
+       PLD's. It is also one of the most common means of "benchmarking" what
+       a PLD architecture can do. The ability to create wide product terms
+       across many flip-flops measures the global signal access of the part.
+       Speed of operation and logic utilization is easy to evaluate because
+       of the regular structure and the ease of extrapolation to larger size
+       devices and counters.
+
+Logic Implementation
+Type of Flip-flop
+       Counters can be implemented in a variety of  ways. We are most
+       interested in those that count in a binary sequence (000, 001, 010,
+       ...) and operate synchronously. If implemented with only D-type
+       flip-flops, wider OR structures are needed for each successive bit
+       added to the width of the counter. For large counters (10-12 bits),
+       this product term growth overcomes most fixed product term
+       allocations. After this point, some sort of flip-flop banking is
+       required and enabling of the clock source is commonly utilized.
+
+       A Toggle flip-flop is much more efficient for implementing  large
+       counters. Only one product term (2 total for UP and down) per stage
+       is needed to tell each T-FF to complement. Whenever all bits lower
+       than its stage are "ones", the flip-flop changes state for counting
+       up --  likewise all "zeroes" triggers counting down. At each stage,
+       only the width of the AND gates change, encompassing more stages in
+       the all "ones" determination.
+
+Carry Generation
+       Carrys can be pipelined when the device  block size limits access to
+       counter stages. Creation of large AND gates are limited in most
+       segmented PLD architectures -- there is a certain "granularity" that
+       allows N input functions, but no more. For larger functions, a tree
+       or chain of elements must be created, usually implying additional
+       delay for logic propagation.
+
+Pre-decoding
+       This would seem to limit the maximum frequency of operation,  but the
+       pre-calculation of these AND terms may be accomplished and a spare
+       macrocell (flip-flop) can store the partial term. In the next stage
+       the completed AND term can be formed, to cause a given stage to
+       count. In this way, modular PLD architectures can feed partial terms
+       to where they are needed for later stages of the counter. The counter
+       will then operate at the maximum allowed by a single stage of logic
+       propagation.
+       
+
+
+
+
+
+
+
+----------------------------------------------------------------------------
+Example Files
+       Different implementations of counters are demonstrated in 
+       these files:
+
+Cnt16_Smpl.Sch
+       16-bit up/down Counter with preload -- created with 74192 
+       macros. Shows "brute force" approach to counter. Explanation 
+       of connection problems demonstrated.
+
+Cnt_16b.Sch
+       Better implementation of 16-bit counter, built with 74163 macros.
+
+Cnt_16V.pds
+       16-bit up/down Counter with preload -- Vector PDS format. 
+       Shows use of byte-carry to minimize number of inputs that have 
+       to communicate between blocks.
+
+Cnt_31b.pds
+       A maximal length (31-bit) counter for the 
+       MACH110.
+
+Cnt_16s.pds
+       AND/OR equation version of Cnt_16UDV used for 
+       size limit testing (Cnt_16r.pds is also on disk).
+
+
+
+
+
+
+
+----------------------------------------------------------------------------
+Detailed Discussion
+
+Cnt16_Smpl.Sch
+       Cnt16_Smpl illustrates the "brute force" approach to building a
+       16-bit up/down. Entering the design using OrCAD's Draft program takes
+       only a few minutes to place the 74192 4-bit counter macros and to
+       interconnect the Carry and Borrow terms. No Connect (NC) flags are
+       placed on the carry and borrow out signals from the highest counter
+       stage.
+       
+       When run through the MACH software, we can see a reasonable  set of
+       resources are used (for the MACH110).
+
+              Available    Used   Remaining
+       Clocks:      2        1          1
+         Pins:     38       37          1      97%
+       IO_Mac:     32       16         16
+  Total macro:     32       16         16
+Product terms:    128       80         16      62%
+        
+       MACH-PLD Resource Checks OK! - Utilization *: 69 % The difficulty
+       occurs when we get to block partitioning. We see here that all of the
+       block inputs are used by placing only a few counter stages into each
+       block. The remaining stages do not fit and remain "unplaced".
+
+FITR Flags
+       This testcase was run with the FULL flag on -- with it off,  the
+       design would have failed similarly, but with only 1 equation in each
+       block.
+
+       Error F580 announces the problem  -- signals unplaced. Warning  F120
+       indicates the block partitioning measure is too high (everything is
+       connected to everything -- contributory factor).
+       
+
+       What has happened is  that  all stages of combinatorial logic along
+       the carry / borrow path have been merged together, increasing the
+       number of inputs required at the upper stages. The logic is
+       relatively simple for this design, but very wide gating.
+       
+       Superficially, there is no simple solution to the simple 16- bit
+       counter presented here. The design as drawn needs larger PLD blocks
+       (more inputs) than is available on the MACH. The only solution is to
+       drain the swamp -- change the design to require fewer inputs on the
+       higher stages.
+       
+----------------------------------------------------------------------------
+Cnt16_Btr.Sch
+       Cnt16_Btr demonstrates the technique of redoing the logic to  limit
+       the number of inputs to the logic driving the upper stages. This time
+       the 16-bit counter is built with 74163 macros and only counts up.
+       
+       Each of the 8-bit  counter stages employs standard logic for
+       connecting the ripple carry output (RCO) to the count enable (ENP)
+       within the block.
+
+Carry Implementation
+       Carry between 8-bit blocks is constructed as a 7-bit  AND gate
+       (decoding 1111.111x). A Node flag is placed on its output to force
+       the software to generate a separate equation for this logic, instead
+       of merging with other stages. This will require an additional
+       propagation delay, but since the lowest bit is not included, there is
+       extra time for this logic.
+       
+       The lowest bit of the counter (C0) in not included in this  carry,
+       but instead is coupled to all the upper stages of the counter. This
+       is done as an alternate to carry pipelining -- each counter bit can
+       "see" the LSB and make its own decision on counting, preserving the
+       full speed operation of the device.
+       
+FITR Flags
+       This example will be successfully fitted with no flags on.
+
+Logic Hazard
+       This method of carry logic implemention comes with a slight  problem
+       -- what happens when the counter is preloaded to 1111.1111.1111.1111.
+       Does it "roll-over" on the next clock cycle, if it is enabled to
+       count? No -- because the carry does not have time to settle and thus
+       won't be valid. This "minor" glitch is one reason this sort of logic
+       change can't be automated to happen transparently to the user, but
+       must be designed in manually.
+       
+----------------------------------------------------------------------------
+Cnt_16V.pds
+       This file shows the same technique of input reduction applied  to an
+       16-bit up/down counter.  The design file is written using vectored
+       signal equations -- this significantly compacts the design file.
+       
+Carry / Borrow
+       For this design, both Carry and Borrow need to be implemented  to
+       allow up and down count modes. Since each stage has access to the
+       count enable and the counting mode (UP), the carry and borrow logic
+       may be combined into one macrocell.
+       
+       Two product terms are used to detect the all "ones" and all  "zeros"
+       conditions of the 7 bits as before (1111.111x and 0000.000x). This
+       combined signal is then fed to each of the upper count stages and
+       decoded to give the correct counter operation.
+       
+FITR Flags
+       This example is routed successfully using the Expand flag. If  this
+       is not done, it fails with 2 inputs incompletely routed.
+       
+       The block partitioning display indicates that each byte of the
+       counter is placed into "natural" divisions and that the switch matrix
+       is "heavily" utilized (90% _ 69%). Significant user additions to the
+       functionality may jeopardize this fitting success.
+
+----------------------------------------------------------------------------
+Data Routing Functions
+Purpose
+       Show how the I/O macro-rich architecture of the MACH  implements data
+       routing functions. Introduce some resource- planning considerations
+       of dealing with the connection-dense routing functions.
+       
+       Data routing functions are a classic area for PLD  applications. With
+       the byte-wide paths and product term-clumps allocated to specific I/O
+       ports, the MACH devices are ideally suited for many functions. We
+       offer a modest selection of some particularly useful configurations.
+       
+----------------------------------------------------------------------------
+Example Files
+Cnt_Mux8.pds
+       Dual 8-bit data multiplexing function -- Preloadable Up/down  counter
+       feeding a 2:1 mux taking its input from counter outputs and pre-load
+       data inputs. Extreme utilization of all device resources (91%).
+       Requires use of FITR expand & Full flags.
+
+Brl_Shft.pds
+       8-bit Barrel Shifter - Shows need to spaceout large functions  to
+       allow sourcing of global inputs and use of feedback.
+       
+
+----------------------------------------------------------------------------
+Detailed Discussion
+Cnt_Mux8.pds
+       Dual 8-bit data multiplexing function -- Preloadable Up/down  counter
+       feeding a 2:1 mux taking its input from counter outputs & pre-load
+       data inputs. Extreme utliization of all device resources (91%).
+       Requires use of FITR expand & Full flags.
+       
+       *** Device Resource Checks
+              Available    Used   Remaining
+       Clocks:      2        1          1
+         Pins:     38       37          1      97%
+       IO_Mac:     32       16         16
+ Total macros:     32       32          0
+Product terms:    128       94          0      72%
+        
+       MACH-PLD Resource Checks OK! - Utilization *: 90 %
+       ...
+       
+
+----------------------------------------------------------------------------
+8-bit Barrel Shifter
+       Shows need to space out large AND/OR functions  to allow sourcing of
+       global inputs and use of feedback.
+
+       *** Device Resource Checks
+              Available    Used   Remaining
+       Clocks:       2        1        1
+         Pins:      38       22       16      57%
+       IO_Mac:      32        8       24
+ Total macros:      32        8       24
+          PTs:     128       80       32      62%
+       
+       MACH-PLD Resource Checks OK! - Utilization *: 47 %
+       
+       ...
+
+----------------------------------------------------------------------------
+Arithmetic Functions
+Purpose
+       Demonstrate new ways of realizing arithmetic functions using  MACH
+       devices. Show how the functional implementation can be structured
+       around the device architecture and the advantages that result.
+       
+       Simple arithmetic functions form an important area of system
+       building blocks unaddressed by conventional PLD's. New high density
+       PLD architectures redo the balance sheet, opening up new application
+       areas. Designer creativity is the key ingredient to satisfying these
+       opportunities.
+       
+----------------------------------------------------------------------------
+Parallel Adder Design Considerations
+       A basic 4-bit adder can be constructed by cascading 4 single bit full
+       adders. The problem with this approach is that the delays associated
+       with the carry are additive. In the case of a 4-bit adder this means
+       4 delays (60nS in a 15nS MACH device) before the final result is
+       obtained. This approach, using a MACH device yields a design that
+       takes 8 macros and yields a result in 60nS. This is good from a macro
+       usage viewpoint but takes too much time.
+       
+       For later comparison purposes this adder design was expanded  to fill
+       as much of a MACH110 as possible. The first trial (12 bits) would be
+       satifactory for the number of macros (24), but would require too many
+       array inputs (36). An 11-bit adder using this approach was
+       successfully routed using the Expand Product Term option on the
+       compilier.  Again this design is very efficient but causes problems
+       in the area of speed (165nS).
+
+Flores Sum & Carry
+       A classic way of designing fast adders was described in the  1960s by
+       Flores in his "The Logic of Computer Arithmetic". He describes a look
+       ahead carry method where independent sum and carry terms are
+       generated for each bit and these are used to generate the full carry
+       terms. Using the intermediate sum and the full carry the final sum
+       bits are generated. With lots of gates with very wide inputs it is
+       possible to generate an adder of any length in 3 gate delays.
+       Examination of the schematic for the 7483 in TI's 'yellow book' shows
+       a 4-bit adder constructed using this "LookAhead Carry" methodology.
+       
+       The problem that exists with this approach in the MACH family  is one
+       of inputs to the array. On a 4-bit adder this approach takes 20 array
+       inputs while using 19 macrocells. We could reduce this somewhat by
+       combining the G equations into the C equations, resulting in 4 less
+       macrocells and array inputs. For both implementations of Flores's
+       adders, the sums are generated in 45nS and the carry in 30nS. At 15
+       macrocells and that speed, this approach may be a good compromise
+       over the ripple carry approach. If this approach is extended to fill
+       a MACH110, the results are a maximum of 7 bits using 25 macrocells
+       with the sum in 45nS and the carry in 30nS.
+       
+----------------------------------------------------------------------------
+Logic Implementation
+Another Approach
+       One needs to step back in methodology to generate an even more
+       efficient solution. Instead of using look ahead carry methods try a
+       brute force method. Let's make a 2 bit adder by writing the direct
+       equations without using intermediate nodes and put 2 of these
+       together. This results in a 2 bit adder with 1 delay and 6 macrocells
+       used.
+       
+       If 2 of these are stacked together we have our 4-bit adder using 12
+       macrocells instead of 15 in the LookAhead Carry version and producing
+       a result in 2 delays rather than 3. Further it uses only 10 array
+       inputs as opposed to 16. Expanding this method to the limits of a
+       MACH110 produces an 11-bit adder (at 12 bits we run out of product
+       terms).  This design operates at 90nS for both sums and carry.
+       
+
+Refinements
+       The final trial will be to apply "LookAhead  Carry" techniques to the
+       2-bit chunk implementation. Using full "LookAhead" accross all 8 bits
+       didn't work, but if the last 2 bits are implemented as a simple 2
+       bit adder, the MACH110 fits 8 bits and produces a sum and carry
+       result in 45nS.
+       
+----------------------------------------------------------------------------
+Summary Guidelines
+
+       Remember that array inputs are golden and excellent results  can be
+       obtained by restructuring logic considering that fact.
+       
+       RULE : It is best to expand product terms up to the maximum
+       supported by the part if you want to save delay time and/or array
+       inputs.
+       
+Macro Usage for Adders
+       Number of bits    4       6       7       8       9      10      11
+       ---------------------------------------------------------------------
+        Ripple Carry     8      12      14      16      18      20      22
+        LookAhead Carry 15      21      25              Cant' Do
+        2 Bit Chunks    12      18      20      24      26      30      32
+        2 Bit with Look 10      15      17      21      Can't Do
+       
+Sum Delay Times for Adders (ns for MACH110-15)
+       Number of bits    4       6       7       8       9      10      11
+       ---------------------------------------------------------------------
+        Ripple Carry    60      90      105     120    135     150     165
+        LookAhead Carry 45      45       45             Can't Do
+        2 Bit Chunks    30      45       60      60     75      75      90
+        2 Bit with Look 45      45       45      45     Can't Do
+       
+Carry Delay Times for Adders (ns for MACH110-15)
+       ---------------------------------------------------------------------
+        number of bits   4       6       7       8       9       10      11
+        Ripple Carry    60      90      105     120     135     150     165
+        LookAhead Carry 30      30       30              Can't Do
+        2 Bit Chunks    30      45       60      60      75      75      90
+        2 Bit with Look 30      30       45      45      Can't Do
+       
+
+----------------------------------------------------------------------------
+Example Files
+       ADD_11B.pds - 11-bit adder using Ripple Carry
+       
+       ADD_4B.pds - 4-bit adder using 2 Bit Chunks & Look-ahead
+       Carry
+       
+       ADD_8B.pds -8 bit adder using 2 Bit Chunks & Look-ahead 
+       Carry
+       
+----------------------------------------------------------------------------
+Additional Discussion
+       Simplification may also be obtained in simulation if one  considers
+       how the design works. A classic 4-bit adder with Carry In and Out
+       would require 29=512 input test conditions to exhaustivly test all
+       possible combinations. A file with large number of test vectors runs
+       the danger of running out of memory before the task is complete.  In
+       our designs, however, we used independent two 2 bit adders.
+       
+       A 2 bit adder requires only 25=32 combinations for an  exhaustive
+       test. Noting that the Carry Out has 16 of the 32 input conditions
+       with a HIGH result and 16 with a LOW result we may test both halves
+       of the adder. By noting where C2 is a "0" and where it is a "1"
+       allows the designer to correctly place the tests for the second
+       module in parallel with the first module. This shortened example can
+       be seen as applied to the 8-bit adder in ADD_8B.PDS.
+       
+       The number of simulation vectors is important since the  software can
+       process only so many. It is limited by the number of vectors and the
+       number of signals within the simulation commands. Not only will many
+       vectors consume more time, but, it may well run out of memory, before
+       any results are obtained.
+
+----------------------------------------------------------------------------
+
+ÿ
+

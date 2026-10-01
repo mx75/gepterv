@@ -1,0 +1,117 @@
+ğ
+NODE
+Overview
+This keyword is the logical name assigned to a feedback signal or
+internal-control product term.  When used in the declaration segment
+of a PDS file, the keyword allows you to assign names and attributes
+to internal device nodes.  A node can be one of the following.
+
+ş    A buried flip-flop or flip-flop feedback line
+
+ş    An internal-control line, such as a global reset, preset, or
+     observability line
+
+ş    A complement array term
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+            NODE    Location_Number       Name       Storage
+
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Device Support:
+
+    PAL22V10    PAL32VX10     PAL18U8    PAL23S8     PAL26V12
+    PALCE29M16  PALCE29MA16   PALCE610   PLS30S16    PLS105   PLS167
+    PLS168      MACH 1        MACH 2
+ú
+Syntax
+Include this keyword in the declaration segment of Boolean and
+state-machine designs.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+            NODE    Location_Number       Name       Storage
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+            ...
+            NODE           12             ST         REG
+            ...
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+
+Number          Identifies the node number exactly as defined in the
+                device reference.
+
+Name            Defines the name of the node.  Each name must be
+                unique and must follow the location_number field.
+
+                ş  Begin the name with an alpha character; use any
+                   combination of up to 14 upper- or lowercase
+                   alphanumeric characters: A_Z, 0_9.
+
+                Important: Keep names in a schematic shorter than 14
+                characters.  Part and node names in the schematic may
+                be concatenated as data is converted into PDS format.
+                Any name longer than 14 characters is automatically
+                truncated.
+
+                ş  Use underscore, _, as a connector and a slash, /,
+                   to affect polarity; no other symbols or punctuation
+                   are allowed and no keywords, reserved words, or
+                   logic operators are allowed.
+
+                Note: The polarity slash is not supported for
+                schematic-based designs.
+
+                Also: Polarity works differently for nodes used as
+                inputs on the PALCE29M16 and PALCE29MA16.
+
+                You can use ranges and vector notation to define node
+                names.  You must use the same number of nodes as names
+                in ranges and vector notation.  All nodes defined
+                within a range or vector notation have the same
+                storage type and polarity attributes.
+
+Storage         Defines the optional storage type for a node, which
+                must follow the node name.  Enter the reserved word or
+                abbreviation listed below; the default is
+                combinatorial.
+
+                ş  Combinatorial or Comb
+
+                ş  Registered or Reg
+
+                ş  Latched or Lat
+
+                Important: Combinatorial is a valid node storage
+                attribute only for MACH devices.  For non-MACH PLD's
+                you must specify either Reg or Lat.  Otherwise the
+                software issues an error during compilation.
+ú
+Use
+The node statements must follow the chip statement.  Use a separate
+line for each node statement.  You do not have to place the node
+statements in numerical order.  You can only place comment statements
+between node statements, not within the node statement.
+
+Declare only the nodes you are using.  The software automatically
+assigns the name NC, no connect, to all nodes that are not declared.
+
+PIN or NODE statements in the current version of the software differ
+from the pin list of previous versions.  However, the old syntax is
+fully compatible with the new.
+
+Use of the NODE statement is device dependent.
+ú
+Related Topics
+Boolean Equation
+CHIP
+Declaration Segment
+FLOATING PINS AND NODES
+LATCHED
+OPERATOR
+PAIR
+PIN
+REGISTERED
+VECTOR
+ú

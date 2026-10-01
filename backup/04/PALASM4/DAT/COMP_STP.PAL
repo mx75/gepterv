@@ -1,0 +1,95 @@
+ษอออออออออออออออออCOMPILATION OPTIONSอออออออออออออออออป
+บ   Log file name:    PALASM.LOG                      บ
+บ   Run mode:         Auto                            บ
+บ   Process from                                      บ
+บ     Format: Text           File: MEM1.PDS           บ
+บ                                                     บ
+บ   Check syntax:     Y      Merge mixed mode:     Y  บ
+บ   Expand Boolean:   Y      Minimize Boolean:     Y  บ
+บ   Expand state:     Y      Assemble:             Y  บ
+ศอออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+ษออออออออออออออออออออออออMACH FITTING OPTIONSออออออออออออออออออออออออป
+บ OUTPUT:  Report level                    Detailed                  บ
+บ                                                                    บ
+บ SIGNAL PLACEMENT:                                                  บ
+บ   Float all signals and ignore grouping? N                         บ
+บ   Use placement data from                Design file               บ
+บ   Save last successful placement         <F3>                      บ
+บ   Press <F9> to edit file containing     Last successful placement บ
+บ PARTITION and Re_Fit: (Y/N)?             Y                         บ
+บ DEFAULT FUSE OPTIONS:                                              บ
+บ   Unused I/O pins configured as outputs? Y  ... if 'Y', Level = H  บ
+บ FITTING OPTIONS:                                                   บ
+บ   When compiling                     Run until 1st success: EXTRA  บ
+บ                                                                    บ
+บ                                                                    บ
+บ                                                                    บ
+ศออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+ษออออออออออออออออออออออออMACH FITTING OPTIONSออออออออออออออออออออออออป
+บ OUTPUT:  Report level                    Detailed                  บ
+บ                                                                    บ
+บ SIGNAL PLACEMENT:                                                  บ
+บ   Float all signals and ignore grouping? N                         บ
+บ   Use placement data from                Design file               บ
+บ   Save last successful placement         <F3>                      บ
+บ   Press <F9> to edit file containing     Last successful placement บ
+บ PARTITION and Re_Fit: (Y/N)?             Y                         บ
+บ DEFAULT FUSE OPTIONS:                                              บ
+บ   Unused I/O pins configured as outputs? Y  ... if 'Y', Level = H  บ
+บ FITTING OPTIONS:                                                   บ
+บ   When compiling                     Use all fitting options       บ
+บ                                                                    บ
+บ                                                                    บ
+บ                                                                    บ
+ศออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+ษออออออออออออออออออออออออMACH FITTING OPTIONSออออออออออออออออออออออออป
+บ OUTPUT:  Report level                    Detailed                  บ
+บ                                                                    บ
+บ SIGNAL PLACEMENT:                                                  บ
+บ   Float all signals and ignore grouping? N                         บ
+บ   Use placement data from                Design file               บ
+บ   Save last successful placement         <F3>                      บ
+บ   Press <F9> to edit file containing     Last successful placement บ
+บ PARTITION and Re_Fit: (Y/N)?             N                         บ
+บ DEFAULT FUSE OPTIONS:                                              บ
+บ   Unused I/O pins configured as outputs? N  ... if 'Y', Level = H  บ
+บ FITTING OPTIONS:                                                   บ
+บ   When compiling                     Run until 1st success: EXTRA  บ
+บ                                                                    บ
+บ                                                                    บ
+บ                                                                    บ
+ศออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+ษออออออออออออออออออออออออMACH FITTING OPTIONSออออออออออออออออออออออออป
+บ OUTPUT:  Report level                    Detailed                  บ
+บ                                                                    บ
+บ SIGNAL PLACEMENT:                                                  บ
+บ   Float all signals and ignore grouping? Y                         บ
+บ   Use placement data from                Design file               บ
+บ   Save last successful placement         <F3>                      บ
+บ   Press <F9> to edit file containing     Last successful placement บ
+บ PARTITION and Re_Fit: (Y/N)?             Y                         บ
+บ DEFAULT FUSE OPTIONS:                                              บ
+บ   Unused I/O pins configured as outputs? N  ... if 'Y', Level = H  บ
+บ FITTING OPTIONS:                                                   บ
+บ   When compiling                     Use all fitting options       บ
+บ                                                                    บ
+บ                                                                    บ
+บ                                                                    บ
+ศออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+ษออออออออออออออออออออออออMACH FITTING OPTIONSออออออออออออออออออออออออป
+บ OUTPUT:  Report level                    Detailed                  บ
+บ                                                                    บ
+บ SIGNAL PLACEMENT:                                                  บ
+บ   Float all signals and ignore grouping? N                         บ
+บ   Use placement data from                Design file               บ
+บ   Save last successful placement         <F3>                      บ
+บ   Press <F9> to edit file containing     Last successful placement บ
+บ PARTITION and Re_Fit: (Y/N)?             N                         บ
+บ DEFAULT FUSE OPTIONS:                                              บ
+บ   Unused I/O pins configured as outputs? N  ... if 'Y', Level = H  บ
+บ FITTING OPTIONS:                                                   บ
+บ   When compiling                     Select one combination...     บ
+บ   Maximize packing of logic blocks?      <Y>                       บ
+บ   Expand small PT spacing?               <N>                       บ
+บ   Expand all PT spacing?                 <N>                       บ
+ศออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ

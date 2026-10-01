@@ -1,0 +1,52 @@
+TITLE           isel
+PATTERN         v1
+REVISION        01
+DATE            10/08/85
+AUTHOR          Michael
+COMPANY         SufniFabrik
+
+CHIP isel USER
+NC NC IEO_DMA_A IEO_KIO_B IEO_KIO_A NC IEO_DMA_D NC IEO_DMA_C 
+IEO_DMA_B NC ISEL NC GND NC NC NC IEI_KIO_A IEI_KIO_B IEI_DMA_A 
+NC NC IEI_DMA_B IEI_DMA_C IEI_DMA_D NC NC VCC 
+
+EQUATIONS
+
+IEI_DMA_A = /IEO_DMA_D  * ISEL 
+         + /IEO_KIO_A 
+         
+IEI_DMA_A.TRST = VCC 
+              
+IEI_DMA_B = /IEO_DMA_D  * ISEL 
+         + /IEO_KIO_A 
+         + /IEO_DMA_A 
+         
+IEI_DMA_B.TRST = VCC 
+              
+IEI_DMA_C = /IEO_DMA_D  * ISEL 
+         + /IEO_KIO_B 
+         + /IEO_KIO_A 
+         + /IEO_DMA_B 
+         + /IEO_DMA_A 
+         
+IEI_DMA_C.TRST = VCC 
+              
+IEI_DMA_D = /IEO_KIO_B  * /ISEL 
+         + /IEO_KIO_A  * /ISEL 
+         + /IEO_DMA_C  * /ISEL 
+         + /IEO_DMA_B  * /ISEL 
+         + /IEO_DMA_A  * /ISEL 
+         
+IEI_DMA_D.TRST = VCC 
+              
+IEI_KIO_A = /IEO_DMA_D  * ISEL 
+         
+IEI_KIO_A.TRST = VCC 
+              
+IEI_KIO_B = /IEO_DMA_D  * ISEL 
+         + /IEO_KIO_A 
+         + /IEO_DMA_B 
+         + /IEO_DMA_A 
+         
+IEI_KIO_B.TRST = VCC 
+              

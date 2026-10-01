@@ -1,0 +1,62 @@
+test2.pds NNNNNN
+1 223
+1 85 Memory controller for 512k sram board
+1 86 1
+1 87 1.0
+1 88 Fazekas Mihaly
+1 89 Technical University of Budapest (Telephone Center)
+1 90 11/01/15
+-2 -2
+1 60
+2 1 _TEST2
+2 110 20
+2 73
+2 1 A
+3 24
+2 1 B
+3 24
+2 73
+2 73
+2 73
+2 73
+2 73
+2 73
+2 75
+2 73
+2 73
+2 73
+2 1 OUTA
+3 10
+2 1 OUTB
+3 10
+2 1 OUTC
+3 10
+2 1 OUTD
+3 10
+2 73
+2 73
+2 74
+-3 -3
+3 65
+3 10
+4 1  OUTA
+4 17
+5 1  A
+5 1  B
+3 10
+4 1  OUTB
+4 17
+5 1  A
+5 1  B
+3 10
+4 1  OUTC
+4 17
+5 1  A
+5 1  B
+3 10
+4 1  OUTD
+4 17
+5 1  A
+5 1  B
+-5  -5
+-9  -9

@@ -1,0 +1,22 @@
+;MachXL Design Description
+;---------------------------------- Declaration Segment ------------
+TITLE    Memory controller for 512k sram board
+PATTERN  1
+REVISION 1.0
+AUTHOR   Fazekas Mihaly
+COMPANY  Technical University of Budapest (Telephone Center)
+DATE     11/01/15
+
+CHIP  _test4  MACH210
+;---------------------------------- PIN Declarations ---------------
+PIN     ? OUT
+PIN     ? A
+PIN     ? B
+PIN     ? C
+;----------------------------------- Boolean Equation Segment ------
+EQUATIONS
+
+OUT=A * B + C
+;----------------------------------- Simulation Segment ------------
+SIMULATION
+;-------------------------------------------------------------------

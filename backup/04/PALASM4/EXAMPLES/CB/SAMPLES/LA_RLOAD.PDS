@@ -1,0 +1,181 @@
+;PALASM Design Description
+
+;---------------------------------- Declaration Segment ------------
+TITLE    load internal registers
+PATTERN  
+REVISION 
+AUTHOR   john davis
+COMPANY  SIVAD for AMD
+DATE     12/07/90
+
+CHIP  _la_rload  MACH210
+;---------------------------------- PIN Declarations ---------------
+PIN  ?  /POR	COMBINATORIAL			; Power On Reset
+NODE 1 POR_INIT
+PIN  35 CLK1							; Default Clock on pin 35
+PIN  ?  K_CLK COMBINATORIAL             ; 
+
+PIN  ?  GO
+PIN  ?  LOAD
+PIN  ?  /CLR_SR
+PIN  ?  /HOLD
+PIN  ?  MSW[0] REGISTERED                 ; 
+PIN  ?  MSW[1] REGISTERED                 ; 
+PIN  ?  MSW[2] REGISTERED                 ; 
+PIN  ?  MSW[3] REGISTERED                 ; 
+PIN  ?  MSW[4] REGISTERED                 ; 
+PIN  ?  MSW[5] REGISTERED                 ; 
+PIN  ?  MSW[6] REGISTERED                 ; 
+PIN  ?  MSW[7] REGISTERED                 ; 
+PIN  ?  MSW[8] REGISTERED                 ; 
+PIN  ?  MSW[9] REGISTERED                 ; 
+PIN  ?  MSW[10] REGISTERED                ; 
+PIN  ?  MSW[11] REGISTERED                ; 
+PIN  ?  MSW[13] REGISTERED                ; 
+PIN  ?  MSW[14] REGISTERED                ; 
+PIN  ?  MSW[15] REGISTERED                ; 
+
+PIN  ?  REQ		REGISTERED                ; 
+PIN  ?  RPL		REGISTERED                ; 
+PIN  ?  INP3
+PIN  ?  INP2
+PIN  ?  INP1
+PIN  ?  INP0
+
+;************ BURIED REGISTERS ********************
+NODE ?  K0 REGISTERED                     ;
+NODE ?  K1 REGISTERED                     ; 
+NODE ?  K2 REGISTERED                     ; 
+NODE ?  K3 REGISTERED                     ; 
+NODE ?  SR0 REGISTERED                    ;Internal timing shift register
+NODE ?  SR1 REGISTERED                    ;Internal timing shift register
+NODE ?  SR2 REGISTERED                    ;Internal timing shift register
+NODE ?  SR3 REGISTERED                    ;Internal timing shift register
+NODE ?  SR4 REGISTERED                    ;Internal timing shift register
+NODE ?  SR5 REGISTERED                    ;Internal timing shift register
+NODE ?  SR6 REGISTERED                    ;Internal timing shift register
+NODE ?  SR7 REGISTERED                    ;Internal timing shift register
+NODE ?  SR8 REGISTERED                    ;Internal timing shift register
+;       
+;STRING DECLARATIONS.
+STRING GL '(MSW[0])'
+STRING DL '(MSW[1])'
+STRING BF '(MSW[2])'
+STRING TR0 'MSW[3]'
+STRING TR1 'MSW[4]'
+STRING TR2 'MSW[5]'
+STRING ST '(MSW[6])'
+STRING XCK '(MSW[7])'
+STRING TG '(MSW[8])'
+STRING SM '(MSW[9])'
+STRING XS '(MSW[10])'				;External Sync Input
+STRING CS '(MSW[11])'
+STRING EQ '(MSW[12])'
+STRING TA '(MSW[13)'
+STRING TD '(MSW[14])'
+STRING RUN '(MSW[15])'
+
+
+STRING S_K0  '/POR*/K3*/K2*/K1*/K0'		;Main Control State Bits
+STRING S_K1  '/POR*/K3*/K2*/K1* K0'
+STRING S_K2  '/POR*/K3*/K2* K1*/K0'
+STRING S_K3  '/POR*/K3*/K2* K1* K0'
+STRING S_K4  '/POR*/K3* K2*/K1*/K0'
+STRING S_K5  '/POR*/K3* K2*/K1* K0'
+STRING S_K6  '/POR*/K3* K2* K1*/K0'
+STRING S_K7  '/POR*/K3* K2* K1* K0'
+STRING S_K8  '/POR* K3* K2*/K1*/K0'
+
+STRING S_K_C5_4  ' K_C5_4'
+STRING S_LOAD '/POR*LOAD'
+STRING SHIFT 'HOLD'
+STRING S_R0  'SR0'
+
+
+STRING S_TDD	'/TR2*/TR1*/TR0'		;Operational Mode Bits
+STRING S_TTD	'/TR2*/TR1* TR0'
+STRING S_TAD	'/TR2* TR1*/TR0'
+STRING S_TBD 	'/TR2* TR1* TR0'
+STRING S_LD_RG 	' TR2*/TR1*/TR0'
+STRING S_LD_AT 	' TR2*/TR1* TR0'
+STRING S_LSA 	'(S_TDD+S_TTD+S_TAD+S_TBD)'
+STRING S_SET 	'(S_LD_RG+S_LD_AT)'
+;------------------- Boolean Equation Segment ------
+EQUATIONS
+
+;------------ Initialization 
+POR_INIT.RSTF= POR
+;------------ Operation
+
+SR8 =  /CLR_SR*SHIFT*SR7+/CLR_SR*/HOLD*SR8
+SR7 =  /CLR_SR*SHIFT*SR6+/CLR_SR*/HOLD*SR7
+SR6 =  /CLR_SR*SHIFT*SR5+/CLR_SR*/HOLD*SR6
+SR5 =  /CLR_SR*SHIFT*SR4+/CLR_SR*/HOLD*SR5
+SR4 =  /CLR_SR*SHIFT*SR3+/CLR_SR*/HOLD*SR4
+SR3 =  /CLR_SR*SHIFT*SR2+/CLR_SR*/HOLD*SR3
+SR2 =  /CLR_SR*SHIFT*SR1+/CLR_SR*/HOLD*SR3
+SR1 =  /CLR_SR*SHIFT*SR0+/CLR_SR*/HOLD*SR1
+SR0 =  /CLR_SR*LOAD*SHIFT*(S_K3+S_K4)
+;	  +/CLR_SR*LOAD*SHIFT*SR0
+;	  +/CLR_SR*LOAD*/HOLD*SR0
+;---------------------------State Machine -----------------------------
+STATE
+
+M_C5_0  = /K3*/K2*/K1*/K0                 ;Main Control State Definition
+M_C5_1  = /K3*/K2*/K1* K0
+M_C5_2  = /K3*/K2* K1*/K0
+M_C5_3  = /K3*/K2* K1* K0
+M_C5_4  = /K3* K2*/K1*/K0
+M_C5_5  = /K3* K2*/K1* K0
+M_C5_6  = /K3* K2* K1*/K0
+M_C5_7  = /K3* K2* K1* K0
+M_C5_8  =  K3*/K2*/K1*/K0
+
+
+MEALY_MACHINE			;Main  Trace Control State Machine
+
+M_C5_0 := START -> M_C5_1
+                +-> M_C5_0;
+
+M_C5_1 := VCC -> M_C5_2
+                +-> M_C5_1;
+
+M_C5_2 := T_LOAD -> M_C5_3
+                +-> M_C5_2;
+
+M_C5_3 := T_ZERO -> M_C5_7
+        + N_ZERO ->M_C5_4
+                +-> M_C5_0;
+
+M_C5_4 := T_SR8 -> M_C5_5
+        + N_SR8 -> M_C5_3
+                +-> M_C5_0;
+
+M_C5_5 := VCC -> M_C5_6
+                +-> M_C5_0;
+
+M_C5_6 := VCC -> M_C5_0
+                +-> M_C5_0;
+
+M_C5_7 := VCC  -> M_C5_8
+                +-> M_C5_0;
+
+M_C5_8 := N_SR8 -> M_C5_7
+        + T_SR8 -> M_C5_0
+                +-> M_C5_0;
+
+;-----------------------Outputs--------------------------
+;-----------------------Conditions-----------------------
+CONDITIONS
+START = /POR*GO*S_LD_RG
+T_LOAD = /POR*LOAD*S_LD_RG
+T_ZERO = /POR* /INP3*/INP2*/INP1*/INP0*S_LD_RG
+N_ZERO = /POR*( INP3+ INP2+ INP1+ INP1)*S_LD_RG
+
+T_SR8 = /POR*LOAD* SR8*S_LD_RG
+N_SR8 = /POR*LOAD*/SR8*S_LD_RG
+;--------------------------OUTPUTS----------------------------------
+;------------------------- Simulation Segment ----------------------
+
+
+

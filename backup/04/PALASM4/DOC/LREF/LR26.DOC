@@ -1,0 +1,109 @@
+ğ
+GROUP
+Overview
+The keyword of a statement that clusters several pins or nodes under a
+single name.  Then you can use the group name in the equations or
+state segment of your design.
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+            GROUP           Group_Name          Pn_List
+
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Device Support:  All PLD devices.
+ú
+Syntax
+You use the keyword, GROUP, in the declaration segment of Boolean and
+state-machine designs.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+            GROUP           Group_Name          Pn_List
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+            PIN 15 OUT1 COMB
+            PIN 16 OUT2 COMB
+            NODE 5 NB  COMB
+            GROUP             BANK1             OUT1 OUT2 NB
+            :
+            EQUATIONS
+            :
+            BANK1 = IN1 * IN2 * IN3
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+
+Group_Name      This is the name assigned to a cluster of pins or
+                nodes.  The name can then be used in the equations or
+                state segments of a design to refer to the entire
+                cluster without having to list them separately.
+                Follow the rules below.
+
+                ş  Assign a unique name of up to 14 alphanumeric
+                   characters.Do not use keywords, operators, or
+                   reserved words.
+
+                ş  Place the name after the keyword GROUP and before
+                   the pin or node statements.
+
+                The syntax example shows BANK1 as a group name.
+
+Pn_List         This is a list of the pins or nodes, defined in the
+                pin and node statement, that are associated with the
+                group name.
+
+                ş  Place this list after the group name.
+
+                ş  Separate pin and node names by a single space;
+                   multiple spaces are reduced to one.  Do not use
+                   commas or any other punctuation.  You can use the
+                   range operator, [], to define a group of pins.
+
+                In the syntax example, the equation BANK1 = IN1 * IN2
+                * IN3 is automatically expanded into the three
+                equations shown below.
+
+                OUT1 = IN1 * IN2 * IN3
+                OUT2 = IN1 * IN2 * IN3
+                NB   = IN1 * IN2 * IN3
+ú
+Use
+You can place the GROUP statement either before or after SIGNATURE and
+STRING statements.  You can use the group name, wherever appropriate
+in the design file, in place of the defined group of pins or nodes.
+This can simplify the equations segment of the file by reducing the
+number of equations required.
+
+ş    You can only use the group name on the left side of an equation.
+
+ş    You can also use the group name to define pins or nodes in the
+     simulation segment.
+
+Note: You can use a group name when controlling registers consisting
+      of banks of flip-flops with common reset or other control lines.
+
+For example, use a group name to combine four outputs that share a
+common reset line.  The software then writes four .RSTF equations.
+
+     ;DECLARATION SEGMENT
+          PIN     2       A       REG
+          PIN     3       B       REG
+          PIN     4       C       REG
+          PIN     5       D       REG
+          PIN     6       E       REG
+          GROUP   QRST    A  B  C  D
+
+     ;EQUATIONS
+          QRST.RSTF =     RES
+
+     ;This expands to
+          A.RSTF  =       RES
+          B.RSTF  =       RES
+          C.RSTF  =       RES
+          D.RSTF  =       RES
+ú
+Related Topics
+Declaration Segment
+MACH_SEG_A, MACH_SEG_B, MACH_SEG_C, MACH_SEG_D
+NODE
+PIN
+ú

@@ -1,0 +1,67 @@
+ğ
+.R EQUATION
+Overview
+This equation defines when to set the R input on S-R flip-flops high.
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+        Pn.R        Assignment operator     Expression
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Device Support:  PLS105    PLS167    PLS168    PLS30S16    PALCE610
+                 PAL22IP6
+ú
+Syntax
+Use the .R equation in the equations segment of design files with
+Boolean or state-machine designs.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+        Pn.R        Assignment operator     Expression
+
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+    EQUATIONS
+        ...
+        Q1.R                   =            IN1 * /IN2
+        ...
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+
+Pn.R            The pin or node associated with the S-R flip-flop.
+                The name must be defined in an earlier pin or node
+                statement in the declaration segment.
+
+
+Assignment Operator    A symbol that defines a specific operation as
+                       interpreted by the software when processing
+                       design files.
+
+
+Expression      Identifies the logic you define to determine when the
+                R input in an S-R flip-flop is set high.  In the
+                syntax example, when IN1 is true and IN2 is false, the
+                R input in the S-R flip-flop associated with the pin
+                or node Q1 is set high.
+ú
+USE
+You can place the .R equation anywhere in the equations segment.
+Observe the following rules.
+
+ş    You cannot have multiple equations for the same pin.  If you do,
+     the software reports an error during compilation and processing
+     is halted.
+
+ş    You cannot use negative polarity on the left side of the
+     equation.  For example, /Q1.R is not allowed.
+
+ş    You can use the GROUP, STRING, and VECTOR notation to define
+     signals.  This is an excellent way to assign a .R equation to
+     several pins.
+ú
+Related Topics
+Boolean Equation
+EXPRESSION
+.S Equation
+ú

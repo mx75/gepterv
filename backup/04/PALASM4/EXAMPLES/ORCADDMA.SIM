@@ -1,0 +1,30 @@
+SIMULATION
+
+
+
+TRACE_ON CLOCK Q0 Q1 Q2 Q3 Q4 Q5 Q6 Q7 TC LDACNTR ENABLE
+SETF /CLOCK /D0 /D1 /D2 /D3 /D4 /D5 /D6 /D7 /LDACNTR /ENABLE
+SETF /LDWCNTR
+CLOCKF CLOCK
+CHECK /Q0 /Q1 /Q2 /Q3 /Q4 /Q5 /Q6 /Q7 /TC
+SETF D1 D3 D5 D7 LDWCNTR LDACNTR
+CLOCKF CLOCK
+CHECK /Q0 Q1 /Q2 Q3 /Q4 Q5 /Q6 Q7
+SETF D0 /D1 D2 /D3 D4 /D5 D6 /D7 /ENABLE
+CLOCKF CLOCK
+CHECK Q0 /Q1 Q2 /Q3 Q4 /Q5 Q6 /Q7
+SETF D1 D3 D5 D7
+CLOCKF CLOCK
+CHECK Q0 Q1 Q2 Q3 Q4 Q5 Q6 Q7
+SETF ENABLE /LDACNTR /LDWCNTR
+FOR I:=0 TO 127 DO
+                        BEGIN
+                                CLOCKF CLOCK
+                        END
+CHECK Q0 Q1 Q2 Q3 Q4 Q5 Q6 /Q7
+TRACE_OFF
+                                                                                         ;-------------------------------------------------------------------
+
+
+
+

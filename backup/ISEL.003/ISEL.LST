@@ -1,0 +1,76 @@
+LISTING FOR LOGIC DESCRIPTION FILE: isel.pld.pld                     Page 1
+
+CUPL: Universal Compiler for Programmable Logic
+Version 4.0a Serial# MD-40A-8249
+Copyright (C)  1983,1990 Logical Devices, Inc.
+Created Fri Sep 18 12:16:38 2026
+
+  1:Name      isel;
+  2:Partno    v1;
+  3:Date      10/08/85;
+  4:Rev       01;
+  5:Designer  Michael;
+  6:Company   SufniFabrik;
+  7:Assembly  None;
+  8:Location  None;
+  9:Device    p20l8lcc;
+ 10:
+ 11:/** Inputs **/
+ 12:Pin [5..3]      = [IEO_KIO_A,IEO_KIO_B,IEO_DMA_A];
+ 13:Pin [10..9,7]   = [IEO_DMA_B,IEO_DMA_C,IEO_DMA_D];
+ 14:Pin 12          = ISEL;
+ 15:/*pin 2,6,11,17*/
+ 16:
+ 17:/** Outputs **/
+ 18:Pin [18..20]    = [IEI_KIO_A,IEI_KIO_B,IEI_DMA_A];
+ 19:Pin [23..25]    = [IEI_DMA_B,IEI_DMA_C,IEI_DMA_D];
+ 20:/*pin 21,26*/
+ 21:
+ 22:/*
+ 23:[IEI_KIO_A,IEI_KIO_B,IEI_DMA_A].oe    = 'b'1;
+ 24:[IEI_DMA_B,IEI_DMA_C,IEI_DMA_D].oe    = 'b'1;
+ 25:*/
+ 26:!IEI_KIO_A.OE    = 'b'0;
+ 27:!IEI_KIO_B.OE    = 'b'0;
+ 28:!IEI_DMA_A.OE    = 'b'0;
+ 29:!IEI_DMA_B.OE    = 'b'0;
+ 30:!IEI_DMA_C.OE    = 'b'0;
+ 31:!IEI_DMA_D.OE    = 'b'0;
+ 32:
+ 33:/*
+ 34:0: KIO1 -> DMA1 -> DMA2 -> KIO2 -> DMA3 -> DMA4
+ 35:1: DMA4 -> KIO1 -> DMA1 -> DMA2 -> KIO2 -> DMA3
+ 36:*/
+ 37:IEI_KIO_A    = !ISEL & 'b'1
+ 38:             #  ISEL & (IEO_DMA_D)
+ 39:             ;
+ 40:IEI_KIO_B    = !ISEL & IEO_KIO_A & IEO_DMA_A & IEO_DMA_B
+ 41:             #  ISEL & IEO_DMA_D & IEO_KIO_A & IEO_DMA_A & IEO_DMA_B
+ 42:             ;
+ 43:IEI_DMA_A    = !ISEL & IEO_KIO_A
+ 44:             #  ISEL & IEO_DMA_D & IEO_KIO_A
+ 45:             ;
+ 46:IEI_DMA_B    = !ISEL & IEO_KIO_A & IEO_DMA_A
+ 47:             #  ISEL & IEO_DMA_D & IEO_KIO_A & IEO_DMA_A
+ 48:             ;
+ 49:IEI_DMA_C    = !ISEL & IEO_KIO_A & IEO_DMA_A & IEO_DMA_B & IEO_KIO_B
+ 50:             #  ISEL & IEO_DMA_D & IEO_KIO_A & IEO_DMA_A & IEO_DMA_B & IEO_KIO_B
+ 51:             ;
+ 52:IEI_DMA_D    = !ISEL & IEO_KIO_A & IEO_DMA_A & IEO_DMA_B & IEO_KIO_B & IEO_DMA_C
+ 53:             #  ISEL & 'b'1
+
+LISTING FOR LOGIC DESCRIPTION FILE: isel.pld.pld                     Page 2
+
+CUPL: Universal Compiler for Programmable Logic
+Version 4.0a Serial# MD-40A-8249
+Copyright (C)  1983,1990 Logical Devices, Inc.
+Created Fri Sep 18 12:16:38 2026
+
+ 54:             ;
+ 55:
+ 56:
+
+
+
+Jedec Fuse Checksum       (80ed)
+Jedec Transmit Checksum   (635d)

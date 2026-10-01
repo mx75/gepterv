@@ -1,0 +1,64 @@
+ğ
+.CMBF
+Overview
+This reserved word in a functional equation allows you to customize
+a flip-flop for dynamic register bypass.
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+       Pn.CMBF        Assignment Operator       Expression
+
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Device Support: PAL32VX10
+ú
+Syntax
+
+You include this functional equation only in the equations segment of
+either Boolean or state designs.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+       Pn.CMBF        Assignment Operator       Expression
+
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+       OUT1.CMBF               =                IN4 * /IN3
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+
+Pn.CMBF         A pin or node name followed by the reserved word,
+                .CMBF.  The name must be defined in an earlier pin or
+                node statement in the declaration segment.
+
+                ş  You cannot use negative polarity on the left side
+                   of the equation.
+
+                ş  You can use the group, string, and vector notation
+                   features to define signals, which is an excellent
+                   way to assign this statement to several pins and
+                   nodes.
+
+Assignment      A symbol that defines a specific operation as
+Operator        interpreted by the software when processing design
+                files.
+
+Expression      Identifies the logic that you assign to define the
+                flip-flop that's to be bypassed.  In the syntax
+                example, when IN4 and /IN3 are true, OUT1 is true and
+                the flip-flop associated with OUT1 is bypassed.
+ú
+Use
+The .CMBF statement overrides the pin or node type you defined as
+registered in the pin and node statement in the declaration segment.
+The default case is set to combinatorial.
+
+If you have multiple functional equations for the same pin or node, an
+error occurs during assembly.
+ú
+Related Topics
+Boolean Equation
+COMBINATORIAL
+EXPRESSION
+Functional Equation
+REGISTERED
+ú

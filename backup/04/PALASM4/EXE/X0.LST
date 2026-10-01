@@ -1,0 +1,49 @@
+@ FITR v1.70 5/23/94 - Market Release Notes
+. 
+FITR -A -C -D x -E x -F -G -H -U -P -Q -Z Filename.ext
+. 
+ "Filename.ext" Optional name for user design file (Last item on line)
+ -A Alternate Input File Format (Design.PLA instead of Palasm2.TRE)
+ -D Sets Printout Level (x=0,1,2 - no check on range)
+. 
+ -E Expand Small PT's Assignment Pitch (allows looser packing of blocks)
+ ...(x=Number of additional 'randomized' assignment cycles - Optional)
+. 
+ -F Full flag (allows more complete packing of logic blocks)
+ -G Expand All PT's Assignment Pitch (allows looser packing of blocks)
+ -U Unplace all equations (floats all pin assignments & breaks Groups)
+. 
+ -H Displays this Release Note listing
+ -P Enables pause of screen display (<Enter> to resume)
+ -Q Quiet run option (No text output to screen)
+ -C Enables Upper/Lower Case Operation for signal names
+ -Z Program unused pins as outputs (not inputs)
+. 
+ (Command line options may be in any order
+& either upper or lower case, - & single letter only)
+. 
+FITR v1.70 5/23/94 - Market Release Notes
+1. Fix of Polarity on PLA TRST/S/R Functions
+2. Block Renumber for P2 design
+3. Latch polartity - XLAT orcad.
+. 
+FITR v1.69 11/20/93 - Internal Release Notes
+1. Fix of S/R Bank PrePlacements - Single functions
+2. Tristate Comb functions - Internal fdbk
+3. Placment annonation for Pairing w/ many signals
+4. Clock polarity issues - 215 (several)
+5. Internal errors 215
+. 
+FITR v1.68 3/20/93 - Market Release Notes
+1. Fix of CUPL PLA file pre-placement of registered input.
+2. Fix of S/R banking for un-specified functions.
+3. Fix of 230 registered input block limit.
+4. Fix of 110 three-state matching function.
+. 
+FITR v1.67 7/24/92 - Market Release Notes
+1. Unused bug - Jerry M.
+2. Fixed Bugs 2452 62 63 65 66 71 73 75 76 77 78 & 36 & 86 & 88 89
+. & 98 99
+3. Pending bugs 2212 53 44 2425 67 -> 1.x
+4. Orcad bugs.
+. 

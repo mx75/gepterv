@@ -1,0 +1,260 @@
+TITLE    DRAM TIMING * ARB CONTROLLER
+PATTERN  DRAM_CTRL.PDS
+REVISION 1.0
+AUTHOR   KAPIL SHANKAR
+COMPANY  ADVANCED MICRO DEVICES
+DATE     03/24/86
+
+CHIP Dram_Ctrl MACH210
+ 
+NODE 1 Global
+PIN ? VCC
+PIN ? GND
+PIN ? CLK
+
+; Inputs
+PIN ? MREQ
+PIN ? ADSEL0
+PIN ? ADSEL1
+PIN ? RMC
+PIN ? RFCLK
+PIN ? A0
+PIN ? A1
+PIN ? RW
+PIN ? SIZ0
+PIN ? SIZ1
+PIN ? PRT0
+PIN ? PRT1
+
+; Outputs
+PIN ? ROWADD
+PIN ? /RAS0
+PIN ? /COLADD
+PIN ? /RAS1
+PIN ? /RAS2
+PIN ? /RFSH
+PIN ? /RAS3
+PIN ? /WE
+PIN ? /CAS2
+PIN ? /CAS0
+PIN ? /CAS3
+PIN ? /CAS1
+PIN ? /DSACK1
+PIN ? /DSACK0
+;Internal Nodes
+NODE ? B0
+NODE ? B1
+NODE ? B2
+NODE ? B3
+NODE ? SIG
+NODE ? X0
+NODE ? X1
+NODE ? X2
+NODE ? X3
+NODE ? X4
+NODE ? X5
+
+
+Equations
+
+GLOBAL.RSTF = GND
+
+RFSH  :=  /X0 * /X1 * /X2 * /X3 * /X4 * X5
+       + /X1 * /X2 * /X3 * X4
+       + /X0 * X1 * /X2 * /X3 * X4
+RFSH.CLKF = CLK
+
+X0  :=  /X0 * /X1 * X2 * /X3 * X4
+       + /X0 * /X1 * /MREQ * /X2 * /X3 * /X4 * /X5
+       + /X0 * /X2 * /X3 * X4
+       + /X0 * X3 * /X4
+       + /X0 * X1 * /X3 * /X4
+       + /X0 * /X1 * X2 * /X3 * /X4 * RMC
+X0.CLKF = CLK
+
+X1  :=  /X0 * X1 * /X2 * /X3 * X4
+       + X0 * /X1 * X3 * /X4
+       + X0 * /X1 * /X3
+       + /X0 * X1 * /X4
+X1.CLKF = CLK
+
+X2  :=  /X1 * X2 * /X3 * X4
+       + X0 * X1 * /X2 * /X3 * X4
+       + /X0 * /X1 * X2 * X3 * /X4
+       + X0 * X1 * /X2 * /X4
+       + /X0 * /X1 * X2 * /X3 * /X4 * RMC
+       + X0 * /X1 * X2 * /X4
+       + /X0 * X1 * X2 * /X4
+X2.CLKF = CLK
+
+X3  :=  /X0 * X1 * X2 * X3 * /X4
+       + X1 * /X2 * X3 * /X4
+       + /X0 * /X1 * X2 * /X3 * /X4 * /RMC
+       + /X1 * X3 * /X4
+X3.CLKF = CLK
+
+X4  :=  X1 * /X2 * /X3 * X4
+       + /X0 * /X1 * /X2 * /X3 * /X4 * X5
+       + /X1 * /X3 * X4
+ X4.CLKF = CLK
+
+X5  :=  /X5 * RFCLK
+       + /RFSH * /X5
+X5.CLKF = CLK
+
+SIG  :=  X0 * /X2 * /X3 * /X4
+       + /X0 * X1 * /X2 * /X4
+       + /X0 * /X1 * X2 * /X4
+       + X0 * /X1 * X2 * X3 * /X4
+       + /X1 * /X2 * X3 * /X4
+       + X0 * X1 * /X2 * X3 * /X4
+SIG.CLKF = CLK
+
+COLADD  :=  X0 * /X2 * /X3 * /X4
+       + /X0 * X1 * /X2 * /X3 * /X4
+COLADD.CLKF = CLK
+
+ROWADD  :=  /X0 * /X1 * /X2 * /X3 * /X4 * X5
+       + X0 * /X2 * /X3 * /X4
+       + /X0 * X1 * /X2 * /X3
+       + /X1 * /X2 * /X3 * X4
+ROWADD.CLKF = CLK
+
+RAS0  :=  /X0 * /X1 * /MREQ * /X2 * /X3 * /X4 * /ADSEL0 * /X5 * /ADSEL1
+       + X0 * /X2 * /X3 * /X4 * /ADSEL0 * /ADSEL1
+       + /X0 * X1 * /X2 * /X4 * /ADSEL0 * /ADSEL1
+       + /X0 * X1 * /X2 * /X3 * X4
+       + /X0 * /X1 * X2 * /X3 * /X4 * /ADSEL0 * /ADSEL1 * /RMC
+       + /X1 * /X2 * X3 * /X4 * /ADSEL0 * /ADSEL1
+       + X0 * X1 * /X2 * X3 * /X4 * /ADSEL0 * /ADSEL1
+       + /X0 * /X1 * X2 * X3 * /X4 * /ADSEL0 * /ADSEL1
+       + /X1 * /X2 * /X3 * X4
+RAS0.CLKF = CLK
+
+RAS1  :=  /X0 * /X1 * /MREQ * /X2 * /X3 * /X4 * ADSEL0 * /X5 * /ADSEL1
+       + X0 * /X2 * /X3 * /X4 * ADSEL0 * /ADSEL1
+       + /X0 * X1 * /X2 * /X4 * ADSEL0 * /ADSEL1
+       + /X0 * X1 * /X2 * /X3 * X4
+       + /X0 * /X1 * X2 * /X3 * /X4 * ADSEL0 * /ADSEL1 * /RMC
+       + /X1 * /X2 * X3 * /X4 * ADSEL0 * /ADSEL1
+       + X0 * X1 * /X2 * X3 * /X4 * ADSEL0 * /ADSEL1
+       + /X0 * /X1 * X2 * X3 * /X4 * ADSEL0 * /ADSEL1
+       + /X1 * /X2 * /X3 * X4
+RAS1.CLKF = CLK
+
+RAS2  :=  /X0 * /X1 * /MREQ * /X2 * /X3 * /X4 * /ADSEL0 * /X5 * ADSEL1
+       + X0 * /X2 * /X3 * /X4 * /ADSEL0 * ADSEL1
+       + /X0 * X1 * /X2 * /X4 * /ADSEL0 * ADSEL1
+       + /X0 * X1 * /X2 * /X3 * X4
+       + /X0 * /X1 * X2 * /X3 * /X4 * /ADSEL0 * ADSEL1 * /RMC
+       + /X1 * /X2 * X3 * /X4 * /ADSEL0 * ADSEL1
+       + X0 * X1 * /X2 * X3 * /X4 * /ADSEL0 * ADSEL1
+       + /X0 * /X1 * X2 * X3 * /X4 * /ADSEL0 * ADSEL1
+       + /X1 * /X2 * /X3 * X4
+RAS2.CLKF = CLK
+
+RAS3  :=  /X0 * /X1 * /MREQ * /X2 * /X3 * /X4 * ADSEL0 * /X5 * ADSEL1
+       + X0 * /X2 * /X3 * /X4 * ADSEL0 * ADSEL1
+       + /X0 * X1 * /X2 * /X4 * ADSEL0 * ADSEL1
+       + /X0 * X1 * /X2 * /X3 * X4
+       + /X0 * /X1 * X2 * /X3 * /X4 * ADSEL0 * ADSEL1 * /RMC
+       + /X1 * /X2 * X3 * /X4 * ADSEL0 * ADSEL1
+       + X0 * X1 * /X2 * X3 * /X4 * ADSEL0 * ADSEL1
+       + /X0 * /X1 * X2 * X3 * /X4 * ADSEL0 * ADSEL1
+       + /X1 * /X2 * /X3 * X4
+RAS3.CLKF = CLK
+
+B0:= /B0 * /B2 * B3
+  +  B0 * B1 * /B2 * /B3 * /RMC
+  + /PRT0 * /B0 * /B1 * /B2 * /B3 * /SIG
+  + /B0 * B1 * /B3
+  + /B0 * /B1 * /B2 * /B3 * RMC * /SIG * /RW
+  +  PRT0 * PRT1 * /B0 * /B1 * /B2 * /B3 * /SIG
+B0.CLKF = CLK
+
+B1:= /B0 * B1 * /B2 * B3
+  +  B0 * /B1 * /B2 * B3
+  + /B0 * B1 * /B3
+  +  PRT0 * PRT1 * B0 * /B1 * /B2
+  + /PRT0 * B0 * /B1 * /B2
+  +  B0 * /B1 * /B3
+B1.CLKF = CLK
+
+DSACK0:= /PRT0 * /PRT1 * /B0 * /B1 */B2 */B3 * /SIG
+  +  PRT0 * PRT1 * /B0 * /B1 * /B2 * /B3 * /SIG
+  + /PRT0 * /PRT1 * B0 * /B1 * /B2
+  + /PRT0 * /PRT1 * /B0 * B1 * /B2 * /B3
+  +  PRT0 * PRT1 * /B0 * B1 * /B2 * /B3
+  +  PRT0 * PRT1 * /B1 * /B2 * B3
+  + /PRT0 * /PRT1 * B0 * B1 * B2 * /B3
+  +  PRT0 * PRT1 * B0 * B1 * B2 * /B3
+  + /PRT0 * /PRT1 * /B0 * /B1 * /B2 * B3
+DSACK0.CLKF = CLK
+
+B2:= /B0 * B1 * B2 * /B3
+  + B0 * /B1 * B2 * /B3
+  + B0 * B1 * /B2 * /B3
+B2.CLKF = CLK
+
+DSACK1:=  PRT1 * /B0 * /B1 * /B2 * /B3 * /SIG
+  + PRT1 * B0 * /B1 * /B2
+  + PRT1 * /B0 * B1 * /B2 * /B3
+  + PRT1 * /B0 * /B1 * /B2 * B3
+  + PRT1 * B0 * B1 * B2 * /B3
+DSACK1.CLKF = CLK
+
+B3:= /B0 * B1 * /B2 * B3
+  + /B1 * /B2 * B3
+  + B0 * B1 * B2 * /B3
+B3.CLKF = CLK
+
+WE:=  /B0 * /B1 * /B2 * /B3 * RMC * /SIG * /RW
+  + B0 * /B1 * /B2 * /B3 * RMC * /RW
+  + /B0 * B1 * /B2 * /B3 * RMC * /RW
+  + /B1 * /B2 * B3
+  + B0 * B1 * B2 * /B3
+WE.CLKF = CLK
+
+CAS0:=  B0 * /B1 * /B3 * CAS0
+  + /B0 * B1 * /B3 * CAS0
+  + /B1 * /B2 * B3 * CAS0
+  + B0 * B1 * /B2 * /B3 * /RMC * CAS0
+  + B0 * B1 * B2 * /B3 * CAS0
+CAS0.CLKF = CLK
+
+CAS1:= PRT0 * PRT1 * /A0 * /B0 * A1 * /B1 * /B2 * /B3 * /SIG
+  + PRT0 * /SIZ0 * PRT1 * /SIZ1 * /B0 * /A1 * /B1 * /B2 * /B3 * /SIG
+  + PRT0 * SIZ0 * PRT1 * SIZ1 * /B0 * /A1 * /B1 * /B2 * /B3 * /SIG
+  + PRT0 * /SIZ0 * PRT1 * A0 * /B0 * /A1 * /B1 * /B2 * /B3 * /SIG
+  + PRT0 * SIZ0 * PRT1 * SIZ1 * A0 * /B0 * /B1 * /B2 * /B3 * /SIG
+  + B0 * /B1 * /B3 * CAS1
+  + /B0 * B1 * /B3 * CAS1
+  + /B1 * /B2 * B3 * CAS1
+  + B0 * B1 * /B2 * /B3 * /RMC * CAS1
+  + B0 * B1 * B2 * /B3 * CAS1
+CAS1.CLKF = CLK
+
+CAS2:= /PRT0 * /SIZ0 * PRT1 * SIZ1 * A0 * /B0 * /B1 * /B2 * /B3 * /SIG
+  + PRT0 * PRT1 * A0 * /B0 * /A1 * /B1 * /B2 * /B3 * /SIG
+  + PRT0 * /SIZ0 * PRT1 * /B0 * /A1 * /B1 * /B2 * /B3 * /SIG
+  + PRT0 * PRT1 * SIZ1 * /B0 * /A1 * /B1 * /B2 * /B3 * /SIG
+  + PRT0 * /SIZ0 * PRT1 * /SIZ1 * /B0 * /B1 * /B2 * /B3 * /SIG
+  + B0 * /B1 * /B3 * CAS2
+  + /B0 * B1 * /B3 * CAS2
+  + /B1 * /B2 * B3 * CAS2
+  + B0 * B1 * /B2 * /B3 * /RMC * CAS2
+  + B0 * B1 * B2 * /B3 * CAS2
+CAS2.CLKF = CLK
+
+CAS3:= /PRT0 * /PRT1 * /B0 * /B1 * /B2 * /B3 * /SIG
+  + /PRT0 * PRT1 * /A0 * /B0 * /B1 * /B2 * /B3 * /SIG
+  + PRT0 * PRT1 * /A0 * /B0 * /A1 * /B1 * /B2 * /B3 * /SIG
+  + PRT0 * PRT1 * A0 * /B0 * A1 * /B1 * /B2 * /B3 * /SIG
+  + B0 * /B1 * /B3 * CAS3
+  + /B0 * B1 * /B3 * CAS3
+  + /B1 * /B2 * B3 * CAS3
+  + B0 * B1 * /B2 * /B3 * /RMC * CAS3
+  + B0 * B1 * B2 * /B3 * CAS3
+CAS3.CLKF = CLK
+
+

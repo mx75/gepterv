@@ -1,0 +1,51 @@
+Name      iosel;
+Partno    v1;
+Date      10/08/85;
+Rev       01;
+Designer  Michael;
+Company   SufniFabrik;
+Assembly  None;
+Location  None;
+Device    p20l8lcc;
+
+/** Inputs **/
+Pin 2      =  A7;
+Pin 3      =  A6;
+Pin 4      =  A5;
+Pin 13     =  A4;
+/*
+Pin 5      =  BA7;
+Pin 6      =  BA6;
+Pin 7      =  BA5;
+*/
+Pin 9      = !MX;
+Pin 10     = !IOREQ;
+/*
+Pin 11     = !WR;
+Pin 12     = !RD;
+*/
+Pin 17     =  A3;
+Pin 27     =  A2;
+/*
+Pin 16     =  A1;
+Pin 25     =  A0;
+*/
+
+/** Outputs **/
+Pin 18      = !CS_REG;
+Pin 19      = !CS_KIO1;
+Pin 20      = !CS_KIO2;
+Pin 21      = !CS_I2C;
+Pin 23      = !CS_DMA1;
+Pin 24      = !CS_DMA2;
+Pin 25      = !CS_DMA3;
+Pin 26      = !CS_DMA4;
+
+CS_KIO1 =  IOREQ & !MX & !A7 &  A6 & !A5 & !A4;
+CS_KIO2 =  IOREQ & !MX & !A7 &  A6 & !A5 &  A4;
+CS_I2C  =  IOREQ & !MX & !A7 &  A6 &  A5 & !A4 & !A3;
+CS_DMA1 =  IOREQ & !MX & !A7 &  A6 &  A5 & !A4 &  A3;
+CS_DMA2 =  IOREQ & !MX & !A7 &  A6 &  A5 &  A4 & !A3;
+CS_DMA3 =  IOREQ & !MX & !A7 &  A6 &  A5 &  A4 &  A3;
+CS_DMA4 =  IOREQ & !MX &  A7 & !A6 & !A5 & !A4 & !A3;
+CS_REG  =  IOREQ & !MX &  A7 & !A6 & !A5 & !A4 &  A3;

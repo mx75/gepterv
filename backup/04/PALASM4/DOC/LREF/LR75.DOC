@@ -1,0 +1,70 @@
+ð
+WHILE-DO
+Overview
+This is a simulation construct that looks at a logical condition and 
+performs a specified task as long as the condition is true.
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+       WHILE (Condition) DO
+            BEGIN
+                Task
+            END
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+
+Device Support:  All PLD devices.
+ú
+Syntax
+Use this construct in an auxiliary simulation file or the simulation
+segment of Boolean and state-machine designs.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+       WHILE (Condition) DO
+            BEGIN
+                Task
+            END
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+    SIMULATION
+       ...
+       WHILE (/BIT2 * /BIT3) DO
+            BEGIN
+                CLOCKF CLOCK
+            END
+        ...
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+
+Condition       Identifies any Boolean expression.  You can use more
+                than one condition if you separate them by commas.
+                The software ANDs multiple conditions together.  If
+                the WHILE-DO construct is nested in a FOR-TO-DO
+                construct, the condition can also be the index
+                variable of the FOR-TO-DO construct. You cannot use an
+                index variable outside its defining FOR-TO-DO
+                construct.
+
+                Use parentheses to enclose the WHILE condition.
+                However, you cannot nest parentheses.
+
+Task            Identifies the simulation task the software performs
+                during the WHILE-DO loop.  Use BEGIN-END to enclose
+                the task. Indent BEGIN-END statements to make your
+                program easier to follow.
+ú
+Use
+You can nest WHILE-DO constructs within CASE, FOR-TO-DO, IF-THEN-ELSE,
+and other WHILE-DO constructs.  There is no limit to the number of
+constructs you can have in your design.  However, using a minimal
+number of nests may make your program easier to follow and faster to
+compile. The condition can be any Boolean expression of logic signals
+or mathematical equality:  =, >, <, >=, <=, and <>.
+ú
+Related Topics
+FOR-TO-DO
+IF-THEN-ELSE, SIMULATION
+ú

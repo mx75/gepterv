@@ -1,0 +1,81 @@
+text; (Az EQUATIONS szekció lezárása után illeszd be)
+
+SIMULATION
+
+; ---------------------------------------------------------------------
+; INITIALIZATION: Alapállapot beállítása (RESET aktív)
+; ---------------------------------------------------------------------
+SETF /RESET /IORQ /MREQ /WR /RD
+SETF A[12..15]=0 A[0..7]=0 D[0..7]=0
+CLOCK
+CHECK /ROM_CS /RAM_CS          ; RESET alatt egyik memóriát sem választjuk ki
+
+; ---------------------------------------------------------------------
+; TEST 1: HARDVERES RESET UTÁNI BOOT ÁLLAPOT (ROM_ENABLE = 1)
+; ---------------------------------------------------------------------
+SETF RESET                     ; RESET felengedése, elindul a CPU
+CLOCK
+
+; Olvasás a fix alsó 32KB zónából (pl. címen: $0100 -> A15..A12 = 0000)
+SETF /MREQ /RD RESET
+SETF A15=0 A14=0 A13=0 A12=0
+CLOCK
+CHECK ROM_CS /RAM_CS           ; Olvasáskor a ROM_CS-nek kell aktívnak lennie (0)!
+
+; Írás ugyanebbe a zónába (Shadow RAM írás teszt: /WR=0, /RD=1)
+SETF /MREQ RD /WR
+CLOCK
+CHECK /ROM_CS RAM_CS           ; Íráskor a RAM_CS lesz aktív (0), a ROM_CS inaktív (1)!
+
+; ---------------------------------------------------------------------
+; TEST 2: BOOT ROM LEKAPCSOLÁSA (Írás a $F4-es I/O portra, D0 = 0)
+; ---------------------------------------------------------------------
+SETF /IORQ /WR RD /MREQ
+SETF A7=1 A6=1 A5=1 A4=1 /A3=0 /A2=0 A1=0 A0=0 ; Port $F4 címzése
+SETF D0=0                      ; Adatbusz D0 = 0 (ROM_ENABLE lekapcsolása)
+CLOCK                          ; Elmenti a Latch a 0-t
+
+; Ellenőrizzük, hogy lekapcsolódott-e! Olvasás a fix zónából ($0100)
+SETF IORQ WR /MREQ /RD         ; Visszaváltunk memória olvasásra
+SETF A15=0 A14=0 A13=0 A12=0
+CLOCK
+CHECK /ROM_CS RAM_CS           ; Most már OLVASÁSKOR IS a RAM_CS aktív! Sikerült a shadow lekapcsolás.
+
+; ---------------------------------------------------------------------
+; TEST 3: W4 (16KB) ABLAK BANKVÁLTÁS ($C000 TARTOMÁNY)
+; ---------------------------------------------------------------------
+; Írjunk a $F3 portra a W4 ablakhoz (pl. 42-es bankot -> binárisan 00101010)
+SETF /IORQ /WR RD /MREQ
+SETF A7=1 A6=1 A5=1 A4=1 /A3=0 /A2=0 A1=1 A0=1 ; Port $F3
+SETF D[0..7]=42                ; Betöltjük a 42-es értéket az adatbuszra
+CLOCK                          ; Latch órajel
+
+; Olvassunk a W4 ablakból ($C000 -> A15=1, A14=1)
+SETF IORQ WR /MREQ /RD
+SETF A15=1 A14=1 A13=0 A12=0
+CLOCK
+CHECK /ROM_CS RAM_CS           ; Felső ablak mindig RAM-ot ér el
+; Ellenőrizzük a kimenő fizikai 1MB-os címbuszt! 
+; Mivel a W4 16KB-os, az MA19..MA14-nek a 42-es számot kell mutatnia (bináris 101010)
+; Az MA13 és MA12 pedig követi a CPU A13, A12 vonalait (most épp 0, 0)
+CHECK MA19=1 MA18=0 MA17=1 MA16=0 MA15=1 MA14=0
+CHECK MA13=0 MA12=0
+
+; ---------------------------------------------------------------------
+; TEST 4: W1 (4KB) ABLAK BANKVÁLTÁS ($8000 TARTOMÁNY)
+; ---------------------------------------------------------------------
+; Írjunk a $F0 portra a W1 ablakhoz (pl. 137-es bankot -> binárisan 10001001)
+SETF /IORQ /WR RD /MREQ
+SETF A7=1 A6=1 A5=1 A4=1 /A3=0 /A2=0 A1=0 A0=0 ; Port $F0
+SETF D[0..7]=137
+CLOCK
+
+; Olvassunk a W1 ablakból ($8000 -> A15=1, A14=0, A13=0, A12=0)
+SETF IORQ WR /MREQ /RD
+SETF A15=1 A14=0 A13=0 A12=0
+CLOCK
+; Az 4KB-os ablaknál az MA19..MA12 a teljes 8-bites regisztert (137-es érték = 10001001) kapja meg
+CHECK MA19=1 MA18=0 MA16=0 MA15=0 MA14=1 MA13=0 MA12=1
+
+TRACE ON MA[12..19] ROM_CS RAM_CS ; Engedélyezi a grafikus hullámforma követést ezekre a jelekre
+Körültekintően használja a kódot.

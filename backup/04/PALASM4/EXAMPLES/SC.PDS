@@ -1,0 +1,27 @@
+; NET2PDS - vers 4.05.21 (12/06/1990) - (c)1990 Advanced Micro Devices, Inc.
+; PDS file created    2/25/1991   3:34p
+; Sourcefile: "SC.jnf"
+
+TITLE            ?
+REVISION         ?
+PATTERN          ?
+AUTHOR           ?
+COMPANY          ?
+DATE            2/25/1991
+
+CHIP     _SC    MACH110
+
+  PIN     ?       D                                   
+  PIN     ?       EN                                  
+  PIN     ?       SET                                 
+  PIN     ?       Q                    REGISTERED     
+  PIN     ?       CLK                                 
+  PIN     ?       CLR                                 
+
+EQUATIONS
+
+ Q = (D * /CLR * EN) + SET + (/EN * /CLR * Q)
+ Q.clkf = CLK
+ Q.setf = GND
+ Q.rstf = GND
+

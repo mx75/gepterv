@@ -1,0 +1,155 @@
+STATE SYNTAX
+
+When designing MACH355/435/445/465 state machines, you should not
+rely on power-up reset to establish a start-up state.  Asynchronous
+initialization product term allocation may result in a start-up state 
+other than the one specified.  For this reason, the START_UP 
+command is not supported by the MACHXL software state machine
+syntax.
+
+In order to set up a known starting state, you must do the following 
+when using state machine syntax:
+
+        1. define the initial state; and
+        2. define the initialization transition.
+
+1. Defining the initial state
+
+The state machine needs to know which state bit values you intend as 
+the initial state.  If you do not specify this, the software will
+assign them  for you, and they might not agree with what you want.
+This is done by defining the state bit pattern for at least the
+initial state using the following syntax:
+
+INITIAL_STATE = BIT0*/BIT1*/BIT2*... ;AS APPROP
+
+This syntax is defined in the MACHXL Software User's Manual.
+
+2. Defining the initialization transition
+
+There are a number of ways you can do this.  You can design either 
+synchronous or asynchronous initialization.  In the synchronous case, 
+you can use either the state machine section or boolean equations to 
+establish the starting state.  Asynchronous initialization uses boolean 
+equations.
+
+Synchronous initialization
+
+Synchronous initialization provides a reset that is synchronized with 
+the state machine clock.  Once the reset input condition is active, the 
+initialization will occur on the next clock edge.  The practical 
+implications of this are that when you power up, you need to assert the 
+reset condition and clock the device in order to start out in the right 
+state.
+
+The most rigorous way to build initialization into your state machine 
+is to include it explicitly in the state machine definition.  This means 
+that for every state, a transition should be provided back to the initial 
+state.  This transition is to be taken if the reset input condition exists.  
+All other transitions should be qualified to make sure they donÕt occur 
+when the reset input condition is active.  In addition, the best solution 
+is to define all unused states with a reset transition to ensure correct 
+initialization out of any illegal states.
+
+As an example, suppose we have the following simple three-state 
+machine, implemented with three of the four combinations of two 
+state bits:
+
+STATE
+
+STATE1 := IN1 -> STATE2
+        +-> STATE3
+
+STATE2 := VCC -> STATE3
+
+STATE3 := VCC -> STATE1
+
+Given a reset input called RST, and assuming we want our initial state 
+bit value to be [00], this machine can be modified as follows:
+
+STATE
+
+STATE1 = /Q0*/Q1  ;DEFINE THE INITIAL STATE BITS
+
+STATE1 := COND1 -> STATE2
+        + RST -> STATE1	;ADD RESET TRANSITION
+        +-> STATE3
+
+STATE2 := RST -> STATE1   ;ADD RESET TRANSITION
+        +-> STATE3
+
+STATE3 := VCC -> STATE1   ;NO EXTRA TRANSITION NEEDED
+
+ILLEGAL1 := VCC -> STATE1  ;BEST, OR RST -> STATE1
+
+CONDITION
+
+COND1 = IN1*/RST          ;THIS TRANSITION ONLY IF NOT RESETING
+
+Another possibility is to add some boolean equations following the 
+state machine section.  This requires the use of curly brackets ({}),
+since you will be modifying equations that the software will generate
+from the state machine section; you wonÕt know what those equations
+will look like when you are writing the equations.
+
+Assuming you are using Q0 and Q1 to implement the state bits, and 
+you wanted [00] as the initial state, you could solve the equations above 
+in the following way.
+
+STATE
+
+STATE1 = /Q0*/Q1  ;DEFINE THE INITIAL STATE BITS
+
+STATE1 := IN1 -> STATE2
+        +-> STATE3
+
+STATE2 := VCC -> STATE3
+
+STATE3 := VCC -> STATE1
+
+   ;WOULD STILL BE GOOD TO DEFINE ILLEGAL STATE
+
+EQUATIONS
+
+;AND ALL PRODUCT TERMS WITH /RST IF 0 DESIRED
+
+Q0 := {Q0}*/RST
+Q1 := {Q1}*/RST
+
+   ;ADD RST PRODUCT TERM IF 1 WERE DESIRED
+
+   ;Q0 := {Q0}
+   ;    + RST
+
+Asynchronous initialization
+
+In this case, the asynchronous initializati
+on product terms are used, so 
+that as soon as the reset condition is active, the intialization will occur 
+without waiting for the clock.
+
+Boolean equations are simply written to define the initial values, as 
+shown below.
+
+STATE
+
+STATE1 = /Q0*/Q1  ;DEFINE THE INITIAL STATE BITS
+
+STATE1 := IN1 -> STATE2
+        +-> STATE3
+
+STATE2 := VCC -> STATE3
+
+STATE3 := VCC -> STATE1
+
+   ;WOULD STILL BE GOOD TO DEFINE ILLEGAL STATE
+
+EQUATIONS
+
+;AND ALL PRODUCT TERMS WITH /RST
+
+Q0.RSTF := RST   ;OR SETF IF A 1 IS DESIRED
+Q1.RSTF := RST   ;OR SETF IF A 1 IS DESIRED
+
+
+

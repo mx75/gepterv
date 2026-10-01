@@ -1,0 +1,86 @@
+-----------------------------------------------------------------------------
+REPORT = 1758     PROGRAM = BPP.EXE
+
+FOR MACH DESIGN: WHEN USING A CASE STATEMENT OR IF-THEN-ELSE EXPRESSION, YOU
+CANNOT USE THE "PAIR" OPERATOR TO PAIR PINS & NODES USED IN THE EXPRESSION.
+
+
+-----------------------------------------------------------------------------
+REPORT = 1871     PROGRAM = BPP.EXE
+
+PROGRAM GOT 'OUT-OF-MEMORY' ON LARGE MACH110 DESIGN USING STANDARD MEMORY.
+
+-----------------------------------------------------------------------------
+REPORT = 1657     PROGRAM = FITR.EXE
+
+GENERATES ERROR MESSAGE 'F670 - INTERNAL ERROR WHEN IO SIGNAL IS SPECIFIED
+WITH .TRST = GND.
+
+-----------------------------------------------------------------------------
+REPORT = 1718     PROGRAM = FITR.EXE
+
+WHEN TRYING TO COMPILE MACH110 DESIGN WITH A SIGNATURE FIELD, MACHINE HANGS.
+THREE FINGER PC REBOOT DOES NOT WORK. WHEN POWERING DOWN AND BACK UP, THERE
+IS A 600K BYTE FILE IN THAT DIRECTORY.
+
+
+-----------------------------------------------------------------------------
+REPORT = 1729     PROGRAM = FITR.EXE
+
+DESIGN IS FITTED WITH FLOATING PINS. AFTER BACKANNOTATION OF PINS, DESIGN IS
+"FITTED SUCCESSFULLY", BUT WITH A "97%" IN THE REPORT FILE.
+
+
+-----------------------------------------------------------------------------
+REPORT = 1754     PROGRAM = FITR.EXE
+
+PROGRAM ISSUES MESSAGE "RUNTIME ERROR 201". THIS OCCURS DURING FITTING WITH
+PIN PLACEMENT FROM DESIGN FILE. ANOTHER FILE W/SAME PIN PLACEMENT BUT WITH 2
+PRODUCT TERMS TAKEN OUT OF ONE EQN WAS COMPILED WITHOUT ANY ERRORS.
+
+-----------------------------------------------------------------------------
+REPORT = 1808     PROGRAM = FITR.EXE
+
+FITR GIVES INTERNAL CALL AMD - STACK OVERFLOW PUSH ON A FILE THAT HAS TOO
+MANY PT'S FOR THE MACH110 FILE.
+
+-----------------------------------------------------------------------------
+REPORT = 1546     PROGRAM = MAINMENU.EXE
+
+USING BEGIN NEW DESIGN, ENTER FILENAME. WHEN TEMPLATE SCREEN APPEARS, ONLY
+TOP FISCHER BOX AND 6 VERTICAL BOXES APPEAR ON COMPUADD 386 MACHINE.
+
+-----------------------------------------------------------------------------
+REPORT = 1616     PROGRAM = MAINMENU.EXE
+
+ON CGA SCREENS THE SCREEN SCROLL IS SLOW.  WHEN SUPPRESSED, THE SOFTWARE
+MIGHT STILL DISPLAY WARNINGS AND ERRORS.
+
+-----------------------------------------------------------------------------
+REPORT = 1417     PROGRAM = NET2PDS.EXE
+
+PROGRAM ASSIGNS 0'S AS NODE NUMBERS INSTEAD OF ?'S.
+
+-----------------------------------------------------------------------------
+REPORT = 1755     PROGRAM = PINOUT
+
+
+ATTEMPTING TO VIEW PINOUT FOR 29MA16 OR 29M16, ERROR MSG IS: FATAL ERROR >>
+ERROR IN FORMAT: PALPDF.PDF. ALSO OCCURS FOR TAXI.PDS UNDER EXAMPLES SUBDIR
+IN PALASM.  FIXED IN VERSION 1.1.
+
+
+-----------------------------------------------------------------------------
+REPORT = 1709     PROGRAM = PLDSIM
+
+SIMULATION CHECK STATEMENT YIELDS ? INSTEAD OF NULL. RUNNING WITHOUT
+STATEMENT YIELDS ALL Z'S, AS EXPECTED.
+
+
+-----------------------------------------------------------------------------
+REPORT = 1728     PROGRAM = WAVEFORM
+SIMULATION HISTORY WAVEFORM HAS ADDITIONAL '/'ON THE RIGHT SIDE OF THE
+SIGNAL NAMES (SIGNAL WAS 14 CHARACTERS WITHOUT A '/').
+
+
+

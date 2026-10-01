@@ -1,0 +1,381 @@
+0000 Reserved.
+0010 Reserved.
+0020 Reserved.
+0075 |> INTERNAL_ERROR D0075
+0075     Invalid flag %s being checked for existence.
+0075     Call AMD, 1-800-222-9323.
+0150 \n%%%% MACHSIM %%%% Program successful.  File  %s
+0150 %%%% MACHSIM %%%% ERROR count  %d  WARNING count  %d
+0160 \n%%%% MACHSIM %%%% Program unsuccessful.  File  %s
+0160 %%%% MACHSIM %%%% ERROR count  %d  WARNING count  %d
+1010 Title  %s\n
+1020 File  %s
+1030 %4d-V%d - SETF
+1040 %4d-V%d - TRACE_ON
+1050 %4d-V%d - TRACE_OFF
+1060 %4d-V%d - CLOCKF
+1070 %4d-V%d - CHECK
+1080 %4d-V%d - IF
+1090 %4d-V%d - WHILE
+1100 %4d-V%d - FOR
+1110 %4d-V%d - PRLDF
+1120 %4d-V%d - PRELOAD
+1130 %4d-V%d - CHECKQ
+1140 %4d-V%d - TEST
+1200 \n   END OF SIMULATION
+1210   Simulation results (history) are in ===> %s
+1220   Simulation results (trace) are in   ===> %s
+1221   Simulation results (trace vectors) are in   ===> %s
+1230   Merged results (JEDEC) are in       ===> %s
+1240   Total memory used ===> %ld bytes\n
+1250   Pin %s is Oscillating
+1300 %%%% WARNING  Total number of check clashes   ====>>> %d
+1300               Clash detected at vector number ====>>> %d
+1310 |> WARNING D1310
+1310    %%%% Total check clashes issued = %d
+2010 |> WARNING D2010
+2010     Ignoring invalid parameter on command line.
+2020 |> WARNING D2020
+2020     The TRACE_ON command must precede the TRACE_OFF
+2020     command.
+2030 |> WARNING D2030
+2030     Equation %s.%s is invalid
+2030     for combinatorial output %s.
+2030     Ignoring the functional equation.
+2040 |> WARNING D2040
+2040     The %s command should have parameters.
+2050 |> WARNING D2050
+2050     Maximum number (%d) of JEDEC test vectors
+2050     exceeded. No more test vectors will be written
+2050     to the output JEDEC file.
+2060 |> WARNING D2060
+2060     There is no TRACE_OFF command after the TRACE_ON
+2060     command. Assuming TRACE_OFF command.
+2070 |> WARNING D2070
+2070     Cannot find %s JEDEC fuse map file.
+2070     Simulation test vectors are not merged.
+2080 |> WARNING D2080
+2080     Cannot open the %s fuse map file.
+2080     Simulation test vectors are not merged.
+2090 |> WARNING D2090
+2090     The %s JEDEC fuse map file is corrupt.
+2090     The simulation test vectors are not merged.
+2100 |> WARNING D2100
+2100     %s of signal %s does not affect any equations.
+2110 |> WARNING D2110
+2110     JEDEC preload not supported for this device.
+2110     The preload is in software only.
+2120 |> WARNING D2120
+2120     Test vector generation is turned off.
+2130 |> WARNING D2130
+2130     Equation %s.%s is always low.
+2140 |> WARNING D2140
+2140     Equation %s.%s is always high.
+2150 |> WARNING D2150
+2150     Output Enable is not initialized for pin %s.
+2150     This may affect simulation results.
+2170 |> WARNING D2170
+2170     The gray counter has Init and Load both active.
+2170     The counter is reset to zero.
+2190 |> WARNING D2190
+2190     Clock is not initialized for pin %s.
+2190     This may affect simulation results.
+2200 |> WARNING D2200
+2200     Floating pin declaration has been used.
+2200     Simulation results may not be true to device behavior.
+2200     No JEDEC test vectors generated.
+2210 |> WARNING D2210
+2210     Test command not yet supported for the device selected,
+2210     assuming CHECKQ operation .
+2220 |> WARNING D2220
+2220     Redundant Specification of Preload for both
+2220     external pin %s and corresponding buried node %s.
+2230 |> WARNING D2230
+2230     Preset is not initialized for pin %s.
+2230     This may affect simulation results.
+2240 |> WARNING D2240
+2240     Reset is not initialized for pin %s.
+2240     This may affect simulation results.
+2250 |> WARNING D2250
+2250     The global pin %s Setf/Rstf equations overrides
+2250     individual output pin Setf/Rstf equations.
+2260 |> WARNING D2260
+2260     The following Pin/Nodes(s) have not been defined in original design
+2260     file and will be ignored.
+2270 |> WARNING D2270
+2270     Pin/node %s is floating but is not declared unused
+2270     in PLC file.
+2280 |> WARNING D2280
+2280     System oscillation at powerup.
+2280     This may affect simulation results.
+2290 |> WARNING D2290
+2290     Cannot generate test vectors for this device without a
+2290     fitter-generated placement file. The placement file contains
+2290     additional functional information. Simulation test vectors
+2290     are not merged.
+2300 |> WARNING D2300
+2300     Clock signal also drives other logic data functions.
+2310 |> WARNING D2310
+2310     %s of an enabled tri-state I/O pin %s ignored.
+2320 |> WARNING D3320
+2320     The following Pin/Nodes(s) have inverted equation polarities
+2320     as result of using the "Best for device" option in minimization.
+3030 |> ERROR D3030
+3030     Simulation for this %s device is not supported.
+3060 |> ERROR D3060
+3060     Out of system memory.
+3090 |> ERROR D3090
+3090     One of the output filenames is not unique.
+3100 |> SYSTEM_ERROR D3100
+3100     Cannot open file %s.  Call AMD, 1-800-222-9323.
+3110 |> ERROR D3110
+3110     No simulation segment present in %s.
+3130 |> ERROR D3130
+3130     Unknown token %d.  Either tree file is corrupt or
+3130     one of the corrupted input files is not trapped.
+3140 |> INTERNAL_ERROR D3140
+3140     Symbol table overflow.
+3140     Call AMD, 1-800-222-9323.
+3165 |> ERROR D3165
+3165     Cannot %s %s pin/node %s.
+3170 |> ERROR D3170
+3170     Cannot %s a %s pin.
+3180 |> ERROR D3180
+3180     Cannot %s pin %s.
+3180     %s allowed only on output pins.
+3190 |> ERROR D3190
+3190     Can only %s registered pins.
+3190     Pin %s is not registered.
+3200 |> ERROR D3200
+3200     The number of vectors on the command line must be an
+3200     integer.
+3210 |> ERROR D3210
+3210     The maximum number of vectors supported is %d.
+3220 |> ERROR D3220
+3220     Simulator does not support command %s.
+3230 |> ERROR D3230
+3230     The %s pin is high when the %s command is asserted.
+3240 |> ERROR D3240
+3240     The %s pin is low when the %s command is asserted.
+3250 |> ERROR D3250
+3250     Simulator does not support equation %s.%s.
+3270 |> ERROR D3270
+3270     Cannot %s I/O pin %s unless Output Enable is disabled.
+3280 |> ERROR D3280
+3280     System oscillation.
+3290 |> ERROR D3290
+3290     Cannot CLOCKF pin %s.  The pin is not a clock pin.
+3300 |> ERROR D3300
+3300     Can only %s output pins.  Pin %s is not an output pin.
+3320 |> ERROR D3320
+3320     S-R register is clocked with both %s.S
+3320     and %s.R high.
+3330 |> ERROR D3330
+3330     Both set and reset are high for register %s.
+3340 |> ERROR D3340
+3340     Cannot %s pin/node %s.
+3350 |> ERROR D3350
+3350     Both set and reset are high for latch %s.
+3360 |> ERROR D3360
+3360     Duplicate signal %s.
+3360     Cannot have duplicate arguments for the same command.
+3370 |> ERROR D3370
+3370     Cannot clock %s %s while preload product term
+3370     is active.
+3380 |> ERROR D3380
+3380     Cannot preset %s %s while preload product term
+3380     is active.
+3390 |> ERROR D3390
+3390     Cannot reset %s %s while preload product term
+3390     is active.
+3400 |> ERROR D3400
+3400     Cannot enable latch %s %s while preload product term
+3400     is active.
+3410 |> SYSTEM_ERROR D3410
+3410     Cannot open PARSE.MSG file for device information.
+3410     Call AMD, 1-800-222-9323.
+3430 |> ERROR D3430
+3430     No Simulation commands are present in design file.
+3440 |> ERROR D3440
+3440     Cannot open PLC file %s.
+3450 |> ERROR D3450
+3450     Corrupt PLC file %s. Please run the Assembler again.
+3460 |> ERROR D3460
+3460     Cannot %s pin/node %s.
+3460     %s allowed only on registered outputs.
+3470 |> ERROR D3470
+3470     Trying to Preload both external pin %s and.
+3470     Corresponding buried node %s to different states.
+3480 |> ERROR D3480
+3480     Both Set and Reset are asserted at same instant
+3480     for global pin %s.
+3490 |> ERROR D3490
+3490     Preset, reset and latch enable are mutually exclusive.
+3490     To assert any one of them for pin %s, others have to be disabled.
+3500 |> ERROR D3500
+3500     Simulation aborted!
+3500     There is no assignment for pin %s. Pin %s has
+3500     already been assigned in previous pin's position.
+3510 |> ERROR D3510
+3510     Simulation aborting due to invalid PLC input.
+3510     Pin %s has already been assigned to pin (node) %d.
+3510     Pin %s also has same definition.
+3520 |> ERROR D3520
+3520     Pinname %s is Invalid . The original declaration of this Pin 
+3520     has been modified by FITR generated .PLC file .
+3530 |> ERROR D3530
+3530     Cannot SETF signal %s whose references are taken from the register
+3530     rather then the pin.
+4010 |> INTERNAL_ERROR D4010
+4010     Offset position in PDF file for device %s is wrong.
+4010     Call AMD, 1-800-222-9323.
+4020 |> INTERNAL_ERROR D4020
+4020     Call AMD, 1-800-222-9323.
+4030 |> INTERNAL_ERROR D4030
+4030     Pin list creation error.
+4030     Call AMD, 1-800-222-9323.
+4040 |> INTERNAL_ERROR D4040
+4040     Internal tree file (.TRE) error.
+4040     Call AMD, 1-800-222-9323.
+4050 |> INTERNAL_ERROR D4050
+4050     Cannot open debug file %s.
+4050     Call AMD, 1-800-222-9323.
+4060 |> INTERNAL_ERROR D4060
+4060     Primitive too small to fit equation.
+4060     Call AMD, 1-800-222-9323.
+4070 |> INTERNAL_ERROR D4070
+4070     Feature not implemented: %s.
+4070     Call AMD, 1-800-222-9323.
+4080 |> INTERNAL_ERROR D4080
+4080     Primitive %d is not implemented.
+4080     Call AMD, 1-800-222-9323.
+4090 |> INTERNAL_ERROR D4090
+4090     Symbol table overflow.
+4090     Call AMD, 1-800-222-9323.
+4100 |> INTERNAL_ERROR D4100
+4100     Error during interpretation.
+4100     Call AMD, 1-800-222-9323.
+4110 |> INTERNAL_ERROR D4110
+4110     PDF module internal error.
+4110     Call AMD, 1-800-222-9323.
+5001 |> ERROR D5001
+5001     Cannot find given segment.
+5001     Please run Parse (Check Syntax).  %s %d
+5002 |> ERROR D5002
+5002     Cannot simulate because intermediate (TRE) file
+5002     is missing.
+5002     Run Parse (Check Syntax) to generate %s
+5003 |> SYSTEM_ERROR D5003
+5003     Out of memory.  Call AMD, 1-800-222-9323.
+5004 |> INTERNAL_ERROR D5004
+5004     Illegal segment.  Call AMD, 1-800-222-9323.
+5005 |> INTERNAL_ERROR D5005
+5005     Cannot find title.  Call AMD, 1-800-222-9323.
+5006 |> INTERNAL_ERROR D5006
+5006     Cannot find pattern.  Call AMD, 1-800-222-9323.
+5007 |> INTERNAL_ERROR D5007
+5007     Cannot find revision.  Call AMD, 1-800-222-9323.
+5008 |> INTERNAL_ERROR D5008
+5008     Cannot find author.  Call AMD, 1-800-222-9323.
+5009 |> INTERNAL_ERROR D5009
+5009     Cannot find company.  Call AMD, 1-800-222-9323.
+5010 |> INTERNAL_ERROR D5010
+5010     Cannot find date.  Call AMD, 1-800-222-9323.
+5011 |> INTERNAL_ERROR D5011
+5011     Cannot find user library.
+5011     Call AMD, 1-800-222-9323.
+5012 |> INTERNAL_ERROR D5012
+5012     Cannot find macro heading.
+5012     Call AMD, 1-800-222-9323.
+5013 |> INTERNAL_ERROR D5013
+5013     Cannot find wire.  Call AMD, 1-800-222-9323.
+5014 |> INTERNAL_ERROR D5014
+5014     Cannot find device.  Call AMD, 1-800-222-9323.
+5015 |> INTERNAL_ERROR D5015
+5015     Cannot find signal statements.
+5015     Call AMD, 1-800-222-9323.
+5016 |> INTERNAL_ERROR D5016
+5016     Cannot find group assignment.
+5016     Call AMD, 1-800-222-9323.
+5017 |> INTERNAL_ERROR D5017
+5017     Cannot find Boolean equation segment in
+5017     input design (PDS) file.
+5017     Call AMD, 1-800-222-9323.
+5018 |> INTERNAL_ERROR D5018
+5018     Cannot find state start-up information.
+5018     Call AMD, 1-800-222-9323.
+5019 |> INTERNAL_ERROR D5019
+5019     Cannot find state equation.
+5019     Call AMD, 1-800-222-9323.
+5020 |> INTERNAL_ERROR D5020
+5020     Cannot find state output.
+5020     Call AMD, 1-800-222-9323.
+5021 |> INTERNAL_ERROR D5021
+5021     Cannot find state condition.
+5021     Call AMD, 1-800-222-9323.
+5022 |> INTERNAL_ERROR D5022
+5022     Cannot find simulation construct.
+5022     Call AMD, 1-800-222-9323.
+5028 |> INTERNAL_ERROR D5028
+5028     Input filename (.TRE) is too long.
+5028     Call AMD, 1-800-222-9323.
+5029 |> ERROR D5029
+5029     Missing or bad tree file (.TRE).
+5029     Run Parse (Check Syntax) to generate PALASM2.TRE.
+6001 |> INTERNAL_ERROR D6001
+6001     Cannot open file %s.  Call AMD, 1-800-222-9323.
+6002 |> INTERNAL_ERROR D6002
+6002     Cannot open file %s.  Call AMD, 1-800-222-9323.
+6003 |> INTERNAL_ERROR D6003
+6003     Out of memory.  Call AMD, 1-800-222-9323.
+6004 |> INTERNAL_ERROR D6004
+6004     Cannot set name after end of name.
+6004     Call AMD, 1-800-222-9323.
+6005 |> INTERNAL_ERROR D6005
+6005     Problem making simulation output.
+6005     Call AMD, 1-800-222-9323.
+6006 |> INTERNAL_ERROR D6006
+6006     Too many simulation values.
+6006     Call AMD, 1-800-222-9323.
+6007 |> INTERNAL_ERROR D6007
+6007     Not enough simulation values.
+6007     Call AMD, 1-800-222-9323.
+6008 |> INTERNAL_ERROR D6008
+6008     Illegal output.  Call AMD, 1-800-222-9323.
+6009 |> INTERNAL_ERROR D6009
+6009     No existing file %s.  Call AMD, 1-800-222-9323.
+7000  MACHSIM HELP  help option.
+7000  Command parameters for simulator.
+7000 
+7000       MACHSIM [OPTION ...].
+7000 
+7000     OPTION  -? 
+7000               -log [ <logfile[.log]> ].
+7000               -jdc [ <jdcfile[.jdc]> ].
+7000               -hst [ <hstfile[.hst]> ].
+7000               -trf [ <trffile[.trf]> ].
+7000               -plc [ <plcfile[.plc]> ].
+7000               [ <treefile>      ].
+7000               -vectors [digit ...].
+7010 
+7010     Option flag description  
+7010        -?    prints out help screen. 
+7010        -log  capture screen messages to disk file. 
+7010        -jdc  rename fuse map and test vector file. 
+7010        -hst  rename history output file. 
+7010        -trf  rename trace output file. 
+7010        -plc  input plc file. 
+7010        -vectors  maximum number of test vectors. 
+7010
+8000        -fullhistory.
+8000        -fullhistory  prints history for each feedback event. 
+8000
+10001 |> ERROR D10001
+10001      Please run MACHBPP (Expand Boolean).
+10002 |> ERROR D10002
+10002     Please run MACHEXP (Expand State).
+10003 |> ERROR D10003
+10003     Please run MACHMIN (Minimize Boolean).
+10004 |> SYSTEM_ERROR D10004
+10004     Cannot access preheader information.
+10004     Call AMD, 1-800-222-9323.

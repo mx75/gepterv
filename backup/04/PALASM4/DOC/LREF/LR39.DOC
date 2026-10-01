@@ -1,0 +1,52 @@
+ð
+OPERATOR
+Overview
+This is a general term that describes any symbol interpreted by the
+software when processing design files.  It can be a mathematical term
+such as "+", for OR, a defining term such as ":=", for registered, or
+a descriptive term such as "#", for radix.  The following table
+defines each operator and provides an example.
+
+    Operator   Definition               Example
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+    /           Not                     /A
+    *           And                     A * B
+    +           OR                      A + B
+    :+:         XOR                     A :+: B
+    :*:         XNOR                    A :*: B
+    =           Combinatorial           INPUT1 = A * B
+    :=          Registered equation     INPUT1 := A * B
+    :=          State equation          STATE1 := START -> END
+    *=          Latched                 INPUT1 *= A * B
+    ->          State transition        STATE1 := START -> END
+    +->         Local default           +-> RED -> WAIT
+    ;           Comment                 ;set low before clocking
+    ,           Literal separator       IN[1,3,4] IN[1..4,6..9]
+    ..          Range                   INPUT[0..9]
+    :           CASE value              0,1:
+    []          Term brackets           INPUT[0..9]
+    ()          Expression              IN1 = (A * B) (C * D * F)
+    {}          Substitute              OUT1 = A * B * C
+                                        OUT2 = {OUT1} * F
+    >           Greater than            IF A > 2 THEN...
+    <           Less than               WHILE A < 2 DO...
+    <>          Not equal to            IF A <> 2 THEN...
+    <=          Less than or equal to   WHILE A <= 2 DO...
+    >=          Greater than or equal   WHILE A >= 2 DO...
+    %           Don't care              DEFAULT_OUTPUT %OUT1
+    ?           CHECK clash             ------??????
+    ' '         String delimiters       STRING INPUT 'A1 + /A2'
+    #b          Binary radix            #b101000
+    #d          Decimal radix           #d40
+    #o          Octal radix             #o50
+    #h          Hexadecimal radix       #h28B
+    Space, tab  Separator               PIN 2 IN1 REG
+ú
+Syntax
+ú
+Definitions
+ú
+Use
+ú
+Related Topics
+ú

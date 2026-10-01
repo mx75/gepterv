@@ -1,0 +1,139 @@
+
+Report = 1776        Program = BPP.EXE       MKT1.1     04/08/91
+
+GROUP names used in the simulation sections are not expanded into individual
+signal names.
+
+work-a-around: none
+---------------------------------------------------------------------------
+
+Report = 1866,1872   Program = BPP.EXE       MKT1.1     04/23/91
+
+Extended memory version aborts with error GP AT 002F 4844 EC 0000.
+Extended memory version aborts with error GP AT 00AF 4984 EC 4F7C.
+
+work-a-around:
+        Switch off the automatic pairing option (ie set = 'N') found in the
+        menu under the Setup/Logic Synthesis Options.
+---------------------------------------------------------------------------
+
+Report = 1877        Program = BPP.EXE       MKT1.1     05/06/91
+
+Tristate equation generated with slash (ie. '/') when included inside an
+IF-THEN-ELSE or CASE expression.
+
+work-a-around:
+        Functional equations (eg. .TRST,.CLKF,.SETF,.RSTF) should not be
+        specified inside IF-THEN-ELSE or CASE logical constructs.
+---------------------------------------------------------------------------
+
+Report = 1916        Program = BPP.EXE       MKT1.1     05/23/91
+
+Large CASE constructs,(ie. typically with >20 blocks), cause both undetected
+and detected out-of-memory problems in this program.
+
+work-a-round:
+        Break up the large CASE constructs into small multiple constructs by
+        doing:     CASE (conditions) BEGIN
+                             ...
+                   END
+                   OTHERWISE  BEGIN
+                              CASE (conditions) BEGIN
+                                     ...
+                              END
+                   END
+---------------------------------------------------------------------------
+
+Report = 1769        Program = MAINMENU.EXE       MKT1.1     04/05/91
+
+If CTL-S is hit while the menu is compiling a design the current step finishes
+and the stops the PC system.
+
+work-a-round:
+        Press CNTL-C to continue the processing, <ESC> halts the process step.
+---------------------------------------------------------------------------
+
+Report = 653         Program = MINIMIZE.EXE       ALPHA      07/27/90
+
+Large single equation with > 26 unique signals in the expression will cause
+the program to hang the PC system.
+
+Work-a-round: none.
+---------------------------------------------------------------------------
+
+Report = 1346        Program = MINIMIZE.EXE       ALPHA      10/10/90
+
+Extremely large equations may cause error message:
+ 'SYSTEM ERROR 27 ALLOCATING MEMORY BLOCK GREATER THAN 64K.
+
+Work-a-round: none.
+---------------------------------------------------------------------------
+
+Report = 1396        Program = MINIMIZE.EXE       MKT1.0     10/30/90
+
+Program produces a runtime error when trying to gate split an equation with
+greater than 99 product terms.
+
+Work-a-round: none.
+
+---------------------------------------------------------------------------
+
+Report = 1943        Program = PALXPT.EXE         MKT1.1     06/04/91
+
+Program programs incorrectly the J-K & R-S equations when the signal is
+defined with a slash in the pin list declaration for the PALCE610 device. Bad
+JEDEC is produced.
+
+Work-a-round:
+        Define all J-K & R-S output with no slash in the pin list declaration.
+        Use polarity settings only on the RHS of the equation definition.
+
+---------------------------------------------------------------------------
+
+Report = 1742        Program = PARSE.EXE          MKT1.1     02/21/91
+
+An .T registered equation if defined with the latch operator (*=) is not
+syntactically trapped as an error. Software continues assuming T registered
+equation.
+
+Work-a-round: none.
+---------------------------------------------------------------------------
+
+Report = 1833        Program = PARSE.EXE          MKT1.1     04/19/91
+
+A syntax error, (ie missing '+' operator in boolean equation) was trapped
+incorrectly as an error associated with the STATE section.
+
+Work-a-round: none.
+---------------------------------------------------------------------------
+
+Report = 1835        Program = PARSE.EXE          MKT1.1     04/19/91
+
+
+A syntax error, (ie incorrect spelling of keyword 'SIMULATION') was trapped
+incorrectly as an error associated with the SETF statement.
+
+Work-a-round: none.
+---------------------------------------------------------------------------
+
+Report = 1890        Program = PARSE.EXE          MKT1.1     05/10/91
+
+A syntax error in the power-up definition of a state machine design is not
+trapped by the program. This leads to EXPAND.EXE aborting with an internal
+corruption error.
+
+Work-a-round:
+        Avoid syntax error definition:
+                STARTUP = vcc -> S0
+
+        should be:
+                STARTUP = POWERUP -> S0
+---------------------------------------------------------------------------
+
+Report = 1899        Program = PARSE.EXE          MKT1.1     05/16/91
+
+A syntax error, (ie. define signal set as A[1-5] instead of A[1..5]) is not
+trapped by the software. This leads to BPP.EXE aborting with an internal
+corruption error.
+
+

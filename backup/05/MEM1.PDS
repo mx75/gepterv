@@ -1,0 +1,78 @@
+;PALASM Design Description
+
+;---------------------------------- Declaration Segment ------------
+TITLE    Memory board decoder
+PATTERN  
+REVISION 1
+AUTHOR   Fazekas Mihaly
+COMPANY  SufniFabrik
+DATE     05/25/22
+
+CHIP  _mem1  MACH210
+
+;---------------------------------- PIN Declarations ---------------
+PIN  14         /CS00                                  COMBINATORIAL ;       
+PIN  15         /CS01                                  COMBINATORIAL ;       
+PIN  16         /CS02                                  COMBINATORIAL ;       
+PIN  17         /CS03                                  COMBINATORIAL ;       
+PIN  18         /CS04                                  COMBINATORIAL ;       
+PIN  19         /CS05                                  COMBINATORIAL ;       
+PIN  20         /CS06                                  COMBINATORIAL ;       
+PIN  21         /CS07                                  COMBINATORIAL ;       
+PIN  24         /CS08                                  COMBINATORIAL ;       
+PIN  25         /CS09                                  COMBINATORIAL ;       
+PIN  26         /CS0A                                  COMBINATORIAL ;       
+PIN  27         /CS0B                                  COMBINATORIAL ;       
+PIN  28         /CS0C                                  COMBINATORIAL ;       
+PIN  29         /CS0D                                  COMBINATORIAL ;       
+PIN  30         /CS0E                                  COMBINATORIAL ;       
+PIN  31         /CS0F                                  COMBINATORIAL ;       
+PIN  32         /CT0                                  COMBINATORIAL ;       
+PIN  33         /CT1                                  COMBINATORIAL ;       
+PIN  35         /CT2                                  COMBINATORIAL ;       
+PIN  36         A23                                   COMBINATORIAL ;       
+PIN  37         A22                                   COMBINATORIAL ;       
+PIN  38         A21                                   COMBINATORIAL ;       
+PIN  39         A20                                   COMBINATORIAL ;       
+PIN  40         I23                                   COMBINATORIAL ;       
+PIN  41         I22                                   COMBINATORIAL ;       
+PIN  42         I21                                   COMBINATORIAL ;       
+PIN  43         I20                                   COMBINATORIAL ;       
+PIN   5         A19                                   COMBINATORIAL ;       
+PIN   6         A18                                   COMBINATORIAL ;       
+PIN   7         A17                                   COMBINATORIAL ;       
+PIN   8         A16                                   COMBINATORIAL ;       
+PIN   9         A15                                   COMBINATORIAL ;       
+PIN   2		ADDR1				      COMBINATORIAL ;
+PIN   3		ADDR2				      COMBINATORIAL ;
+;PIN  13         CLK                                   COMBINATORIAL ;       
+
+;STRING	ADDR	'(A23 :*: I23) * (A22 :*: I22) * (A21 :*: I21) * (A20 :*: I20)'
+;STRING	ADDR	'(A23 :*: I23) * (A22 :*: I22) * (A21 :*: I21)'
+
+;----------------------------------- Boolean Equation Segment ------
+EQUATIONS
+ADDR1	= (A23 :*: I23) * (A22 :*: I22) * (A21 :*: I21);
+ADDR2	= (A20 :*: I20) * (/CT2 * /CT1 :*: CT0);
+CS00	= ADDR1 * ADDR2 * /A19 * /A18 * /A17 * /A16 * /A15;
+CS01	= /A19 * /A18 * /A17 * /A16 *  A15;
+CS02	= /A19 * /A18 * /A17 *  A16 * /A15;
+CS03	= /A19 * /A18 * /A17 *  A16 *  A15;
+CS04	= /A19 * /A18 *  A17 * /A16 * /A15;
+CS05	= /A19 * /A18 *  A17 * /A16 *  A15;
+CS06	= /A19 * /A18 *  A17 *  A16 * /A15;
+CS07	= /A19 * /A18 *  A17 *  A16 *  A15;
+CS08	= /A19 *  A18 * /A17 * /A16 * /A15;
+CS09	= /A19 *  A18 * /A17 * /A16 *  A15;
+CS0A	= /A19 *  A18 * /A17 *  A16 * /A15;
+CS0B	= /A19 *  A18 * /A17 *  A16 *  A15;
+CS0C	= /A19 *  A18 *  A17 * /A16 * /A15;
+CS0D	= /A19 *  A18 *  A17 * /A16 *  A15;
+CS0E	= /A19 *  A18 *  A17 *  A16 * /A15;
+CS0F	= /A19 *  A18 *  A17 *  A16 *  A15;
+
+
+;----------------------------------- Simulation Segment ------------
+SIMULATION
+
+;-------------------------------------------------------------------

@@ -1,0 +1,41 @@
+=====================================================================
+Special PAL Device Considerations
+---------------------------------------------------------------------
+
+PALASM 4 software does not distinguish between device types of the same
+architecture. For example: PALCE29M16H-25 and PAL29M16 are treated as
+identical device names.
+
+PAL22IP6
+The high-speed IPAC PAL device has one design restriction.  On the S-R flip-
+flop, direct active-high feedback from the output to the non-inverting R 
+input violates the timing requirements and the output becomes unpredictable.  
+The next example illustrates this problem; the solution follows.
+
+The solution is to DeMorganize the equation so two inversions are added to 
+the feedback path, slowing it down.  In other words, use /Q instead of Q in 
+the R equation, and define the R input as being falling-edge triggered, as 
+shown in the following illustration.  DeMorganization affects the number of 
+product terms required, but the nine available terms are generally 
+sufficient.
+
+PALCE29M16 and PALCE29MA16
+On the PALCE29M16, designs using XOR in the logic output equations are not 
+automatically converted to AND/OR equations by the minimizer.
+
+PLPL designs may not work after translation because of different notations
+used to define buried nodes.
+
+The Observe function in the PAL29M16 does not work in the PLD simulator
+unless all nodes in the macrocell are defined.  You can avoid this situation
+by defining the node signal for each macrocell.
+
+PLS105, PLS167, and PLS168
+All output equations must be active high.  If an active-low equation is
+present and the equations are not minimized, errors occur.  You can convert
+the active-low equations to active-high by using the PALASM 4 software to
+minimize. Output polarity must be active high.  Active low .R or .S
+equations are not allowed.
+
+ÿ
+

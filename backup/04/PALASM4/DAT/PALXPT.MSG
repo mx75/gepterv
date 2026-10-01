@@ -1,0 +1,328 @@
+1000  Message not supported yet.
+2000  Messages in the two thousand range are informational.
+2010  Equation being processed for output ==>> %s
+2020  Equation being processed for output ==>> %s.%s
+2030  The fuse plot is stored in ===>%s
+2040  The JEDEC is stored in ===>%s
+2050  FILE  %s
+2060  TITLE  %s
+2070 Total number of design errors = %d
+2080 FILE PROCESSED SUCCESSFULLY  %s
+2090      Did not produce JEDEC output.
+2100      Did not produce fuse map output.
+2110 .    %s expected at position = %d
+2130 %%%%% PALXPT %%%%%
+2150 FILE = %s  ERROR COUNT = %d  WARNING COUNT = %d
+2160 %s
+3000 Messages in the three thousand range are errors.
+3030 |> ERROR X3030
+3030     Illegal equation defined for signal %s.\n
+3035 |> ERROR X3035
+3035     Cannot define a %s.%s equation for signal %s\n
+3040 |> ERROR X3040
+3040     Cannot define a functional equation %s.%s for signal %s\n
+3060 |> ERROR X3060
+3060     Cannot support exclusive OR (:+:) for this device.\n
+3070 |> ERROR X3070
+3070     Cannot support exclusive NOR (:*:) for this device.\n
+3080 |> ERROR X3080
+3080     Illegal global pin equation.\n
+3090 |> ERROR X3090
+3090     Signal %s used in this equation has no input into the
+3090     fuse array.\n
+3100 |> ERROR X3100
+3100     Illegal use of pin %s as feedback into the fuse array.\n
+3120 |> ERROR X3120
+3120     Signal %s cannot have more than %d product term(s).\n
+3130 |> ERROR X3130
+3130     Invalid equation detected for pin %s\n
+3150 |> INTERNAL_ERROR X3150
+3150     Cannot support token %d for this PAL device.
+3150     Call AMD, 1-800-222-9323.\n
+3160 |> ERROR X3160
+3160     Functional equation must be active high.\n
+3220 |> ERROR X3220
+3220     The polarity of the output equation must be opposite to
+3220     the polarity in the signal statements.\n
+3230 |> ERROR X3230
+3230     The polarity of the output equation must be the same
+3230     as the polarity in the signal statements.\n
+3270 |> ERROR X3270
+3270     Cannot define an output or functional equation for an
+3270     input pin.\n
+3275 |> ERROR X3275
+3275     Cannot define a simple or functional equation
+3275     for a %s pin.\n
+3300 |> ERROR X3300
+3300     Wrong %s pin %s was used for %s.%s.
+3420 |> ERROR X3420
+3420     GND is defined incorrectly in the pin statement.
+3420     GND pin is at position = %d.
+3430 |> ERROR X3430
+3430     VCC is defined incorrectly in the pin statement.
+3430     VCC pin is at position = %d.
+3470 |> ERROR X3470
+3470     Cannot define this equation and %s.%s equation
+3470     for this signal.\n
+3480 |> ERROR X3480
+3480     Cannot define this equation and a %s equation
+3480     for this signal.\n
+3490 |> ERROR X3490
+3490     You can only use active-high equations with single
+3490     signal OR (+) expressions in this equation.
+3490     Eg, OUT.SETF = A + /B + C\n
+3510 |> ERROR X3510
+3510     You can only use active-high equations with single
+3510     signal OR (+) expressions in this equation.
+3510     Eg, OUT.TRST = A + /B + C\n
+3520 |> ERROR X3520
+3520     Illegal clock pin exists.  This output equation can
+3520     only use either %s or %s as input clock pin.\n
+3530 |> ERROR X3530
+3530     This output equation can only use one input clock pin,
+3530     either OUT.CLKF = %s or OUT.CLKF = %s\n
+3540 |> ERROR X3540
+3540     Product terms feedback conflict:
+3550 .   Cannot have both %s and %s in product terms.
+3560 .   Cannot have both %s and (%s elsewhere)
+3560     in product terms.
+3620 |> ERROR X3620
+3620     The %s's sum of products must be logically equivalent
+3620     to %s's sum of products.\n
+3640 |> ERROR X3640
+3640     Signal %s's left side of XOR uses more than %d product
+3640     term(s) and right side of XOR uses more than %d product
+3640     term(s).\n
+3650 |> ERROR X3650
+3650     Signal %s's left side of XOR uses more than %d product
+3650     term(s).\n
+3660 |> ERROR X3660
+3660     Signal %s's right side of XOR uses more than %d product
+3660     term(s).\n
+3670 |> ERROR X3670
+3670     Illegal signal %s's attribute(s) %s %s %s\n
+3680 |> ERROR X3680
+3680     Output equation %s and Buried equation %s
+3680     must both be the same type.
+3680     (ie, REGISTERED or LATCHED)\n
+3700 |> ERROR X3700
+3700     %s.CLKF cannot have more than one product term.\n
+3720 |> ERROR X3720
+3720     Invalid input type exists in current product terms:
+3730 .   Cannot have %s as %s input.\n
+3740 |> ERROR X3740
+3740     You can only use active-high or active-low clock with
+3740     single type signal (+)/(*) expressions in this equation.
+3740     Eg,  /OUT.CLKF = A + /B + C .\n
+3750 |> ERROR X3750
+3750     The register bypass bank for pin %d to pin %d
+3750     is corrupt. Some pins are used as combinatorial,
+3750     other pins are used as registered outputs and/or
+3750     registered feedback signals.\n
+3760 |> ERROR X3760
+3760     Signal %s and signal %s are using more than
+3760     %d product term(s).\n
+3770 |> ERROR X3770
+3770     %s's clock and its dual signal %s's clock
+3770     must have the same polarity on the signal name before
+3770     the .CLKF equation.\n
+3780 |> ERROR X3780
+3780     Illegal use of the exclusive XOR (:+:) for this equation
+3780     type.\n
+3790 |> ERROR X3790
+3790     XOR product term is programmed to %s
+3790     Reverse the polarity of this equation.\n
+3800 |> ERROR X3800
+3800     %s polarity must be the same as in signal statement.\n
+3830 |> ERROR X3830
+3830     Hardware configuration violation:
+3830     resources allocated to none %s already.\n
+3840 |> ERROR X3840
+3840     Hardware configuration violation:  %s is not defined.\n
+3850 |> ERROR X3850
+3850     Hardware configuration violation:
+3850     resources allocated to %s already.\n
+3860 |> ERROR X3860
+3860     Hardware configuration violation:
+3860     resources allocated to %s's %s already.\n
+3870 |> ERROR X3870
+3870     Hardware configuration violation:  polarity must be the
+3870     same as %s %s equation's polarity.\n
+3880 |> ERROR X3880
+3880     Hardware configuration violation:
+3880     %s.%s already exists.\n
+3890 |> ERROR X3890
+3890     Hardware configuration violation:
+3900     %s's %s equation(s) exists.
+3900     %s as product term is not allowed.
+3910 .   Cannot have both this and %s's %s equation(s) defined.\n
+3920 |> ERROR X3920
+3920     The design will not fit into this device.\n
+3950 |> ERROR X3950
+3950     COLLECTOR = ASCII FORMAT  is illegal, use other format.
+3960 |> ERROR X3960
+3960     Cannot have %s %s feedback if %s (latch enable)
+3960     exists as input (appears on any equation's right hand side).
+3970 |> ERROR X3970
+3970     Latch feedback assignment format can only be:
+3970     %s  =  %s
+3980 |> ERROR X3980
+3980     Cannot have both %s and %s as feedback to the AND array.
+3990 .   because transfer equation  %s *= %s  also exists.
+4010 |> INTERNAL ERROR X4010
+4010     PDF device information file is incorrect for this device.
+4040 |> SYSTEM_ERROR X4040
+4040     Out of memory.  Call AMD, 1-800-222-9323.\n
+4110 |> ERROR X4110
+4110     This equation is defined as %s instead of
+4110     %s.\n
+4120 |> INTERNAL_ERROR X4120
+4120     Assembler cannot support the %s device.
+4120     Call AMD, 1-800-222-9323.\n
+4130 |> INTERNAL_ERROR X4140
+4140     Cannot support token number %d
+4140     Call AMD, 1-800-222-9323.\n
+4150 |> INTERNAL_ERROR X4150
+4150     Cannot find device PDF file.
+4150     Call AMD, 1-800-222-9323.\n
+4155 |> ERROR X4155
+4155     Cannot open TRE file %s
+4155     Call AMD, 1-800-222-9323.\n
+4160 |> SYSTEM_ERROR X4160
+4160     Cannot open XPLOT output file %s
+4160     Call AMD, 1-800-222-9323.\n
+4170 |> SYSTEM_ERROR X4170
+4170     Cannot open JEDEC output file %s
+4170     Call AMD, 1-800-222-9323.\n
+4180 |> SYSTEM_ERROR X4180
+4180     Cannot open file for debugging.
+4180     Call AMD, 1-800-222-9323.\n
+4200 |> INTERNAL_ERROR X4200
+4200     Cannot find device information in PDF file for %s
+4200     Call AMD, 1-800-222-9323.\n
+4210 |> ERROR X4210
+4210     Run Expand and Minimize programs.\n
+4220 |> SYSTEM_ERROR X4220
+4220     Disk write error or disk full.
+4220     Call AMD, 1-800-222-9323.\n
+4230 |> ERROR X4230
+4230     Run Minimize after Expand.\n
+4240 |> ERROR X4240
+4240     Filename length exceeded for file %s
+4240     Maximum filename length is %d characters.\n
+4250 |> ERROR X4250
+4250     This device cannot have any floating ? signal. \n
+5020 |> INTERNAL_ERROR X5020
+5020     Palarr module:  call AMD, 1-800-222-9323.\n
+5100 |> INTERNAL_ERROR X5100
+5100     Device name too long, Palutil.
+5100     Call AMD, 1-800-222-9323.\n
+5110 |> INTERNAL_ERROR X5110
+5110     Paldata unable to support %d signals.
+5110     Call AMD, 1-800-222-9323.\n
+5120 |> INTERNAL_ERROR X5120
+5120     Palprocs:  pin list truncated by parse.
+5120     Call AMD, 1-800-222-9323.\n
+6000 series messages are warnings.
+6010 |> WARNING X6010
+6010     Ignoring invalid XPLOT file.\n
+6020 |> WARNING X6020
+6020     Ignoring invalid JEDEC file.\n
+6030 |> WARNING X6030
+6030     Ignoring invalid log file.\n
+6040 |> WARNING X6040
+6040     Ignoring invalid parameters.\n
+6070 |> WARNING X6070
+6070     Global %s is invalid for combinatorial equations.\n
+6080 |> WARNING X6080
+6080     Ignoring invalid tree file (.TRE) %s\n
+6090 |> WARNING X6090
+6090     The signal is defined as combinatorial.
+6090     %s.%s is programmed.\n
+6120 |> WARNING X6120
+6120     Inverting equation %s.%s.  Equation is now\n
+6130 |> WARNING X6130
+6130     Inverting equation %s.%s.  Equation is now\n
+6140 |> WARNING X6140
+6140     The following undefined signals exist in the
+6140     current equation:\n
+6150 |> WARNING X6150
+6150     %s fuse data does not fit in %d bits.
+6150     Truncating extra signature fuse data.\n
+6160 |> WARNING X6160
+6160     Signature fuse data contains a decimal number
+6160     with more than the limit of 15 digits.
+6160     Did not program signature fuses.
+6160     Try using hex format for signature fuse data.\n
+6170 |> WARNING X6170
+6170     %s.TRST for the banked xor has been ignored.
+6180 .   Undefined registered %s exists in present equation.\n
+6190 |> WARNING X6190
+6190     %s.TRST = VCC,  %s's .J/.K or .S/.R equations
+6190     cannot both exist.\n
+9000 PTRE error messages start at 9000.
+9001 |> ERROR X9001
+9001     Cannot find given segment.
+9001     Please run Parse (Check Syntax). %s %d
+9002 |> ERROR X9002
+9002     Cannot find tree file (.TRE) %s
+9002     Please run Parse (Check Syntax)\n.
+9003 |> SYSTEM_ERROR X9003
+9003     Out of memory.  Call AMD, 1-800-222-9323.\n
+9004 |> ERROR X9004
+9004     Illegal segment.\n
+9005 |> ERROR X9005
+9005     Cannot find title.\n
+9006 |> ERROR X9006
+9006     Cannot find pattern.\n
+9007 |> ERROR X9007
+9007     Cannot find revision.\n
+9008 |> ERROR X9008
+9008     Cannot find author.\n
+9009 |> ERROR X9009
+9009     Cannot find company.\n
+9010 |> ERROR X9010
+9010     Cannot find date.\n
+9011 |> ERROR X9011
+9011     Cannot find user library.\n
+9012 |> ERROR X9012
+9012     Cannot find macro heading.\n
+9013 |> ERROR X9013
+9013     Cannot find wire.\n
+9014 |> ERROR X9014
+9014     Cannot find device.\n
+9015 |> ERROR X9015
+9015     Cannot find signal statements.\n
+9016 |> ERROR X9016
+9016     Cannot find group assignment.\n
+9017 |> ERROR X9017
+9017     Cannot find Boolean equation segment in PDS file.\n
+9018 |> ERROR X9018
+9018     Cannot find state start-up information.\n
+9019 |> ERROR X9019
+9019     Cannot find state equation.\n
+9020 |> ERROR X9020
+9020     Cannot find state output.\n
+9021 |> ERROR X9021
+9021     Cannot find state condition.\n
+9022 |> ERROR X9022
+9022     Cannot find simulation construct.\n
+9028 |> ERROR X9028
+9028     Tree filename (.TRE) is too long.\n
+9029 |> ERROR X9029
+9029     Cannot assemble because intermediate (TRE) file
+9029     is missing.
+9029     Run Parse (Check Syntax) to generate PALASM2.TRE.\n
+9032 |> ERROR X9032
+9032     Cannot find signature information in tree file (.TRE).\n
+10001 |> ERROR X10001
+10001     Please run BPP (Expand Boolean).\n
+10002 |> ERROR X10002
+10002     Please run Expand (Expand State).\n
+10003 |> ERROR X10003
+10003     Please run Minimize (Minimize Boolean).\n
+10004 |> SYSTEM_ERROR X10004
+10004     Cannot access preheader information.
+10004     Call AMD, 1-800-222-9323.\n
+10005 |> ERROR X10005
+10005     Please run FITTER.\n

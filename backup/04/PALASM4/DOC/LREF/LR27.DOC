@@ -1,0 +1,146 @@
+ğ
+IF-THEN-ELSE, EQUATIONS
+Overview
+This construct provides a conditional statement for Boolean logic.
+This construct literally means "if the condition is true, do this; if
+not, do that."
+
+For additional details about specifying outputs in IF-THEN-ELSE and
+CASE statements, refer to the PALASM 4 User's Manual, Chapter 10,
+introduction.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+            IF (Condition) THEN
+                BEGIN
+                    Boolean equations
+                END
+            ELSE
+                BEGIN
+                    Boolean equations
+                END
+
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Device Support:  All PLD devices.
+ú
+Syntax
+You use this construct in the equations segment of Boolean and
+state-machine designs.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+            IF (Condition) THEN
+                BEGIN
+                    Boolean equations
+                END
+            ELSE
+                BEGIN
+                    Boolean equations
+                END
+
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+            EQUATIONS
+            IF (/I1,/I2 = #b11) THEN
+                BEGIN
+                    O3 = A * B
+                END
+            ELSE
+                BEGIN
+                    O3 = A * /B
+                END
+            ...
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+
+Condition       Defines any Boolean expression whose form consists of
+                a pin, signal, range, or vector, an equal sign, =, and
+                a binary, decimal, hexadecimal, or octal radix number.
+
+                ş  You can use more than one condition if you separate
+                   them by commas.  The software ANDs multiple
+                   conditions together.
+
+                ş  You can use parentheses to enclose the condition;
+                   they are optional, but it is better to include
+                   them.  You can nest parentheses.
+
+                ş  You cannot use group names or arithmetic
+                   expressions.
+
+                ş  You can use a test condition in place of any
+                   variable name in a Boolean expression as in the
+                   example, A * B * (C,D = 1).
+
+                The software ANDs conditions with vectors.  For
+                example:
+
+                IF (A[1..3])  becomes IF (A[1] * A[2] * A[3])
+                IF (/A[1..3]) becomes IF (/(A[1] * A[2] * A[3]))
+
+Boolean         Defines any Boolean equation or set of equations, as
+Equation        well as IF-THEN-ELSE, and CASE constructs.  The
+                equation must be enclosed by BEGIN-END statements.
+ú
+Use
+You can specify how the software treats default values for the
+IF...THEN...ELSE and CASE statements.  All examples used in this
+section assume the "Don't Care" default to be in effect.
+
+From the Logic Synthesis Options form (accessed from the Setup menu),
+fill in the "Use 'IF-THEN-ELSE', 'CASE' default as" field as follows:
+
+Don't care      Unspecified default conditions are assumed to be don't
+                care.
+
+Off             Unspecified default conditions are assumed to be
+                false.
+
+The don't-care option requires that you specify both the on and off
+sets. The off option requires you to specify only the on sets; the
+software assumes all other conditions to be off.
+
+You may lose signals from the design if you select the Don't-care
+option and do not specify all of the default conditions.  If the
+software treats these signals as don't care, they will be eliminated
+from the design during logic reduction.
+
+Important:  When translating designs created with PLPL, you must
+select the Off option because PLPL treats unspecified default
+conditions as false.
+
+There is no limit to the number of constructs you can have in your
+design.  However, minimal nesting makes the file easier to follow and
+faster to compile.
+
+You can use an IF clause without an ELSE clause but when the IF clause
+is false no logic is defined.  In the case of multiple or nested
+IF-THEN-ELSE statements, an ELSE clause always matches the last
+IF-THEN clause.
+
+You can nest IF-THEN-ELSE constructs within CASE and other
+IF-THEN-ELSE constructs.  The following examples show how the software
+expands IF-THEN-ELSE constructs.
+
+IF-THEN-ELSE                     Expands To
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+IF (A) THEN B = 1                B = VCC *  A  - that is    B =  A
+
+IF (A) THEN B = 1  ELSE B = 0    B = VCC *  A  ¿         Ú  B =  A
+                                               Ã that is ´
+                                /B = VCC * /A  Ù         À /B = /A
+
+IF (A) THEN B = 0               /B = VCC *  A  - that is   /B =  A
+
+IF (A) THEN /B = 1              /B = VCC *  A  - that is   /B =  A
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Related Topics
+Boolean Equation
+CASE
+EXPRESSION
+IF-THEN-ELSE, SIMULATION
+ú
+

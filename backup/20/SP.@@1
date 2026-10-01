@@ -1,0 +1,73 @@
+
+PALASM4  PARSER   - MARKET RELEASE 1.5 (7-10-92)
+ (C) - COPYRIGHT ADVANCED MICRO DEVICES INC., 1992
+
+
+
+ %% PARSE %%    Processing design file.......Mbank0.pds
+
+ %% PARSE %%    Listing file.................sp.@@2
+  50     |WRITE_BANK  = /IO_CS * /WR * /RA[2] * /RA[1] * /RA[0]
+  ERROR --^ (L50/C1)
+|> ERROR P60  Undeclared signal name WRITE_BANK
+
+  51     |WRITE_WPOS  = /IO_CS * /WR * /RA[2] * /RA[1] *  RA[0]
+  ERROR --^ (L51/C1)
+|> ERROR P60  Undeclared signal name WRITE_WPOS
+
+  52     |WRITE_WMASK = /IO_CS * /WR * /RA[2] *  RA[1] * /RA[0]
+  ERROR --^ (L52/C1)
+|> ERROR P60  Undeclared signal name WRITE_WMASK
+
+  55     |BANK[0] := D[0] * WRITE_BANK + BANK[0] * /WRITE_BANK
+  ERROR --------------------^ (L55/C19)
+|> ERROR P60  Undeclared signal name WRITE_BANK
+
+  ERROR --------------------------------------------^ (L55/C43)
+|> ERROR P60  Undeclared signal name WRITE_BANK
+
+  56     |BANK[1] := D[1] * WRITE_BANK + BANK[1] * /WRITE_BANK
+  ERROR --------------------^ (L56/C19)
+|> ERROR P60  Undeclared signal name WRITE_BANK
+
+  ERROR --------------------------------------------^ (L56/C43)
+|> ERROR P60  Undeclared signal name WRITE_BANK
+
+  57     |BANK[2] := D[2] * WRITE_BANK + BANK[2] * /WRITE_BANK
+  ERROR --------------------^ (L57/C19)
+|> ERROR P60  Undeclared signal name WRITE_BANK
+
+  ERROR --------------------------------------------^ (L57/C43)
+|> ERROR P60  Undeclared signal name WRITE_BANK
+
+  58     |BANK[3] := D[3] * WRITE_BANK + BANK[3] * /WRITE_BANK
+  ERROR --------------------^ (L58/C19)
+|> ERROR P60  Undeclared signal name WRITE_BANK
+
+  ERROR --------------------------------------------^ (L58/C43)
+|> ERROR P60  Undeclared signal name WRITE_BANK
+
+  59     |BANK[4] := D[4] * WRITE_BANK + BANK[4] * /WRITE_BANK
+  ERROR --------------------^ (L59/C19)
+|> ERROR P60  Undeclared signal name WRITE_BANK
+
+  ERROR --------------------------------------------^ (L59/C43)
+|> ERROR P60  Undeclared signal name WRITE_BANK
+
+  60     |BANK[5] := D[5] * WRITE_BANK + BANK[5] * /WRITE_BANK
+  ERROR --------------------^ (L60/C19)
+|> ERROR P60  Undeclared signal name WRITE_BANK
+
+  ERROR --------------------------------------------^ (L60/C43)
+|> ERROR P60  Undeclared signal name WRITE_BANK
+
+  61     |BANK[6] := D[6] * WRITE_BANK + BANK[6] * /WRITE_BANK
+  ERROR --------------------^ (L61/C19)
+|> ERROR P60  Undeclared signal name WRITE_BANK
+
+|> ERROR P102  Too many syntax errors.  Processing aborted!
+
+
+ %% PARSE %%    Error count:  17     Warning count:  0
+
+ %% PARSE %%    File processing terminated.     File:  Mbank0.pds

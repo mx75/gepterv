@@ -1,0 +1,1148 @@
+" mach435.dev Data File: Date created [ Wed Mar 02 15:13:57 1994]"
+
+" ===> Device Dimensions"
+ 84   8 "<84 device pins> <8 logic blocks> "
+
+" ===> Absolute to Block/relative IO pin table"
+0
+0
+2    0    0  "Device Pin [ 2] = Blk [A] IO Pin [ 0]"
+2    0    1  "Device Pin [ 3] = Blk [A] IO Pin [ 1]"
+2    0    2  "Device Pin [ 4] = Blk [A] IO Pin [ 2]"
+2    0    3  "Device Pin [ 5] = Blk [A] IO Pin [ 3]"
+2    0    4  "Device Pin [ 6] = Blk [A] IO Pin [ 4]"
+2    0    5  "Device Pin [ 7] = Blk [A] IO Pin [ 5]"
+2    0    6  "Device Pin [ 8] = Blk [A] IO Pin [ 6]"
+2    0    7  "Device Pin [ 9] = Blk [A] IO Pin [ 7]"
+0
+2    1    7  "Device Pin [11] = Blk [B] IO Pin [ 7]"
+2    1    6  "Device Pin [12] = Blk [B] IO Pin [ 6]"
+2    1    5  "Device Pin [13] = Blk [B] IO Pin [ 5]"
+2    1    4  "Device Pin [14] = Blk [B] IO Pin [ 4]"
+2    1    3  "Device Pin [15] = Blk [B] IO Pin [ 3]"
+2    1    2  "Device Pin [16] = Blk [B] IO Pin [ 2]"
+2    1    1  "Device Pin [17] = Blk [B] IO Pin [ 1]"
+2    1    0  "Device Pin [18] = Blk [B] IO Pin [ 0]"
+0
+0
+0
+0
+2    2    0  "Device Pin [23] = Blk [C] IO Pin [ 0]"
+2    2    1  "Device Pin [24] = Blk [C] IO Pin [ 1]"
+2    2    2  "Device Pin [25] = Blk [C] IO Pin [ 2]"
+2    2    3  "Device Pin [26] = Blk [C] IO Pin [ 3]"
+2    2    4  "Device Pin [27] = Blk [C] IO Pin [ 4]"
+2    2    5  "Device Pin [28] = Blk [C] IO Pin [ 5]"
+2    2    6  "Device Pin [29] = Blk [C] IO Pin [ 6]"
+2    2    7  "Device Pin [30] = Blk [C] IO Pin [ 7]"
+0
+2    3    7  "Device Pin [32] = Blk [D] IO Pin [ 7]"
+2    3    6  "Device Pin [33] = Blk [D] IO Pin [ 6]"
+2    3    5  "Device Pin [34] = Blk [D] IO Pin [ 5]"
+2    3    4  "Device Pin [35] = Blk [D] IO Pin [ 4]"
+2    3    3  "Device Pin [36] = Blk [D] IO Pin [ 3]"
+2    3    2  "Device Pin [37] = Blk [D] IO Pin [ 2]"
+2    3    1  "Device Pin [38] = Blk [D] IO Pin [ 1]"
+2    3    0  "Device Pin [39] = Blk [D] IO Pin [ 0]"
+0
+0
+0
+0
+2    4    0  "Device Pin [44] = Blk [E] IO Pin [ 0]"
+2    4    1  "Device Pin [45] = Blk [E] IO Pin [ 1]"
+2    4    2  "Device Pin [46] = Blk [E] IO Pin [ 2]"
+2    4    3  "Device Pin [47] = Blk [E] IO Pin [ 3]"
+2    4    4  "Device Pin [48] = Blk [E] IO Pin [ 4]"
+2    4    5  "Device Pin [49] = Blk [E] IO Pin [ 5]"
+2    4    6  "Device Pin [50] = Blk [E] IO Pin [ 6]"
+2    4    7  "Device Pin [51] = Blk [E] IO Pin [ 7]"
+0
+2    5    7  "Device Pin [53] = Blk [F] IO Pin [ 7]"
+2    5    6  "Device Pin [54] = Blk [F] IO Pin [ 6]"
+2    5    5  "Device Pin [55] = Blk [F] IO Pin [ 5]"
+2    5    4  "Device Pin [56] = Blk [F] IO Pin [ 4]"
+2    5    3  "Device Pin [57] = Blk [F] IO Pin [ 3]"
+2    5    2  "Device Pin [58] = Blk [F] IO Pin [ 2]"
+2    5    1  "Device Pin [59] = Blk [F] IO Pin [ 1]"
+2    5    0  "Device Pin [60] = Blk [F] IO Pin [ 0]"
+0
+0
+0
+0
+2    6    0  "Device Pin [65] = Blk [G] IO Pin [ 0]"
+2    6    1  "Device Pin [66] = Blk [G] IO Pin [ 1]"
+2    6    2  "Device Pin [67] = Blk [G] IO Pin [ 2]"
+2    6    3  "Device Pin [68] = Blk [G] IO Pin [ 3]"
+2    6    4  "Device Pin [69] = Blk [G] IO Pin [ 4]"
+2    6    5  "Device Pin [70] = Blk [G] IO Pin [ 5]"
+2    6    6  "Device Pin [71] = Blk [G] IO Pin [ 6]"
+2    6    7  "Device Pin [72] = Blk [G] IO Pin [ 7]"
+0
+2    7    7  "Device Pin [74] = Blk [H] IO Pin [ 7]"
+2    7    6  "Device Pin [75] = Blk [H] IO Pin [ 6]"
+2    7    5  "Device Pin [76] = Blk [H] IO Pin [ 5]"
+2    7    4  "Device Pin [77] = Blk [H] IO Pin [ 4]"
+2    7    3  "Device Pin [78] = Blk [H] IO Pin [ 3]"
+2    7    2  "Device Pin [79] = Blk [H] IO Pin [ 2]"
+2    7    1  "Device Pin [80] = Blk [H] IO Pin [ 1]"
+2    7    0  "Device Pin [81] = Blk [H] IO Pin [ 0]"
+0
+0
+
+" ===> Block/relative IO pin to Absolute pin table"
+
+  8 "<blk A> <IO 0/devpin>...<IO 7/devpin>"
+	  2  3  4  5  6  7  8  9
+  8 "<blk B> <IO 0/devpin>...<IO 7/devpin>"
+	 18 17 16 15 14 13 12 11
+  8 "<blk C> <IO 0/devpin>...<IO 7/devpin>"
+	 23 24 25 26 27 28 29 30
+  8 "<blk D> <IO 0/devpin>...<IO 7/devpin>"
+	 39 38 37 36 35 34 33 32
+  8 "<blk E> <IO 0/devpin>...<IO 7/devpin>"
+	 44 45 46 47 48 49 50 51
+  8 "<blk F> <IO 0/devpin>...<IO 7/devpin>"
+	 60 59 58 57 56 55 54 53
+  8 "<blk G> <IO 0/devpin>...<IO 7/devpin>"
+	 65 66 67 68 69 70 71 72
+  8 "<blk H> <IO 0/devpin>...<IO 7/devpin>"
+	 81 80 79 78 77 76 75 74
+
+" ===> Dimensions for READ_MACH_DEVICE()"
+ 84  23   8  16 "<84 device pins> <MACH435 fdbk type> <8 size of PIN_OMX> <16 nodes per block> "
+  1   1" <OMX_info types> "
+  8   1   1 "<8 logic blocks> <sig_mux types> <mux_sig types> "
+ -1 "Number of partitioning data constraints"
+
+" ===> Pin Connection Information "
+
+  1     "Pin   0 = GND "
+  2     "Pin   1 = Vcc "
+  3   0   1   0 "Pin   2 <OMX index> <num OE PTs> <IMX index>"
+  3   1   1   1 "Pin   3 <OMX index> <num OE PTs> <IMX index>"
+  3   2   1   2 "Pin   4 <OMX index> <num OE PTs> <IMX index>"
+  3   3   1   3 "Pin   5 <OMX index> <num OE PTs> <IMX index>"
+  3   4   1   4 "Pin   6 <OMX index> <num OE PTs> <IMX index>"
+  3   5   1   5 "Pin   7 <OMX index> <num OE PTs> <IMX index>"
+  3   6   1   6 "Pin   8 <OMX index> <num OE PTs> <IMX index>"
+  3   7   1   7 "Pin   9 <OMX index> <num OE PTs> <IMX index>"
+  1     "Pin  10 = GND "
+  3   7   1   7 "Pin  11 <OMX index> <num OE PTs> <IMX index>"
+  3   6   1   6 "Pin  12 <OMX index> <num OE PTs> <IMX index>"
+  3   5   1   5 "Pin  13 <OMX index> <num OE PTs> <IMX index>"
+  3   4   1   4 "Pin  14 <OMX index> <num OE PTs> <IMX index>"
+  3   3   1   3 "Pin  15 <OMX index> <num OE PTs> <IMX index>"
+  3   2   1   2 "Pin  16 <OMX index> <num OE PTs> <IMX index>"
+  3   1   1   1 "Pin  17 <OMX index> <num OE PTs> <IMX index>"
+  3   0   1   0 "Pin  18 <OMX index> <num OE PTs> <IMX index>"
+  8 192 "Pin  19 = Clk/Inp "
+  2     "Pin  20 = Vcc "
+  1     "Pin  21 = GND "
+  8 193 "Pin  22 = Clk/Inp "
+  3   0   1   0 "Pin  23 <OMX index> <num OE PTs> <IMX index>"
+  3   1   1   1 "Pin  24 <OMX index> <num OE PTs> <IMX index>"
+  3   2   1   2 "Pin  25 <OMX index> <num OE PTs> <IMX index>"
+  3   3   1   3 "Pin  26 <OMX index> <num OE PTs> <IMX index>"
+  3   4   1   4 "Pin  27 <OMX index> <num OE PTs> <IMX index>"
+  3   5   1   5 "Pin  28 <OMX index> <num OE PTs> <IMX index>"
+  3   6   1   6 "Pin  29 <OMX index> <num OE PTs> <IMX index>"
+  3   7   1   7 "Pin  30 <OMX index> <num OE PTs> <IMX index>"
+  1     "Pin  31 = GND "
+  3   7   1   7 "Pin  32 <OMX index> <num OE PTs> <IMX index>"
+  3   6   1   6 "Pin  33 <OMX index> <num OE PTs> <IMX index>"
+  3   5   1   5 "Pin  34 <OMX index> <num OE PTs> <IMX index>"
+  3   4   1   4 "Pin  35 <OMX index> <num OE PTs> <IMX index>"
+  3   3   1   3 "Pin  36 <OMX index> <num OE PTs> <IMX index>"
+  3   2   1   2 "Pin  37 <OMX index> <num OE PTs> <IMX index>"
+  3   1   1   1 "Pin  38 <OMX index> <num OE PTs> <IMX index>"
+  3   0   1   0 "Pin  39 <OMX index> <num OE PTs> <IMX index>"
+  7 194 "Pin  40 = INPUT only "
+  2     "Pin  41 = Vcc "
+  1     "Pin  42 = GND "
+  2     "Pin  43 = Vcc "
+  3   0   1   0 "Pin  44 <OMX index> <num OE PTs> <IMX index>"
+  3   1   1   1 "Pin  45 <OMX index> <num OE PTs> <IMX index>"
+  3   2   1   2 "Pin  46 <OMX index> <num OE PTs> <IMX index>"
+  3   3   1   3 "Pin  47 <OMX index> <num OE PTs> <IMX index>"
+  3   4   1   4 "Pin  48 <OMX index> <num OE PTs> <IMX index>"
+  3   5   1   5 "Pin  49 <OMX index> <num OE PTs> <IMX index>"
+  3   6   1   6 "Pin  50 <OMX index> <num OE PTs> <IMX index>"
+  3   7   1   7 "Pin  51 <OMX index> <num OE PTs> <IMX index>"
+  1     "Pin  52 = GND "
+  3   7   1   7 "Pin  53 <OMX index> <num OE PTs> <IMX index>"
+  3   6   1   6 "Pin  54 <OMX index> <num OE PTs> <IMX index>"
+  3   5   1   5 "Pin  55 <OMX index> <num OE PTs> <IMX index>"
+  3   4   1   4 "Pin  56 <OMX index> <num OE PTs> <IMX index>"
+  3   3   1   3 "Pin  57 <OMX index> <num OE PTs> <IMX index>"
+  3   2   1   2 "Pin  58 <OMX index> <num OE PTs> <IMX index>"
+  3   1   1   1 "Pin  59 <OMX index> <num OE PTs> <IMX index>"
+  3   0   1   0 "Pin  60 <OMX index> <num OE PTs> <IMX index>"
+  8 195 "Pin  61 = Clk/Inp "
+  2     "Pin  62 = Vcc "
+  1     "Pin  63 = GND "
+  8 196 "Pin  64 = Clk/Inp "
+  3   0   1   0 "Pin  65 <OMX index> <num OE PTs> <IMX index>"
+  3   1   1   1 "Pin  66 <OMX index> <num OE PTs> <IMX index>"
+  3   2   1   2 "Pin  67 <OMX index> <num OE PTs> <IMX index>"
+  3   3   1   3 "Pin  68 <OMX index> <num OE PTs> <IMX index>"
+  3   4   1   4 "Pin  69 <OMX index> <num OE PTs> <IMX index>"
+  3   5   1   5 "Pin  70 <OMX index> <num OE PTs> <IMX index>"
+  3   6   1   6 "Pin  71 <OMX index> <num OE PTs> <IMX index>"
+  3   7   1   7 "Pin  72 <OMX index> <num OE PTs> <IMX index>"
+  1     "Pin  73 = GND "
+  3   7   1   7 "Pin  74 <OMX index> <num OE PTs> <IMX index>"
+  3   6   1   6 "Pin  75 <OMX index> <num OE PTs> <IMX index>"
+  3   5   1   5 "Pin  76 <OMX index> <num OE PTs> <IMX index>"
+  3   4   1   4 "Pin  77 <OMX index> <num OE PTs> <IMX index>"
+  3   3   1   3 "Pin  78 <OMX index> <num OE PTs> <IMX index>"
+  3   2   1   2 "Pin  79 <OMX index> <num OE PTs> <IMX index>"
+  3   1   1   1 "Pin  80 <OMX index> <num OE PTs> <IMX index>"
+  3   0   1   0 "Pin  81 <OMX index> <num OE PTs> <IMX index>"
+  7 197 "Pin  82 = INPUT only "
+  2     "Pin  83 = Vcc "
+
+" ===> PIN_OMX data: which nodes go to an IO pin"
+	"Pin  [ 0]"  8   0   1   2   3   4   5   6   7
+	"Pin  [ 1]"  8   2   3   4   5   6   7   8   9
+	"Pin  [ 2]"  8   4   5   6   7   8   9  10  11
+	"Pin  [ 3]"  8   6   7   8   9  10  11  12  13
+	"Pin  [ 4]"  8   8   9  10  11  12  13  14  15
+	"Pin  [ 5]"  8  10  11  12  13  14  15   0   1
+	"Pin  [ 6]"  8  12  13  14  15   0   1   2   3
+	"Pin  [ 7]"  8  14  15   0   1   2   3   4   5
+
+" ===> NODE_OMX data: which pins a node can go to"
+	"Node [ 0]"  4   5   6   7   0
+	"Node [ 1]"  4   5   6   7   0
+	"Node [ 2]"  4   6   7   0   1
+	"Node [ 3]"  4   6   7   0   1
+	"Node [ 4]"  4   7   0   1   2
+	"Node [ 5]"  4   7   0   1   2
+	"Node [ 6]"  4   0   1   2   3
+	"Node [ 7]"  4   0   1   2   3
+	"Node [ 8]"  4   1   2   3   4
+	"Node [ 9]"  4   1   2   3   4
+	"Node [10]"  4   2   3   4   5
+	"Node [11]"  4   2   3   4   5
+	"Node [12]"  4   3   4   5   6
+	"Node [13]"  4   3   4   5   6
+	"Node [14]"  4   4   5   6   7
+	"Node [15]"  4   4   5   6   7
+
+198 " ===> 198 signals followed by # of muxes signal goes to"
+  3 0   8  11  19  "Signal [  0]"
+  3 0   4  15  29  "Signal [  1]"
+  3 0   9  12  21  "Signal [  2]"
+  3 0   5  14  30  "Signal [  3]"
+  3 0   0  22  25  "Signal [  4]"
+  3 0   6  25  32  "Signal [  5]"
+  3 0   3  17  29  "Signal [  6]"
+  3 0   1  19  27  "Signal [  7]"
+  3 0   2  18  28  "Signal [  8]"
+  3 0   5  15  31  "Signal [  9]"
+  3 0  10  15  22  "Signal [ 10]"
+  3 0   1  20  28  "Signal [ 11]"
+  3 0   4  17  31  "Signal [ 12]"
+  3 0   3  18  30  "Signal [ 13]"
+  3 0   2  19  29  "Signal [ 14]"
+  3 0   6  11  26  "Signal [ 15]"
+  3 0   8  14  22  "Signal [ 16]"
+  3 0   7  13  26  "Signal [ 17]"
+  3 0   6  12  27  "Signal [ 18]"
+  3 0   9  15  24  "Signal [ 19]"
+  3 0   0  25  28  "Signal [ 20]"
+  3 0   5  12  18  "Signal [ 21]"
+  3 0   3  20  32  "Signal [ 22]"
+  3 0   6  13  28  "Signal [ 23]"
+  3 0   4  11  19  "Signal [ 24]"
+  3 0   0  26  29  "Signal [ 25]"
+  3 0   8  15  23  "Signal [ 26]"
+  3 0   8  16  24  "Signal [ 27]"
+  3 0  10  18  25  "Signal [ 28]"
+  3 0   5  13  19  "Signal [ 29]"
+  3 0   1  23  31  "Signal [ 30]"
+  3 0   0  27  30  "Signal [ 31]"
+  3 0   0  28  31  "Signal [ 32]"
+  3 0  10  19  26  "Signal [ 33]"
+  3 0   2  11  23  "Signal [ 34]"
+  3 0   1  24  32  "Signal [ 35]"
+  3 0   4  13  21  "Signal [ 36]"
+  3 0   8  17  25  "Signal [ 37]"
+  3 0   6  16  31  "Signal [ 38]"
+  3 0   9  19  28  "Signal [ 39]"
+  3 0   2  12  24  "Signal [ 40]"
+  3 0   7  17  30  "Signal [ 41]"
+  3 0   1  11  25  "Signal [ 42]"
+  3 0   1  12  26  "Signal [ 43]"
+  3 0  10  21  28  "Signal [ 44]"
+  3 0   2  13  25  "Signal [ 45]"
+  3 0   9  20  29  "Signal [ 46]"
+  3 0   8  19  27  "Signal [ 47]"
+  3 0   7  14  27  "Signal [ 48]"
+  3 0   9  16  25  "Signal [ 49]"
+  3 0   1  22  30  "Signal [ 50]"
+  3 0   3  11  21  "Signal [ 51]"
+  3 0   2  22  32  "Signal [ 52]"
+  3 0   4  12  20  "Signal [ 53]"
+  3 0   9  17  26  "Signal [ 54]"
+  3 0   6  14  29  "Signal [ 55]"
+  3 0   7  15  28  "Signal [ 56]"
+  3 0   3  12  22  "Signal [ 57]"
+  3 0   9  18  27  "Signal [ 58]"
+  3 0   6  15  30  "Signal [ 59]"
+  3 0   5  14  20  "Signal [ 60]"
+  3 0   7  16  29  "Signal [ 61]"
+  3 0   3  13  23  "Signal [ 62]"
+  3 0  10  20  27  "Signal [ 63]"
+  3 0   8  18  26  "Signal [ 64]"
+  3 0   0  29  32  "Signal [ 65]"
+  3 0   4  14  22  "Signal [ 66]"
+  3 0   4  15  23  "Signal [ 67]"
+  3 0   0  11  30  "Signal [ 68]"
+  3 0   6  17  32  "Signal [ 69]"
+  3 0   7  18  31  "Signal [ 70]"
+  3 0   5  16  22  "Signal [ 71]"
+  3 0   6  24  31  "Signal [ 72]"
+  3 0   1  18  26  "Signal [ 73]"
+  3 0   2  17  27  "Signal [ 74]"
+  3 0   7  23  32  "Signal [ 75]"
+  3 0   3  16  28  "Signal [ 76]"
+  3 0   9  13  22  "Signal [ 77]"
+  3 0   0  23  26  "Signal [ 78]"
+  3 0  10  14  21  "Signal [ 79]"
+  3 0   7  11  24  "Signal [ 80]"
+  3 0   8  12  20  "Signal [ 81]"
+  3 0   4  16  30  "Signal [ 82]"
+  3 0   8  13  21  "Signal [ 83]"
+  3 0   0  24  27  "Signal [ 84]"
+  3 0   5  16  32  "Signal [ 85]"
+  3 0   7  12  25  "Signal [ 86]"
+  3 0   9  14  23  "Signal [ 87]"
+  3 0   2  20  30  "Signal [ 88]"
+  3 0   3  19  31  "Signal [ 89]"
+  3 0  10  16  23  "Signal [ 90]"
+  3 0   5  11  17  "Signal [ 91]"
+  3 0   1  21  29  "Signal [ 92]"
+  3 0   4  18  32  "Signal [ 93]"
+  3 0  10  17  24  "Signal [ 94]"
+  3 0   2  21  31  "Signal [ 95]"
+  3 0   1  17  25  "Signal [ 96]"
+  3 0   7  22  31  "Signal [ 97]"
+  3 0   5  13  29  "Signal [ 98]"
+  3 0   2  16  26  "Signal [ 99]"
+  3 0   3  15  27  "Signal [100]"
+  3 0   8  17  31  "Signal [101]"
+  3 0   1  16  24  "Signal [102]"
+  3 0   6  22  29  "Signal [103]"
+  3 0   3  14  26  "Signal [104]"
+  3 0   5  12  28  "Signal [105]"
+  3 0   0  19  22  "Signal [106]"
+  3 0   4  12  26  "Signal [107]"
+  3 0   9  18  31  "Signal [108]"
+  3 0   8  16  30  "Signal [109]"
+  3 0   2  14  24  "Signal [110]"
+  3 0   1  15  23  "Signal [111]"
+  3 0   3  12  24  "Signal [112]"
+  3 0   5  26  32  "Signal [113]"
+  3 0   9  17  30  "Signal [114]"
+  3 0  10  16  31  "Signal [115]"
+  3 0   2  13  23  "Signal [116]"
+  3 0   9  16  29  "Signal [117]"
+  3 0   6  19  26  "Signal [118]"
+  3 0   8  14  28  "Signal [119]"
+  3 0   3  11  23  "Signal [120]"
+  3 0   5  25  31  "Signal [121]"
+  3 0  10  15  30  "Signal [122]"
+  3 0   8  13  27  "Signal [123]"
+  3 0   9  15  28  "Signal [124]"
+  3 0   7  17  26  "Signal [125]"
+  3 0   1  12  20  "Signal [126]"
+  3 0  10  14  29  "Signal [127]"
+  3 0   9  14  27  "Signal [128]"
+  3 0   6  17  24  "Signal [129]"
+  3 0   1  11  19  "Signal [130]"
+  3 0   7  16  25  "Signal [131]"
+  3 0   3  21  31  "Signal [132]"
+  3 0   2  20  32  "Signal [133]"
+  3 0   1  18  32  "Signal [134]"
+  3 0   6  16  23  "Signal [135]"
+  3 0   2  19  31  "Signal [136]"
+  3 0   3  20  30  "Signal [137]"
+  3 0   7  15  24  "Signal [138]"
+  3 0   1  17  31  "Signal [139]"
+  3 0   6  15  22  "Signal [140]"
+  3 0   5  21  27  "Signal [141]"
+  3 0   8  24  32  "Signal [142]"
+  3 0   3  19  29  "Signal [143]"
+  3 0   1  13  21  "Signal [144]"
+  3 0   0  17  20  "Signal [145]"
+  3 0   4  24  32  "Signal [146]"
+  3 0   6  18  25  "Signal [147]"
+  3 0   4  23  31  "Signal [148]"
+  3 0   5  24  30  "Signal [149]"
+  3 0   0  16  19  "Signal [150]"
+  3 0   2  11  21  "Signal [151]"
+  3 0   3  22  32  "Signal [152]"
+  3 0   4  22  30  "Signal [153]"
+  3 0   5  23  29  "Signal [154]"
+  3 0   8  12  26  "Signal [155]"
+  3 0   0  15  18  "Signal [156]"
+  3 0  10  13  28  "Signal [157]"
+  3 0  10  12  27  "Signal [158]"
+  3 0   0  14  17  "Signal [159]"
+  3 0   5  22  28  "Signal [160]"
+  3 0   9  13  26  "Signal [161]"
+  3 0   8  11  25  "Signal [162]"
+  3 0   7  14  23  "Signal [163]"
+  3 0   9  12  25  "Signal [164]"
+  3 0   0  13  16  "Signal [165]"
+  3 0  10  11  26  "Signal [166]"
+  3 0   2  18  30  "Signal [167]"
+  3 0   8  18  32  "Signal [168]"
+  3 0   6  23  30  "Signal [169]"
+  3 0  10  12  19  "Signal [170]"
+  3 0   9  11  20  "Signal [171]"
+  3 0   4  14  28  "Signal [172]"
+  3 0  10  11  18  "Signal [173]"
+  3 0   2  15  25  "Signal [174]"
+  3 0   0  20  23  "Signal [175]"
+  3 0   4  13  27  "Signal [176]"
+  3 0   9  19  32  "Signal [177]"
+  3 0   7  21  30  "Signal [178]"
+  3 0   7  20  29  "Signal [179]"
+  3 0  10  17  32  "Signal [180]"
+  3 0   3  13  25  "Signal [181]"
+  3 0   5  11  27  "Signal [182]"
+  3 0   6  21  28  "Signal [183]"
+  3 0   0  18  21  "Signal [184]"
+  3 0   1  14  22  "Signal [185]"
+  3 0   6  20  27  "Signal [186]"
+  3 0   8  15  29  "Signal [187]"
+  3 0   7  19  28  "Signal [188]"
+  3 0   4  11  25  "Signal [189]"
+  3 0   2  12  22  "Signal [190]"
+  3 0   7  18  27  "Signal [191]"
+  3 0   3  14  24  "Signal [192]"
+  3 0   5  15  21  "Signal [193]"
+  3 0  10  13  20  "Signal [194]"
+  3 0   4  21  29  "Signal [195]"
+  3 0   4  20  28  "Signal [196]"
+  3 0   0  21  24  "Signal [197]"
+
+ 33 1 " ===>  33 muxes followed by signals going through the mux"
+ 18     "Mux [  0]"
+  68 165  65 159  32 156  31 150  25 145  20 184  84 106  78 175   4 197
+ 18     "Mux [  1]"
+  43 139  42 134  35 130  30 126  50 144  92 185  11 111   7 102  73  96
+ 18     "Mux [  2]"
+  45 167  40 136  34 133  52 151  95 190  88 116  14 110   8 174  74  99
+ 18     "Mux [  3]"
+ 192 143  62 137  57 132  51 152  22 120  89 112  13 181   6 104  76 100
+ 18     "Mux [  4]"
+  67 196  66 195  36 153  53 148  24 146  93 189  12 107  82 176   1 172
+ 18     "Mux [  5]"
+  71 141 193 160  60 154  29 149  21 121  91 113  85 182   9 105   3  98
+ 18     "Mux [  6]"
+  69 140  38 135  59 129  55 147  23 118  18 186  15 183   5 103  72 169
+ 18     "Mux [  7]"
+  70 163  41 138  61 131  56 125  48 191  17 188  86 179  80 178  75  97
+ 18     "Mux [  8]"
+  47 142  64 162  37 155  27 123  26 119  16 187  83 109  81 101   0 168
+ 18     "Mux [  9]"
+  46 164  39 161  58 128  54 124  49 117  19 114  87 108  77 177   2 171
+ 18     "Mux [ 10]"
+  44 166  63 158  33 157  28 127  94 122  90 115  10 180  79 173 194 170
+ 18     "Mux [ 11]"
+  68 166  42 162  34 130  51 151  24 120  91 189  15 182  80 173   0 171
+ 18     "Mux [ 12]"
+  43 164  40 158  57 155  53 126  21 190  18 112  86 107  81 105   2 170
+ 18     "Mux [ 13]"
+  45 165  62 161  36 157  29 123  23 144  17 116  83 181  77 176 194  98
+ 18     "Mux [ 14]"
+ 192 163  66 159  60 128  55 127  48 119  16 185  87 110  79 104   3 172
+ 18     "Mux [ 15]"
+  67 140 193 138  59 156  56 124  26 122  19 187  10 111   9 174   1 100
+ 18     "Mux [ 16]"
+  71 165  38 135  61 131  27 150  49 117  90 115  85 109  82 102  76  99
+ 18     "Mux [ 17]"
+  69 139  41 159  37 129  54 125  94 145  91 114  12 180   6 101  74  96
+ 18     "Mux [ 18]"
+  70 167  64 134  58 156  28 147  21 191  93 184  13 108   8 173  73 168
+ 18     "Mux [ 19]"
+  47 143  39 136  33 130  29 150  24 118  89 188  14 106   7 177   0 170
+ 18     "Mux [ 20]"
+  46 196  63 137  60 133  53 126  22 145  88 186  11 179  81 175 194 171
+ 18     "Mux [ 21]"
+  44 141 193 195  36 132  51 151  95 144  92 184  83 183  79 178   2 197
+ 18     "Mux [ 22]"
+  71 140  66 160  57 153  52 152  50 190  16 185  10 106  77 103   4  97
+ 18     "Mux [ 23]"
+  67 163  62 135  34 154  30 148  26 120  90 116  87 111  78 175  75 169
+ 18     "Mux [ 24]"
+ 192 142  40 138  35 129  27 149  94 146  19 112  84 110  80 102  72 197
+ 18     "Mux [ 25]"
+  45 164  42 162  37 131  28 147  49 121  20 189  86 181   5 174   4  96
+ 18     "Mux [ 26]"
+  43 166  64 161  33 155  54 125  25 118  17 113  15 107  78 104  73  99
+ 18     "Mux [ 27]"
+  47 141  63 158  58 128  31 123  48 191  18 186  84 182   7 176  74 100
+ 18     "Mux [ 28]"
+  44 196  39 160  32 157  56 124  23 119  20 188  11 183   8 105  76 172
+ 18     "Mux [ 29]"
+  46 143  65 195  61 154  55 127  25 117  92 187  14 179   6 103   1  98
+ 18     "Mux [ 30]"
+  68 167  41 137  59 153  31 149  50 122  88 114  13 109  82 178   3 169
+ 18     "Mux [ 31]"
+  70 139  38 136  32 132  30 148  95 121  89 115  12 108   9 101  72  97
+ 18     "Mux [ 32]"
+  69 142  65 134  35 133  52 152  22 146  93 113  85 180   5 177  75 168
+
+ 18 " ===> JEDEC offsets for mux select signals"
+	  0   "JEDEC offset for   0 mux input"
+	  1   "JEDEC offset for   1 mux input"
+	 66   "JEDEC offset for   2 mux input"
+	 67   "JEDEC offset for   3 mux input"
+	132   "JEDEC offset for   4 mux input"
+	133   "JEDEC offset for   5 mux input"
+	198   "JEDEC offset for   6 mux input"
+	199   "JEDEC offset for   7 mux input"
+	264   "JEDEC offset for   8 mux input"
+	265   "JEDEC offset for   9 mux input"
+	330   "JEDEC offset for  10 mux input"
+	331   "JEDEC offset for  11 mux input"
+	396   "JEDEC offset for  12 mux input"
+	397   "JEDEC offset for  13 mux input"
+	462   "JEDEC offset for  14 mux input"
+	463   "JEDEC offset for  15 mux input"
+	528   "JEDEC offset for  16 mux input"
+	529   "JEDEC offset for  17 mux input"
+
+" !!!!===> JEDEC information for   8 PLD blocks"
+
+    0  "**** JEDEC start addr for block  0 ****"
+"<maxmuxsize> <IO pins/blk> <OMX info> <pin_OMX_info> <steering types>"
+   33     8     0     0     1 
+  4 " Steering Option [  0] "
+      0   1   2  -1
+ -1 " ===> No partitioning data"
+ 16 " ===> Number of nodes in a block"
+
+" ===> Macrocell initializers"
+   0   4   2   1   1   1   0   0  " Node   0 "
+   0   4   2   1   1   1   1   0  " Node   1 "
+   0   4   2   1   1   1   2   1  " Node   2 "
+   0   4   2   1   1   1   3   1  " Node   3 "
+   0   4   2   1   1   1   4   2  " Node   4 "
+   0   4   2   1   1   1   5   2  " Node   5 "
+   0   4   2   1   1   1   6   3  " Node   6 "
+   0   4   2   1   1   1   7   3  " Node   7 "
+   0   4   2   1   1   1   8   4  " Node   8 "
+   0   4   2   1   1   1   9   4  " Node   9 "
+   0   4   2   1   1   1  10   5  " Node  10 "
+   0   4   2   1   1   1  11   5  " Node  11 "
+   0   4   2   1   1   1  12   6  " Node  12 "
+   0   4   2   1   1   1  13   6  " Node  13 "
+   0   4   2   1   1   1  14   7  " Node  14 "
+   0   4   2   1   1   1  15   7  " Node  15 "
+
+  0    8 "<sig-mux matrix type> <IMX types>"
+
+" ===> Input Matrix IMX information "
+  3   2	"IMX group   0 <IMX muxes> <num mux sel lines>"
+  4	8000 8008 8008 8008 
+  4	   0 8000    0    0 
+  4	   1    1 8000    1 
+"Mux names"		  3	   0    1    2 
+"Unique mux vars"	  4	8000 8008    0    1 
+  3   2	"IMX group   1 <IMX muxes> <num mux sel lines>"
+  4	8001 8009 8009 8009 
+  4	   2 8001    2    2 
+  4	   3    3 8001    3 
+"Mux names"		  3	   3    4    5 
+"Unique mux vars"	  4	8001 8009    2    3 
+  3   2	"IMX group   2 <IMX muxes> <num mux sel lines>"
+  4	8002 8010 8010 8010 
+  4	   4 8002    4    4 
+  4	   5    5 8002    5 
+"Mux names"		  3	   6    7    8 
+"Unique mux vars"	  4	8002 8010    4    5 
+  3   2	"IMX group   3 <IMX muxes> <num mux sel lines>"
+  4	8003 8011 8011 8011 
+  4	   6 8003    6    6 
+  4	   7    7 8003    7 
+"Mux names"		  3	   9   10   11 
+"Unique mux vars"	  4	8003 8011    6    7 
+  3   2	"IMX group   4 <IMX muxes> <num mux sel lines>"
+  4	8004 8012 8012 8012 
+  4	   8 8004    8    8 
+  4	   9    9 8004    9 
+"Mux names"		  3	  12   13   14 
+"Unique mux vars"	  4	8004 8012    8    9 
+  3   2	"IMX group   5 <IMX muxes> <num mux sel lines>"
+  4	8005 8013 8013 8013 
+  4	  10 8005   10   10 
+  4	  11   11 8005   11 
+"Mux names"		  3	  15   16   17 
+"Unique mux vars"	  4	8005 8013   10   11 
+  3   2	"IMX group   6 <IMX muxes> <num mux sel lines>"
+  4	8006 8014 8014 8014 
+  4	  12 8006   12   12 
+  4	  13   13 8006   13 
+"Mux names"		  3	  18   19   20 
+"Unique mux vars"	  4	8006 8014   12   13 
+  3   2	"IMX group   7 <IMX muxes> <num mux sel lines>"
+  4	8007 8015 8015 8015 
+  4	  14 8007   14   14 
+  4	  15   15 8007   15 
+"Mux names"		  3	  21   22   23 
+"Unique mux vars"	  4	8007 8015   14   15 
+
+ 6762  "**** JEDEC start addr for block  1 ****"
+"<maxmuxsize> <IO pins/blk> <OMX info> <pin_OMX_info> <steering types>"
+   33     8     0     0     1 
+  4 " Steering Option [  0] "
+      0   1   2  -1
+ -1 " ===> No partitioning data"
+ 16 " ===> Number of nodes in a block"
+
+" ===> Macrocell initializers"
+   0   4   2   1   1   1   0   0  " Node   0 "
+   0   4   2   1   1   1   1   0  " Node   1 "
+   0   4   2   1   1   1   2   1  " Node   2 "
+   0   4   2   1   1   1   3   1  " Node   3 "
+   0   4   2   1   1   1   4   2  " Node   4 "
+   0   4   2   1   1   1   5   2  " Node   5 "
+   0   4   2   1   1   1   6   3  " Node   6 "
+   0   4   2   1   1   1   7   3  " Node   7 "
+   0   4   2   1   1   1   8   4  " Node   8 "
+   0   4   2   1   1   1   9   4  " Node   9 "
+   0   4   2   1   1   1  10   5  " Node  10 "
+   0   4   2   1   1   1  11   5  " Node  11 "
+   0   4   2   1   1   1  12   6  " Node  12 "
+   0   4   2   1   1   1  13   6  " Node  13 "
+   0   4   2   1   1   1  14   7  " Node  14 "
+   0   4   2   1   1   1  15   7  " Node  15 "
+
+  0    8 "<sig-mux matrix type> <IMX types>"
+
+" ===> Input Matrix IMX information "
+  3   2	"IMX group   0 <IMX muxes> <num mux sel lines>"
+  4	8000 8008 8008 8008 
+  4	   0 8000    0    0 
+  4	   1    1 8000    1 
+"Mux names"		  3	   0    1    2 
+"Unique mux vars"	  4	8000 8008    0    1 
+  3   2	"IMX group   1 <IMX muxes> <num mux sel lines>"
+  4	8001 8009 8009 8009 
+  4	   2 8001    2    2 
+  4	   3    3 8001    3 
+"Mux names"		  3	   3    4    5 
+"Unique mux vars"	  4	8001 8009    2    3 
+  3   2	"IMX group   2 <IMX muxes> <num mux sel lines>"
+  4	8002 8010 8010 8010 
+  4	   4 8002    4    4 
+  4	   5    5 8002    5 
+"Mux names"		  3	   6    7    8 
+"Unique mux vars"	  4	8002 8010    4    5 
+  3   2	"IMX group   3 <IMX muxes> <num mux sel lines>"
+  4	8003 8011 8011 8011 
+  4	   6 8003    6    6 
+  4	   7    7 8003    7 
+"Mux names"		  3	   9   10   11 
+"Unique mux vars"	  4	8003 8011    6    7 
+  3   2	"IMX group   4 <IMX muxes> <num mux sel lines>"
+  4	8004 8012 8012 8012 
+  4	   8 8004    8    8 
+  4	   9    9 8004    9 
+"Mux names"		  3	  12   13   14 
+"Unique mux vars"	  4	8004 8012    8    9 
+  3   2	"IMX group   5 <IMX muxes> <num mux sel lines>"
+  4	8005 8013 8013 8013 
+  4	  10 8005   10   10 
+  4	  11   11 8005   11 
+"Mux names"		  3	  15   16   17 
+"Unique mux vars"	  4	8005 8013   10   11 
+  3   2	"IMX group   6 <IMX muxes> <num mux sel lines>"
+  4	8006 8014 8014 8014 
+  4	  12 8006   12   12 
+  4	  13   13 8006   13 
+"Mux names"		  3	  18   19   20 
+"Unique mux vars"	  4	8006 8014   12   13 
+  3   2	"IMX group   7 <IMX muxes> <num mux sel lines>"
+  4	8007 8015 8015 8015 
+  4	  14 8007   14   14 
+  4	  15   15 8007   15 
+"Mux names"		  3	  21   22   23 
+"Unique mux vars"	  4	8007 8015   14   15 
+
+13524  "**** JEDEC start addr for block  2 ****"
+"<maxmuxsize> <IO pins/blk> <OMX info> <pin_OMX_info> <steering types>"
+   33     8     0     0     1 
+  4 " Steering Option [  0] "
+      0   1   2  -1
+ -1 " ===> No partitioning data"
+ 16 " ===> Number of nodes in a block"
+
+" ===> Macrocell initializers"
+   0   4   2   1   1   1   0   0  " Node   0 "
+   0   4   2   1   1   1   1   0  " Node   1 "
+   0   4   2   1   1   1   2   1  " Node   2 "
+   0   4   2   1   1   1   3   1  " Node   3 "
+   0   4   2   1   1   1   4   2  " Node   4 "
+   0   4   2   1   1   1   5   2  " Node   5 "
+   0   4   2   1   1   1   6   3  " Node   6 "
+   0   4   2   1   1   1   7   3  " Node   7 "
+   0   4   2   1   1   1   8   4  " Node   8 "
+   0   4   2   1   1   1   9   4  " Node   9 "
+   0   4   2   1   1   1  10   5  " Node  10 "
+   0   4   2   1   1   1  11   5  " Node  11 "
+   0   4   2   1   1   1  12   6  " Node  12 "
+   0   4   2   1   1   1  13   6  " Node  13 "
+   0   4   2   1   1   1  14   7  " Node  14 "
+   0   4   2   1   1   1  15   7  " Node  15 "
+
+  0    8 "<sig-mux matrix type> <IMX types>"
+
+" ===> Input Matrix IMX information "
+  3   2	"IMX group   0 <IMX muxes> <num mux sel lines>"
+  4	8000 8008 8008 8008 
+  4	   0 8000    0    0 
+  4	   1    1 8000    1 
+"Mux names"		  3	   0    1    2 
+"Unique mux vars"	  4	8000 8008    0    1 
+  3   2	"IMX group   1 <IMX muxes> <num mux sel lines>"
+  4	8001 8009 8009 8009 
+  4	   2 8001    2    2 
+  4	   3    3 8001    3 
+"Mux names"		  3	   3    4    5 
+"Unique mux vars"	  4	8001 8009    2    3 
+  3   2	"IMX group   2 <IMX muxes> <num mux sel lines>"
+  4	8002 8010 8010 8010 
+  4	   4 8002    4    4 
+  4	   5    5 8002    5 
+"Mux names"		  3	   6    7    8 
+"Unique mux vars"	  4	8002 8010    4    5 
+  3   2	"IMX group   3 <IMX muxes> <num mux sel lines>"
+  4	8003 8011 8011 8011 
+  4	   6 8003    6    6 
+  4	   7    7 8003    7 
+"Mux names"		  3	   9   10   11 
+"Unique mux vars"	  4	8003 8011    6    7 
+  3   2	"IMX group   4 <IMX muxes> <num mux sel lines>"
+  4	8004 8012 8012 8012 
+  4	   8 8004    8    8 
+  4	   9    9 8004    9 
+"Mux names"		  3	  12   13   14 
+"Unique mux vars"	  4	8004 8012    8    9 
+  3   2	"IMX group   5 <IMX muxes> <num mux sel lines>"
+  4	8005 8013 8013 8013 
+  4	  10 8005   10   10 
+  4	  11   11 8005   11 
+"Mux names"		  3	  15   16   17 
+"Unique mux vars"	  4	8005 8013   10   11 
+  3   2	"IMX group   6 <IMX muxes> <num mux sel lines>"
+  4	8006 8014 8014 8014 
+  4	  12 8006   12   12 
+  4	  13   13 8006   13 
+"Mux names"		  3	  18   19   20 
+"Unique mux vars"	  4	8006 8014   12   13 
+  3   2	"IMX group   7 <IMX muxes> <num mux sel lines>"
+  4	8007 8015 8015 8015 
+  4	  14 8007   14   14 
+  4	  15   15 8007   15 
+"Mux names"		  3	  21   22   23 
+"Unique mux vars"	  4	8007 8015   14   15 
+
+20286  "**** JEDEC start addr for block  3 ****"
+"<maxmuxsize> <IO pins/blk> <OMX info> <pin_OMX_info> <steering types>"
+   33     8     0     0     1 
+  4 " Steering Option [  0] "
+      0   1   2  -1
+ -1 " ===> No partitioning data"
+ 16 " ===> Number of nodes in a block"
+
+" ===> Macrocell initializers"
+   0   4   2   1   1   1   0   0  " Node   0 "
+   0   4   2   1   1   1   1   0  " Node   1 "
+   0   4   2   1   1   1   2   1  " Node   2 "
+   0   4   2   1   1   1   3   1  " Node   3 "
+   0   4   2   1   1   1   4   2  " Node   4 "
+   0   4   2   1   1   1   5   2  " Node   5 "
+   0   4   2   1   1   1   6   3  " Node   6 "
+   0   4   2   1   1   1   7   3  " Node   7 "
+   0   4   2   1   1   1   8   4  " Node   8 "
+   0   4   2   1   1   1   9   4  " Node   9 "
+   0   4   2   1   1   1  10   5  " Node  10 "
+   0   4   2   1   1   1  11   5  " Node  11 "
+   0   4   2   1   1   1  12   6  " Node  12 "
+   0   4   2   1   1   1  13   6  " Node  13 "
+   0   4   2   1   1   1  14   7  " Node  14 "
+   0   4   2   1   1   1  15   7  " Node  15 "
+
+  0    8 "<sig-mux matrix type> <IMX types>"
+
+" ===> Input Matrix IMX information "
+  3   2	"IMX group   0 <IMX muxes> <num mux sel lines>"
+  4	8000 8008 8008 8008 
+  4	   0 8000    0    0 
+  4	   1    1 8000    1 
+"Mux names"		  3	   0    1    2 
+"Unique mux vars"	  4	8000 8008    0    1 
+  3   2	"IMX group   1 <IMX muxes> <num mux sel lines>"
+  4	8001 8009 8009 8009 
+  4	   2 8001    2    2 
+  4	   3    3 8001    3 
+"Mux names"		  3	   3    4    5 
+"Unique mux vars"	  4	8001 8009    2    3 
+  3   2	"IMX group   2 <IMX muxes> <num mux sel lines>"
+  4	8002 8010 8010 8010 
+  4	   4 8002    4    4 
+  4	   5    5 8002    5 
+"Mux names"		  3	   6    7    8 
+"Unique mux vars"	  4	8002 8010    4    5 
+  3   2	"IMX group   3 <IMX muxes> <num mux sel lines>"
+  4	8003 8011 8011 8011 
+  4	   6 8003    6    6 
+  4	   7    7 8003    7 
+"Mux names"		  3	   9   10   11 
+"Unique mux vars"	  4	8003 8011    6    7 
+  3   2	"IMX group   4 <IMX muxes> <num mux sel lines>"
+  4	8004 8012 8012 8012 
+  4	   8 8004    8    8 
+  4	   9    9 8004    9 
+"Mux names"		  3	  12   13   14 
+"Unique mux vars"	  4	8004 8012    8    9 
+  3   2	"IMX group   5 <IMX muxes> <num mux sel lines>"
+  4	8005 8013 8013 8013 
+  4	  10 8005   10   10 
+  4	  11   11 8005   11 
+"Mux names"		  3	  15   16   17 
+"Unique mux vars"	  4	8005 8013   10   11 
+  3   2	"IMX group   6 <IMX muxes> <num mux sel lines>"
+  4	8006 8014 8014 8014 
+  4	  12 8006   12   12 
+  4	  13   13 8006   13 
+"Mux names"		  3	  18   19   20 
+"Unique mux vars"	  4	8006 8014   12   13 
+  3   2	"IMX group   7 <IMX muxes> <num mux sel lines>"
+  4	8007 8015 8015 8015 
+  4	  14 8007   14   14 
+  4	  15   15 8007   15 
+"Mux names"		  3	  21   22   23 
+"Unique mux vars"	  4	8007 8015   14   15 
+
+27048  "**** JEDEC start addr for block  4 ****"
+"<maxmuxsize> <IO pins/blk> <OMX info> <pin_OMX_info> <steering types>"
+   33     8     0     0     1 
+  4 " Steering Option [  0] "
+      0   1   2  -1
+ -1 " ===> No partitioning data"
+ 16 " ===> Number of nodes in a block"
+
+" ===> Macrocell initializers"
+   0   4   2   1   1   1   0   0  " Node   0 "
+   0   4   2   1   1   1   1   0  " Node   1 "
+   0   4   2   1   1   1   2   1  " Node   2 "
+   0   4   2   1   1   1   3   1  " Node   3 "
+   0   4   2   1   1   1   4   2  " Node   4 "
+   0   4   2   1   1   1   5   2  " Node   5 "
+   0   4   2   1   1   1   6   3  " Node   6 "
+   0   4   2   1   1   1   7   3  " Node   7 "
+   0   4   2   1   1   1   8   4  " Node   8 "
+   0   4   2   1   1   1   9   4  " Node   9 "
+   0   4   2   1   1   1  10   5  " Node  10 "
+   0   4   2   1   1   1  11   5  " Node  11 "
+   0   4   2   1   1   1  12   6  " Node  12 "
+   0   4   2   1   1   1  13   6  " Node  13 "
+   0   4   2   1   1   1  14   7  " Node  14 "
+   0   4   2   1   1   1  15   7  " Node  15 "
+
+  0    8 "<sig-mux matrix type> <IMX types>"
+
+" ===> Input Matrix IMX information "
+  3   2	"IMX group   0 <IMX muxes> <num mux sel lines>"
+  4	8000 8008 8008 8008 
+  4	   0 8000    0    0 
+  4	   1    1 8000    1 
+"Mux names"		  3	   0    1    2 
+"Unique mux vars"	  4	8000 8008    0    1 
+  3   2	"IMX group   1 <IMX muxes> <num mux sel lines>"
+  4	8001 8009 8009 8009 
+  4	   2 8001    2    2 
+  4	   3    3 8001    3 
+"Mux names"		  3	   3    4    5 
+"Unique mux vars"	  4	8001 8009    2    3 
+  3   2	"IMX group   2 <IMX muxes> <num mux sel lines>"
+  4	8002 8010 8010 8010 
+  4	   4 8002    4    4 
+  4	   5    5 8002    5 
+"Mux names"		  3	   6    7    8 
+"Unique mux vars"	  4	8002 8010    4    5 
+  3   2	"IMX group   3 <IMX muxes> <num mux sel lines>"
+  4	8003 8011 8011 8011 
+  4	   6 8003    6    6 
+  4	   7    7 8003    7 
+"Mux names"		  3	   9   10   11 
+"Unique mux vars"	  4	8003 8011    6    7 
+  3   2	"IMX group   4 <IMX muxes> <num mux sel lines>"
+  4	8004 8012 8012 8012 
+  4	   8 8004    8    8 
+  4	   9    9 8004    9 
+"Mux names"		  3	  12   13   14 
+"Unique mux vars"	  4	8004 8012    8    9 
+  3   2	"IMX group   5 <IMX muxes> <num mux sel lines>"
+  4	8005 8013 8013 8013 
+  4	  10 8005   10   10 
+  4	  11   11 8005   11 
+"Mux names"		  3	  15   16   17 
+"Unique mux vars"	  4	8005 8013   10   11 
+  3   2	"IMX group   6 <IMX muxes> <num mux sel lines>"
+  4	8006 8014 8014 8014 
+  4	  12 8006   12   12 
+  4	  13   13 8006   13 
+"Mux names"		  3	  18   19   20 
+"Unique mux vars"	  4	8006 8014   12   13 
+  3   2	"IMX group   7 <IMX muxes> <num mux sel lines>"
+  4	8007 8015 8015 8015 
+  4	  14 8007   14   14 
+  4	  15   15 8007   15 
+"Mux names"		  3	  21   22   23 
+"Unique mux vars"	  4	8007 8015   14   15 
+
+33810  "**** JEDEC start addr for block  5 ****"
+"<maxmuxsize> <IO pins/blk> <OMX info> <pin_OMX_info> <steering types>"
+   33     8     0     0     1 
+  4 " Steering Option [  0] "
+      0   1   2  -1
+ -1 " ===> No partitioning data"
+ 16 " ===> Number of nodes in a block"
+
+" ===> Macrocell initializers"
+   0   4   2   1   1   1   0   0  " Node   0 "
+   0   4   2   1   1   1   1   0  " Node   1 "
+   0   4   2   1   1   1   2   1  " Node   2 "
+   0   4   2   1   1   1   3   1  " Node   3 "
+   0   4   2   1   1   1   4   2  " Node   4 "
+   0   4   2   1   1   1   5   2  " Node   5 "
+   0   4   2   1   1   1   6   3  " Node   6 "
+   0   4   2   1   1   1   7   3  " Node   7 "
+   0   4   2   1   1   1   8   4  " Node   8 "
+   0   4   2   1   1   1   9   4  " Node   9 "
+   0   4   2   1   1   1  10   5  " Node  10 "
+   0   4   2   1   1   1  11   5  " Node  11 "
+   0   4   2   1   1   1  12   6  " Node  12 "
+   0   4   2   1   1   1  13   6  " Node  13 "
+   0   4   2   1   1   1  14   7  " Node  14 "
+   0   4   2   1   1   1  15   7  " Node  15 "
+
+  0    8 "<sig-mux matrix type> <IMX types>"
+
+" ===> Input Matrix IMX information "
+  3   2	"IMX group   0 <IMX muxes> <num mux sel lines>"
+  4	8000 8008 8008 8008 
+  4	   0 8000    0    0 
+  4	   1    1 8000    1 
+"Mux names"		  3	   0    1    2 
+"Unique mux vars"	  4	8000 8008    0    1 
+  3   2	"IMX group   1 <IMX muxes> <num mux sel lines>"
+  4	8001 8009 8009 8009 
+  4	   2 8001    2    2 
+  4	   3    3 8001    3 
+"Mux names"		  3	   3    4    5 
+"Unique mux vars"	  4	8001 8009    2    3 
+  3   2	"IMX group   2 <IMX muxes> <num mux sel lines>"
+  4	8002 8010 8010 8010 
+  4	   4 8002    4    4 
+  4	   5    5 8002    5 
+"Mux names"		  3	   6    7    8 
+"Unique mux vars"	  4	8002 8010    4    5 
+  3   2	"IMX group   3 <IMX muxes> <num mux sel lines>"
+  4	8003 8011 8011 8011 
+  4	   6 8003    6    6 
+  4	   7    7 8003    7 
+"Mux names"		  3	   9   10   11 
+"Unique mux vars"	  4	8003 8011    6    7 
+  3   2	"IMX group   4 <IMX muxes> <num mux sel lines>"
+  4	8004 8012 8012 8012 
+  4	   8 8004    8    8 
+  4	   9    9 8004    9 
+"Mux names"		  3	  12   13   14 
+"Unique mux vars"	  4	8004 8012    8    9 
+  3   2	"IMX group   5 <IMX muxes> <num mux sel lines>"
+  4	8005 8013 8013 8013 
+  4	  10 8005   10   10 
+  4	  11   11 8005   11 
+"Mux names"		  3	  15   16   17 
+"Unique mux vars"	  4	8005 8013   10   11 
+  3   2	"IMX group   6 <IMX muxes> <num mux sel lines>"
+  4	8006 8014 8014 8014 
+  4	  12 8006   12   12 
+  4	  13   13 8006   13 
+"Mux names"		  3	  18   19   20 
+"Unique mux vars"	  4	8006 8014   12   13 
+  3   2	"IMX group   7 <IMX muxes> <num mux sel lines>"
+  4	8007 8015 8015 8015 
+  4	  14 8007   14   14 
+  4	  15   15 8007   15 
+"Mux names"		  3	  21   22   23 
+"Unique mux vars"	  4	8007 8015   14   15 
+
+40572  "**** JEDEC start addr for block  6 ****"
+"<maxmuxsize> <IO pins/blk> <OMX info> <pin_OMX_info> <steering types>"
+   33     8     0     0     1 
+  4 " Steering Option [  0] "
+      0   1   2  -1
+ -1 " ===> No partitioning data"
+ 16 " ===> Number of nodes in a block"
+
+" ===> Macrocell initializers"
+   0   4   2   1   1   1   0   0  " Node   0 "
+   0   4   2   1   1   1   1   0  " Node   1 "
+   0   4   2   1   1   1   2   1  " Node   2 "
+   0   4   2   1   1   1   3   1  " Node   3 "
+   0   4   2   1   1   1   4   2  " Node   4 "
+   0   4   2   1   1   1   5   2  " Node   5 "
+   0   4   2   1   1   1   6   3  " Node   6 "
+   0   4   2   1   1   1   7   3  " Node   7 "
+   0   4   2   1   1   1   8   4  " Node   8 "
+   0   4   2   1   1   1   9   4  " Node   9 "
+   0   4   2   1   1   1  10   5  " Node  10 "
+   0   4   2   1   1   1  11   5  " Node  11 "
+   0   4   2   1   1   1  12   6  " Node  12 "
+   0   4   2   1   1   1  13   6  " Node  13 "
+   0   4   2   1   1   1  14   7  " Node  14 "
+   0   4   2   1   1   1  15   7  " Node  15 "
+
+  0    8 "<sig-mux matrix type> <IMX types>"
+
+" ===> Input Matrix IMX information "
+  3   2	"IMX group   0 <IMX muxes> <num mux sel lines>"
+  4	8000 8008 8008 8008 
+  4	   0 8000    0    0 
+  4	   1    1 8000    1 
+"Mux names"		  3	   0    1    2 
+"Unique mux vars"	  4	8000 8008    0    1 
+  3   2	"IMX group   1 <IMX muxes> <num mux sel lines>"
+  4	8001 8009 8009 8009 
+  4	   2 8001    2    2 
+  4	   3    3 8001    3 
+"Mux names"		  3	   3    4    5 
+"Unique mux vars"	  4	8001 8009    2    3 
+  3   2	"IMX group   2 <IMX muxes> <num mux sel lines>"
+  4	8002 8010 8010 8010 
+  4	   4 8002    4    4 
+  4	   5    5 8002    5 
+"Mux names"		  3	   6    7    8 
+"Unique mux vars"	  4	8002 8010    4    5 
+  3   2	"IMX group   3 <IMX muxes> <num mux sel lines>"
+  4	8003 8011 8011 8011 
+  4	   6 8003    6    6 
+  4	   7    7 8003    7 
+"Mux names"		  3	   9   10   11 
+"Unique mux vars"	  4	8003 8011    6    7 
+  3   2	"IMX group   4 <IMX muxes> <num mux sel lines>"
+  4	8004 8012 8012 8012 
+  4	   8 8004    8    8 
+  4	   9    9 8004    9 
+"Mux names"		  3	  12   13   14 
+"Unique mux vars"	  4	8004 8012    8    9 
+  3   2	"IMX group   5 <IMX muxes> <num mux sel lines>"
+  4	8005 8013 8013 8013 
+  4	  10 8005   10   10 
+  4	  11   11 8005   11 
+"Mux names"		  3	  15   16   17 
+"Unique mux vars"	  4	8005 8013   10   11 
+  3   2	"IMX group   6 <IMX muxes> <num mux sel lines>"
+  4	8006 8014 8014 8014 
+  4	  12 8006   12   12 
+  4	  13   13 8006   13 
+"Mux names"		  3	  18   19   20 
+"Unique mux vars"	  4	8006 8014   12   13 
+  3   2	"IMX group   7 <IMX muxes> <num mux sel lines>"
+  4	8007 8015 8015 8015 
+  4	  14 8007   14   14 
+  4	  15   15 8007   15 
+"Mux names"		  3	  21   22   23 
+"Unique mux vars"	  4	8007 8015   14   15 
+
+47334  "**** JEDEC start addr for block  7 ****"
+"<maxmuxsize> <IO pins/blk> <OMX info> <pin_OMX_info> <steering types>"
+   33     8     0     0     1 
+  4 " Steering Option [  0] "
+      0   1   2  -1
+ -1 " ===> No partitioning data"
+ 16 " ===> Number of nodes in a block"
+
+" ===> Macrocell initializers"
+   0   4   2   1   1   1   0   0  " Node   0 "
+   0   4   2   1   1   1   1   0  " Node   1 "
+   0   4   2   1   1   1   2   1  " Node   2 "
+   0   4   2   1   1   1   3   1  " Node   3 "
+   0   4   2   1   1   1   4   2  " Node   4 "
+   0   4   2   1   1   1   5   2  " Node   5 "
+   0   4   2   1   1   1   6   3  " Node   6 "
+   0   4   2   1   1   1   7   3  " Node   7 "
+   0   4   2   1   1   1   8   4  " Node   8 "
+   0   4   2   1   1   1   9   4  " Node   9 "
+   0   4   2   1   1   1  10   5  " Node  10 "
+   0   4   2   1   1   1  11   5  " Node  11 "
+   0   4   2   1   1   1  12   6  " Node  12 "
+   0   4   2   1   1   1  13   6  " Node  13 "
+   0   4   2   1   1   1  14   7  " Node  14 "
+   0   4   2   1   1   1  15   7  " Node  15 "
+
+  0    8 "<sig-mux matrix type> <IMX types>"
+
+" ===> Input Matrix IMX information "
+  3   2	"IMX group   0 <IMX muxes> <num mux sel lines>"
+  4	8000 8008 8008 8008 
+  4	   0 8000    0    0 
+  4	   1    1 8000    1 
+"Mux names"		  3	   0    1    2 
+"Unique mux vars"	  4	8000 8008    0    1 
+  3   2	"IMX group   1 <IMX muxes> <num mux sel lines>"
+  4	8001 8009 8009 8009 
+  4	   2 8001    2    2 
+  4	   3    3 8001    3 
+"Mux names"		  3	   3    4    5 
+"Unique mux vars"	  4	8001 8009    2    3 
+  3   2	"IMX group   2 <IMX muxes> <num mux sel lines>"
+  4	8002 8010 8010 8010 
+  4	   4 8002    4    4 
+  4	   5    5 8002    5 
+"Mux names"		  3	   6    7    8 
+"Unique mux vars"	  4	8002 8010    4    5 
+  3   2	"IMX group   3 <IMX muxes> <num mux sel lines>"
+  4	8003 8011 8011 8011 
+  4	   6 8003    6    6 
+  4	   7    7 8003    7 
+"Mux names"		  3	   9   10   11 
+"Unique mux vars"	  4	8003 8011    6    7 
+  3   2	"IMX group   4 <IMX muxes> <num mux sel lines>"
+  4	8004 8012 8012 8012 
+  4	   8 8004    8    8 
+  4	   9    9 8004    9 
+"Mux names"		  3	  12   13   14 
+"Unique mux vars"	  4	8004 8012    8    9 
+  3   2	"IMX group   5 <IMX muxes> <num mux sel lines>"
+  4	8005 8013 8013 8013 
+  4	  10 8005   10   10 
+  4	  11   11 8005   11 
+"Mux names"		  3	  15   16   17 
+"Unique mux vars"	  4	8005 8013   10   11 
+  3   2	"IMX group   6 <IMX muxes> <num mux sel lines>"
+  4	8006 8014 8014 8014 
+  4	  12 8006   12   12 
+  4	  13   13 8006   13 
+"Mux names"		  3	  18   19   20 
+"Unique mux vars"	  4	8006 8014   12   13 
+  3   2	"IMX group   7 <IMX muxes> <num mux sel lines>"
+  4	8007 8015 8015 8015 
+  4	  14 8007   14   14 
+  4	  15   15 8007   15 
+"Mux names"		  3	  21   22   23 
+"Unique mux vars"	  4	8007 8015   14   15 
+
+" ===> Offset for node numbering" 2
+" ===> Node Conversion table" 128
+" ===> Input Node Conversion table"  64

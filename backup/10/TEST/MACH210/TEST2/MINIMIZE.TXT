@@ -1,0 +1,9 @@
+
+
+Processing equation ====> OUT                 MINIMIZE_ON  (1 pt ---> 1 pt)
+
+ %%  MINIMIZE  %% Maximum memory allocated was: 10562 bytes.
+
+ %%  MINIMIZE  %% File Processed Successfully.  File: test2.pds.
+ %%  MINIMIZE  %% ERROR count: 0  WARNING count: 0
+

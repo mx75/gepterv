@@ -1,0 +1,110 @@
+; PALASM Design description
+
+; -----------------------Declaration Segment ------------
+   TITLE 16 BIT UP / DOWN COUNTER
+ PATTERN C16_UDV.PDS
+REVISION A
+  AUTHOR George Landers & Nick Schmitz
+ COMPANY ADVANCED MICRO DEVICES, INC.
+    DATE 3 AUG 1990
+
+CHIP   COUNT16      MACH110
+
+pin  1 gnd
+pin 44 vcc
+pin  ? CLK1
+PIN  ? COUNT
+PIN  ? LOAD
+PIN  ? UP
+NODE ? CRY      COMBINATORIAL
+Pin  ? Q[0..15] REG
+Pin  ? I[0..15]
+
+;---------------------- Boolean Equation Segment ----------------
+Group Mach_seg_B Q[0] Q[1] Q[2] Q[3] Q[4] Q[5]
+Q[6] Q[7] CRY    ;CHANGE 08-06-1991
+GROUP MACH_SEG_A Q[8] Q[9] Q[10] Q[11] Q[12]
+Q[13] Q[14] Q[15]     ;CHANGE 08-06-1991
+
+EQUATIONS
+; Load Terms
+Q[0..15].T :=  /COUNT * LOAD *(Q[0..15]*/I[0..15] + /Q[0..15]*I[0..15])
+Q[0..15].clkf=CLK1
+
+;Count up terms
+Q[0].T:={Q[0].T}+COUNT*/LOAD
+Q[1].T:={Q[1].T}+COUNT*/LOAD* UP* Q[0]
+Q[2].T:={Q[2].T}+COUNT*/LOAD* UP* Q[0]* Q[1]
+Q[3].T:={Q[3].T}+COUNT*/LOAD* UP* Q[0]* Q[1]* Q[2]
+Q[4].T:={Q[4].T}+COUNT*/LOAD* UP* Q[0]* Q[1]* Q[2]* Q[3]
+Q[5].T:={Q[5].T}+COUNT*/LOAD* UP* Q[0]* Q[1]* Q[2]* Q[3]* Q[4]
+Q[6].T:={Q[6].T}+COUNT*/LOAD* UP* Q[0]* Q[1]* Q[2]* Q[3]* Q[4]* Q[5]
+Q[7].T:={Q[7].T}+COUNT*/LOAD* UP* Q[0]* Q[1]* Q[2]* Q[3]* Q[4]* Q[5]* Q[6]
+
+;Count down terms
+Q[0].T:={Q[0].T}+COUNT*/LOAD
+Q[1].T:={Q[1].T}+COUNT*/LOAD*/UP*/Q[0]
+Q[2].T:={Q[2].T}+COUNT*/LOAD*/UP*/Q[0]*/Q[1]
+Q[3].T:={Q[3].T}+COUNT*/LOAD*/UP*/Q[0]*/Q[1]*/Q[2]
+Q[4].T:={Q[4].T}+COUNT*/LOAD*/UP*/Q[0]*/Q[1]*/Q[2]*/Q[3]
+Q[5].T:={Q[5].T}+COUNT*/LOAD*/UP*/Q[0]*/Q[1]*/Q[2]*/Q[3]*/Q[4]
+Q[6].T:={Q[6].T}+COUNT*/LOAD*/UP*/Q[0]*/Q[1]*/Q[2]*/Q[3]*/Q[4]*/Q[5]
+Q[7].T:={Q[7].T}+COUNT*/LOAD*/UP*/Q[0]*/Q[1]*/Q[2]*/Q[3]*/Q[4]*/Q[5]*/Q[6]
+
+CRY = UP *  Q[1]* Q[2]* Q[3]* Q[4]* Q[5]* Q[6]* Q[7]
+    +/UP * /Q[1]*/Q[2]*/Q[3]*/Q[4]*/Q[5]*/Q[6]*/Q[7]
+
+
+;Count up terms
+Q[ 8].T:={Q[ 8].T}+COUNT*/LOAD* UP*CRY*Q[0]
+Q[ 9].T:={Q[ 9].T}+COUNT*/LOAD* UP*CRY*Q[0]* Q[8]
+Q[10].T:={Q[10].T}+COUNT*/LOAD* UP*CRY*Q[0]* Q[8]* Q[9]
+Q[11].T:={Q[11].T}+COUNT*/LOAD* UP*CRY*Q[0]* Q[8]* Q[9]* Q[10]
+Q[12].T:={Q[12].T}+COUNT*/LOAD* UP*CRY*Q[0]* Q[8]* Q[9]* Q[10]* Q[11]
+Q[13].T:={Q[13].T}+COUNT*/LOAD* UP*CRY*Q[0]* Q[8]* Q[9]* Q[10]* Q[11]* Q[12]
+Q[14].T:={Q[14].T}+COUNT*/LOAD* UP*CRY*Q[0]* Q[8]* Q[9]* Q[10]* Q[11]* Q[12]* Q[13]
+Q[15].T:={Q[15].T}+COUNT*/LOAD* UP*CRY*Q[0]* Q[8]* Q[9]* Q[10]* Q[11]* Q[12]* Q[13]* Q[14]
+
+;Count down terms
+Q[ 8].T:={Q[ 8].T}+COUNT*/LOAD*/UP*CRY*/Q[0]
+Q[ 9].T:={Q[ 9].T}+COUNT*/LOAD*/UP*CRY*/Q[0]*/Q[8]
+Q[10].T:={Q[10].T}+COUNT*/LOAD*/UP*CRY*/Q[0]*/Q[8]*/Q[9]
+Q[11].T:={Q[11].T}+COUNT*/LOAD*/UP*CRY*/Q[0]*/Q[8]*/Q[9]*/Q[10]
+Q[12].T:={Q[12].T}+COUNT*/LOAD*/UP*CRY*/Q[0]*/Q[8]*/Q[9]*/Q[10]*/Q[11]
+Q[13].T:={Q[13].T}+COUNT*/LOAD*/UP*CRY*/Q[0]*/Q[8]*/Q[9]*/Q[10]*/Q[11]*/Q[12]
+Q[14].T:={Q[14].T}+COUNT*/LOAD*/UP*CRY*/Q[0]*/Q[8]*/Q[9]*/Q[10]*/Q[11]*/Q[12]*/Q[13]
+Q[15].T:={Q[15].T}+COUNT*/LOAD*/UP*CRY*/Q[0]*/Q[8]*/Q[9]*/Q[10]*/Q[11]*/Q[12]*/Q[13]*/Q[14]
+
+;-------------------------------------------------------------------
+Simulation
+
+TRACE_ON UP LOAD COUNT CRY Q[0..15]
+SETF COUNT /LOAD UP /clk1 I[0..15]
+
+For j:=1 to 10 do begin
+
+        Clockf clk1 Check  Q[0]
+        Clockf clk1 Check /Q[0]
+    end
+; 00 cycles
+Clockf clk1 Check Q[0] Clockf clk1 Check /Q[0] Clockf clk1 Check Q[0] Clockf clk1 Check /Q[0]
+Clockf clk1 Check Q[0] Clockf clk1 Check /Q[0] Clockf clk1 Check Q[0] Clockf clk1 Check /Q[0]
+Clockf clk1 Check Q[0] Clockf clk1 Check /Q[0] Clockf clk1 Check Q[0] Clockf clk1 Check /Q[0]
+Clockf clk1 Check Q[0] Clockf clk1 Check /Q[0] Clockf clk1 Check Q[0] Clockf clk1 Check /Q[0]
+Clockf clk1 Check Q[0] Clockf clk1 Check /Q[0] Clockf clk1 Check Q[0] Clockf clk1 Check /Q[0]
+; 20 cycles
+
+check /Q[15..6,4,2..0] Q[5,3]
+
+Setf /I[15,13,11,9,7,5,3,1] I[14,12,10,8,6,4,2,0] Load /Count  Clockf clk1
+
+Check /Q[15,13,11,9,7,5,3,1] Q[14,12,10,8,6,4,2,0]
+clockf clk1 clockf clk1
+Check /Q[15,13,11,9,7,5,3,1] Q[14,12,10,8,6,4,2,0]
+
+setf /Load Count
+clockf clk1 clockf clk1
+Check /Q[15,13,11,9,7,5,3] Q[14,12,10,8,6,4,2,1,0]
+Trace_off
+;-------
+

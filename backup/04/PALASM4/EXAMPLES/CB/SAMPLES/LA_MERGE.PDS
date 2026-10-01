@@ -1,0 +1,202 @@
+;PALASM Design Description
+
+;---------------------------------- Declaration Segment ------------
+TITLE    lsa control fit on 210
+PATTERN  
+REVISION 
+AUTHOR   John Davis
+COMPANY  SIVAD for AMD
+DATE     12/03/90
+
+CHIP  _la_ctrl  MACH210
+
+;---------------------------------- PIN Declarations ---------------
+PIN  ?  /POR	COMBINATORIAL			; Power On Reset
+NODE 1 POR_INIT
+PIN  35 CLK1							; Default Clock on pin 35
+PIN  13  K_CLK COMBINATORIAL            ; Alternate Clock on pin 13
+
+PIN  ?  MSW[0] REGISTERED                 ; 
+PIN  ?  MSW[1] REGISTERED                 ; 
+PIN  ?  MSW[2] REGISTERED                 ; 
+PIN  ?  MSW[3] REGISTERED                 ; 
+PIN  ?  MSW[4] REGISTERED                 ; 
+PIN  ?  MSW[5] REGISTERED                 ; 
+PIN  ?  MSW[6] REGISTERED                 ; 
+PIN  ?  MSW[7] REGISTERED                 ; 
+PIN  ?  MSW[8] REGISTERED                 ; 
+PIN  ?  MSW[9] REGISTERED                 ; 
+PIN  ?  MSW[10] REGISTERED                ; 
+PIN  ?  MSW[11] REGISTERED                ; 
+PIN  ?  MSW[13] REGISTERED                ; 
+PIN  ?  MSW[14] REGISTERED                ; 
+PIN  ?  MSW[15] REGISTERED                ; 
+NODE  ?  REQ    REGISTERED              ; 
+NODE  ?  RPL    REGISTERED              ; 
+PIN  ?  GO    COMBINATORIAL              ; 
+PIN  ?  DONE COMBINATORIAL                ; 
+PIN  ?  HIT COMBINATORIAL   ;*************This signal is the OR of all ********
+							;*************the HIT0-HIT15 signals from  ********
+							;*************the MACH chips i_ppnb. It is ********
+							;*************made using an external pal.  ********
+
+PIN  ?  TC COMBINATORIAL                  ; 
+
+;Outputs
+;PIN  ?  ADDR_CK COMBINATORIAL             ; 
+;PIN  ?  G_CS COMBINATORIAL                ; 
+;PIN  ? /G_OE COMBINATORIAL                ; 
+;PIN  ? /G_WE COMBINATORIAL                ; 
+PIN  ?  AM_ADDR_CK COMBINATORIAL          ; 
+PIN  ? /AM_G_CS COMBINATORIAL             ; 
+PIN  ? /AM_G_OE COMBINATORIAL             ; 
+PIN  ? /AM_G_WE COMBINATORIAL             ; 
+PIN  ?  PM_ADDR_CK COMBINATORIAL          ; 
+PIN  ? /PM_G_CS COMBINATORIAL             ; 
+PIN  ? /PM_G_OE COMBINATORIAL             ; 
+PIN  ? /PM_G_WE COMBINATORIAL             ; 
+
+NODE ?  K0 REGISTERED                   ; 
+NODE ?  K1 REGISTERED                   ; 
+NODE ?  K2 REGISTERED                   ; 
+NODE ?  K3 REGISTERED                   ; 
+NODE ?  K_C0_0 REGISTERED                 ; 
+NODE ?  K_C0_1 REGISTERED                 ; 
+NODE ?  K_C1   REGISTERED                 ; 
+NODE ?  K_C2_0 REGISTERED                 ; 
+NODE ?  K_C2_1 REGISTERED                 ; 
+;PIN ?  K_C3 REGISTERED                   ; 
+;PIN ?  K_C4 REGISTERED                   ; 
+NODE ?  K_C3 REGISTERED                   ; 
+NODE ?  K_C4 REGISTERED                   ; 
+
+;       
+;STRING DECLARATIONS.
+STRING GL '(MSW[0])'
+STRING DL '(MSW[1])'
+STRING BF '(MSW[2])'
+STRING TR0 'MSW[3]'
+STRING TR1 'MSW[4]'
+STRING ST '(MSW[5])'
+STRING XCK '(MSW[6])'
+STRING TG '(MSW[7])'
+STRING SM '(MSW[8])'
+STRING XS '(MSW[9])'				;External Sync Input
+STRING CS '(MSW[11])'
+STRING EQ '(MSW[12])'
+STRING TA '(MSW[13)'
+STRING TD '(MSW[14])'
+STRING RUN '(MSW[15])'
+
+STRING S_K0  '/K3*/K2*/K1*/K0'		;Main Control State Bits
+STRING S_K1  '/K3*/K2*/K1* K0'
+STRING S_K2  '/K3*/K2* K1*/K0'
+STRING S_K3  '/K3*/K2* K1* K0'
+STRING S_K4  '/K3* K2*/K1*/K0'
+STRING S_K5  '/K3* K2*/K1* K0'
+STRING S_K6  '/K3* K2* K1*/K0'
+STRING S_K7  '/K3* K2* K1* K0'
+STRING S_K8  ' K3*/K2*/K1*/K0'
+
+STRING S_C0_0  '/K_C0_1*/K_C0_0'		;C0 Control State Definition
+STRING S_C0_1  '/K_C0_1* K_C0_0'
+STRING S_C0_2  ' K_C0_1*/K_C0_0'
+STRING S_C0_3  ' K_C0_1* K_C0_0'
+
+STRING S_TDD  '/TR1*/TR0'		;Operational Mode Bits
+STRING S_TTD  '/TR1* TR0'
+STRING S_TAD  ' TR1*/TR0'
+STRING S_TBD  ' TR1* TR0'
+STRING S_RUN  'RUN'
+
+;---------------------------------- Pin Declarations ---------------
+
+
+;------------------- Boolean Equation Segment ------
+EQUATIONS
+
+POR_INIT.RSTF = /POR
+
+GO = /POR*RUN
+
+K0 := K0 * /K_C4 * /RPL
+	+ GO * K2 * /K0 * /K_C4 * RPL
+	+ GO * /DONE * /K3 * /K2 * /K1 * /K0
+	+ GO * K1 * /K0 * /K_C4 * RPL
+	+ /GO * K0 * /K_C4
+K1 := /GO * /K_C4 * K1
+	+ GO * /K_C4 * RPL * /K1 * K0
+	+ /K_C4 * /RPL * K1
+	+ /K_C4 * K1 * /K0
+K2 := /GO * /K_C4 * K2
+	+ /K_C4 * /RPL * K2
+	+ /K_C4 * K2 * /K0
+	+ GO * /K_C4 * RPL * /K2 * K1 * K0
+	+ /K_C4 * K2 * /K1
+K3 := /GO * /K_C4 * K3
+	+ GO * /K_C4 * RPL * K2 * K1 * K0
+	+ /K_C4 * /RPL * K3
+
+
+K_C0_0 := /K3 * /K2 * /K1 * K0 * /K_C0_0
+	+ /K3 * K2 * /K1 * /K0 * /K_C0_0 * MSW[4] * MSW[3]
+	+ K_C0_1 * /K_C0_0
+K_C0_1 := /K3 * /K2 * /K1 * K0 * /K_C0_1 * K_C0_0
+	+ /K3 * K2 * /K1 * /K0 * /K_C0_1 * K_C0_0 * MSW[4] * MSW[3]
+	+ K_C0_1 * /K_C0_0 * /HIT
+
+K_C1 := GO*HIT * /MSW[3] * /K3 * /K2 * K1 * /K0 * /K_C1
+	+ GO*HIT * /MSW[4] * MSW[3] * /K3 * /K2 * K1 * K0 * /K_C1
+	+ GO*HIT * MSW[4] * MSW[3] * /K3 * K2 * /K1 * K0 * /K_C1
+	+ GO*HIT * MSW[4] * /K3 * /K2 * K1 * /K0 * /K_C1
+
+
+K_C2_0 := /K3 * K2 * /K1 * /K0 * /K_C2_1 * /K_C2_0 * MSW[4]
+	+ MSW[3] * /K3 * /K2 * K1 * K0 * /K_C2_1 * /K_C2_0 * /MSW[4]
+	+ /MSW[3] * /K3 * K2 * /K1 * /K0 * /K_C2_1 * /K_C2_0
+K_C2_1 := /K3 * K2 * /K1 * /K0 * K_C2_0 * MSW[4]
+	+ MSW[3] * /K3 * /K2 * K1 * K0 * K_C2_0 * /MSW[4]
+	+ /MSW[3] * /K3 * K2 * /K1 * /K0 * K_C2_0
+
+K_C3 := MSW[4] * /MSW[3] * /K3 * /K2 * K1 * K0 * /K_C3
+	+ /MSW[4] * /MSW[3] * /K3 * K2 * /K1 * /K0 * /K_C3
+	+ K_C3 * /TC
+
+K_C4 := MSW[3] * /K3 * K2 * K1 * /K0 * /K_C4 * MSW[4]
+	+ MSW[3] * /K3 * K2 * /K1 * /K0 * /K_C4 * /MSW[4]
+	+ /MSW[3] * /K3 * K2 * /K1 * K0 * /K_C4
+
+
+;Internal Sync - ACK bit
+
+REQ.CLKF = K_CLK
+
+REQ := /K3 * K1 * /K0 * /REQ
+	+ /K3 * /K1 * K0 * /REQ
+	+ REQ * /RPL * GO
+	+ /K3 * /K1 * /REQ * K2
+
+
+RPL := /RPL * K_C1 * HIT
+	+ K_C0_1 * K_C0_0 * /RPL
+	+ /RPL * K_C3 * TC
+;-----------------------Outputs -----------------------
+
+;ADDR_CK = K_C0_1 * /K_C0_0
+
+AM_G_CS = /K_C0_1 * K_C0_0
+	+ K_C0_1 * /K_C0_0
+AM_G_OE = /K_C0_1 * K_C0_0
+	+ K_C0_1 * /K_C0_0
+AM_G_WE = /K_C0_1 * K_C0_0
+	+ K_C0_1 * /K_C0_0
+AM_ADDR_CK = /K_C0_1 * K_C0_0
+PM_G_CS = /K_C0_1 * K_C0_0
+	+ K_C0_1 * /K_C0_0
+PM_G_OE = /K_C0_1 * K_C0_0
+	+ K_C0_1 * /K_C0_0
+PM_G_WE = /K_C0_1 * K_C0_0
+	+ K_C0_1 * /K_C0_0
+PM_ADDR_CK = /K_C0_1 * K_C0_0
+
+

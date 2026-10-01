@@ -1,0 +1,41 @@
+TITLE           POWER.PDS
+PATTERN         POWER-UP RESET TEST
+REVISION        A
+AUTHOR          AMD
+COMPANY         AMD
+DATE            1/22/91
+
+CHIP    POWER_TEST   MACH230
+;
+
+        PIN  23  t_in
+        pin   3  t_out
+        pin   4  preset
+        pin  20  clk1
+
+EQUATIONS
+
+t_out.t    = t_in;
+t_out.clkf = clk1   ;
+t_out.setf = /preset;
+
+SIMULATION
+
+TRACE_ON  T_OUT PRESET
+SETF   /T_IN  PRESET /CLK1;
+;CHECK  /T_OUT      ;
+SETF    T_IN       ;
+;CHECK  /T_OUT      ;
+CLOCKF  CLK1       ;
+;CHECK   T_OUT      ;
+CLOCKF  CLK1       ;
+;CHECK  /T_OUT      ;
+CLOCKF  CLK1       ;
+;CHECK   T_OUT      ;
+CLOCKF  CLK1       ;
+;CHECK  /T_OUT      ;
+SETF        /PRESET;
+;CHECK   T_OUT      ;
+TRACE_OFF
+
+

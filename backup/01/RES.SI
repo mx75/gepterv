@@ -1,0 +1,47 @@
+Name      res;
+Partno    v1;
+Date      10/08/85;
+Rev       01;
+Designer  Michael;
+Company   SufniFabrik;
+Assembly  None;
+Location  None;
+Device    p16r6;
+
+ORDER:
+/** Inputs **/
+CLK,%1,!PURESET,%1,!RESEN,%1,!RESETB,%1,!RESETA,%1,!SELFRESET,%3,
+
+/** Outputs **/
+Q5..0,%1,!SYSRESET,%1,RESX;
+
+VECTORS:
+$msg "                  |           ";
+$msg "                ! |           ";
+$msg "                S |        !  ";
+$msg "        !       E |        S  ";
+$msg "        P   ! ! L |        Y  ";
+$msg "        U ! R R F |        S  ";
+$msg "        R R E E R |        R  ";
+$msg "        E E S S E |        E R";
+$msg "      C S S E E S |        S E";
+$msg "      L E E T T E | QQQQQQ E S";
+$msg "      K T N B A T | 543210 T X";
+$msg "      ============+===========";
+$msg "PURESET v1:";
+$repeat 3;
+            C 1 0 1 1 1   ****** * *
+            C 1 1 1 1 1   ****** * *
+            C 1 0 1 1 1   ****** * *
+$msg "PURESET v2.1:";
+$repeat 3;
+            C 0 0 1 1 1   ****** * *
+$msg "PURESET v3.1:";
+$repeat 70;
+            C 1 0 1 1 1   ****** * *
+$msg "PURESET v2.2:";
+$repeat 3;
+            C 1 0 1 1 0   ****** * *
+$msg "PURESET v3.2:";
+$repeat 70;
+            C 1 0 1 1 1   ****** * *

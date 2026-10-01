@@ -1,0 +1,108 @@
+ğ
+PIN
+Overview
+This is the keyword that begins a statement that allows you to assign
+names and attributes to device pins.
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+        PIN             Location_Number      Name      Storage  
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Device Support:  All PLD devices.
+ú
+Syntax
+Include the PIN keyword in the declaration segment of Boolean and
+state- machine designs.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+        PIN             Location_Number      Name      Storage  
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+        ...
+        PIN     1     IN1     COMB 
+        PIN     8     IN2     REG
+        PIN     16    OUT
+        ...
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+
+Location_Number Identifies the pin number, as defined in the device
+                data.  For MACH-device designs you can place a
+                question mark, ?, in this field to define a floating
+                pin.
+
+Name            Defines the name of the pin.  Each name must be
+                unique and must follow the location_number field.
+
+                ş    Begin the name with an alpha character; use any
+                     combination of up to 14 upper- or lowercase
+                     alphanumeric characters: A-Z, 0-9.
+
+                Important:  Keep names in a schematic less than or
+                equal to 14 characters.  Part and pin names in the
+                schematic may be concatenated as data is converted
+                into PDS format. Any name longer than 14 characters is
+                automatically truncated.
+
+                ş    Use underscore, _, as a connector and a slash, /,
+                     to affect polarity; no other symbols or
+                     punctuation are allowed and no keywords, reserved
+                     words, or logic operators are allowed.
+
+                Note:  The polarity slash is not supported for
+                schematic-based designs.
+
+                You can use ranges and vector notation to define pin
+                names.  You must use the same number of pins as names
+                in ranges and vectors. All pins defined within a range
+                or vector notation have the same storage type and
+                polarity attributes.
+
+Storage         Storage defines the pin storage type.  You can specify
+                one of the following three storage types.
+
+                ş    COMBINATORIAL or COMB
+                ş    REGISTERED or REG
+                ş    LATCHED or LAT
+
+                Note:  You need only enter the first three or four
+                letters of the storage attribute.  If you do not
+                select a pin type, the software defaults to
+                COMBINATORIAL even if the device you selected in the
+                CHIP statement is fully registered. This helps design
+                portability across all devices.
+
+ú
+Use
+The PIN statements must follow the CHIP statement.  Use a separate
+line for each pin statement.  You do not have to place the PIN
+statements in numerical order. You can only place comments between PIN
+statements, not within a PIN statement.  Separate each PIN attribute
+by one or more spaces.
+
+Declare only the pins you are using.  The software automatically
+assigns the name NC, no connect, to all pins that are not declared.
+You must declare the VCC and GND pins.  You cannot use different names
+for VCC and GND.
+
+PIN statements in the current version of the software differ from the
+pin list of previous versions.  However, the old syntax is fully
+compatible with the new.
+ú
+Related Topics
+Boolean Equation
+CHIP
+COMBINATORIAL
+Declaration Segment
+LATCHED
+NODE
+Operator
+PAIR
+REGISTERED
+VECTOR
+FLOATING PINS AND NODES
+ú

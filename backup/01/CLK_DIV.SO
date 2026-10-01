@@ -1,0 +1,123 @@
+CSIM: CUPL Simulation Program
+Version 3.2a Serial# MD-32A-6365
+Copyright (C)  1983,1989 Logical Devices, Inc.
+CREATED Mon Mar 15 15:37:46 2021
+
+LISTING FOR SIMULATION FILE: clk_div.pld.si
+
+   1: Name      clk_div;
+   2: Partno    v1;
+   3: Date      10/08/85;
+   4: Rev       01;
+   5: Designer  Michael;
+   6: Company   SufniFabrik;
+   7: Assembly  None;
+   8: Location  None;
+   9: Device    p16r6;
+  10: 
+  11: ORDER:
+  12: /** Inputs **/
+  13: SYSCLK,%1,!DIV,%1,!OE,%1,CSEL1..0,%3,
+  14: 
+  15: /** Outputs **/
+  16: Q3..0,%1,OSEL1..0,%1,CO,%1,!CCW;
+  17: 
+
+===============================================================================
+                              Simulation Results
+===============================================================================
+               |            
+      S        |            
+      Y !   CC |      OO    
+      S D   SS |      SS   !
+      C I ! EE |      EE   C
+      L V O LL | QQQQ LL C C
+      K 1 E 10 | 3210 10 O W
+      =========+=============
+!DIV=1
+0001: C 1 1 00   ZZZZ ZZ Z Z
+0002: C 1 1 00   ZZZZ ZZ Z Z
+!DIV=0 & [CSEL1..0]=00
+0003: C 0 0 00   LLLH XX X X
+0004: C 0 0 00   LLHL XX X X
+0005: C 0 0 00   LLHH XX X X
+0006: C 0 0 00   LHLL XX X X
+0007: C 0 0 00   LHLH XX X X
+0008: C 0 0 00   LHHL XX X X
+0009: C 0 0 00   LHHH XX X X
+0010: C 0 0 00   HLLL XX X X
+0011: C 0 0 00   HLLH XX X X
+0012: C 0 0 00   HLHL XX X X
+0013: C 0 0 00   HLHH XX X X
+0014: C 0 0 00   HHLL XX X X
+0015: C 0 0 00   HHLH XX X X
+0016: C 0 0 00   HHHL XX X X
+0017: C 0 0 00   HHHH XX H X
+0018: C 0 0 00   LLLL LL L L
+0019: C 0 0 00   LLLH LL H L
+0020: C 0 0 00   LLHL LL L L
+0021: C 0 0 00   LLHH LL H L
+0022: C 0 0 00   LHLL LL L L
+!DIV=0 & [CSEL1..0]=01
+0023: C 0 0 01   LHLH LL H H
+0024: C 0 0 01   LHHL LL L H
+0025: C 0 0 01   LHHH LL H H
+0026: C 0 0 01   HLLL LL L H
+0027: C 0 0 01   HLLH LL H H
+0028: C 0 0 01   HLHL LL L H
+0029: C 0 0 01   HLHH LL H H
+0030: C 0 0 01   HHLL LL L H
+0031: C 0 0 01   HHLH LL H H
+0032: C 0 0 01   HHHL LL L H
+0033: C 0 0 01   HHHH LL H H
+0034: C 0 0 01   LLLL LH L L
+0035: C 0 0 01   LLLH LH L L
+0036: C 0 0 01   LLHL LH H L
+0037: C 0 0 01   LLHH LH H L
+0038: C 0 0 01   LHLL LH L L
+0039: C 0 0 01   LHLH LH L L
+0040: C 0 0 01   LHHL LH H L
+0041: C 0 0 01   LHHH LH H L
+0042: C 0 0 01   HLLL LH L L
+!DIV=0 & [CSEL1..0]=10
+0043: C 0 0 10   HLLH LH L H
+0044: C 0 0 10   HLHL LH H H
+0045: C 0 0 10   HLHH LH H H
+0046: C 0 0 10   HHLL LH L H
+0047: C 0 0 10   HHLH LH L H
+0048: C 0 0 10   HHHL LH H H
+0049: C 0 0 10   HHHH LH H H
+0050: C 0 0 10   LLLL HL L L
+0051: C 0 0 10   LLLH HL L L
+0052: C 0 0 10   LLHL HL L L
+0053: C 0 0 10   LLHH HL L L
+0054: C 0 0 10   LHLL HL H L
+0055: C 0 0 10   LHLH HL H L
+0056: C 0 0 10   LHHL HL H L
+0057: C 0 0 10   LHHH HL H L
+0058: C 0 0 10   HLLL HL L L
+0059: C 0 0 10   HLLH HL L L
+0060: C 0 0 10   HLHL HL L L
+0061: C 0 0 10   HLHH HL L L
+0062: C 0 0 10   HHLL HL H L
+!DIV=0 & [CSEL1..0]=11
+0063: C 0 0 11   HHLH HL H H
+0064: C 0 0 11   HHHL HL H H
+0065: C 0 0 11   HHHH HL H H
+0066: C 0 0 11   LLLL HH L L
+0067: C 0 0 11   LLLH HH L L
+0068: C 0 0 11   LLHL HH L L
+0069: C 0 0 11   LLHH HH L L
+0070: C 0 0 11   LHLL HH L L
+0071: C 0 0 11   LHLH HH L L
+0072: C 0 0 11   LHHL HH L L
+0073: C 0 0 11   LHHH HH L L
+0074: C 0 0 11   HLLL HH H L
+0075: C 0 0 11   HLLH HH H L
+0076: C 0 0 11   HLHL HH H L
+0077: C 0 0 11   HLHH HH H L
+0078: C 0 0 11   HHLL HH H L
+0079: C 0 0 11   HHLH HH H L
+0080: C 0 0 11   HHHL HH H L
+0081: C 0 0 11   HHHH HH H L
+0082: C 0 0 11   LLLL HH L L

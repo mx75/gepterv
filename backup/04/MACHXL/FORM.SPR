@@ -1,0 +1,50 @@
+;               ******************************
+;               MACHXL Software Problem Report
+;               ******************************
+;
+;
+;From:                               Date:
+;Company:
+;Address:                            Telephone:
+;City:                               FAX:
+;State:           Zip Code:
+;************************************************************
+;
+;     o  Install         o  MACHPAR       o  MACHFITR
+;     o  MACHXL Menu     o  MACHBPP       o  MACHSIM
+;     o  Waveform        o  MACHEXP       o  MACHBAK
+;     o  New File        o  MACHMIN       o  MACHJED
+;     o  MACHTPL2        o  Documentation o  MACHPRO
+;
+;     o  Other: _________________________________
+;
+;************************************************************
+;
+;FLAGS:
+;       Pairing:           ON / OFF
+;       Optimize Regs:     D-FF / T-FF / Best / As Spec.
+;                          / JK -> D / JK -> T
+;       IF / Case:         D-C  /  OFF
+;       Polarity:          Low / High / Best / As Spec.
+;       Gate Splitting:    No  /  #____
+;       Fast Minimization: No  /  Yes
+;       Set/Reset D-C:     No  /  Yes
+;       Float Placements:  P&N  /  PN&B  /  ON&B  /  None
+;       22V10/MACH1xx/2xx S/R compatibility:    No  /  Yes
+;       Global clocks routable as Pterm Clocks: No  /  Yes
+;
+;************************************************************
+;MACHXL Version:          Machine Brand:         DOS Version:
+;************************************************************
+;Problem Description:                     File Name:
+;
+;
+;
+;
+;
+;
+;********************Copy of MACHXL Design File ***************
+;
+
+
+

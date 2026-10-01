@@ -1,0 +1,10 @@
+@echo off
+del *.tre
+del *.log
+del *.lis
+del *.txt
+del *.tmp
+del *.jed
+del *.xpt
+del *.plc
+del *.rpt

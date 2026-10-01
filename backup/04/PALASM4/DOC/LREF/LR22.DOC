@@ -1,0 +1,95 @@
+ğ
+FLOATING PINS AND NODES
+Overview
+A question mark, ?, in the location field of a pin or node statement
+floats the pin or node.  Each floating pin and node is automatically
+placed by the software during the fitting process.  Floating pins and
+nodes can increase the probability of a fit in all MACH-device
+designs.
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+            Keyword   Location_   Name          Storage
+                       Number
+
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Device support:  All MACH device designs.
+ú
+Syntax
+You can use the question mark only in the declaration segment of
+Boolean or state-machine designs.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+            Keyword   Location_   Name          Storage
+                       Number
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+            Pin          ?        Sensor1       Registered
+            Node         ?        Equation1     Combinatorial
+            Pin          ?        Output1       Latched
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+
+Location_Number Place a question mark, ?, in the location-number field
+                to float the corresponding pin or node.  The signal is
+                assigned to a specific pin automatically during
+                compilation.
+
+                Important: Do not float NODE 1.
+
+                To assign a fixed location to a pin or node, you enter
+                a number or range of numbers in the statement.
+
+                In PDS files produced from schematics, the question
+                mark appears in the pin or node location field unless
+                you assigned a fixed location.  To assign a location
+                in a schematic, you use the part field 1 command on
+                the OrCAD/SDT III Edit Part menu.
+
+Name            Define the name of the pin or node.  Each name must be
+                unique and must follow the location field.
+
+                ş  Begin the name with an alpha character; use any
+                   combination of up to 14 upper- or lowercase
+                   alphanumeric characters: A_Z, 0_9.
+
+                Important: Keep names in a schematic shorter than 14
+                characters.  Part and pin names in the schematic may
+                be concatenated as data is converted into PDS format.
+                Any name longer than 14 characters is automatically
+                truncated.
+
+                ş  Use underscore, _, as a connector and a slash, /,
+                   to affect polarity no other symbols or punctuation
+                   are allowed and no keywords, reserved words, or
+                   logic operators are allowed.
+
+                Note: The polarity slash is not supported for
+                schematic-based designs.
+
+Storage         Define the optional storage type for a pin or node,
+                which must follow the pin or node name.  Enter the
+                reserved word or abbreviation listed below; the
+                default is combinatorial.
+
+                ş  Combinatorial or Comb
+
+                ş  Registered or Reg
+
+                ş  Latched or Lat
+ú
+Use
+Floating pins and nodes is recommended to assist the fitting process.
+You can assign a fixed location when needed; however, this may result
+in a no-fit situation.
+
+Important: Do not float NODE 1.
+ú
+Related Topics
+MACH_SEG_A, MACH_SEG_B, MACH_SEG_C, MACH_SEG_D
+PAIR
+ú

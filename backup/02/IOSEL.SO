@@ -1,0 +1,73 @@
+CSIM: CUPL Simulation Program
+Version 3.2a Serial# MD-32A-6365
+Copyright (C)  1983,1989 Logical Devices, Inc.
+CREATED Tue Sep 15 09:27:51 2026
+
+LISTING FOR SIMULATION FILE: iosel.pld.si
+
+   1: Name      iosel;
+   2: Partno    v1;
+   3: Date      10/08/85;
+   4: Rev       01;
+   5: Designer  Michael;
+   6: Company   SufniFabrik;
+   7: Assembly  None;
+   8: Location  None;
+   9: Device    p20l8lcc;
+  10: 
+  11: ORDER:
+  12: /** Inputs **/
+  13: A7..4,%1,A3..2,%1,!IOREQ,%1,!MX,%3,
+  14: 
+  15: /** Outputs **/
+  16: !CS_KIO1,%1,!CS_KIO2,%1,!CS_I2C,%1,!CS_DMA1,%1,!CS_DMA2,%1,!CS_DMA3,%1,!CS_DMA4,%1,!CS_REG;
+  17: 
+
+===============================================================================
+                              Simulation Results
+===============================================================================
+                  |                
+                  | ! !   ! ! ! !  
+                  | C C ! C C C C  
+              !   | S S C S S S S C
+              I   | _ _ S _ _ _ _ S
+              O   | K K _ D D D D _
+              R ! | I I I M M M M R
+      AAAA AA E M | O O 2 A A A A E
+      7654 32 Q X | 1 2 C 1 2 3 4 G
+      ============+================
+0001: 1110 00 1 1   H H H H H H H H
+0002: 1110 00 1 1   H H H H H H H H
+0003: 0100 00 1 1   H H H H H H H H
+!CS_KIO1:
+0004: 0100 00 1 1   H H H H H H H H
+0005: 0100 00 0 1   L H H H H H H H
+0006: 0100 00 1 0   H H H H H H H H
+!CS_KIO2:
+0007: 0101 00 1 1   H H H H H H H H
+0008: 0101 00 0 1   H L H H H H H H
+0009: 0101 00 1 0   H H H H H H H H
+!CS_I2C:
+0010: 0110 00 1 1   H H H H H H H H
+0011: 0110 00 0 1   H H L H H H H H
+0012: 0110 00 1 0   H H H H H H H H
+!CS_DMA1:
+0013: 0110 10 1 1   H H H H H H H H
+0014: 0110 10 0 1   H H H L H H H H
+0015: 0110 10 1 0   H H H H H H H H
+!CS_DMA2:
+0016: 0111 00 1 1   H H H H H H H H
+0017: 0111 00 0 1   H H H H L H H H
+0018: 0111 00 1 0   H H H H H H H H
+!CS_DMA3:
+0019: 0111 10 1 1   H H H H H H H H
+0020: 0111 10 0 1   H H H H H L H H
+0021: 0111 10 1 0   H H H H H H H H
+!CS_DMA4:
+0022: 1000 00 1 1   H H H H H H H H
+0023: 1000 00 0 1   H H H H H H L H
+0024: 1000 00 1 0   H H H H H H H H
+!CS_REG:
+0025: 1000 10 1 1   H H H H H H H H
+0026: 1000 10 0 1   H H H H H H H L
+0027: 1000 10 1 0   H H H H H H H H

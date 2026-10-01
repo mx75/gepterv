@@ -1,0 +1,44 @@
+PALASM4  PLDSIM   - MARKET RELEASE 1.5 (7-10-92)
+ (C) - COPYRIGHT ADVANCED MICRO DEVICES INC., 1992
+
+File  tutor10.pds
+Title  TUTOR10.PDS
+
+   1 - TRACE_ON
+   1 - SETF
+   2 - PRELOAD
+   3 - CHECK
+   6 - CLOCKF
+   6 - CHECK
+   6 - SETF
+  10 - CLOCKF
+  10 - CHECK
+  13 - CLOCKF
+  13 - CHECK
+  16 - CLOCKF
+  16 - CHECK
+  19 - CLOCKF
+  22 - CLOCKF
+  22 - CHECK
+  22 - SETF
+  26 - CLOCKF
+  26 - CHECK
+  29 - CLOCKF
+  29 - CHECK
+  32 - CLOCKF
+  32 - CHECK
+  35 - CLOCKF
+  38 - CLOCKF
+  41 - CLOCKF
+  41 - CHECK
+  41 - TRACE_OFF
+
+   END OF SIMULATION
+Simulation results (history) are in ===> tutor10.HST
+Simulation results (trace) are in   ===> tutor10.TRF
+Merged results (JEDEC) are in       ===> tutor10.JDC
+
+ %%  PLDSIM  %% Maximum memory allocated was: 18834 bytes.
+
+ %%  PLDSIM  %% File Processed Successfully.  File: tutor10.pds.
+ %%  PLDSIM  %% ERROR count: 0  WARNING count: 0

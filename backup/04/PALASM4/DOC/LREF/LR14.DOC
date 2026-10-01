@@ -1,0 +1,66 @@
+ğ
+COMPANY
+Overview
+This is the keyword that begins the statement defining the name of the
+author's company.
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+            COMPANY    Company Name
+
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Device Support: All PLD devices.
+ú
+Syntax
+You use this keyword in the declaration segment of either a Boolean or
+state-machine design.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+            COMPANY    Company Name
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+            TITLE
+            PATTERN
+            REVISION
+            AUTHOR
+            COMPANY   Advanced Micro Devices, Inc.
+            DATE
+            CHIP
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+
+Company Name    An optional name that includes any combination of up
+                to 59 alphanumeric characters indicating the company's
+                name.
+
+                ş  You can use other symbols or punctuation; however
+                   you cannot use the dollar sign, $.
+
+                ş  You can use reserved words in this statement.
+ú
+Use
+There are two ways to enter the company name.
+
+ş    Use the declaration segment form, select the Company field, and
+     type the name.
+
+ş    Type the company name after the author statement and before the
+     date in the PDS file using a text editor.
+
+The following error conditions pertain to the company statement.
+
+ş    Without a company statement, a warning is issued and processing
+     continues.
+
+ş    With multiple company statements, an error is reported and
+     processing stops.
+ú
+Related Topics
+AUTHOR
+DATE
+Declaration Segment
+PATTERN
+REVISION
+TITLE
+ú

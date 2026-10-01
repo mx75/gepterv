@@ -1,0 +1,92 @@
+ğ
+STATE EQUATION
+Overview
+STATE EQUATIONS control the transitions, outputs, state assignment and
+conditions of state machines. 
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+    State Equations
+        Transition Equations
+        Output Equations
+        State Assignment Equations
+        Condition Equations
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Device Support:
+PAL10H20EV8    PAL16R4    PAL16R6    PAL16R8     PAL16RP4    PAL16RP6
+PAL16RP8       PALCE16V8  PAL18U8    PAL20R4     PAL20R6     PAL20R8
+PAL20RS4       PAL20RS8   PAL20RS10  PALCE20V8   PAL20X4     PAL20X8
+PAL20X10       PAL22RX8   PAL22V10   PAL23S8     PAL24R10    PAL24R4
+PAL24R8        PAL26V12   PALCE29M16 PALCE29MA16 PAL32R16    PAL32VX10
+PAL64R32       PALCE610   PLS105     PLS167      PLS168      PLS30S16
+MACH 1         MACH 2
+ú
+Syntax
+Use these equations in the state segment of the design to define the 
+behavior of the state machine.
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+    State Equations
+        Transition Equations
+        Output Equations
+        State Assignment Equations
+        Condition Equations
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+    STATE
+
+        ;State Setup and Defaults
+        MOORE MACHINE
+        START_UP := POWER_UP -> S1
+        DEFAULT_BRANCH HOLD_STATE
+        ;State  Transition Equations
+        S1 := COND1-> S3 
+              + COND2 -> S7
+        ...
+        ;State  Output Equations
+        S1.OUTF = OUT1*/OUT2
+        ...
+        ;State Assignment Equations
+        S1 = /STATEBIT1 * /STATEBIT2
+        ...
+        ;State Condition Equations
+        CONDITIONS
+        COND1 = IN1 * /IN2 * IN3
+        ...
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+
+Transition      These equations specify, for each state, what the next
+Equations       state will be under various conditions.
+
+Output          These equations specify the output of the state
+Equations       machine.  For a Moore machine, they define the outputs
+                for a given state. For a Mealy machine, they define
+                the outputs for a given state and input condition.
+
+State           These assignments define states as unique combinations
+Assignments     of register bits.
+
+Condition       These equations specify a condition name for each set
+Equations       of input values used to determine a transition.  You
+                can use input names directly only if a single input
+                controls the transition; otherwise, you must use
+                condition names.
+ú
+Use
+The order of state equations is not important except for condition
+equations which have their own section under the CONDITIONS keyword.
+The conditions segment must terminate the state segment. Setups and
+defaults are not equations and must appear at the beginning of the
+state segment
+ú
+Related Topics
+CONDITIONS
+.OUTF
+STATE
+State Assignment Equation
+State Transition Equation
+ú

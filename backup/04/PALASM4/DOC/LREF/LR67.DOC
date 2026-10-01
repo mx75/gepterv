@@ -1,0 +1,70 @@
+ğ
+.T1 EQUATION
+Overview
+This equation defines when to set the T1 input on dual toggle, 2-T,
+flip-flops to high.
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+        Pn.T1        Assignment operator     Expression
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+
+Device Support:  PAL22IP6.
+ú
+Syntax
+You use the .T1 equation in the equations segment of Boolean or state-
+machine designs.
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+        Pn.T1        Assignment operator     Expression
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+    EQUATIONS
+        ...
+        Q1.T1                  =             IN1 * /IN2
+        ...
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+
+Pn.T1           Identifies the pin or node associated with the dual
+                toggle flip-flop.  The name must be defined in an
+                earlier pin or node statement in the declaration
+                segment.
+
+Assignment Operator    A symbol that defines a specific operation as
+                       interpreted by the software when processing
+                       design files.
+
+Expression      Identifies the logic you define to determine when to
+                set the T1 input on dual toggle flip-flops high.  In
+                the syntax example, when IN1 is true and IN2 is false,
+                the T1 input in the dual toggle flip-flop associated
+                with the pin or node Q1 is set high.
+ú
+Use
+You can place the .T1 equation anywhere in the equations segment.
+Observe the following rules.
+
+ş    You cannot have multiple equations for the same pin or node.  If
+     you do, the software reports an error during compilation and the
+     process is halted.
+
+ş    You cannot use negative polarity on the left side of the
+     equation. For example, /Q1.T1 is not allowed.
+
+ş    You can use GROUP, STRING, and VECTOR notation to define signals.
+     This is an excellent way to assign a .T1 equation to several
+     pins.
+ú
+Related Topics
+Boolean Equation
+EXPRESSION
+GROUP
+STRING
+.T2 Equation
+VECTOR
+ú

@@ -1,0 +1,428 @@
+$MACHXL PARSER -
+ %% MACHPAR %%
+                    ***********************************
+                    *     MACHXL PARSER LISTING       *
+LINE #   |----+----1----+----2----+----3----+----4----+----5----+----6----+
+$ %% MACHPAR %%    ERROR count:  %I     WARNING count:  %I
+$ %% MACHPAR %%    ERROR count:  0      WARNING count:  0
+$ %% MACHPAR %%    File processed successfully.    File:  %S
+$ %% MACHPAR %%    File processing terminated.     File:  %S
+$ %% MACHPAR %%    Processing design file.......%S
+$ %% MACHPAR %%    Listing file.................%S
+  WARNING
+  ERROR
+  SYSTEM_ERROR
+MACHXL HELP:  Input file not specified.
+Command format to invoke MACHPAR:
+$      MACHPAR <pdsfile[.pds]> [OPTION...]
+$   OPTION:  -nolis
+             -lis [ <listingfile[.lis]> ]
+             -log [ <logfile[.log]> ]
+             -tre [ <treefile[.tre]> ]
+$   Option flag description:
+      -nolis:  suppress the default listing generation.
+      -lis:  rename the listing file.
+      -log:  capture screen messages to disk file.
+      -tre:  rename the MACHXL tree file (.TRE).
+27
+28
+|> WARNING P29  Cannot open output listing file %S
+|> WARNING P30  Ignoring invalid log filename %S
+|> WARNING P33  Design input file not specified, default %S is used.
+|> WARNING P32  Ignoring unknown parameter %S on command line.
+|> WARNING P33  Ignoring redundant filename %S on command line.
+|> WARNING P34  Cannot open output file %S.  Assuming MACHXL.TRE.
+35
+|> WARNING P36  State condition %S is defined but never used.
+|> WARNING P37  No output is defined for state(s) %S 
+|> WARNING P38  Output is defined for nonexistent state(s) %S
+|> WARNING P39  Missing title declaration.
+|> WARNING P40  Missing pattern declaration.
+|> WARNING P41  Missing revision declaration.
+|> WARNING P42  Missing author declaration.
+|> WARNING P43  Missing company declaration.
+|> WARNING P44  Missing date declaration.
+|> WARNING P45  Missing design file header.
+|> WARNING P46  Cannot use design file %S as list file.  Ignoring list filename.
+|> WARNING P47  Log filename %S is not unique.  Ignoring log filename.
+|> WARNING P48  Tree filename %S is not unique.  Assuming MACHXL.TRE
+49 moved to 180
+REPAIR P50  Replacing error symbol or character with %S
+REPAIR P51  Inserting missing symbol or character %S
+REPAIR P52  Deleting error symbol or character %S
+53
+54
+|> ERROR P55  Unexpected symbol %S in malformed statement.
+|> ERROR P56  Illegal character %S detected.
+|> ERROR P57  Illegal symbol %S detected.
+|> ERROR P58  Unexpected end of design file %S is reached.
+|> ERROR P59  Unexpected end of file, possibly missing "END" or ")".
+|> ERROR P60  Undeclared signal name %S
+|> ERROR P61  Illegal use of reserved name %S as state name.
+|> ERROR P62  Illegal use of signal name %S as state name.
+|> ERROR P63  Illegal use of reserved name %S as state condition.
+|> ERROR P64  Illegal use of signal name %S as state condition.
+|> ERROR P65  Unexpected reserved name %S in malformed statement.
+66
+67
+|> ERROR P68  Duplicate title declaration.
+|> ERROR P69  Duplicate pattern declaration.
+|> ERROR P70  Duplicate revision declaration.
+|> ERROR P71  Duplicate author declaration.
+|> ERROR P72  Duplicate company declaration.
+|> ERROR P73  Duplicate date declaration.
+|> ERROR P74  Missing or invalid design name in chip statement.
+|> ERROR P75  Missing device type or illegal syntax on chip statement.
+76
+|> ERROR P77  Device type %S is invalid.
+|> ERROR P78  Duplicate signal name %S in signal statements.
+|> ERROR P79  State condition name %S is used but not defined.
+|> ERROR P80  Index variable %S is not defined within context.
+|> ERROR P81  Undeclared signal name %S in simulation segment.
+82
+|> ERROR P83  Duplicate index variable %S
+|> ERROR P84  Illegal use of don't care operator %S
+|> ERROR P85  Output (.OUTF) is already defined for state %S
+|> ERROR P86  Condition name %S is already defined.
+|> ERROR P87  Illegal recursive string call.  Ignoring string symbol %S
+|> ERROR P88  Unexpected reserved word or operator %S
+|> ERROR P89  Illegal use of signal name %S as string name .
+|> ERROR P90  Unexpected number symbol %S in malformed statement.
+|> ERROR P91  String %S is empty.  Ignoring definition.
+|> ERROR P92  Unexpected state name %S in malformed statement.
+|> ERROR P93  Unexpected condition name %S in malformed statement.
+|> ERROR P94  Too many PINS/NODES defined for the device.
+|> SYSTEM_ERROR P95  Cannot open design file %S.
+|> SYSTEM_ERROR P96  Cannot close design file %S  Call AMD, 1-800-222-9323.
+|> SYSTEM_ERROR P97  Cannot write to file %S  Call AMD, 1-800-222-9323.
+|> SYSTEM_ERROR P98  Cannot write to read only file %S Call AMD, 1-800-222-9323.
+|> SYSTEM_ERROR P99  Cannot read file %S  Call AMD, 1-800-222-9323.
+|> SYSTEM_ERROR P100  File %S is already opened.  Call AMD, 1-800-222-9323.
+|> ERROR P101  Severe damage from previous error(s).  Processing aborted!
+|> ERROR P102  Too many syntax errors.  Processing aborted!
+|> SYSTEM_ERROR P103  Out of system memory.
+|> SYSTEM_ERROR P104  Cannot free memory space.  Call AMD, 1-800-222-9323.
+|> ERROR P105  Invalid signal name defined for pin position reserved for VCC.
+|> ERROR P106  Invalid signal name defined for pin position reserved for GND.
+|> WARNING P107  Using PAL32VX10 device:
+            The syntax for this device is now different from PALASM 2.
+	    Please see Device Reference for information.
+.
+.
+112
+113
+114
+|> WARNING P115  Redundant inversion for signal %S
+|> WARNING P116  Ignoring previous definition of signature statement.
+117
+|> WARNING P118  Multiple logic equation will be OR'd.
+|> WARNING P119  Multiple control equation to same output signal.
+|> ERROR P120  Multiple signal attributes are defined.
+|> ERROR P121  Incorrectly declared soft macro NC signal label.
+|> ERROR P122  Missing soft macro type declaration.
+|> ERROR P123  Missing soft macro name.
+|> ERROR P124  Invalid soft macro type %S
+|> ERROR P125  Illegal soft macro name %S
+|> ERROR P126  Parameter mismatch between definition and call of hard macro %S
+|> ERROR P127  invalid pin number for this device or macro
+|> ERROR P128  invalid node number for this device or macro
+|> ERROR P129  Soft macro instance name %S is used more than once.
+|> WARNING P130  Ignoring misplaced but found declaration.
+|> WARNING P131  Ignoring incorrect use of ":=" for a combinatorial output.
+|> WARNING P132  Ignoring incorrect use of ":=" for a latched output.
+|> WARNING P133  Ignoring incorrect use of "*=" for a combinatorial output.
+|> WARNING P134  Ignoring incorrect use of "*=" for a registered output.
+|> ERROR P135  No logic segment found for the defined chip/macro.
+|> ERROR P136  Duplicate logic segment found for the defined chip/macro.
+|> WARNING P137  Ignoring incorrectly declared signal (NC) on soft macro.
+|> ERROR P138  Too many signals defined.
+|> WARNING P139  Too few pins defined; assuming undefined pins as NC.
+|> WARNING P140  Too many nodes defined for the soft macro.
+|> WARNING P141  Duplicate signal statement; overriding previous statement.
+|> WARNING P142  Overriding active-low in chip statement by default active high.
+|> WARNING P143  Pin/node attribute not allowed: ignored
+144
+|> ERROR P145  Invalid digit for this radix number.
+|> ERROR P146  Vector number of signals defined is not equal to number of names.
+|> ERROR P147  Duplicate signal names %S
+|> ERROR P148  Condition value can only be 1 or 0, a binary value.
+|> ERROR P149  You cannot repeat the signal names or vectors in this condition.
+|> ERROR P150  Missing signal numbers in signal statements.
+151
+|> ERROR P152  Duplicate range numbers.
+|> ERROR P153  One or more range numbers are not declared for vector %S
+|> ERROR P154  The vector string %S is not declared.
+|> ERROR P155  illegal use of FOR variable in a test condition
+|> ERROR P156  Cannot use group name %S on RHS of equation or test condition.
+|> ERROR P157  Duplicate group name %S
+|> ERROR P158  A range number is too large or has wrong syntax.
+|> ERROR P159  Cannot use brace expression here.
+|> ERROR P160  Too many pins (including floating pins) defined.
+|> ERROR P161  Too many nodes (including floating nodes) defined.
+|> ERROR P162  Duplicated machine name %S.
+|> WARNING P163  Ignoring previous definition of collector statement.
+|> ERROR P164  Pair name %S is not defined.
+|> ERROR P165  Illegal pairing for pin %S.
+|> ERROR P166  Invalid pin/node position for VCC defined.
+|> ERROR P167  Invalid pin/node position for GND defined.
+|> ERROR P168  Illegal use of pin or group name %S as machine name
+|> ERROR P169  Pin %S is paired with a pin.
+|> ERROR P170  Node %S is paired with a node.
+|> ERROR P171  Active low is not allowed for state or condition name 
+|> ERROR P172  Expecting 'POWER_UP' state inside START_UP equation.
+|> ERROR P173  Name %S is already defined as a pin name.
+|> ERROR P174  Illegal use of multiple-component vector range.
+|> ERROR P175  Cannot close design file %S
+|> ERROR P176  Illegal expression in namelist
+|> WARNING P177  Binary constant %S too long - Use HEX %S
+|> ERROR P178  Cannot delete %S - No write permission
+|> ERROR P179  Unknown error(%S) while trying to delete .TNC file
+|> WARNING P180  Identifier %S
+|>               truncated with uniqueness to %S.
+|> ERROR P182  32-bit maximum value exceeded for Constant %S.
+
+# PALS 79 tk_no name pin_no node_no st_mc rs_glob_pin rs_reg ass sim vcc gnd
+INV_B4_PIN mult_vcc_gnd num_pair_pin_nodes num_dedicated_inputs
+221 MACH110 44 33 YES YES NO NO YES 2 4 NO YES 32 6
+    22 44  1 12 23 34
+    2  2  0  3  3  0  4  4  0  5  5  0  6  6  0  7  7  0  8  8  0  9  9  0
+    14 10 0 15 11  0 16 12  0 17 13  0 18 14  0 19 15  0 20 16  0 21 17  0
+    24 18 0 25 19  0 26 20  0 27 21  0 28 22  0 29 23  0 30 24  0 31 25  0
+    36 26 0 37 27  0 38 28  0 39 29  0 40 30  0 41 31  0 42 32  0 43 33  0
+    10 0  11 0 13  0 32 0  33 0 35 0 
+238 MACH111 44 33 YES YES NO NO YES 2 4 NO YES 32 6
+    22 44  1 12 23 34
+    2  2  0  3  3  0  4  4  0  5  5  0  6  6  0  7  7  0  8  8  0  9  9  0
+    14 10 0 15 11  0 16 12  0 17 13  0 18 14  0 19 15  0 20 16  0 21 17  0
+    24 33 0 25 32  0 26 31  0 27 30  0 28 29  0 29 28  0 30 27  0 31 26  0
+    36 25 0 37 24  0 38 23  0 39 22  0 40 21  0 41 20  0 42 19  0 43 18  0
+    10 0  11 0 13  0 32 0  33 0 35 0 
+229 MACH120 68 49 YES YES NO NO YES 4 8 NO YES 48 8
+    18 34 52 68 1 8 19 27 35 42 53 61
+    2  2  0  3  3  0  4  4  0  5  5  0  6  6  0  7  7  0  9  8  0  10 9  0
+    11 10 0  12 11 0  13 12 0  14 13 0  21 25 0  22 24 0  23 23 0  24 22 0
+    25 21 0  26 20 0  28 19 0  29 18 0  30 17 0  31 16 0  32 15 0  33 14 0
+    36 26 0  37 27 0  38 28 0  39 29 0  40 30 0  41 31 0  43 32 0  44 33 0
+    45 34 0  46 35 0  47 36 0  48 37 0  55 49 0  56 48 0  57 47 0  58 46 0
+    59 45 0  60 44 0  62 43 0  63 42 0  64 41 0  65 40 0  66 39 0  67 38 0
+    16 0  17 0  19 0  20 0  50 0  51 0  53 0  54 0
+243 MACH121 68 49 YES YES NO NO YES 4 8 NO YES 48 8
+    18 34 52 68 1 8 19 27 35 42 53 61
+    2  2  0  3  3  0  4  4  0  5  5  0  6  6  0  7  7  0  9  8  0  10 9  0
+    11 10 0  12 11 0  13 12 0  14 13 0  21 25 0  22 24 0  23 23 0  24 22 0
+    25 21 0  26 20 0  28 19 0  29 18 0  30 17 0  31 16 0  32 15 0  33 14 0
+    36 26 0  37 27 0  38 28 0  39 29 0  40 30 0  41 31 0  43 32 0  44 33 0
+    45 34 0  46 35 0  47 36 0  48 37 0  55 49 0  56 48 0  57 47 0  58 46 0
+    59 45 0  60 44 0  62 43 0  63 42 0  64 41 0  65 40 0  66 39 0  67 38 0
+    16 0  17 0  19 0  20 0  50 0  51 0  53 0  54 0
+227 MACH130 84 65 YES YES NO NO YES 6 8 NO YES 64 6
+    2 21 42 44 63 84 1 11 22 32 43 53 64 74 
+    3  2  0  4  3  0  5  4  0  6  5  0  7  6  0  8  7  0  9  8  0  10 9  0
+    12 10 0  13 11 0  14 12 0  15 13 0  16 14 0  17 15 0  18 16 0  19 17 0
+    24 33 0  25 32 0  26 31 0  27 30 0  28 29 0  29 28 0  30 27 0  31 26 0
+    33 25 0  34 24 0  35 23 0  36 22 0  37 21 0  38 20 0  39 19 0  40 18 0
+    45 34 0  46 35 0  47 36 0  48 37 0  49 38 0  50 39 0  51 40 0  52 41 0
+    54 42 0  55 43 0  56 44 0  57 45 0  58 46 0  59 47 0  60 48 0  61 49 0
+    66 65 0  67 64 0  68 63 0  69 62 0  70 61 0  71 60 0  72 59 0  73 58 0
+    75 57 0  76 56 0  77 55 0  78 54 0  79 53 0  80 52 0  81 51 0  82 50 0
+    20 0  23 0  41 0  62 0  65 0  83 0
+239 MACH131 84 65 YES YES NO NO YES 6 8 NO YES 64 6
+    2 21 42 44 63 84 1 11 22 32 43 53 64 74 
+    3  2  0  4  3  0  5  4  0  6  5  0  7  6  0  8  7  0  9  8  0  10 9  0
+    12 10 0  13 11 0  14 12 0  15 13 0  16 14 0  17 15 0  18 16 0  19 17 0
+    24 33 0  25 32 0  26 31 0  27 30 0  28 29 0  29 28 0  30 27 0  31 26 0
+    33 25 0  34 24 0  35 23 0  36 22 0  37 21 0  38 20 0  39 19 0  40 18 0
+    45 34 0  46 35 0  47 36 0  48 37 0  49 38 0  50 39 0  51 40 0  52 41 0
+    54 42 0  55 43 0  56 44 0  57 45 0  58 46 0  59 47 0  60 48 0  61 49 0
+    66 65 0  67 64 0  68 63 0  69 62 0  70 61 0  71 60 0  72 59 0  73 58 0
+    75 57 0  76 56 0  77 55 0  78 54 0  79 53 0  80 52 0  81 51 0  82 50 0
+    20 0  23 0  41 0  62 0  65 0  83 0
+222 MACH210 44 65 YES YES NO NO YES 2 4 NO YES 32 6
+    22 44  1 12 23 34
+    2  2  3  3  4  5  4  6  7  5  8  9  6  10 11 7  12 13 8  14 15 9  16 17
+    14 32 33 15 30 31 16 28 29 17 26 27 18 24 25 19 22 23 20 20 21 21 18 19
+    24 34 35 25 36 37 26 38 39 27 40 41 28 42 43 29 44 45 30 46 47 31 48 49
+    36 64 65 37 62 63 38 60 61 39 58 59 40 56 57 41 54 55 42 52 53 43 50 51
+    10 0  11 0  13 0  32 0  33 0  35 0
+240 MACH211 44 65 YES YES NO NO YES 2 4 NO YES 32 6
+    22 44  1 12 23 34
+    2  2  3  3  4  5  4  6  7  5  8  9  6  10 11 7  12 13 8  14 15 9  16 17
+    14 32 33 15 30 31 16 28 29 17 26 27 18 24 25 19 22 23 20 20 21 21 18 19
+    24 34 35 25 36 37 26 38 39 27 40 41 28 42 43 29 44 45 30 46 47 31 48 49
+    36 64 65 37 62 63 38 60 61 39 58 59 40 56 57 41 54 55 42 52 53 43 50 51
+    10 0  11 0  13 0  32 0  33 0  35 0
+231 MACH215 44 65 YES YES NO NO YES 2 4 NO YES 32 6
+    22 44  1 12 23 34
+    2  2  3  3  4  5  4  6  7  5  8  9  6  10 11 7  12 13 8  14 15 9  16 17
+    14 32 33 15 30 31 16 28 29 17 26 27 18 24 25 19 22 23 20 20 21 21 18 19
+    24 34 35 25 36 37 26 38 39 27 40 41 28 42 43 29 44 45 30 46 47 31 48 49
+    36 64 65 37 62 63 38 60 61 39 58 59 40 56 57 41 54 55 42 52 53 43 50 51
+    10 0  11 0  13 0  32 0  33 0  35 0
+230 MACH220 68 97 YES YES NO NO YES 4 8 NO YES 48 8
+    18 34 52 68 1 8 19 27 35 42 53 61
+    2  2  3   3  4  5   4  6  7   5  8  9   6  10 11  7 12 13
+    9  24 25  10 22 23	11 20 21  12 18 19  13 16 17  14 14 15
+    21 26 27  22 28 29  23 30 31  24 32 33  25 34 35  26 36 37
+    28 48 49  29 46 47  30 44 45  31 42 43  32 40 41  33 38 39
+    36 50 51  37 52 53  38 54 55  39 56 57  40 58 59  41 60 61
+    43 72 73  44 70 71  45 68 69  46 66 67  47 64 65  48 62 63
+    55 74 75  56 76 77  57 78 79  58 80 81  59 82 83  60 84 85
+    62 96 97  63 94 95  64 92 93  65 90 91  66 88 89  67 86 87
+    15 0  16 0  17 0  20 0  49 0  50 0  51 0  54 0
+244 MACH221 68 97 YES YES NO NO YES 4 8 NO YES 48 8
+    18 34 52 68 1 8 19 27 35 42 53 61
+    2  2  3   3  4  5   4  6  7   5  8  9   6  10 11  7 12 13
+    9  24 25  10 22 23	11 20 21  12 18 19  13 16 17  14 14 15
+    21 26 27  22 28 29  23 30 31  24 32 33  25 34 35  26 36 37
+    28 48 49  29 46 47  30 44 45  31 42 43  32 40 41  33 38 39
+    36 50 51  37 52 53  38 54 55  39 56 57  40 58 59  41 60 61
+    43 72 73  44 70 71  45 68 69  46 66 67  47 64 65  48 62 63
+    55 74 75  56 76 77  57 78 79  58 80 81  59 82 83  60 84 85
+    62 96 97  63 94 95  64 92 93  65 90 91  66 88 89  67 86 87
+    15 0  16 0  17 0  20 0  49 0  50 0  51 0  54 0
+228 MACH230 84 129 YES YES NO NO YES 6 8 NO YES 64 6
+    2 21 42 44 63 84 1 11 22 32 43 53 64 74
+    3   2  3  4  4  5  5  6  7  6  8  9  7 10 11 8  12 13 9  14 15 10 16 17
+    12 32 33 13 30 31 14 28 29 15 26 27 16 24 25 17 22 23 18 20 21 19 18 19
+    24 34 35 25 36 37 26 38 39 27 40 41 28 42 43 29 44 45 30 46 47 31 48 49
+    33 64 65 34 62 63 35 60 61 36 58 59 37 56 57 38 54 55 39 52 53 40 50 51
+    45 66 67 46 68 69 47 70 71 48 72 73 49 74 75 50 76 77 51 78 79 52 80 81
+    54 96 97 55 94 95 56 92 93 57 90 91 58 88 89 59 86 87 60 84 85 61 82 83
+    66  98  99 67 100 101 68 102 103 69 104 105 70 106 107 71 108 109
+    72 110 111 73 112 113 75 128 129 76 126 127 77 124 125 78 122 123
+    79 120 121 80 118 119 81 116 117 82 114 115
+    20 0  23 0  41 0  62 0  65 0  83 0
+241 MACH231 84 129 YES YES NO NO YES 6 8 NO YES 64 6
+    2 21 42 44 63 84 1 11 22 32 43 53 64 74
+    3   2  3  4  4  5  5  6  7  6  8  9  7 10 11 8  12 13 9  14 15 10 16 17
+    12 32 33 13 30 31 14 28 29 15 26 27 16 24 25 17 22 23 18 20 21 19 18 19
+    24 34 35 25 36 37 26 38 39 27 40 41 28 42 43 29 44 45 30 46 47 31 48 49
+    33 64 65 34 62 63 35 60 61 36 58 59 37 56 57 38 54 55 39 52 53 40 50 51
+    45 66 67 46 68 69 47 70 71 48 72 73 49 74 75 50 76 77 51 78 79 52 80 81
+    54 96 97 55 94 95 56 92 93 57 90 91 58 88 89 59 86 87 60 84 85 61 82 83
+    66  98  99 67 100 101 68 102 103 69 104 105 70 106 107 71 108 109
+    72 110 111 73 112 113 75 128 129 76 126 127 77 124 125 78 122 123
+    79 120 121 80 118 119 81 116 117 82 114 115
+    20 0  23 0  41 0  62 0  65 0  83 0
+169 PAL10H20EG8 24 1 NO YES NO YES YES 3 1 NO YES 0 0
+    6 19 24  12
+170 PAL10H20EV8 24 1 YES YES NO YES YES 3 1 NO YES 0 0
+    6 19 24  12
+165 PAL10H20G8 24 0 NO NO NO YES YES 3 1 NO YES 0 0
+    6 19 24  12
+161 PAL10H20P8 24 0 NO NO NO YES YES 3 1 NO YES 0 0
+    6 19 24  12
+100 PAL10H8 20 0 NO NO NO YES YES 20 10 NO NO 0 0
+105 PAL10L8 20 0 NO NO NO YES YES 20 10 NO NO 0 0
+101 PAL12H6 20 0 NO NO NO YES YES 20 10 NO NO 0 0
+120 PAL12L10 24 0 NO NO NO YES YES 24 12 NO NO 0 0
+106 PAL12L6 20 0 NO NO NO YES YES 20 10 NO NO 0 0
+102 PAL14H4 20 0 NO NO NO YES YES 20 10 NO NO 0 0
+107 PAL14L4 20 0 NO NO NO YES YES 20 10 NO NO 0 0
+121 PAL14L8 24 0 NO NO NO YES YES 24 12 NO NO 0 0
+104 PAL16C1 20 0 NO NO NO YES YES 20 10 NO NO 0 0
+103 PAL16H2 20 0 NO NO NO YES YES 20 10 NO NO 0 0
+108 PAL16L2 20 0 NO NO NO YES YES 20 10 NO NO 0 0
+122 PAL16L6 24 0 NO NO NO YES YES 24 12 NO NO 0 0
+109 PAL16L8 20 0 NO NO NO YES YES 20 10 NO NO 0 0
+113 PAL16P8 20 0 NO NO NO YES YES 20 10 NO NO 0 0
+112 PAL16R4 20 0 YES NO NO YES YES 20 10 YES NO 0 0
+111 PAL16R6 20 0 YES NO NO YES YES 20 10 YES NO 0 0
+110 PAL16R8 20 0 YES NO NO YES YES 20 10 YES NO 0 0
+162 PAL16RA8 20 0 NO NO YES YES YES 20 10 YES NO 0 0
+116 PAL16RP4 20 0 YES NO NO YES YES 20 10 YES NO 0 0
+115 PAL16RP6 20 0 YES NO NO YES YES 20 10 YES NO 0 0
+114 PAL16RP8 20 0 YES NO NO YES YES 20 10 YES NO 0 0
+215 PAL16V8 20 0 YES NO NO YES YES 20 10 YES NO 0 0
+224 PAL16V8HD 24 16 YES NO NO YES YES 3 3 YES YES 0 0
+    11 18 24  12 17 21
+123 PAL18L4 24 0 NO NO NO YES YES 24 12 NO NO 0 0
+167 PAL18P8 20 0 NO NO NO YES YES 20 10 NO NO 0 0
+168 PAL18U8 20 1 YES YES NO YES YES 20 10 NO NO 0 0
+132 PAL20C1 24 0 NO NO NO YES YES 24 12 NO NO 0 0
+133 PAL20L10 24 0 NO NO NO YES YES 24 12 NO NO 0 0
+124 PAL20L2 24 0 NO NO NO YES YES 24 12 NO NO 0 0
+137 PAL20L8 24 0 NO NO NO YES YES 24 12 NO NO 0 0
+119 PAL20R4 24 0 YES NO NO YES YES 24 12 YES NO 0 0
+118 PAL20R6 24 0 YES NO NO YES YES 24 12 YES NO 0 0
+117 PAL20R8 24 0 YES NO NO YES YES 24 12 YES NO 0 0
+61 PAL20RA10 24 0 NO NO YES YES YES 24 12 YES NO 0 0
+62 PAL20RS10 24 0 YES NO NO YES YES 24 12 YES NO 0 0
+147 PAL20RS4 24 0 YES NO NO YES YES 24 12 YES NO 0 0
+146 PAL20RS8 24 0 YES NO NO YES YES 24 12 YES NO 0 0
+145 PAL20S10 24 0 NO NO NO YES YES 24 12 NO NO 0 0
+216 PAL20V8 24 0 YES NO NO YES YES 24 12 YES NO 0 0
+134 PAL20X10 24 0 YES NO NO YES YES 24 12 YES NO 0 0
+136 PAL20X4 24 0 YES NO NO YES YES 24 12 YES NO 0 0
+135 PAL20X8 24 0 YES NO NO YES YES 24 12 YES NO 0 0
+172 PAL22IP6 24 0 NO NO NO YES NO 6 18 NO NO 0 0
+177 PAL22P10 24 0 NO NO NO YES YES 24 12 NO NO 0 0
+164 PAL22RX8 24 1 YES NO NO YES YES 24 12 YES NO 0 0
+166 PAL22V10 24 1 YES YES NO YES YES 24 12 NO NO 0 0
+178 PAL23S8 20 12 YES YES NO YES NO 20 10 NO NO 0 0
+217 PAL24L10 28 0 NO NO NO YES YES 7 21 NO NO 0 0
+218 PAL24R10 28 0 YES NO NO YES YES 7 21 YES NO 0 0
+219 PAL24R4 28 0 YES NO NO YES YES 7 21 YES NO 0 0
+220 PAL24R8 28 0 YES NO NO YES YES 7 21 YES NO 0 0
+226 PAL24V10 28 0 YES NO NO YES YES 7 21 YES NO 0 0
+179 PAL26V12 28 13 YES YES NO YES YES 7 21 NO NO 0 0
+213 PAL29M16 24 18 YES YES NO YES YES 24 12 NO NO 0 0
+214 PAL29MA16 24 18 YES NO NO YES YES 24 12 NO NO 0 0
+63 PAL32R16 40 0 YES NO NO YES NO 10 30 NO NO 0 0
+163 PAL32VX10 24 11 YES YES NO YES YES 24 12 NO NO 0 0
+223 PAL610 24 16 YES NO NO YES YES 24 12 NO NO 0 0
+223 PAL630 24 16 YES NO NO YES YES 24 12 NO NO 0 0
+64 PAL64R32 84 0 YES NO NO YES NO 2 2 NO YES 0 0
+   32 74  11 53
+139 PAL6L16 24 0 NO NO NO YES YES 24 12 NO NO 0 0
+138 PAL8L14 24 0 NO NO NO YES YES 24 12 NO NO 0 0
+200 PLS105 28 7 YES NO YES NO YES 28 14 NO NO 0 0
+201 PLS167 24 7 YES NO YES NO YES 24 12 NO NO 0 0
+202 PLS168 24 7 YES NO YES NO YES 24 12 NO NO 0 0
+206 PLS30K12 28 8 YES NO YES NO YES 28 14 NO NO 0 0
+205 PLS30S16 28 15 YES NO YES NO YES 28 14 NO NO 0 0
+225 SUPERCHIP 200 200 YES NO NO NO NO 0 0 YES NO 0 0
+232 MACH435 84 193 YES YES NO NO YES 6 8 NO YES 0 6
+    2 21 42 44 63 84 1 11 22 32 43 53 64 74
+    20 0 23 0 41 0 62 0 65 0 83 0
+233 MACH465 208 385 YES YES NO NO YES 24 32 NO YES 0 14
+    11 24 25 28 29 41 63 75 78 79 82 94 115 128 129 132 133 145 167
+    179 182 183 186 198
+    1 12 23 26 27 30 40 52 53 62 76 77 80 81 95 104 105 116 127 130
+    131 134 144 156 157 166 180 181 184 185 199 208
+    188 0 189 0 21 0 22 0 31 0 72 0 73 0 84 0 85 0 125 0 126 0 135 0
+    176 0 177 0
+234 MACH445 100 193 YES YES NO NO YES 8 16 NO YES 0 6
+    14 15 39 42 64 65 89 92 1 2 16 17 29 30 40 41 51 52 66 67 79 80 90 91
+    4 0 13 0 18 0 54 0 63 0 68 0
+242 MACH446 100 193 YES YES NO NO YES 8 16 NO YES 0 6
+    14 15 39 42 64 65 89 92 1 2 16 17 29 30 40 41 51 52 66 67 79 80 90 91
+    4 0 13 0 18 0 54 0 63 0 68 0
+235 MACH415 44 97 YES YES NO NO YES 2 4 NO YES 0 6
+    22 44 1 12 23 34
+    10 0 11 0 13 0 32 0 33 0 35 0
+236 MACH355 144 97 YES YES NO NO YES 16 20 NO YES 0 6
+    4 12 22 33 43 53 56 66 76 87 97 105 115 125 128 138
+    7 15 23 30 38 46 54 55 63 71 79 86 94 102 110 118 126 127 135 143
+    6 0 8 0 9 0 78 0 100 0 101 0
+237 MACH475 196 385 YES YES NO NO YES 18 26 NO YES 0 14
+    11 24 26 38 60 72 74 76 88 109 122 124 136 158 170 172 174 186
+    1 12 23 25 27 37 49 50 59 73 75 89 98 99 110 121 123 125 135 147
+    148 157 171 173 187 196
+    176 0 177 0 21 0 22 0 28 0 69 0 70 0 78 0 79 0 119 0 120 0 125 0
+    167 0 168 0
+#
+# HARD 2 tk_no name pin_no node_no st_mc rs_glob_pin rs_reg ass sim vcc gnd
+INV_B4_PIN mult_vcc_gnd num_pair_pin_nodes num_dedicated_inputs
+0 BINARYCTR_8 20 0 NO NO NO NO NO 0 0 NO NO 0 0
+0 GRAYCTR_8 20 0 NO NO NO NO NO 0 0 NO NO 0 0
+#
+# MACROS 4 tk_no name pin_no node_no st_mc rs_glob_pin rs_reg ass sim vcc gnd
+INV_B4_PIN mult_vcc_gnd num_pair_pin_nodes num_dedicated_inputs
+208 PCA0001 30 17 NO NO NO NO NO 0 0 NO NO 0 0
+209 PCA0002 34 17 NO NO NO NO NO 0 0 NO NO 0 0
+210 PCA0003 30 17 NO NO NO NO NO 0 0 NO NO 0 0
+211 PCA0004 34 17 NO NO NO NO NO 0 0 NO NO 0 0
+#
+# END
+                                      

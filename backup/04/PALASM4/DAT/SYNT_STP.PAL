@@ -1,0 +1,8 @@
+ษอออออออออออออออออออออออLOGIC SYNTHESIS OPTIONSออออออออออออออออออออออออป
+บ Use automatic pin/node pairing?         Y                            บ
+บ Use automatic gate splitting?           N   ... if 'Y', Max = 4      บ
+บ Optimize registers for D/T-type         As specified in design file  บ
+บ Ensure polarity after minimization is   Best for device              บ
+บ Use 'IF-THEN-ELSE','CASE' default as    Don't care                   บ
+บ Use fast minimization?                  N                            บ
+ศออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ

@@ -1,0 +1,83 @@
+/*
+000: Z0 -> Z1 -> Z2 -> Z3 -> R0 -> R1 -> R2 -> R3
+001: R0 -> R1 -> R2 -> R3 -> Z0 -> Z1 -> Z2 -> Z3
+010: Z0 -> Z1 -> Z2 -> R0 -> R1 -> R2 -> Z3 -> R3
+011: R0 -> R1 -> R2 -> Z0 -> Z1 -> Z2 -> R3 -> Z3
+100: Z0 -> Z1 -> R0 -> R1 -> Z2 -> Z3 -> R2 -> R3
+101: R0 -> R1 -> Z0 -> Z1 -> R2 -> R3 -> Z2 -> Z3
+110: Z0 -> R0 -> Z1 -> R1 -> Z2 -> R2 -> Z3 -> R3
+111: R0 -> Z0 -> R1 -> Z1 -> R2 -> Z2 -> R3 -> Z3
+*/
+!IEIZ0   = !ISEL2 & !ISEL1 & !ISEL0
+	 # !ISEL2 & !ISEL1 &  ISEL0 & (!IEOR0 # !IEOR1 # !IEOR2 # !IEOR3)
+	 # !ISEL2 &  ISEL1 & !ISEL0
+	 # !ISEL2 &  ISEL1 &  ISEL0 & (!IEOR0 # !IEOR1 # !IEOR2)
+	 #  ISEL2 & !ISEL1 & !ISEL0
+	 #  ISEL2 & !ISEL1 &  ISEL0 & (!IEOR0 # !IEOR1)
+	 #  ISEL2 &  ISEL1 & !ISEL0
+	 #  ISEL2 &  ISEL1 &  ISEL0 & !IEOR0
+	 ;
+!IEIZ1   = !ISEL2 & !ISEL1 & !ISEL0 & !IEOZ0
+	 # !ISEL2 & !ISEL1 &  ISEL0 & (!IEOR0 # !IEOR1 # !IEOR2 # !IEOR3 # !IEOZ0)
+	 # !ISEL2 &  ISEL1 & !ISEL0 & !IEOZ0
+	 # !ISEL2 &  ISEL1 &  ISEL0 & (!IEOR0 # !IEOR1 # !IEOR2 # !IEOZ0)
+	 #  ISEL2 & !ISEL1 & !ISEL0 & !IEOZ0
+	 #  ISEL2 & !ISEL1 &  ISEL0 & (!IEOR0 # !IEOR1 # !IEOZ0)
+	 #  ISEL2 &  ISEL1 & !ISEL0 & (!IEOZ0 # !IEOR0)
+	 #  ISEL2 &  ISEL1 &  ISEL0 & (!IEOR0 # !IEOZ0 # !IEOR1)
+	 ;
+!IEIZ2   = !ISEL2 & !ISEL1 & !ISEL0 & (!IEOZ0 # !IEOZ1)
+	 # !ISEL2 & !ISEL1 &  ISEL0 & (!IEOR0 # !IEOR1 # !IEOR2 # !IEOR3 # !IEOZ0 # !IEOZ1)
+	 # !ISEL2 &  ISEL1 & !ISEL0 & (!IEOZ0 # !IEOZ1)
+	 # !ISEL2 &  ISEL1 &  ISEL0 & (!IEOR0 # !IEOR1 # !IEOR2 # !IEOZ0 # !IEOZ1)
+	 #  ISEL2 & !ISEL1 & !ISEL0 & (!IEOZ0 # !IEOZ1 # !IEOR0 # !IEOR1)
+	 #  ISEL2 & !ISEL1 &  ISEL0 & (!IEOR0 # !IEOR1 # !IEOZ0 # !IEOZ1 # !IEOR2 # !IEOR3)
+	 #  ISEL2 &  ISEL1 & !ISEL0 & (!IEOZ0 # !IEOR0 # !IEOZ1 # !IEOR1)
+	 #  ISEL2 &  ISEL1 &  ISEL0 & (!IEOR0 # !IEOZ0 # !IEOR1 # !IEOZ1 # !IEOR2)
+	 ;
+!IEIZ3   = !ISEL2 & !ISEL1 & !ISEL0 & (!IEOZ0 # !IEOZ1 # !IEOZ2)
+	 # !ISEL2 & !ISEL1 &  ISEL0 & (!IEOR0 # !IEOR1 # !IEOR2 # !IEOR3 # !IEOZ0 # !IEOZ1 # !IEOZ2)
+	 # !ISEL2 &  ISEL1 & !ISEL0 & (!IEOZ0 # !IEOZ1 # !IEOZ2 # !IEOR0 # !IEOR1 # !IEOR2)
+	 # !ISEL2 &  ISEL1 &  ISEL0 & (!IEOR0 # !IEOR1 # !IEOR2 # !IEOZ0 # !IEOZ1 # !IEOZ2 # !IEOR3)
+	 #  ISEL2 & !ISEL1 & !ISEL0 & (!IEOZ0 # !IEOZ1 # !IEOR0 # !IEOR1 # !IEOZ2)
+	 #  ISEL2 & !ISEL1 &  ISEL0 & (!IEOR0 # !IEOR1 # !IEOZ0 # !IEOZ1 # !IEOR2 # !IEOR3 # !IEOZ2)
+	 #  ISEL2 &  ISEL1 & !ISEL0 & (!IEOZ0 # !IEOR0 # !IEOZ1 # !IEOR1 # !IEOZ2 # !IEOR2)
+	 #  ISEL2 &  ISEL1 &  ISEL0 & (!IEOR0 # !IEOZ0 # !IEOR1 # !IEOZ1 # !IEOR2 # !IEOZ2 # !IEOR3)
+	 ;
+!IEIR0   = !ISEL2 & !ISEL1 & !ISEL0 & (!IEOZ0 # !IEOZ1 # !IEOZ2 # !IEOZ3)
+	 # !ISEL2 & !ISEL1 &  ISEL0
+	 # !ISEL2 &  ISEL1 & !ISEL0 & (!IEOZ0 # !IEOZ1 # !IEOZ2)
+	 # !ISEL2 &  ISEL1 &  ISEL0
+	 #  ISEL2 & !ISEL1 & !ISEL0 & (!IEOZ0 # !IEOZ1)
+	 #  ISEL2 & !ISEL1 &  ISEL0
+	 #  ISEL2 &  ISEL1 & !ISEL0 & !IEOZ0
+	 #  ISEL2 &  ISEL1 &  ISEL0
+	 ;
+!IEIR1   = !ISEL2 & !ISEL1 & !ISEL0 & (!IEOZ0 # !IEOZ1 # !IEOZ2 # !IEOZ3 # !IEOR0)
+	 # !ISEL2 & !ISEL1 &  ISEL0 & !IEOR0
+	 # !ISEL2 &  ISEL1 & !ISEL0 & (!IEOZ0 # !IEOZ1 # !IEOZ2 # !IEOR0)
+	 # !ISEL2 &  ISEL1 &  ISEL0 & !IEOR0
+	 #  ISEL2 & !ISEL1 & !ISEL0 & (!IEOZ0 # !IEOZ1 # !IEOR0)
+	 #  ISEL2 & !ISEL1 &  ISEL0 & !IEOR0
+	 #  ISEL2 &  ISEL1 & !ISEL0 & (!IEOZ0 # !IEOR0 # !IEOZ1)
+	 #  ISEL2 &  ISEL1 &  ISEL0 & (!IEOR0 # !IEOZ0)
+	 ;
+!IEIR2   = !ISEL2 & !ISEL1 & !ISEL0 & (!IEOZ0 # !IEOZ1 # !IEOZ2 # !IEOZ3 # !IEOR0 # !IEOR1)
+	 # !ISEL2 & !ISEL1 &  ISEL0 & (!IEOR0 # !IEOR1)
+	 # !ISEL2 &  ISEL1 & !ISEL0 & (!IEOZ0 # !IEOZ1 # !IEOZ2 # !IEOR0 # !IEOR1)
+	 # !ISEL2 &  ISEL1 &  ISEL0 & (!IEOR0 # !IEOR1)
+	 #  ISEL2 & !ISEL1 & !ISEL0 & (!IEOZ0 # !IEOZ1 # !IEOR0 # !IEOR1 # !IEOZ2 # !IEOZ3)
+	 #  ISEL2 & !ISEL1 &  ISEL0 & (!IEOR0 # !IEOR1 # !IEOZ0 # !IEOZ1)
+	 #  ISEL2 &  ISEL1 & !ISEL0 & (!IEOZ0 # !IEOR0 # !IEOZ1 # !IEOR1 # !IEOZ2)
+	 #  ISEL2 &  ISEL1 &  ISEL0 & (!IEOR0 # !IEOZ0 # !IEOR1 # !IEOZ1)
+	 ;
+!IEIR3   = !ISEL2 & !ISEL1 & !ISEL0 & (!IEOZ0 # !IEOZ1 # !IEOZ2 # !IEOZ3 # !IEOR0 # !IEOR1 # !IEOR2)
+	 # !ISEL2 & !ISEL1 &  ISEL0 & (!IEOR0 # !IEOR1 # !IEOR2)
+	 # !ISEL2 &  ISEL1 & !ISEL0 & (!IEOZ0 # !IEOZ1 # !IEOZ2 # !IEOR0 # !IEOR1 # !IEOR2 # !IEOZ3)
+	 # !ISEL2 &  ISEL1 &  ISEL0 & (!IEOR0 # !IEOR1 # !IEOR2 # !IEOZ0 # !IEOZ1 # !IEOZ2)
+	 #  ISEL2 & !ISEL1 & !ISEL0 & (!IEOZ0 # !IEOZ1 # !IEOR0 # !IEOR1 # !IEOZ2 # !IEOZ3 # !IEOR2)
+	 #  ISEL2 & !ISEL1 &  ISEL0 & (!IEOR0 # !IEOR1 # !IEOZ0 # !IEOZ1 # !IEOR2)
+	 #  ISEL2 &  ISEL1 & !ISEL0 & (!IEOZ0 # !IEOR0 # !IEOZ1 # !IEOR1 # !IEOZ2 # !IEOR2 # !IEOZ3)
+	 #  ISEL2 &  ISEL1 &  ISEL0 & (!IEOR0 # !IEOZ0 # !IEOR1 # !IEOZ1 # !IEOR2 # !IEOZ2)
+	 ;
+

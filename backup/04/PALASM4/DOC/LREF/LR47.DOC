@@ -1,0 +1,82 @@
+ğ
+.PRLD
+Overview
+This is the reserved word in a functional equation that defines the
+conditions when the preload function is activated in devices with
+logic-controlled preload.  When the .PRLD equation is true, you can
+preload flip-flops to the desired value from the corresponding I/O
+pin.
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+            Node.PRLD    Assignment Operator    Expression
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Device Support:   PALCE29M16    PALCE29MA16
+ú
+Syntax
+Use the .PRLD functional equation in the equations segment of Boolean
+designs.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+            Node.PRLD    Assignment Operator    Expression
+
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     EQUATIONS
+              Q0                =                  /Q0
+              GLO.PRLD          =                   Q0 * /Q1
+              ...
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+
+Node.PRLD       Identifies the node associated with the register you
+                want to preload. On the PALCE29M16, this is the global
+                node.
+
+Assignment Operator    A symbol that defines a specific operation as
+                       interpreted by the software when processing
+                       design files.
+
+
+Expression      Identifies logic you assign to define the conditions
+                when the preload function is activated.
+
+ú
+Use
+You can place the .PRLD equation anywhere in the equations segment.
+The .PRLD equation may fit on more than one product term, depending on
+the device.  The following rules apply.
+
+ş    Do not use multiple functional equations for the same pin or
+     node. Otherwise, an error is reported during
+     compilation and the processing is halted.
+
+ş    Do not use negative polarity on the left-hand side of the
+     equation.  For example, /Q1.PRLD is illegal.
+
+Logic preloads use SETF and the pin polarity defined in the pin 
+declaration segment to determine preload polarity. 
+
+Note:  Super voltage preloads evaluate a complemented pin, /A, as
+       preload low.  If there is no complement, then it is a preload
+       high.
+
+ş    Disable any product term enables when .PRLD is low.
+
+In simulation, the SETF command to asserts the product term defined by 
+.PRLD to determine the preload values.   
+
+In the simulation history file, .PRLD is represented by the letter P, 
+SETF by the letter H and .RSTF by the letter L.
+ú
+Related Topics
+Boolean Equation
+EXPRESSION
+Functional Equation
+PRELOAD
+SETF
+ú

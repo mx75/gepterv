@@ -1,0 +1,265 @@
+0000 Reserved.
+0010 Reserved.
+0020 Reserved.
+0150  %%%% MINIMIZE %%%% Program successful.  File  %s
+0150  %%%% MINIMIZE %%%% ERROR count  %d  WARNING count  %d
+0160  %%%% MINIMIZE %%%% Program unsuccessful.  File: %s
+0160  %%%% MINIMIZE %%%% ERROR count  %d  WARNING count  %d
+0200 |> SYSTEM_ERROR M0200
+0200     Output message file open error.  File: %s
+0200     Call AMD, 1-800-222-9323.
+0210 |> SYSTEM_ERROR M0210
+0210     Output message file close error.
+0210     Call AMD, 1-800-222-9323.
+1200 Gate Splitting %s %s to ? node %s.
+1210 |> WARNING M1210
+1210     Gate splitting not supported for device %s.
+1210     Ignoring  -p option.
+1220 |> ERROR M1220
+1220     The maximum number of product terms, %d, allowed per pin for
+1220     this device, %s, has been exceeded.  The gate splitting (-p)
+1220     option specifies %d product terms, which is too many.
+1300 Created PAIRED NODE EQUATION %s.
+1310 Created PAIRED PIN EQUATION %s.
+2000 |> SYSTEM_ERROR M2000
+2000     Cannot open input intermediate file (.TRE).
+2005 |> WARNING M2005
+2005     No Logic or State Equations found in design file.
+2005     Processing Simulation section only.
+2010 |> SYSTEM_ERROR M2010
+2010     Cannot close input intermediate file (.TRE).
+2030 |> SYSTEM_ERROR M2030
+2030     Cannot close output intermediate file (.TRE).
+2033 |> SYSTEM_ERROR M2033
+2033     Cannot allocate virtual memory.
+2100 |> INTERNAL_ERROR M2100
+2100     Illegal STATE segment equation found.
+2110 |> INTERNAL_ERROR M2110
+2110     Illegal equation in CONDITIONS segment.
+2120 |> INTERNAL_ERROR M2120
+2120     Illegal equation in EQUATIONS segment.
+2130 |> INTERNAL_ERROR M2130
+2130     Illegal syntax in SIMULATION segment.
+2140 |> SYSTEM_ERROR M2140
+2140     Cannot read input intermediate file (.TRE).
+2400 |> SYSTEM_ERROR M2400
+2400     Cannot open output intermediate file (.TRE).
+2410 |> SYSTEM_ERROR M2410
+2410     Cannot write output intermediate file (.TRE).  Illegal equation.
+2420 |> SYSTEM_ERROR M2420
+2420     Cannot write output intermediate file (.TRE).
+2800 |> INTERNAL_ERROR M2800
+2800     Output branch memory retrieve failed.
+2800     Call AMD, 1-800-222-9323.
+2810 |> INTERNAL_ERROR M2810
+2810     Output branch additional memory retrieve failed.
+2810     Call AMD, 1-800-222-9323.
+2820 |> INTERNAL_ERROR M2820
+2820     State output memory retrieve failed.
+2820     Call AMD, 1-800-222-9323.
+2830 |> INTERNAL_ERROR M2830
+2830     Token not processed in bool_eq.
+2830     Call AMD, 1-800-222-9323.
+2840 |> INTERNAL_ERROR M2840
+2840     Condition memory retrieve failed.
+2840     Call AMD, 1-800-222-9323.
+2850 |> INTERNAL_ERROR M2850
+2850     Condition additional memory retrieve failed.
+2850     Call AMD, 1-800-222-9323.
+2860 |> INTERNAL_ERROR M2860
+2860     Part element memory retrieve failed.
+2860     Call AMD, 1-800-222-9323.
+2870 |> INTERNAL_ERROR M2870
+2870     Part name memory retrieve failed.
+2870     Call AMD, 1-800-222-9323.
+2880 |> INTERNAL_ERROR M2880
+2880     Sop equation memory retrieve failed.
+2880     Call AMD, 1-800-222-9323.
+2890 |> INTERNAL_ERROR M2890
+2890     Pin memory retrieve failed.
+2890     Call AMD, 1-800-222-9323.
+3000 |> ERROR M3000
+3000     Unknown device token number.
+3001 |> SYSTEM_ERROR M3001
+3001     Cannot open PALEXMIN.PDF file.
+3001     Call AMD, 1-800-222-9323.
+3002 |> INTERNAL_ERROR M3002
+3002     PAL device is not supported by Minimize.
+3003 |> SYSTEM_ERROR M3003
+3003     Incorrect PALEXMIN.PDF file format.
+3003     Call AMD, 1-800-222-9323.
+3011 |> SYSTEM_ERROR M3011
+3011     Cannot open PLSPDF.PDF file.
+3011     Call AMD, 1-800-222-9323.
+3012 |> INTERNAL_ERROR M3012
+3012     Minimize cannot support this PLS device.
+3013 |> SYSTEM_ERROR M3013
+3013     Incorrect PLSPDF.PDF file format.
+3013     Call AMD, 1-800-222-9323.
+3014 |> INTERNAL_ERROR M3014
+3014     Incorrect device data structure from
+3014     PLSPDF.PDF.  Call AMD, 1-800-222-9323.
+3021 |> SYSTEM_ERROR M3021
+3021     Cannot open MACHPDF.PDF file.
+3021     Call AMD, 1-800-222-9323.
+3022 |> INTERNAL_ERROR M3022
+3022     MACH device is not supported by Minimize.
+3023 |> SYSTEM_ERROR M3023
+3023     Incorrect MACHPDF.PDF file format.
+3023     Call AMD, 1-800-222-9323.
+3030 |> SYSTEM_ERROR M3030
+3030     Memory allocation failed.  Out of memory.
+3030     Call AMD, 1-800-222-9323.
+3040 |> SYSTEM_ERROR M3040
+3040     Cannot rename design output file.
+3040     Call AMD, 1-800-222-9323.
+3060 |> INTERNAL_ERROR M3060
+3060     Cannot support PROSE device.
+3080 |> SYSTEM_ERROR M3080
+3080     Cannot delete temporary file.
+3080     Call AMD, 1-800-222-9323.
+3210 |> INTERNAL_ERROR M3210
+3210     Illegal Boolean equation type.
+3400 |> INTERNAL_ERROR M3400
+3400     Boolean expression processing failed.  Illegal token.
+3400     Call AMD, 1-800-222-9323.
+3410 |> INTERNAL_ERROR M3410
+3410     Minimization algorithm constraints exceeded.
+3410     Call AMD, 1-800-222-9323.
+3500 |> ERROR M3500
+3500     Boolean expression processing failed.
+3500     More than 32 signals detected on a single equation.
+3510 |> SYSTEM_ERROR M3510
+3510     Cannot read part definition file (.PDF).
+3510     Call AMD, 1-800-222-9323.
+3520 |> SYSTEM_ERROR M3520
+3520     Cannot open part definition file (.PDF).
+3520     Call AMD, 1-800-222-9323.
+3610 |> ERROR M3610
+3610     Illegal equation in equations segment.
+3620 |> ERROR M3620
+3620     Illegal equation suffix in equations segment.
+3630 |> ERROR M3630
+3630     Multiple equations for node in equations segment.
+3810 |> SYSTEM_ERROR M3810
+3810     Cannot open output message file.
+3810     Call AMD, 1-800-222-9323.
+4020 |> INTERNAL_ERROR M4020
+4020     Illegal signal in signal statements.
+4020     Call AMD, 1-800-222-9323.
+4110 |> ERROR M4110
+4110     Multiple equations in conditions segment.
+4120 |> ERROR M4120
+4120     Can't have MINIMIZE switch on for an equation and off for
+4120     it's complement.
+4130 |> ERROR M4130
+4130     An equation, %s, and its complement have different registered,
+4130     latched, or combinatorial equation type indicators.
+4300 |> ERROR M4300
+4300     Conflicting equations; An equation %s and its complement
+4300     conflict.  If left as is, they could both be set true or both
+4300     be set false at the same time, which is invalid.
+4301 |> ERROR M4301
+4301     Incorrect %s equation polarity.
+4302 |> WARNING M4302
+4302     Device polarity is Non-programmable. Flipping equation
+4302     polarity of pin %s to match device polarity.
+4310 |> INTERNAL_ERROR M4310
+4310     Repeated equation for a signal not processed.
+4310     Call AMD, 1-800-222-9323.
+4320 Processed equation ====> %s  MINIMIZE_OFF (%d pt)
+4330 Processed equation ====> %s  MINIMIZE_ON  (%d pt ---> %d pt)
+4340 |> WARNING M4340
+4340     %s option ignored. Device %s does not have %s registers.
+4500 |> INTERNAL_ERROR M4500
+4500     Minimization algorithm constraints exceeded.
+4500     Call AMD, 1-800-222-9323.
+4501 |> SYSTEM_ERROR M4501
+4501     Memory allocation failed.
+4501     Block requested is too large.
+4501     Call AMD, 1-800-222-9323.
+4502 |> SYSTEM_ERROR M4502
+4502     Memory allocation failed.  Out of memory.
+4502     Call AMD, 1-800-222-9323.
+4503 |> SYSTEM_ERROR M4503
+4503     Memory free failed.  Call AMD, 1-800-222-9323.
+4510 |> INTERNAL_ERROR M4510
+4510     Minimize:  no solution possible (check equations).
+4510     Call AMD, 1-800-222-9323.
+4511 |> INTERNAL_ERROR M4511
+4511     Minimize:  inconsistent frequency table.
+4511     Call AMD, 1-800-222-9323.
+4520 |> INTERNAL_ERROR M4520
+4520     Minimize:  cube not covered in Reduce.
+4520     Call AMD, 1-800-222-9323.
+4530 |> INTERNAL_ERROR M4530
+4530     Minimize:  split_select index error.
+4530     Call AMD, 1-800-222-9323.
+4531 |> INTERNAL_ERROR M4531
+4531     Minimize:  split_two_select index error.
+4531     Call AMD, 1-800-222-9323.
+4532 |> INTERNAL_ERROR M4532
+4532     Minimize:  large_cube_index -- bestindex -1.
+4532     Call AMD, 1-800-222-9323.
+4540 |> INTERNAL_ERROR M4540
+4540     Minimize:  cover capacity exceeded.
+4540     Call AMD, 1-800-222-9323.
+4550 |> INTERNAL_ERROR M4550
+4550     Minimize:  overlapping covers (check equations).
+4550     Call AMD, 1-800-222-9323.
+4560 |> WARNING M4560
+4560     Tree filename (.TRE) is not unique.
+4560     Assuming PALASM2.TRE.
+4570 |> WARNING M4570
+4570     Log filename is not unique.  Ignoring log output.
+4580 >>  MINIMIZE HELP  incorrect minimize parameters.
+4580 >>  Command to invoke minimize: 
+4580     minimize   [OPTIONS...].
+4580     OPTION           [filename[.tre]]  input tree file name.
+4580                 -tre [filename[.tre]]  output tree file name.
+4580                 -log [filename[.log]]  error log file name. 
+4580                 -dt   generates the optimal solution
+4580                       amongst D and T equations
+4580                 -t    converts all D equations into T equations.
+4580                 -d    converts all T equations into D equations. 
+4580                 -1eqn Reads one eqn at a time optimizing
+4580                       memory utilization.
+4580                 -p #  Product term limitation per output pin.
+4580                 -al   ACTIVE_LOW polarity.(ONLY Prog polarity devices)
+4580                 -ah   ACTIVE_HIGH polarity.(ONLY Prog polarity devices)
+4580                 -ao   Best of AL/AH polarity.(ONLY Prog polarity devices)
+4590 |> WARNING M4590
+4590     Product term splitting [-p] present in commandline
+4590     but number of product terms per pin not specified.
+4590     Program IGNORES this parameter.
+5000 |> SYSTEM_ERROR M5000
+5000     Cannot open PARSE.MSG file for device information.
+5000     Call AMD, 1-800-222-9323.
+5100 |> ERROR M5100
+5100     No information for device in PARSE.MSG file.
+10001 |> ERROR M10001
+10001     You did not run BPP (Merge Mixed Mode) even though you
+10001     have a state machine and Boolean equations in your design file.
+10002 |> ERROR M10002
+10002     You did not run Expand (Expand State) even though you
+10002     have a state machine in your design file.
+10004 |> SYSTEM_ERROR M10004
+10004     Cannot access pre-header information.
+10004    Call AMD, 1-800-222-9323.
+12010 |> INTERNAL_ERROR M12010
+12010     General output error.
+12020 |> SYSTEM_ERROR M12020
+12020     Output file write error.
+12020     Call AMD, 1-800-222-9323.
+12030 |> SYSTEM_ERROR M12030
+12030     Output file not open.
+12030     Call AMD, 1-800-222-9323.
+12040 |> SYSTEM_ERROR M12040
+12040     Output file already open.
+12040     Call AMD, 1-800-222-9323.
+12050 |> SYSTEM_ERROR M12050
+12050     Cannot open output file.
+12050     Call AMD, 1-800-222-9323.
+12210 |> ERROR M12210
+12210     Illegal simulation element.
+

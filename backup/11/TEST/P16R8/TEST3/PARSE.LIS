@@ -1,0 +1,36 @@
+test3.pds
+
+PALASM4  PARSER   - MARKET RELEASE 1.5 (7-10-92)
+ (C) - COPYRIGHT ADVANCED MICRO DEVICES INC., 1992
+
+
+                    ***********************************
+                    *     PALASM PARSER LISTING       *
+                    ***********************************
+
+LINE #   |----+----1----+----2----+----3----+----4----+----5----+----6----+
+   1     |;MachXL Design Description
+   2     |;---------------------------------- Declaration Segment ------------
+   3     |TITLE    Memory controller for 512k sram board
+   4     |PATTERN  1
+   5     |REVISION 1.0
+   6     |AUTHOR   Fazekas Mihaly
+   7     |COMPANY  Technical University of Budapest (Telephone Center)
+   8     |DATE     11/01/15
+   9     |
+  10     |CHIP  _test3  PAL20RA10
+  11     |;---------------------------------- PIN Declarations ---------------
+  12     |PIN     2  A   COMBINATORIAL
+  13     |PIN     3  B   COMBINATORIAL
+  14     |PIN     14 OUT REGISTERED
+  15     |;----------------------------------- Boolean Equation Segment ------
+  16     |EQUATIONS
+  17     |
+  18     |OUT:=A + B
+  19     |;----------------------------------- Simulation Segment ------------
+  20     |SIMULATION
+  21     |;-------------------------------------------------------------------
+
+ %% PARSE %%    No errors.  No warnings.
+
+ %% PARSE %%    File processed successfully.    File:  test3.pds

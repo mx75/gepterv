@@ -1,0 +1,71 @@
+Name      clk_div;
+Partno    v1;
+Date      10/08/85;
+Rev       01;
+Designer  Michael;
+Company   SufniFabrik;
+Assembly  None;
+Location  None;
+Device    p16r6;
+
+/** Inputs **/
+Pin 1      =  SYSCLK;
+Pin 2      = !DIV;
+Pin [5..4] =  [CSEL1..0];
+Pin 11     = !OE;
+
+/** Outputs **/
+Pin [18..15] =  [Q0..3];
+Pin [14,13]  =  [OSEL0..1];
+Pin 12       =  CO;
+Pin 19       = !CCW;
+
+/*
+OSEL1.d = CSEL1 & !(Q3 # Q2 # Q1 # Q0)
+        # OSEL1 &  (Q3 # Q2 # Q1 # Q0);
+OSEL0.d = CSEL0 & !(Q3 # Q2 # Q1 # Q0)
+        # OSEL0 &  (Q3 # Q2 # Q1 # Q0);
+*/
+OSEL1.d = CSEL1 &   Q3 & Q2 & Q1 & Q0
+        # OSEL1 & !(Q3 & Q2 & Q1 & Q0);
+OSEL0.d = CSEL0 &   Q3 & Q2 & Q1 & Q0
+        # OSEL0 & !(Q3 & Q2 & Q1 & Q0);
+
+CO      = !OSEL1 & !OSEL0 & Q0
+        # !OSEL1 &  OSEL0 & Q1
+        #  OSEL1 & !OSEL0 & Q2
+        #  OSEL1 &  OSEL0 & Q3;
+CO.oe   = DIV;
+
+CCW     = !(OSEL1 $ CSEL1) & !(OSEL0 $ CSEL0);
+CCW.oe  = DIV;
+
+!Q0.d   = !DIV
+        #  Q0;
+!Q1.d   = !DIV
+        #  Q1 &  Q0
+        # !Q1 & !Q0;
+!Q2.d   = !DIV
+        #  Q2 &  Q1 &  Q0
+        # !Q2 & !Q0
+        # !Q2 & !Q1;
+!Q3.d   = !DIV
+        #  Q3 &  Q2 &  Q1 &  Q0
+        # !Q3 & !Q0
+        # !Q3 & !Q1
+        # !Q3 & !Q2;
+/*
+!Q4.d   = !DIV
+        #  Q4 &  Q3 &  Q2 &  Q1 &  Q0
+        # !Q4 & !Q0
+        # !Q4 & !Q1
+        # !Q4 & !Q2
+        # !Q4 & !Q3;
+!Q5.d   = !DIV
+        #  Q5 &  Q4 &  Q3 &  Q2 &  Q1 &  Q0
+        # !Q5 & !Q0
+        # !Q5 & !Q1
+        # !Q5 & !Q2
+        # !Q5 & !Q3
+        # !Q5 & !Q4;
+*/

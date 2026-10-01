@@ -1,0 +1,89 @@
+LISTING FOR LOGIC DESCRIPTION FILE: isel1.pld.pld                    Page 1
+
+CUPL: Universal Compiler for Programmable Logic
+Version 3.2a Serial# MD-32A-6365
+Copyright (C)  1983,1989 Logical Devices, Inc.
+Created Wed Mar 24 12:35:36 2021
+
+  1:Name      isel1;
+  2:Partno    v1;
+  3:Date      10/08/85;
+  4:Rev       01;
+  5:Designer  Michael;
+  6:Company   SufniFabrik;
+  7:Assembly  None;
+  8:Location  None;
+  9:Device    p20l8lcc;
+ 10:
+ 11:/** Inputs **/
+ 12:Pin [5..2]      = [IEOZ0..3];
+ 13:Pin [10..9,7..6]= [IEOR0..3];
+ 14:Pin [12..11]    = [ISEL0..1];
+ 15:Pin 13          =  IEN;
+ 16:
+ 17:/** Outputs **/
+ 18:Pin [18..21]    = [IEIZ0..3];
+ 19:Pin [23..26]    = [IEIR0..3];
+ 20:
+ 21:/*
+ 22:00: Z0 -> Z1 -> Z2 -> R0 -> R1 -> R2
+ 23:01: R0 -> R1 -> R2 -> Z0 -> Z1 -> Z2
+ 24:10: Z0 -> Z1 -> Z2 -> Z3 -> R0 -> R1
+ 25:11: R0 -> R1 -> Z0 -> Z1 -> Z2 -> Z3
+ 26:*/
+ 27:
+ 28:[IEIZ0..3].oe    = IEN;
+ 29:[IEIR0..3].oe    = IEN;
+ 30:
+ 31:!IEIZ0   = !ISEL1 & !ISEL0 & 'b'0
+ 32:         # !ISEL1 &  ISEL0 & (!IEOR0 # !IEOR1 # !IEOR2)
+ 33:         #  ISEL1 & !ISEL0 & 'b'0
+ 34:         #  ISEL1 &  ISEL0 & (!IEOR0 # !IEOR1)
+ 35:         ;
+ 36:!IEIZ1   = !ISEL1 & !ISEL0 &  !IEOZ0
+ 37:         # !ISEL1 &  ISEL0 & (!IEOR0 # !IEOR1 # !IEOR2 # !IEOZ0)
+ 38:         #  ISEL1 & !ISEL0 &  !IEOZ0
+ 39:         #  ISEL1 &  ISEL0 & (!IEOR0 # !IEOR1 # !IEOZ0)
+ 40:         ;
+ 41:!IEIZ2   = !ISEL1 & !ISEL0 & (!IEOZ0 # !IEOZ1)
+ 42:         # !ISEL1 &  ISEL0 & (!IEOR0 # !IEOR1 # !IEOR2 # !IEOZ0 # !IEOZ1)
+ 43:         #  ISEL1 & !ISEL0 & (!IEOZ0 # !IEOZ1)
+ 44:         #  ISEL1 &  ISEL0 & (!IEOR0 # !IEOR1 # !IEOZ0 # !IEOZ1)
+ 45:         ;
+ 46:!IEIZ3   = !ISEL1 & !ISEL0 & 'b'1
+ 47:         # !ISEL1 &  ISEL0 & 'b'1
+ 48:         #  ISEL1 & !ISEL0 & (!IEOZ0 # !IEOZ1 # !IEOZ2)
+ 49:         #  ISEL1 &  ISEL0 & (!IEOR0 # !IEOR1 # !IEOZ0 # !IEOZ1 # !IEOZ2)
+ 50:         ;
+ 51:!IEIR0   = !ISEL1 & !ISEL0 & (!IEOZ0 # !IEOZ1 # !IEOZ2)
+ 52:         # !ISEL1 &  ISEL0 & 'b'0
+ 53:         #  ISEL1 & !ISEL0 & (!IEOZ0 # !IEOZ1 # !IEOZ2 # !IEOZ3)
+
+LISTING FOR LOGIC DESCRIPTION FILE: isel1.pld.pld                    Page 2
+
+CUPL: Universal Compiler for Programmable Logic
+Version 3.2a Serial# MD-32A-6365
+Copyright (C)  1983,1989 Logical Devices, Inc.
+Created Wed Mar 24 12:35:36 2021
+
+ 54:         #  ISEL1 &  ISEL0 & 'b'0
+ 55:         ;
+ 56:!IEIR1   = !ISEL1 & !ISEL0 & (!IEOZ0 # !IEOZ1 # !IEOZ2 # !IEOR0)
+ 57:         # !ISEL1 &  ISEL0 &  !IEOR0
+ 58:         #  ISEL1 & !ISEL0 & (!IEOZ0 # !IEOZ1 # !IEOZ2 # !IEOZ3 # !IEOR0)
+ 59:         #  ISEL1 &  ISEL0 &  !IEOR0
+ 60:         ;
+ 61:!IEIR2   = !ISEL1 & !ISEL0 & (!IEOZ0 # !IEOZ1 # !IEOZ2 # !IEOR0 # !IEOR1)
+ 62:         # !ISEL1 &  ISEL0 & (!IEOR0 # !IEOR1)
+ 63:         #  ISEL1 & !ISEL0 & 'b'1
+ 64:         #  ISEL1 &  ISEL0 & 'b'1
+ 65:         ;
+ 66:!IEIR3   = 'b'1
+ 67:         ;
+ 68:
+ 69:
+
+
+
+Jedec Fuse Checksum       (CE67)
+Jedec Transmit Checksum   (06B6)

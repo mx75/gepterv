@@ -1,0 +1,61 @@
+;PALASM Design Description
+
+;---------------------------------- Declaration Segment ------------
+TITLE    TUTOR1.PDS
+PATTERN  A
+REVISION 1.0
+AUTHOR   J.ENGINEER
+COMPANY  ADVANCED MICRO DEVICES
+DATE     01/01/90
+
+CHIP  DECODER  PAL16L8
+
+;---------------------------------- PIN Declarations ---------------
+PIN  2          X                    COMBINATORIAL             ; INPUT
+PIN  3          Y                    COMBINATORIAL             ; INPUT
+PIN  4          Z                    COMBINATORIAL             ; INPUT 
+PIN  10         GND                                            ; INPUT
+PIN  12         A                    COMBINATORIAL             ; OUTPUT
+PIN  13         B                    COMBINATORIAL             ; OUTPUT
+PIN  14         C                    COMBINATORIAL             ; OUTPUT
+PIN  15         D                    COMBINATORIAL             ; OUTPUT
+PIN  16         E                    COMBINATORIAL             ; OUTPUT
+PIN  17         F                    COMBINATORIAL             ; OUTPUT
+PIN  18         G                    COMBINATORIAL             ; OUTPUT
+PIN  19         H                    COMBINATORIAL             ; OUTPUT
+PIN  20         VCC                                            ; INPUT
+
+;----------------------------------- Boolean Equation Segment ------
+EQUATIONS
+/A = /X * /Y * /Z
+/B = /X * /Y *  Z
+/C = /X *  Y * /Z
+/D = /X *  Y *  Z
+/E =  X * /Y * /Z
+/F =  X * /Y *  Z
+/G =  X *  Y * /Z
+/H =  X *  Y *  Z
+
+;----------------------------------- Simulation Segment ------------
+SIMULATION
+TRACE_ON X Y Z A B C D E F G H
+SETF  /X /Y /Z
+CHECK /A  B  C  D  E  F  G  H
+SETF  /X /Y  Z
+CHECK  A /B  C  D  E  F  G  H
+SETF  /X  Y /Z
+CHECK  A  B /C  D  E  F  G  H
+SETF  /X  Y  Z
+CHECK  A  B  C /D  E  F  G  H
+SETF   X /Y /Z
+CHECK  A  B  C  D /E  F  G  H
+SETF   X /Y  Z
+CHECK  A  B  C  D  E /F  G  H
+SETF   X  Y /Z
+CHECK  A  B  C  D  E  F /G  H
+SETF   X  Y  Z
+CHECK  A  B  C  D  E  F  G /H
+TRACE_OFF
+
+;-------------------------------------------------------------------
+

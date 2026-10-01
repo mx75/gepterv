@@ -1,0 +1,37 @@
+;-------------------------------------------------------------------
+; NOTICE: These implementations of PREP Co. Benchmarks are the property
+; of AMD. All have been  submitted for the PREP benchmark certification.
+;
+;       All other uses are expressly forbidden!
+;
+;       AMD Contact: Nick Schmitz (408) 749-4868        Fax:749-8433
+;       M/s 1004, P.O. Box 3453, Sunnyvale Ca 94088
+;-------------------------------------------------------------------
+
+Functionality:
+
+        1. DataPath                     P1_SRC.PDS/P1_SRN.PDS
+        2. Timer Counter                P2_SRC.PDS
+        3. Small State Machine          P3_SRC.PDS
+        4. Large State Machine          P4_SRC.PDS
+        5. Arithmetic                   P5_SRC.PDS
+        6. 16-bit Accumulator           P6_SRC.PDS
+        7. 16-bit PreLoad Counter       P7_SRC.PDS
+        8. 16-bit Prescale Counter      P8_SRC.PDS
+        9. Memory Mapper                P9_SRC.PDS
+       10. Filler                       PF_SRC.PDS
+
+Each is a "single instance" file. The actual benchmarks are multiple
+instances "step-and-repeat" connected to fill the entire device.
+
+Full descriptions of the circuits are available for $25 from PREP
+    Please contact:
+
+        PREP Co.
+        504 Nino Ave
+        Los Gatos, Ca. 95032
+        (408) 356-2169
+
+Request Benchmark Suite #1 Descriptions - v 1.2 or later.
+
+

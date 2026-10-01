@@ -1,0 +1,102 @@
+CSIM: CUPL Simulation Program
+Version 3.2a Serial# MD-32A-6365
+Copyright (C)  1983,1989 Logical Devices, Inc.
+CREATED Tue Sep 15 10:13:19 2026
+
+LISTING FOR SIMULATION FILE: reg1.pld.si
+
+   1: Name      reg1;
+   2: Partno    v1;
+   3: Date      10/08/85;
+   4: Rev       01;
+   5: Designer  Michael;
+   6: Company   SufniFabrik;
+   7: Assembly  None;
+   8: Location  None;
+   9: Device    p20r8lcc;
+  10: 
+  11: ORDER:
+  12: /** Inputs **/
+  13: SYSCLK,%1,D3..0,%1,!CS_REG,%1,!WR,%1,!SYSRESET,%3,
+  14: 
+  15: /** Outputs **/
+  16: !OUT0..7;
+  17: 
+
+===============================================================================
+                              Simulation Results
+===============================================================================
+                   |         
+                 ! |         
+                 S |         
+             !   Y |         
+      S      C   S |         
+      Y      S   R | !!!!!!!!
+      S      _   E | OOOOOOOO
+      C      R ! S | UUUUUUUU
+      L DDDD E W E | TTTTTTTT
+      K 3210 G R T | 01234567
+      =============+=========
+0001: C 1111 1 1 1   XXXXXXXX
+0002: C 1111 1 1 0   HHHHHHHH
+0003: C 1111 1 1 1   HHHHHHHH
+0004: C 0000 1 1 1   HHHHHHHH
+0005: C 0000 1 1 0   HHHHHHHH
+0006: C 0000 1 1 1   HHHHHHHH
+0007: C 0000 1 1 1   HHHHHHHH
+0:
+0008: C 0001 0 0 1   HHHHHHHH
+0009: C 0001 1 1 1   HHHHHHHH
+0010: C 0000 0 0 1   LHHHHHHH
+0011: C 0000 1 1 1   LHHHHHHH
+0012: C 0001 0 0 1   HHHHHHHH
+0013: C 0001 1 1 1   HHHHHHHH
+1:
+0014: C 0011 0 0 1   HHHHHHHH
+0015: C 0011 1 1 1   HHHHHHHH
+0016: C 0010 0 0 1   HLHHHHHH
+0017: C 0010 1 1 1   HLHHHHHH
+0018: C 0011 0 0 1   HHHHHHHH
+0019: C 0011 1 1 1   HHHHHHHH
+2:
+0020: C 0101 0 0 1   HHHHHHHH
+0021: C 0101 1 1 1   HHHHHHHH
+0022: C 0100 0 0 1   HHLHHHHH
+0023: C 0100 1 1 1   HHLHHHHH
+0024: C 0101 0 0 1   HHHHHHHH
+0025: C 0101 1 1 1   HHHHHHHH
+3:
+0026: C 0111 0 0 1   HHHHHHHH
+0027: C 0111 1 1 1   HHHHHHHH
+0028: C 0110 0 0 1   HHHLHHHH
+0029: C 0110 1 1 1   HHHLHHHH
+0030: C 0111 0 0 1   HHHHHHHH
+0031: C 0111 1 1 1   HHHHHHHH
+4:
+0032: C 1001 0 0 1   HHHHHHHH
+0033: C 1001 1 1 1   HHHHHHHH
+0034: C 1000 0 0 1   HHHHLHHH
+0035: C 1000 1 1 1   HHHHLHHH
+0036: C 1001 0 0 1   HHHHHHHH
+0037: C 1001 1 1 1   HHHHHHHH
+5:
+0038: C 1011 0 0 1   HHHHHHHH
+0039: C 1011 1 1 1   HHHHHHHH
+0040: C 1010 0 0 1   HHHHHLHH
+0041: C 1010 1 1 1   HHHHHLHH
+0042: C 1011 0 0 1   HHHHHHHH
+0043: C 1011 1 1 1   HHHHHHHH
+6:
+0044: C 1101 0 0 1   HHHHHHHH
+0045: C 1101 1 1 1   HHHHHHHH
+0046: C 1100 0 0 1   HHHHHHLH
+0047: C 1100 1 1 1   HHHHHHLH
+0048: C 1101 0 0 1   HHHHHHHH
+0049: C 1101 1 1 1   HHHHHHHH
+7:
+0050: C 1111 0 0 1   HHHHHHHH
+0051: C 1111 1 1 1   HHHHHHHH
+0052: C 1110 0 0 1   HHHHHHHL
+0053: C 1110 1 1 1   HHHHHHHL
+0054: C 1111 0 0 1   HHHHHHHH
+0055: C 1111 1 1 1   HHHHHHHH

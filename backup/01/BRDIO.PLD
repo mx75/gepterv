@@ -1,0 +1,43 @@
+Name      brdio;
+Partno    v1;
+Date      10/08/85;
+Rev       01;
+Designer  Michael;
+Company   SufniFabrik;
+Assembly  None;
+Location  None;
+Device    p20l8lcc;
+
+/** Inputs **/
+Pin 2      =  A7;
+Pin 3      =  A6;
+Pin 4      =  A5;
+Pin 5      =  BA7;
+Pin 6      =  BA6;
+Pin 7      =  BA5;
+Pin 9      = !MX;
+Pin 10     = !IOREQ;
+Pin 11     = !WR;
+Pin 12     = !RD;
+Pin 13     =  A4;
+Pin 17     =  A3;
+Pin 27     =  A2;
+Pin 16     =  A1;
+Pin 25     =  A0;
+
+/** Outputs **/
+Pin 18      = !IACK;
+Pin 19      =  TMPA;
+Pin 20      = !BREGW0;
+Pin 21      = !BREGW1;
+Pin 23      = !CS_I2C;
+Pin 24      = !CS_X;
+Pin 26      = !CS_Y;
+
+TMPA    =  IOREQ & !(A7 $ BA7) & !(A6 $ BA6) & !(A5 $ BA5);
+IACK    =  IOREQ &  MX;
+BREGW0  =  IOREQ & !MX & !A4 & !A3 & !A2 & !A1 & !A0 & WR;
+BREGW1  =  IOREQ & !MX & !A4 & !A3 & !A2 & !A1 &  A0 & WR;
+CS_I2C  =  IOREQ & !MX & !A4 & !A3 &  A2;
+CS_X    =  IOREQ & !MX & !A4 &  A3 & !A2;
+CS_Y    =  IOREQ & !MX & !A4 &  A3 &  A2;

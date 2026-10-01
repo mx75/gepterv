@@ -1,0 +1,113 @@
+ğ
+CHECK
+Overview
+This is the keyword in a simulation command that verifies that signal
+values at the pin are equal to expected values.
+
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+           CHECK     Prefix_Pns
+
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Device Support:  All PLD devices.
+ú
+Syntax
+You sue the CHECK command in either the simulation segmemt of a PDS
+file or in an auxiliary simulation file for Boolean, state-machine, or
+schematic-based designs.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+           CHECK     Prefix_Pns
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+           SIMULATION
+           CHECK     O1 /O2 ^O3 %O4 PLAYING
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+If the signal being tested is defined with the same polarity as in the
+Pin/Node Declaration segment, the signal is checked to verify it is a
+logical 1.  If the polarity is reversed, the signal is checked to
+verify it is a logical 0.
+
+Note: The following examples are valid only if the signals are
+defined as active-high in the Pin/Node Declaration segment.
+
+
+Prefix          The prefix indicates the logic state of the
+                corresponding pin, node, or state.  Do not leave a
+                space between Prefix and Pns.  There are four
+                prefixes: null, forward slash, caret, and percent.
+
+                ş  The null prefix indicates that an active-high
+                   signal is checked to verify it is a logical 1.  In
+                   the syntax example, O1 has a null prefix.When used
+                   in conjunction with a state name, a null prefix
+                   indicates that the specified state should be
+                   checked.  In the syntax example, PLAYING has a null
+                   prefix.
+
+                ş  The forward slash, /, indicates that an active-high
+                   signal is checked to verify it is a logical 0.  In
+                   the syntax example, O2 has a forward slash prefix.
+
+                ş  The caret, ^, checks the corresponding signal for a
+                   high-impedance state.  High impedance occurs when a
+                   three-state buffer on an I/O pin is disabled.  In
+                   this case, the letter Z appears in the simulation
+                   files to indicate the high-impedance state.  In the
+                   syntax example, O3 has a caret prefix.
+
+                ş  The percent, %, checks the corresponding signal for
+                   a don't care state.  A don't care condition occurs
+                   when combinatorial logic is not initialized.  In
+                   this case, the letter X appears in the simulation
+                   files to indicate the don't care state.  In the
+                   syntax example, O4 has a percent prefix.
+
+Pns             Define the names of the pins, nodes, or states to be
+                verified.
+
+                ş  Each signal name can be up to 14 characters in
+                   length.
+
+                ş  Include up to 76 characters per line and use as
+                   many lines as you need.
+
+                   The screen displays up to 76 characters per line;
+                   however, all information is processed properly even
+                   if it extends beyond the 76th character.
+
+                ş  Include a space between the keyword and the first
+                   pin, node, or state in the list.  You can include
+                   multiple pin and node names.  You can use strings
+                   or vector notation to define the signal list.
+
+                ş  Separate multiple prefixed pin and node names with
+                   a space.
+
+                       CHECKQ A[0..6] = #b011001100
+ú
+Use
+The CHECK command verifies pin and node signal values.  In contrast,
+the CHECKQ command verifies values at the Q output of a register.
+
+If the signal being tested is defined with the same polarity as in the
+pin/node declaration segment, the signal is checked to verify it is a
+logical 1.  If the polarity is reversed, the signal is checked to
+verify it is a logical 0.
+
+A conflict occurs when the value at the pin does not match the
+expected value.  Each conflict is identified with a question mark, ?,
+in the simulation output files; a warning is issued and the expected
+value is reported in the execution-log file.
+
+The CHECK command verifies logical operations only and does not add
+test vectors in the JEDEC file.
+ú
+Related Topics
+CHECKQ
+SIMULATION
+TEST
+ú

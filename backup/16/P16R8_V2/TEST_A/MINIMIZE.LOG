@@ -1,0 +1,7 @@
+PALASM4  MINIMIZE   - MARKET RELEASE 1.5 (7-10-92)
+ (C) - COPYRIGHT ADVANCED MICRO DEVICES INC., 1992
+
+.
+|> WARNING L1902 Device polarity is Non-programmable. Flipping equation
+                  polarity of pin OUTA to match device polarity.
+

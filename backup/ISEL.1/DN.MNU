@@ -1,0 +1,49 @@
+>1  Compile with CUPL (!.pld)
+    @echo off
+    IF EXIST !.abs del !.abs
+    IF EXIST !.doc del !.doc
+    IF EXIST !.jed del !.jed
+    IF EXIST !.lst del !.lst
+    IF EXIST !.mx del !.mx
+    IF EXIST !.so del !.so
+    cupl -j -n -l -e -x -f -m1 !.pld
+>1
+>1  Compile with CUPL opt(4) (!.pld)
+    @echo off
+    IF EXIST !.abs del !.abs
+    IF EXIST !.doc del !.doc
+    IF EXIST !.jed del !.jed
+    IF EXIST !.lst del !.lst
+    IF EXIST !.mx del !.mx
+    IF EXIST !.so del !.so
+    cupl -j -n -l -e -x -f -m4 !.pld
+>1
+>1  Compile with CUPL + SIM (!.pld)
+    @echo off
+    IF EXIST !.abs del !.abs
+    IF EXIST !.doc del !.doc
+    IF EXIST !.jed del !.jed
+    IF EXIST !.lst del !.lst
+    IF EXIST !.mx del !.mx
+    IF EXIST !.so del !.so
+    cupl -j -n -l -e -x -f -s -m1 !.pld
+>1
+>1  Compile with CUPL + SIM opt(4) (!.pld)
+    @echo off
+    IF EXIST !.abs del !.abs
+    IF EXIST !.doc del !.doc
+    IF EXIST !.jed del !.jed
+    IF EXIST !.lst del !.lst
+    IF EXIST !.mx del !.mx
+    IF EXIST !.so del !.so
+    cupl -j -n -l -e -x -f -s -m4 !.pld
+>1
+>1  Compile with CUPL + SIM and waveform diplay (!.pld)
+    @echo off
+    IF EXIST !.abs del !.abs
+    IF EXIST !.doc del !.abs
+    IF EXIST !.jed del !.abs
+    IF EXIST !.lst del !.abs
+    IF EXIST !.mx del !.abs
+    IF EXIST !.so del !.abs
+    cupl -j -n -l -e -x -f -s -w -m1 !.pld

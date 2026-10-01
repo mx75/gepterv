@@ -1,0 +1,65 @@
+ğ
+DEFAULT_OUTPUT
+Overview
+This keyword begins the statement that defines a global default, which
+allows you to specify the next output-pin value when the value cannot
+be determined from the design.
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+         DEFAULT_OUTPUT    Output_Pins
+
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Device Support: All registered PAL devices.
+ú
+Syntax
+You include this keyword at the beginning of the state segment in
+state-machine designs.  It must follow setup statements and precede
+state-assignment equations.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+         DEFAULT_OUTPUT    Output_Pins
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+         STATE                           ;State Setup and Defaults
+         ...
+         DEFAULT_OUTPUT       /OUT1      ;State Equations
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+
+Output_Pins     Defines default output pin values when they are not
+                defined in the current state.  You must separate
+                output pin values with a blank space; multiple spaces
+                are reduced to one.  You can specify the values you
+                want regardless of polarity; polarity is adjusted
+                automatically during processing.
+
+                ş  If you specify the output value with nothing before
+                   the pin name a logical 1, or high, is assumed.
+
+                ş  If you specify the output value by placing a slash,
+                   /, before the pin name a logical 0, or low, is
+                   assumed.
+
+                Note: If the output pin and state bit are the same, do
+                not use output equations nor a DEFAULT_OUTPUT
+                statement.
+
+                Also: You can use the reserved word OUTPUT_HOLD as a
+                default in PLS devices.  In this case, the output pin
+                value is held to its current state when a default is
+                used.
+ú
+Use
+You can simplify output equations by assigning the most common output
+value as the default.  Then include an output value in the equation
+only when it differs from the default.
+ú
+Related Topics
+DEFAULT_BRANCH
+Local Default
+.OUTF
+OUTPUT_HOLD
+STATE
+ú

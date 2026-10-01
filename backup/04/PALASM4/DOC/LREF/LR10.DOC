@@ -1,0 +1,87 @@
+ğ
+CLOCKF
+Overview
+This is the keyword of the command that generates a clock pulse on
+dedicated clock pins during simulation.  Three test vectors are
+generated: raise clock, propagate output, and lower clock.  In the
+simulation trace and waveform files, the letter c appears in the
+header over the first vector for each pulse.
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                CLOCKF                Clock_Pin
+
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Device Support:
+
+    PAL16R4     PAL16R6      PAL16R8     PAL16V8     PAL18U8  PAL20R4
+    PAL20R6     PAL20R8      PAL20V8     PAL20X4     PAL20X8  PAL20X1
+    PAL22V10    PAL23S8      PAL24R4     PAL24R8     PAL24R10 PAL26V12
+    PALCE29M16  PALCE29MA16  PAL32VX10   PALCE610    PLS105   PLS167
+    PLS168      PLS30S16     MACH 1      MACH 2
+ú
+Syntax
+You include this command in the simulation segment or auxiliary
+simulation file of Boolean and state-machine designs.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                CLOCKF                Clock_Pin
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                ...
+                CLOCKF                 CLOCK
+                ...
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+
+Clock_Pin       Defines the name of the clock pin as you did in the
+                pin statement of the declaration segment.  You can
+                also use groups and strings.  On some devices, this
+                pin can be either an input or a clock, as described
+                under Use.
+
+                Important: You use a blank space to separate multiple
+                pin names, no comma is needed.
+ú
+Use
+The CLOCKF command is similar to the SETF command , except that CLOCKF
+generates a low-to-high-to-low pulse.
+
+Important: You cannot use a CLOCKF command for registered devices
+           without clock pins.  These require two SETF lines to
+           generate the CLOCKF pulse.
+
+In any case,
+
+ş    If you do not use a SETF command to set the clock signal low
+     before clocking the register, the first clock pulse has no
+     effect.
+
+     Note:  At the start of simulation, clock signals must be
+            initialized low.
+
+ş    If you design a system using multiple banks of independent clock
+     pins and you connect these pins externally for synchronous clock
+     cycles, you must list all clock pins in the CLOCKF command to
+     synchronize these banks during simulation.
+
+ş    If you do not specify a clock pin on the CLOCKF statement, the
+     nominated default clock pin for that device is used.
+
+     Some devices, such as the PAL30S16, include a pin that can you
+     can configure as either an input or a clock.
+
+ş    If you define the pin as a clock pin, using a corresponding .CLKF
+     command, the CLOCKF command generates a clock pulse for that pin.
+
+ş    If you define the pin as a clock input on the PLS30S16, you can
+     still use the SETF command to create a test vector for that pin.
+ú
+Related Topics
+CHECK
+CHECKQ
+PRELOAD
+SETF
+TEST
+ú

@@ -1,0 +1,20 @@
+readme.hlp PALASM 4 (Version 1.5) Release Notes
+minimum.hlp Recommended Minimum PC System Configuration
+pad MACH Specific Language Elements
+mach_dev.hlp MACH Device Features
+mach_ex.hlp MACH Design Examples
+pal_dev.hlp Special PAL Device Considerations
+extmem.hlp Trouble Shooting Problems Using PALASM Extended Memory
+orcad.hlp Trouble Shooting Problems Using OrCAD/SDT Within PALASM 4.
+system.hlp Trouble Shooting System Configuration Problems
+network.hlp Problems Caused Through Network Drivers.
+pinout.hlp View PINOUT Shows All No-Connect (NC)
+ifcase.hlp Some Notes On Using IF-THEN-ELSE And CASE Statements
+online.hlp Enhancements to the PALASM 4 Online Help System
+ð
+MACH Specific Language Elements
+lr22.doc FLOATING PINS AND NODES
+lr33.doc MACH_SEG_A, MACH_SEG_B, MACH_SEG_C, MACH_SEG_D
+lr43.doc PAIR
+ð
+

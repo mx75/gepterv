@@ -1,0 +1,28 @@
+PALASM4  MINIMIZE   - MARKET RELEASE 1.5 (7-10-92)
+ (C) - COPYRIGHT ADVANCED MICRO DEVICES INC., 1992
+
+.
+|> WARNING L1902 Device polarity is Non-programmable. Flipping equation
+                  polarity of pin OUTH to match device polarity.
+.
+|> WARNING L1902 Device polarity is Non-programmable. Flipping equation
+                  polarity of pin OUTG to match device polarity.
+.
+|> WARNING L1902 Device polarity is Non-programmable. Flipping equation
+                  polarity of pin OUTF to match device polarity.
+.
+|> WARNING L1902 Device polarity is Non-programmable. Flipping equation
+                  polarity of pin OUTE to match device polarity.
+.
+|> WARNING L1902 Device polarity is Non-programmable. Flipping equation
+                  polarity of pin OUTD to match device polarity.
+.
+|> WARNING L1902 Device polarity is Non-programmable. Flipping equation
+                  polarity of pin OUTC to match device polarity.
+.
+|> WARNING L1902 Device polarity is Non-programmable. Flipping equation
+                  polarity of pin OUTB to match device polarity.
+.
+|> WARNING L1902 Device polarity is Non-programmable. Flipping equation
+                  polarity of pin OUTA to match device polarity.
+

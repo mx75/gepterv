@@ -1,0 +1,105 @@
+ğ
+FOR-TO-DO
+Overview
+This construct, also known as a For loop, defines the number of times
+to repeat a simulation block bounded by BEGIN-END.
+
+
+
+
+Device Support:  All PLD devices.
+ú
+Syntax
+You use this construct in either the simulation segment of a PDS file
+or in an auxiliary simulation file for any PLD design.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+            FOR Variable := Start TO End DO
+                BEGIN
+                     Action Statement
+                END
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+            SIMULATION
+            SETF /OE /CLOCK COUNT
+            FOR X := 1 TO 20 DO
+                BEGIN
+                    CLOCKF CLK
+                END
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+
+Variable        Defines the index variable that identifies the For
+                loop.
+
+                ş  The variable can include up to 14 alphanumeric
+                   characters and must end with :=, which is a
+                   convention not the registered operator.
+
+                ş  The variable cannot be used anywhere else in the
+                   design file.
+
+Start           Defines the lower limit of the loop.
+
+                ş  Use only integers following the variable := and
+                   preceding the word TO.
+
+                ş  Ensure the number is greater than or equal to zero
+                   and less than the upper limit.
+
+                Important: If the start and end numbers are the same,
+                the task is executed once.
+
+End             Defines the upper limit of the loop.  It must be
+                greater than or equal to zero.
+
+                ş  Use only integers following the word TO and
+                   preceding the word DO.
+
+                ş  Ensure the number is greater than or equal to zero
+                   and more than the lower limit.
+
+                Important: If the start and end numbers are the same,
+                the task is executed once.
+
+Action          Defines the simulation task to be repeated using this
+                loop.  The following rules apply.
+
+                ş  Enclose each statement with BEGIN and END.
+
+                ş  Use any valid simulation statements between BEGIN
+                   and END, including nested FOR loops..
+ú
+Use
+There is no limit to the number of simulation constructs you can
+include in a design.  However, minimal nesting makes the file easier
+to follow and faster to compile.  You can nest For loops within other
+For loops and within the following statements and constructs.
+
+ş    IF-THEN-ELSE
+
+ş    WHILE-DO
+
+     It's best to use the WHILE-DO construct when you do not have a
+     fixed number of repetitions and you prefer to base repetitions on
+     a condition.
+
+For example, you can test the For loop by nesting WHILE-DO or
+IF-THEN-ELSE constructs within the For loop as shown below.
+
+        FOR X := 1 to 5 DO
+            BEGIN
+                IF X = 1 THEN
+                BEGIN
+                    SETF A * B
+                END
+            END
+        ...
+ú
+Related Topics
+CASE
+IF-THEN-ELSE, SIMULATION
+WHILE-DO
+ú

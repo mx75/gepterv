@@ -1,0 +1,47 @@
+10000 |> ERROR O10000 Cannont open input file %s.
+10010 |> ERROR O10010 Cannot open log file %s.
+10020 |> ERROR O10020 bad subcommand %s.
+10030 |> ERROR O10030 bad output type %s.
+10040 |> ERROR O10040 bad espresso option %s.
+10050 |> ERROR O10050 bad debug type %s.
+10060 |> ERROR O10060 bad output range %s.
+10070 |> ERROR O10070 Unable to open input PLA file %s.
+10080 |> WARNING 010080 No Logic or State Equations found in design file.
+10080               Processing Simulation section only.
+10090 >> ESPRESSO incorrect minimize parameters.
+10090 >>  Command to invoke minimize:
+10090     espresso [OPTIONS...].
+10090     OPTION         [filename[.pla]]  input pla file name.
+10090                 -tre [filename[.tre]]  output pla file name.
+10090                 -log [filename[.log]]  error log file name.
+10100 |> ERROR O10100 %s: Unknown commandline parameter
+10500 |> WARNING O10500  Product terms span more than one line.
+10510 |> ERROR O10510  Declared size of variable %d (counting from variable 0) is too
+10510          small %s.
+10520 |> WARNING O10520  input line %d ignored
+10530 |> WARNING O10530  Extra .i line ignored.
+10540 |> WARNING O10540  Extra .o line ignored.
+10550 |> WARNING O10550  Extra .mv ignored.
+10560 |> WARNING O10560  Extra .phase ignored.
+10570 |> WARNING O10570  Extra .pair ignored.
+10580 |> ERROR O10580  with .kiss option, third to last and second to last
+10580                variables must be the same size.
+11000 |> ERROR O11000 Memory Allocation  exceeds 64K Segment.
+11200 |> WARNING O11200 cannot permute columns without names.
+11210 |> WARNING O11210 PLA Verify: PLA's are not the same size.
+11220 |> ERROR O11220 Equation %s:
+11220               Some minterm(s) belong to both the ON-SET and DC-SET.
+11230 |> ERROR O11230 Equation %s:
+11230               Some minterm(s) belong to both the ON-SET and OFF-SET.
+11230               Conflicting equations;The equation and its complement
+11230               conflict.  If left as is, they could both be set true or both
+11230               be set false at the same time, which is invalid.
+11240 |> ERROR O11240 Equation %s:
+11240               Some minterm(s) belong to both the OFF-SET and DC-SET.
+11250 |> ERROR O11250 There are minterms left unspecified.
+11260 |> ERROR O11260 some minterm in F is not covered by Fold u Dold.
+11270 |> ERROR O11270 some minterm in Fold is not covered by F u Dold
+11400 |> ERROR O11400 Espresso : %s.
+11600 |> ERROR O11600 file %s, line %d
+11600              %s
+

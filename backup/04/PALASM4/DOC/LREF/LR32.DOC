@@ -1,0 +1,73 @@
+ð
+LOCAL DEFAULT
+Overview
+This is a branch of a state transition equation that is executed if
+none of the conditions in the equation are satisfied.  Local defaults
+override global defaults.
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+            State1 := condition1 -> state2
+                      + condition2 -> state3
+                      +-> default state
+
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Device Support:
+
+  PAL10H20EV8   PAL16R4    PAL16R6     PAL16R8     PAL16RP4  PAL16RP6
+  PAL16RP8      PALCE16V8  PAL18U8     PAL20R4     PAL20R6   PAL20R8
+  PAL20RS4      PAL20RS8   PAL20RS10   PALCE20V8   PAL20X4   PAL20X8
+  PAL20X10      PAL22RX8   PAL22V10    PAL23S8     PAL24R10  PAL24R4
+  PAL24R8       PAL26V12   PALCE29M16  PALCE29MA16 PAL32R16  PAL32VX10
+  PALCE610      PLS105     PLS167      PLS168      PLS30S16  MACH 1
+  MACH 2
+ú
+Syntax
+Include the local default (state branch) in state transition equations
+of state-machine designs.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+            State1 := condition1 -> state2
+                      + condition2 -> state3
+                      +-> default state
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+            STATE
+            ;State transition equations
+            RED    := NOTRAFFIC -> GRN
+                      + RED2 -> YLW
+                      +-> RED
+            ...
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+
+Default state   This parameter defines the next state in a state
+                machine transition equation when that state cannot be
+                determined from the previous conditions.
+
+                þ  You must use the default operator, +->, to define a
+                   local default.
+
+                þ  You can define only one local default state for
+                   each state-transition equation.
+ú
+Use
+
+Defaults ensure that the machine does not behave unpredictably if none
+of the conditions in the state transition equation are satisfied.
+
+A local default overrides any global default.
+
+The local default branch must be the last branch in the
+state-transition equation.
+
+Global defaults are defined by the DEFAULT_BRANCH statement.
+ú
+Related Topics
+DEFAULT_BRANCH
+STATE
+State Equation
+State Transition Equation
+ú

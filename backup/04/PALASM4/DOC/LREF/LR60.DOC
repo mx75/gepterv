@@ -1,0 +1,102 @@
+ğ
+STATE ASSIGNMENT EQUATION
+Overview
+State assignment equations define the unique bit codes to be assigned
+to each state name used in the design.  The bit codes are composed of
+state bits that are stored in flip flops.
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+        State name    Assignment Operator     State bits
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Device Support:
+PAL10H20EV8    PAL16R4    PAL16R6    PAL16R8     PAL16RP4    PAL16RP6
+PAL16RP8       PALCE16V8  PAL18U8    PAL20R4     PAL20R6     PAL20R8
+PAL20RS4       PAL20RS8   PAL20RS10  PALCE20V8   PAL20X4     PAL20X8
+PAL20X10       PAL22RX8   PAL22V10   PAL23S8     PAL24R10    PAL24R4
+PAL24R8        PAL26V12   PALCE29M16 PALCE29MA16 PAL32R16    PAL32VX10
+PALCE610       PLS105     PLS167     PLS168      PLS30S16    MACH 1
+MACH 2
+ú
+Syntax
+Use state-assignment equations in the state segment of state-machine 
+designs.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+        State name    Assignment Operator     State bits
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+    STATE
+        ;State Assignments
+        S1                        =       /STATEBIT1 * /STATEBIT2
+        S2                        =       /STATEBIT1 * STATEBIT2
+        S3                        =       STATEBIT1 * /STATEBIT2
+        S4                        =       STATEBIT1 * STATEBIT2
+        ...
+        ;State Equations
+        S1 := FC -> S3 
+           + FCC -> S7
+        ...
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+
+State Name      User-defined state name.  It must be unique and can
+                have up to 14 alphanumeric characters.  It cannot
+                contain operators or reserved words.
+
+Assignment Operator    Include a symbol that defines a specific
+                       operation as interpreted by the software when
+                       processing design files.
+
+State Bits      The state bit names compose the bit code.  State bit
+                names are the register names, as defined in the pin or
+                node statements.  Use an asterisk, *, to separate
+                state bits and polarity notation to indicate the value
+                of each state bit.
+ú
+Use
+State assignments follow state defaults and precede condition
+equations.  Use the assignment operator, =,  to define state
+assignments.
+
+Each state assignment must include the complete set of state bits.
+If you use three state bits for eight states, each assignment must
+include all three bits.
+
+The syntax example uses two state bits, Statebit1 and Statebit2.  When
+both are low, the device is in state S1.  When Statebit1 is low and
+Statebit2 is high, the device is in state S2.  When Statebit1 is high
+and Statebit2 is low, the device is in state S3 and when both are
+high, the device is in state S4.
+
+For large designs where you are using many state bits, such as six or 
+more, you may not want to list all possible state bit combinations.
+However, not defining all possible state bit combinations leaves some
+undefined or "illegal" states.
+
+The present state of a state machine is defined by the contents of the
+state register, which consists of n bits capable of defining 2E[n]
+possible  states.  Before you can determine the present state, you
+must know the contents of all n bits.  For example, three-state
+register bits define up to 2E3, or eight, possible states.
+
+To define a state machine with 2E[n] states, you need a device with n
+registered outputs or buried registers (nodes) to use as state
+register bits.  For example, the PAL16R8 has eight registered outputs
+and accommodates up to 2E8, 256, states, provided you do not use any
+of the registers for other purposes such as independent outputs.
+
+If you do not assign state bits, the software assigns them
+automatically.  The software assigns the state bits to outputs that
+aren't defined by pin or node statements.  Look at the Execution log-
+file to determine the automatic state bit assignments made by the
+software.
+ú
+Related Topics
+STATE
+State Equation
+ú

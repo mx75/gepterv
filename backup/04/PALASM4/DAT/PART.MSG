@@ -1,0 +1,123 @@
+101 PALASM HELP  
+101     Command line format to invoke PARTITIONER:
+101	  
+101     PART [OPTION ...]
+101	  
+101     OPTIONs: 
+101       General options:
+101       -log [<logfile[.log]>]  capture screen messages to disk file.
+101       -1eqn  read one equation at a time form tre file.
+101       -i  Optimal partition.
+101       -g  Keep groups intact ( READS GROUP_MACH_SEG)
+103 |> WARNING L102 Log filename %s is same as input or output filename.
+103              Defaulting log filename to PALASM2.LOG.
+116 |> ERROR L115 unknown command line option %s found.
+400
+401 |> INTERNAL_ERROR L401 Input tre file Equations section is corrupted.
+402 |> ERROR L402 Number of signals in equation exceeds max limit (64).
+500
+501 |> SYSTEM_ERROR L501 Input file %s cannot be opened.
+501	Call AMD, 1-800-222-9323.
+502 |> SYSTEM_ERROR L502 Output file %s cannot be opened.
+502	Call AMD, 1-800-222-9323.
+503 |> SYSTEM_ERROR L503 Input file %s cannot be closed.
+503	Call AMD, 1-800-222-9323.
+504 |> SYSTEM_ERROR L504 Output file %s cannot be closed.
+504	Call AMD, 1-800-222-9323.
+505 |> SYSTEM_ERROR L605 Program abnormally terminated due to the
+505			 failure in executing a system call.
+505     Possibly not enough memory.
+506 |> SYSTEM_WARNING L506 Input file %s cannot be opened.
+600 
+700 
+800 
+801  \nTranslation input was read from input file %s.
+802  Auxiliary input was read from auxiliary input file %s.
+803  Translated output is stored in output file %s.
+804  Auxiliary output is stored in auxiliary output file %s.
+810 |> ERROR L810 Input file %s is corrupted.
+820 |> INTERNAL ERROR M820
+820    Duplicate equation %s found in the design.
+900
+1000
+1001 |> SYSTEM_ERROR L1001 Error in reading .i directive from  PLA file.
+1002 |> ERROR L1002 .i directive must appear before .o directive.
+1003 |> SYSTEM_ERROR L1003 Error in reading .o directive from PLA file.
+1004 |> ERROR L1004 Invalid .o outputs (%d): use -mo for multi-output PLA.
+1005 |> ERROR L1005 illegal type found in .type directive.
+1006 |> ERROR L1006 .i & .o directives must appear before .ilb & .ob directives.
+1007 |> SYSTEM_ERROR L1007 Error in reading labels from PLA file.
+1008 |> ERROR L1008 .i & .o directives must appear before .phase directive.
+1009 |> ERROR L1009 illegal phase found in .phase directive.
+1010 |> WARNING L1010 product term spans more than one line.
+1011 |> ERROR L1011 illegal variable size (%d) found.
+1012 |> WARNING L1012 bad character found: line no %d ignored.
+1013 |> WARNING L1013 extra .i directive found: ignored.
+1014 |> WARNING L1014 extra .o directive found: ignored.
+1015 |> WARNING L1015 extra .phase directive found: ignored.
+1016 |> ERROR L1016 DEVICE must be specified before PIN declaration.
+1017 |> ERROR L1017 PIN declaration cannot succeed NODE declaration.
+1018 |> ERROR L1018 PIN declaration must precede NODE declaration.
+1019 |> ERROR L1019 Missing #AMD DEVICE declaration in PLA file.
+1020 |> ERROR L1020 Missing #AMD PIN declaration in PLA file.
+1021 |> ERROR L1021 Invalid #AMD NODE declaration for this device.
+1022 |> ERROR L1022 Too many input variables specified: may not exceed 64.
+1023 |> ERROR L1023 Too many output variables specified: may not exceed
+1023               pin+node count for this device.                
+1024 |> ERROR L1024 Undefined input label %s found in .ilb directive.
+1025 |> ERROR L1025 Undefined output label %s found in .ob directive.
+1100
+1101 |> INTERNAL_ERROR L1101 Tre file read error.
+1101	 Call AMD, 1-800-222-9323.
+1200
+1401 |> ERROR L1401  Error in TRE  file.
+1401    Please run Parse (Check Syntax).
+1500
+1600
+1601 |> INTERNAL_ERROR L1601 set size mismatch error.
+1601	 Call AMD, 1-800-222-9323.
+1700 |> ERROR L1700  Cannot support this device.
+1701 |> SYSTEM_ERROR L1701  Cannot open PALEXMIN.PDF file.
+1701    Call AMD, 1-800-222-9323.
+1702 |> INTERNAL_ERROR L1702  PAL device not supported in PALEXMIN.PDF.
+1702     Call AMD, 1-800-222-9323.
+1703 |> SYSTEM_ERROR L1703  Incorrect PALEXMIN.PDF file format.
+1703     Call AMD, 1-800-222-9323.
+1711 |> SYSTEM_ERROR L1711  Cannot open PLSPDF.PDF file.
+1711     Call AMD, 1-800-222-9323.
+1712 |> INTERNAL ERROR L1712 PLS device not supported in PLSPDF.PDF.
+1712     Call AMD, 1-800-222-9323.
+1713 |> SYSTEM_ERROR L1713  Incorrect PLSPDF.PDF file format.
+1713     Call AMD, 1-800-222-9323.
+1714 |> INTERNAL_ERROR L1714  Incorrect device data structure from
+1714                          PLSPDF.PDF.  Call AMD, 1-800-222-9323.
+1721 |> SYSTEM_ERROR L1721  Cannot open MACHPDF.PDF file.
+1721     Call AMD, 1-800-222-9323.
+1722 |> INTERNAL ERROR L1722  MACH device is not supported in MACHPDF.PDF.
+1722     Call AMD, 1-800-222-9323.
+1723 |> SYSTEM_ERROR L1723  Incorrect MACHPDF.PDF file format.
+1723     Call AMD, 1-800-222-9323.
+1730 |> SYSTEM_ERROR L1730  Memory allocation failed.  Out of memory.
+1730     Call AMD, 1-800-222-9323.
+1740 |> SYSTEM_ERROR L1740  Cannot rename design output file.
+1740     Call AMD, 1-800-222-9323.
+1760 |> INTERNAL_ERROR L1760  Cannot support PROSE device.
+1760     Call AMD, 1-800-222-9323.
+1780 |> SYSTEM_ERROR L1780  Cannot delete temporary file.
+1780     Call AMD, 1-800-222-9323.
+1785 |> INTERNAL_ERROR L1785 Cannot support PROSE device.
+1790 |> SYSTEM_ERROR L1790 Cannot open PARSE.MSG file for device information.
+1790	Call AMD, 1-800-222-9323.
+1795 |> ERROR L1795 Cannot support this device
+1796 |> ERROR L1796 Doesnot support %s device.
+2010 |> Number of equations already partitioned %d.
+2020 |> WARNING L2020 PARTITION NOT FOUND
+2210 |> ERROR L2210 ERROR PAIRING INFO FOR PIN %s
+2220 |> SUCCESSFUL PARTITION FOUND.
+2410 |> ERROR L2410 Grouped Eqn %s does not fit in specified block
+2410    partition %c. ( GROUP_MACH_SEG is incorrect).
+2420 |> ERROR L2420 Incorrectly specified GROUP_MACH SEG.
+10000
+10001 |> ERROR L10001  Please run BPP (Expand Boolean).
+10002 |> ERROR L10002  Please run Expand (Expand State).
+10003 |> ERROR L10003  Please run Minimize (Minimize Boolean).

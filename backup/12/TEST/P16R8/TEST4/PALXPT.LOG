@@ -1,0 +1,13 @@
+PALASM4  PAL ASSEMBLER   - MARKET RELEASE 1.5a (8-20-92)
+ (C) - COPYRIGHT ADVANCED MICRO DEVICES INC., 1992
+
+FILE  test4.pds
+TITLE  Memory controller for 512k sram board
+Equation being processed for output ==>> /OUT
+The fuse plot is stored in ===>test4.XPT
+The JEDEC is stored in ===>test4.JED
+
+ %%  PAL ASSEMBLER  %% Maximum memory allocated was: 6732 bytes.
+
+ %%  PAL ASSEMBLER  %% File Processed Successfully.  File: test4.pds.
+ %%  PAL ASSEMBLER  %% ERROR count: 0  WARNING count: 0

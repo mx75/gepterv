@@ -1,0 +1,31 @@
+======================================================================
+Recommended Minimum Configuration for systems with < 640K memory
+----------------------------------------------------------------------
+        - IBM PC/XT using DOS version 3.0 or later.
+        - 1.2MB/5.25 or 720KB/3.5 floppy drive for software installation.
+        - Available memory for PALASM 4 >512 Kilobytes.
+        - Available Hard disk space for PALASM 4 >10 Megabytes.
+        - Monochrone monitor           (for use without OrCAD interface).
+optional:
+        - CGA compatible color monitor (for use with OrCAD/SDT option).
+        - Mouse                        (for use with OrCAD/SDT option).
+        - HP Laserjet series II/III or IBM Pro-Printer.
+
+======================================================================
+Recommended Minimum Configuration for systems using extended memory
+----------------------------------------------------------------------
+        - IBM AT/286 using DOS version 3.0 or later.
+        - 1.2MB/5.25 or 720KB/3.5 floppy drive for software installation.
+        - Available extended memory for PALASM 4 >1 Megabyte.
+        - Available Hard disk space for PALASM 4 >10 Megabytes.
+        - Monochrone monitor           (for use without OrCAD interface).
+optional:
+        - we recommend use with a standard Extended Memory Manager
+          for example:       1.  QEMM  (Quarterdeck Extended Memory Manager)
+                             2.  386 to the MAX (PC 386 only)
+
+        - CGA compatible color monitor (for use with OrCAD/SDT option).
+        - Mouse                        (for use with OrCAD/SDT option).
+        - HP Laserjet series II/III or IBM Pro-Printer.
+
+

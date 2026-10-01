@@ -1,0 +1,171 @@
+TITLE       DYNAMIC Z80 WINDOW AND BANK SWITCHER WITH EXTERNAL CS
+PATTERN     DYNBANK2
+REVISION    4.0
+AUTHOR      AI_COLLABORATOR
+COMPANY     RETRO_LAB
+DATE        26/09/26
+
+CHIP        mbank0  MACH210   ; Auto-pin kiosztás kérdőjelekkel
+
+;---------------------------------- PIN DECLARATIONS ---------------------------------
+; --- Rendszer és Vezérlő Jelek ---
+PIN  ?      CLK       ; Rendszeróra a regisztereknek
+PIN  ?      MREQ      ; Z80 Memória kérelem (Aktív ALACSONY)
+PIN  ?      WR        ; Z80 Írás jel (Aktív ALACSONY)
+PIN  ?      RESET     ; Rendszer reset (Aktív ALACSONY)
+PIN  ?      IO_CS     ; Külső I/O Eszköz-kiválasztó jel (Aktív ALACSONY)
+
+; --- Busz deklarációk (Vektor szintaxis) ---
+PIN  ?      A[15..12] ; Z80 felső címbusz az ablak figyeléséhez
+PIN  ?      RA[4..0]  ; Z80 alsó címbusz a regiszterek belső címzéséhez (Sub-device)
+PIN  ?      D[7..0]   ; Z80 Adatbusz (Regiszterek töltéséhez)
+
+; --- Kimenetek a 16MB RAM felé ---
+PIN  ?      MA[23..12] COMBINATORIAL
+PIN  ?      RAM_CS     COMBINATORIAL
+
+; --- BELSŐ REGISZTEREK (Buried Macrocells) ---
+NODE ?      BANK[7..0]  REGISTERED ; Bankválasztó regiszter
+NODE ?      WPOS[3..0]  REGISTERED ; Ablak pozíció regiszter
+NODE ?      WMASK[3..0] REGISTERED ; Ablak maszk regiszter
+
+;----------------------------------- EQUATIONS ---------------------------------------
+EQUATIONS
+
+; Órajel és Reset globális kiosztása a regiszter tömböknek
+BANK[7..0].CLKF  = CLK
+WPOS[3..0].CLKF  = CLK
+WMASK[3..0].CLKF = CLK
+
+BANK[7..0].RSTF  = /RESET
+WPOS[3..0].RSTF  = /RESET
+WMASK[3..0].RSTF = /RESET
+
+; --- SUB-DEVICE REGISZTER CÍMZÉS LOGIKA ---
+; Ha a külső /IO_CS aktív és a Z80 ír (/WR=0), az RA[2..0] címvonalak döntenek:
+; RA[2..0] = 000 -> Bank Regiszter
+; RA[2..0] = 001 -> Ablak Pozíció Regiszter (WPOS)
+; RA[2..0] = 010 -> Ablak Maszk Regiszter (WMASK)
+
+WRITE_BANK  = /IO_CS * /WR * /RA[2] * /RA[1] * /RA[0]
+WRITE_WPOS  = /IO_CS * /WR * /RA[2] * /RA[1] *  RA[0]
+WRITE_WMASK = /IO_CS * /WR * /RA[2] *  RA[1] * /RA[0]
+
+; --- REGISZTEREK ÍRÁSA AZ ADATBUSSZÓL ---
+BANK[0] := D[0] * WRITE_BANK + BANK[0] * /WRITE_BANK
+BANK[1] := D[1] * WRITE_BANK + BANK[1] * /WRITE_BANK
+BANK[2] := D[2] * WRITE_BANK + BANK[2] * /WRITE_BANK
+BANK[3] := D[3] * WRITE_BANK + BANK[3] * /WRITE_BANK
+BANK[4] := D[4] * WRITE_BANK + BANK[4] * /WRITE_BANK
+BANK[5] := D[5] * WRITE_BANK + BANK[5] * /WRITE_BANK
+BANK[6] := D[6] * WRITE_BANK + BANK[6] * /WRITE_BANK
+BANK[7] := D[7] * WRITE_BANK + BANK[7] * /WRITE_BANK
+
+WPOS[0] := D[0] * WRITE_WPOS + WPOS[0] * /WRITE_WPOS  ; Z80 A12-nek felel meg
+WPOS[1] := D[1] * WRITE_WPOS + WPOS[1] * /WRITE_WPOS  ; Z80 A13-nak felel meg
+WPOS[2] := D[2] * WRITE_WPOS + WPOS[2] * /WRITE_WPOS  ; Z80 A14-nek felel meg
+WPOS[3] := D[3] * WRITE_WPOS + WPOS[3] * /WRITE_WPOS  ; Z80 A15-nek felel meg
+
+WMASK[0] := D[0] * WRITE_WMASK + WMASK[0] * /WRITE_WMASK
+WMASK[1] := D[1] * WRITE_WMASK + WMASK[1] * /WRITE_WMASK
+WMASK[2] := D[2] * WRITE_WMASK + WMASK[2] * /WRITE_WMASK
+WMASK[3] := D[3] * WRITE_WMASK + WMASK[3] * /WRITE_WMASK
+
+; --- DINAMIKUS ABLAK ÖSSZEHASONLÍTÁS (MASZKOLÁSSAL) ---
+; Ha a maszk bit 0 (don't care), az összehasonlítás sikeres.
+MATCH1[2] = (A[12] == WPOS[0]) + /WMASK[0]
+MATCH1[3] = (A[13] == WPOS[1]) + /WMASK[1]
+MATCH1[4] = (A[14] == WPOS[2]) + /WMASK[2]
+MATCH[15] = (A[15] == WPOS[3]) + /WMASK[3]
+
+WINDOW_MATCH = MATCH1[2] * MATCH1[3] * MATCH[14] * MATCH[15] * /MREQ
+
+; RAM chip select vezérlése (Aktív ALACSONY)
+/RAM_CS = WINDOW_MATCH
+
+; --- CÍMMULTIPLEXER A MEMÓRIA FELÉ ---
+; Ha WMASKx = 1, az azt jelenti, hogy az adott bit része a fix ablak-összehasonlításnak,
+; vagyis a Z80-ból jövő cím átmegy a RAM-ra (ablakon belüli címzés).
+; Ha WMASKx = 0, az a bit kívül esik az ablak méretén, így a BANK regiszterből pótoljuk.
+MA[12] = WINDOW_MATCH * (A[12] * WMASK[0] + BANK[0] * /WMASK[0])
+MA[13] = WINDOW_MATCH * (A[13] * WMASK[1] + BANK[1] * /WMASK[1])
+MA[14] = WINDOW_MATCH * (A[14] * WMASK[2] + BANK[2] * /WMASK[2])
+MA[15] = WINDOW_MATCH * (A[15] * WMASK[3] + BANK[3] * /WMASK[3])
+
+; A felső címvonalakat közvetlenül a bank regiszter magasabb bitjei hajtják meg
+MA[16] = BANK[4]
+MA[17] = BANK[5]
+MA[18] = BANK[6]
+MA[19] = BANK[7]
+
+; Fix bázis a 16MB legfelső szegmensében ($F00000)
+MA[20] = VCC
+MA[21] = VCC
+MA[22] = VCC
+MA[23] = VCC
+
+
+;--------------------------------- SIMULATION ---------------------------------------
+SIMULATION
+
+; 1. Alaphelyzetbe állítás (Reset)
+TRACE_ON CLK MREQ IO_CS WR RESET A[15..12] RA[2..0] D[7..0] RAM_CS MA[15..12]
+SETF /RESET /CLK MREQ IO_CS WR A[15] A[14] A[13] A[12] RA[2] RA[1] RA[0] D[7] D[6] D[5] D[4] D[3] D[2] D[1] D[0]
+CLOCKF CLK
+SETF RESET
+CLOCKF CLK
+; Ekkor minden belső regiszter (BANK, WPOS, WMASK) = 00000000
+
+; 2. Teszt: Beállítunk egy 16 KB-os ablakot a $C000-$FFFF tartományba.
+; Ehhez a maszk: A15 és A14 figyelendő (%1100 -> $0C). Pozíció: A15=1, A14=1 (%1100 -> $0C).
+; Kiválasztott bank legyen: $A5.
+
+; Írás a WMASK regiszterbe (RA=2, Data=$0C)
+SETF /IO_CS /WR /RA[2] RA[1] /RA[0] D[3] D[2] /D[1] /D[0] /D[7] /D[6] /D[5] /D[4]
+CLOCKF CLK
+SETF IO_CS WR
+
+; Írás a WPOS regiszterbe (RA=1, Data=$0C)
+SETF /IO_CS /WR /RA[2] /RA[1] RA[0] D[3] D[2] /D[1] /D[0] /D[7] /D[6] /D[5] /D[4]
+CLOCKF CLK
+SETF IO_CS WR
+
+; Írás a BANK regiszterbe (RA=0, Data=$A5 -> 1010 0101)
+SETF /IO_CS /WR /RA[2] /RA[1] /RA[0] D[7] /D[6] D[5] /D[4] /D[3] D[2] /D[1] D[0]
+CLOCKF CLK
+SETF IO_CS WR
+
+; 3. Teszt: Memória hozzáférés ellenőrzése a beállított 16KB-os ablakban ($C000)
+; Elvárt eredmény: RAM_CS bekapcsol (0), MA15..MA14 a Z80-ból jön, MA13..MA12 a BANK-ból.
+SETF /MREQ A[15] A[14] /A[13] /A[12]
+; Ellenőrzés: RAM_CS-nek alacsonynak kell lennie. MA15=1, MA14=1, MA13=BANK1=0, MA12=BANK0=1.
+
+; 4. Teszt: Memória hozzáférés az ablakon KÍVÜL ($8000)
+; Elvárt eredmény: RAM_CS inaktív (1)
+SETF A15 /A[14] /A[13] /A[12]
+; Ellenőrzés: RAM_CS = 1
+
+; 5. Teszt: Dinamikus átállítás menet közben egy szűkebb, 4 KB-os ablakra a $E000-$EFFF közé.
+; Új maszk: %1111 ($0F), Új pozíció: %1110 ($0E), Új Bank: $55 (%01010101)
+
+; WMASK írás ($0F)
+SETF /IO_CS /WR /RA[2] RA[1] /RA[0] D[3] D[2] D[1] D[0]
+CLOCKF CLK
+SETF IO_CS WR
+
+; WPOS írás ($0E)
+SETF /IO_CS /WR /RA[2] /RA[1] RA[0] D[3] D[2] D[1] /D[0]
+CLOCKF CLK
+SETF IO_CS WR
+
+; BANK írás ($55)
+SETF /IO_CS /WR /RA[2] /RA[1] /RA[0] /D[7] D[6] /D[5] D[4] /D[3] D[2] /D[1] D[0]
+CLOCKF CLK
+SETF IO_CS WR
+
+; 6. Teszt: Próba az új 4KB-os ablakon belül ($E000)
+; Elvárt eredmény: RAM_CS=0, a teljes MA15..MA12 megegyezik a Z80 A15..A12 vonalaival.
+SETF /MREQ A[15] A[14] A[13] /A[12]
+; Ellenőrzés: RAM_CS = 0, MA[15..12] = 1110
+
+TRACE_OFF

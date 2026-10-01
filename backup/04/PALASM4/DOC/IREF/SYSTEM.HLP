@@ -1,0 +1,45 @@
+=====================================================================
+Trouble Shooting System Configuration Problems
+---------------------------------------------------------------------
+
+To run PALASM 4 you should ensure the following:
+
+        1. You are using DOS 3.0 or later.
+
+        2. You have sufficient available memory to run the PALASM 4
+           software. We recommend that a minimum of 512K available low
+           memory. To check, type 'CHKDSK /F[enter]' at the DOS command
+           line.
+
+        3. In your CONFIG.SYS system file you must have FILES = 20 as a
+           minimum.
+
+        4. You have correctly set up your PATH statement. You may examine
+           the current PATH setting by typing 'SET[enter]' at the DOS
+           command line.
+
+           PALASM 4 requires the 'EXE' subdirectory and the directory
+           containing COMMAND.COM on the directory path.
+
+            eg. PATH c:\;c:\palasm\exe;
+
+        5. You have correctly set up your environment pointers to PALASM and
+           ORCAD directory locations. You may examine these environment
+           label settings by typing 'SET[enter]' at the DOS command line.
+
+           The PALASM environment label must point to the root directory
+           in which the PALASM 4 software is installed.
+
+            eg. SET PALASM=c:\palasm\        (no spaces in SET string)
+
+           The ORCAD environment label points to the directory
+           containing the OrCAD/SDT software exectables (needed only
+           if using the OrCAD interface)
+
+            eg. SET ORCAD=c:\orcad\          (no spaces in SET string)
+
+Note:  Refer to Recommended Minimum Configuration for additional information
+       regarding hardware and operating system constraints.
+
+ÿ
+

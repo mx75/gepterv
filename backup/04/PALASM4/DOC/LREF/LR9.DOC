@@ -1,0 +1,64 @@
+ğ
+CLKF
+Overview
+This keyword identifies which clock is used for the synchronized
+operation of the state machine.
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+        CLKF          Assignment Operator           Clock_Pin
+
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Device Support:
+
+   PAL26V12   PALCE29M16    PALCE29MA16     PALCE610
+   PLS30S16   MACH 1        MACH 2
+ú
+Syntax
+You can use this statement only in the state segment of state-machine
+designs.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+        CLKF          Assignment Operator           Clock_Pin
+
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+        CLKF                   =                    CLK1
+
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+
+Assignment      A symbol that defines a specific operation as
+Operator        interpreted by the software when processing design
+                files.
+
+Clock_Pin       The pin you define as the clock source for the state
+                machine.
+
+                ş  Specify the name exactly as it's defined in the pin
+                   statement in the declaration segment.
+
+                ş  Place a slash, /, before the equation to select a
+                   falling edge clock.  For example,
+
+                   /CLKF = CLK1
+
+                Note:  To define a falling edge clock for PAL29M16,
+                       you must use NCLKF instead of the polarity
+                       slash, /.
+ú
+Use
+Without a CLKF equation, you cannot specify a non-default clock pin if
+you use automatic state-bit assignment.
+
+This equation creates clock assignments both for state bits and output
+registers.
+ú
+Related Topics
+Boolean Equation
+.CLKF
+ú

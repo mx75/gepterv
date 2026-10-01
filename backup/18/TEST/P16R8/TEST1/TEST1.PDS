@@ -1,0 +1,34 @@
+;MachXL Design Description
+;---------------------------------- Declaration Segment ------------
+TITLE    Memory controller for 512k sram board
+PATTERN  1
+REVISION 1.0
+AUTHOR   Fazekas Mihaly
+COMPANY  Technical University of Budapest (Telephone Center)
+DATE     11/01/15
+
+CHIP  _test1  PAL16R8
+;---------------------------------- PIN Declarations ---------------
+PIN     2  A   COMBINATORIAL
+PIN     12 OUTA REGISTERED
+PIN     13 OUTB REGISTERED
+PIN     14 OUTC REGISTERED
+PIN     15 OUTD REGISTERED
+PIN     16 OUTE REGISTERED
+PIN     17 OUTF REGISTERED
+PIN     18 OUTG REGISTERED
+PIN     19 OUTH REGISTERED
+;----------------------------------- Boolean Equation Segment ------
+EQUATIONS
+
+OUTA := A
+OUTB := A
+OUTC := A
+OUTD := A
+OUTE := A
+OUTF := A
+OUTG := A
+OUTH := A
+;----------------------------------- Simulation Segment ------------
+SIMULATION
+;-------------------------------------------------------------------

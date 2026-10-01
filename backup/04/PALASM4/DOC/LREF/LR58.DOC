@@ -1,0 +1,114 @@
+ğ
+START_UP
+Overview
+The START_UP keyword allows you to power up to a specific state or 
+asynchronously branch to a state whenever an initialization condition 
+occurs. 
+
+The START_UP keyword is used in Moore machines.  START_UP.OUTF is used 
+in registered Mealy machines.
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+        START_UP      :=     POWER_UP -> State1 
+                             + Condition1 -> State2
+
+        START_UP.OUTF :=     POWER_UP -> Outputs
+                             + Condition1 -> Outputs
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Device Support:  All devices that support state machine descriptions.
+ú
+Syntax
+Use START_UP and START_UP.OUTF in the state segment of state-machine 
+designs.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+        START_UP      :=     POWER_UP -> State1 
+                             + Condition1 -> State2
+
+        START_UP.OUTF :=     POWER_UP -> Outputs
+                             + Condition1 -> Outputs
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+    STATE
+        ;State Setup and Defaults
+        ...
+Moore machines
+        START_UP      :=       POWER_UP -> S1
+                               + INIT -> S1
+        ...
+        ;Powers up and initializes to S1
+
+Mealy machines
+        START_UP.OUTF :=     O1 * O2
+                             + INIT  -> O1*O2
+
+        ;State Assignments
+        S1 = /STATEBIT1 * /STATEBIT2
+        ;S1 value is 00
+        ...
+        ;State Equations
+        S1 = FC -> S3 
+             + FCC -> S7
+        ...
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+
+State1          When power is applied to the device, it goes to this
+                state.
+
+                ş    In devices that initialize with all flip-flops
+                     high or all flip- flops low, the START_UP command
+                     assigns the appropriate all-high or all-low
+                     state-bit code to the specified state.
+
+                ş    In devices with programmable power up, the
+                     START_UP command programs the device to power up
+                     in the specified state. If you specify a
+                     particular state-bit code using the manual
+                     state-bit assignment syntax, the software
+                     programs the flip-flops to initialize with the
+                     specified values.
+
+Condition1      This user-defined condition specifies when an
+                initialization occurs.  When the condition is true,
+                the device is initialized asynchronously to state 2.
+
+                A condition must be defined in the condition section
+                of the state machine design.  If the condition
+                consists of a single input, the input name can be used
+                in place of the condition name.
+
+State2          This state occurs as a result of the initialization
+                condition.  This state may differ from the power up
+                state.
+ú
+Use
+Use initialization routines to ensure the state machine powers up in a
+known state or branches to a known state whenever the initialization
+condition occurs.
+
+If you do not include a start-up statement, the device will power up
+in the state that appears in the first transition equation in the PDS
+file. The first line of the syntax example contains the power-up
+state.  When power is applied to the device, it goes to this state. It
+may be helpful to think of power-up as a "cold boot."
+
+The second line of the start-up statement defines the initialization
+state.  Only devices with programmable initialization support this
+function of the start-up statement.
+
+STARTUP.OUTF allows you to define the outputs at power-up and
+initialization.  This is especially useful for synchronous Mealy
+machines where outputs are delayed by one cycle from their respective
+states.
+
+You cannot use a default branch in the START_UP statement.  
+ú
+Related Topics
+.OUTF
+State Equation
+ú

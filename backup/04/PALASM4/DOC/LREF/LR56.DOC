@@ -1,0 +1,99 @@
+ğ
+SIGNATURE
+Overview
+This keyword allows you to program user-defined data into devices
+having a signature word function.  This data can be used for such
+purposes as user identification, revision control, or inventory
+control.
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+        SIGNATURE    Assignment Operator     Number or String
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Device Support:  PALCE16V8    PALCE20V8
+ú
+Syntax
+You use this keyword in the declaration segment of Boolean and state-
+machine designs.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+        SIGNATURE    Assignment Operator     Number or String
+
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+    DECLARATION
+        ...
+        PIN  18  /OUT8  REG
+        SIGNATURE             =                  V2_5/89
+        ...
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+
+Number or string   Identifies either a base (radix) number or an
+                   alphanumeric character string. SIGNATURE supports
+                   four number radixes; the default is decimal.
+
+                   ş    Binary         #B or #b
+                   ş    Decimal        #D or #d
+                   ş    Hexadecimal    #H or #h
+                   ş    Octal          #O or #o
+
+                   The software allows a maximum of 64 bits for the
+                   radix number.  This translates to the following
+                   list of maximum digits allowed for each radix.
+
+                       RADIX      MAXIMUM NUMBER OF DIGITS
+                       ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                       Binary              64
+                       Hex                 16
+                       Octal               21
+                       Decimal             15
+
+                   If you exceed the maximum number of digits allowed
+                   for a radix, the software issues a warning and
+                   truncates the extra most significant bits.
+
+                   If a number contains a space, non-number, a decimal
+                   period, or any other alphanumeric character except
+                   the radix operator, #, the software treats the
+                   entire character string as an alphanumeric.
+
+                   In using alphanumeric characters, observe the
+                   following guidelines.
+
+                   ş    You can use any combination of alphanumeric
+                        characters up to a maximum of eight
+                        characters.
+
+                   If the number exceeds this, the software issues a
+                   warning and truncates the extra rightmost
+                   characters.
+
+                   ş    You can use underscores and spaces. The
+                        software converts alphanumeric characters to
+                        ASCII code and all lower case characters to
+                        upper case.
+
+ú
+Use
+Place the signature statement after the PIN or NODE statements.
+Observe the following rules.
+
+ş    You can place the signature statement in any order with the GROUP
+     or STRING statements.
+
+ş    You can use only one signature statement for each device.
+
+ş    You must use the assignment operator, =, in the statement.
+
+If you have multiple signature statements, the software issues a
+warning and programs the last signature statement. You can access
+signature information even if the security fuse has been programmed.
+ú
+Related Topics
+Declaration Segment
+Operator
+ú

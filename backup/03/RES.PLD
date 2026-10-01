@@ -1,0 +1,49 @@
+Name      res;
+Partno    v1;
+Date      10/08/85;
+Rev       01;
+Designer  Michael;
+Company   SufniFabrik;
+Assembly  None;
+Location  None;
+Device    p16r6;
+
+/** Inputs **/
+Pin 1      =  CLK;
+/*Pin 11     = !OE;*/
+Pin 2      = !PURESET;
+Pin 6      = !CS_I2C;
+Pin 7      = !RBUTTON;
+Pin 8      = !SELFRESET;
+Pin 9      = !WR;
+
+/** Outputs **/
+Pin 12     = !SYSRESET;
+Pin 13     = !Q5;
+Pin 14     = !Q4;
+Pin 15     = !Q3;
+Pin 16     = !Q2;
+Pin 17     = !Q1;
+Pin 18     = !Q0;
+Pin 19     = !WR_I2C;
+
+FIELD   count = [Q5..0];
+
+$REPEAT i=[0..63]
+$DEFINE S{i} 'd'{i}
+$REPEND
+
+SEQUENCE count {
+$REPEAT i=[0..62]
+        PRESENT S{i} IF !(PURESET # SELFRESET # RBUTTON) NEXT S{(i+1)};
+            DEFAULT NEXT S0;$REPEND
+        PRESENT S63 IF PURESET # SELFRESET # RBUTTON NEXT S1;
+            DEFAULT NEXT S63;
+        }
+/*RESX        = !Q5 # !Q4 # !Q3 # !Q2 # !Q1 # !Q0;*/
+SYSRESET    = !Q5 # !Q4 # !Q3 # !Q2 # !Q1 # !Q0;
+/*RESX        = PURESET # SELFRESET # RESETA # RESETB # RESETC;*/
+!SYSRESET.OE = 'b'0;
+/*!SYSRESET.OE = !RESX;*/
+/*!SYSRESET.OE = !SYSRESET;*/
+WR_I2C  = CS_I2C & WR;

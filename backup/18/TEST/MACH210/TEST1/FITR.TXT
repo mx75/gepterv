@@ -1,0 +1,43 @@
+PALASM 4 v1.5h MACH FITR - MARKET RELEASE (10-11-94)
+ (C) - COPYRIGHT ADVANCED MICRO DEVICES INC., 1990,91,92,93,94
+
+Processing... test1.pds
+ 
+Reading User Design (TRE File)...
+_TEST1
+.
+ 
+Reading Device Database ...
+ #MACH210 
+Pre-Placement & Equation Usage Checks... 
+ 
+.
+
+ 
+MACH-PLD Resource Checks OK!  
+Partitioning Design into Blocks...
+.....
+.
+
+
+|> INFORMATION F050 - Device Utilization.............. *: 1 %
+Assigning Resources...
+
+
+Flags Used:             Unplace=False        Max Packing=False
+Flags Used:        Expand Small=False         Expand All=False
+...
+
+
+Wiring Completion:  100% -> (  0 nc)
+
+|> INFORMATION F058 - Total Block Fanout (All Signals) *: 1 
+.
+
+The Jedec Data is  stored in ===> test1.jed
+The Placements are stored in ===> test1.plc
+The Design Doc is  stored in ===> test1.rpt
+ 
+%% FITR %% Error Count: 0, Warning Count: 0
+%% FITR %% File Processed Successfully. - File: test1.pds
+ 

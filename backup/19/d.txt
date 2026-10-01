@@ -1,0 +1,94 @@
+assembly; =====================================================================
+; Z80 SHADOW ROM MÁSOLÓ ÉS INICIALIZÁLÓ RUTIN
+; =====================================================================
+
+; I/O Portok definíciója a MACH chip szerint
+PORT_W1     EQU  $F0    ; 4KB ablak ($8000-$8FFF)
+PORT_W2     EQU  $F1    ; 4KB ablak ($9000-$9FFF)
+PORT_W3     EQU  $F2    ; 8KB ablak ($A000-$BFFF)
+PORT_W4     EQU  $F3    ; 16KB ablak ($C000-$FFFF)
+PORT_BOOT   EQU  $F4    ; ROM lekapcsoló port (D0 = 0 -> RAM aktív)
+
+SECTION code_boot
+ORG $0000               ; A Z80 Reset vektora ide ugrik bekapcsoláskor
+
+; ---------------------------------------------------------------------
+; 1. RESET VEKTOR ÉS ALAP ALACSONY SZINTŰ BEÁLLÍTÁSOK
+; ---------------------------------------------------------------------
+Reset_Vector:
+    DI                  ; Megszakítások tiltása (a vektorok még nincsenek a RAM-ban)
+    IM   1              ; Megszakítási mód 1 beállítása (opcionális)
+    LD   SP, $7FFF      ; Veremmutató (Stack) beállítása a fix zóna tetejére
+    JP   Start_Shadow   ; Ugrás a tényleges másoló rutinra
+
+; Ide kerülhetnek a szabványos RST vektorok ($0008, $0010, stb.), 
+; amelyeket a másolás után a RAM-ból is el fog érni a CPU.
+
+ORG $0100               ; Biztonságos távolság a vektoroktól
+Start_Shadow:
+    ; Mivel bekapcsoláskor a MACH chipben lévő ROM_ENABLE = 1,
+    ; az olvasás a ROM-ból történik, az írás pedig az SRAM-ba megy.
+
+    LD   HL, $0000      ; Forrás cím: a ROM legeslegeleje
+    LD   DE, $0000      ; Cél cím: az SRAM legeslegeleje
+    LD   BC, $7FFF      ; Másolandó méret: a teljes alsó 32 KB (32767 + 1 bájt)
+
+Copy_Loop:
+    LD   A, (HL)        ; Olvasás a ROM-ból
+    LD   (DE), A        ; Írás az SRAM-ba (a MACH automatikusan ide irányítja)
+    INC  HL
+    INC  DE
+    DEC  BC
+    LD   A, B
+    OR   C
+    JR   NZ, Copy_Loop  ; Ismétlés, amíg a BC el nem éri a nullát
+
+    ; Ezen a ponton az SRAM pontos másolata a ROM-nak!
+
+; ---------------------------------------------------------------------
+; 2. BOOT ROM LEKAPCSOLÁSA ÉS A RAM-BA VALÓ ÁTLÉPÉS
+; ---------------------------------------------------------------------
+Disable_Boot_ROM:
+    ; A következő parancs kiküldi a 0-t a $F4 portra.
+    ; A MACH chip ekkor a ROM_ENABLE bitet 0-ra állítja.
+    ; Az alsó 32 KB-os ablakban az olvasás is AZONNAL az SRAM-ra vált át.
+
+    XOR  A              ; A = 0 (D0 = 0)
+    OUT  (PORT_BOOT), A ; BUMM! A ROM lekapcsolódott, most már tiszta RAM fut!
+
+    ; Mivel az SRAM-ban hajszálpontosan ugyanaz a kód van ugyanott, 
+    ; mint a ROM-ban, a CPU észre sem veszi a váltást, és zökkenőmentesen folytatja.
+
+; ---------------------------------------------------------------------
+; 3. FELSŐ MEMÓRIAABLAKOK ALAPÉRTELMEZETT BEÁLLÍTÁSA (INITIALIZATION)
+; ---------------------------------------------------------------------
+Init_Upper_Banks:
+    ; Állítsuk be a felső ablakokat az 1 MB-os fizikai SRAM egy-egy kezdő blokkjára.
+    ; (A példa kedvéért a felső 32 KB-ba bekapcsoljuk a fizikai SRAM következő részeit)
+
+    LD   A, 8           ; W1 ablak ($8000) -> 8. számú 4KB-os fizikai blokk
+    OUT  (PORT_W1), A
+
+    LD   A, 9           ; W2 ablak ($9000) -> 9. számú 4KB-os fizikai blokk
+    OUT  (PORT_W2), A
+
+    LD   A, 5           ; W3 ablak ($A000) -> 5. számú 8KB-os fizikai blokk
+    OUT  (PORT_W3), A
+
+    LD   A, 3           ; W4 ablak ($C000) -> 3. számú 16KB-os fizikai blokk
+    OUT  (PORT_W4), A
+
+; ---------------------------------------------------------------------
+; 4. A RENDSZER INDÍTÁSA
+; ---------------------------------------------------------------------
+Main_System_Start:
+    ; Most már az egész rendszer inicializálva van, a megszakítási vektorok a RAM-ban ülnek.
+    ; Engedélyezhetjük a megszakításokat, és átadhatjuk a vezérlést a főprogramnak.
+    
+    ; EI                ; Megszakítások engedélyezése (ha van már kiszolgáló rutin)
+    ; JP  MyOS_Main     ; Ugrás az operációs rendszer főhurokára
+    
+Infinite_Halt:
+    HALT                ; Biztonsági hurok, ha nincs még főprogram
+    JR   Infinite_Halt
+Körültekintően használja a kódot.

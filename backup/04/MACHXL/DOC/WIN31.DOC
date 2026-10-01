@@ -1,0 +1,55 @@
+Read.me Items for Windows 3.1 and/or Windows NT Configuration of MACHXL
+
+1. If you haven't already done so,
+   install Windows 3.1 or Windows NT.
+
+2. If you haven't already done so,
+   install MACHXL.
+
+3. Be sure that both C:\WINDOWS & C:\MACHXL\EXE (or your selected path)
+   are in the path statement in your AUTOEXEC.BAT file.
+
+4. Re-boot the computer.
+
+5. Run Windows
+
+6. From within windows, do these operations:
+        a. Go into the File Manager.
+        b. Select the Machxl\Dat directory.
+        c. Drag the Machxl.pif (or for NT the Machxlnt.pif) file
+           into the window from which you would like to run
+           Machxl. (eg. Main)
+        d. Click once on the Machxl (Machxlnt) icon.
+        e. Select FILE/PROPERTIES.
+        f. Verify that the Description reads Machxl or Machxlnt.
+        g. Verify that the Command Line contains the correct path to
+           Machxl\Dat\Machxl(nt).pif.
+        h. Verify that the Working Directory shows C:\Machxl\Dat (or the
+           path where Machxl was installed).
+        i. Select Change Icon/Browse and select the path to Machxl\Dat.
+        j. Select ~AMD.ICO and OK.
+        k. Select OK to leave the Change Icon box.
+        l. The AMD icon should now show in the Program Item
+           Properties box.
+        m. Select OK to leave the box.
+
+   Note: If you have installed Machxl on a drive other than C:\
+         you must also modify the .pif file. To do so follow
+         these steps:
+                a. Select Main/Pif editor.
+                b. Select File/Open.
+                c. Select the drive and path to Machxl\dat
+                d. Select the appropriate .pif file (machxl or machxlnt).
+                e. Change the path under "Program Filename" to reflect
+                   where Machxl is installed.
+                f. Change "Start-up Directory" to reflect the appropriate
+                   drive. (eg. d:\)
+                g. Select File/Save
+                h. Select File/Close
+
+6. Test the MACHXL installation by "double-clicking" on the icon.
+        Machxl will start-up using the examples directory the first time,
+        but will remember the last "current directory" when
+        you end a MACHXL session.
+
+

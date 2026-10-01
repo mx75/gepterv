@@ -1,0 +1,68 @@
+textTITLE    Z80 1MB MEMORY BANK SWITCHER WITH VECTOR NOTATION
+PATTERN  BANK_SWITCH_1M
+REVISION 2.0
+AUTHOR   AI COLLABORATOR
+COMPANY  RETRO DESIGN
+DATE     09/25/2026
+
+CHIP Z80BANK MACH210 ; Vagy MACH215 (PLCC tok)
+
+; ---------------------------------------------------------------------
+; INPUT PINEK (Z80 CPU felől - A fitter automatikusan osztja ki)
+; ---------------------------------------------------------------------
+PIN  ?   A[0..7]     ; Port $F0-$F3 címdekódoláshoz
+PIN  ?   A[12..15]   ; Memóriaablakok figyeléséhez
+PIN  ?   D[0..7]     ; A teljes 8-bites adatbusz az 1MB címzéséhez
+PIN  ?   /IORQ       ; Z80 I/O Request
+PIN  ?   /WR         ; Z80 Write
+
+; Kimenetek az 1MB-os Memória felé
+PIN  ?   MA[12..19]  ; Fizikai memóriacím busz (8 vonal az 1MB-hoz)
+
+; ---------------------------------------------------------------------
+; BELSŐ REGISZTER VEKTOROK (NODE-OK A LATCHEKHEZ)
+; ---------------------------------------------------------------------
+NODE W1_[0..7]       ; W1 ablak (4KB) regiszter (8 bit, a teljes D[0..7]-et tárolja)
+NODE W2_[0..7]       ; W2 ablak (4KB) regiszter (8 bit, a teljes D[0..7]-et tárolja)
+NODE W3_[0..6]       ; W3 ablak (8KB) regiszter (7 bit)
+NODE W4_[0..5]       ; W4 ablak (16KB) regiszter (6 bit)
+
+EQUATIONS
+
+; ---------------------------------------------------------------------
+; 1. I/O PORT DEKÓDOLÁS ÉS VEKTOROS REGISZTER ÍRÁS
+; ---------------------------------------------------------------------
+IO_WRITE = /IORQ * /WR * A7 * A6 * A5 * A4 * /A3 * /A2
+
+LATCH_W1 = IO_WRITE * /A1 * /A0   ; Port $F0
+LATCH_W2 = IO_WRITE * /A1 *  A0   ; Port $F1
+LATCH_W3 = IO_WRITE *  A1 * /A0   ; Port $F2
+LATCH_W4 = IO_WRITE *  A1 *  A0   ; Port $F3
+
+; Regiszterek feltöltése az ablakméreteknek megfelelő bitszélességgel
+W1_[0..7].CLK = LATCH_W1     W1_[0..7].D = D[0..7]
+W2_[0..7].CLK = LATCH_W2     W2_[0..7].D = D[0..7]
+W3_[0..6].CLK = LATCH_W3     W3_[0..6].D = D[0..6]
+W4_[0..5].CLK = LATCH_W4     W4_[0..5].D = D[0..5]
+
+; ---------------------------------------------------------------------
+; 2. CPU CÍMABLAKOK DEFINIÁLÁSA
+; ---------------------------------------------------------------------
+WIN_FIX = /A15
+WIN_W1  =  A15 * /A14 * /A13 * /A12
+WIN_W2  =  A15 * /A14 * /A13 *  A12
+WIN_W3  =  A15 * /A14 *  A13
+WIN_W4  =  A15 *  A14
+
+; ---------------------------------------------------------------------
+; 3. KIMENETI MULTIPLEXER (Az 1MB-os MA[12..19] busz meghajtása)
+; ---------------------------------------------------------------------
+MA19 = (WIN_W1 * W1_7) + (WIN_W2 * W2_7) + (WIN_W3 * W3_6) + (WIN_W4 * W4_5)
+MA18 = (WIN_W1 * W1_6) + (WIN_W2 * W2_6) + (WIN_W3 * W3_5) + (WIN_W4 * W4_4)
+MA17 = (WIN_W1 * W1_5) + (WIN_W2 * W2_5) + (WIN_W3 * W3_4) + (WIN_W4 * W4_3)
+MA16 = (WIN_W1 * W1_4) + (WIN_W2 * W2_4) + (WIN_W3 * W3_3) + (WIN_W4 * W4_2)
+MA15 = (WIN_W1 * W1_3) + (WIN_W2 * W2_3) + (WIN_W3 * W3_2) + (WIN_W4 * W4_1)
+MA14 = (WIN_FIX * A14) + (WIN_W1 * W1_2) + (WIN_W2 * W2_2) + (WIN_W3 * W3_1) + (WIN_W4 * W4_0)
+MA13 = (WIN_FIX * A13) + (WIN_W1 * W1_1) + (WIN_W2 * W2_1) + (WIN_W3 * W3_0) + (WIN_W4 * A13)
+MA12 = (WIN_FIX * A12) + (WIN_W1 * W1_0) + (WIN_W2 * W2_0) + (WIN_W3 * A12)  + (WIN_W4 * A12)
+Körültekintően használja a kódot.

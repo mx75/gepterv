@@ -1,0 +1,68 @@
+ğ
+TITLE
+Overview
+This is the keyword that begins the statement defining the title
+of the design.  Including the design title is useful for documentation
+purposes.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+        TITLE      Design Title
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Device Support:  All PLD devices.
+ú
+Syntax
+You use this keyword in the declaration segment of Boolean and state-
+machine designs.  
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+        TITLE      Design Title
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+        TITLE    Traffic Controller
+        PATTERN    
+        REVISION    
+        AUTHOR    
+        COMPANY    
+        DATE    
+        CHIP  
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+
+Design Title    Identifies an optional name that includes any
+                combination of up to 59 alphanumeric characters
+                indicating the company's name.
+
+                ş    You can use other symbols or punctuation; however
+                     you cannot use the dollar sign, $.
+
+                ş    You can use reserved words in this statement.
+ú
+Use
+There are two ways to enter the design title.
+
+ş    Use the declaration segment form, select the TITLE field, and
+     type the name.
+
+ş    Type the design title first, followed by the pattern in the PDS
+     file using a text editor.
+
+The following error conditions pertain to the TITLE statement.
+
+ş    Without a design TITLE statement, a warning is issued and
+     processing continues.
+
+ş    With multiple design TITLE statements, an error is reported and
+     processing stops.
+ú
+Related Topics
+AUTHOR
+COMPANY
+DATE
+Declaration Segment
+PATTERN
+REVISION
+ú

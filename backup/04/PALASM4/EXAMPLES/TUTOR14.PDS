@@ -1,0 +1,108 @@
+
+;PALASM Design Description
+
+;---------------------------------- Declaration Segment ------------
+TITLE    TUTOR14.PDS
+PATTERN  A
+REVISION 5.0
+AUTHOR   J.ENGINEER
+COMPANY  ADVANCED MICRO DEVICES
+DATE     01/01/90
+
+CHIP   TRAFFIC   PAL22V10
+
+;---------------------------------- PIN Declarations ---------------
+PIN  1          CLOCK                COMBINATORIAL             ; INPUT
+PIN  2          SENSOR               COMBINATORIAL             ; INPUT
+PIN  3          RESTART              COMBINATORIAL             ; INPUT
+PIN  12         GND                                            ; INPUT
+PIN  14         RED1                 REGISTERED                ; OUTPUT
+PIN  15         YEL1                 REGISTERED                ; OUTPUT
+PIN  16         GRN1                 REGISTERED                ; OUTPUT
+PIN  17         RED2                 REGISTERED                ; OUTPUT
+PIN  18         YEL2                 REGISTERED                ; OUTPUT
+PIN  19         GRN2                 REGISTERED                ; OUTPUT
+PIN  24         VCC                                            ; INPUT
+
+;-----------------------------------State Segment ------------------
+STATE
+MOORE_MACHINE
+START_UP := POWER_UP -> STATE0
+
+;STATE ASSIGNMENT EQUATIONS------------
+STATE0       = /RED1 * /YEL1 * /GRN1 * /RED2 * /YEL2 * /GRN2
+1GREEN       = /RED1 * /YEL1 *  GRN1 *  RED2 * /YEL2 * /GRN2
+1YELLOW      = /RED1 *  YEL1 * /GRN1 *  RED2 * /YEL2 * /GRN2
+2GREEN       =  RED1 * /YEL1 * /GRN1 * /RED2 * /YEL2 *  GRN2
+2YELLOW      =  RED1 * /YEL1 * /GRN1 * /RED2 *  YEL2 * /GRN2
+
+;TRANSITION EQUATIONS------------------
+STATE0    :=  RESTART       -> STATE0
+          +->                  1GREEN
+1GREEN    :=  RESTART       -> STATE0
+          +   CARWAITING    -> 1YELLOW
+          +->                  1GREEN
+1YELLOW   :=  RESTART       -> STATE0
+          +   CARWAITING    -> 2GREEN
+          +->                  1GREEN
+2GREEN    :=  RESTART       -> STATE0
+          +   CARCLEAR      -> 2YELLOW
+          +->                  2GREEN
+2YELLOW   :=  RESTART       -> STATE0
+          +->                  1GREEN
+
+;OUTPUT EQUATIONS----------------------
+;NOT USED IN THIS DESIGN (STATE BITS DOUBLE AS OUTPUTS)
+
+;CONDITION EQUATIONS-------------------
+CONDITIONS
+CARWAITING = /RESTART *  SENSOR
+CARCLEAR   = /RESTART * /SENSOR
+
+;----------------------------------- Simulation Segment ------------
+SIMULATION
+
+TRACE_ON SENSOR RESTART RED1 YEL1 GRN1 RED2 YEL2 GRN2
+
+SETF   /CLOCK
+SETF    RESTART /SENSOR                 ;FORCE TRANSITION TO STATE0
+CLOCKF  CLOCK
+CLOCKF  CLOCK                           ;CHECK TRANSITION 1
+CHECK   STATE0
+SETF   /RESTART
+CLOCKF  CLOCK
+CHECK   1GREEN                          ;CHECK TRANSITION 2
+CLOCKF  CLOCK
+CHECK   1GREEN                          ;CHECK TRANSITION 3
+SETF   /RESTART  SENSOR
+CLOCKF  CLOCK
+CHECK   1YELLOW                         ;CHECK TRANSITION 4
+SETF    RESTART
+CLOCKF  CLOCK
+CHECK   STATE0                          ;CHECK TRANSITION 5
+SETF   /RESTART  SENSOR
+PRELOAD 1YELLOW                         ;JUMP TO STATE 1YELLOW
+CLOCKF  CLOCK
+CHECK   2GREEN                          ;CHECK TRANSITION 6
+CLOCKF  CLOCK
+CHECK   2GREEN                          ;CHECK TRANSITION 7
+SETF    RESTART
+CLOCKF  CLOCK
+CHECK   STATE0                          ;CHECK TRANSITION 8
+SETF   /RESTART /SENSOR
+PRELOAD 2GREEN                          ;JUMP TO STATE 2GREEN
+CLOCKF  CLOCK
+CHECK   2YELLOW                         ;CHECK TRANSITION 9
+SETF    RESTART
+CLOCKF  CLOCK
+CHECK   STATE0                          ;CHECK TRANSITION 10
+SETF   /RESTART  SENSOR
+PRELOAD 2YELLOW
+CLOCKF  CLOCK
+CHECK   1GREEN                          ;CHECK TRANSITION 11
+SETF    RESTART
+CLOCKF  CLOCK
+CHECK   STATE0                          ;CHECK TRANSITION 12
+
+TRACE_OFF
+;-------------------------------------------------------------------

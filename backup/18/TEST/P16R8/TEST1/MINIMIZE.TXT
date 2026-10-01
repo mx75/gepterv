@@ -1,0 +1,16 @@
+
+
+Processing equation ====> /OUTH               MINIMIZE_ON  (1 pt ---> 1 pt)
+Processing equation ====> /OUTG               MINIMIZE_ON  (1 pt ---> 1 pt)
+Processing equation ====> /OUTF               MINIMIZE_ON  (1 pt ---> 1 pt)
+Processing equation ====> /OUTE               MINIMIZE_ON  (1 pt ---> 1 pt)
+Processing equation ====> /OUTD               MINIMIZE_ON  (1 pt ---> 1 pt)
+Processing equation ====> /OUTC               MINIMIZE_ON  (1 pt ---> 1 pt)
+Processing equation ====> /OUTB               MINIMIZE_ON  (1 pt ---> 1 pt)
+Processing equation ====> /OUTA               MINIMIZE_ON  (1 pt ---> 1 pt)
+
+ %%  MINIMIZE  %% Maximum memory allocated was: 3230 bytes.
+
+ %%  MINIMIZE  %% File Processed Successfully.  File: test1.pds.
+ %%  MINIMIZE  %% ERROR count: 0  WARNING count: 0
+

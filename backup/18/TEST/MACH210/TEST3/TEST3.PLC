@@ -1,0 +1,18 @@
+
+
+Flags Used:             Unplace=False        Max Packing=False
+Flags Used:        Expand Small=False         Expand All=False
+
+; FITR generated placements - test3
+
+Pin   43             OUT   Comb        ; D  0
+Pin   10               A  ; Inp        ; I  0
+Pin   11               B  ; Inp        ; I  1
+;
+; Unused Pins & Nodes
+;
+; -> None Found.
+;
+;-; Sequence
+;-; A B OUT
+;

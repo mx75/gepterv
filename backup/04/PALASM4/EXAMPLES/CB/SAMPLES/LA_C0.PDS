@@ -1,0 +1,143 @@
+;PALASM Design Description
+
+;---------------------------------- Declaration Segment ------------
+TITLE    test control file
+PATTERN  
+REVISION 
+AUTHOR   john davis
+COMPANY  
+DATE     12/06/90
+
+CHIP  _la_c0  MACH110
+
+;---------------------------------- PIN Declarations ---------------
+PIN  ?  /POR	COMBINATORIAL			; Power On Reset
+NODE 1 POR_INIT
+PIN  35 CLK1							; Default Clock on pin 35
+PIN  ?  K_CLK COMBINATORIAL             ; 
+
+PIN ?  K0 REGISTERED                     ; 
+PIN ?  K1 REGISTERED                     ; 
+PIN ?  K2 REGISTERED                     ; 
+PIN ?  K3 REGISTERED                     ; 
+
+PIN  ?  MSW[1] REGISTERED                 ; 
+PIN  ?  MSW[2] REGISTERED                 ; 
+PIN  ?  MSW[3] REGISTERED                 ; 
+PIN  ?  MSW[4] REGISTERED                 ; 
+PIN  ?  MSW[5] REGISTERED                 ; 
+PIN  ?  MSW[6] REGISTERED                 ; 
+PIN  ?  MSW[7] REGISTERED                 ; 
+PIN  ?  MSW[8] REGISTERED                 ; 
+PIN  ?  MSW[9] REGISTERED                 ; 
+PIN  ?  MSW[10] REGISTERED                ; 
+PIN  ?  MSW[11] REGISTERED                ; 
+PIN  ?  MSW[13] REGISTERED                ; 
+PIN  ?  MSW[14] REGISTERED                ; 
+PIN  ?  MSW[15] REGISTERED                ; 
+PIN  ?  REQ		REGISTERED                ; 
+PIN  ?  RPL		REGISTERED                ; 
+PIN  ?  GO 	COMBINATORIAL             ; 
+PIN  ?  DONE COMBINATORIAL           ; 
+PIN  ?  HIT COMBINATORIAL             ; 
+NODE ?  K_C0_0 REGISTERED                 ; 
+NODE ?  K_C0_1 REGISTERED                 ; 
+PIN  ?  /AM_G_CS    COMBINATORIAL			  ; global chip select
+PIN  ?  /AM_G_OE    COMBINATORIAL			  ; global output select
+PIN  ?  /AM_G_WE 	  COMBINATORIAL			  ; global write enable
+PIN  ?   AM_G_ADDR_CK  COMBINATORIAL		  ; Address Clock 
+PIN  ?  /PM_G_CS    COMBINATORIAL			  ; global chip select
+PIN  ?  /PM_G_OE    COMBINATORIAL			  ; global output select
+PIN  ?  /PM_G_WE 	  COMBINATORIAL			  ; global write enable
+PIN  ?   PM_G_ADDR_CK  COMBINATORIAL		  ; Address Clock 
+
+;************ BURIED REGISTERS ********************
+
+;       
+;STRING DECLARATIONS.
+STRING GL '(MSW[0])'
+STRING DL '(MSW[1])'
+STRING BF '(MSW[2])'
+STRING TR0 'MSW[3]'
+STRING TR1 'MSW[4]'
+STRING TR2 'MSW[5]'
+STRING ST '(MSW[6])'
+STRING XCK '(MSW[7])'
+STRING TG '(MSW[8])'
+STRING SM '(MSW[9])'
+STRING XS '(MSW[10])'				;External Sync Input
+STRING CS '(MSW[11])'
+STRING EQ '(MSW[12])'
+STRING TA '(MSW[13)'
+STRING TD '(MSW[14])'
+STRING RUN '(MSW[15])'
+
+STRING S_K0  '/POR*RUN*/K3*/K2*/K1*/K0'		;Main Control State Bits
+STRING S_K1  '/POR*RUN*/K3*/K2*/K1* K0'
+STRING S_K2  '/POR*RUN*/K3*/K2* K1*/K0'
+STRING S_K3  '/POR*RUN*/K3*/K2* K1* K0'
+STRING S_K4  '/POR*RUN*/K3* K2*/K1*/K0'
+STRING S_K5  '/POR*RUN*/K3* K2*/K1* K0'
+STRING S_K6  '/POR*RUN*/K3* K2* K1*/K0'
+STRING S_K7  '/POR*RUN*/K3* K2* K1* K0'
+STRING S_K8  '/POR*RUN* K3*/K2*/K1*/K0'
+
+STRING S_K_C4  ' K_C4'
+
+STRING S_TDD	'/TR2*/TR1*/TR0'		;Operational Mode Bits
+STRING S_TTD	'/TR2*/TR1* TR0'
+STRING S_TAD	'/TR2* TR1*/TR0'
+STRING S_TBD 	'/TR2* TR1* TR0'
+STRING S_LD_RG 	' TR2*/TR1*/TR0'
+STRING S_LD_AT 	' TR2*/TR1* TR0'
+STRING S_LSA 	'(S_TDD+S_TTD+S_TAD+S_TBD)'
+STRING S_SET 	'(S_LD_RG+S_LD_AT)'
+;------------------- Boolean Equation Segment ------
+EQUATIONS
+
+;------------ Initialization 
+POR_INIT.RSTF=POR
+;------------ Operation
+
+STATE
+
+
+MEALY_MACHINE			;Main  Trace Control State Machine
+
+; Machine C0
+M_C0_0  = /K_C0_1*/K_C0_0	;C0 Control State Definition
+M_C0_1  = /K_C0_1* K_C0_0
+M_C0_2  =  K_C0_1*/K_C0_0
+M_C0_3  =  K_C0_1* K_C0_0
+
+M_C0_0 := TR_RD -> M_C0_1
+		+-> M_C0_0;
+
+M_C0_1 := TR_RD -> M_C0_2
+		+-> M_C0_0;
+
+M_C0_2 := NULL_TR -> M_C0_3
+		+ SOME_TR -> M_C0_1
+		+-> M_C0_0;
+
+M_C0_3 := NULL_TR -> M_C0_0
+		+-> M_C0_0;
+
+M_C0_0.OUTF = /AM_G_CS*/AM_G_OE*/AM_G_WE*/AM_G_ADDR_CK
+			 */PM_G_CS*/PM_G_OE*/PM_G_WE*/PM_G_ADDR_CK
+M_C0_1.OUTF =  AM_G_CS* AM_G_OE* AM_G_WE* AM_G_ADDR_CK
+			 * PM_G_CS* PM_G_OE* PM_G_WE* PM_G_ADDR_CK
+M_C0_2.OUTF =  AM_G_CS* AM_G_OE* AM_G_WE*/AM_G_ADDR_CK
+			 * PM_G_CS* PM_G_OE* PM_G_WE*/PM_G_ADDR_CK
+M_C0_3.OUTF = /AM_G_CS*/AM_G_OE*/AM_G_WE*/AM_G_ADDR_CK
+			 */PM_G_CS*/PM_G_OE*/PM_G_WE*/PM_G_ADDR_CK
+
+;---------------------------- CONDITIONs Sub Segment ------------
+CONDITIONS
+
+NULL_TR = /POR*/HIT*S_LSA
+SOME_TR = /POR* HIT*S_LSA
+TR_RD =   /POR*RUN*S_LSA*(S_TDD* S_K2+ S_TBD* S_K5)
+;----------------------------------- Simulation Segment ------------
+
+

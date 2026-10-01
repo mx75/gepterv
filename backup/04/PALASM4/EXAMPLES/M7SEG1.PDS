@@ -1,0 +1,192 @@
+;PALASM Design Description
+
+;---------------------------------- Declaration Segment ------------
+TITLE    MACH-DEMOBOARD
+PATTERN  PIN-DECLARATION
+REVISION 3.0
+AUTHOR   WOLFGANG REIS
+COMPANY  ADVANCED MICRO DEVICES GMBH
+DATE     08/07/90
+
+CHIP  TRIAL2  MACH110
+
+;---------------------------------- PIN Declarations ---------------
+PIN   1         GND
+PIN   2         SEG1_B          COMBINATORIAL ; I/O 0    SEGMENTS
+PIN   3         SEG1_A          COMBINATORIAL ; I/O 1    DIGIT HIGH
+PIN   5         SEG1_C          COMBINATORIAL ; I/O 3
+PIN   6         SEG1_F          COMBINATORIAL ; I/O 4
+PIN   7         SEG1_E          COMBINATORIAL ; I/O 5
+PIN   8         SEG1_D          COMBINATORIAL ; I/O 6
+PIN   9         SEG1_G          COMBINATORIAL ; I/O 7
+PIN  10         RESET           ;COMBINATORIAL ; I0
+PIN  11         COUNT           ;COMBINATORIAL ; I1
+PIN  12         GND
+PIN  13         CLOCK                         ; CLK0 / I2    4060
+PIN  14         UP              ;COMBINATORIAL ; I/O 8    DIP-SWITCH
+PIN  22         VCC
+PIN  23         GND                           ;
+PIN  24         DAT8            REGISTERED    ; I/O 16
+PIN  25         DAT7            REGISTERED    ; I/O 17
+PIN  26         DAT6            REGISTERED    ; I/O 18
+PIN  27         DAT5            REGISTERED    ; I/O 19
+PIN  28         DAT4            REGISTERED    ; I/O 20
+PIN  29         DAT3            REGISTERED    ; I/O 21
+PIN  30         DAT2            REGISTERED    ; I/O 22
+PIN  31         DAT1            REGISTERED    ; I/O 23
+PIN  34         GND
+PIN  36         SEG2_B          COMBINATORIAL ; I/O 24   SEGMENTS
+PIN  37         SEG2_DP         COMBINATORIAL ; I/O 25   DIGIT LOW
+PIN  38         SEG2_C          COMBINATORIAL ; I/O 26
+PIN  39         SEG2_A          COMBINATORIAL ; I/O 27
+PIN  40         SEG2_E          COMBINATORIAL ; I/O 28
+PIN  41         SEG2_D          COMBINATORIAL ; I/O 29
+PIN  42         SEG2_F          COMBINATORIAL ; I/O 30
+PIN  43         SEG2_G          COMBINATORIAL ; I/O 31
+PIN  44         VCC                             ;
+
+NODE 1          GLOBAL          ;PRESET RESET
+
+GROUP   BANK1   SEG1_A SEG1_B SEG1_C SEG1_D SEG1_E SEG1_F SEG1_G
+GROUP   BANK2   SEG2_A SEG2_B SEG2_C SEG2_D SEG2_E SEG2_F SEG2_G
+GROUP   DAT     DAT1 DAT2 DAT3 DAT4 DAT5 DAT6 DAT7 DAT8
+
+;----------------------------------- Boolean Equation Segment ------
+EQUATIONS
+
+   GLOBAL.RSTF = /RESET
+   DAT.CLKF    =  CLOCK
+   SEG2_DP     =  CLOCK
+
+;------COUNTER--------
+
+   DAT8.T := /UP     *  COUNT  * /DAT7   * /DAT6   * /DAT5
+                     * /DAT4   * /DAT3   * /DAT2   * /DAT1
+           +  UP     *  COUNT  *  DAT7   *  DAT6   *  DAT5
+                     *  DAT4   *  DAT1
+           +  UP     *  COUNT  *  DAT8   *  DAT5   *  DAT4   *  DAT1
+
+   DAT7.T :=  UP     *  COUNT  *  DAT6   *  DAT5   *  DAT4   *  DAT1
+           + /UP     *  COUNT  *  DAT7   * /DAT6   * /DAT5   * /DAT4
+                     * /DAT3   * /DAT2   * /DAT1
+           + /UP     *  COUNT  *  DAT8   * /DAT5   * /DAT4
+                     * /DAT3   * /DAT2   * /DAT1
+
+   DAT6.T := /UP     *  COUNT  *  DAT8   * /DAT5   * /DAT4
+                     * /DAT3   * /DAT2   * /DAT1
+           + /UP     *  COUNT  *  DAT6   * /DAT5   * /DAT4   * /DAT3
+                     * /DAT2   * /DAT1
+           + /UP     *  COUNT  *  DAT7   * /DAT5   * /DAT4
+                     * /DAT3   * /DAT2   * /DAT1
+           +  UP     *  COUNT  * /DAT8   *  DAT5   *  DAT4   *  DAT1
+
+   DAT5.T := /UP     *  COUNT  * /DAT4   * /DAT3   * /DAT2   * /DAT1
+           +  UP     *  COUNT  *  DAT4   *  DAT1
+
+   DAT4.T := /UP     *  COUNT  * /DAT3   * /DAT2   * /DAT1
+           +  UP     *  COUNT  *  DAT3   *  DAT2   *  DAT1
+           +  UP     *  COUNT  *  DAT4   *  DAT1
+
+   DAT3.T :=  UP     *  COUNT  *  DAT2   *  DAT1
+           + /UP     *  COUNT  *  DAT3   * /DAT2   * /DAT1
+           + /UP     *  COUNT  *  DAT4   * /DAT1
+
+   DAT2.T := /UP     *  COUNT  *  DAT4   * /DAT1
+           + /UP     *  COUNT  *  DAT2   * /DAT1
+           + /UP     *  COUNT  *  DAT3   * /DAT1
+           +  UP     *  COUNT  * /DAT4   *  DAT1
+
+   DAT1.T :=  COUNT
+
+
+;------1ST DISPLAY----
+
+   SEG1_A  = /DAT8   * /DAT7   * /DAT6   *  DAT5
+           + /DAT8   *  DAT7   * /DAT6   * /DAT5
+           +  DAT8   * /DAT7   *  DAT6   *  DAT5
+           +  DAT8   *  DAT7   * /DAT6   *  DAT5   ;
+
+   SEG1_B  = /DAT8   *  DAT7   * /DAT6   *  DAT5
+           +  DAT8   *            DAT6   *  DAT5
+           +  DAT8   *  DAT7   *           /DAT5
+           +            DAT7   *  DAT6   * /DAT5   ;
+
+   SEG1_C  =  DAT8   *  DAT7   *           /DAT5
+           + /DAT8   * /DAT7   *  DAT6   * /DAT5
+           +  DAT8   *  DAT7   *  DAT6             ;
+
+   SEG1_D  = /DAT8   * /DAT7   * /DAT6   *  DAT5
+           + /DAT8   *  DAT7   * /DAT6   * /DAT5
+           +            DAT7   *  DAT6   *  DAT5
+           +  DAT8   * /DAT7   *  DAT6   * /DAT5   ;
+
+   SEG1_E  = /DAT8   *                      DAT5
+           + /DAT8   *  DAT7   * /DAT6
+           +           /DAT7   * /DAT6   *  DAT5   ;
+
+   SEG1_F  =  DAT8   *  DAT7   * /DAT6   *  DAT5
+           + /DAT8   * /DAT7   *  DAT6
+           + /DAT8   *            DAT6   *  DAT5
+           + /DAT8   * /DAT7   *            DAT5   ;
+
+   SEG1_G  = /DAT8   * /DAT7   * /DAT6
+           + /DAT8   *  DAT7   *  DAT6   *  DAT5
+           +  DAT8   *  DAT7   * /DAT6             ;
+
+;-------2ND DISPLAY---
+
+   SEG2_A  = /DAT4   * /DAT3   * /DAT2   *  DAT1
+           + /DAT4   *  DAT3   * /DAT2   * /DAT1
+           +  DAT4   * /DAT3   *  DAT2   *  DAT1
+           +  DAT4   *  DAT3   * /DAT2   *  DAT1   ;
+
+   SEG2_B  = /DAT4   *  DAT3   * /DAT2   *  DAT1
+           +  DAT4   *            DAT2   *  DAT1
+           +  DAT4   *  DAT3   *           /DAT1
+           +            DAT3   *  DAT2   * /DAT1   ;
+
+   SEG2_C  =  DAT4   *  DAT3   *           /DAT1
+           + /DAT4   * /DAT3   *  DAT2   * /DAT1
+           +  DAT4   *  DAT3   *  DAT2             ;
+
+   SEG2_D  = /DAT4   * /DAT3   * /DAT2   *  DAT1
+           + /DAT4   *  DAT3   * /DAT2   * /DAT1
+           +            DAT3   *  DAT2   *  DAT1
+           +  DAT4   * /DAT3   *  DAT2   * /DAT1   ;
+
+   SEG2_E  = /DAT4   *                      DAT1
+           + /DAT4   *  DAT3   * /DAT2
+           +           /DAT3   * /DAT2   *  DAT1   ;
+
+   SEG2_F  =  DAT4   *  DAT3   * /DAT2   *  DAT1
+           + /DAT4   * /DAT3   *  DAT2
+           + /DAT4   *            DAT2   *  DAT1
+           + /DAT4   * /DAT3   *            DAT1   ;
+
+   SEG2_G  = /DAT4   * /DAT3   * /DAT2
+           + /DAT4   *  DAT3   *  DAT2   *  DAT1
+           +  DAT4   *  DAT3   * /DAT2             ;
+
+;---------------------------------- Simulation Segment ---------
+SIMULATION
+TRACE_ON CLOCK RESET UP COUNT DAT BANK1 BANK2 SEG2_DP
+SETF  /RESET /CLOCK UP COUNT
+CLOCKF CLOCK
+SETF   RESET
+FOR I:=1 TO 20 DO
+   BEGIN
+     CLOCKF CLOCK
+   END
+SETF /COUNT
+FOR I:=1 TO 4 DO
+   BEGIN
+     CLOCKF CLOCK
+   END
+SETF COUNT /UP
+FOR I:=1 TO 20 DO
+   BEGIN
+     CLOCKF CLOCK
+   END
+TRACE_OFF
+;-------------------------------------------------------------------
+

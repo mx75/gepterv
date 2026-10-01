@@ -1,0 +1,168 @@
+;PALASM Design Description
+
+;---------------------------------- Declaration Segment ------------
+TITLE    Logic Analyzer States
+PATTERN  
+REVISION 
+AUTHOR   john davis
+COMPANY  SIVAD for AMD
+DATE     10/15/90
+
+CHIP  _la_state  MACH110
+
+;---------------------------------- PIN Declarations ---------------
+PIN  ?  /POR	COMBINATORIAL			; Power On Reset
+NODE 1 POR_INIT
+PIN  35 CLK1							; Default Clock on pin 35
+PIN  ?  K_CLK COMBINATORIAL             ; 
+
+PIN  ?  MSW[1] REGISTERED                 ; 
+PIN  ?  MSW[2] REGISTERED                 ; 
+PIN  ?  MSW[3] REGISTERED                 ; 
+PIN  ?  MSW[4] REGISTERED                 ; 
+PIN  ?  MSW[5] REGISTERED                 ; 
+PIN  ?  MSW[6] REGISTERED                 ; 
+PIN  ?  MSW[7] REGISTERED                 ; 
+PIN  ?  MSW[8] REGISTERED                 ; 
+PIN  ?  MSW[9] REGISTERED                 ; 
+PIN  ?  MSW[10] REGISTERED                ; 
+PIN  ?  MSW[11] REGISTERED                ; 
+PIN  ?  MSW[13] REGISTERED                ; 
+PIN  ?  MSW[14] REGISTERED                ; 
+PIN  ?  MSW[15] REGISTERED                ; 
+PIN  ?  REQ		REGISTERED                ; 
+PIN  ?  RPL		REGISTERED                ; 
+PIN  ?  GO 	COMBINATORIAL             ; 
+PIN  ?  DONE COMBINATORIAL           ; 
+PIN  ?  HIT COMBINATORIAL             ; 
+
+;************ BURIED REGISTERS ********************
+NODE ?  K0 REGISTERED                     ; 
+NODE ?  K1 REGISTERED                     ; 
+NODE ?  K2 REGISTERED                     ; 
+NODE ?  K3 REGISTERED                     ; 
+NODE ?  K_C1 REGISTERED                   ; 
+NODE ?  K_C2_0 REGISTERED                 ; 
+NODE ?  K_C2_1 REGISTERED                 ; 
+NODE ?  K_C3 REGISTERED                   ; 
+PIN ?  K_C4 REGISTERED                   ; 
+;       
+;STRING DECLARATIONS.
+STRING GL '(MSW[0])'
+STRING DL '(MSW[1])'
+STRING BF '(MSW[2])'
+STRING TR0 'MSW[3]'
+STRING TR1 'MSW[4]'
+STRING TR2 'MSW[5]'
+STRING ST '(MSW[6])'
+STRING XCK '(MSW[7])'
+STRING TG '(MSW[8])'
+STRING SM '(MSW[9])'
+STRING XS '(MSW[10])'				;External Sync Input
+STRING CS '(MSW[11])'
+STRING EQ '(MSW[12])'
+STRING TA '(MSW[13)'
+STRING TD '(MSW[14])'
+STRING RUN '(MSW[15])'
+
+STRING S_K0  '/POR*RUN*/K3*/K2*/K1*/K0'		;Main Control State Bits
+STRING S_K1  '/POR*RUN*/K3*/K2*/K1* K0'
+STRING S_K2  '/POR*RUN*/K3*/K2* K1*/K0'
+STRING S_K3  '/POR*RUN*/K3*/K2* K1* K0'
+STRING S_K4  '/POR*RUN*/K3* K2*/K1*/K0'
+STRING S_K5  '/POR*RUN*/K3* K2*/K1* K0'
+STRING S_K6  '/POR*RUN*/K3* K2* K1*/K0'
+STRING S_K7  '/POR*RUN*/K3* K2* K1* K0'
+STRING S_K8  '/POR*RUN* K3*/K2*/K1*/K0'
+
+STRING S_K_C4  ' K_C4'
+
+
+STRING S_TDD	'/TR2*/TR1*/TR0'		;Operational Mode Bits
+STRING S_TTD	'/TR2*/TR1* TR0'
+STRING S_TAD	'/TR2* TR1*/TR0'
+STRING S_TBD 	'/TR2* TR1* TR0'
+STRING S_LD_RG 	' TR2*/TR1*/TR0'
+STRING S_LD_AT 	' TR2*/TR1* TR0'
+STRING S_LSA 	'(S_TDD+S_TTD+S_TAD+S_TBD)'
+STRING S_SET 	'(S_LD_RG+S_LD_AT)'
+;------------------- Boolean Equation Segment ------
+EQUATIONS
+
+;------------ Initialization 
+POR_INIT.RSTF=POR
+;-----------------------Operation--------------------------
+STATE
+
+
+M_K0  = /K3*/K2*/K1*/K0 		;Main Control State Definition
+M_K1  = /K3*/K2*/K1* K0 
+M_K2  = /K3*/K2* K1*/K0 
+M_K3  = /K3*/K2* K1* K0 
+M_K4  = /K3* K2*/K1*/K0 
+M_K5  = /K3* K2*/K1* K0 
+M_K6  = /K3* K2* K1*/K0 
+M_K7  = /K3* K2* K1* K0 
+M_K8  =  K3*/K2*/K1*/K0
+
+
+MEALY_MACHINE			;Main  Trace Control State Machine
+
+M_K0 := START -> M_K1
+		+-> M_K0;
+
+M_K1 := N_ACK -> M_K2
+		+ T_ACK -> M_K1
+		+ CLR_X -> M_K0
+		+-> M_K1;
+
+M_K2 := N_ACK -> M_K3
+		+ T_ACK -> M_K2
+		+ CLR_X -> M_K0
+		+-> M_K2;
+
+M_K3 := N_ACK -> M_K4
+		+ T_ACK -> M_K3
+		+ CLR_X -> M_K0
+		+-> M_K3;
+
+M_K4 := N_ACK -> M_K5
+		+ T_ACK -> M_K4
+		+ CLR_X -> M_K0
+		+-> M_K4;
+
+M_K5 := N_ACK -> M_K6
+		+ T_ACK -> M_K5
+		+ CLR_X -> M_K0
+		+-> M_K5;
+
+M_K6 := N_ACK -> M_K7
+		+ T_ACK -> M_K6
+		+ CLR_X -> M_K0
+		+-> M_K6;
+
+M_K7 := N_ACK -> M_K8
+		+ T_ACK -> M_K7
+		+ CLR_X -> M_K0
+		+-> M_K7;
+
+M_K8 := N_ACK -> M_K0
+		+ T_ACK -> M_K8
+		+ CLR_X -> M_K0
+		+-> M_K8;
+
+;-----------------------Outputs--------------------------
+CONDITIONS
+START = /POR*GO*/DONE*S_LSA
+TDD = /TR2*/TR1*/TR0		;Operational Mode Bits
+TTD = /TR2*/TR1* TR0
+TAD = /TR2* TR1*/TR0
+TBD = /TR2* TR1* TR0
+
+T_ACK= /POR*GO*/K_C4*REQ*/RPL*S_LSA
+N_ACK= /POR*GO*/K_C4*RPL*S_LSA
+
+CLR_X = 	 /POR*S_K_C4
+;----------------------------------- Simulation Segment ------------
+
+

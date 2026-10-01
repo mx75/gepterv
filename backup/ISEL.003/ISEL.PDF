@@ -1,0 +1,163 @@
+{COMPONENT ISEL.PLD.SYM
+
+ {ENVIRONMENT
+  {PDIFvrev 3.00}
+  {Program "CUPL Version 4.0a"}
+  {DBtype "Schematic"}
+  {DBvrev 1.01}
+  {DBtime "Fri Sep 18 12:16:38 2026 "}
+  {DBunit "MIL"}
+  {DBgrid 10}
+  {Lyrstr "WIRES" 1 "BUS" 1 "GATE" 2 "IEEE" 2 "PINFUN" 3 "PINNUM" 1 
+          "PINNAM" 6 "PINCON" 4 "REFDES" 2 "ATTR" 6 "SDOT" 1 
+          "DEVICE" 5 "OUTLIN" 5 "ATTR2" 6 "NOTES" 6 "NETNAM" 4 
+          "CMPNAM" 5 "BORDER" 5}
+ }
+
+ {USER
+  {VIEW
+   {Mode SYMB}
+   {Nlst OPEN}
+   {Vw 0 0 2}
+   {Lv 12 2 2 2 0 0 2 2 2 2 0 0 2 1 2 0 0 0 0}
+   {Gs 10 10}
+  }
+ }
+
+ {DISPLAY
+  [Ly "PINNUM"]
+  [Ls "SOLID"][Wd 0]
+  [Ts 15][Tj "LC"][Tr 0][Tm "N"]
+ }
+
+ {SYMBOL
+  {PIN_DEF
+   [Ly "PINCON"]
+   {P IEO_DMA_ {Pt "INPUT"}{Lq 0}{Ploc 100 140}}
+   {P IEO_KIO {Pt "INPUT"}{Lq 0}{Ploc 100 120}}
+   {P IEO_KIO_ {Pt "INPUT"}{Lq 0}{Ploc 100 100}}
+   {P IEO_D {Pt "INPUT"}{Lq 0}{Ploc 100 80}}
+   {P IEO_DM {Pt "INPUT"}{Lq 0}{Ploc 100 60}}
+   {P IEO_DMA {Pt "INPUT"}{Lq 0}{Ploc 100 40}}
+   {P ISEL {Pt "INPUT"}{Lq 0}{Ploc 100 20}}
+   {P IEI_KIO_ {Pt "I/O"}{Lq 0}{Ploc 360 20}}
+   {P IEI_KIO {Pt "I/O"}{Lq 0}{Ploc 360 40}}
+   {P IEI_DMA_ {Pt "I/O"}{Lq 0}{Ploc 360 60}}
+   {P IEI_DMA {Pt "I/O"}{Lq 0}{Ploc 360 80}}
+   {P IEI_DM {Pt "I/O"}{Lq 0}{Ploc 360 100}}
+   {P IEI_D {Pt "I/O"}{Lq 0}{Ploc 360 120}}
+  }
+
+  {PKG
+   [Ly "REFDES"]
+   [Ts 25][Tj "CB"][Tr 0][Tm "N"]
+   {Rdl 230 170}
+
+   [Ly "PINNUM"]
+   [Ts 15][Tj "RC"]
+   {Pnl 120 150}
+   {Pnl 120 130}
+   {Pnl 120 110}
+   {Pnl 120 90}
+   {Pnl 120 70}
+   {Pnl 120 50}
+   {Pnl 120 30}
+   [Ts 15][Tj "LC"]
+   {Pnl 340 30}
+   {Pnl 340 50}
+   {Pnl 340 70}
+   {Pnl 340 90}
+   {Pnl 340 110}
+   {Pnl 340 130}
+
+   {Sd A 3 4 5 7 9 10 12 18 19 20 23 24 25}
+  }
+
+  {PIC
+   [Ly "GATE"]
+   [Ts 15][Tj "LC"][Tr 0][Tm "N"]
+   {R 130 160 330 0}
+   {L 130 140 100 140}
+   {L 130 120 100 120}
+   {L 130 100 100 100}
+   {L 130 80 100 80}
+   {L 130 60 100 60}
+   {L 130 40 100 40}
+   {L 130 20 100 20}
+   {L 330 20 360 20}
+   {L 330 40 360 40}
+   {L 330 60 360 60}
+   {L 330 80 360 80}
+   {L 330 100 360 100}
+   {L 330 120 360 120}
+   [Ly "PINNAM"]
+   [Tj "LC"]
+   {T "IEO_DMA_" 140 140}
+   {T "IEO_KIO" 140 120}
+   {T "IEO_KIO_" 140 100}
+   {T "IEO_D" 140 80}
+   {T "IEO_DM" 140 60}
+   {T "IEO_DMA" 140 40}
+   {T "ISEL" 140 20}
+   [Tj "RC"]
+   {T "IEI_KIO_" 320 20}
+   {T "IEI_KIO" 320 40}
+   {T "IEI_DMA_" 320 60}
+   {T "IEI_DMA" 320 80}
+   {T "IEI_DM" 320 100}
+   {T "IEI_D" 320 120}
+   [Ly "DEVICE"]
+   [Tj "CT"]
+   {T "P20L8LCC" 230 -10}
+  }
+
+  {ATR
+   {IN
+    {Org 100 20}
+    {Ty 255}
+   }
+   {EX
+    [Ly "ATTR2"]
+    [Ts 12][Tj "CT"][Tr 0][Tm "N"]
+    {At PLD ISEL.PLD 230 160}
+   }
+  }
+ }
+
+ {DETAIL
+  {ANNOTATE
+  }
+
+  {NET_DEF
+   {N IEO_DMA_
+   }
+   {N IEO_KIO
+   }
+   {N IEO_KIO_
+   }
+   {N IEO_D
+   }
+   {N IEO_DM
+   }
+   {N IEO_DMA
+   }
+   {N ISEL
+   }
+   {N IEI_KIO_
+   }
+   {N IEI_KIO
+   }
+   {N IEI_DMA_
+   }
+   {N IEI_DMA
+   }
+   {N IEI_DM
+   }
+   {N IEI_D
+   }
+  }
+
+  {SUBCOMP
+  }
+ }
+}

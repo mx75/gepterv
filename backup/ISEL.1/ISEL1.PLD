@@ -1,0 +1,67 @@
+Name      isel1;
+Partno    v1;
+Date      10/08/85;
+Rev       01;
+Designer  Michael;
+Company   SufniFabrik;
+Assembly  None;
+Location  None;
+Device    p20l8lcc;
+
+/** Inputs **/
+Pin [5..2]      = [IEOZ0..3];
+Pin [10..9,7..6]= [IEOR0..3];
+Pin [12..11]    = [ISEL0..1];
+Pin 13          =  IEN;
+
+/** Outputs **/
+Pin [18..21]    = [IEIZ0..3];
+Pin [23..26]    = [IEIR0..3];
+
+/*
+00: Z0 -> Z1 -> Z2 -> R0 -> R1 -> R2
+01: R0 -> R1 -> R2 -> Z0 -> Z1 -> Z2
+10: Z0 -> Z1 -> Z2 -> Z3 -> R0 -> R1
+11: R0 -> R1 -> Z0 -> Z1 -> Z2 -> Z3
+*/
+
+[IEIZ0..3].oe    = IEN;
+[IEIR0..3].oe    = IEN;
+
+!IEIZ0   = !ISEL1 & !ISEL0 & 'b'0
+         # !ISEL1 &  ISEL0 & (!IEOR0 # !IEOR1 # !IEOR2)
+         #  ISEL1 & !ISEL0 & 'b'0
+         #  ISEL1 &  ISEL0 & (!IEOR0 # !IEOR1)
+         ;
+!IEIZ1   = !ISEL1 & !ISEL0 &  !IEOZ0
+         # !ISEL1 &  ISEL0 & (!IEOR0 # !IEOR1 # !IEOR2 # !IEOZ0)
+         #  ISEL1 & !ISEL0 &  !IEOZ0
+         #  ISEL1 &  ISEL0 & (!IEOR0 # !IEOR1 # !IEOZ0)
+         ;
+!IEIZ2   = !ISEL1 & !ISEL0 & (!IEOZ0 # !IEOZ1)
+         # !ISEL1 &  ISEL0 & (!IEOR0 # !IEOR1 # !IEOR2 # !IEOZ0 # !IEOZ1)
+         #  ISEL1 & !ISEL0 & (!IEOZ0 # !IEOZ1)
+         #  ISEL1 &  ISEL0 & (!IEOR0 # !IEOR1 # !IEOZ0 # !IEOZ1)
+         ;
+!IEIZ3   = !ISEL1 & !ISEL0 & 'b'1
+         # !ISEL1 &  ISEL0 & 'b'1
+         #  ISEL1 & !ISEL0 & (!IEOZ0 # !IEOZ1 # !IEOZ2)
+         #  ISEL1 &  ISEL0 & (!IEOR0 # !IEOR1 # !IEOZ0 # !IEOZ1 # !IEOZ2)
+         ;
+!IEIR0   = !ISEL1 & !ISEL0 & (!IEOZ0 # !IEOZ1 # !IEOZ2)
+         # !ISEL1 &  ISEL0 & 'b'0
+         #  ISEL1 & !ISEL0 & (!IEOZ0 # !IEOZ1 # !IEOZ2 # !IEOZ3)
+         #  ISEL1 &  ISEL0 & 'b'0
+         ;
+!IEIR1   = !ISEL1 & !ISEL0 & (!IEOZ0 # !IEOZ1 # !IEOZ2 # !IEOR0)
+         # !ISEL1 &  ISEL0 &  !IEOR0
+         #  ISEL1 & !ISEL0 & (!IEOZ0 # !IEOZ1 # !IEOZ2 # !IEOZ3 # !IEOR0)
+         #  ISEL1 &  ISEL0 &  !IEOR0
+         ;
+!IEIR2   = !ISEL1 & !ISEL0 & (!IEOZ0 # !IEOZ1 # !IEOZ2 # !IEOR0 # !IEOR1)
+         # !ISEL1 &  ISEL0 & (!IEOR0 # !IEOR1)
+         #  ISEL1 & !ISEL0 & 'b'1
+         #  ISEL1 &  ISEL0 & 'b'1
+         ;
+!IEIR3   = 'b'1
+         ;

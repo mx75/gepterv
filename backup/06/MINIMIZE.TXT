@@ -1,0 +1,32 @@
+PALASM4  TRE_PLA   - MARKET RELEASE 1.5 (7-10-92)
+ (C) - COPYRIGHT ADVANCED MICRO DEVICES INC., 1992
+
+PALASM HELP  
+     Command line format to invoke MINIMIZE:
+	  
+     MINIMIZE [OPTION ...]
+	  
+     OPTIONs: 
+       -log [<logfile[.log]>]  capture screen messages to disk file.
+       -help print out help screen.
+       -?    print out help screen.
+       -1eqn read one equation at a time from tre file.
+       -tre [trefile[.ext]] input and output tre file
+       -xor  xor processing.
+       -p <number>  or-gate splitting.
+       -a  conforming to device polarity (non-programmable polarity device)
+       -ao best polarity selection (programmable polarity device). 
+       -ah active high polarity selection (programmable polarity device).
+       -al active low polarity selection (programmable polarity device).
+       -dt optimization of d & t register logic.
+       -d  conversion to d register logic.
+       -t  conversion to t register logic.
+       -efast  fast minimization (faster but not optimal).
+    
+      
+more...
+     DEFAULTS:
+       log file extention: .LOG.
+       log file name: TRE_PLA.LOG.
+       input-output file extentions: .TRE
+       input output filenames: PALASM2.TRE

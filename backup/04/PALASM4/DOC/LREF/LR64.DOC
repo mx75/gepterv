@@ -1,0 +1,105 @@
+ğ
+STRING
+Overview
+This keyword allows you to assign a name to frequently used character 
+strings such as equations and expressions.  You can then use the
+string name anywhere in the remainder of your design file.  The
+software substitutes the character string for the name during
+processing.
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+         STRING       String Name         'String' 
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+
+Device Support:  All PLD devices.
+ú
+Syntax
+You use this keyword in the declaration segment of Boolean and state-
+machine designs.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+         STRING       String Name         'String' 
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+         ...
+         STRING         IN1           'A1 + /A2 + A3'
+         STRING         IN2          '(A1 + /A2 + /A3)'
+         ...
+    EQUATIONS
+        ...
+        BANK1 = IN1
+        O5 = /IN1
+        O6 = /IN2
+        ...
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+
+String Name     This is the name assigned to a cluster of equations,
+                expressions or other parameters.  The name can then be
+                used in the equations or state segments of a design to
+                refer the the entire cluster without having to list
+                all the characters separately.  Follow the rules
+                below.
+
+                ş    Assign a unique name of up to 14 alphanumeric
+                     characters.
+
+                ş    Do not use keywords, operators, or reserved
+                     words.
+
+                ş    Place the name after the keyword STRING and
+                     before the pin or node statements.
+
+String          Identifies the cluster of characters defined by the
+                string name.  The single quotes, '   ', are delimiters
+                and identify the characters to be substituted. The
+                software substitutes these characters literally.
+                However, functional strings must conform to the rules
+                of the function, such as in an expression.  The
+                software does not limit the number of characters you
+                can substitute.
+ú
+Use
+Place at least one space between the keyword STRING, the string name,
+and the cluster of characters comprising the string.  Extra spaces or
+tabs are reduced to one space.
+
+In the syntax example, the software processes the string substitution
+as  follows:
+
+                BANK1 = A1 + /A2 + A3
+                O5    = /(A1 + /A2 +A3)
+                O6    = /(A1 + /A2 +/A3)
+
+To DeMorganize an expression when you complement a string name, use
+parentheses to enclose the expression.  This is true only for
+expressions. For example, you cannot complement an .OUTF statement.
+The following table illustrates the effect of complementing string
+names.
+
+               String                  Expression
+               ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                IN1              A1   +   /A2   +   A3
+               /IN1             /A1   +   /A2   +   A3
+
+                IN2             (A1   +   /A2   +  /A3)
+               /IN2             /A1   +    A2   +   A3
+
+Complementing string IN1 causes only the first pin in the string to
+invert polarity.  In contrast, complementing string IN2 DeMorganizes
+the entire string.
+
+The keywords GROUP and STRING have distinctly different uses.  Use
+group only for clustering pins.  Use string to substitute any string
+of characters.
+ú
+Related Topics
+Boolean Equation
+EXPRESSION
+Declaration Segment
+GROUP
+ú

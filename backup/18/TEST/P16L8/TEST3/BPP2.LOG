@@ -1,0 +1,10 @@
+PALASM4  BPP   - MARKET RELEASE 1.5 (7-10-92)
+ (C) - COPYRIGHT ADVANCED MICRO DEVICES INC., 1992
+
+EQUATIONS SEGMENT
+Processing equation for ====>OUT
+
+ %%  BPP  %% Maximum memory allocated was: 13276 bytes.
+
+ %%  BPP  %% File Processed Successfully.  File: test3.pds.
+ %%  BPP  %% ERROR count: 0  WARNING count: 0

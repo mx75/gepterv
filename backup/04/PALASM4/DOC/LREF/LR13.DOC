@@ -1,0 +1,40 @@
+ğ
+COMMENT
+Overview
+A comment can explain a statement in the PDS file to assist you or
+another designer when editing or debugging the design.
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+            ;Comment
+
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Device Support: All PLD devices.
+ú
+Syntax
+You can place comments anywhere in the design file.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+           ;Comment
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+           ;State setup and defaults
+           MOORE MACHINE
+           DEFAULT_BRANCH HOLD_STATE ;defines default state as holding
+           ;State Assignments
+           ...
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+Comment         Any combination of alphanumeric characters, symbols,
+                or punctuation preceded by a semicolon.  The software
+                ignores everything in the line that follows the
+                semicolon.  A comment can be several lines in length;
+                however, each line must begin with a semicolon.
+ú
+Use
+You can use comments to separate the various segments in either a
+Boolean or state-machine design.
+ú
+Related Topics
+ú

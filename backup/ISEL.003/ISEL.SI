@@ -1,0 +1,52 @@
+Name      isel;
+Partno    v1;
+Date      10/08/85;
+Rev       01;
+Designer  Michael;
+Company   SufniFabrik;
+Assembly  None;
+Location  None;
+Device    p20l8lcc;
+
+ORDER:
+/** Inputs **/
+ISEL,%1,IEO_KIO_A,IEO_KIO_B,%1,IEO_DMA_A,IEO_DMA_B,IEO_DMA_C,IEO_DMA_D,%3,
+
+/** Outputs **/
+IEI_KIO_A,IEI_KIO_B,%1,IEI_DMA_A,IEI_DMA_B,IEI_DMA_C,IEI_DMA_D;
+
+VECTORS:
+$msg "                |        ";
+$msg "                |        ";
+$msg "        !! !!!! | !! !!!!";
+$msg "        II IIII | II IIII";
+$msg "        EE EEEE | EE EEEE";
+$msg "        OO OOOO | II IIII";
+$msg "        __ ____ | __ ____";
+$msg "      I KK DDDD | KK DDDD";
+$msg "      S II MMMM | II MMMM";
+$msg "      E OO AAAA | OO AAAA";
+$msg "      L __ ____ | __ ____";
+$msg "      0 AB ABCD | AB ABCD";
+$msg "      ==========+=========";
+            0 11 1111   ** ****
+$msg "      KIO1 -> DMA1 -> DMA2 -> KIO2 -> DMA3 -> DMA4";
+            0 11 1111   ** ****
+            0 01 1111   ** ****
+            0 10 1111   ** ****
+            0 11 1111   ** ****
+            0 11 0111   ** ****
+            0 11 1011   ** ****
+            0 11 1101   ** ****
+            0 11 1110   ** ****
+            0 11 1111   ** ****
+$msg "      DMA4 -> KIO1 -> DMA1 -> DMA2 -> KIO2 -> DMA3";
+            1 11 1111   ** ****
+            1 01 1111   ** ****
+            1 10 1111   ** ****
+            1 11 1111   ** ****
+            1 11 0111   ** ****
+            1 11 1011   ** ****
+            1 11 1101   ** ****
+            1 11 1110   ** ****
+            1 11 1111   ** ****

@@ -1,0 +1,119 @@
+105 >>>>>>>>>> AMD JED(EC) MAN(ipulator) <<<<<<<<<<
+110 |> ERROR J110
+110     Cannot open input JEDEC file %s.
+120 |> SYSTEM_ERROR J120
+120     Cannot open PDF file (PALPDF.PDF).
+120     Call AMD, 1-800-222-9323.
+121 |> INTERNAL_ERROR J121
+121     Extpdf returns NULL pointer.
+121     Call AMD, 1-800-222-9323.\n
+130 |> ERROR J130
+130     Incorrect part name %s.
+131 |> ERROR J131
+131     The MACH device %s is not supported.
+132 |> ERROR J132
+132     The PLS device %s is not supported.
+135 |> ERROR J135
+135     Not enough memory.
+140 |> ERROR J140
+140     Input file %s is not a valid JEDEC file.
+150 |> ERROR J150
+150     Input file %s terminated prematurely.
+160 |> ERROR J160
+160     Cannot create error file %s.
+170 |> ERROR J170
+170     Cannot create output JEDEC file %s.
+180 |> ERROR J180
+180     Cannot create output PALASM file %s.
+190 |> ERROR J190
+190     Illegal data %s in fuse field.
+195 |> ERROR J195
+195     All the JEDEC fuse data must appear in one block.
+200 |> ERROR J200
+200     No fuses specified in the input file.
+205 |> ERROR J205
+205     Fuse number %d has been defined twice.
+210 |> ERROR J210
+210     Product term sharing is not allowed in %s.
+215 |> ERROR J215
+215     Fuse number %d exceeds the permitted fuse count.
+220 |> ERROR J220
+220     Exceeded data array fuse buffer size %d.
+230 |> ERROR J230
+230     The input file is not a valid PAL22V10 JEDEC file.
+235 |> ERROR J235
+235     Device name entered must be 22V10 for the option chosen.
+240 %%%%  JEDEC DISASSEMBLER  %%%% File processing terminated.  File %s.
+250 |> WARNING J250
+250     Invalid field identifier %s.
+260 |> WARNING J260
+260     Invalid field %s in this context.
+265 |> WARNING J265
+265     Integer expected in the current %s field.
+270 |> WARNING J270
+270     Illegal specification of %s field.
+280 |> WARNING J280
+280     Incorrect number of fuses in the QF field.
+280             Found %d.
+280             Expected %d.
+290 |> WARNING J290
+290     Incorrect number of pins in the QP field.
+290             Found %d.
+290             Expected %d.
+310 |> WARNING J310
+310     Incorrect fuse checksum in the input file.
+310             Found %s.
+310             Expected %s.
+320 |> WARNING J320
+320     Invalid data %s in vector field.
+325 |> WARNING J325
+325     Cannot generate simulation code.
+330 |> WARNING J330
+330     Replacing super-voltage with PRLDF.
+340 |> WARNING J340
+340     Incorrect number of logic values in vector.
+340             Found %d entries.
+340             Expected %d entries.
+350 |> WARNING J350
+350     Vector limit %d exceeded.
+360 |> WARNING J360
+360     Incorrect transmission checksum.
+360             Found %s.
+360             Expected %s.
+370 |> WARNING J370
+370     Invalid transmission checksum in the input file.
+380 |> WARNING J380
+380     For 16V8HD, pin 4 cannot have LATCH attribute.
+450 No Boolean equation design file is created.
+451 No recalculated JEDEC output file is created.
+500 The Boolean equation design file is stored in ==> %s
+501 The recalculated JEDEC output file is stored in ==> %s
+600 %%%%  JEDEC DISASSEMBLER  %%%% Program successful.  File  %s
+850 %%%%  JEDEC DISASSEMBLER  %%%% ERROR count  %d  WARNING count  %d
+900 Program terminated by [Q].
+1100 Starting PAL data file traversal.
+1110 Extracting data for PAL.
+1120 Releasing data structure to free list.
+1130 DONE!
+1140 Generating the pin list.
+1150 Generating the PALASM2 Boolean equations.
+1160 Parsing the input JEDEC file.
+1170 Parsing completed.
+1180 Writing the output JEDEC file.
+1190 Checking the input PAL22V10 JEDEC file.
+1200 Creating the output PAL32VX10 JEDEC file.
+1500 JEDC HELP  Input file is not specified.
+1500    Command format to invoke JEDC:
+1500       JEDC <filename[.jed]> [OPTION...].
+1500
+1500    OPTION   -dev [devicename].
+1500             -log [<filename[.log]>].
+1500             -jdm [<filename[.jdm]>].
+1500             -pl2 [<filename[.pl2]>].
+1500
+1500    Option flag description:
+1500       -dev  specify the device part number.
+1500       -log  capture screen message to disk file.
+1500       -jdm  recalculate the JEDEC fuse.
+1500       -pl2  disassemble the JEDEC fuse.
+

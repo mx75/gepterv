@@ -1,0 +1,36 @@
+=====================================================================
+Problems Caused Through Network Drivers.
+---------------------------------------------------------------------
+
+The PALASM 4 menu system processes many commands by paging in and out and
+executing other programs supplied in the 'EXE' subdirectory. The following
+is a list of known system configurations that may cause menu operation
+failures:
+
+1.      Using PALASM 4 across networks not supported
+2.      Network drivers are loaded in low-memory (ie address < 640K)
+
+See below for more detailed explanations.
+
+---------------------------------------------------------------------
+1.      Using PALASM 4 across networks not supported
+---------------------------------------------------------------------
+No testing has been done to vailidate using the PALASM 4 software across PC
+networks.  We do not currently recommend using the software in this manner.
+
+---------------------------------------------------------------------
+2.      Network drivers are loaded in low-memory (ie address < 640K)
+---------------------------------------------------------------------
+Loading Network drivers (eg, PC-NFS, 3COM, NOVEL, RAF etc. drivers in
+your CONFIG.SYS file) is known to cause sporadic failures in the PALASM 4
+memory system when loaded in low memory. It is not yet known whether
+these are problems cause by interference between the software or purely
+because they reduce the availability of low-end memory. If you are
+having problems try loading these drivers into high memory (ie. address
+> 640K)
+
+Note: You do not need to be using the network to potentially see
+      problems through loaded network drivers.
+
+ÿ
+

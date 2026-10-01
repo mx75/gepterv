@@ -1,0 +1,216 @@
+
+*******************************************************************************
+                                     isel
+*******************************************************************************
+
+CUPL            4.0a Serial# MD-40A-8249
+Device          p20l8lcc  Library DLIB-h-26-9
+Created         Fri Sep 18 12:16:38 2026
+Name            isel
+Partno          v1
+Revision        01
+Date            10/08/85
+Designer        Michael
+Company         SufniFabrik
+Assembly        None
+Location        None
+
+===============================================================================
+                            Expanded Product Terms
+===============================================================================
+
+IEI_DMA_A =>
+    !IEO_DMA_D & ISEL
+  # !IEO_KIO_A
+
+IEI_DMA_A.oe  =>
+    1 
+
+IEI_DMA_B =>
+    !IEO_DMA_D & ISEL
+  # !IEO_KIO_A
+  # !IEO_DMA_A
+
+IEI_DMA_B.oe  =>
+    1 
+
+IEI_DMA_C =>
+    !IEO_DMA_D & ISEL
+  # !IEO_KIO_B
+  # !IEO_KIO_A
+  # !IEO_DMA_B
+  # !IEO_DMA_A
+
+IEI_DMA_C.oe  =>
+    1 
+
+IEI_DMA_D =>
+    !IEO_KIO_B & !ISEL
+  # !IEO_KIO_A & !ISEL
+  # !IEO_DMA_C & !ISEL
+  # !IEO_DMA_B & !ISEL
+  # !IEO_DMA_A & !ISEL
+
+IEI_DMA_D.oe  =>
+    1 
+
+IEI_KIO_A =>
+    !IEO_DMA_D & ISEL
+
+IEI_KIO_A.oe  =>
+    1 
+
+IEI_KIO_B =>
+    !IEO_DMA_D & ISEL
+  # !IEO_KIO_A
+  # !IEO_DMA_B
+  # !IEO_DMA_A
+
+IEI_KIO_B.oe  =>
+    1 
+
+
+===============================================================================
+                                 Symbol Table
+===============================================================================
+
+Pin Variable                                    Pterms   Max     Min    
+Pol   Name              Ext     Pin     Type     Used   Pterms  Level   
+--- --------            ---     ---     ----    ------  ------  -----   
+
+    IEI_DMA_A                   20       V        2       7       4     
+    IEI_DMA_A           oe      20       X        1       1       1     
+    IEI_DMA_B                   23       V        3       7       4     
+    IEI_DMA_B           oe      23       X        1       1       1     
+    IEI_DMA_C                   24       V        5       7       4     
+    IEI_DMA_C           oe      24       X        1       1       1     
+    IEI_DMA_D                   25       V        5       7       4     
+    IEI_DMA_D           oe      25       X        1       1       1     
+    IEI_KIO_A                   18       V        1       7       4     
+    IEI_KIO_A           oe      18       X        1       1       1     
+    IEI_KIO_B                   19       V        4       7       4     
+    IEI_KIO_B           oe      19       X        1       1       1     
+    IEO_DMA_A                   3        V        -       -       -     
+    IEO_DMA_B                   10       V        -       -       -     
+    IEO_DMA_C                   9        V        -       -       -     
+    IEO_DMA_D                   7        V        -       -       -     
+    IEO_KIO_A                   5        V        -       -       -     
+    IEO_KIO_B                   4        V        -       -       -     
+    ISEL                        12       V        -       -       -     
+
+
+LEGEND    F : field      D : default variable        M : extended node
+          N : node       I : intermediate variable   T : function
+          V : variable   X : extended variable       U : undefined
+
+
+===============================================================================
+                                   Fuse Plot
+===============================================================================
+
+Pin #26 
+ 00000 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00040 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00080 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00120 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00160 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00200 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00240 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00280 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #25 
+ 00320 ---------------------------------------- 
+ 00360 -----x---------------------------x------ 
+ 00400 ---------x-----------------------x------ 
+ 00440 ---------------------x-----------x------ 
+ 00480 -------------------------x-------x------ 
+ 00520 -x-------------------------------x------ 
+ 00560 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00600 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #24 
+ 00640 ---------------------------------------- 
+ 00680 -----------------x--------------x------- 
+ 00720 -----x---------------------------------- 
+ 00760 ---------x------------------------------ 
+ 00800 -------------------------x-------------- 
+ 00840 -x-------------------------------------- 
+ 00880 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00920 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #23 
+ 00960 ---------------------------------------- 
+ 01000 -----------------x--------------x------- 
+ 01040 ---------x------------------------------ 
+ 01080 -x-------------------------------------- 
+ 01120 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01160 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01200 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01240 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #21 
+ 01280 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01320 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01360 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01400 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01440 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01480 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01520 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01560 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #20 
+ 01600 ---------------------------------------- 
+ 01640 -----------------x--------------x------- 
+ 01680 ---------x------------------------------ 
+ 01720 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01760 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01800 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01840 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01880 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #19 
+ 01920 ---------------------------------------- 
+ 01960 -----------------x--------------x------- 
+ 02000 ---------x------------------------------ 
+ 02040 -------------------------x-------------- 
+ 02080 -x-------------------------------------- 
+ 02120 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 02160 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 02200 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #18 
+ 02240 ---------------------------------------- 
+ 02280 -----------------x--------------x------- 
+ 02320 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 02360 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 02400 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 02440 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 02480 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 02520 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+
+
+LEGEND    X : fuse not blown 
+          - : fuse blown 
+
+===============================================================================
+                                 Chip Diagram
+===============================================================================
+
+                                      NC
+                                       |  Vcc                    
+                         IEO_DMA_A  |  |  |                         
+                      IEO_KIO_B  |  |  |  |  |                         
+                              x  x  x  x  x  x  x   
+                            __|__|__|__|__|__|__|__ 
+                           |  4  3  2  1  2  2  2  |
+                           |              8  7  6  |
+              IEO_KIO_A x--|5                    25|--x IEI_DMA_D              
+                        x--|6                    24|--x IEI_DMA_C              
+              IEO_DMA_D x--|7                    23|--x IEI_DMA_B              
+                     NC x--|8        isel        22|--x NC                     
+              IEO_DMA_C x--|9                    21|--x                        
+              IEO_DMA_B x--|10                   20|--x IEI_DMA_A              
+                        x--|11                   19|--x IEI_KIO_B              
+                           |  1  1  1  1  1  1  1  |
+                           |__2__3__4__5__6__7__8__|
+                              |  |  |  |  |  |  |   
+                              x  x  x  x  x  x  x   
+                           ISEL  |  |  |  |  |  IEI_KIO_A              
+                                    |  |  |                         
+                                  GND  |                         
+                                      NC
+
+

@@ -1,0 +1,86 @@
+ğ
+LATCHED
+Overview
+This reserved word defines the output data storage type on devices
+that allow latched outputs.  A latched output functions as a
+combinatorial output until the data is latched.  Once latched, the
+last data present is held regardless of input changes.
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+            Pn      Number     Name     Storage
+
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Device Support:
+
+    PAL10H20EG8     PAL10H20G8      PALCE29M16
+    PALCE29MA16     PAL16V8HD       MACH 2
+ú
+Syntax
+You include the optional reserved word in the pin or node statement of
+Boolean and state-machine designs.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+            Pn      Number     Name     Storage
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+            PIN     3          OUT1     LATCHED
+            NODE    4          OUT2     LAT
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+
+Storage         The value that defines the pin or node storage type.
+                If you do not specify a storage type, combinatorial is
+                the default.
+
+                ş  Place the reserved word, latched, after the pin or
+                   node name in the corresponding statement.
+
+                ş  Use either the complete word, latched, or the three
+                   letter abbreviation, lat.
+ú
+Use
+
+There are two ways to enter the storage type.
+
+ş    Use the declaration segment form, you select the Storage field,
+     display the option list, and select an option.
+
+ş    Type the storage value in the appropriate pin or node statement
+     in the PDS file using a text editor.
+
+The PALCE29M16 and PALCE29MA16 have programmable latches.  The
+polarity of the latch can be inverted by placing a slash, /, in front
+of the .CLKF functional equation.  The default is active low enable.
+The following is an example of an active low enable equation:
+
+     PIN 1 EN
+     PIN 3 IOPIN
+     ...
+     /IOPIN.CLKF = EN
+
+The following equation provides an active high enable:
+
+     IOPIN.CLKF = EN
+
+The final polarity of the latch enable as seen from outside the chip
+is determined by the following conditions.
+
+ş    The polarity of the latch enable as defined in the pin statement
+
+ş    The polarity of the .CLKF functional equation
+
+ş    The polarity of the latch enable on the right-hand side of the
+     .CLKF functional equation
+
+The latch enable input controls whether the flip-flop is latched or
+not.  On the PAL10H20EG8 and PAL10H20G8 the latch is transparent when
+the gate pin is low.  The latch is enabled when the pin is high.
+ú
+Related Topics
+.CLKF
+COMBINATORIAL
+PIN
+REGISTERED
+ú

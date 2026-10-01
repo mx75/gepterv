@@ -1,0 +1,57 @@
+test1.pds
+
+PALASM4  PARSER   - MARKET RELEASE 1.5 (7-10-92)
+ (C) - COPYRIGHT ADVANCED MICRO DEVICES INC., 1992
+
+
+                    ***********************************
+                    *     PALASM PARSER LISTING       *
+                    ***********************************
+
+LINE #   |----+----1----+----2----+----3----+----4----+----5----+----6----+
+   1     |;MachXL Design Description
+   2     |;---------------------------------- Declaration Segment ------------
+   3     |TITLE    Memory controller for 512k sram board
+   4     |PATTERN  1
+   5     |REVISION 1.0
+   6     |AUTHOR   Fazekas Mihaly
+   7     |COMPANY  Technical University of Budapest (Telephone Center)
+   8     |DATE     11/01/15
+   9     |
+  10     |CHIP  _test1  PAL16R8
+  11     |;---------------------------------- PIN Declarations ---------------
+  12     |PIN     2  A   COMBINATORIAL
+  13     |PIN     3  B   COMBINATORIAL
+  14     |PIN     4  C   COMBINATORIAL
+  15     |PIN     5  D   COMBINATORIAL
+  16     |PIN     6  E   COMBINATORIAL
+  17     |PIN     7  F   COMBINATORIAL
+  18     |PIN     8  G   COMBINATORIAL
+  19     |PIN     9  H   COMBINATORIAL
+  20     |PIN     12 OUTA REGISTERED
+  21     |PIN     13 OUTB REGISTERED
+  22     |PIN     14 OUTC REGISTERED
+  23     |PIN     15 OUTD REGISTERED
+  24     |PIN     16 OUTE REGISTERED
+  25     |PIN     17 OUTF REGISTERED
+  26     |PIN     18 OUTG REGISTERED
+  27     |PIN     19 OUTH REGISTERED
+  28     |;----------------------------------- Boolean Equation Segment ------
+  29     |EQUATIONS
+  30     |
+  31     |OUTA := G
+  32     |;OUTA := A
+  33     |;OUTB := B
+  34     |;OUTC := C
+  35     |;OUTD := D
+  36     |;OUTE := E
+  37     |;OUTF := F
+  38     |;OUTG := G
+  39     |;OUTH := H
+  40     |;----------------------------------- Simulation Segment ------------
+  41     |SIMULATION
+  42     |;-------------------------------------------------------------------
+
+ %% PARSE %%    No errors.  No warnings.
+
+ %% PARSE %%    File processed successfully.    File:  test1.pds

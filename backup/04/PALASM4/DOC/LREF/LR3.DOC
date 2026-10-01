@@ -1,0 +1,102 @@
+ğ
+BOOLEAN EQUATION
+Overview
+These equations are used to define the desired logic functions
+produced at the outputs.  Boolean equations form the backbone of any
+PDS file containing a Boolean description.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+           Output_Pn     Assignment     Expression
+                         Operator
+
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Device support: All PLD devices.
+ú
+Syntax
+You use Boolean equations in the equations segment of a PDS file,
+following the keyword EQUATIONS.
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+           Output_Pn     Assignment     Expression
+                         Operator
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+           /O2               =          I1 * I2 * I3 + I4 * I5
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+
+Output_Pn       The name of an output pin or node defined in the
+                declaration segment of the PDS file.  Once defined,
+                you can include the name in a Boolean equation to
+                define how this output is to be used.
+
+Assignment      A symbol that defines a specific operation as
+Operator        interpreted by the software when processing design
+                files.
+
+Expression      A group of signals or product terms, on the right side
+                of an equation separated by logical operators.  The
+                product operator, *, denotes a logical AND function
+                and the sum operator, +, denotes a logical OR
+                function.  You can use strings and vectors in an
+                expression.
+
+                All values in an expression for a PLD design are
+                signal names that must be defined before their use.
+                The name must be defined in pin and node statements in
+                the declaration segment of the PDS file.
+ú
+Use
+The following conventions should be observed.
+
+ş    Place a Boolean equation in any order, unless it's a
+     substitution, in which case you must define the substitute
+     expression before using it.
+
+ş    Follow the structure shown in the syntax example; however, you
+     can include strings and vector notation.
+
+     a.  Include either blank spaces or a tab character before and
+         after the assignment operator.
+
+     b.  Use an equal sign as the assignment operator.
+
+        The software determines storage type, either Registered,
+        Combinatorial, or Latched, from the pin and node statements in
+        the declaration segment.
+
+ş    Include up to 80 characters per line in each equation and include
+     as many lines as necessary.
+
+You can place the expression on a separate line.
+
+You can use the following high-level language statements and
+constructs to specify logic behavior.  These are converted to Boolean
+equations during software processing.
+
+ş    CASE
+
+ş    FOR-TO-DO
+
+ş    IF-THEN-ELSE
+
+ş    WHILE-DO
+
+State equations are another high-level representation of logic
+behavior for state-machine designs.  When you compile a state-machine
+design, state equations are converted to Boolean equations.
+
+Functional equations are a type of Boolean equation that defines an
+input.  Functional equations have a similar format but a different
+use.
+ú
+Related Topics
+COMBINATORIAL
+EXPRESSION
+Functional Equation
+LATCHED
+REGISTERED
+State Equation
+ú

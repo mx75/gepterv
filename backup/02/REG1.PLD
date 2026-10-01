@@ -1,0 +1,59 @@
+Name      reg1;
+Partno    v1;
+Date      10/08/85;
+Rev       01;
+Designer  Michael;
+Company   SufniFabrik;
+Assembly  None;
+Location  None;
+Device    p20r8lcc;
+
+/** Inputs **/
+Pin 2               =  SYSCLK;
+/*Pin [3..7,9..11]    =  [D0..7];*/
+Pin [3..6]    =  [D0..3];
+/*Pin 7         = DX;*/
+/*
+Pin 9               = RES0;
+Pin 10              = ;
+Pin 11              = ;
+Pin 12              = !CS_REG;
+*/
+Pin 13              = !CS_REG;
+Pin 17              = !WR;
+Pin 27              = !SYSRESET;
+
+/** Outputs **/
+Pin 18              = !OUT0;
+Pin 19              = !OUT1;
+Pin 20              = !OUT2;
+Pin 21              = !OUT3;
+Pin 23              = !OUT4;
+Pin 24              = !OUT5;
+Pin 25              = !OUT6;
+Pin 26              = !OUT7;
+
+!OUT0.d   =  SYSRESET
+         # (!SYSRESET &  D0    &     CS_REG & WR  &   !D1 & !D2 & !D3)
+         # (!SYSRESET &  !OUT0 & ( !(CS_REG & WR) # !(!D1 & !D2 & !D3) ) );
+!OUT1.d   =  SYSRESET
+         # (!SYSRESET &  D0    &     CS_REG & WR  &    D1 & !D2 & !D3)
+         # (!SYSRESET &  !OUT1 & ( !(CS_REG & WR) # !( D1 & !D2 & !D3) ) );
+!OUT2.d   =  SYSRESET
+         # (!SYSRESET &  D0    &     CS_REG & WR  &   !D1 &  D2 & !D3)
+         # (!SYSRESET &  !OUT2 & ( !(CS_REG & WR) # !(!D1 &  D2 & !D3) ) );
+!OUT3.d   =  SYSRESET
+         # (!SYSRESET &  D0    &     CS_REG & WR  &    D1 &  D2 & !D3)
+         # (!SYSRESET &  !OUT3 & ( !(CS_REG & WR) # !( D1 &  D2 & !D3) ) );
+!OUT4.d   =  SYSRESET
+         # (!SYSRESET &  D0    &     CS_REG & WR  &   !D1 & !D2 &  D3)
+         # (!SYSRESET &  !OUT4 & ( !(CS_REG & WR) # !(!D1 & !D2 &  D3) ) );
+!OUT5.d   =  SYSRESET
+         # (!SYSRESET &  D0    &     CS_REG & WR  &    D1 & !D2 &  D3)
+         # (!SYSRESET &  !OUT5 & ( !(CS_REG & WR) # !( D1 & !D2 &  D3) ) );
+!OUT6.d   =  SYSRESET
+         # (!SYSRESET &  D0    &     CS_REG & WR  &   !D1 &  D2 &  D3)
+         # (!SYSRESET &  !OUT6 & ( !(CS_REG & WR) # !(!D1 &  D2 &  D3) ) );
+!OUT7.d   =  SYSRESET
+         # (!SYSRESET &  D0    &     CS_REG & WR  &    D1 &  D2 &  D3)
+         # (!SYSRESET &  !OUT7 & ( !(CS_REG & WR) # !( D1 &  D2 &  D3) ) );

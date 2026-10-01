@@ -1,0 +1,313 @@
+*SETUP
+Run All Programs
+Run All Through Parser
+Run All Through Boolean Postprocessor
+Run All Through STATE Syntax Expander
+Run All Through Logic Minimizer
+ReRun Fitter
+*SYNTHESIS_00
+8
+10
+12
+*SYNTHESIS_01
+10
+12
+14
+16
+*SYNTHESIS_1
+12
+13
+14
+15
+16
+17
+18
+19
+20
+*SYNTHESIS_2
+D,T As specified. JK,RS to D
+D,T As specified. JK,RS to T
+D,T As specified. JK,RS to Best
+Change all to D-type
+Change all to T-type
+Best type for device
+*SYNTHESIS_3
+As specified in design file
+Best for device
+Low, active low
+High, active high
+*SYNTHESIS_4
+Don't care
+Off
+*SYNTHESIS_5
+8
+12
+16
+18
+20
+*SYNTHESIS_6
+4
+8
+12
+*SYNTHESIS_7
+4
+8
+12
+16
+*MACH_1
+1
+2
+*MACH_4
+Last successful placement
+Saved placement
+*MACH_5
+Brief
+Detailed
+*Full
+*MACH_6
+Design file
+Last successful placement
+Saved placement
+*MACH_7
+Use all fitting options
+Run until 1st success: STD
+Run until 1st success: EXTRA
+Select one combination...
+*MACH_8
+H
+L
+*MACH_9
+No Change
+Float Pins, Nodes
+Float Pins, Nodes, Groups
+Float Nodes, Groups
+*MACH_10
+No Change
+Float Pins, Nodes
+Float Pins, Nodes, Groups
+Float Non-Input Nodes, Groups
+*MACH_11
+As specified in design file
+*MACH_12
+Global Clock
+Product Term Clock
+*PDS_MODE
+Text
+*SUPPL
+draft.exe /c [parameter]
+*MKT_DEVICE
+MACH110
+MACH111
+MACH120
+MACH121
+MACH130
+MACH131
+MACH210
+MACH211
+MACH215
+MACH220
+MACH221
+MACH231
+MACH355
+MACH435
+MACH445
+MACH446
+MACH465
+*INT_DEVICE
+MACH110
+MACH111
+MACH120
+MACH130
+MACH131
+MACH210
+MACH211
+MACH215
+MACH220
+MACH231
+MACH355
+MACH435
+MACH445
+MACH465
+*JTAG_DEV
+MACH355
+MACH445
+MACH446
+MACH465
+*JTAG_0
+lpt1
+lpt2
+lpt3
+*JCHAIN2
+Program device
+Verify device
+Read device
+Read user code
+Read Jtag ID
+Bypass mode
+*JCHAIN3
+0
+1
+X
+Z
+*=================POP-UP FIELDS FOR CREATE NEW PDS TEMPLATE PROGRAM ========
+*PIN_NODE
+
+PIN
+NODE
+*INPUT_OUTPUT
+
+INPUT
+OUTPUT
+IO
+*CMB_REG_LAT
+
+COMBINATORIAL
+REGISTERED
+LATCHED
+*ACT_LOW_HIGH
+
+ACTIVE_HIGH
+ACTIVE_LOW
+*moreDEVICEs
+*newDEVICEs
+MACH110
+MACH111
+MACH120
+MACH121
+MACH130
+MACH131
+MACH210
+MACH211
+MACH215
+MACH220
+MACH221
+MACH231
+MACH355
+MACH435
+MACH445
+MACH446
+MACH465
+*=================HELP FOR CREATE NEW PDS TEMPLATE PROGRAM ================
+*TITLE
+Title   : Identifies the title of the Design. Use any combination
+          of up to 59 alphanumeric characters in the title.  The title
+          can include the characters a-z, the numerals 0-9, the period,
+          and the underscore character.  The software generates a
+          warning if the Title statement is omitted, but continues
+          processing.
+*PATTERN
+Pattern : Provides a place to document the pattern (if any) or other
+          identifying code for the file. The pattern name can include
+          the characters a-z, the numerals 0-9, the period,
+          and the underscore character.  The software generates a
+          warning if the Pattern statement is omitted, but continues
+          processing.
+*REVISION
+Revision: Identifies the revision (if any) of a MACHXL design file. The
+          revision name can include the characters a-z, the numerals 0-9,
+          the period, and the underscore character.  The software generates
+          a warning if the Revision statement is omitted, but continues
+          processing.
+*AUTHOR
+Author  : Identifies the author(s) of the MACHXL design. The author name(s)
+          can include the characters a-z, the numerals 0-9, the period,
+          and the underscore character.  The software generates a warning
+          if the Author statement is omitted, but continues processing.
+*COMPANY
+Company : Identifies the Company or other Business id of the creator of
+          the MACHXL design file. The company name can include the
+          characters a-z, the numerals 0-9, the period, and the underscore
+          character.  The software generates a warning if the Company
+          statement is omitted, but continues processing.
+*DATE
+The system automatically enters today's date which it gets from your
+computer system.  You can overtype this with another date if you prefer.
+
+Date    : Identifies the Date this design was created. The date can include
+          the characters a-z, the numerals 0-9, the period, and the
+          underscore character.  The software generates a warning if the
+          Date statement is omitted, but continues processing.
+*CHIPNAME
+The Chip Name assigns a name to the chip. Up to 14 alphanumeric characters
+may be used. The CHIP statement is automatically constructed by the program
+using the design name but may be overwritten by a name of your choice.
+
+Characters allowed are:-   'A - Z', 'a - z', '0 - 9', '_' 
+ 
+                          This entry is REQUIRED!
+*DEVICENAME 
+The device to be used for this design must be selected from the list that
+is provided.
+              eg. MACH110
+                  MACH120
+                  etc.
+
+Highlight the desired device and press <enter>
+*PINNODE
+Select PIN to begin a PIN statement.  Select NODE to begin a NODE
+statement.
+*PINNUMBER
+PIN NUMBER can be from 1 to Maximum number of physical pins on the
+selected device or may be specified by '?' which allows the software
+to determine the best placement for the pin.
+
+NODE NUMBER can be from 1 to Maximum number of nodes defined for the
+selected device or may be specified by '?' which allows the software
+to determine the best placement for the node.
+
+Input Format is either as <number> or <range> where:-
+
+	<number>  = integer 1 to max Pin/Node number
+	<range>   = <number>..<number>
+		  = <number>,<number>
+		  	
+Check the manual for a more complete description of the syntax.
+*PINNAME
+PIN/NODE name is a logical name assigned to the PIN/NODE. All design
+signals must be described in terms of the PIN/NODE name. The following
+rules apply:
+
+Each name must be unique.
+
+Input Format is either as <name> or name[<range>] where:-
+        <name>    = identifier using the characters: -
+			'A - Z', 'a - z', '0 - 9', '_' 
+		    The first character must be Alphabetic.
+
+	<number>  = integer
+	<range>   = <number>..<number>
+		  = <number>,<number>
+		  	
+check manual for exact syntax.
+*PAIRED
+OUTPUT PAIRING - use with a NODE definition:
+
+Use output pairing to associate a node with an output pin.  To perform
+explicit output pairing specify the name of a pin to which the declared
+node should be associated.  The software will add the keyword PAIR to your
+node statement, and will append the name of the pin specified in this field.
+
+
+INPUT PAIRING - use with a PIN definition:
+
+Use input pairing to associate a pin with a node.  To perform explicit
+input pairing specify the name of a node to which the declared pin should
+be associated.  The software will add the keyword PAIR to your pin statement
+and will append the name of the node specified in this field.
+
+For more information on pairing please refer to the MACHXL manual.
+
+*STORAGE
+
+Select COMBINATIORIAL, REGISTERED, LATCHED or BLANK for the pin/node being
+defined.  Blank defaults to combinatorial, but allows a pin or node to
+take its storage-type definition from the node or pin with which it is
+paired.  See the manual or a data sheet for information about which
+storage types are valid for each device.
+*COMMENT
+
+Select one of the available comments or leave the field blank.  Comments
+have no effect on design processing.  Any text that follows a semicolon is
+treated as a comment and is ignored by MACHXL.  All comments are for user
+information only.
+
