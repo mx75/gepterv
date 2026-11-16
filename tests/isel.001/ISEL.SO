@@ -1,0 +1,62 @@
+CSIM: CUPL Simulation Program
+Version 4.0a Serial# MD-40A-8249
+Copyright (C)  1983,1990 Logical Devices, Inc.
+CREATED Fri Sep 18 12:16:38 2026
+
+LISTING FOR SIMULATION FILE: isel.pld.si
+
+   1: Name      isel;
+   2: Partno    v1;
+   3: Date      10/08/85;
+   4: Rev       01;
+   5: Designer  Michael;
+   6: Company   SufniFabrik;
+   7: Assembly  None;
+   8: Location  None;
+   9: Device    p20l8lcc;
+  10: 
+  11: ORDER:
+  12: /** Inputs **/
+  13: ISEL,%1,IEO_KIO_A,IEO_KIO_B,%1,IEO_DMA_A,IEO_DMA_B,IEO_DMA_C,IEO_DMA_D,%3,
+  14: 
+  15: /** Outputs **/
+  16: IEI_KIO_A,IEI_KIO_B,%1,IEI_DMA_A,IEI_DMA_B,IEI_DMA_C,IEI_DMA_D;
+  17: 
+
+===============================================================================
+                              Simulation Results
+===============================================================================
+                |        
+                |        
+        !! !!!! | !! !!!!
+        II IIII | II IIII
+        EE EEEE | EE EEEE
+        OO OOOO | II IIII
+        __ ____ | __ ____
+      I KK DDDD | KK DDDD
+      S II MMMM | II MMMM
+      E OO AAAA | OO AAAA
+      L __ ____ | __ ____
+      0 AB ABCD | AB ABCD
+      ==========+=========
+0001: 0 11 1111   HH HHHH
+      KIO1 -> DMA1 -> DMA2 -> KIO2 -> DMA3 -> DMA4
+0002: 0 11 1111   HH HHHH
+0003: 0 01 1111   HL LLLL
+0004: 0 10 1111   HH HHLL
+0005: 0 11 1111   HH HHHH
+0006: 0 11 0111   HL HLLL
+0007: 0 11 1011   HL HHLL
+0008: 0 11 1101   HH HHHL
+0009: 0 11 1110   HH HHHH
+0010: 0 11 1111   HH HHHH
+      DMA4 -> KIO1 -> DMA1 -> DMA2 -> KIO2 -> DMA3
+0011: 1 11 1111   HH HHHH
+0012: 1 01 1111   HL LLLH
+0013: 1 10 1111   HH HHLH
+0014: 1 11 1111   HH HHHH
+0015: 1 11 0111   HL HLLH
+0016: 1 11 1011   HL HHLH
+0017: 1 11 1101   HH HHHH
+0018: 1 11 1110   LL LLLH
+0019: 1 11 1111   HH HHHH

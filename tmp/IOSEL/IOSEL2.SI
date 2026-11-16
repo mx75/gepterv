@@ -1,0 +1,44 @@
+Name      iosel2;
+Partno    v1;
+Date      10/08/85;
+Rev       01;
+Designer  Michael;
+Company   SufniFabrik;
+Assembly  None;
+Location  None;
+Device    p20l8lcc;
+
+ORDER:
+/** Inputs **/
+A7..3,%1,!IOREQ,%1,!MX,%3,
+
+/** Outputs **/
+!CS_BANK,%1,!CS_REG,%1,!CS_I2C;
+
+VECTORS:
+$msg "                |      ";
+$msg "                | !    ";
+$msg "                | C ! !";
+$msg "            !   | S C C";
+$msg "            I   | _ S S";
+$msg "            O   | B _ _";
+$msg "            R ! | A R I";
+$msg "      AAAAA E M | N E 2";
+$msg "      76543 Q X | K G C";
+$msg "      ==========+======";
+            11100 1 1   * * *
+            11100 1 1   * * *
+            01000 1 1   * * *
+$msg "!CS_BANK:";
+            10100 1 1   * * *
+            10100 0 1   * * *
+            10100 1 0   * * *
+$msg "!CS_REG:";
+            10110 1 1   * * *
+            10110 0 1   * * *
+            10110 1 0   * * *
+$msg "!CS_I2C:";
+            10111 1 1   * * *
+            10111 0 1   * * *
+            10111 1 0   * * *
+

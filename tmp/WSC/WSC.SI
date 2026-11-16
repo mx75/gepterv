@@ -1,0 +1,109 @@
+Name      wsc;
+Partno    v1;
+Date      10/08/85;
+Rev       01;
+Designer  Michael;
+Company   SufniFabrik;
+Assembly  None;
+Location  None;
+Device    p16r6;
+
+ORDER:
+/** Inputs **/
+SYSCLK,%1,WCNT3..0,%1,!WSEN1,!WSEN0,%1,!SYSRESET,%1,!OE,%3,
+
+/** Outputs **/
+Q3,Q2,Q1,Q0,%1,WTB,%1,WTT,%1,WTE,%1,WAIT;
+
+VECTORS:
+$msg "                !   |             ";
+$msg "      S      !! S   |             ";
+$msg "      Y WWWW WW R   |            !";
+$msg "      S CCCC SS E   |            W";
+$msg "      C NNNN EE S ! |      W W W A";
+$msg "      L TTTT NN E O | QQQQ T T T I";
+$msg "      K 3210 10 T E | 3210 B T E T";
+$msg "      ==============+==============";
+$msg "WCNT[3..0]=0110, !WSEN=1, SYSRESET=0";
+$repeat 3;
+            C 0110 11 0 0   **** * * * *
+$msg "WCNT[3..0]=0110, !WSEN=0";
+$repeat 3;
+            C 0110 00 1 0   **** * * * *
+$msg "WCNT[3..0]=0110, !WSEN=1";
+$repeat 10;
+            C 0110 11 1 0   **** * * * *
+$msg "WCNT[3..0]=0101, !WSEN=0";
+$repeat 3;
+            C 0101 00 1 0   **** * * * *
+$msg "WCNT[3..0]=0110, !WSEN=1";
+$repeat 10;
+            C 0101 11 1 0   **** * * * *
+$msg "WCNT[3..0]=0000, !WSEN=0";
+$repeat 3;
+            C 0000 00 1 0   **** * * * *
+$msg "WCNT[3..0]=0000, !WSEN=1";
+$repeat 3;
+            C 0000 11 1 0   **** * * * *
+$msg "WCNT[3..0]=0001, !WSEN=0";
+$repeat 3;
+            C 0001 00 1 0   **** * * * *
+$msg "WCNT[3..0]=0001, !WSEN=1";
+$repeat 3;
+            C 0001 11 1 0   **** * * * *
+$msg "WCNT[3..0]=1111, !WSEN=0";
+$repeat 20;
+            C 1111 00 1 0   **** * * * *
+$msg "WCNT[3..0]=1111, !WSEN=1";
+$repeat 20;
+            C 1111 11 1 0   **** * * * *
+$msg "WCNT[3..0]=1111, !WSEN=0";
+$repeat 13;
+            C 1111 00 1 0   **** * * * *
+$msg "WCNT[3..0]=1111, !WSEN=1";
+$repeat 10;
+            C 1111 11 1 0   **** * * * *
+
+
+
+
+/*
+$msg "WCNT[3..0]=0110, !WSEN=1, SYSRESET=0";
+$repeat 3;
+            C 0110 1 0 0   **** * * * *
+$msg "WCNT[3..0]=0110, !WSEN=1";
+$repeat 3;
+            C 0110 1 1 0   **** * * * *
+$msg "WCNT[3..0]=0110, !WSEN=1";
+$repeat 3;
+            C 0110 1 1 0   **** * * * *
+$msg "WCNT[3..0]=0110, !WSEN=1";
+$repeat 3;
+            C 0110 1 1 0   **** * * * *
+$msg "WCNT[3..0]=0110, !WSEN=1";
+$repeat 3;
+            C 0110 1 1 0   **** * * * *
+$msg "WCNT[3..0]=0110, !WSEN=0";
+$repeat 20;
+            C 0110 0 1 0   **** * * * *
+$msg "WCNT[3..0]=0110, !WSEN=1";
+$repeat 5;
+            C 0110 1 1 0   **** * * * *
+$msg "WCNT[3..0]=0010, !WSEN=0";
+$repeat 20;
+            C 0010 0 1 0   **** * * * *
+$msg "WCNT[3..0]=0010, !WSEN=1";
+$repeat 5;
+            C 0010 1 1 0   **** * * * *
+$msg "WCNT[3..0]=0000, !WSEN=0";
+$repeat 20;
+            C 0000 0 1 0   **** * * * *
+$msg "WCNT[3..0]=0000, !WSEN=1";
+$repeat 5;
+            C 0000 1 1 0   **** * * * *
+$msg "WCNT[3..0]=0110, !WSEN=0";
+$repeat 3;
+            C 0110 0 1 0   **** * * * *
+$repeat 17;
+            C 0110 1 1 0   **** * * * *
+*/

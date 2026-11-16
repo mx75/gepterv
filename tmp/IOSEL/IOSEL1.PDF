@@ -1,0 +1,191 @@
+{COMPONENT IOSEL1.PLD.SYM
+
+ {ENVIRONMENT
+  {PDIFvrev 3.00}
+  {Program "CUPL Version 4.0a"}
+  {DBtype "Schematic"}
+  {DBvrev 1.01}
+  {DBtime "Wed Oct 07 07:55:25 2026 "}
+  {DBunit "MIL"}
+  {DBgrid 10}
+  {Lyrstr "WIRES" 1 "BUS" 1 "GATE" 2 "IEEE" 2 "PINFUN" 3 "PINNUM" 1 
+          "PINNAM" 6 "PINCON" 4 "REFDES" 2 "ATTR" 6 "SDOT" 1 
+          "DEVICE" 5 "OUTLIN" 5 "ATTR2" 6 "NOTES" 6 "NETNAM" 4 
+          "CMPNAM" 5 "BORDER" 5}
+ }
+
+ {USER
+  {VIEW
+   {Mode SYMB}
+   {Nlst OPEN}
+   {Vw 0 0 2}
+   {Lv 12 2 2 2 0 0 2 2 2 2 0 0 2 1 2 0 0 0 0}
+   {Gs 10 10}
+  }
+ }
+
+ {DISPLAY
+  [Ly "PINNUM"]
+  [Ls "SOLID"][Wd 0]
+  [Ts 15][Tj "LC"][Tr 0][Tm "N"]
+ }
+
+ {SYMBOL
+  {PIN_DEF
+   [Ly "PINCON"]
+   {P A7 {Pt "INPUT"}{Lq 0}{Ploc 100 160}}
+   {P A6 {Pt "INPUT"}{Lq 0}{Ploc 100 140}}
+   {P A5 {Pt "INPUT"}{Lq 0}{Ploc 100 120}}
+   {P MX' {Pt "INPUT"}{Lq 0}{Ploc 100 100}}
+   {P IOREQ' {Pt "INPUT"}{Lq 0}{Ploc 100 80}}
+   {P A4 {Pt "INPUT"}{Lq 0}{Ploc 100 60}}
+   {P A3 {Pt "INPUT"}{Lq 0}{Ploc 100 40}}
+   {P A2 {Pt "INPUT"}{Lq 0}{Ploc 100 20}}
+   {P CS_KIO1' {Pt "I/O"}{Lq 0}{Ploc 320 20}}
+   {P CS_KIO2' {Pt "I/O"}{Lq 0}{Ploc 320 40}}
+   {P CS_KIO3' {Pt "I/O"}{Lq 0}{Ploc 320 60}}
+   {P CS_KIO4' {Pt "I/O"}{Lq 0}{Ploc 320 80}}
+   {P CS_DMA1' {Pt "I/O"}{Lq 0}{Ploc 320 100}}
+   {P CS_DMA2' {Pt "I/O"}{Lq 0}{Ploc 320 120}}
+   {P CS_DMA3' {Pt "I/O"}{Lq 0}{Ploc 320 140}}
+   {P CS_DMA4' {Pt "I/O"}{Lq 0}{Ploc 320 160}}
+  }
+
+  {PKG
+   [Ly "REFDES"]
+   [Ts 25][Tj "CB"][Tr 0][Tm "N"]
+   {Rdl 210 190}
+
+   [Ly "PINNUM"]
+   [Ts 15][Tj "RC"]
+   {Pnl 120 170}
+   {Pnl 120 150}
+   {Pnl 120 130}
+   {Pnl 120 110}
+   {Pnl 120 90}
+   {Pnl 120 70}
+   {Pnl 120 50}
+   {Pnl 120 30}
+   [Ts 15][Tj "LC"]
+   {Pnl 300 30}
+   {Pnl 300 50}
+   {Pnl 300 70}
+   {Pnl 300 90}
+   {Pnl 300 110}
+   {Pnl 300 130}
+   {Pnl 300 150}
+   {Pnl 300 170}
+
+   {Sd A 2 3 4 9 10 13 17 27 18 19 20 21 23 24 25 26}
+  }
+
+  {PIC
+   [Ly "GATE"]
+   [Ts 15][Tj "LC"][Tr 0][Tm "N"]
+   {R 130 180 290 0}
+   {L 130 160 100 160}
+   {L 130 140 100 140}
+   {L 130 120 100 120}
+   {L 120 100 100 100}
+   {C 125 100 5}
+   {L 120 80 100 80}
+   {C 125 80 5}
+   {L 130 60 100 60}
+   {L 130 40 100 40}
+   {L 130 20 100 20}
+   {C 295 20 5}
+   {L 300 20 320 20}
+   {C 295 40 5}
+   {L 300 40 320 40}
+   {C 295 60 5}
+   {L 300 60 320 60}
+   {C 295 80 5}
+   {L 300 80 320 80}
+   {C 295 100 5}
+   {L 300 100 320 100}
+   {C 295 120 5}
+   {L 300 120 320 120}
+   {C 295 140 5}
+   {L 300 140 320 140}
+   {C 295 160 5}
+   {L 300 160 320 160}
+   [Ly "PINNAM"]
+   [Tj "LC"]
+   {T "A7" 140 160}
+   {T "A6" 140 140}
+   {T "A5" 140 120}
+   {T "MX'" 140 100}
+   {T "IOREQ'" 140 80}
+   {T "A4" 140 60}
+   {T "A3" 140 40}
+   {T "A2" 140 20}
+   [Tj "RC"]
+   {T "CS_KIO1'" 280 20}
+   {T "CS_KIO2'" 280 40}
+   {T "CS_KIO3'" 280 60}
+   {T "CS_KIO4'" 280 80}
+   {T "CS_DMA1'" 280 100}
+   {T "CS_DMA2'" 280 120}
+   {T "CS_DMA3'" 280 140}
+   {T "CS_DMA4'" 280 160}
+   [Ly "DEVICE"]
+   [Tj "CT"]
+   {T "P20L8LCC" 210 -10}
+  }
+
+  {ATR
+   {IN
+    {Org 100 20}
+    {Ty 255}
+   }
+   {EX
+    [Ly "ATTR2"]
+    [Ts 12][Tj "CT"][Tr 0][Tm "N"]
+    {At PLD IOSEL1.PLD 210 180}
+   }
+  }
+ }
+
+ {DETAIL
+  {ANNOTATE
+  }
+
+  {NET_DEF
+   {N A7
+   }
+   {N A6
+   }
+   {N A5
+   }
+   {N MX'
+   }
+   {N IOREQ'
+   }
+   {N A4
+   }
+   {N A3
+   }
+   {N A2
+   }
+   {N CS_KIO1'
+   }
+   {N CS_KIO2'
+   }
+   {N CS_KIO3'
+   }
+   {N CS_KIO4'
+   }
+   {N CS_DMA1'
+   }
+   {N CS_DMA2'
+   }
+   {N CS_DMA3'
+   }
+   {N CS_DMA4'
+   }
+  }
+
+  {SUBCOMP
+  }
+ }
+}

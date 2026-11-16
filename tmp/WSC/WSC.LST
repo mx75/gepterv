@@ -1,0 +1,84 @@
+LISTING FOR LOGIC DESCRIPTION FILE: wsc.pld.pld                      Page 1
+
+CUPL: Universal Compiler for Programmable Logic
+Version 3.2a Serial# MD-32A-6365
+Copyright (C)  1983,1989 Logical Devices, Inc.
+Created Sat Mar 06 14:44:59 2021
+
+  1:Name      wsc;
+  2:Partno    v1;
+  3:Date      10/08/85;
+  4:Rev       01;
+  5:Designer  Michael;
+  6:Company   SufniFabrik;
+  7:Assembly  None;
+  8:Location  None;
+  9:Device    p16r6;
+ 10:
+ 11:/** Inputs **/
+ 12:Pin 1      =  SYSCLK;
+ 13:Pin [5..2] =  [WCNT0..3];
+ 14:Pin 6      = !WSEN1;
+ 15:Pin 7      = !SYSRESET;
+ 16:Pin 11     = !OE;
+ 17:Pin 8      = !WSEN0;
+ 18:/*
+ 19:Pin [8..9] = [!CCW1..0];
+ 20:*/
+ 21:
+ 22:/** Outputs **/
+ 23:Pin 12      =  WAIT;
+ 24:Pin [16..13]=  [Q0..3];
+ 25:Pin 17      =  WTB;
+ 26:Pin 18      =  WTE;
+ 27:Pin 19      =  WTT;
+ 28:
+ 29:
+ 30:WTT     = (!Q3 $ WCNT3) & (!Q2 $ WCNT2) & (!Q1 $ WCNT1);
+ 31:WTB.d   =  WSEN0 # WSEN1 # Q0 # Q1 # Q2 # Q3;
+ 32:WTE.d   = (WTB & WTE) # (WTT & (!Q0 $ WCNT0));
+ 33:/*
+ 34:WTT     = (!Q3 $ (WCNT3 # MAXWS)) & (!Q2 $ (WCNT2 # MAXWS)) & (!Q1 $ (WCNT1 # MAXWS));
+ 35:WTE.d   = (WTB & WTE) # (WTT & (!Q0 $ WCNT0)) & (!MAXWS # MAXWS & Q0 & Q1 & Q2 & Q3);
+ 36:*/
+ 37:
+ 38:!WAIT   = WTB & !WTE;
+ 39:WAIT.oe = WTB & !WTE;
+ 40:
+ 41:!Q0.d   =  SYSRESET
+ 42:        # !WTB
+ 43:        #  WTE
+ 44:        # !SYSRESET &  Q0;
+ 45:!Q1.d   =  SYSRESET
+ 46:        # !WTB
+ 47:        #  WTE
+ 48:        # !SYSRESET &   Q1 &  Q0
+ 49:        # !SYSRESET &  !Q1 & !Q0;
+ 50:!Q2.d   =  SYSRESET
+ 51:        # !WTB
+ 52:        #  WTE
+ 53:        # !SYSRESET &   Q2 &  Q1 &  Q0
+
+LISTING FOR LOGIC DESCRIPTION FILE: wsc.pld.pld                      Page 2
+
+CUPL: Universal Compiler for Programmable Logic
+Version 3.2a Serial# MD-32A-6365
+Copyright (C)  1983,1989 Logical Devices, Inc.
+Created Sat Mar 06 14:44:59 2021
+
+ 54:        # !SYSRESET &  !Q2 & !Q0
+ 55:        # !SYSRESET &  !Q2 & !Q1;
+ 56:!Q3.d   =  SYSRESET
+ 57:        # !WTB
+ 58:        #  WTE
+ 59:        # !SYSRESET &   Q3 &  Q2 &  Q1 &  Q0
+ 60:        # !SYSRESET &  !Q3 & !Q0
+ 61:        # !SYSRESET &  !Q3 & !Q1
+ 62:        # !SYSRESET &  !Q3 & !Q2;
+ 63:
+ 64:
+
+
+
+Jedec Fuse Checksum       (8A58)
+Jedec Transmit Checksum   (7945)

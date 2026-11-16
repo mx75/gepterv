@@ -1,0 +1,20 @@
+ORDER : _CLOCK , %3 , _OE , %3 , shift , %1 , input , %2 , output ;
+VECTORS :
+$macro m1 (x ,y , z );
+$set shift = x ;
+$set input = y ;
+$set output = z ;
+$mend ;
+$macro m2 (a ,b ,c , d );
+$call m1 (a ,b , c );
+$for i = 1..8 :
+$out ; $comp shift = shift + 1;
+$comp output = output / 2 + d ;
+$endf ;
+$mend ;
+0 0 ’X ’ XXXXXXXX LLLLLLLL /* power - on reset state */
+$set _CLOCK = C ;
+$call m2 ( ’0 ’ , ’80 ’ ,"80" , 0);
+$call m2 ( ’0 ’ , ’7f ’ ,"7 f " , 128);
+
+

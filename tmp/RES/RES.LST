@@ -1,0 +1,351 @@
+LISTING FOR LOGIC DESCRIPTION FILE: res.pld.pld                      Page 1
+
+CUPL: Universal Compiler for Programmable Logic
+Version 4.0a Serial# MD-40A-8249
+Copyright (C)  1983,1990 Logical Devices, Inc.
+Created Wed Oct 07 09:08:27 2026
+
+  1:Name      res;
+  2:Partno    v1;
+  3:Date      10/08/85;
+  4:Rev       01;
+  5:Designer  Michael;
+  6:Company   SufniFabrik;
+  7:Assembly  None;
+  8:Location  None;
+  9:Device    p16r6;
+ 10:
+ 11:/** Inputs **/
+ 12:Pin 1      =  CLK;
+ 13:/*Pin 11     = !OE;*/
+ 14:Pin 2      = !PURESET;
+ 15:Pin 6      = !CS_I2C;
+ 16:Pin 7      = !RBUTTON;
+ 17:Pin 8      = !SELFRESET;
+ 18:Pin 9      = !WR;
+ 19:
+ 20:/** Outputs **/
+ 21:Pin 12     = !SYSRESET;
+ 22:Pin 13     = !Q5;
+ 23:Pin 14     = !Q4;
+ 24:Pin 15     = !Q3;
+ 25:Pin 16     = !Q2;
+ 26:Pin 17     = !Q1;
+ 27:Pin 18     = !Q0;
+ 28:Pin 19     = !WR_I2C;
+ 29:
+ 30:FIELD   count = [Q5..0];
+ 31:
+ 32:
+ 33:$DEFINE S0 'd'0
+ 34:
+ 35:$DEFINE S1 'd'1
+ 36:
+ 37:$DEFINE S2 'd'2
+ 38:
+ 39:$DEFINE S3 'd'3
+ 40:
+ 41:$DEFINE S4 'd'4
+ 42:
+ 43:$DEFINE S5 'd'5
+ 44:
+ 45:$DEFINE S6 'd'6
+ 46:
+ 47:$DEFINE S7 'd'7
+ 48:
+ 49:$DEFINE S8 'd'8
+ 50:
+ 51:$DEFINE S9 'd'9
+ 52:
+ 53:$DEFINE S10 'd'10
+
+LISTING FOR LOGIC DESCRIPTION FILE: res.pld.pld                      Page 2
+
+CUPL: Universal Compiler for Programmable Logic
+Version 4.0a Serial# MD-40A-8249
+Copyright (C)  1983,1990 Logical Devices, Inc.
+Created Wed Oct 07 09:08:27 2026
+
+ 54:
+ 55:$DEFINE S11 'd'11
+ 56:
+ 57:$DEFINE S12 'd'12
+ 58:
+ 59:$DEFINE S13 'd'13
+ 60:
+ 61:$DEFINE S14 'd'14
+ 62:
+ 63:$DEFINE S15 'd'15
+ 64:
+ 65:$DEFINE S16 'd'16
+ 66:
+ 67:$DEFINE S17 'd'17
+ 68:
+ 69:$DEFINE S18 'd'18
+ 70:
+ 71:$DEFINE S19 'd'19
+ 72:
+ 73:$DEFINE S20 'd'20
+ 74:
+ 75:$DEFINE S21 'd'21
+ 76:
+ 77:$DEFINE S22 'd'22
+ 78:
+ 79:$DEFINE S23 'd'23
+ 80:
+ 81:$DEFINE S24 'd'24
+ 82:
+ 83:$DEFINE S25 'd'25
+ 84:
+ 85:$DEFINE S26 'd'26
+ 86:
+ 87:$DEFINE S27 'd'27
+ 88:
+ 89:$DEFINE S28 'd'28
+ 90:
+ 91:$DEFINE S29 'd'29
+ 92:
+ 93:$DEFINE S30 'd'30
+ 94:
+ 95:$DEFINE S31 'd'31
+ 96:
+ 97:$DEFINE S32 'd'32
+ 98:
+ 99:$DEFINE S33 'd'33
+100:
+101:$DEFINE S34 'd'34
+102:
+103:$DEFINE S35 'd'35
+104:
+105:$DEFINE S36 'd'36
+106:
+107:$DEFINE S37 'd'37
+
+LISTING FOR LOGIC DESCRIPTION FILE: res.pld.pld                      Page 3
+
+CUPL: Universal Compiler for Programmable Logic
+Version 4.0a Serial# MD-40A-8249
+Copyright (C)  1983,1990 Logical Devices, Inc.
+Created Wed Oct 07 09:08:27 2026
+
+108:
+109:$DEFINE S38 'd'38
+110:
+111:$DEFINE S39 'd'39
+112:
+113:$DEFINE S40 'd'40
+114:
+115:$DEFINE S41 'd'41
+116:
+117:$DEFINE S42 'd'42
+118:
+119:$DEFINE S43 'd'43
+120:
+121:$DEFINE S44 'd'44
+122:
+123:$DEFINE S45 'd'45
+124:
+125:$DEFINE S46 'd'46
+126:
+127:$DEFINE S47 'd'47
+128:
+129:$DEFINE S48 'd'48
+130:
+131:$DEFINE S49 'd'49
+132:
+133:$DEFINE S50 'd'50
+134:
+135:$DEFINE S51 'd'51
+136:
+137:$DEFINE S52 'd'52
+138:
+139:$DEFINE S53 'd'53
+140:
+141:$DEFINE S54 'd'54
+142:
+143:$DEFINE S55 'd'55
+144:
+145:$DEFINE S56 'd'56
+146:
+147:$DEFINE S57 'd'57
+148:
+149:$DEFINE S58 'd'58
+150:
+151:$DEFINE S59 'd'59
+152:
+153:$DEFINE S60 'd'60
+154:
+155:$DEFINE S61 'd'61
+156:
+157:$DEFINE S62 'd'62
+158:
+159:$DEFINE S63 'd'63
+160:
+161:SEQUENCE count {
+
+LISTING FOR LOGIC DESCRIPTION FILE: res.pld.pld                      Page 4
+
+CUPL: Universal Compiler for Programmable Logic
+Version 4.0a Serial# MD-40A-8249
+Copyright (C)  1983,1990 Logical Devices, Inc.
+Created Wed Oct 07 09:08:27 2026
+
+162:
+163:        PRESENT 'd'0 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'1;
+164:            DEFAULT NEXT 'd'0;
+165:        PRESENT 'd'1 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'2;
+166:            DEFAULT NEXT 'd'0;
+167:        PRESENT 'd'2 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'3;
+168:            DEFAULT NEXT 'd'0;
+169:        PRESENT 'd'3 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'4;
+170:            DEFAULT NEXT 'd'0;
+171:        PRESENT 'd'4 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'5;
+172:            DEFAULT NEXT 'd'0;
+173:        PRESENT 'd'5 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'6;
+174:            DEFAULT NEXT 'd'0;
+175:        PRESENT 'd'6 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'7;
+176:            DEFAULT NEXT 'd'0;
+177:        PRESENT 'd'7 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'8;
+178:            DEFAULT NEXT 'd'0;
+179:        PRESENT 'd'8 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'9;
+180:            DEFAULT NEXT 'd'0;
+181:        PRESENT 'd'9 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'10;
+182:            DEFAULT NEXT 'd'0;
+183:        PRESENT 'd'10 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'11;
+184:            DEFAULT NEXT 'd'0;
+185:        PRESENT 'd'11 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'12;
+186:            DEFAULT NEXT 'd'0;
+187:        PRESENT 'd'12 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'13;
+188:            DEFAULT NEXT 'd'0;
+189:        PRESENT 'd'13 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'14;
+190:            DEFAULT NEXT 'd'0;
+191:        PRESENT 'd'14 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'15;
+192:            DEFAULT NEXT 'd'0;
+193:        PRESENT 'd'15 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'16;
+194:            DEFAULT NEXT 'd'0;
+195:        PRESENT 'd'16 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'17;
+196:            DEFAULT NEXT 'd'0;
+197:        PRESENT 'd'17 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'18;
+198:            DEFAULT NEXT 'd'0;
+199:        PRESENT 'd'18 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'19;
+200:            DEFAULT NEXT 'd'0;
+201:        PRESENT 'd'19 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'20;
+202:            DEFAULT NEXT 'd'0;
+203:        PRESENT 'd'20 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'21;
+204:            DEFAULT NEXT 'd'0;
+205:        PRESENT 'd'21 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'22;
+206:            DEFAULT NEXT 'd'0;
+207:        PRESENT 'd'22 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'23;
+208:            DEFAULT NEXT 'd'0;
+209:        PRESENT 'd'23 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'24;
+210:            DEFAULT NEXT 'd'0;
+211:        PRESENT 'd'24 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'25;
+212:            DEFAULT NEXT 'd'0;
+213:        PRESENT 'd'25 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'26;
+214:            DEFAULT NEXT 'd'0;
+215:        PRESENT 'd'26 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'27;
+
+LISTING FOR LOGIC DESCRIPTION FILE: res.pld.pld                      Page 5
+
+CUPL: Universal Compiler for Programmable Logic
+Version 4.0a Serial# MD-40A-8249
+Copyright (C)  1983,1990 Logical Devices, Inc.
+Created Wed Oct 07 09:08:27 2026
+
+216:            DEFAULT NEXT 'd'0;
+217:        PRESENT 'd'27 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'28;
+218:            DEFAULT NEXT 'd'0;
+219:        PRESENT 'd'28 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'29;
+220:            DEFAULT NEXT 'd'0;
+221:        PRESENT 'd'29 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'30;
+222:            DEFAULT NEXT 'd'0;
+223:        PRESENT 'd'30 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'31;
+224:            DEFAULT NEXT 'd'0;
+225:        PRESENT 'd'31 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'32;
+226:            DEFAULT NEXT 'd'0;
+227:        PRESENT 'd'32 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'33;
+228:            DEFAULT NEXT 'd'0;
+229:        PRESENT 'd'33 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'34;
+230:            DEFAULT NEXT 'd'0;
+231:        PRESENT 'd'34 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'35;
+232:            DEFAULT NEXT 'd'0;
+233:        PRESENT 'd'35 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'36;
+234:            DEFAULT NEXT 'd'0;
+235:        PRESENT 'd'36 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'37;
+236:            DEFAULT NEXT 'd'0;
+237:        PRESENT 'd'37 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'38;
+238:            DEFAULT NEXT 'd'0;
+239:        PRESENT 'd'38 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'39;
+240:            DEFAULT NEXT 'd'0;
+241:        PRESENT 'd'39 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'40;
+242:            DEFAULT NEXT 'd'0;
+243:        PRESENT 'd'40 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'41;
+244:            DEFAULT NEXT 'd'0;
+245:        PRESENT 'd'41 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'42;
+246:            DEFAULT NEXT 'd'0;
+247:        PRESENT 'd'42 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'43;
+248:            DEFAULT NEXT 'd'0;
+249:        PRESENT 'd'43 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'44;
+250:            DEFAULT NEXT 'd'0;
+251:        PRESENT 'd'44 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'45;
+252:            DEFAULT NEXT 'd'0;
+253:        PRESENT 'd'45 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'46;
+254:            DEFAULT NEXT 'd'0;
+255:        PRESENT 'd'46 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'47;
+256:            DEFAULT NEXT 'd'0;
+257:        PRESENT 'd'47 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'48;
+258:            DEFAULT NEXT 'd'0;
+259:        PRESENT 'd'48 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'49;
+260:            DEFAULT NEXT 'd'0;
+261:        PRESENT 'd'49 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'50;
+262:            DEFAULT NEXT 'd'0;
+263:        PRESENT 'd'50 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'51;
+264:            DEFAULT NEXT 'd'0;
+265:        PRESENT 'd'51 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'52;
+266:            DEFAULT NEXT 'd'0;
+267:        PRESENT 'd'52 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'53;
+268:            DEFAULT NEXT 'd'0;
+269:        PRESENT 'd'53 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'54;
+
+LISTING FOR LOGIC DESCRIPTION FILE: res.pld.pld                      Page 6
+
+CUPL: Universal Compiler for Programmable Logic
+Version 4.0a Serial# MD-40A-8249
+Copyright (C)  1983,1990 Logical Devices, Inc.
+Created Wed Oct 07 09:08:27 2026
+
+270:            DEFAULT NEXT 'd'0;
+271:        PRESENT 'd'54 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'55;
+272:            DEFAULT NEXT 'd'0;
+273:        PRESENT 'd'55 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'56;
+274:            DEFAULT NEXT 'd'0;
+275:        PRESENT 'd'56 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'57;
+276:            DEFAULT NEXT 'd'0;
+277:        PRESENT 'd'57 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'58;
+278:            DEFAULT NEXT 'd'0;
+279:        PRESENT 'd'58 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'59;
+280:            DEFAULT NEXT 'd'0;
+281:        PRESENT 'd'59 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'60;
+282:            DEFAULT NEXT 'd'0;
+283:        PRESENT 'd'60 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'61;
+284:            DEFAULT NEXT 'd'0;
+285:        PRESENT 'd'61 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'62;
+286:            DEFAULT NEXT 'd'0;
+287:        PRESENT 'd'62 IF !(PURESET # SELFRESET # RBUTTON) NEXT 'd'63;
+288:            DEFAULT NEXT 'd'0;        PRESENT 'd'63 IF PURESET # SELFRESET # RBUTTON NEXT 'd'0;
+289:            DEFAULT NEXT 'd'63;
+290:        }
+291:/*RESX        = !Q5 # !Q4 # !Q3 # !Q2 # !Q1 # !Q0;*/
+292:SYSRESET    = !Q5 # !Q4 # !Q3 # !Q2 # !Q1 # !Q0;
+293:/*RESX        = PURESET # SELFRESET # RESETA # RESETB # RESETC;*/
+294:!SYSRESET.OE = 'b'0;
+295:/*!SYSRESET.OE = !RESX;*/
+296:/*!SYSRESET.OE = !SYSRESET;*/
+297:WR_I2C  = CS_I2C & WR;
+298:
+299:
+
+
+
+Jedec Fuse Checksum       (6a02)
+Jedec Transmit Checksum   (42b0)

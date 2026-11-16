@@ -1,0 +1,55 @@
+Name      res;
+Partno    v1;
+Date      10/08/85;
+Rev       01;
+Designer  Michael;
+Company   SufniFabrik;
+Assembly  None;
+Location  None;
+Device    p16r6;
+
+ORDER:
+/** Inputs **/
+CLK,%1,!PURESET,%1,!RBUTTON,%1,!SELFRESET,%1,!CS_I2C,%1,!WR,%3,
+
+/** Outputs **/
+Q5..0,%1,!SYSRESET,%1,!WR_I2C;
+
+VECTORS:
+$msg "                  |           ";
+$msg "            !     |           ";
+$msg "            S     |        !  ";
+$msg "        ! ! E     |        S  ";
+$msg "        P R L !   |        Y !";
+$msg "        U B F C   |        S W";
+$msg "        R U R S   |        R R";
+$msg "        E T E _   |        E _";
+$msg "      C S T S I ! |        S I";
+$msg "      L E O E 2 W | QQQQQQ E 2";
+$msg "      K T N T C R | 543210 T C";
+$msg "      ============+===========";
+$msg "PURESET v1:";
+$repeat 3;
+            C 1 1 1 1 1   ****** * *
+            C 1 1 1 1 1   ****** * *
+            C 1 1 1 1 1   ****** * *
+$msg "PURESET v2.1:";
+$repeat 3;
+            C 0 1 1 1 1   ****** * *
+$msg "PURESET v3.1:";
+$repeat 70;
+            C 1 1 1 1 1   ****** * *
+$msg "PURESET v2.2:";
+$repeat 3;
+            C 1 1 0 1 1   ****** * *
+$msg "PURESET v3.2:";
+$repeat 70;
+            C 1 1 1 1 1   ****** * *
+$msg "!WR_I2C:";
+            C 1 1 1 1 1   ****** * *
+            C 1 1 1 1 0   ****** * *
+            C 1 1 1 1 1   ****** * *
+            C 1 1 1 0 0   ****** * *
+            C 1 1 1 0 1   ****** * *
+            C 1 1 1 1 1   ****** * *
+            C 1 1 1 1 1   ****** * *

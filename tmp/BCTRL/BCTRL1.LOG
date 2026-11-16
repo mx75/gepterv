@@ -1,0 +1,861 @@
+
+=======================COMPILATION OPTIONS=======================
+  Log file name:    BCTRL1.log
+  Run mode:         Run All Programs
+  Format: text      File: BCTRL1.PDS
+
+=======================MACH FITTING OPTIONS======================
+SIGNAL PLACEMENT:
+  Handling of Preplacements:               No Change
+  Use placement data from:                 Design file
+  Save last successful placement:          <F3>
+  Press <F9> to edit file containing:      Last successful placement
+FITTING OPTIONS:
+  Global Clocks routable as Pterm Clocks?  N
+  Unused I/O pins configured as outputs?   N .. if 'Y', Level = H
+  22V10/MACH1XX/2XX S/R Compatibility?     Y
+  SET/RESET treated as DONT_CARE?          Y
+  Run Time Upper Bound in 15 minutes:      0
+  Iterate between partition & place/route? Y
+  Balanced partitioning?                   Y
+  Spread placement?                        Y
+  Reduce Non-forced Global Clocks?         N .. if 'Y', Number = 1
+  Reduce Routes Per Placement?             N
+=================================================================
+
+=======================SIMULATION OPTIONS========================
+  Use auxiliary simulation file: N
+  Use placement data from:       Last successful placement
+=================================================================
+
+=======================LOGIC SYNTHESIS OPTIONS===================
+Use automatic pin/node pairing?       Y
+Use automatic gate splitting?         N .. if 'Y', Threshold = 16
+Gate split max num. pterms per eqn:   16
+Optimize registers for D/T-type       D,T As specified. JK,RS to D
+Ensure polarity after minimizationis: As specified in design file
+Use 'If-Then-Else','CASE; default as: Off
+Use fast minimization?                N
+=================================================================
+Bctrl1.pds
+
+MACHXL 2.1 R9-F PARSER (1-24-95)
+ (C) - COPYRIGHT ADVANCED MICRO DEVICES INC., 1993, 1994, 1995
+
+
+                    ***********************************
+                    *     MACHXL PARSER LISTING       *
+                    ***********************************
+
+LINE #   |----+----1----+----2----+----3----+----4----+----5----+----6----+
+   1     |;=================================================================
+   2     |; MACH210 #1 - Bank0 + Bank1 with early priority
+   3     |; Outputs: EARLY_HIT, EARLY_BASE[5..0]
+   4     |;=================================================================
+   5     |TITLE    Bank control 1
+   6     |PATTERN
+   7     |REVISION 0.1
+   8     |AUTHOR   Fazekas Mihaly
+   9     |COMPANY  Technical University of Budapest (Telephone Center)
+  10     |DATE     07/10/26
+  11     |
+  12     |CHIP bctrl1 MACH210
+  13     |
+  14     |;----- Inputs -----
+  15     |PIN     ?   CLK
+  16     |PIN     ?   /SYSRESET
+  17     |PIN     ?   /CS_BANK
+  18     |PIN     ?   /WR
+  19     |PIN     ?   A[2..0]
+  20     |PIN     ?   D[5..0]
+  21     |PIN     ?   A[15..12]
+  22     |
+  23     |;----- Outputs to Chip #2 -----
+|> WARNING P180  Identifier EARLY_BASE
+
+|>               truncated with uniqueness to EARLY_001.
+
+  24     |PIN     ?   EARLY_HIT       COMBINATORIAL
+  25     |PIN     ?   EARLY_BASE[5..0] COMBINATORIAL
+  26     |
+  27     |;----- Internal registers -----
+  28     |NODE    ?   B0_SIZE[1..0]   REGISTERED
+  29     |NODE    ?   B0_START[2..0]  REGISTERED
+  30     |NODE    ?   B0_BASE[5..0]   REGISTERED
+  31     |
+  32     |NODE    ?   B1_SIZE[1..0]   REGISTERED
+  33     |NODE    ?   B1_START[2..0]  REGISTERED
+  34     |NODE    ?   B1_BASE[5..0]   REGISTERED
+  35     |
+  36     |NODE    ?   B0_MATCH        COMBINATORIAL
+  37     |NODE    ?   B1_MATCH        COMBINATORIAL
+  38     |
+  39     |;----- STRING helpers -----
+  40     |STRING  WR_EN       '(/CS_BANK * /WR)'
+  41     |STRING  WR_B0_CTRL  '(WR_EN * /A[2] * /A[1] * /A[0])'
+  42     |STRING  WR_B0_BASE  '(WR_EN * /A[2] * /A[1] *  A[0])'
+  43     |STRING  WR_B1_CTRL  '(WR_EN * /A[2] *  A[1] * /A[0])'
+  44     |STRING  WR_B1_BASE  '(WR_EN * /A[2] *  A[1] *  A[0])'
+  45     |
+  46     |STRING  B0_4K       '(/B0_SIZE[1] * /B0_SIZE[0])'
+  47     |STRING  B0_8K       '(/B0_SIZE[1] *  B0_SIZE[0])'
+  48     |STRING  B0_16K      '( B0_SIZE[1] * /B0_SIZE[0])'
+  49     |
+  50     |STRING  B1_4K       '(/B1_SIZE[1] * /B1_SIZE[0])'
+  51     |STRING  B1_8K       '(/B1_SIZE[1] *  B1_SIZE[0])'
+  52     |STRING  B1_16K      '( B1_SIZE[1] * /B1_SIZE[0])'
+  53     |
+  54     |EQUATIONS
+  55     |
+  56     |;----- Register writes Bank0 -----
+  57     |B0_SIZE[1]  =  
+  57  s1 |( 
+  57  s2 |(/CS_BANK * /WR)
+  57  s1 |        * /A[2] * /A[1] * /A[0])
+  57     |                          * D[1] + / 
+  57  s1 |( 
+  57  s2 |(/CS_BANK * /WR)
+  57  s1 |        * /A[2] * /A[1] * /A[0])
+  57     |                                                * B0_SIZE[1]
+  58     |B0_SIZE[0]  =  
+  58  s1 |( 
+  58  s2 |(/CS_BANK * /WR)
+  58  s1 |        * /A[2] * /A[1] * /A[0])
+  58     |                          * D[0] + / 
+  58  s1 |( 
+  58  s2 |(/CS_BANK * /WR)
+  58  s1 |        * /A[2] * /A[1] * /A[0])
+  58     |                                                * B0_SIZE[0]
+  59     |B0_START[2] =  
+  59  s1 |( 
+  59  s2 |(/CS_BANK * /WR)
+  59  s1 |        * /A[2] * /A[1] * /A[0])
+  59     |                          * D[4] + / 
+  59  s1 |( 
+  59  s2 |(/CS_BANK * /WR)
+  59  s1 |        * /A[2] * /A[1] * /A[0])
+  59     |                                                * B0_START[2]
+  60     |B0_START[1] =  
+  60  s1 |( 
+  60  s2 |(/CS_BANK * /WR)
+  60  s1 |        * /A[2] * /A[1] * /A[0])
+  60     |                          * D[3] + / 
+  60  s1 |( 
+  60  s2 |(/CS_BANK * /WR)
+  60  s1 |        * /A[2] * /A[1] * /A[0])
+  60     |                                                * B0_START[1]
+  61     |B0_START[0] =  
+  61  s1 |( 
+  61  s2 |(/CS_BANK * /WR)
+  61  s1 |        * /A[2] * /A[1] * /A[0])
+  61     |                          * D[2] + / 
+  61  s1 |( 
+  61  s2 |(/CS_BANK * /WR)
+  61  s1 |        * /A[2] * /A[1] * /A[0])
+  61     |                                                * B0_START[0]
+  62     |
+  63     |B0_BASE[5] =  
+  63  s1 |( 
+  63  s2 |(/CS_BANK * /WR)
+  63  s1 |        * /A[2] * /A[1] *  A[0])
+  63     |                         * D[5] + / 
+  63  s1 |( 
+  63  s2 |(/CS_BANK * /WR)
+  63  s1 |        * /A[2] * /A[1] *  A[0])
+  63     |                                               * B0_BASE[5]
+  64     |B0_BASE[4] =  
+  64  s1 |( 
+  64  s2 |(/CS_BANK * /WR)
+  64  s1 |        * /A[2] * /A[1] *  A[0])
+  64     |                         * D[4] + / 
+  64  s1 |( 
+  64  s2 |(/CS_BANK * /WR)
+  64  s1 |        * /A[2] * /A[1] *  A[0])
+  64     |                                               * B0_BASE[4]
+  65     |B0_BASE[3] =  
+  65  s1 |( 
+  65  s2 |(/CS_BANK * /WR)
+  65  s1 |        * /A[2] * /A[1] *  A[0])
+  65     |                         * D[3] + / 
+  65  s1 |( 
+  65  s2 |(/CS_BANK * /WR)
+  65  s1 |        * /A[2] * /A[1] *  A[0])
+  65     |                                               * B0_BASE[3]
+  66     |B0_BASE[2] =  
+  66  s1 |( 
+  66  s2 |(/CS_BANK * /WR)
+  66  s1 |        * /A[2] * /A[1] *  A[0])
+  66     |                         * D[2] + / 
+  66  s1 |( 
+  66  s2 |(/CS_BANK * /WR)
+  66  s1 |        * /A[2] * /A[1] *  A[0])
+  66     |                                               * B0_BASE[2]
+  67     |B0_BASE[1] =  
+  67  s1 |( 
+  67  s2 |(/CS_BANK * /WR)
+  67  s1 |        * /A[2] * /A[1] *  A[0])
+  67     |                         * D[1] + / 
+  67  s1 |( 
+  67  s2 |(/CS_BANK * /WR)
+  67  s1 |        * /A[2] * /A[1] *  A[0])
+  67     |                                               * B0_BASE[1]
+  68     |B0_BASE[0] =  
+  68  s1 |( 
+  68  s2 |(/CS_BANK * /WR)
+  68  s1 |        * /A[2] * /A[1] *  A[0])
+  68     |                         * D[0] + / 
+  68  s1 |( 
+  68  s2 |(/CS_BANK * /WR)
+  68  s1 |        * /A[2] * /A[1] *  A[0])
+  68     |                                               * B0_BASE[0]
+  69     |
+  70     |;----- Register writes Bank1 -----
+  71     |B1_SIZE[1]  =  
+  71  s1 |( 
+  71  s2 |(/CS_BANK * /WR)
+  71  s1 |        * /A[2] *  A[1] * /A[0])
+  71     |                          * D[1] + / 
+  71  s1 |( 
+  71  s2 |(/CS_BANK * /WR)
+  71  s1 |        * /A[2] *  A[1] * /A[0])
+  71     |                                                * B1_SIZE[1]
+  72     |B1_SIZE[0]  =  
+  72  s1 |( 
+  72  s2 |(/CS_BANK * /WR)
+  72  s1 |        * /A[2] *  A[1] * /A[0])
+  72     |                          * D[0] + / 
+  72  s1 |( 
+  72  s2 |(/CS_BANK * /WR)
+  72  s1 |        * /A[2] *  A[1] * /A[0])
+  72     |                                                * B1_SIZE[0]
+  73     |B1_START[2] =  
+  73  s1 |( 
+  73  s2 |(/CS_BANK * /WR)
+  73  s1 |        * /A[2] *  A[1] * /A[0])
+  73     |                          * D[4] + / 
+  73  s1 |( 
+  73  s2 |(/CS_BANK * /WR)
+  73  s1 |        * /A[2] *  A[1] * /A[0])
+  73     |                                                * B1_START[2]
+  74     |B1_START[1] =  
+  74  s1 |( 
+  74  s2 |(/CS_BANK * /WR)
+  74  s1 |        * /A[2] *  A[1] * /A[0])
+  74     |                          * D[3] + / 
+  74  s1 |( 
+  74  s2 |(/CS_BANK * /WR)
+  74  s1 |        * /A[2] *  A[1] * /A[0])
+  74     |                                                * B1_START[1]
+  75     |B1_START[0] =  
+  75  s1 |( 
+  75  s2 |(/CS_BANK * /WR)
+  75  s1 |        * /A[2] *  A[1] * /A[0])
+  75     |                          * D[2] + / 
+  75  s1 |( 
+  75  s2 |(/CS_BANK * /WR)
+  75  s1 |        * /A[2] *  A[1] * /A[0])
+  75     |                                                * B1_START[0]
+  76     |
+  77     |B1_BASE[5] =  
+  77  s1 |( 
+  77  s2 |(/CS_BANK * /WR)
+  77  s1 |        * /A[2] *  A[1] *  A[0])
+  77     |                         * D[5] + / 
+  77  s1 |( 
+  77  s2 |(/CS_BANK * /WR)
+  77  s1 |        * /A[2] *  A[1] *  A[0])
+  77     |                                               * B1_BASE[5]
+  78     |B1_BASE[4] =  
+  78  s1 |( 
+  78  s2 |(/CS_BANK * /WR)
+  78  s1 |        * /A[2] *  A[1] *  A[0])
+  78     |                         * D[4] + / 
+  78  s1 |( 
+  78  s2 |(/CS_BANK * /WR)
+  78  s1 |        * /A[2] *  A[1] *  A[0])
+  78     |                                               * B1_BASE[4]
+  79     |B1_BASE[3] =  
+  79  s1 |( 
+  79  s2 |(/CS_BANK * /WR)
+  79  s1 |        * /A[2] *  A[1] *  A[0])
+  79     |                         * D[3] + / 
+  79  s1 |( 
+  79  s2 |(/CS_BANK * /WR)
+  79  s1 |        * /A[2] *  A[1] *  A[0])
+  79     |                                               * B1_BASE[3]
+  80     |B1_BASE[2] =  
+  80  s1 |( 
+  80  s2 |(/CS_BANK * /WR)
+  80  s1 |        * /A[2] *  A[1] *  A[0])
+  80     |                         * D[2] + / 
+  80  s1 |( 
+  80  s2 |(/CS_BANK * /WR)
+  80  s1 |        * /A[2] *  A[1] *  A[0])
+  80     |                                               * B1_BASE[2]
+  81     |B1_BASE[1] =  
+  81  s1 |( 
+  81  s2 |(/CS_BANK * /WR)
+  81  s1 |        * /A[2] *  A[1] *  A[0])
+  81     |                         * D[1] + / 
+  81  s1 |( 
+  81  s2 |(/CS_BANK * /WR)
+  81  s1 |        * /A[2] *  A[1] *  A[0])
+  81     |                                               * B1_BASE[1]
+  82     |B1_BASE[0] =  
+  82  s1 |( 
+  82  s2 |(/CS_BANK * /WR)
+  82  s1 |        * /A[2] *  A[1] *  A[0])
+  82     |                         * D[0] + / 
+  82  s1 |( 
+  82  s2 |(/CS_BANK * /WR)
+  82  s1 |        * /A[2] *  A[1] *  A[0])
+  82     |                                               * B1_BASE[0]
+  83     |
+  84     |;----- Clock & Reset -----
+  85     |B0_SIZE[1..0].CLKF  = CLK
+  86     |B0_START[2..0].CLKF = CLK
+  87     |B0_BASE[5..0].CLKF  = CLK
+  88     |B1_SIZE[1..0].CLKF  = CLK
+  89     |B1_START[2..0].CLKF = CLK
+  90     |B1_BASE[5..0].CLKF  = CLK
+  91     |
+  92     |B0_SIZE[1..0].SETF  = /SYSRESET
+  93     |B1_SIZE[1..0].SETF  = /SYSRESET
+  94     |B0_START[2..0].RSTF = /SYSRESET
+  95     |B0_BASE[5..0].RSTF  = /SYSRESET
+  96     |B1_START[2..0].RSTF = /SYSRESET
+  97     |B1_BASE[5..0].RSTF  = /SYSRESET
+  98     |
+  99     |;----- Match -----
+ 100     |B0_MATCH = A[15] * (
+ 101     |       
+ 101  s1 |(/B0_SIZE[1] * /B0_SIZE[0])
+ 101     |             * ( (/A[14]* /B0_START[2])+(A[14]*B0_START[2]) ) *
+ 102     |              ( (/A[13]* /B0_START[1])+(A[13]*B0_START[1]) ) *
+ 103     |              ( (/A[12]* /B0_START[0])+(A[12]*B0_START[0]) )
+ 104     |    +  
+ 104  s1 |(/B0_SIZE[1] *  B0_SIZE[0])
+ 104     |             * ( (/A[14]* /B0_START[2])+(A[14]*B0_START[2]) ) *
+ 105     |              ( (/A[13]* /B0_START[1])+(A[13]*B0_START[1]) )
+ 106     |    +  
+ 106  s1 |( B0_SIZE[1] * /B0_SIZE[0])
+ 106     |             * ( (/A[14]* /B0_START[2])+(A[14]*B0_START[2]) )
+ 107     |);
+ 108     |
+ 109     |B1_MATCH = A[15] * (
+ 110     |       
+ 110  s1 |(/B1_SIZE[1] * /B1_SIZE[0])
+ 110     |             * ( (/A[14]* /B1_START[2])+(A[14]*B1_START[2]) ) *
+ 111     |              ( (/A[13]* /B1_START[1])+(A[13]*B1_START[1]) ) *
+ 112     |              ( (/A[12]* /B1_START[0])+(A[12]*B1_START[0]) )
+ 113     |    +  
+ 113  s1 |(/B1_SIZE[1] *  B1_SIZE[0])
+ 113     |             * ( (/A[14]* /B1_START[2])+(A[14]*B1_START[2]) ) *
+ 114     |              ( (/A[13]* /B1_START[1])+(A[13]*B1_START[1]) )
+ 115     |    +  
+ 115  s1 |( B1_SIZE[1] * /B1_SIZE[0])
+ 115     |             * ( (/A[14]* /B1_START[2])+(A[14]*B1_START[2]) )
+ 116     |);
+ 117     |
+ 118     |;----- Early priority (Bank0 > Bank1) -----
+ 119     |EARLY_HIT = B0_MATCH + B1_MATCH;
+ 120     |
+ 121     |EARLY_BASE[5] = B0_MATCH * B0_BASE[5] + /B0_MATCH * B1_BASE[5];
+ 122     |EARLY_BASE[4] = B0_MATCH * B0_BASE[4] + /B0_MATCH * B1_BASE[4];
+ 123     |EARLY_BASE[3] = B0_MATCH * B0_BASE[3] + /B0_MATCH * B1_BASE[3];
+ 124     |EARLY_BASE[2] = B0_MATCH * B0_BASE[2] + /B0_MATCH * B1_BASE[2];
+ 125     |EARLY_BASE[1] = B0_MATCH * B0_BASE[1] + /B0_MATCH * B1_BASE[1];
+ 126     |EARLY_BASE[0] = B0_MATCH * B0_BASE[0] + /B0_MATCH * B1_BASE[0];
+ 127     |
+ 128     |;=================================================================
+ 129     |SIMULATION
+ 130     |;=================================================================
+ 131     |
+ 132     |TRACE_ON CLK /SYSRESET /CS_BANK /WR A[2..0] D[5..0] A[15..12] B0_SIZE[1..0] B0_START[2..0] B0_BASE[5..0] B1_SIZE[1..0] B1_START[2..0] B1_BAS
+ 133     |
+ 134     |;---------------------------------------------------------------------
+ 135     |; 1. Reset -> both banks Disabled, no hit
+ 136     |;---------------------------------------------------------------------
+ 137     |SETF /SYSRESET
+ 138     |CHECK B0_SIZE[1] B0_SIZE[0] B1_SIZE[1] B1_SIZE[0]
+ 139     |SETF SYSRESET
+ 140     |
+ 141     |SETF A[15] /A[14] /A[13] /A[12]          ; address 0x8000
+ 142     |CHECK /EARLY_HIT /B0_MATCH /B1_MATCH
+ 143     |
+ 144     |;---------------------------------------------------------------------
+ 145     |; 2. Write Bank0: Size=4KB (00), Start=0, Base=0x10
+ 146     |;---------------------------------------------------------------------
+ 147     |; Control register (A=000)
+ 148     |SETF /CS_BANK /WR /A[2] /A[1] /A[0] /D[5] /D[4] /D[3] /D[2] /D[1] /D[0]   ; Size=00, Start=000
+ 149     |CLOCKF CLK
+ 150     |SETF CS_BANK WR
+ 151     |
+ 152     |; PhysBase (A=001)
+ 153     |SETF /CS_BANK /WR /A[2] /A[1] A[0] /D[5] D[4] /D[3] /D[2] /D[1] /D[0]    ; Base=0x10
+ 154     |CLOCKF CLK
+ 155     |SETF CS_BANK WR
+ 156     |
+ 157     |; Test at 0x8000 (page 0) -> should hit Bank0
+ 158     |SETF A[15] /A[14] /A[13] /A[12]
+ 159     |CHECK B0_MATCH EARLY_HIT /EARLY_BASE[5] EARLY_BASE[4] /EARLY_BASE[3] /EARLY_BASE[2] /EARLY_BASE[1] /EARLY_BASE[0]  ; 0x10
+ 160     |
+ 161     |; Test at 0x9000 (page 1) -> no hit (only 4KB)
+ 162     |SETF A[15] /A[14] /A[13] A[12]
+ 163     |CHECK /B0_MATCH /EARLY_HIT
+ 164     |
+ 165     |;---------------------------------------------------------------------
+ 166     |; 3. Bank0 8KB test (Size=01, Start=2 → 0xA000)
+ 167     |;---------------------------------------------------------------------
+ 168     |SETF /CS_BANK /WR /A[2] /A[1] /A[0] /D[5] /D[4] D[3] /D[2] /D[1] D[0]     ; Size=01, Start=010
+ 169     |CLOCKF CLK
+ 170     |SETF CS_BANK WR
+ 171     |
+ 172     |SETF /CS_BANK /WR /A[2] /A[1] A[0] D[5] /D[4] /D[3] /D[2] /D[1] /D[0]    ; Base=0x20
+ 173     |CLOCKF CLK
+ 174     |SETF CS_BANK WR
+ 175     |
+ 176     |; 0xA000 (page 2) -> hit
+ 177     |SETF A[15] /A[14] A[13] /A[12]
+ 178     |CHECK B0_MATCH EARLY_HIT
+ 179     |
+ 180     |; 0xB000 (page 3) -> hit (8KB)
+ 181     |SETF A[15] /A[14] A[13] A[12]
+ 182     |CHECK B0_MATCH EARLY_HIT
+ 183     |
+ 184     |; 0xC000 (page 4) -> no hit
+ 185     |SETF A[15] A[14] /A[13] /A[12]
+ 186     |CHECK /B0_MATCH /EARLY_HIT
+ 187     |
+ 188     |;---------------------------------------------------------------------
+ 189     |; 4. Bank0 16KB test (Size=10, Start=0)
+ 190     |;---------------------------------------------------------------------
+ 191     |SETF /CS_BANK /WR /A[2] /A[1] /A[0] /D[5] /D[4] /D[3] /D[2] D[1] /D[0]    ; Size=10, Start=000
+ 192     |CLOCKF CLK
+ 193     |SETF CS_BANK WR
+ 194     |
+ 195     |SETF /CS_BANK /WR /A[2] /A[1] A[0] D[5] D[4] /D[3] /D[2] /D[1] /D[0]     ; Base=0x30
+ 196     |CLOCKF CLK
+ 197     |SETF CS_BANK WR
+ 198     |
+ 199     |; 0x8000 .. 0xB000 should hit
+ 200     |SETF A[15] /A[14] /A[13] /A[12]     ; page 0
+ 201     |CHECK B0_MATCH
+ 202     |SETF A[15] /A[14] A[13] A[12]       ; page 3
+ 203     |CHECK B0_MATCH
+ 204     |SETF A[15] A[14] /A[13] /A[12]      ; page 4 -> no (16KB only to page 3)
+ 205     |CHECK /B0_MATCH
+ 206     |
+ 207     |;---------------------------------------------------------------------
+ 208     |; 5. Priority test: Bank0 and Bank1 both match -> Bank0 wins
+ 209     |;---------------------------------------------------------------------
+ 210     |; Set Bank1: Size=16KB, Start=0, Base=0x40
+ 211     |SETF /CS_BANK /WR /A[2] A[1] /A[0] /D[5] /D[4] /D[3] /D[2] D[1] /D[0]    ; Size=10, Start=000
+ 212     |CLOCKF CLK
+ 213     |SETF CS_BANK WR
+ 214     |
+ 215     |SETF /CS_BANK /WR /A[2] A[1] A[0] D[5] /D[4] /D[3] /D[2] /D[1] /D[0]    ; Base=0x20
+ 216     |CLOCKF CLK
+ 217     |SETF CS_BANK WR
+ 218     |
+ 219     |; At 0x8000 both can match, Bank0 should win (EARLY_BASE = Bank0 Base)
+ 220     |SETF A[15] /A[14] /A[13] /A[12]
+ 221     |;eredeti sor:
+ 222     |;CHECK B0_MATCH B1_MATCH EARLY_HIT /EARLY_BASE[5] /EARLY_BASE[4]  EARLY_BASE[3]  EARLY_BASE[2] /EARLY_BASE[1] /EARLY_BASE[0]  ; 0x30 from Ba
+ 223     |
+ 224     |;ez nem ad errort/warningot
+ 225     |CHECK B0_MATCH B1_MATCH EARLY_HIT  EARLY_BASE[5]  EARLY_BASE[4] /EARLY_BASE[3] /EARLY_BASE[2] /EARLY_BASE[1] /EARLY_BASE[0]  ; 0x30 from Ban
+ 226     |
+ 227     |; alegujabb javitas:
+ 228     |;CHECK B0_MATCH B1_MATCH EARLY_HIT /EARLY_BASE[5] /EARLY_BASE[4]  EARLY_BASE[3]  EARLY_BASE[2] /EARLY_BASE[1] /EARLY_BASE[0]  ; 0x30
+ 229     |TRACE_OFF
+
+ %% MACHPAR %%    ERROR count:  0     WARNING count:  1
+
+ %% MACHPAR %%    File processed successfully.    File:  Bctrl1.pds
+
+*** Start MACHBPP.E 14:08:08 
+MACHXL 2.1 R9 MACHBPP (1-24-95)
+ (C) - COPYRIGHT ADVANCED MICRO DEVICES INC., 1993, 1994, 1995
+
+EQUATIONS SEGMENT
+Processing equation for ====>B0_SIZE[1]
+Processing equation for ====>B0_SIZE[0]
+Processing equation for ====>B0_START[2]
+Processing equation for ====>B0_START[1]
+Processing equation for ====>B0_START[0]
+Processing equation for ====>B0_BASE[5]
+Processing equation for ====>B0_BASE[4]
+Processing equation for ====>B0_BASE[3]
+Processing equation for ====>B0_BASE[2]
+Processing equation for ====>B0_BASE[1]
+Processing equation for ====>B0_BASE[0]
+Processing equation for ====>B1_SIZE[1]
+Processing equation for ====>B1_SIZE[0]
+Processing equation for ====>B1_START[2]
+Processing equation for ====>B1_START[1]
+Processing equation for ====>B1_START[0]
+Processing equation for ====>B1_BASE[5]
+Processing equation for ====>B1_BASE[4]
+Processing equation for ====>B1_BASE[3]
+Processing equation for ====>B1_BASE[2]
+Processing equation for ====>B1_BASE[1]
+Processing equation for ====>B1_BASE[0]
+Processing equation for ====>B0_SIZE[1..0].CLKF
+Processing equation for ====>B0_START[2..0].CLKF
+Processing equation for ====>B0_BASE[5..0].CLKF
+Processing equation for ====>B1_SIZE[1..0].CLKF
+Processing equation for ====>B1_START[2..0].CLKF
+Processing equation for ====>B1_BASE[5..0].CLKF
+Processing equation for ====>B0_SIZE[1..0].SETF
+Processing equation for ====>B1_SIZE[1..0].SETF
+Processing equation for ====>B0_START[2..0].RSTF
+Processing equation for ====>B0_BASE[5..0].RSTF
+Processing equation for ====>B1_START[2..0].RSTF
+Processing equation for ====>B1_BASE[5..0].RSTF
+Processing equation for ====>B0_MATCH
+Processing equation for ====>B1_MATCH
+Processing equation for ====>EARLY_HIT
+Processing equation for ====>EARLY_001[5]
+Processing equation for ====>EARLY_001[4]
+Processing equation for ====>EARLY_001[3]
+Processing equation for ====>EARLY_001[2]
+Processing equation for ====>EARLY_001[1]
+Processing equation for ====>EARLY_001[0]
+SIMULATION SEGMENT
+.................................................
+ %%  MACHBPP  %% Maximum memory allocated was: 105062 bytes.
+
+ %%  MACHBPP  %% File Processed Successfully.  File: Bctrl1.pds.
+ %%  MACHBPP  %% ERROR count: 0  WARNING count: 0
+
+*** End MACHBPP.EXE 14:08:09; (MACHBPP.EXE= 1 sec.) elapsed time= 1 sec.
+Accumulated Disk space used = 0 bytes
+Free Disk space = 331825152 bytes
+
+*** Start MACHMIN.E 14:08:09 
+MACHXL 2.1 R9 MACHMIN   - (1-24-95)
+ (C) - COPYRIGHT ADVANCED MICRO DEVICES INC., 1994, 1995
+
+
+Processing equation(s) for node B1_MATCH...
+====> B1_MATCH           MIN_ON (14 + pt)
+Processing equation(s) for node B0_MATCH...
+====> B0_MATCH           MIN_ON (14 + pt)
+Processing equation(s) for node B1_BASE[0]...
+====> B1_BASE[0]         MIN_ON (6 + pt)
+====> B1_BASE[0].CLKF    MIN_ON (1 + pt)
+====> B1_BASE[0].RSTF    MIN_ON (1 + pt)
+Processing equation(s) for node B1_BASE[1]...
+====> B1_BASE[1]         MIN_ON (6 + pt)
+====> B1_BASE[1].CLKF    MIN_ON (1 + pt)
+====> B1_BASE[1].RSTF    MIN_ON (1 + pt)
+Processing equation(s) for node B1_BASE[2]...
+====> B1_BASE[2]         MIN_ON (6 + pt)
+====> B1_BASE[2].CLKF    MIN_ON (1 + pt)
+====> B1_BASE[2].RSTF    MIN_ON (1 + pt)
+Processing equation(s) for node B1_BASE[3]...
+====> B1_BASE[3]         MIN_ON (6 + pt)
+====> B1_BASE[3].CLKF    MIN_ON (1 + pt)
+====> B1_BASE[3].RSTF    MIN_ON (1 + pt)
+Processing equation(s) for node B1_BASE[4]...
+====> B1_BASE[4]         MIN_ON (6 + pt)
+====> B1_BASE[4].CLKF    MIN_ON (1 + pt)
+====> B1_BASE[4].RSTF    MIN_ON (1 + pt)
+Processing equation(s) for node B1_BASE[5]...
+====> B1_BASE[5]         MIN_ON (6 + pt)
+====> B1_BASE[5].CLKF    MIN_ON (1 + pt)
+====> B1_BASE[5].RSTF    MIN_ON (1 + pt)
+Processing equation(s) for node B1_START[0]...
+====> B1_START[0]        MIN_ON (6 + pt)
+====> B1_START[0].CLKF   MIN_ON (1 + pt)
+====> B1_START[0].RSTF   MIN_ON (1 + pt)
+Processing equation(s) for node B1_START[1]...
+====> B1_START[1]        MIN_ON (6 + pt)
+====> B1_START[1].CLKF   MIN_ON (1 + pt)
+====> B1_START[1].RSTF   MIN_ON (1 + pt)
+Processing equation(s) for node B1_START[2]...
+====> B1_START[2]        MIN_ON (6 + pt)
+====> B1_START[2].CLKF   MIN_ON (1 + pt)
+====> B1_START[2].RSTF   MIN_ON (1 + pt)
+Processing equation(s) for node B1_SIZE[0]...
+====> B1_SIZE[0]         MIN_ON (6 + pt)
+====> B1_SIZE[0].CLKF    MIN_ON (1 + pt)
+====> B1_SIZE[0].SETF    MIN_ON (1 + pt)
+Processing equation(s) for node B1_SIZE[1]...
+====> B1_SIZE[1]         MIN_ON (6 + pt)
+====> B1_SIZE[1].CLKF    MIN_ON (1 + pt)
+====> B1_SIZE[1].SETF    MIN_ON (1 + pt)
+Processing equation(s) for node B0_BASE[0]...
+====> B0_BASE[0]         MIN_ON (6 + pt)
+====> B0_BASE[0].CLKF    MIN_ON (1 + pt)
+====> B0_BASE[0].RSTF    MIN_ON (1 + pt)
+Processing equation(s) for node B0_BASE[1]...
+====> B0_BASE[1]         MIN_ON (6 + pt)
+====> B0_BASE[1].CLKF    MIN_ON (1 + pt)
+====> B0_BASE[1].RSTF    MIN_ON (1 + pt)
+Processing equation(s) for node B0_BASE[2]...
+====> B0_BASE[2]         MIN_ON (6 + pt)
+====> B0_BASE[2].CLKF    MIN_ON (1 + pt)
+====> B0_BASE[2].RSTF    MIN_ON (1 + pt)
+Processing equation(s) for node B0_BASE[3]...
+====> B0_BASE[3]         MIN_ON (6 + pt)
+====> B0_BASE[3].CLKF    MIN_ON (1 + pt)
+====> B0_BASE[3].RSTF    MIN_ON (1 + pt)
+Processing equation(s) for node B0_BASE[4]...
+====> B0_BASE[4]         MIN_ON (6 + pt)
+====> B0_BASE[4].CLKF    MIN_ON (1 + pt)
+====> B0_BASE[4].RSTF    MIN_ON (1 + pt)
+Processing equation(s) for node B0_BASE[5]...
+====> B0_BASE[5]         MIN_ON (6 + pt)
+====> B0_BASE[5].CLKF    MIN_ON (1 + pt)
+====> B0_BASE[5].RSTF    MIN_ON (1 + pt)
+Processing equation(s) for node B0_START[0]...
+====> B0_START[0]        MIN_ON (6 + pt)
+====> B0_START[0].CLKF   MIN_ON (1 + pt)
+====> B0_START[0].RSTF   MIN_ON (1 + pt)
+Processing equation(s) for node B0_START[1]...
+====> B0_START[1]        MIN_ON (6 + pt)
+====> B0_START[1].CLKF   MIN_ON (1 + pt)
+====> B0_START[1].RSTF   MIN_ON (1 + pt)
+Processing equation(s) for node B0_START[2]...
+====> B0_START[2]        MIN_ON (6 + pt)
+====> B0_START[2].CLKF   MIN_ON (1 + pt)
+====> B0_START[2].RSTF   MIN_ON (1 + pt)
+Processing equation(s) for node B0_SIZE[0]...
+====> B0_SIZE[0]         MIN_ON (6 + pt)
+====> B0_SIZE[0].CLKF    MIN_ON (1 + pt)
+====> B0_SIZE[0].SETF    MIN_ON (1 + pt)
+Processing equation(s) for node B0_SIZE[1]...
+====> B0_SIZE[1]         MIN_ON (6 + pt)
+====> B0_SIZE[1].CLKF    MIN_ON (1 + pt)
+====> B0_SIZE[1].SETF    MIN_ON (1 + pt)
+Processing equation(s) for pin EARLY_001[0]...
+====> EARLY_001[0]       MIN_ON (2 + pt)
+Processing equation(s) for pin EARLY_001[1]...
+====> EARLY_001[1]       MIN_ON (2 + pt)
+Processing equation(s) for pin EARLY_001[2]...
+====> EARLY_001[2]       MIN_ON (2 + pt)
+Processing equation(s) for pin EARLY_001[3]...
+====> EARLY_001[3]       MIN_ON (2 + pt)
+Processing equation(s) for pin EARLY_001[4]...
+====> EARLY_001[4]       MIN_ON (2 + pt)
+Processing equation(s) for pin EARLY_001[5]...
+====> EARLY_001[5]       MIN_ON (2 + pt)
+Processing equation(s) for pin EARLY_HIT...
+====> EARLY_HIT          MIN_ON (2 + pt)
+
+ %%  MACHMIN  %% Maximum memory allocated was: 61974 bytes.
+
+ %%  MACHMIN  %% File Processed Successfully.  File: Bctrl1.pds.
+ %%  MACHMIN  %% ERROR count: 0  WARNING count: 0
+
+
+*** End MACHMIN.EXE 14:08:09; (MACHMIN.EXE= 0 sec.) elapsed time= 1 sec.
+Accumulated Disk space used = 8192 bytes
+Free Disk space = 331816960 bytes
+
+*** Start MACHMIN.E 14:08:09 
+MACHXL 2.1 R9 MACHTPLA   - (1-24-95)
+ (C) - COPYRIGHT ADVANCED MICRO DEVICES INC., 1994, 1995
+
+
+Converting TRE file bctrl1.tre to PLA file bctrl1.pla...
+
+...............................
+...............................
+
+ %%  MACHTPLA  %% Maximum memory allocated was: 87412 bytes.
+
+ %%  MACHTPLA  %% File Processed Successfully.  File: Bctrl1.pds.
+ %%  MACHTPLA  %% ERROR count: 0  WARNING count: 0
+
+
+*** End MACHMIN.EXE 14:08:09; (MACHMIN.EXE= 0 sec.) elapsed time= 1 sec.
+Accumulated Disk space used = 8192 bytes
+Free Disk space = 331816960 bytes
+
+*** Start MACHFITR. 14:08:09 
+MACHXL 2.1 R11 MACHFITR (3-31-95)
+ (C) - COPYRIGHT ADVANCED MICRO DEVICES INC., 1993, 1994, 1995
+*** Source file is Bctrl1.pds . Device is MACH210 .
+|> INFO z5065 - For outputs, implicit output enables will be set to VCC.
+|> INFO z5070 - Unspecified SET/RESETs are to be treated as DON'T CARE.
+                Hence, a register with unspecified SET/RESET equation(s)
+                may be initialized via SET/RESET product terms that are
+                inherited from partitioning/placement to the same PAL block
+                as other registers for which SET/RESET equations have been
+                written. Therefore, simulation results may be unexpected
+                for any register uninitialized via explicit SET/RESET in
+                the design file.
+
+*** End of Pla2db. 
+Check preplaced pins/nodes
+Check preplaced blocks
+Check unreferenced pins/nodes
+Check clock rules
+
+List of global clocks:
+   CLK:
+
+*** End of Normalization.
+
+*** End of DRC. 
+
+*** Start Partitioning
+ 
+*** Partitioning successful.
+
+*** Routing successful. Assembler invoked.
+...... Unused I/O pins configured as outputs? N
+*** The JEDEC file generated is Bctrl1.JED .
+*** Report Generator invoked.
+
+Partitioning 100% - Completed
+Placement    100% - Completed
+Routing      100% - Completed
+%%% Fitting process is successful %%%
+*** Report Generator end.
+
+%%%% MACHFITR %%%% Fitting successful. File Bctrl1.pds .
+%%%% MACHFITR %%%% ERROR count 0 WARNING count 0 .
+
+*** End MACHFITR.EX 14:08:23; (MACHFITR.EXE=14 sec.) elapsed time=15 sec.
+Accumulated Disk space used = 8192 bytes
+Free Disk space = 331816960 bytes
+
+*** Start MACHSIMU. 14:08:23 
+MACHXL 2.1 R9 MACHSIMU (1-24-95)
+ (C) - COPYRIGHT ADVANCED MICRO DEVICES INC., 1993, 1994, 1995
+
+File  Bctrl1.pds
+Title  Bank control 1
+
+
+
+   1-V1 - TRACE_ON
+          CLK  /SYSRESET  /CS_BANK  /WR  A[2..0]  D[5..0]  
+          A[15..12]  B0_SIZE[1..0]  B0_START[2..0]  B0_BASE[5..0]  
+          B1_SIZE[1..0]  B1_START[2..0]  B1_BASE[5..0]  B0_MATCH  B1_MATCH  
+          EARLY_HIT  EARLY_001[5..0]  
+   1-V1 - SETF
+          /SYSRESET  
+   2-V1 - CHECK
+          B0_SIZE[1]  B0_SIZE[0]  B1_SIZE[1]  B1_SIZE[0]  
+   2-V2 - SETF
+          SYSRESET  
+   3-V3 - SETF
+          A[15]  /A[14]  /A[13]  /A[12]  
+   4-V3 - CHECK
+          /EARLY_HIT  /B0_MATCH  /B1_MATCH  
+   4-V4 - SETF
+          /CS_BANK  /WR  /A[2]  /A[1]  /A[0]  /D[5]  /D[4]  
+          /D[3]  /D[2]  /D[1]  /D[0]  
+   8-V5 - CLOCKF
+          CLK  
+   8-V6 - SETF
+          CS_BANK  WR  
+   9-V7 - SETF
+          /CS_BANK  /WR  /A[2]  /A[1]  A[0]  /D[5]  D[4]  
+          /D[3]  /D[2]  /D[1]  /D[0]  
+  13-V8 - CLOCKF
+          CLK  
+  13-V9 - SETF
+          CS_BANK  WR  
+  14-V10 - SETF
+          A[15]  /A[14]  /A[13]  /A[12]  
+  15-V10 - CHECK
+          B0_MATCH  EARLY_HIT  /EARLY_001[5]  EARLY_001[4]  
+          /EARLY_001[3]  /EARLY_001[2]  /EARLY_001[1]  /EARLY_001[0]  
+  15-V11 - SETF
+          A[15]  /A[14]  /A[13]  A[12]  
+  16-V11 - CHECK
+          /B0_MATCH  /EARLY_HIT  
+  16-V12 - SETF
+          /CS_BANK  /WR  /A[2]  /A[1]  /A[0]  /D[5]  /D[4]  
+          D[3]  /D[2]  /D[1]  D[0]  
+  20-V13 - CLOCKF
+          CLK  
+  20-V14 - SETF
+          CS_BANK  WR  
+  21-V15 - SETF
+          /CS_BANK  /WR  /A[2]  /A[1]  A[0]  D[5]  /D[4]  
+          /D[3]  /D[2]  /D[1]  /D[0]  
+  25-V16 - CLOCKF
+          CLK  
+  25-V17 - SETF
+          CS_BANK  WR  
+  26-V18 - SETF
+          A[15]  /A[14]  A[13]  /A[12]  
+  27-V18 - CHECK
+          B0_MATCH  EARLY_HIT  
+  27-V19 - SETF
+          A[15]  /A[14]  A[13]  A[12]  
+  28-V19 - CHECK
+          B0_MATCH  EARLY_HIT  
+  28-V20 - SETF
+          A[15]  A[14]  /A[13]  /A[12]  
+  29-V20 - CHECK
+          /B0_MATCH  /EARLY_HIT  
+  29-V21 - SETF
+          /CS_BANK  /WR  /A[2]  /A[1]  /A[0]  /D[5]  /D[4]  
+          /D[3]  /D[2]  D[1]  /D[0]  
+  33-V22 - CLOCKF
+          CLK  
+  33-V23 - SETF
+          CS_BANK  WR  
+  34-V24 - SETF
+          /CS_BANK  /WR  /A[2]  /A[1]  A[0]  D[5]  D[4]  /D[3]  
+          /D[2]  /D[1]  /D[0]  
+  38-V25 - CLOCKF
+          CLK  
+  38-V26 - SETF
+          CS_BANK  WR  
+  39-V27 - SETF
+          A[15]  /A[14]  /A[13]  /A[12]  
+  40-V27 - CHECK
+          B0_MATCH  
+  40-V28 - SETF
+          A[15]  /A[14]  A[13]  A[12]  
+  41-V28 - CHECK
+          B0_MATCH  
+  41-V29 - SETF
+          A[15]  A[14]  /A[13]  /A[12]  
+  42-V29 - CHECK
+          /B0_MATCH  
+  42-V30 - SETF
+          /CS_BANK  /WR  /A[2]  A[1]  /A[0]  /D[5]  /D[4]  
+          /D[3]  /D[2]  D[1]  /D[0]  
+  46-V31 - CLOCKF
+          CLK  
+  46-V32 - SETF
+          CS_BANK  WR  
+  47-V33 - SETF
+          /CS_BANK  /WR  /A[2]  A[1]  A[0]  D[5]  /D[4]  /D[3]  
+          /D[2]  /D[1]  /D[0]  
+  51-V34 - CLOCKF
+          CLK  
+  51-V35 - SETF
+          CS_BANK  WR  
+  52-V36 - SETF
+          A[15]  /A[14]  /A[13]  /A[12]  
+  53-V36 - CHECK
+          B0_MATCH  B1_MATCH  EARLY_HIT  EARLY_001[5]  
+          EARLY_001[4]  /EARLY_001[3]  /EARLY_001[2]  /EARLY_001[1]  
+          /EARLY_001[0]  
+  53-V37 - TRACE_OFF
+
+   END OF SIMULATION
+Simulation results (history) are in ===> Bctrl1.HST
+Simulation results (trace) are in   ===> Bctrl1.TRF
+Merged results (JEDEC) are in       ===> Bctrl1.JDC
+Simulation results (trace vectors) are in   ===> Bctrl1.TRV
+
+ %%  MACHSIMU  %% Maximum memory allocated was: 275829 bytes.
+
+ %%  MACHSIMU  %% File Processed Successfully.  File: Bctrl1.pds.
+ %%  MACHSIMU  %% ERROR count: 0  WARNING count: 0
+
+*** End MACHSIMU.EX 14:08:23; (MACHSIMU.EXE= 0 sec.) elapsed time=15 sec.
+Accumulated Disk space used = 8192 bytes
+Free Disk space = 331816960 bytes

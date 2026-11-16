@@ -1,0 +1,53 @@
+CSIM: CUPL Simulation Program
+Version 4.0a Serial# MD-40A-8249
+Copyright (C)  1983,1990 Logical Devices, Inc.
+CREATED Wed Oct 07 08:02:22 2026
+
+LISTING FOR SIMULATION FILE: iosel2.pld.si
+
+   1: Name      iosel2;
+   2: Partno    v1;
+   3: Date      10/08/85;
+   4: Rev       01;
+   5: Designer  Michael;
+   6: Company   SufniFabrik;
+   7: Assembly  None;
+   8: Location  None;
+   9: Device    p20l8lcc;
+  10: 
+  11: ORDER:
+  12: /** Inputs **/
+  13: A7..3,%1,!IOREQ,%1,!MX,%3,
+  14: 
+  15: /** Outputs **/
+  16: !CS_BANK,%1,!CS_REG,%1,!CS_I2C;
+  17: 
+
+===============================================================================
+                              Simulation Results
+===============================================================================
+                |      
+                | !    
+                | C ! !
+            !   | S C C
+            I   | _ S S
+            O   | B _ _
+            R ! | A R I
+      AAAAA E M | N E 2
+      76543 Q X | K G C
+      ==========+======
+0001: 11100 1 1   H H H
+0002: 11100 1 1   H H H
+0003: 01000 1 1   H H H
+!CS_BANK:
+0004: 10100 1 1   H H H
+0005: 10100 0 1   L H H
+0006: 10100 1 0   H H H
+!CS_REG:
+0007: 10110 1 1   H H H
+0008: 10110 0 1   H L H
+0009: 10110 1 0   H H H
+!CS_I2C:
+0010: 10111 1 1   H H H
+0011: 10111 0 1   H H L
+0012: 10111 1 0   H H H

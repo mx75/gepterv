@@ -1,0 +1,29 @@
+# Berkeley PLA format generated using
+#
+# CUPL            4.0a Serial# MD-40A-8249
+# Device          p20l8lcc  Library DLIB-h-26-9
+# Created         Wed Oct 07 08:02:21 2026
+# Name            iosel2
+# Partno          v1
+# Revision        01
+# Date            10/08/85
+# Designer        Michael
+# Company         SufniFabrik
+# Assembly        None
+# Location        None
+#
+# Inputs  1 A2 A3 A4 
+#         A5 A6 A7 !CS_BANK 
+#         !CS_I2C !CS_REG !IOREQ !MX 
+# Outputs !CS_BANK !CS_I2C !CS_REG CS_BANK.oe 
+#         CS_I2C.oe CS_REG.oe 
+.i 12
+.o 6
+.p 6
+---0101---10 1~~~~~
+--11101---10 ~1~~~~
+--01101---10 ~~1~~~
+1----------- ~~~1~~
+1----------- ~~~~1~
+1----------- ~~~~~1
+.end

@@ -1,0 +1,229 @@
+;=================================================================
+; MACH210 #1 - Bank0 + Bank1 with early priority
+; Outputs: EARLY_HIT, EARLY_BASE[5..0]
+;=================================================================
+TITLE    Bank control 1
+PATTERN
+REVISION 0.1
+AUTHOR   Fazekas Mihaly
+COMPANY  Technical University of Budapest (Telephone Center)
+DATE     07/10/26
+
+CHIP bctrl1 MACH210
+
+;----- Inputs -----
+PIN     ?   CLK
+PIN     ?   /SYSRESET
+PIN     ?   /CS_BANK
+PIN     ?   /WR
+PIN     ?   A[2..0]
+PIN     ?   D[5..0]
+PIN     ?   A[15..12]
+
+;----- Outputs to Chip #2 -----
+PIN     ?   EARLY_HIT       COMBINATORIAL
+PIN     ?   EARLY_BASE[5..0] COMBINATORIAL
+
+;----- Internal registers -----
+NODE    ?   B0_SIZE[1..0]   REGISTERED
+NODE    ?   B0_START[2..0]  REGISTERED
+NODE    ?   B0_BASE[5..0]   REGISTERED
+
+NODE    ?   B1_SIZE[1..0]   REGISTERED
+NODE    ?   B1_START[2..0]  REGISTERED
+NODE    ?   B1_BASE[5..0]   REGISTERED
+
+NODE    ?   B0_MATCH        COMBINATORIAL
+NODE    ?   B1_MATCH        COMBINATORIAL
+
+;----- STRING helpers -----
+STRING  WR_EN       '(/CS_BANK * /WR)'
+STRING  WR_B0_CTRL  '(WR_EN * /A[2] * /A[1] * /A[0])'
+STRING  WR_B0_BASE  '(WR_EN * /A[2] * /A[1] *  A[0])'
+STRING  WR_B1_CTRL  '(WR_EN * /A[2] *  A[1] * /A[0])'
+STRING  WR_B1_BASE  '(WR_EN * /A[2] *  A[1] *  A[0])'
+
+STRING  B0_4K       '(/B0_SIZE[1] * /B0_SIZE[0])'
+STRING  B0_8K       '(/B0_SIZE[1] *  B0_SIZE[0])'
+STRING  B0_16K      '( B0_SIZE[1] * /B0_SIZE[0])'
+
+STRING  B1_4K       '(/B1_SIZE[1] * /B1_SIZE[0])'
+STRING  B1_8K       '(/B1_SIZE[1] *  B1_SIZE[0])'
+STRING  B1_16K      '( B1_SIZE[1] * /B1_SIZE[0])'
+
+EQUATIONS
+
+;----- Register writes Bank0 -----
+B0_SIZE[1]  = WR_B0_CTRL * D[1] + /WR_B0_CTRL * B0_SIZE[1]
+B0_SIZE[0]  = WR_B0_CTRL * D[0] + /WR_B0_CTRL * B0_SIZE[0]
+B0_START[2] = WR_B0_CTRL * D[4] + /WR_B0_CTRL * B0_START[2]
+B0_START[1] = WR_B0_CTRL * D[3] + /WR_B0_CTRL * B0_START[1]
+B0_START[0] = WR_B0_CTRL * D[2] + /WR_B0_CTRL * B0_START[0]
+
+B0_BASE[5] = WR_B0_BASE * D[5] + /WR_B0_BASE * B0_BASE[5]
+B0_BASE[4] = WR_B0_BASE * D[4] + /WR_B0_BASE * B0_BASE[4]
+B0_BASE[3] = WR_B0_BASE * D[3] + /WR_B0_BASE * B0_BASE[3]
+B0_BASE[2] = WR_B0_BASE * D[2] + /WR_B0_BASE * B0_BASE[2]
+B0_BASE[1] = WR_B0_BASE * D[1] + /WR_B0_BASE * B0_BASE[1]
+B0_BASE[0] = WR_B0_BASE * D[0] + /WR_B0_BASE * B0_BASE[0]
+
+;----- Register writes Bank1 -----
+B1_SIZE[1]  = WR_B1_CTRL * D[1] + /WR_B1_CTRL * B1_SIZE[1]
+B1_SIZE[0]  = WR_B1_CTRL * D[0] + /WR_B1_CTRL * B1_SIZE[0]
+B1_START[2] = WR_B1_CTRL * D[4] + /WR_B1_CTRL * B1_START[2]
+B1_START[1] = WR_B1_CTRL * D[3] + /WR_B1_CTRL * B1_START[1]
+B1_START[0] = WR_B1_CTRL * D[2] + /WR_B1_CTRL * B1_START[0]
+
+B1_BASE[5] = WR_B1_BASE * D[5] + /WR_B1_BASE * B1_BASE[5]
+B1_BASE[4] = WR_B1_BASE * D[4] + /WR_B1_BASE * B1_BASE[4]
+B1_BASE[3] = WR_B1_BASE * D[3] + /WR_B1_BASE * B1_BASE[3]
+B1_BASE[2] = WR_B1_BASE * D[2] + /WR_B1_BASE * B1_BASE[2]
+B1_BASE[1] = WR_B1_BASE * D[1] + /WR_B1_BASE * B1_BASE[1]
+B1_BASE[0] = WR_B1_BASE * D[0] + /WR_B1_BASE * B1_BASE[0]
+
+;----- Clock & Reset -----
+B0_SIZE[1..0].CLKF  = CLK
+B0_START[2..0].CLKF = CLK
+B0_BASE[5..0].CLKF  = CLK
+B1_SIZE[1..0].CLKF  = CLK
+B1_START[2..0].CLKF = CLK
+B1_BASE[5..0].CLKF  = CLK
+
+B0_SIZE[1..0].SETF  = /SYSRESET
+B1_SIZE[1..0].SETF  = /SYSRESET
+B0_START[2..0].RSTF = /SYSRESET
+B0_BASE[5..0].RSTF  = /SYSRESET
+B1_START[2..0].RSTF = /SYSRESET
+B1_BASE[5..0].RSTF  = /SYSRESET
+
+;----- Match -----
+B0_MATCH = A[15] * (
+      B0_4K * ( (/A[14]* /B0_START[2])+(A[14]*B0_START[2]) ) *
+              ( (/A[13]* /B0_START[1])+(A[13]*B0_START[1]) ) *
+              ( (/A[12]* /B0_START[0])+(A[12]*B0_START[0]) )
+    + B0_8K * ( (/A[14]* /B0_START[2])+(A[14]*B0_START[2]) ) *
+              ( (/A[13]* /B0_START[1])+(A[13]*B0_START[1]) )
+    + B0_16K* ( (/A[14]* /B0_START[2])+(A[14]*B0_START[2]) )
+);
+
+B1_MATCH = A[15] * (
+      B1_4K * ( (/A[14]* /B1_START[2])+(A[14]*B1_START[2]) ) *
+              ( (/A[13]* /B1_START[1])+(A[13]*B1_START[1]) ) *
+              ( (/A[12]* /B1_START[0])+(A[12]*B1_START[0]) )
+    + B1_8K * ( (/A[14]* /B1_START[2])+(A[14]*B1_START[2]) ) *
+              ( (/A[13]* /B1_START[1])+(A[13]*B1_START[1]) )
+    + B1_16K* ( (/A[14]* /B1_START[2])+(A[14]*B1_START[2]) )
+);
+
+;----- Early priority (Bank0 > Bank1) -----
+EARLY_HIT = B0_MATCH + B1_MATCH;
+
+EARLY_BASE[5] = B0_MATCH * B0_BASE[5] + /B0_MATCH * B1_BASE[5];
+EARLY_BASE[4] = B0_MATCH * B0_BASE[4] + /B0_MATCH * B1_BASE[4];
+EARLY_BASE[3] = B0_MATCH * B0_BASE[3] + /B0_MATCH * B1_BASE[3];
+EARLY_BASE[2] = B0_MATCH * B0_BASE[2] + /B0_MATCH * B1_BASE[2];
+EARLY_BASE[1] = B0_MATCH * B0_BASE[1] + /B0_MATCH * B1_BASE[1];
+EARLY_BASE[0] = B0_MATCH * B0_BASE[0] + /B0_MATCH * B1_BASE[0];
+
+;=================================================================
+SIMULATION
+;=================================================================
+
+TRACE_ON CLK /SYSRESET /CS_BANK /WR A[2..0] D[5..0] A[15..12] B0_SIZE[1..0] B0_START[2..0] B0_BASE[5..0] B1_SIZE[1..0] B1_START[2..0] B1_BASE[5..0] B0_MATCH B1_MATCH EARLY_HIT EARLY_BASE[5..0]
+
+;---------------------------------------------------------------------
+; 1. Reset -> both banks Disabled, no hit
+;---------------------------------------------------------------------
+SETF /SYSRESET
+CHECK B0_SIZE[1] B0_SIZE[0] B1_SIZE[1] B1_SIZE[0]
+SETF SYSRESET
+
+SETF A[15] /A[14] /A[13] /A[12]          ; address 0x8000
+CHECK /EARLY_HIT /B0_MATCH /B1_MATCH
+
+;---------------------------------------------------------------------
+; 2. Write Bank0: Size=4KB (00), Start=0, Base=0x10
+;---------------------------------------------------------------------
+; Control register (A=000)
+SETF /CS_BANK /WR /A[2] /A[1] /A[0] /D[5] /D[4] /D[3] /D[2] /D[1] /D[0]   ; Size=00, Start=000
+CLOCKF CLK
+SETF CS_BANK WR
+
+; PhysBase (A=001)
+SETF /CS_BANK /WR /A[2] /A[1] A[0] /D[5] D[4] /D[3] /D[2] /D[1] /D[0]    ; Base=0x10
+CLOCKF CLK
+SETF CS_BANK WR
+
+; Test at 0x8000 (page 0) -> should hit Bank0
+SETF A[15] /A[14] /A[13] /A[12]
+CHECK B0_MATCH EARLY_HIT /EARLY_BASE[5] EARLY_BASE[4] /EARLY_BASE[3] /EARLY_BASE[2] /EARLY_BASE[1] /EARLY_BASE[0]  ; 0x10
+
+; Test at 0x9000 (page 1) -> no hit (only 4KB)
+SETF A[15] /A[14] /A[13] A[12]
+CHECK /B0_MATCH /EARLY_HIT
+
+;---------------------------------------------------------------------
+; 3. Bank0 8KB test (Size=01, Start=2 → 0xA000)
+;---------------------------------------------------------------------
+SETF /CS_BANK /WR /A[2] /A[1] /A[0] /D[5] /D[4] D[3] /D[2] /D[1] D[0]     ; Size=01, Start=010
+CLOCKF CLK
+SETF CS_BANK WR
+
+SETF /CS_BANK /WR /A[2] /A[1] A[0] D[5] /D[4] /D[3] /D[2] /D[1] /D[0]    ; Base=0x20
+CLOCKF CLK
+SETF CS_BANK WR
+
+; 0xA000 (page 2) -> hit
+SETF A[15] /A[14] A[13] /A[12]
+CHECK B0_MATCH EARLY_HIT
+
+; 0xB000 (page 3) -> hit (8KB)
+SETF A[15] /A[14] A[13] A[12]
+CHECK B0_MATCH EARLY_HIT
+
+; 0xC000 (page 4) -> no hit
+SETF A[15] A[14] /A[13] /A[12]
+CHECK /B0_MATCH /EARLY_HIT
+
+;---------------------------------------------------------------------
+; 4. Bank0 16KB test (Size=10, Start=0)
+;---------------------------------------------------------------------
+SETF /CS_BANK /WR /A[2] /A[1] /A[0] /D[5] /D[4] /D[3] /D[2] D[1] /D[0]    ; Size=10, Start=000
+CLOCKF CLK
+SETF CS_BANK WR
+
+SETF /CS_BANK /WR /A[2] /A[1] A[0] D[5] D[4] /D[3] /D[2] /D[1] /D[0]     ; Base=0x30
+CLOCKF CLK
+SETF CS_BANK WR
+
+; 0x8000 .. 0xB000 should hit
+SETF A[15] /A[14] /A[13] /A[12]     ; page 0
+CHECK B0_MATCH
+SETF A[15] /A[14] A[13] A[12]       ; page 3
+CHECK B0_MATCH
+SETF A[15] A[14] /A[13] /A[12]      ; page 4 -> no (16KB only to page 3)
+CHECK /B0_MATCH
+
+;---------------------------------------------------------------------
+; 5. Priority test: Bank0 and Bank1 both match -> Bank0 wins
+;---------------------------------------------------------------------
+; Set Bank1: Size=16KB, Start=0, Base=0x40
+SETF /CS_BANK /WR /A[2] A[1] /A[0] /D[5] /D[4] /D[3] /D[2] D[1] /D[0]    ; Size=10, Start=000
+CLOCKF CLK
+SETF CS_BANK WR
+
+SETF /CS_BANK /WR /A[2] A[1] A[0] D[5] /D[4] /D[3] /D[2] /D[1] /D[0]    ; Base=0x20
+CLOCKF CLK
+SETF CS_BANK WR
+
+; At 0x8000 both can match, Bank0 should win (EARLY_BASE = Bank0 Base)
+SETF A[15] /A[14] /A[13] /A[12]
+;eredeti sor:
+;CHECK B0_MATCH B1_MATCH EARLY_HIT /EARLY_BASE[5] /EARLY_BASE[4]  EARLY_BASE[3]  EARLY_BASE[2] /EARLY_BASE[1] /EARLY_BASE[0]  ; 0x30 from Bank0
+
+;ez nem ad errort/warningot
+CHECK B0_MATCH B1_MATCH EARLY_HIT  EARLY_BASE[5]  EARLY_BASE[4] /EARLY_BASE[3] /EARLY_BASE[2] /EARLY_BASE[1] /EARLY_BASE[0]  ; 0x30 from Bank0
+
+; alegujabb javitas:
+;CHECK B0_MATCH B1_MATCH EARLY_HIT /EARLY_BASE[5] /EARLY_BASE[4]  EARLY_BASE[3]  EARLY_BASE[2] /EARLY_BASE[1] /EARLY_BASE[0]  ; 0x30
+TRACE_OFF

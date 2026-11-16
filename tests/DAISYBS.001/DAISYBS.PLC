@@ -1,0 +1,54 @@
+
+
+Flags Used:             Unplace=False        Max Packing=True 
+Flags Used:        Expand Small=False         Expand All=False
+
+; FITR generated placements - Daisybs
+
+Pin   35             CLK  ; Inp        ; I  5
+Pin   10       /SYSRESET  ; Inp        ; I  0
+Pin   32             /CS  ; Inp        ; I  3
+Pin   11             /WR  ; Inp        ; I  1
+Pin   13            A[0]  ; Inp        ; I  2
+Pin   41            D[3]  ; Inp        ; D  4
+Pin   42            D[2]  ; Inp        ; D  2
+Pin   43            D[1]  ; Inp        ; D  0
+Pin   33            D[0]  ; Inp        ; I  4
+Pin   40       IEO_KIO_A  ; Inp        ; D  6
+Pin   39       IEO_KIO_B  ; Inp        ; D  8
+Pin   38       IEO_KIO_C  ; Inp        ; D 10
+Pin   37       IEO_KIO_D  ; Inp        ; D 12
+Pin   36       IEO_DMA_A  ; Inp        ; D 14
+Pin   24       IEO_DMA_B  ; Inp        ; C  0
+Pin   25       IEO_DMA_C  ; Inp        ; C  2
+Pin   26       IEO_DMA_D  ; Inp        ; C  4
+Pin    2       IEI_KIO_A   Comb        ; A  0
+Pin    3       IEI_KIO_B   Comb        ; A  2
+Pin    4       IEI_KIO_C   Comb        ; A  4
+Pin    5       IEI_KIO_D   Comb        ; A  6
+Pin    6       IEI_DMA_A   Comb        ; A  8
+Pin    7       IEI_DMA_B   Comb        ; A 10
+Pin    8       IEI_DMA_C   Comb        ; A 12
+Pin    9       IEI_DMA_D   Comb        ; A 14
+Pin   14        BSREG[7]    Reg        ; B 14
+Pin   15        BSREG[6]    Reg        ; B 12
+Pin   16        BSREG[5]    Reg        ; B 10
+Pin   17        BSREG[4]    Reg        ; B  8
+Pin   18        BSREG[3]    Reg        ; B  6
+Pin   19        BSREG[2]    Reg        ; B  4
+Pin   20        BSREG[1]    Reg        ; B  2
+Pin   21        BSREG[0]    Reg        ; B  0
+Node  65          SEL[2]    Reg        ; D 15
+Node  34          SEL[1]    Reg        ; C  0
+Node  50          SEL[0]    Reg        ; D  0
+;
+; Unused Pins & Nodes
+;
+; -> None Found.
+;
+;-; Sequence
+;-; BSREG[0] BSREG[1] BSREG[2] BSREG[3] BSREG[4] BSREG[5] BSREG[6] BSREG[7] SYSRESET
+;-; WR A[0] CS D[0] SEL[0] SEL[2] SEL[1] IEI_KIO_A IEI_KIO_B IEI_KIO_C IEI_KIO_D
+;-; IEI_DMA_A IEI_DMA_B IEI_DMA_C IEI_DMA_D D[1] D[2] D[3] IEO_KIO_A IEO_KIO_B IEO_KIO_C
+;-; IEO_KIO_D IEO_DMA_A IEO_DMA_B IEO_DMA_C IEO_DMA_D
+;

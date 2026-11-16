@@ -1,0 +1,71 @@
+MACHXL 2.1 R9 MACHSIMU (1-24-95)
+ (C) - COPYRIGHT ADVANCED MICRO DEVICES INC., 1993, 1994, 1995
+
+MACHXL SIMULATION SELECTIVE TRACE LISTING WITH VECTOR SIGNALS
+
+Title     : Bank control 1           Author   : Fazekas Mihaly   
+Pattern   :                          Company  : Technical Univers
+Revision  : 0.1                      Date     : 07/10/26         
+
+MACH210        
+Page : 1.1
+
+                 g  g  g  g  c        g  g  c        g  g  g  g  c        g  g  
+CLK              L  L  L  L  H  H  L  L  L  H  H  L  L  L  L  L  H  H  L  L  L  
+/SYSRESET        H  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  
+/CS_BANK         L  L  L  H  H  H  H  L  H  H  H  H  L  L  L  H  H  H  H  L  H  
+/WR              L  L  L  H  H  H  H  L  H  H  H  H  L  L  L  H  H  H  H  L  H  
+A[2..0]          0  0  0  0  0  0  0  0  1  1  1  1  1  1  1  0  0  0  0  0  1  
+D[5..0]          00 00 00 00 00 00 00 00 10 10 10 10 10 10 10 09 09 09 09 09 20 
+A[15..12]        0  0  8  8  8  8  8  8  8  8  8  8  8  8  9  9  9  9  9  9  9  
+B0_SIZE[1..0]    3  3  3  3  3  0  0  0  0  0  0  0  0  0  0  0  0  1  1  1  1  
+B0_START[2..0]   0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  2  2  2  2  
+B0_BASE[5..0]    00 00 00 00 00 00 00 00 00 00 10 10 10 10 10 10 10 10 10 10 10 
+B1_SIZE[1..0]    3  3  3  3  3  3  3  3  3  3  3  3  3  3  3  3  3  3  3  3  3  
+B1_START[2..0]   0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  
+B1_BASE[5..0]    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+B0_MATCH         L  L  L  L  L  H  H  H  H  H  H  H  H  H  L  L  L  L  L  L  L  
+B1_MATCH         L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  
+EARLY_HIT        L  L  L  L  L  H  H  H  H  H  H  H  H  H  L  L  L  L  L  L  L  
+EARLY_001[5..0]  00 00 00 00 00 00 00 00 00 00 10 10 10 10 00 00 00 00 00 00 00 
+
+Page : 1.2
+                 c        g  g  g  g  g  c        g  g  c        g  g  g  g  g  
+CLK              H  H  L  L  L  L  L  L  H  H  L  L  L  H  H  L  L  L  L  L  L  
+/SYSRESET        L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  
+/CS_BANK         H  H  H  L  L  L  L  H  H  H  H  L  H  H  H  H  L  L  L  L  H  
+/WR              H  H  H  L  L  L  L  H  H  H  H  L  H  H  H  H  L  L  L  L  H  
+A[2..0]          1  1  1  1  1  1  1  0  0  0  0  0  1  1  1  1  1  1  1  1  2  
+D[5..0]          20 20 20 20 20 20 20 02 02 02 02 02 30 30 30 30 30 30 30 30 02 
+A[15..12]        9  9  9  9  A  B  C  C  C  C  C  C  C  C  C  C  C  8  B  C  C  
+B0_SIZE[1..0]    1  1  1  1  1  1  1  1  1  2  2  2  2  2  2  2  2  2  2  2  2  
+B0_START[2..0]   2  2  2  2  2  2  2  2  2  0  0  0  0  0  0  0  0  0  0  0  0  
+B0_BASE[5..0]    10 20 20 20 20 20 20 20 20 20 20 20 20 20 30 30 30 30 30 30 30 
+B1_SIZE[1..0]    3  3  3  3  3  3  3  3  3  3  3  3  3  3  3  3  3  3  3  3  3  
+B1_START[2..0]   0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  
+B1_BASE[5..0]    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+B0_MATCH         L  L  L  L  H  H  L  L  L  L  L  L  L  L  L  L  L  H  H  L  L  
+B1_MATCH         L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  
+EARLY_HIT        L  L  L  L  H  H  L  L  L  L  L  L  L  L  L  L  L  H  H  L  L  
+EARLY_001[5..0]  00 00 00 00 20 20 00 00 00 00 00 00 00 00 00 00 00 30 30 00 00 
+
+Page : 1.3
+                 c        g  g  c        g  g  
+CLK              H  H  L  L  L  H  H  L  L  L  
+/SYSRESET        L  L  L  L  L  L  L  L  L  L  
+/CS_BANK         H  H  H  L  H  H  H  H  L  L  
+/WR              H  H  H  L  H  H  H  H  L  L  
+A[2..0]          2  2  2  2  3  3  3  3  3  3  
+D[5..0]          02 02 02 02 20 20 20 20 20 20 
+A[15..12]        C  C  C  C  C  C  C  C  C  8  
+B0_SIZE[1..0]    2  2  2  2  2  2  2  2  2  2  
+B0_START[2..0]   0  0  0  0  0  0  0  0  0  0  
+B0_BASE[5..0]    30 30 30 30 30 30 30 30 30 30 
+B1_SIZE[1..0]    3  2  2  2  2  2  2  2  2  2  
+B1_START[2..0]   0  0  0  0  0  0  0  0  0  0  
+B1_BASE[5..0]    00 00 00 00 00 00 20 20 20 20 
+B0_MATCH         L  L  L  L  L  L  L  L  L  H  
+B1_MATCH         L  L  L  L  L  L  L  L  L  H  
+EARLY_HIT        L  L  L  L  L  L  L  L  L  H  
+EARLY_001[5..0]  00 00 00 00 00 00 20 20 20 30 
+

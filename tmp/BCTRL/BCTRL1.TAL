@@ -1,0 +1,65 @@
+
+****************************
+* Design Name = Bctrl1.pds *
+****************************
+
+
+*******************
+* TIMING ANALYSIS *
+*******************
+
+Timing Analysis KEY:
+One unit of delay time is equivalent to one pass 
+     through the Central Switch Matrix.
+..   Delay ( in this column ) not applicable to the indicated signal.
+TSU, Set-Up Time ( 0 for input-paired signals ),
+     represents the number of switch matrix passes between
+     an input pin and a register setup before clock.
+     TSU is reported on the register.
+TCO, Clocked Output-to-Pin Time ( 0 for output-paired signals ),
+     represents the number of switch matrix passes between
+     a clocked register and an output pin.
+     TCO is reported on the register.
+TPD, Propagation Delay Time ( calculated only for combinatorial eqns.),
+     represents the number of switch matrix passes between
+     an input pin and an output pin.
+     TPD is reported on the output pin.
+TCR, Clocked Output-to-Register Time,
+     represents the number of switch matrix passes between
+     a clocked register and the register it drives ( before clock ).
+     TCR is reported on the driving register.
+
+                    TSU       TCO       TPD       TCR
+                  #passes   #passes   #passes   #passes
+SIGNAL NAME       min  max  min  max  min  max  min  max
+       EARLY_HIT  ..   ..   ..   ..    2    2   ..   ..   
+    EARLY_001[5]  ..   ..   ..   ..    2    2   ..   ..   
+    EARLY_001[4]  ..   ..   ..   ..    2    2   ..   ..   
+    EARLY_001[3]  ..   ..   ..   ..    2    2   ..   ..   
+    EARLY_001[2]  ..   ..   ..   ..    2    2   ..   ..   
+    EARLY_001[1]  ..   ..   ..   ..    2    2   ..   ..   
+    EARLY_001[0]  ..   ..   ..   ..    2    2   ..   ..   
+      B0_SIZE[1]   1    1    2    2   ..   ..   ..   ..   
+      B0_SIZE[0]   1    1    2    2   ..   ..   ..   ..   
+     B0_START[2]   1    1    2    2   ..   ..   ..   ..   
+     B0_START[1]   1    1    2    2   ..   ..   ..   ..   
+     B0_START[0]   1    1    2    2   ..   ..   ..   ..   
+      B1_SIZE[1]   1    1    2    2   ..   ..   ..   ..   
+      B1_SIZE[0]   1    1    2    2   ..   ..   ..   ..   
+     B1_START[2]   1    1    2    2   ..   ..   ..   ..   
+     B1_START[1]   1    1    2    2   ..   ..   ..   ..   
+     B1_START[0]   1    1    2    2   ..   ..   ..   ..   
+      B0_BASE[5]   1    1    1    1   ..   ..   ..   ..   
+      B0_BASE[4]   1    1    1    1   ..   ..   ..   ..   
+      B0_BASE[3]   1    1    1    1   ..   ..   ..   ..   
+      B0_BASE[2]   1    1    1    1   ..   ..   ..   ..   
+      B0_BASE[1]   1    1    1    1   ..   ..   ..   ..   
+      B0_BASE[0]   1    1    1    1   ..   ..   ..   ..   
+      B1_BASE[5]   1    1    1    1   ..   ..   ..   ..   
+      B1_BASE[4]   1    1    1    1   ..   ..   ..   ..   
+      B1_BASE[3]   1    1    1    1   ..   ..   ..   ..   
+      B1_BASE[2]   1    1    1    1   ..   ..   ..   ..   
+      B1_BASE[1]   1    1    1    1   ..   ..   ..   ..   
+      B1_BASE[0]   1    1    1    1   ..   ..   ..   ..   
+        B0_MATCH  ..   ..   ..   ..    1    1   ..   ..   
+        B1_MATCH  ..   ..   ..   ..    1    1   ..   ..   

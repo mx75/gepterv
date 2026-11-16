@@ -1,0 +1,62 @@
+Name      wsc;
+Partno    v1;
+Date      10/08/85;
+Rev       01;
+Designer  Michael;
+Company   SufniFabrik;
+Assembly  None;
+Location  None;
+Device    p16r6;
+
+/** Inputs **/
+Pin 1      =  SYSCLK;
+Pin [5..2] =  [WCNT0..3];
+Pin 6      = !WSEN1;
+Pin 7      = !SYSRESET;
+Pin 11     = !OE;
+Pin 8      = !WSEN0;
+/*
+Pin [8..9] = [!CCW1..0];
+*/
+
+/** Outputs **/
+Pin 12      =  WAIT;
+Pin [16..13]=  [Q0..3];
+Pin 17      =  WTB;
+Pin 18      =  WTE;
+Pin 19      =  WTT;
+
+
+WTT     = (!Q3 $ WCNT3) & (!Q2 $ WCNT2) & (!Q1 $ WCNT1);
+WTB.d   =  WSEN0 # WSEN1 # Q0 # Q1 # Q2 # Q3;
+WTE.d   = (WTB & WTE) # (WTT & (!Q0 $ WCNT0));
+/*
+WTT     = (!Q3 $ (WCNT3 # MAXWS)) & (!Q2 $ (WCNT2 # MAXWS)) & (!Q1 $ (WCNT1 # MAXWS));
+WTE.d   = (WTB & WTE) # (WTT & (!Q0 $ WCNT0)) & (!MAXWS # MAXWS & Q0 & Q1 & Q2 & Q3);
+*/
+
+!WAIT   = WTB & !WTE;
+WAIT.oe = WTB & !WTE;
+
+!Q0.d   =  SYSRESET
+        # !WTB
+        #  WTE
+        # !SYSRESET &  Q0;
+!Q1.d   =  SYSRESET
+        # !WTB
+        #  WTE
+        # !SYSRESET &   Q1 &  Q0
+        # !SYSRESET &  !Q1 & !Q0;
+!Q2.d   =  SYSRESET
+        # !WTB
+        #  WTE
+        # !SYSRESET &   Q2 &  Q1 &  Q0
+        # !SYSRESET &  !Q2 & !Q0
+        # !SYSRESET &  !Q2 & !Q1;
+!Q3.d   =  SYSRESET
+        # !WTB
+        #  WTE
+        # !SYSRESET &   Q3 &  Q2 &  Q1 &  Q0
+        # !SYSRESET &  !Q3 & !Q0
+        # !SYSRESET &  !Q3 & !Q1
+        # !SYSRESET &  !Q3 & !Q2;

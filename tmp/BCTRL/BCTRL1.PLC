@@ -1,0 +1,58 @@
+MACHXL 2.1 R11 MACHFITR (3-31-95)
+ (C) - COPYRIGHT ADVANCED MICRO DEVICES INC., 1993, 1994, 1995
+; Source file Bctrl1.pds
+; FITTER-generated Placements.
+; DEVICE   MACH210
+; DATE     Fri Oct 09 14:08:23 2026
+
+
+Pin   35  CLK
+Pin   7  /SYSRESET
+Pin   6  /CS_BANK
+Pin   5  /WR
+Pin   4  A[2]
+Pin   3  A[1]
+Pin   2  A[0]
+Pin   18  D[5]
+Pin   9  D[4]
+Pin   17  D[3]
+Pin   16  D[2]
+Pin   10  D[1]
+Pin   8  D[0]
+Pin   15  A[15]
+Pin   14  A[14]
+Pin   13  A[13]
+Pin   11  A[12]
+Pin   27  EARLY_HIT Comb ;
+Pin   25  EARLY_001[5] Comb ;
+Pin   30  EARLY_001[4] Comb ;
+Pin   28  EARLY_001[3] Comb ;
+Pin   21  EARLY_001[2] Comb ;
+Pin   26  EARLY_001[1] Comb ;
+Pin   24  EARLY_001[0] Comb ;
+Node  63  B0_SIZE[1] Reg  ;
+Node  61  B0_SIZE[0] Reg  ;
+Node  15  B0_START[2] Reg  ;
+Node  11  B0_START[1] Reg  ;
+Node  30  B0_START[0] Reg  ;
+Node  7  B0_BASE[5] Reg  ;
+Node  44  B0_BASE[4] Reg  ;
+Node  3  B0_BASE[3] Reg  ;
+Node  23  B0_BASE[2] Reg  ;
+Node  47  B0_BASE[1] Reg  ;
+Node  14  B0_BASE[0] Reg  ;
+Node  59  B1_SIZE[1] Reg  ;
+Node  57  B1_SIZE[0] Reg  ;
+Node  26  B1_START[2] Reg  ;
+Node  10  B1_START[1] Reg  ;
+Node  22  B1_START[0] Reg  ;
+Node  6  B1_BASE[5] Reg  ;
+Node  43  B1_BASE[4] Reg  ;
+Node  2  B1_BASE[3] Reg  ;
+Node  19  B1_BASE[2] Reg  ;
+Node  39  B1_BASE[1] Reg  ;
+Node  35  B1_BASE[0] Reg  ;
+Node  51  B0_MATCH Comb ;
+Node  55  B1_MATCH Comb ;
+; Unused Pins & Nodes
+; -> None Found.

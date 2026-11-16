@@ -1,0 +1,46 @@
+TITLE           iosel1
+PATTERN         v1
+REVISION        01
+DATE            10/08/85
+AUTHOR          Michael
+COMPANY         SufniFabrik
+
+CHIP iosel1 USER
+NC A7 A6 A5 NC NC NC NC /MX /IOREQ NC NC A4 GND NC NC A3 /CS_KIO1 
+/CS_KIO2 /CS_KIO3 /CS_KIO4 NC /CS_DMA1 /CS_DMA2 /CS_DMA3 /CS_DMA4 
+A2 VCC 
+
+EQUATIONS
+
+CS_DMA1 = /A3  * /A4  * /A5  * /A6  * A7  * IOREQ  * /MX 
+       
+CS_DMA2 = A3  * /A4  * /A5  * /A6  * A7  * IOREQ  * /MX 
+       
+CS_DMA3 = /A3  * A4  * /A5  * /A6  * A7  * IOREQ  * /MX 
+       
+CS_DMA4 = A3  * A4  * /A5  * /A6  * A7  * IOREQ  * /MX 
+       
+CS_KIO1 = /A4  * /A5  * A6  * /A7  * IOREQ  * /MX 
+       
+CS_KIO2 = A4  * /A5  * A6  * /A7  * IOREQ  * /MX 
+       
+CS_KIO3 = /A4  * A5  * A6  * /A7  * IOREQ  * /MX 
+       
+CS_KIO4 = A4  * A5  * A6  * /A7  * IOREQ  * /MX 
+       
+CS_DMA1.TRST = VCC 
+            
+CS_DMA2.TRST = VCC 
+            
+CS_DMA3.TRST = VCC 
+            
+CS_DMA4.TRST = VCC 
+            
+CS_KIO1.TRST = VCC 
+            
+CS_KIO2.TRST = VCC 
+            
+CS_KIO3.TRST = VCC 
+            
+CS_KIO4.TRST = VCC 
+            

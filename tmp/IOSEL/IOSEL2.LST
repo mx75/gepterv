@@ -1,0 +1,78 @@
+LISTING FOR LOGIC DESCRIPTION FILE: iosel2.pld.pld                   Page 1
+
+CUPL: Universal Compiler for Programmable Logic
+Version 4.0a Serial# MD-40A-8249
+Copyright (C)  1983,1990 Logical Devices, Inc.
+Created Wed Oct 07 08:02:21 2026
+
+  1:Name      iosel2;
+  2:Partno    v1;
+  3:Date      10/08/85;
+  4:Rev       01;
+  5:Designer  Michael;
+  6:Company   SufniFabrik;
+  7:Assembly  None;
+  8:Location  None;
+  9:Device    p20l8lcc;
+ 10:
+ 11:/** Inputs **/
+ 12:Pin 2      =  A7;
+ 13:Pin 3      =  A6;
+ 14:Pin 4      =  A5;
+ 15:Pin 13     =  A4;
+ 16:/*
+ 17:Pin 5      =  BA7;
+ 18:Pin 6      =  BA6;
+ 19:Pin 7      =  BA5;
+ 20:*/
+ 21:Pin 9      = !MX;
+ 22:Pin 10     = !IOREQ;
+ 23:/*
+ 24:Pin 11     = !WR;
+ 25:Pin 12     = !RD;
+ 26:*/
+ 27:Pin 17     =  A3;
+ 28:Pin 27     =  A2;
+ 29:/*
+ 30:Pin 16     =  A1;
+ 31:Pin 25     =  A0;
+ 32:*/
+ 33:
+ 34:/** Outputs **/
+ 35:Pin 18      = !CS_BANK;
+ 36:Pin 19      = !CS_REG;
+ 37:Pin 20      = !CS_I2C;
+ 38:/*
+ 39:Pin 21      = !CS_;
+ 40:Pin 23      = !CS_;
+ 41:Pin 24      = !CS_;
+ 42:Pin 25      = !CS_;
+ 43:Pin 26      = !CS_;
+ 44:*/
+ 45:
+ 46:CS_BANK =  IOREQ & !MX &  A7 & !A6 &  A5 & !A4;
+ 47:CS_REG  =  IOREQ & !MX &  A7 & !A6 &  A5 &  A4 & !A3;
+ 48:CS_I2C  =  IOREQ & !MX &  A7 & !A6 &  A5 &  A4 &  A3;
+ 49:
+ 50:/* a fennmarado 5 kimenet elokeszitve:
+ 51:CS_ =  IOREQ & !MX &
+ 52:CS_ =  IOREQ & !MX &
+ 53:CS_ =  IOREQ & !MX &
+
+LISTING FOR LOGIC DESCRIPTION FILE: iosel2.pld.pld                   Page 2
+
+CUPL: Universal Compiler for Programmable Logic
+Version 4.0a Serial# MD-40A-8249
+Copyright (C)  1983,1990 Logical Devices, Inc.
+Created Wed Oct 07 08:02:21 2026
+
+ 54:CS_ =  IOREQ & !MX &
+ 55:CS_ =  IOREQ & !MX &
+ 56:*/
+ 57:
+ 58:
+
+
+
+Jedec Fuse Checksum       (1d1e)
+Jedec Transmit Checksum   (9995)

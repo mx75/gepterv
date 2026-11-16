@@ -1,0 +1,509 @@
+PALASM 4 v1.5h MACH FITR - MARKET RELEASE (10-11-94)
+ (C) - COPYRIGHT ADVANCED MICRO DEVICES INC., 1990,91,92,93,94
+
+ 
+Reading User Design (TRE File)...
+ 
+Reading Device Database ...
+
+********************************************************************
+     Mach PLD Fitter - v 1.71          Daisy Chain and BitSelect
+********************************************************************
+
+PAIR Analysis...
+
+Pre-Placement & Equation Usage Checks... 
+ 
+
+
+
+
+
+*** Timing Analysis for Signals
+
+ Parameter   Min   Max           Signal List (Those having Max delay.)
+      Tpd     1     1          IEI_DMA_D       IEI_DMA_C       IEI_DMA_B 
+                               IEI_DMA_A       IEI_KIO_D       IEI_KIO_C 
+                               IEI_KIO_B       IEI_KIO_A 
+      Tsu     1     1             SEL[0]          SEL[1]          SEL[2] 
+                                BSREG[0]        BSREG[1]        BSREG[2] 
+                                BSREG[3]        BSREG[7] 
+      Tco     0     1          IEI_DMA_D       IEI_DMA_C       IEI_DMA_B 
+                               IEI_DMA_A       IEI_KIO_D       IEI_KIO_C 
+                               IEI_KIO_B       IEI_KIO_A 
+.
+
+ Key:
+ Tpd - Combinatorial propagation delay, input to output
+ Tsu - Combinatorial setup delay before clock
+ Tco - clock to output (register output to combinatorial output)
+ Tcr - Clock to register setup delay
+.......(Register output thru combinatorial logic to reg input)
+ All delay values are expressed in terms of array passes
+
+
+
+
+*** Device Resource Checks
+
+                Available        Used        Remaining
+        Clocks:     2              1              1
+          Pins:    38             33              5     ->    86%
+     I/O Macro:    32             16             16
+   Total Macro:    64             19             45
+ Product Terms:   256            126            116     ->    54%
+ 
+MACH-PLD Resource Checks OK!  
+
+
+
+Partitioning Design into Blocks...
+
+*** Last Equations Placed in Blocks
+
+Weakly - 
+Assign -          SEL[0]          SEL[1]          SEL[2] 
+
+
+
+
+|> INFORMATION F050 - Device Utilization.............. *: 62 %
+
+
+
+*** Block Partitioning Results
+
+               Array   Product     # I/O    Buried    Signal    Macros
+              Inputs    Terms      Macro     Logic    Fanout    Remain
+   Block-> A    11        64*        8*        0         0         8
+   Block-> B    16        64*        8*        0         8         8
+   Block-> C     6         4         0         1         2        15
+   Block-> D     8         8         0         2         4        14
+
+
+
+*** Block Signal List
+
+Blk-> A      IEI_DMA_D 10      IEI_DMA_C 10      IEI_DMA_B 10      IEI_DMA_A 10
+             IEI_KIO_D 10      IEI_KIO_C 10      IEI_KIO_A 10      IEI_KIO_B 10
+
+Blk-> B       BSREG[0]  9       BSREG[1]  9       BSREG[2]  9       BSREG[3]  9
+              BSREG[4]  9       BSREG[5]  9       BSREG[7]  9       BSREG[6]  9
+
+Blk-> C         SEL[1]  6
+
+Blk-> D         SEL[2]  6         SEL[0]  6
+
+
+
+*** Block Input List
+
+Blk-> A      IEO_KIO_A  7      IEO_KIO_B  7      IEO_KIO_C  7      IEO_KIO_D  7
+             IEO_DMA_A  7      IEO_DMA_B  7      IEO_DMA_C  7      IEO_DMA_D  7
+                SEL[2]  8         SEL[1]  8         SEL[0]  8
+
+Blk-> B       SYSRESET  8             CS  8             WR  8           A[0]  8
+                  D[3]  8           D[2]  8           D[1]  8           D[0]  8
+              BSREG[7]  0       BSREG[6]  0       BSREG[5]  0       BSREG[4]  0
+              BSREG[3]  0       BSREG[2]  0       BSREG[1]  0       BSREG[0]  0
+       
+
+Blk-> C       SYSRESET  1             CS  1             WR  1           A[0]  1
+                  D[1]  1         SEL[1]  0
+
+Singular:       SYSRESET{         SEL[1]}             CS{         SEL[1]}
+                      WR{         SEL[1]}           A[0]{         SEL[1]}
+                    D[1]{         SEL[1]}
+
+
+Blk-> D       SYSRESET  2             CS  2             WR  2           A[0]  2
+                  D[2]  1           D[0]  1         SEL[2]  0         SEL[0]  0
+       
+
+Singular:           D[2]{         SEL[2]}           D[0]{         SEL[0]}
+         
+
+Assigning Resources...
+
+
+Flags Used:             Unplace=False        Max Packing=True 
+Flags Used:        Expand Small=False         Expand All=False
+
+
+
+*** Macro Block B
+
+
+   I/O Macros>        BSREG[0]        BSREG[1]        BSREG[2]        BSREG[3]
+                      BSREG[4]        BSREG[5]        BSREG[6]        BSREG[7]
+              
+      Targets>   0(21)   2(20)   4(19)   6(18)   8(17)  10(16)  12(15)  14(14)
+              
+
+       BSREG[0] (B  0) -> (B  2)
+       BSREG[1] (B  2) -> (B  3)
+       BSREG[2] (B  4) -> (B  8)
+       BSREG[3] (B  6) -> (B 10)
+       BSREG[4] (B  8) -> (B  5)
+       BSREG[5] (B 10) -> (B  7)
+       BSREG[6] (B 12) -> (B  9)
+       BSREG[7] (B 14) -> (B  0)
+
+
+
+*** Macro Block Inputs
+
+
+       Inputs>        SYSRESET              WR            A[0]              CS
+                          D[0]
+      Targets>   0(10)   1(11)   2(13)   3(32)   4(33)
+
+       SYSRESET (I  0) -> (B 12) (C  2) (D  2)
+             WR (I  1) -> (B 16) (C  0) (D  0)
+           A[0] (I  2) -> (B  1) (C  1) (D  1)
+             CS (I  3) -> (B  6) (C  3) (D  3)
+           D[0] (I  4) -> (B  4) (D  4)
+
+
+
+*** Macro Block D
+
+
+ Buried Logic>          SEL[0]          SEL[2]
+      Targets>   0(43)   1(na)   2(42)   3(na)   4(41)   5(na)   6(40)   7(na)
+                 8(39)   9(na)  10(38)  11(na)  12(37)  13(na)  14(36)  15(na)
+              
+
+     * Retry Mapping
+         SEL[0] (D  0) -> (A  8) (D  8)
+         SEL[2] (D 15) -> (A  7) (D  7)
+
+
+
+*** Macro Block C
+
+
+ Buried Logic>          SEL[1]
+      Targets>   0(24)   1(na)   2(25)   3(na)   4(26)   5(na)   6(27)   7(na)
+                 8(28)   9(na)  10(29)  11(na)  12(30)  13(na)  14(31)  15(na)
+              
+
+         SEL[1] (C  0) -> (A  5) (C  5)
+
+
+
+*** Macro Block A
+
+
+   I/O Macros>       IEI_KIO_A       IEI_KIO_B       IEI_KIO_C       IEI_KIO_D
+                     IEI_DMA_A       IEI_DMA_B       IEI_DMA_C       IEI_DMA_D
+              
+      Targets>   0( 2)   2( 3)   4( 4)   6( 5)   8( 6)  10( 7)  12( 8)  14( 9)
+              
+
+      IEI_KIO_A (A  0)        IEI_KIO_B (A  2)        IEI_KIO_C (A  4)  
+      IEI_KIO_D (A  6)        IEI_DMA_A (A  8)        IEI_DMA_B (A 10)  
+      IEI_DMA_C (A 12)        IEI_DMA_D (A 14)  
+
+
+       Inputs>            D[1]            D[2]            D[3]       IEO_KIO_A
+                     IEO_KIO_B       IEO_KIO_C       IEO_KIO_D       IEO_DMA_A
+              
+      Targets>   0(43)   2(42)   4(41)   6(40)   8(39)  10(38)  12(37)  14(36)
+              
+
+           D[1] (D  0) -> (B 18) (C  7)
+           D[2] (D  2) -> (B 19) (D 10)
+           D[3] (D  4) -> (B 20)
+      IEO_KIO_A (D  6) -> (A  1)
+      IEO_KIO_B (D  8) -> (A  2)
+      IEO_KIO_C (D 10) -> (A  3)
+      IEO_KIO_D (D 12) -> (A  4)
+      IEO_DMA_A (D 14) -> (A 14)
+
+
+       Inputs>       IEO_DMA_B       IEO_DMA_C       IEO_DMA_D
+      Targets>   0(24)   2(25)   4(26)   6(27)   8(28)  10(29)  12(30)  14(31)
+              
+
+      IEO_DMA_B (C  0) -> (A  6)
+      IEO_DMA_C (C  2) -> (A 13)
+      IEO_DMA_D (C  4) -> (A 11)
+
+
+
+
+Wiring Completion:  100% -> (  0 nc)
+
+|> INFORMATION F058 - Total Block Fanout (All Signals) *: 41 
+
+
+*** Signals - Tabular Information
+
+          Signal   #   P/N #   (Loc)      Type     Logic  # PT    Blocks
+            CLK    1    35      I  5   clock pin       .     .    .....
+       SYSRESET    2    10      I  0       input       .     .    ..BCD
+             CS    3    32      I  3       input       .     .    ..BCD
+             WR    4    11      I  1       input       .     .    ..BCD
+           A[0]    5    13      I  2       input       .     .    ..BCD
+           D[3]    6    41      D  4       input       .     .    ..B..
+           D[2]    7    42      D  2       input       .     .    ..B.D
+           D[1]    8    43      D  0       input       .     .    ..BC.
+           D[0]    9    33      I  4       input       .     .    ..B.D
+      IEO_KIO_A   10    40      D  6       input       .     .    .A...
+      IEO_KIO_B   11    39      D  8       input       .     .    .A...
+      IEO_KIO_C   12    38      D 10       input       .     .    .A...
+      IEO_KIO_D   13    37      D 12       input       .     .    .A...
+      IEO_DMA_A   14    36      D 14       input       .     .    .A...
+      IEO_DMA_B   15    24      C  0       input       .     .    .A...
+      IEO_DMA_C   16    25      C  2       input       .     .    .A...
+      IEO_DMA_D   17    26      C  4       input       .     .    .A...
+      IEI_KIO_A   18     2      A  0      output    comb     7    .....
+      IEI_KIO_B   19     3      A  2      output    comb     7    .....
+      IEI_KIO_C   20     4      A  4      output    comb     8    .....
+      IEI_KIO_D   21     5      A  6      output    comb     6    .....
+      IEI_DMA_A   22     6      A  8      output    comb     8    .....
+      IEI_DMA_B   23     7      A 10      output    comb     8    .....
+      IEI_DMA_C   24     8      A 12      output    comb     8    .....
+      IEI_DMA_D   25     9      A 14      output    comb     6    .....
+       BSREG[7]   26    14      B 14      output    d-ff     7    ..B..
+       BSREG[6]   27    15      B 12      output    d-ff     7    ..B..
+       BSREG[5]   28    16      B 10      output    d-ff     7    ..B..
+       BSREG[4]   29    17      B  8      output    d-ff     7    ..B..
+       BSREG[3]   30    18      B  6      output    d-ff     7    ..B..
+       BSREG[2]   31    19      B  4      output    d-ff     7    ..B..
+       BSREG[1]   32    20      B  2      output    d-ff     7    ..B..
+       BSREG[0]   33    21      B  0      output    d-ff     7    ..B..
+         SEL[2]   34    65      D 15      buried    d-ff     4    .A..D
+         SEL[1]   35    34      C  0      buried    d-ff     4    .A.C.
+         SEL[0]   36    50      D  0      buried    d-ff     4    .A..D
+.
+
+ Key:
+ P/N # - Pin/Node Number
+ .?. - Signal Unplaced
+ (Loc) - Macrocell Location (Block & Cell)
+ # PT - Number of used product terms in logic
+ Blocks- Device blocks driven by signal
+ comb - Combinatorial logic function
+ d-ff - D-Type Flip-flop
+ t-ff - T-Type Flip-flop
+ Note: Registered input storage equations (MACH-2xx family)
+ ..... are realized with 0 array product terms.
+
+
+*** Signals - Equations Where Used
+
+   Signal Source                   Fanout List
+
+       SYSRESET:         SEL[0]          SEL[1]          SEL[2]        BSREG[0] 
+               :       BSREG[1]        BSREG[2]        BSREG[3]        BSREG[4] 
+               :       BSREG[5]        BSREG[6]        BSREG[7] 
+               {DCDB BBBB BBB}
+
+             CS:         SEL[0]          SEL[1]          SEL[2]        BSREG[0] 
+               :       BSREG[1]        BSREG[2]        BSREG[3]        BSREG[4] 
+               :       BSREG[5]        BSREG[6]        BSREG[7] 
+               {DCDB BBBB BBB}
+
+             WR:         SEL[0]          SEL[1]          SEL[2]        BSREG[0] 
+               :       BSREG[1]        BSREG[2]        BSREG[3]        BSREG[4] 
+               :       BSREG[5]        BSREG[6]        BSREG[7] 
+               {DCDB BBBB BBB}
+
+           A[0]:         SEL[0]          SEL[1]          SEL[2]        BSREG[0] 
+               :       BSREG[1]        BSREG[2]        BSREG[3]        BSREG[4] 
+               :       BSREG[5]        BSREG[6]        BSREG[7] 
+               {DCDB BBBB BBB}
+
+           D[3]:       BSREG[0]        BSREG[1]        BSREG[2]        BSREG[3] 
+               :       BSREG[4]        BSREG[5]        BSREG[6]        BSREG[7] 
+               {BBBB BBBB}
+
+           D[2]:         SEL[2]        BSREG[0]        BSREG[1]        BSREG[2] 
+               :       BSREG[3]        BSREG[4]        BSREG[5]        BSREG[6] 
+               :       BSREG[7] 
+               {DBBB BBBB B}
+
+           D[1]:         SEL[1]        BSREG[0]        BSREG[1]        BSREG[2] 
+               :       BSREG[3]        BSREG[4]        BSREG[5]        BSREG[6] 
+               :       BSREG[7] 
+               {CBBB BBBB B}
+
+           D[0]:         SEL[0]        BSREG[0]        BSREG[1]        BSREG[2] 
+               :       BSREG[3]        BSREG[4]        BSREG[5]        BSREG[6] 
+               :       BSREG[7] 
+               {DBBB BBBB B}
+
+      IEO_KIO_A:      IEI_DMA_D       IEI_DMA_C       IEI_DMA_B       IEI_DMA_A 
+               :      IEI_KIO_D       IEI_KIO_C       IEI_KIO_B 
+               {AAAA AAA}
+
+      IEO_KIO_B:      IEI_DMA_D       IEI_DMA_C       IEI_DMA_B       IEI_DMA_A 
+               :      IEI_KIO_D       IEI_KIO_C       IEI_KIO_A 
+               {AAAA AAA}
+
+      IEO_KIO_C:      IEI_DMA_D       IEI_DMA_C       IEI_DMA_B       IEI_DMA_A 
+               :      IEI_KIO_D       IEI_KIO_B       IEI_KIO_A 
+               {AAAA AAA}
+
+      IEO_KIO_D:      IEI_DMA_D       IEI_DMA_C       IEI_DMA_B       IEI_DMA_A 
+               :      IEI_KIO_C       IEI_KIO_B       IEI_KIO_A 
+               {AAAA AAA}
+
+      IEO_DMA_A:      IEI_DMA_D       IEI_DMA_C       IEI_DMA_B       IEI_KIO_D 
+               :      IEI_KIO_C       IEI_KIO_B       IEI_KIO_A 
+               {AAAA AAA}
+
+      IEO_DMA_B:      IEI_DMA_D       IEI_DMA_C       IEI_DMA_A       IEI_KIO_D 
+               :      IEI_KIO_C       IEI_KIO_B       IEI_KIO_A 
+               {AAAA AAA}
+
+      IEO_DMA_C:      IEI_DMA_D       IEI_DMA_B       IEI_DMA_A       IEI_KIO_D 
+               :      IEI_KIO_C       IEI_KIO_B       IEI_KIO_A 
+               {AAAA AAA}
+
+      IEO_DMA_D:      IEI_DMA_C       IEI_DMA_B       IEI_DMA_A       IEI_KIO_D 
+               :      IEI_KIO_C       IEI_KIO_B       IEI_KIO_A 
+               {AAAA AAA}
+
+       BSREG[7]:       BSREG[7] 
+               {B}
+       BSREG[6]:       BSREG[6] 
+               {B}
+       BSREG[5]:       BSREG[5] 
+               {B}
+       BSREG[4]:       BSREG[4] 
+               {B}
+       BSREG[3]:       BSREG[3] 
+               {B}
+       BSREG[2]:       BSREG[2] 
+               {B}
+       BSREG[1]:       BSREG[1] 
+               {B}
+       BSREG[0]:       BSREG[0] 
+               {B}
+         SEL[2]:         SEL[2]       IEI_DMA_D       IEI_DMA_C       IEI_DMA_B 
+               :      IEI_DMA_A       IEI_KIO_D       IEI_KIO_C       IEI_KIO_B 
+               :      IEI_KIO_A 
+               {DAAA AAAA A}
+
+         SEL[1]:         SEL[1]       IEI_DMA_D       IEI_DMA_C       IEI_DMA_B 
+               :      IEI_DMA_A       IEI_KIO_D       IEI_KIO_C       IEI_KIO_B 
+               :      IEI_KIO_A 
+               {CAAA AAAA A}
+
+         SEL[0]:         SEL[0]       IEI_DMA_D       IEI_DMA_C       IEI_DMA_B 
+               :      IEI_DMA_A       IEI_KIO_D       IEI_KIO_C       IEI_KIO_B 
+               :      IEI_KIO_A 
+               {DAAA AAAA A}
+
+
+
+
+*** Outputs with no feedback
+
+        IEI_KIO_A       IEI_KIO_B       IEI_KIO_C       IEI_KIO_D       IEI_DMA_A 
+        IEI_DMA_B       IEI_DMA_C       IEI_DMA_D 
+
+
+*** Feedback Map - Daisy Chain and BitSelect
+
+ Gbl Inp .--.     I/O  .--+--A--+--.  I/O           I/O  .--+--B--+--.  I/O   
+         | 0|          | 0|     |21|             BSREG[7]  0|     |21|        
+         | 1|  IEO_KIO_  1|     |20|                A[0] : 1|     |20| D[3]   
+         | 2|  IEO_KIO_  2|     |19|             BSREG[0]  2|     |19| D[2]   
+         | 3|  IEO_KIO_  3|     |18|             BSREG[1]  3|     |18| D[1]   
+         | 4|  IEO_KIO_  4|     |17|                D[0] : 4|     |17|        
+         | 5|   SEL[1] : 5|     |16|             BSREG[4]  5|     |16| /WR    
+         '--'  IEO_DMA_  6|     |15|                 /CS : 6|     |15|        
+                SEL[2] : 7|     |14: IEO_DMA     BSREG[5]  7|     |14|        
+                SEL[0] : 8|     |13: IEO_DMA     BSREG[2]  8|     |13|        
+                       | 9|     |12|             BSREG[6]  9|     |12: /SYSRES
+K:  * Used             |10|     |11: IEO_DMA     BSREG[3] 10|     |11|        
+    . Avail            '--+--C--+--'                     '--+--D--+--'        
+    # N/A          /WR : 0|     |21|                 /WR : 0|     |21|        
+    0 RegIn       A[0] : 1|     |20|                A[0] : 1|     |20|        
+               /SYSRESE  2|     |19|             /SYSRESE  2|     |19|        
+                   /CS : 3|     |18|                 /CS : 3|     |18|        
+                       | 4|     |17|                D[0] : 4|     |17|        
+                SEL[1] : 5|     |16|                     | 5|     |16|        
+                       | 6|     |15|                     | 6|     |15|        
+                  D[1] : 7|     |14|              SEL[2] : 7|     |14|        
+                       | 8|     |13|              SEL[0] : 8|     |13|        
+                       | 9|     |12|                     | 9|     |12|        
+                       |10|     |11|                D[2] :10|     |11|        
+                       '--+-u--u+--'                     '--+-u--u+--'        
+
+
+
+*** Logic Map - Daisy Chain and BitSelect
+
+ Gbl Inp .--.     I/O  .--+--A--+--.  I/O           I/O  .--+--B--+--.  I/O   
+ /SYSRESE| 0|  IEI_KIO_  0| 7  #|21|             BSREG[0]  0| 7  #|21|        
+      /WR| 1|          | 1| *  #|20|                     | 1| *  #|20|        
+     A[0]| 2|  IEI_KIO_  2| 7  #|19|             BSREG[1]  2| 7  #|19|        
+      /CS| 3|          | 3| *  #|18|                     | 3| *  #|18|        
+     D[0]| 4|  IEI_KIO_  4| 8  #|17|             BSREG[2]  4| 7  #|17|        
+      CLK| 5|          | 5| *  #|16|                     | 5| *  #|16|        
+         '--'  IEI_KIO_  6| 6  *|15|             BSREG[3]  6| 7  *|15|        
+                       | 7| *  6|14| IEI_DMA             | 7| *  7|14| BSREG[7
+               IEI_DMA_  8| 8  *|13|             BSREG[4]  8| 7  *|13|        
+                       | 9| *  8|12| IEI_DMA             | 9| *  7|12| BSREG[6
+K:  * Used     IEI_DMA_ 10| 8  *|11|             BSREG[5] 10| 7  *|11|        
+    . Avail            '--+--C--+--'                     '--+--D--+--'        
+    # N/A       SEL[1] | 0| 4  #|21|              SEL[0] | 0| 4  #|21|        
+    0 RegIn            | 1| .  #|20|                     | 1| .  #|20|        
+                       | 2| .  #|19|                     | 2| .  #|19|        
+                       | 3| .  #|18|                     | 3| .  #|18|        
+                       | 4| .  #|17|                     | 4| .  #|17|        
+                       | 5| .  #|16|                     | 5| .  #|16|        
+                       | 6| .  .|15|                     | 6| .  4|15| SEL[2] 
+                       | 7| .  .|14|                     | 7| .  .|14|        
+                       | 8| .  .|13|                     | 8| .  .|13|        
+                       | 9| .  .|12|                     | 9| .  .|12|        
+                       |10| .  .|11|                     |10| .  .|11|        
+                       '--+-u--u+--'                     '--+-u--u+--'        
+
+
+*** Pin Map - Daisy Chain and BitSelect
+                                                                      
+                                                                      
+                                                                      
+                                                                      
+                              IEI_KIO_A                               
+                           IEI_KIO_B  |        D[1]                   
+                        IEI_KIO_C  |  |        |  D[2]                
+                     IEI_KIO_D  |  |  |        |  |  D[3]             
+                  IEI_DMA_A  |  |  |  |        |  |  |  IEO_KIO_A     
+                          |  |  |  |  |        |  |  |  |             
+                    .-----'--'--'--'--'--o-----'--'--'--'---.         
+                    |                       4  4  4  4  4   |         
+                    |     6  5  4  3  2  1  4  3  2  1  0   |         
+           IEI_DMA_B| 7                                   39|IEO_KIO_B
+           IEI_DMA_C| 8                  G  V             38|IEO_KIO_C
+           IEI_DMA_D| 9                  n  c             37|IEO_KIO_D
+           /SYSRESET|10                  d  c             36|IEO_DMA_A
+                 /WR|11                                   35|CLK      
+                Gnd |12            MACH-210               34| Gnd     
+                A[0]|13                                   33|D[0]     
+            BSREG[7]|14             V  G                  32|/CS      
+            BSREG[6]|15             c  n                  31|         
+            BSREG[5]|16             c  d                  30|         
+            BSREG[4]|17                                   29|         
+                    |   1  1  2  2  2  2  2  2  2  2  2     |         
+                    |   8  9  0  1  2  3  4  5  6  7  8     |         
+                    '---.--.--.--.--------.--.--.--.--.-----'         
+                        |  |  |  |        |  |  |  |  |               
+                 BSREG[3]  |  |  |        |  |  |  |  '               
+                    BSREG[2]  |  |        |  |  |  '                  
+                       BSREG[1]  |        |  |  IEO_DMA_D             
+                          BSREG[0]        |  IEO_DMA_C                
+                                          IEO_DMA_B                   
+The Jedec Data is  stored in ===> Daisybs.jed
+The Placements are stored in ===> Daisybs.plc
+The Design Doc is  stored in ===> Daisybs.rpt
+ 
+%% FITR %% Error Count: 0, Warning Count: 0
+%% FITR %% File Processed Successfully. - File: Daisybs.pds
+ 

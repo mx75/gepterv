@@ -1,0 +1,219 @@
+
+*******************************************************************************
+                                      wsc
+*******************************************************************************
+
+CUPL            3.2a Serial# MD-32A-6365
+Device          p16r6  Library DLIB-h-25-14
+Created         Sat Mar 06 14:45:00 2021
+Name            wsc
+Partno          v1
+Revision        01
+Date            10/08/85
+Designer        Michael
+Company         SufniFabrik
+Assembly        None
+Location        None
+
+===============================================================================
+                            Expanded Product Terms
+===============================================================================
+
+Q0.d  =>
+    WTE
+  # !WTB
+  # SYSRESET
+  # Q0
+
+Q1.d  =>
+    !Q0 & !Q1
+  # Q0 & Q1
+  # WTE
+  # !WTB
+  # SYSRESET
+
+Q2.d  =>
+    Q0 & Q1 & Q2
+  # !Q1 & !Q2
+  # !Q0 & !Q2
+  # WTE
+  # !WTB
+  # SYSRESET
+
+Q3.d  =>
+    Q0 & Q1 & Q2 & Q3
+  # !Q2 & !Q3
+  # !Q1 & !Q3
+  # !Q0 & !Q3
+  # WTE
+  # !WTB
+  # SYSRESET
+
+WAIT =>
+    WTB & !WTE
+
+WAIT.oe  =>
+    WTB & !WTE
+
+WTB.d  =>
+    !Q0 & !Q1 & !Q2 & !Q3 & !WSEN0 & !WSEN1
+
+WTE.d  =>
+    Q0 & !WCNT0 & !WTE
+  # !Q0 & WCNT0 & !WTE
+  # Q0 & !WCNT0 & !WTB
+  # !Q0 & WCNT0 & !WTB
+  # !WTE & !WTT
+  # !WTB & !WTT
+
+WTT =>
+    Q3 & !WCNT3
+  # !Q3 & WCNT3
+  # Q2 & !WCNT2
+  # !Q2 & WCNT2
+  # Q1 & !WCNT1
+  # !Q1 & WCNT1
+
+WTT.oe  =>
+    1 
+
+
+===============================================================================
+                                 Symbol Table
+===============================================================================
+
+Pin Variable                                    Pterms   Max     Min    
+Pol   Name              Ext     Pin     Type     Used   Pterms  Level   
+--- --------            ---     ---     ----    ------  ------  -----   
+
+ !  OE                          11       V        -       -       -     
+    Q0                          16       V        -       -       -     
+    Q0                  d       16       X        4       8       4     
+    Q1                          15       V        -       -       -     
+    Q1                  d       15       X        5       8       4     
+    Q2                          14       V        -       -       -     
+    Q2                  d       14       X        6       8       4     
+    Q3                          13       V        -       -       -     
+    Q3                  d       13       X        7       8       4     
+    SYSCLK                      1        V        -       -       -     
+ !  SYSRESET                    7        V        -       -       -     
+    WAIT                        12       V        1       7       4     
+    WAIT                oe      12       X        1       1       1     
+    WCNT0                       5        V        -       -       -     
+    WCNT1                       4        V        -       -       -     
+    WCNT2                       3        V        -       -       -     
+    WCNT3                       2        V        -       -       -     
+ !  WSEN0                       8        V        -       -       -     
+ !  WSEN1                       6        V        -       -       -     
+    WTB                         17       V        -       -       -     
+    WTB                 d       17       X        1       8       4     
+    WTE                         18       V        -       -       -     
+    WTE                 d       18       X        6       8       4     
+    WTT                         19       V        6       7       4     
+    WTT                 oe      19       D        1       1       0     
+
+
+LEGEND    F : field      D : default variable        M : extended node
+          N : node       I : intermediate variable   T : function
+          V : variable   X : extended variable       U : undefined
+
+
+===============================================================================
+                                   Fuse Plot
+===============================================================================
+
+Pin #19 
+ 00000 -------------------------------- 
+ 00032 -x------------------------x----- 
+ 00064 x--------------------------x---- 
+ 00096 -----x----------------x--------- 
+ 00128 ----x------------------x-------- 
+ 00160 ---------x--------x------------- 
+ 00192 --------x----------x------------ 
+ 00224 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #18 
+ 00256 -------x-----xx----------------- 
+ 00288 -------x----x--x---------------- 
+ 00320 -----------x-xx----------------- 
+ 00352 -----------xx--x---------------- 
+ 00384 ---x---x------------------------ 
+ 00416 ---x-------x-------------------- 
+ 00448 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00480 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #17 
+ 00512 ---------------xx--x---xx--x---- 
+ 00544 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00576 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00608 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00640 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00672 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00704 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00736 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #16 
+ 00768 ------x------------------------- 
+ 00800 -----------x-------------------- 
+ 00832 ---------------------x---------- 
+ 00864 --------------x----------------- 
+ 00896 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00928 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00960 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00992 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #15 
+ 01024 ---------------x---x------------ 
+ 01056 --------------x---x------------- 
+ 01088 ------x------------------------- 
+ 01120 -----------x-------------------- 
+ 01152 ---------------------x---------- 
+ 01184 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01216 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01248 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #14 
+ 01280 --------------x---x---x--------- 
+ 01312 -------------------x---x-------- 
+ 01344 ---------------x-------x-------- 
+ 01376 ------x------------------------- 
+ 01408 -----------x-------------------- 
+ 01440 ---------------------x---------- 
+ 01472 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01504 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #13 
+ 01536 --------------x---x---x---x----- 
+ 01568 -----------------------x---x---- 
+ 01600 -------------------x-------x---- 
+ 01632 ---------------x-----------x---- 
+ 01664 ------x------------------------- 
+ 01696 -----------x-------------------- 
+ 01728 ---------------------x---------- 
+ 01760 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #12 
+ 01792 -------x--x--------------------- 
+ 01824 -------x--x--------------------- 
+ 01856 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01888 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01920 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01952 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01984 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 02016 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+
+
+LEGEND    X : fuse not blown 
+          - : fuse blown 
+
+===============================================================================
+                                 Chip Diagram
+===============================================================================
+
+                               ______________
+                              |     wsc      |
+                   SYSCLK x---|1           20|---x Vcc                      
+                    WCNT3 x---|2           19|---x WTT                      
+                    WCNT2 x---|3           18|---x WTE                      
+                    WCNT1 x---|4           17|---x WTB                      
+                    WCNT0 x---|5           16|---x Q0                       
+                   !WSEN1 x---|6           15|---x Q1                       
+                !SYSRESET x---|7           14|---x Q2                       
+                   !WSEN0 x---|8           13|---x Q3                       
+                          x---|9           12|---x WAIT                     
+                      GND x---|10          11|---x !OE                      
+                              |______________|
+

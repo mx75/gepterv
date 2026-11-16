@@ -1,0 +1,936 @@
+
+=======================COMPILATION OPTIONS=======================
+  Log file name:    DSYBS2.log
+  Run mode:         Run All Programs
+  Format: text      File: DSYBS2.PDS
+
+=======================MACH FITTING OPTIONS======================
+SIGNAL PLACEMENT:
+  Handling of Preplacements:               No Change
+  Use placement data from:                 Design file
+  Save last successful placement:          <F3>
+  Press <F9> to edit file containing:      Last successful placement
+FITTING OPTIONS:
+  Global Clocks routable as Pterm Clocks?  N
+  Unused I/O pins configured as outputs?   N .. if 'Y', Level = H
+  22V10/MACH1XX/2XX S/R Compatibility?     Y
+  SET/RESET treated as DONT_CARE?          Y
+  Run Time Upper Bound in 15 minutes:      0
+  Iterate between partition & place/route? Y
+  Balanced partitioning?                   Y
+  Spread placement?                        Y
+  Reduce Non-forced Global Clocks?         N .. if 'Y', Number = 1
+  Reduce Routes Per Placement?             N
+=================================================================
+
+=======================SIMULATION OPTIONS========================
+  Use auxiliary simulation file: N
+  Use placement data from:       Last successful placement
+=================================================================
+
+=======================LOGIC SYNTHESIS OPTIONS===================
+Use automatic pin/node pairing?       Y
+Use automatic gate splitting?         N .. if 'Y', Threshold = 16
+Gate split max num. pterms per eqn:   16
+Optimize registers for D/T-type       D,T As specified. JK,RS to D
+Ensure polarity after minimizationis: As specified in design file
+Use 'If-Then-Else','CASE; default as: Off
+Use fast minimization?                N
+=================================================================
+Dsybs2.pds
+
+MACHXL 2.1 R9-F PARSER (1-24-95)
+ (C) - COPYRIGHT ADVANCED MICRO DEVICES INC., 1993, 1994, 1995
+
+
+                    ***********************************
+                    *     MACHXL PARSER LISTING       *
+                    ***********************************
+
+LINE #   |----+----1----+----2----+----3----+----4----+----5----+----6----+
+   1     |TITLE            Daisy Chain v2 - two banks, IEO inhibit, BitSelect
+   2     |REVISION         2
+   3     |PATTERN          ?
+   4     |AUTHOR           draft, based on daisybs v1
+   5     |COMPANY          _
+   6     |DATE            10/9/2026
+   7     |
+   8     |;=================================================================
+   9     |; MACH210 - Daisy-Chain v2
+  10     |; 4x KIO + 4x DMA, 8 chain positions in TWO BANKS of 4
+  11     |;   bank 1 = chain positions 1..4  (order selected by SEL)
+  12     |;   bank 2 = chain positions 5..8
+  13     |; The IEI of position 5 is NOT IEO of position 4.  It is driven by the
+  14     |; inhibit flag INHB (replaces the 74LS74 + 74LS191 of Fig.13):
+  15     |;   INHB = 1 : bank 2 blocked   (IEI of positions 5..8 = 0)
+  16     |;   INHB is SET at a detected interrupt acknowledge cycle, but only if
+  17     |;            some IEO of bank 1 is low (B1_ALL = 0).
+  18     |;   INHB is CLEARED as soon as all four IEO of bank 1 are high again.
+  19     |; IACK detect (synchronous, rising edge of CLK):
+  20     |;   M1 asserted at the previous edge (M1S1) AND M1 asserted now AND RD
+  21     |;   not asserted now  ==  2nd rising edge after M1 fell, no opcode fetch.
+  22     |; RETI side: with INHB the ripple of the 'forced high IEO' stays inside
+  23     |; one bank (max 3 hops).  Software rule: EI directly before RETI.
+  24     |;
+  25     |; Addressing (same /CS): A[0]=0 SEL[2..0] write (D[2..0])
+  26     |;                        A[0]=1 BitSelect write (D[0]=data, D[3..1]=bit)
+  27     |; Tool: PALASM4 / MACHXL.  Comments are ASCII only on purpose.
+  28     |;=================================================================
+  29     |
+  30     |CHIP dsybs2 MACH210
+  31     |
+  32     |;----- inputs -----
+  33     |PIN     ?   CLK                         ; system clock (rising edge)
+  34     |PIN     ?   /SYSRESET
+  35     |PIN     ?   /CS
+  36     |PIN     ?   /WR
+  37     |PIN     ?   A[0]
+  38     |PIN     ?   D[3..0]
+  39     |PIN     ?   /M1
+  40     |PIN     ?   /RD
+  41     |
+  42     |PIN     ?   IEO_KIO_A
+  43     |PIN     ?   IEO_KIO_B
+  44     |PIN     ?   IEO_KIO_C
+  45     |PIN     ?   IEO_KIO_D
+  46     |PIN     ?   IEO_DMA_A
+  47     |PIN     ?   IEO_DMA_B
+  48     |PIN     ?   IEO_DMA_C
+  49     |PIN     ?   IEO_DMA_D
+  50     |
+  51     |;----- outputs: IEI towards the devices -----
+  52     |PIN     ?   IEI_KIO_A     COMBINATORIAL
+  53     |PIN     ?   IEI_KIO_B     COMBINATORIAL
+  54     |PIN     ?   IEI_KIO_C     COMBINATORIAL
+  55     |PIN     ?   IEI_KIO_D     COMBINATORIAL
+  56     |PIN     ?   IEI_DMA_A     COMBINATORIAL
+  57     |PIN     ?   IEI_DMA_B     COMBINATORIAL
+  58     |PIN     ?   IEI_DMA_C     COMBINATORIAL
+  59     |PIN     ?   IEI_DMA_D     COMBINATORIAL
+  60     |
+  61     |PIN     ?   BLK2          COMBINATORIAL   ; = INHB, for scope / LED
+  62     |PIN     ?   BSREG[7..0]   REGISTERED
+  63     |
+  64     |;----- internal -----
+  65     |NODE    ?   SEL[2..0]     REGISTERED
+  66     |NODE    ?   M1S1          REGISTERED      ; M1 was asserted at previous edge
+  67     |NODE    ?   INHB          REGISTERED      ; bank 2 blocked
+  68     |NODE    ?   B1_ALL        COMBINATORIAL   ; all 4 IEO of bank 1 high
+  69     |
+  70     |STRING  WR_SEL      '(/CS * /WR * /A[0])'
+  71     |STRING  WR_BS       '/CS * /WR *  A[0]'
+  72     |
+  73     |STRING  S000        '/SEL[2] * /SEL[1] * /SEL[0]'
+  74     |STRING  S001        '/SEL[2] * /SEL[1] *  SEL[0]'
+  75     |STRING  S010        '/SEL[2] *  SEL[1] * /SEL[0]'
+  76     |STRING  S011        '/SEL[2] *  SEL[1] *  SEL[0]'
+  77     |STRING  S100        ' SEL[2] * /SEL[1] * /SEL[0]'
+  78     |STRING  S101        ' SEL[2] * /SEL[1] *  SEL[0]'
+  79     |STRING  S110        ' SEL[2] *  SEL[1] * /SEL[0]'
+  80     |STRING  S111        ' SEL[2] *  SEL[1] *  SEL[0]'
+  81     |
+  82     |EQUATIONS
+  83     |
+  84     |;----- SEL register -----
+  85     |SEL[2] =  
+  85  s1 |(/CS * /WR * /A[0])
+  85     |                 * D[2]  +  / 
+  85  s1 |(/CS * /WR * /A[0])
+  85     |                                     * SEL[2]
+  86     |SEL[1] =  
+  86  s1 |(/CS * /WR * /A[0])
+  86     |                 * D[1]  +  / 
+  86  s1 |(/CS * /WR * /A[0])
+  86     |                                     * SEL[1]
+  87     |SEL[0] =  
+  87  s1 |(/CS * /WR * /A[0])
+  87     |                 * D[0]  +  / 
+  87  s1 |(/CS * /WR * /A[0])
+  87     |                                     * SEL[0]
+  88     |SEL[2..0].CLKF = CLK
+  89     |SEL[2..0].RSTF = /SYSRESET
+  90     |
+  91     |;----- BitSelect register -----
+  92     |BSREG[0] =  
+  92  s1 |/CS * /WR *  A[0]
+  92     |                  * /D[3] * /D[2] * /D[1] * D[0]  +  /( 
+  92  s1 |/CS * /WR *  A[0]
+  92     |                                                              * /D[3] * /D[2] * /D[1]) * BSREG[0]
+  93     |BSREG[1] =  
+  93  s1 |/CS * /WR *  A[0]
+  93     |                  * /D[3] * /D[2] * D[1] * D[0]  +  /( 
+  93  s1 |/CS * /WR *  A[0]
+  93     |                                                             * /D[3] * /D[2] * D[1]) * BSREG[1]
+  94     |BSREG[2] =  
+  94  s1 |/CS * /WR *  A[0]
+  94     |                  * /D[3] * D[2] * /D[1] * D[0]  +  /( 
+  94  s1 |/CS * /WR *  A[0]
+  94     |                                                             * /D[3] * D[2] * /D[1]) * BSREG[2]
+  95     |BSREG[3] =  
+  95  s1 |/CS * /WR *  A[0]
+  95     |                  * /D[3] * D[2] * D[1] * D[0]  +  /( 
+  95  s1 |/CS * /WR *  A[0]
+  95     |                                                            * /D[3] * D[2] * D[1]) * BSREG[3]
+  96     |BSREG[4] =  
+  96  s1 |/CS * /WR *  A[0]
+  96     |                  * D[3] * /D[2] * /D[1] * D[0]  +  /( 
+  96  s1 |/CS * /WR *  A[0]
+  96     |                                                             * D[3] * /D[2] * /D[1]) * BSREG[4]
+  97     |BSREG[5] =  
+  97  s1 |/CS * /WR *  A[0]
+  97     |                  * D[3] * /D[2] * D[1] * D[0]  +  /( 
+  97  s1 |/CS * /WR *  A[0]
+  97     |                                                            * D[3] * /D[2] * D[1]) * BSREG[5]
+  98     |BSREG[6] =  
+  98  s1 |/CS * /WR *  A[0]
+  98     |                  * D[3] * D[2] * /D[1] * D[0]  +  /( 
+  98  s1 |/CS * /WR *  A[0]
+  98     |                                                            * D[3] * D[2] * /D[1]) * BSREG[6]
+  99     |BSREG[7] =  
+  99  s1 |/CS * /WR *  A[0]
+  99     |                  * D[3] * D[2] * D[1] * D[0]  +  /( 
+  99  s1 |/CS * /WR *  A[0]
+  99     |                                                           * D[3] * D[2] * D[1]) * BSREG[7]
+ 100     |BSREG[7..0].CLKF = CLK
+ 101     |BSREG[7..0].RSTF = /SYSRESET
+ 102     |
+ 103     |;----- IACK detect + inhibit flag -----
+ 104     |M1S1 = /M1
+ 105     |M1S1.CLKF = CLK
+ 106     |M1S1.RSTF = /SYSRESET
+ 107     |
+ 108     |INHB = /B1_ALL * ( M1S1 * /M1 * RD  +  INHB )
+ 109     |INHB.CLKF = CLK
+ 110     |INHB.RSTF = /SYSRESET
+ 111     |
+ 112     |BLK2 = INHB
+ 113     |
+ 114     |;----- are all four IEO of bank 1 high? (3 possible device sets) -----
+ 115     |;  orders 000,100         : KIO_A..D
+ 116     |;  orders 010,011         : DMA_A..D
+ 117     |;  orders 001,101,110,111 : KIO_A KIO_B DMA_A DMA_B
+ 118     |B1_ALL =
+ 119     |      /SEL[1] * /SEL[0] * IEO_KIO_A * IEO_KIO_B * IEO_KIO_C * IEO_KIO_D
+ 120     |    + /SEL[2] *  SEL[1] * IEO_DMA_A * IEO_DMA_B * IEO_DMA_C * IEO_DMA_D
+ 121     |    + /SEL[1] *  SEL[0] * IEO_KIO_A * IEO_KIO_B * IEO_DMA_A * IEO_DMA_B
+ 122     |    +  SEL[2] *  SEL[1] * IEO_KIO_A * IEO_KIO_B * IEO_DMA_A * IEO_DMA_B;
+ 123     |
+ 124     |;----- IEI outputs (look-ahead inside a bank, INHB between banks) -----
+ 125     |IEI_KIO_A =
+ 126     |       
+ 126  s1 |/SEL[2] * /SEL[1] * /SEL[0]
+ 126     |            * VCC
+ 127     |    +  
+ 127  s1 |/SEL[2] * /SEL[1] *  SEL[0]
+ 127     |            * VCC
+ 128     |    +  
+ 128  s1 |/SEL[2] *  SEL[1] * /SEL[0]
+ 128     |            * /INHB
+ 129     |    +  
+ 129  s1 |/SEL[2] *  SEL[1] *  SEL[0]
+ 129     |            * (/INHB * IEO_KIO_D * IEO_KIO_C * IEO_KIO_B)
+ 130     |    +  
+ 130  s1 | SEL[2] * /SEL[1] * /SEL[0]
+ 130     |            * (IEO_KIO_D * IEO_KIO_C * IEO_KIO_B)
+ 131     |    +  
+ 131  s1 | SEL[2] * /SEL[1] *  SEL[0]
+ 131     |            * (IEO_DMA_A)
+ 132     |    +  
+ 132  s1 | SEL[2] *  SEL[1] * /SEL[0]
+ 132     |            * VCC
+ 133     |    +  
+ 133  s1 | SEL[2] *  SEL[1] *  SEL[0]
+ 133     |            * (IEO_DMA_B * IEO_DMA_A);
+ 134     |
+ 135     |IEI_KIO_B =
+ 136     |       
+ 136  s1 |/SEL[2] * /SEL[1] * /SEL[0]
+ 136     |            * (IEO_KIO_A)
+ 137     |    +  
+ 137  s1 |/SEL[2] * /SEL[1] *  SEL[0]
+ 137     |            * (IEO_KIO_A * IEO_DMA_A)
+ 138     |    +  
+ 138  s1 |/SEL[2] *  SEL[1] * /SEL[0]
+ 138     |            * (/INHB * IEO_KIO_A)
+ 139     |    +  
+ 139  s1 |/SEL[2] *  SEL[1] *  SEL[0]
+ 139     |            * (/INHB * IEO_KIO_D * IEO_KIO_C)
+ 140     |    +  
+ 140  s1 | SEL[2] * /SEL[1] * /SEL[0]
+ 140     |            * (IEO_KIO_D * IEO_KIO_C)
+ 141     |    +  
+ 141  s1 | SEL[2] * /SEL[1] *  SEL[0]
+ 141     |            * (IEO_DMA_A * IEO_KIO_A * IEO_DMA_B)
+ 142     |    +  
+ 142  s1 | SEL[2] *  SEL[1] * /SEL[0]
+ 142     |            * (IEO_KIO_A)
+ 143     |    +  
+ 143  s1 | SEL[2] *  SEL[1] *  SEL[0]
+ 143     |            * (IEO_DMA_B * IEO_DMA_A * IEO_KIO_A);
+ 144     |
+ 145     |IEI_KIO_C =
+ 146     |       
+ 146  s1 |/SEL[2] * /SEL[1] * /SEL[0]
+ 146     |            * (IEO_KIO_A * IEO_KIO_B)
+ 147     |    +  
+ 147  s1 |/SEL[2] * /SEL[1] *  SEL[0]
+ 147     |            * /INHB
+ 148     |    +  
+ 148  s1 |/SEL[2] *  SEL[1] * /SEL[0]
+ 148     |            * (/INHB * IEO_KIO_A * IEO_KIO_B)
+ 149     |    +  
+ 149  s1 |/SEL[2] *  SEL[1] *  SEL[0]
+ 149     |            * (/INHB * IEO_KIO_D)
+ 150     |    +  
+ 150  s1 | SEL[2] * /SEL[1] * /SEL[0]
+ 150     |            * (IEO_KIO_D)
+ 151     |    +  
+ 151  s1 | SEL[2] * /SEL[1] *  SEL[0]
+ 151     |            * (/INHB * IEO_DMA_C)
+ 152     |    +  
+ 152  s1 | SEL[2] *  SEL[1] * /SEL[0]
+ 152     |            * /INHB
+ 153     |    +  
+ 153  s1 | SEL[2] *  SEL[1] *  SEL[0]
+ 153     |            * (/INHB * IEO_DMA_D * IEO_DMA_C);
+ 154     |
+ 155     |IEI_KIO_D =
+ 156     |       
+ 156  s1 |/SEL[2] * /SEL[1] * /SEL[0]
+ 156     |            * (IEO_KIO_A * IEO_KIO_B * IEO_KIO_C)
+ 157     |    +  
+ 157  s1 |/SEL[2] * /SEL[1] *  SEL[0]
+ 157     |            * (/INHB * IEO_KIO_C * IEO_DMA_C)
+ 158     |    +  
+ 158  s1 |/SEL[2] *  SEL[1] * /SEL[0]
+ 158     |            * (/INHB * IEO_KIO_A * IEO_KIO_B * IEO_KIO_C)
+ 159     |    +  
+ 159  s1 |/SEL[2] *  SEL[1] *  SEL[0]
+ 159     |            * /INHB
+ 160     |    +  
+ 160  s1 | SEL[2] * /SEL[1] * /SEL[0]
+ 160     |            * VCC
+ 161     |    +  
+ 161  s1 | SEL[2] * /SEL[1] *  SEL[0]
+ 161     |            * (/INHB * IEO_DMA_C * IEO_KIO_C * IEO_DMA_D)
+ 162     |    +  
+ 162  s1 | SEL[2] *  SEL[1] * /SEL[0]
+ 162     |            * (/INHB * IEO_KIO_C)
+ 163     |    +  
+ 163  s1 | SEL[2] *  SEL[1] *  SEL[0]
+ 163     |            * (/INHB * IEO_DMA_D * IEO_DMA_C * IEO_KIO_C);
+ 164     |
+ 165     |IEI_DMA_A =
+ 166     |       
+ 166  s1 |/SEL[2] * /SEL[1] * /SEL[0]
+ 166     |            * /INHB
+ 167     |    +  
+ 167  s1 |/SEL[2] * /SEL[1] *  SEL[0]
+ 167     |            * (IEO_KIO_A)
+ 168     |    +  
+ 168  s1 |/SEL[2] *  SEL[1] * /SEL[0]
+ 168     |            * VCC
+ 169     |    +  
+ 169  s1 |/SEL[2] *  SEL[1] *  SEL[0]
+ 169     |            * (IEO_DMA_D * IEO_DMA_C * IEO_DMA_B)
+ 170     |    +  
+ 170  s1 | SEL[2] * /SEL[1] * /SEL[0]
+ 170     |            * (/INHB * IEO_DMA_D * IEO_DMA_C * IEO_DMA_B)
+ 171     |    +  
+ 171  s1 | SEL[2] * /SEL[1] *  SEL[0]
+ 171     |            * VCC
+ 172     |    +  
+ 172  s1 | SEL[2] *  SEL[1] * /SEL[0]
+ 172     |            * (IEO_KIO_A * IEO_KIO_B)
+ 173     |    +  
+ 173  s1 | SEL[2] *  SEL[1] *  SEL[0]
+ 173     |            * (IEO_DMA_B);
+ 174     |
+ 175     |IEI_DMA_B =
+ 176     |       
+ 176  s1 |/SEL[2] * /SEL[1] * /SEL[0]
+ 176     |            * (/INHB * IEO_DMA_A)
+ 177     |    +  
+ 177  s1 |/SEL[2] * /SEL[1] *  SEL[0]
+ 177     |            * (IEO_KIO_A * IEO_DMA_A * IEO_KIO_B)
+ 178     |    +  
+ 178  s1 |/SEL[2] *  SEL[1] * /SEL[0]
+ 178     |            * (IEO_DMA_A)
+ 179     |    +  
+ 179  s1 |/SEL[2] *  SEL[1] *  SEL[0]
+ 179     |            * (IEO_DMA_D * IEO_DMA_C)
+ 180     |    +  
+ 180  s1 | SEL[2] * /SEL[1] * /SEL[0]
+ 180     |            * (/INHB * IEO_DMA_D * IEO_DMA_C)
+ 181     |    +  
+ 181  s1 | SEL[2] * /SEL[1] *  SEL[0]
+ 181     |            * (IEO_DMA_A * IEO_KIO_A)
+ 182     |    +  
+ 182  s1 | SEL[2] *  SEL[1] * /SEL[0]
+ 182     |            * (IEO_KIO_A * IEO_KIO_B * IEO_DMA_A)
+ 183     |    +  
+ 183  s1 | SEL[2] *  SEL[1] *  SEL[0]
+ 183     |            * VCC;
+ 184     |
+ 185     |IEI_DMA_C =
+ 186     |       
+ 186  s1 |/SEL[2] * /SEL[1] * /SEL[0]
+ 186     |            * (/INHB * IEO_DMA_A * IEO_DMA_B)
+ 187     |    +  
+ 187  s1 |/SEL[2] * /SEL[1] *  SEL[0]
+ 187     |            * (/INHB * IEO_KIO_C)
+ 188     |    +  
+ 188  s1 |/SEL[2] *  SEL[1] * /SEL[0]
+ 188     |            * (IEO_DMA_A * IEO_DMA_B)
+ 189     |    +  
+ 189  s1 |/SEL[2] *  SEL[1] *  SEL[0]
+ 189     |            * (IEO_DMA_D)
+ 190     |    +  
+ 190  s1 | SEL[2] * /SEL[1] * /SEL[0]
+ 190     |            * (/INHB * IEO_DMA_D)
+ 191     |    +  
+ 191  s1 | SEL[2] * /SEL[1] *  SEL[0]
+ 191     |            * /INHB
+ 192     |    +  
+ 192  s1 | SEL[2] *  SEL[1] * /SEL[0]
+ 192     |            * (/INHB * IEO_KIO_C * IEO_KIO_D)
+ 193     |    +  
+ 193  s1 | SEL[2] *  SEL[1] *  SEL[0]
+ 193     |            * (/INHB * IEO_DMA_D);
+ 194     |
+ 195     |IEI_DMA_D =
+ 196     |       
+ 196  s1 |/SEL[2] * /SEL[1] * /SEL[0]
+ 196     |            * (/INHB * IEO_DMA_A * IEO_DMA_B * IEO_DMA_C)
+ 197     |    +  
+ 197  s1 |/SEL[2] * /SEL[1] *  SEL[0]
+ 197     |            * (/INHB * IEO_KIO_C * IEO_DMA_C * IEO_KIO_D)
+ 198     |    +  
+ 198  s1 |/SEL[2] *  SEL[1] * /SEL[0]
+ 198     |            * (IEO_DMA_A * IEO_DMA_B * IEO_DMA_C)
+ 199     |    +  
+ 199  s1 |/SEL[2] *  SEL[1] *  SEL[0]
+ 199     |            * VCC
+ 200     |    +  
+ 200  s1 | SEL[2] * /SEL[1] * /SEL[0]
+ 200     |            * /INHB
+ 201     |    +  
+ 201  s1 | SEL[2] * /SEL[1] *  SEL[0]
+ 201     |            * (/INHB * IEO_DMA_C * IEO_KIO_C)
+ 202     |    +  
+ 202  s1 | SEL[2] *  SEL[1] * /SEL[0]
+ 202     |            * (/INHB * IEO_KIO_C * IEO_KIO_D * IEO_DMA_C)
+ 203     |    +  
+ 203  s1 | SEL[2] *  SEL[1] *  SEL[0]
+ 203     |            * /INHB;
+ 204     |
+ 205     |
+ 206     |;=================================================================
+ 207     |SIMULATION
+ 208     |;=================================================================
+ 209     |
+ 210     |TRACE_ON CLK /SYSRESET /CS /WR A[0] D[3..0] /M1 /RD
+ 211     |         SEL[2..0] M1S1 INHB B1_ALL
+ 212     |         IEO_KIO_A IEO_KIO_B IEO_KIO_C IEO_KIO_D
+ 213     |         IEO_DMA_A IEO_DMA_B IEO_DMA_C IEO_DMA_D
+ 214     |         IEI_KIO_A IEI_KIO_B IEI_KIO_C IEI_KIO_D
+ 215     |         IEI_DMA_A IEI_DMA_B IEI_DMA_C IEI_DMA_D
+ 216     |
+ 217     |; 1. reset, everything idle
+ 218     |SETF CS WR M1 RD
+ 219     |SETF IEO_KIO_A IEO_KIO_B IEO_KIO_C IEO_KIO_D IEO_DMA_A IEO_DMA_B IEO_DMA_C IEO_DMA_D
+ 220     |SETF /SYSRESET
+ 221     |CHECK /SEL[2] /SEL[1] /SEL[0] /INHB /M1S1
+ 222     |SETF SYSRESET
+ 223     |; 2. idle chain, SEL=000: all IEI high
+ 224     |CHECK /INHB /M1S1
+ 225     |CHECK IEI_KIO_A IEI_KIO_B IEI_KIO_C IEI_KIO_D
+ 226     |CHECK IEI_DMA_A IEI_DMA_B IEI_DMA_C IEI_DMA_D
+ 227     |; 3. KIO_B requests (IEO low): bank 1 blocks below it, bank 2 NOT yet blocked
+ 228     |SETF /IEO_KIO_B
+ 229     |CHECK /INHB /M1S1
+ 230     |CHECK IEI_KIO_A IEI_KIO_B /IEI_KIO_C /IEI_KIO_D
+ 231     |CHECK IEI_DMA_A IEI_DMA_B IEI_DMA_C IEI_DMA_D
+ 232     |; 4. opcode fetch (M1 and RD asserted) must NOT set INHB
+ 233     |SETF /M1 /RD
+ 234     |CLOCKF CLK
+ 235     |CLOCKF CLK
+ 236     |CHECK /INHB M1S1
+ 237     |CHECK IEI_KIO_A IEI_KIO_B /IEI_KIO_C /IEI_KIO_D
+ 238     |CHECK IEI_DMA_A IEI_DMA_B IEI_DMA_C IEI_DMA_D
+ 239     |SETF M1 RD
+ 240     |CLOCKF CLK
+ 241     |; 5. interrupt acknowledge: M1 asserted, RD not -> INHB set on 2nd edge
+ 242     |SETF /M1 RD
+ 243     |CLOCKF CLK
+ 244     |CHECK /INHB M1S1
+ 245     |CHECK IEI_KIO_A IEI_KIO_B /IEI_KIO_C /IEI_KIO_D
+ 246     |CHECK IEI_DMA_A IEI_DMA_B IEI_DMA_C IEI_DMA_D
+ 247     |CLOCKF CLK
+ 248     |CHECK INHB M1S1
+ 249     |CHECK IEI_KIO_A IEI_KIO_B /IEI_KIO_C /IEI_KIO_D
+ 250     |CHECK /IEI_DMA_A /IEI_DMA_B /IEI_DMA_C /IEI_DMA_D
+ 251     |SETF M1 RD
+ 252     |CLOCKF CLK
+ 253     |; 6. KIO_B in service (IEO stays low): INHB holds
+ 254     |CLOCKF CLK
+ 255     |CHECK INHB /M1S1
+ 256     |CHECK IEI_KIO_A IEI_KIO_B /IEI_KIO_C /IEI_KIO_D
+ 257     |CHECK /IEI_DMA_A /IEI_DMA_B /IEI_DMA_C /IEI_DMA_D
+ 258     |; 7. RETI done, KIO_B IEO high again: INHB released
+ 259     |SETF IEO_KIO_B
+ 260     |CLOCKF CLK
+ 261     |CHECK /INHB /M1S1
+ 262     |CHECK IEI_KIO_A IEI_KIO_B IEI_KIO_C IEI_KIO_D
+ 263     |CHECK IEI_DMA_A IEI_DMA_B IEI_DMA_C IEI_DMA_D
+ 264     |; 8. request in bank 2 only (DMA_B), bank 1 idle: IACK must NOT set INHB
+ 265     |SETF /IEO_DMA_B
+ 266     |CHECK /INHB /M1S1
+ 267     |CHECK IEI_KIO_A IEI_KIO_B IEI_KIO_C IEI_KIO_D
+ 268     |CHECK IEI_DMA_A IEI_DMA_B /IEI_DMA_C /IEI_DMA_D
+ 269     |SETF /M1 RD
+ 270     |CLOCKF CLK
+ 271     |CLOCKF CLK
+ 272     |CHECK /INHB M1S1
+ 273     |CHECK IEI_KIO_A IEI_KIO_B IEI_KIO_C IEI_KIO_D
+ 274     |CHECK IEI_DMA_A IEI_DMA_B /IEI_DMA_C /IEI_DMA_D
+ 275     |SETF M1 RD
+ 276     |CLOCKF CLK
+ 277     |SETF IEO_DMA_B
+ 278     |CLOCKF CLK
+ 279     |CHECK /INHB /M1S1
+ 280     |CHECK IEI_KIO_A IEI_KIO_B IEI_KIO_C IEI_KIO_D
+ 281     |CHECK IEI_DMA_A IEI_DMA_B IEI_DMA_C IEI_DMA_D
+ 282     |; 9. SEL=011 (DMA_D DMA_C DMA_B DMA_A | KIO_D KIO_C KIO_B KIO_A)
+ 283     |SETF /CS /WR /A[0]
+ 284     |SETF /D[3] /D[2] D[1] D[0]
+ 285     |CLOCKF CLK
+ 286     |SETF CS WR
+ 287     |CHECK /SEL[2] SEL[1] SEL[0]
+ 288     |SETF /IEO_DMA_C
+ 289     |CHECK /INHB /M1S1
+ 290     |CHECK IEI_KIO_A IEI_KIO_B IEI_KIO_C IEI_KIO_D
+ 291     |CHECK /IEI_DMA_A /IEI_DMA_B IEI_DMA_C IEI_DMA_D
+ 292     |SETF /M1 RD
+ 293     |CLOCKF CLK
+ 294     |CLOCKF CLK
+ 295     |CHECK INHB M1S1
+ 296     |CHECK /IEI_KIO_A /IEI_KIO_B /IEI_KIO_C /IEI_KIO_D
+ 297     |CHECK /IEI_DMA_A /IEI_DMA_B IEI_DMA_C IEI_DMA_D
+ 298     |SETF M1 RD
+ 299     |CLOCKF CLK
+ 300     |SETF IEO_DMA_C
+ 301     |CLOCKF CLK
+ 302     |CHECK /INHB /M1S1
+ 303     |CHECK IEI_KIO_A IEI_KIO_B IEI_KIO_C IEI_KIO_D
+ 304     |CHECK IEI_DMA_A IEI_DMA_B IEI_DMA_C IEI_DMA_D
+ 305     |
+ 306     |TRACE_OFF
+ 307     |
+
+ %% MACHPAR %%    ERROR count:  0      WARNING count:  0
+
+ %% MACHPAR %%    File processed successfully.    File:  Dsybs2.pds
+
+*** Start MACHBPP.E 07:19:47 
+MACHXL 2.1 R9 MACHBPP (1-24-95)
+ (C) - COPYRIGHT ADVANCED MICRO DEVICES INC., 1993, 1994, 1995
+
+EQUATIONS SEGMENT
+Processing equation for ====>SEL[2]
+Processing equation for ====>SEL[1]
+Processing equation for ====>SEL[0]
+Processing equation for ====>SEL[2..0].CLKF
+Processing equation for ====>SEL[2..0].RSTF
+Processing equation for ====>BSREG[0]
+Processing equation for ====>BSREG[1]
+Processing equation for ====>BSREG[2]
+Processing equation for ====>BSREG[3]
+Processing equation for ====>BSREG[4]
+Processing equation for ====>BSREG[5]
+Processing equation for ====>BSREG[6]
+Processing equation for ====>BSREG[7]
+Processing equation for ====>BSREG[7..0].CLKF
+Processing equation for ====>BSREG[7..0].RSTF
+Processing equation for ====>M1S1
+Processing equation for ====>M1S1.CLKF
+Processing equation for ====>M1S1.RSTF
+Processing equation for ====>INHB
+Processing equation for ====>INHB.CLKF
+Processing equation for ====>INHB.RSTF
+Processing equation for ====>BLK2
+Processing equation for ====>B1_ALL
+Processing equation for ====>IEI_KIO_A
+Processing equation for ====>IEI_KIO_B
+Processing equation for ====>IEI_KIO_C
+Processing equation for ====>IEI_KIO_D
+Processing equation for ====>IEI_DMA_A
+Processing equation for ====>IEI_DMA_B
+Processing equation for ====>IEI_DMA_C
+Processing equation for ====>IEI_DMA_D
+SIMULATION SEGMENT
+............................................................
+.....................
+ %%  MACHBPP  %% Maximum memory allocated was: 107756 bytes.
+
+ %%  MACHBPP  %% File Processed Successfully.  File: Dsybs2.pds.
+ %%  MACHBPP  %% ERROR count: 0  WARNING count: 0
+
+*** End MACHBPP.EXE 07:19:47; (MACHBPP.EXE= 0 sec.) elapsed time= 0 sec.
+Accumulated Disk space used = 0 bytes
+Free Disk space = 330924032 bytes
+
+*** Start MACHMIN.E 07:19:47 
+MACHXL 2.1 R9 MACHMIN   - (1-24-95)
+ (C) - COPYRIGHT ADVANCED MICRO DEVICES INC., 1994, 1995
+
+
+Processing equation(s) for node B1_ALL...
+====> B1_ALL             MIN_ON (4 + pt)
+Processing equation(s) for node INHB...
+====> INHB               MIN_ON (2 + pt)
+====> INHB.CLKF          MIN_ON (1 + pt)
+====> INHB.RSTF          MIN_ON (1 + pt)
+Processing equation(s) for node M1S1...
+====> M1S1               MIN_ON (1 + pt)
+====> M1S1.CLKF          MIN_ON (1 + pt)
+====> M1S1.RSTF          MIN_ON (1 + pt)
+Processing equation(s) for node SEL[0]...
+====> SEL[0]             MIN_ON (4 + pt)
+====> SEL[0].CLKF        MIN_ON (1 + pt)
+====> SEL[0].RSTF        MIN_ON (1 + pt)
+Processing equation(s) for node SEL[1]...
+====> SEL[1]             MIN_ON (4 + pt)
+====> SEL[1].CLKF        MIN_ON (1 + pt)
+====> SEL[1].RSTF        MIN_ON (1 + pt)
+Processing equation(s) for node SEL[2]...
+====> SEL[2]             MIN_ON (4 + pt)
+====> SEL[2].CLKF        MIN_ON (1 + pt)
+====> SEL[2].RSTF        MIN_ON (1 + pt)
+Processing equation(s) for pin BSREG[0]...
+====> BSREG[0]           MIN_ON (7 + pt)
+====> BSREG[0].CLKF      MIN_ON (1 + pt)
+====> BSREG[0].RSTF      MIN_ON (1 + pt)
+Processing equation(s) for pin BSREG[1]...
+====> BSREG[1]           MIN_ON (7 + pt)
+====> BSREG[1].CLKF      MIN_ON (1 + pt)
+====> BSREG[1].RSTF      MIN_ON (1 + pt)
+Processing equation(s) for pin BSREG[2]...
+====> BSREG[2]           MIN_ON (7 + pt)
+====> BSREG[2].CLKF      MIN_ON (1 + pt)
+====> BSREG[2].RSTF      MIN_ON (1 + pt)
+Processing equation(s) for pin BSREG[3]...
+====> BSREG[3]           MIN_ON (7 + pt)
+====> BSREG[3].CLKF      MIN_ON (1 + pt)
+====> BSREG[3].RSTF      MIN_ON (1 + pt)
+Processing equation(s) for pin BSREG[4]...
+====> BSREG[4]           MIN_ON (7 + pt)
+====> BSREG[4].CLKF      MIN_ON (1 + pt)
+====> BSREG[4].RSTF      MIN_ON (1 + pt)
+Processing equation(s) for pin BSREG[5]...
+====> BSREG[5]           MIN_ON (7 + pt)
+====> BSREG[5].CLKF      MIN_ON (1 + pt)
+====> BSREG[5].RSTF      MIN_ON (1 + pt)
+Processing equation(s) for pin BSREG[6]...
+====> BSREG[6]           MIN_ON (7 + pt)
+====> BSREG[6].CLKF      MIN_ON (1 + pt)
+====> BSREG[6].RSTF      MIN_ON (1 + pt)
+Processing equation(s) for pin BSREG[7]...
+====> BSREG[7]           MIN_ON (7 + pt)
+====> BSREG[7].CLKF      MIN_ON (1 + pt)
+====> BSREG[7].RSTF      MIN_ON (1 + pt)
+Processing equation(s) for pin BLK2...
+====> BLK2               MIN_ON (1 + pt)
+Processing equation(s) for pin IEI_DMA_D...
+====> IEI_DMA_D          MIN_ON (8 + pt)
+Processing equation(s) for pin IEI_DMA_C...
+====> IEI_DMA_C          MIN_ON (8 + pt)
+Processing equation(s) for pin IEI_DMA_B...
+====> IEI_DMA_B          MIN_ON (8 + pt)
+Processing equation(s) for pin IEI_DMA_A...
+====> IEI_DMA_A          MIN_ON (8 + pt)
+Processing equation(s) for pin IEI_KIO_D...
+====> IEI_KIO_D          MIN_ON (8 + pt --> 7 + pt)
+Processing equation(s) for pin IEI_KIO_C...
+====> IEI_KIO_C          MIN_ON (8 + pt)
+Processing equation(s) for pin IEI_KIO_B...
+====> IEI_KIO_B          MIN_ON (8 + pt --> 7 + pt)
+Processing equation(s) for pin IEI_KIO_A...
+====> IEI_KIO_A          MIN_ON (7 + pt)
+
+ %%  MACHMIN  %% Maximum memory allocated was: 62942 bytes.
+
+ %%  MACHMIN  %% File Processed Successfully.  File: Dsybs2.pds.
+ %%  MACHMIN  %% ERROR count: 0  WARNING count: 0
+
+
+*** End MACHMIN.EXE 07:19:47; (MACHMIN.EXE= 0 sec.) elapsed time= 0 sec.
+Accumulated Disk space used = 8192 bytes
+Free Disk space = 330915840 bytes
+
+*** Start MACHMIN.E 07:19:47 
+MACHXL 2.1 R9 MACHTPLA   - (1-24-95)
+ (C) - COPYRIGHT ADVANCED MICRO DEVICES INC., 1994, 1995
+
+
+Converting TRE file dsybs2.tre to PLA file dsybs2.pla...
+
+.......................
+.......................
+
+ %%  MACHTPLA  %% Maximum memory allocated was: 70484 bytes.
+
+ %%  MACHTPLA  %% File Processed Successfully.  File: Dsybs2.pds.
+ %%  MACHTPLA  %% ERROR count: 0  WARNING count: 0
+
+
+*** End MACHMIN.EXE 07:19:47; (MACHMIN.EXE= 0 sec.) elapsed time= 0 sec.
+Accumulated Disk space used = 8192 bytes
+Free Disk space = 330915840 bytes
+
+*** Start MACHFITR. 07:19:47 
+MACHXL 2.1 R11 MACHFITR (3-31-95)
+ (C) - COPYRIGHT ADVANCED MICRO DEVICES INC., 1993, 1994, 1995
+*** Source file is Dsybs2.pds . Device is MACH210 .
+|> INFO z5065 - For outputs, implicit output enables will be set to VCC.
+|> INFO z5070 - Unspecified SET/RESETs are to be treated as DON'T CARE.
+                Hence, a register with unspecified SET/RESET equation(s)
+                may be initialized via SET/RESET product terms that are
+                inherited from partitioning/placement to the same PAL block
+                as other registers for which SET/RESET equations have been
+                written. Therefore, simulation results may be unexpected
+                for any register uninitialized via explicit SET/RESET in
+                the design file.
+
+*** End of Pla2db. 
+Check preplaced pins/nodes
+Check preplaced blocks
+Check unreferenced pins/nodes
+Check clock rules
+
+List of global clocks:
+   CLK:
+
+*** End of Normalization.
+
+*** End of DRC. 
+
+*** Start Partitioning
+ 
+*** Partitioning successful.
+
+*** Routing successful. Assembler invoked.
+...... Unused I/O pins configured as outputs? N
+*** The JEDEC file generated is Dsybs2.JED .
+*** Report Generator invoked.
+
+Partitioning 100% - Completed
+Placement    100% - Completed
+Routing      100% - Completed
+%%% Fitting process is successful %%%
+*** Report Generator end.
+
+%%%% MACHFITR %%%% Fitting successful. File Dsybs2.pds .
+%%%% MACHFITR %%%% ERROR count 0 WARNING count 0 .
+
+*** End MACHFITR.EX 07:19:48; (MACHFITR.EXE= 1 sec.) elapsed time= 1 sec.
+Accumulated Disk space used = 8192 bytes
+Free Disk space = 330915840 bytes
+
+*** Start MACHSIMU. 07:19:48 
+MACHXL 2.1 R9 MACHSIMU (1-24-95)
+ (C) - COPYRIGHT ADVANCED MICRO DEVICES INC., 1993, 1994, 1995
+
+File  Dsybs2.pds
+Title  Daisy Chain v2 - two banks, IEO inhibit, BitSelect
+
+|> WARNING D2260
+     The following Pin/Nodes(s) have not been defined in original design
+     file and will be ignored.
+
+      RN_BSREG[0]     RN_BSREG[1]     RN_BSREG[3]     RN_BSREG[6]     
+      RN_BSREG[7]     RN_BSREG[2]     RN_BSREG[4]     RN_BSREG[5]     
+
+
+
+   1-V1 - TRACE_ON
+          CLK  /SYSRESET  /CS  /WR  A[0]  D[3..0]  /M1  /RD  
+          SEL[2..0]  M1S1  INHB  B1_ALL  IEO_KIO_A  IEO_KIO_B  IEO_KIO_C  
+          IEO_KIO_D  IEO_DMA_A  IEO_DMA_B  IEO_DMA_C  IEO_DMA_D  
+          IEI_KIO_A  IEI_KIO_B  IEI_KIO_C  IEI_KIO_D  IEI_DMA_A  
+          IEI_DMA_B  IEI_DMA_C  IEI_DMA_D  
+   1-V1 - SETF
+          CS  WR  M1  RD  
+   2-V2 - SETF
+          IEO_KIO_A  IEO_KIO_B  IEO_KIO_C  IEO_KIO_D  
+          IEO_DMA_A  IEO_DMA_B  IEO_DMA_C  IEO_DMA_D  
+   3-V3 - SETF
+          /SYSRESET  
+   4-V3 - CHECK
+          /SEL[2]  /SEL[1]  /SEL[0]  /INHB  /M1S1  
+   4-V4 - SETF
+          SYSRESET  
+   5-V4 - CHECK
+          /INHB  /M1S1  
+   5-V4 - CHECK
+          IEI_KIO_A  IEI_KIO_B  IEI_KIO_C  IEI_KIO_D  
+   5-V4 - CHECK
+          IEI_DMA_A  IEI_DMA_B  IEI_DMA_C  IEI_DMA_D  
+   5-V5 - SETF
+          /IEO_KIO_B  
+   6-V5 - CHECK
+          /INHB  /M1S1  
+   6-V5 - CHECK
+          IEI_KIO_A  IEI_KIO_B  /IEI_KIO_C  /IEI_KIO_D  
+   6-V5 - CHECK
+          IEI_DMA_A  IEI_DMA_B  IEI_DMA_C  IEI_DMA_D  
+   6-V6 - SETF
+          /M1  /RD  
+  10-V7 - CLOCKF
+          CLK  
+  13-V8 - CLOCKF
+          CLK  
+  13-V8 - CHECK
+          /INHB  M1S1  
+  13-V8 - CHECK
+          IEI_KIO_A  IEI_KIO_B  /IEI_KIO_C  /IEI_KIO_D  
+  13-V8 - CHECK
+          IEI_DMA_A  IEI_DMA_B  IEI_DMA_C  IEI_DMA_D  
+  13-V9 - SETF
+          M1  RD  
+  17-V10 - CLOCKF
+          CLK  
+  17-V11 - SETF
+          /M1  RD  
+  21-V12 - CLOCKF
+          CLK  
+  21-V12 - CHECK
+          /INHB  M1S1  
+  21-V12 - CHECK
+          IEI_KIO_A  IEI_KIO_B  /IEI_KIO_C  /IEI_KIO_D  
+  21-V12 - CHECK
+          IEI_DMA_A  IEI_DMA_B  IEI_DMA_C  IEI_DMA_D  
+  24-V13 - CLOCKF
+          CLK  
+  24-V13 - CHECK
+          INHB  M1S1  
+  24-V13 - CHECK
+          IEI_KIO_A  IEI_KIO_B  /IEI_KIO_C  /IEI_KIO_D  
+  24-V13 - CHECK
+          /IEI_DMA_A  /IEI_DMA_B  /IEI_DMA_C  /IEI_DMA_D  
+  24-V14 - SETF
+          M1  RD  
+  28-V15 - CLOCKF
+          CLK  
+  31-V16 - CLOCKF
+          CLK  
+  31-V16 - CHECK
+          INHB  /M1S1  
+  31-V16 - CHECK
+          IEI_KIO_A  IEI_KIO_B  /IEI_KIO_C  /IEI_KIO_D  
+  31-V16 - CHECK
+          /IEI_DMA_A  /IEI_DMA_B  /IEI_DMA_C  /IEI_DMA_D  
+  31-V17 - SETF
+          IEO_KIO_B  
+  35-V18 - CLOCKF
+          CLK  
+  35-V18 - CHECK
+          /INHB  /M1S1  
+  35-V18 - CHECK
+          IEI_KIO_A  IEI_KIO_B  IEI_KIO_C  IEI_KIO_D  
+  35-V18 - CHECK
+          IEI_DMA_A  IEI_DMA_B  IEI_DMA_C  IEI_DMA_D  
+  35-V19 - SETF
+          /IEO_DMA_B  
+  36-V19 - CHECK
+          /INHB  /M1S1  
+  36-V19 - CHECK
+          IEI_KIO_A  IEI_KIO_B  IEI_KIO_C  IEI_KIO_D  
+  36-V19 - CHECK
+          IEI_DMA_A  IEI_DMA_B  /IEI_DMA_C  /IEI_DMA_D  
+  36-V20 - SETF
+          /M1  RD  
+  40-V21 - CLOCKF
+          CLK  
+  43-V22 - CLOCKF
+          CLK  
+  43-V22 - CHECK
+          /INHB  M1S1  
+  43-V22 - CHECK
+          IEI_KIO_A  IEI_KIO_B  IEI_KIO_C  IEI_KIO_D  
+  43-V22 - CHECK
+          IEI_DMA_A  IEI_DMA_B  /IEI_DMA_C  /IEI_DMA_D  
+  43-V23 - SETF
+          M1  RD  
+  47-V24 - CLOCKF
+          CLK  
+  47-V25 - SETF
+          IEO_DMA_B  
+  51-V26 - CLOCKF
+          CLK  
+  51-V26 - CHECK
+          /INHB  /M1S1  
+  51-V26 - CHECK
+          IEI_KIO_A  IEI_KIO_B  IEI_KIO_C  IEI_KIO_D  
+  51-V26 - CHECK
+          IEI_DMA_A  IEI_DMA_B  IEI_DMA_C  IEI_DMA_D  
+  51-V27 - SETF
+          /CS  /WR  /A[0]  
+  52-V28 - SETF
+          /D[3]  /D[2]  D[1]  D[0]  
+  56-V29 - CLOCKF
+          CLK  
+  56-V30 - SETF
+          CS  WR  
+  57-V30 - CHECK
+          /SEL[2]  SEL[1]  SEL[0]  
+  57-V31 - SETF
+          /IEO_DMA_C  
+  58-V31 - CHECK
+          /INHB  /M1S1  
+  58-V31 - CHECK
+          IEI_KIO_A  IEI_KIO_B  IEI_KIO_C  IEI_KIO_D  
+  58-V31 - CHECK
+          /IEI_DMA_A  /IEI_DMA_B  IEI_DMA_C  IEI_DMA_D  
+  58-V32 - SETF
+          /M1  RD  
+  62-V33 - CLOCKF
+          CLK  
+  65-V34 - CLOCKF
+          CLK  
+  65-V34 - CHECK
+          INHB  M1S1  
+  65-V34 - CHECK
+          /IEI_KIO_A  /IEI_KIO_B  /IEI_KIO_C  /IEI_KIO_D  
+  65-V34 - CHECK
+          /IEI_DMA_A  /IEI_DMA_B  IEI_DMA_C  IEI_DMA_D  
+  65-V35 - SETF
+          M1  RD  
+  69-V36 - CLOCKF
+          CLK  
+  69-V37 - SETF
+          IEO_DMA_C  
+  73-V38 - CLOCKF
+          CLK  
+  73-V38 - CHECK
+          /INHB  /M1S1  
+  73-V38 - CHECK
+          IEI_KIO_A  IEI_KIO_B  IEI_KIO_C  IEI_KIO_D  
+  73-V38 - CHECK
+          IEI_DMA_A  IEI_DMA_B  IEI_DMA_C  IEI_DMA_D  
+  73-V39 - TRACE_OFF
+
+   END OF SIMULATION
+Simulation results (history) are in ===> Dsybs2.HST
+Simulation results (trace) are in   ===> Dsybs2.TRF
+Merged results (JEDEC) are in       ===> Dsybs2.JDC
+Simulation results (trace vectors) are in   ===> Dsybs2.TRV
+
+ %%  MACHSIMU  %% Maximum memory allocated was: 236306 bytes.
+
+ %%  MACHSIMU  %% File Processed Successfully.  File: Dsybs2.pds.
+ %%  MACHSIMU  %% ERROR count: 0  WARNING count: 1
+
+*** End MACHSIMU.EX 07:19:48; (MACHSIMU.EXE= 0 sec.) elapsed time= 1 sec.
+Accumulated Disk space used = 65536 bytes
+Free Disk space = 330858496 bytes

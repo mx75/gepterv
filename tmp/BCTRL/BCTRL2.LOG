@@ -1,0 +1,1024 @@
+
+=======================COMPILATION OPTIONS=======================
+  Log file name:    BCTRL2.log
+  Run mode:         Run All Programs
+  Format: text      File: BCTRL2.PDS
+
+=======================MACH FITTING OPTIONS======================
+SIGNAL PLACEMENT:
+  Handling of Preplacements:               No Change
+  Use placement data from:                 Design file
+  Save last successful placement:          <F3>
+  Press <F9> to edit file containing:      Last successful placement
+FITTING OPTIONS:
+  Global Clocks routable as Pterm Clocks?  N
+  Unused I/O pins configured as outputs?   N .. if 'Y', Level = H
+  22V10/MACH1XX/2XX S/R Compatibility?     Y
+  SET/RESET treated as DONT_CARE?          Y
+  Run Time Upper Bound in 15 minutes:      0
+  Iterate between partition & place/route? Y
+  Balanced partitioning?                   Y
+  Spread placement?                        Y
+  Reduce Non-forced Global Clocks?         N .. if 'Y', Number = 1
+  Reduce Routes Per Placement?             N
+=================================================================
+
+=======================SIMULATION OPTIONS========================
+  Use auxiliary simulation file: N
+  Use placement data from:       Last successful placement
+=================================================================
+
+=======================LOGIC SYNTHESIS OPTIONS===================
+Use automatic pin/node pairing?       Y
+Use automatic gate splitting?         N .. if 'Y', Threshold = 16
+Gate split max num. pterms per eqn:   16
+Optimize registers for D/T-type       D,T As specified. JK,RS to D
+Ensure polarity after minimizationis: As specified in design file
+Use 'If-Then-Else','CASE; default as: Off
+Use fast minimization?                N
+=================================================================
+Bctrl2.pds
+
+MACHXL 2.1 R9-F PARSER (1-24-95)
+ (C) - COPYRIGHT ADVANCED MICRO DEVICES INC., 1993, 1994, 1995
+
+
+                    ***********************************
+                    *     MACHXL PARSER LISTING       *
+                    ***********************************
+
+LINE #   |----+----1----+----2----+----3----+----4----+----5----+----6----+
+   1     |;=================================================================
+   2     |; MACH210 #2 - Bank2 + Bank3 + Final Priority + PHYS
+   3     |; Inputs from Chip #1: EARLY_HIT, EARLY_BASE[5..0]
+   4     |;=================================================================
+   5     |TITLE    Bank control 2
+   6     |PATTERN
+   7     |REVISION 0.1
+   8     |AUTHOR   Fazekas Mihaly
+   9     |COMPANY  Technical University of Budapest (Telephone Center)
+  10     |DATE     07/10/26
+  11     |
+  12     |CHIP bctrl2 MACH210
+  13     |
+  14     |;----- Inputs -----
+  15     |PIN     ?   CLK
+  16     |PIN     ?   /SYSRESET
+  17     |PIN     ?   /CS_BANK
+  18     |PIN     ?   /WR
+  19     |PIN     ?   A[2..0]
+  20     |PIN     ?   D[5..0]
+  21     |PIN     ?   A[15..12]
+  22     |
+  23     |; From Chip #1
+|> WARNING P180  Identifier EARLY_BASE
+
+|>               truncated with uniqueness to EARLY_001.
+
+  24     |PIN     ?   EARLY_HIT
+  25     |PIN     ?   EARLY_BASE[5..0]
+  26     |
+  27     |;----- Outputs -----
+  28     |PIN     ?   PHYS[5..0]      COMBINATORIAL
+  29     |PIN     ?   BANK_HIT        COMBINATORIAL
+  30     |
+  31     |;----- Internal registers -----
+  32     |NODE    ?   B2_SIZE[1..0]   REGISTERED
+  33     |NODE    ?   B2_START[2..0]  REGISTERED
+  34     |NODE    ?   B2_BASE[5..0]   REGISTERED
+  35     |
+  36     |NODE    ?   B3_SIZE[1..0]   REGISTERED
+  37     |NODE    ?   B3_START[2..0]  REGISTERED
+  38     |NODE    ?   B3_BASE[5..0]   REGISTERED
+  39     |
+  40     |NODE    ?   B2_MATCH        COMBINATORIAL
+  41     |NODE    ?   B3_MATCH        COMBINATORIAL
+  42     |
+  43     |;----- STRING helpers -----
+  44     |STRING  WR_EN       '(/CS_BANK * /WR)'
+  45     |STRING  WR_B2_CTRL  '(WR_EN *  A[2] * /A[1] * /A[0])'
+  46     |STRING  WR_B2_BASE  '(WR_EN *  A[2] * /A[1] *  A[0])'
+  47     |STRING  WR_B3_CTRL  '(WR_EN *  A[2] *  A[1] * /A[0])'
+  48     |STRING  WR_B3_BASE  '(WR_EN *  A[2] *  A[1] *  A[0])'
+  49     |
+  50     |STRING  B2_4K       '(/B2_SIZE[1] * /B2_SIZE[0])'
+  51     |STRING  B2_8K       '(/B2_SIZE[1] *  B2_SIZE[0])'
+  52     |STRING  B2_16K      '( B2_SIZE[1] * /B2_SIZE[0])'
+  53     |
+  54     |STRING  B3_4K       '(/B3_SIZE[1] * /B3_SIZE[0])'
+  55     |STRING  B3_8K       '(/B3_SIZE[1] *  B3_SIZE[0])'
+  56     |STRING  B3_16K      '( B3_SIZE[1] * /B3_SIZE[0])'
+  57     |
+  58     |EQUATIONS
+  59     |
+  60     |;=================================================================
+  61     |; Register writes
+  62     |;=================================================================
+  63     |
+  64     |;----- Bank2 -----
+  65     |B2_SIZE[1]  =  
+  65  s1 |( 
+  65  s2 |(/CS_BANK * /WR)
+  65  s1 |        *  A[2] * /A[1] * /A[0])
+  65     |                          * D[1] + / 
+  65  s1 |( 
+  65  s2 |(/CS_BANK * /WR)
+  65  s1 |        *  A[2] * /A[1] * /A[0])
+  65     |                                                * B2_SIZE[1]
+  66     |B2_SIZE[0]  =  
+  66  s1 |( 
+  66  s2 |(/CS_BANK * /WR)
+  66  s1 |        *  A[2] * /A[1] * /A[0])
+  66     |                          * D[0] + / 
+  66  s1 |( 
+  66  s2 |(/CS_BANK * /WR)
+  66  s1 |        *  A[2] * /A[1] * /A[0])
+  66     |                                                * B2_SIZE[0]
+  67     |B2_START[2] =  
+  67  s1 |( 
+  67  s2 |(/CS_BANK * /WR)
+  67  s1 |        *  A[2] * /A[1] * /A[0])
+  67     |                          * D[4] + / 
+  67  s1 |( 
+  67  s2 |(/CS_BANK * /WR)
+  67  s1 |        *  A[2] * /A[1] * /A[0])
+  67     |                                                * B2_START[2]
+  68     |B2_START[1] =  
+  68  s1 |( 
+  68  s2 |(/CS_BANK * /WR)
+  68  s1 |        *  A[2] * /A[1] * /A[0])
+  68     |                          * D[3] + / 
+  68  s1 |( 
+  68  s2 |(/CS_BANK * /WR)
+  68  s1 |        *  A[2] * /A[1] * /A[0])
+  68     |                                                * B2_START[1]
+  69     |B2_START[0] =  
+  69  s1 |( 
+  69  s2 |(/CS_BANK * /WR)
+  69  s1 |        *  A[2] * /A[1] * /A[0])
+  69     |                          * D[2] + / 
+  69  s1 |( 
+  69  s2 |(/CS_BANK * /WR)
+  69  s1 |        *  A[2] * /A[1] * /A[0])
+  69     |                                                * B2_START[0]
+  70     |
+  71     |B2_BASE[5] =  
+  71  s1 |( 
+  71  s2 |(/CS_BANK * /WR)
+  71  s1 |        *  A[2] * /A[1] *  A[0])
+  71     |                         * D[5] + / 
+  71  s1 |( 
+  71  s2 |(/CS_BANK * /WR)
+  71  s1 |        *  A[2] * /A[1] *  A[0])
+  71     |                                               * B2_BASE[5]
+  72     |B2_BASE[4] =  
+  72  s1 |( 
+  72  s2 |(/CS_BANK * /WR)
+  72  s1 |        *  A[2] * /A[1] *  A[0])
+  72     |                         * D[4] + / 
+  72  s1 |( 
+  72  s2 |(/CS_BANK * /WR)
+  72  s1 |        *  A[2] * /A[1] *  A[0])
+  72     |                                               * B2_BASE[4]
+  73     |B2_BASE[3] =  
+  73  s1 |( 
+  73  s2 |(/CS_BANK * /WR)
+  73  s1 |        *  A[2] * /A[1] *  A[0])
+  73     |                         * D[3] + / 
+  73  s1 |( 
+  73  s2 |(/CS_BANK * /WR)
+  73  s1 |        *  A[2] * /A[1] *  A[0])
+  73     |                                               * B2_BASE[3]
+  74     |B2_BASE[2] =  
+  74  s1 |( 
+  74  s2 |(/CS_BANK * /WR)
+  74  s1 |        *  A[2] * /A[1] *  A[0])
+  74     |                         * D[2] + / 
+  74  s1 |( 
+  74  s2 |(/CS_BANK * /WR)
+  74  s1 |        *  A[2] * /A[1] *  A[0])
+  74     |                                               * B2_BASE[2]
+  75     |B2_BASE[1] =  
+  75  s1 |( 
+  75  s2 |(/CS_BANK * /WR)
+  75  s1 |        *  A[2] * /A[1] *  A[0])
+  75     |                         * D[1] + / 
+  75  s1 |( 
+  75  s2 |(/CS_BANK * /WR)
+  75  s1 |        *  A[2] * /A[1] *  A[0])
+  75     |                                               * B2_BASE[1]
+  76     |B2_BASE[0] =  
+  76  s1 |( 
+  76  s2 |(/CS_BANK * /WR)
+  76  s1 |        *  A[2] * /A[1] *  A[0])
+  76     |                         * D[0] + / 
+  76  s1 |( 
+  76  s2 |(/CS_BANK * /WR)
+  76  s1 |        *  A[2] * /A[1] *  A[0])
+  76     |                                               * B2_BASE[0]
+  77     |
+  78     |;----- Bank3 -----
+  79     |B3_SIZE[1]  =  
+  79  s1 |( 
+  79  s2 |(/CS_BANK * /WR)
+  79  s1 |        *  A[2] *  A[1] * /A[0])
+  79     |                          * D[1] + / 
+  79  s1 |( 
+  79  s2 |(/CS_BANK * /WR)
+  79  s1 |        *  A[2] *  A[1] * /A[0])
+  79     |                                                * B3_SIZE[1]
+  80     |B3_SIZE[0]  =  
+  80  s1 |( 
+  80  s2 |(/CS_BANK * /WR)
+  80  s1 |        *  A[2] *  A[1] * /A[0])
+  80     |                          * D[0] + / 
+  80  s1 |( 
+  80  s2 |(/CS_BANK * /WR)
+  80  s1 |        *  A[2] *  A[1] * /A[0])
+  80     |                                                * B3_SIZE[0]
+  81     |B3_START[2] =  
+  81  s1 |( 
+  81  s2 |(/CS_BANK * /WR)
+  81  s1 |        *  A[2] *  A[1] * /A[0])
+  81     |                          * D[4] + / 
+  81  s1 |( 
+  81  s2 |(/CS_BANK * /WR)
+  81  s1 |        *  A[2] *  A[1] * /A[0])
+  81     |                                                * B3_START[2]
+  82     |B3_START[1] =  
+  82  s1 |( 
+  82  s2 |(/CS_BANK * /WR)
+  82  s1 |        *  A[2] *  A[1] * /A[0])
+  82     |                          * D[3] + / 
+  82  s1 |( 
+  82  s2 |(/CS_BANK * /WR)
+  82  s1 |        *  A[2] *  A[1] * /A[0])
+  82     |                                                * B3_START[1]
+  83     |B3_START[0] =  
+  83  s1 |( 
+  83  s2 |(/CS_BANK * /WR)
+  83  s1 |        *  A[2] *  A[1] * /A[0])
+  83     |                          * D[2] + / 
+  83  s1 |( 
+  83  s2 |(/CS_BANK * /WR)
+  83  s1 |        *  A[2] *  A[1] * /A[0])
+  83     |                                                * B3_START[0]
+  84     |
+  85     |B3_BASE[5] =  
+  85  s1 |( 
+  85  s2 |(/CS_BANK * /WR)
+  85  s1 |        *  A[2] *  A[1] *  A[0])
+  85     |                         * D[5] + / 
+  85  s1 |( 
+  85  s2 |(/CS_BANK * /WR)
+  85  s1 |        *  A[2] *  A[1] *  A[0])
+  85     |                                               * B3_BASE[5]
+  86     |B3_BASE[4] =  
+  86  s1 |( 
+  86  s2 |(/CS_BANK * /WR)
+  86  s1 |        *  A[2] *  A[1] *  A[0])
+  86     |                         * D[4] + / 
+  86  s1 |( 
+  86  s2 |(/CS_BANK * /WR)
+  86  s1 |        *  A[2] *  A[1] *  A[0])
+  86     |                                               * B3_BASE[4]
+  87     |B3_BASE[3] =  
+  87  s1 |( 
+  87  s2 |(/CS_BANK * /WR)
+  87  s1 |        *  A[2] *  A[1] *  A[0])
+  87     |                         * D[3] + / 
+  87  s1 |( 
+  87  s2 |(/CS_BANK * /WR)
+  87  s1 |        *  A[2] *  A[1] *  A[0])
+  87     |                                               * B3_BASE[3]
+  88     |B3_BASE[2] =  
+  88  s1 |( 
+  88  s2 |(/CS_BANK * /WR)
+  88  s1 |        *  A[2] *  A[1] *  A[0])
+  88     |                         * D[2] + / 
+  88  s1 |( 
+  88  s2 |(/CS_BANK * /WR)
+  88  s1 |        *  A[2] *  A[1] *  A[0])
+  88     |                                               * B3_BASE[2]
+  89     |B3_BASE[1] =  
+  89  s1 |( 
+  89  s2 |(/CS_BANK * /WR)
+  89  s1 |        *  A[2] *  A[1] *  A[0])
+  89     |                         * D[1] + / 
+  89  s1 |( 
+  89  s2 |(/CS_BANK * /WR)
+  89  s1 |        *  A[2] *  A[1] *  A[0])
+  89     |                                               * B3_BASE[1]
+  90     |B3_BASE[0] =  
+  90  s1 |( 
+  90  s2 |(/CS_BANK * /WR)
+  90  s1 |        *  A[2] *  A[1] *  A[0])
+  90     |                         * D[0] + / 
+  90  s1 |( 
+  90  s2 |(/CS_BANK * /WR)
+  90  s1 |        *  A[2] *  A[1] *  A[0])
+  90     |                                               * B3_BASE[0]
+  91     |
+  92     |;----- Clock & Reset -----
+  93     |B2_SIZE[1..0].CLKF  = CLK
+  94     |B2_START[2..0].CLKF = CLK
+  95     |B2_BASE[5..0].CLKF  = CLK
+  96     |B3_SIZE[1..0].CLKF  = CLK
+  97     |B3_START[2..0].CLKF = CLK
+  98     |B3_BASE[5..0].CLKF  = CLK
+  99     |
+ 100     |B2_SIZE[1..0].SETF  = /SYSRESET
+ 101     |B3_SIZE[1..0].SETF  = /SYSRESET
+ 102     |B2_START[2..0].RSTF = /SYSRESET
+ 103     |B2_BASE[5..0].RSTF  = /SYSRESET
+ 104     |B3_START[2..0].RSTF = /SYSRESET
+ 105     |B3_BASE[5..0].RSTF  = /SYSRESET
+ 106     |
+ 107     |;=================================================================
+ 108     |; Match logic
+ 109     |;=================================================================
+ 110     |
+ 111     |B2_MATCH = A[15] * (
+ 112     |       
+ 112  s1 |(/B2_SIZE[1] * /B2_SIZE[0])
+ 112     |             * ( (/A[14]* /B2_START[2])+(A[14]*B2_START[2]) ) *
+ 113     |              ( (/A[13]* /B2_START[1])+(A[13]*B2_START[1]) ) *
+ 114     |              ( (/A[12]* /B2_START[0])+(A[12]*B2_START[0]) )
+ 115     |    +  
+ 115  s1 |(/B2_SIZE[1] *  B2_SIZE[0])
+ 115     |             * ( (/A[14]* /B2_START[2])+(A[14]*B2_START[2]) ) *
+ 116     |              ( (/A[13]* /B2_START[1])+(A[13]*B2_START[1]) )
+ 117     |    +  
+ 117  s1 |( B2_SIZE[1] * /B2_SIZE[0])
+ 117     |             * ( (/A[14]* /B2_START[2])+(A[14]*B2_START[2]) )
+ 118     |);
+ 119     |
+ 120     |B3_MATCH = A[15] * (
+ 121     |       
+ 121  s1 |(/B3_SIZE[1] * /B3_SIZE[0])
+ 121     |             * ( (/A[14]* /B3_START[2])+(A[14]*B3_START[2]) ) *
+ 122     |              ( (/A[13]* /B3_START[1])+(A[13]*B3_START[1]) ) *
+ 123     |              ( (/A[12]* /B3_START[0])+(A[12]*B3_START[0]) )
+ 124     |    +  
+ 124  s1 |(/B3_SIZE[1] *  B3_SIZE[0])
+ 124     |             * ( (/A[14]* /B3_START[2])+(A[14]*B3_START[2]) ) *
+ 125     |              ( (/A[13]* /B3_START[1])+(A[13]*B3_START[1]) )
+ 126     |    +  
+ 126  s1 |( B3_SIZE[1] * /B3_SIZE[0])
+ 126     |             * ( (/A[14]* /B3_START[2])+(A[14]*B3_START[2]) )
+ 127     |);
+ 128     |
+ 129     |;=================================================================
+ 130     |; Final Priority + PHYS
+ 131     |; Priority: EARLY (Bank0/1) > Bank2 > Bank3 > Default (0x08)
+ 132     |;=================================================================
+ 133     |
+ 134     |BANK_HIT = EARLY_HIT + B2_MATCH + B3_MATCH;
+ 135     |
+ 136     |PHYS[5] =
+ 137     |      EARLY_HIT * EARLY_BASE[5]
+ 138     |    + /EARLY_HIT * B2_MATCH * B2_BASE[5]
+ 139     |    + /EARLY_HIT * /B2_MATCH * B3_MATCH * B3_BASE[5];
+ 140     |    ; default = 0
+ 141     |
+ 142     |PHYS[4] =
+ 143     |      EARLY_HIT * EARLY_BASE[4]
+ 144     |    + /EARLY_HIT * B2_MATCH * B2_BASE[4]
+ 145     |    + /EARLY_HIT * /B2_MATCH * B3_MATCH * B3_BASE[4];
+ 146     |    ; default = 0
+ 147     |
+ 148     |PHYS[3] =
+ 149     |      EARLY_HIT * EARLY_BASE[3]
+ 150     |    + /EARLY_HIT * B2_MATCH * B2_BASE[3]
+ 151     |    + /EARLY_HIT * /B2_MATCH * B3_MATCH * B3_BASE[3]
+ 152     |    + /EARLY_HIT * /B2_MATCH * /B3_MATCH;               ; default = 1
+ 153     |
+ 154     |PHYS[2] =
+ 155     |      EARLY_HIT * EARLY_BASE[2]
+ 156     |    + /EARLY_HIT * B2_MATCH * B2_BASE[2]
+ 157     |    + /EARLY_HIT * /B2_MATCH * B3_MATCH * B3_BASE[2];
+ 158     |    ; default = 0
+ 159     |
+ 160     |PHYS[1] =
+ 161     |      EARLY_HIT * EARLY_BASE[1]
+ 162     |    + /EARLY_HIT * B2_MATCH * B2_BASE[1]
+ 163     |    + /EARLY_HIT * /B2_MATCH * B3_MATCH * B3_BASE[1];
+ 164     |    ; default = 0
+ 165     |
+ 166     |PHYS[0] =
+ 167     |      EARLY_HIT * EARLY_BASE[0]
+ 168     |    + /EARLY_HIT * B2_MATCH * B2_BASE[0]
+ 169     |    + /EARLY_HIT * /B2_MATCH * B3_MATCH * B3_BASE[0];
+ 170     |    ; default = 0
+ 171     |
+ 172     |
+ 173     |;=================================================================
+ 174     |SIMULATION
+ 175     |;=================================================================
+ 176     |
+ 177     |;TRACE_ON CLK /SYSRESET /CS_BANK /WR A[2..0] D[7..0] A[15..12] EARLY_HIT EARLY_BASE[5..0] B2_SIZE[1..0] B2_START[2..0] B2_BASE[5..0] B3_SIZE
+ 178     |TRACE_ON CLK /SYSRESET /CS_BANK /WR A[2..0] D[5..0] A[15..12] EARLY_BASE[5..0] B2_SIZE[1..0] B2_START[2..0] B2_BASE[5..0] B3_SIZE[1..0] B3_S
+ 179     |
+ 180     |;---------------------------------------------------------------------
+ 181     |; 1. Reset -> both banks Disabled (SIZE=11), EARLY_HIT forced low
+ 182     |;---------------------------------------------------------------------
+ 183     |SETF /SYSRESET /EARLY_HIT /EARLY_BASE[5] /EARLY_BASE[4] /EARLY_BASE[3] /EARLY_BASE[2] /EARLY_BASE[1] /EARLY_BASE[0]
+ 184     |CHECK B2_SIZE[1] B2_SIZE[0] B3_SIZE[1] B3_SIZE[0]
+ 185     |SETF SYSRESET
+ 186     |
+ 187     |;---------------------------------------------------------------------
+ 188     |; 2. Bank2 Size=4K, Start=5 (0xD000), Base=0x11
+ 189     |;---------------------------------------------------------------------
+ 190     |; Control register (A2=1,A1=0,A0=0)
+ 191     |;SETF /CS_BANK /WR A[2] /A[1] /A[0] /D[7] /D[6] /D[5] D[4] /D[3] D[2] /D[1] /D[0]   ; Size=00, Start=101
+ 192     |SETF /CS_BANK /WR A[2] /A[1] /A[0] /D[5] D[4] /D[3] D[2] /D[1] /D[0]   ; Size=00, Start=101
+ 193     |CLOCKF CLK
+ 194     |SETF CS_BANK WR
+ 195     |
+ 196     |; PhysBase (A2=1,A1=0,A0=1)
+ 197     |;SETF /CS_BANK /WR A[2] /A[1] A[0] /D[7] /D[6] /D[5] D[4] /D[3] /D[2] /D[1] D[0]    ; Base=0x11
+ 198     |SETF /CS_BANK /WR A[2] /A[1] A[0] /D[5] D[4] /D[3] /D[2] /D[1] D[0]    ; Base=0x11
+ 199     |CLOCKF CLK
+ 200     |SETF CS_BANK WR
+ 201     |
+ 202     |; 0xD000 (page5) -> hit, PHYS=0x11, Bank3 still disabled after reset
+ 203     |SETF A[15] A[14] /A[13] A[12]
+ 204     |CHECK B2_MATCH BANK_HIT /PHYS[5] PHYS[4] /PHYS[3] /PHYS[2] /PHYS[1] PHYS[0]   ; 0x11
+ 205     |
+ 206     |; 0xC000 (page4) -> no hit (only page5 matches at 4K)
+ 207     |SETF A[15] A[14] /A[13] /A[12]
+ 208     |CHECK /B2_MATCH /BANK_HIT
+ 209     |
+ 210     |;---------------------------------------------------------------------
+ 211     |; 3. Bank2 Size=8K, Start=100b (pages 4-5, 0xC000-0xD000), Base=0x22
+ 212     |;---------------------------------------------------------------------
+ 213     |;SETF /CS_BANK /WR A[2] /A[1] /A[0] /D[7] /D[6] /D[5] D[4] /D[3] /D[2] /D[1] D[0]   ; Size=01, Start=100
+ 214     |SETF /CS_BANK /WR A[2] /A[1] /A[0] /D[5] D[4] /D[3] /D[2] /D[1] D[0]   ; Size=01, Start=100
+ 215     |CLOCKF CLK
+ 216     |SETF CS_BANK WR
+ 217     |
+ 218     |;SETF /CS_BANK /WR A[2] /A[1] A[0] /D[7] /D[6] D[5] /D[4] /D[3] /D[2] D[1] /D[0]    ; Base=0x22
+ 219     |SETF /CS_BANK /WR A[2] /A[1] A[0]  D[5] /D[4] /D[3] /D[2] D[1] /D[0]    ; Base=0x22
+ 220     |CLOCKF CLK
+ 221     |SETF CS_BANK WR
+ 222     |
+ 223     |; 0xC000 (page4) -> hit
+ 224     |SETF A[15] A[14] /A[13] /A[12]
+ 225     |CHECK B2_MATCH BANK_HIT PHYS[5] /PHYS[4] /PHYS[3] /PHYS[2] PHYS[1] /PHYS[0]   ; 0x22
+ 226     |
+ 227     |; 0xD000 (page5) -> hit (8K covers both pages)
+ 228     |SETF A[15] A[14] /A[13] A[12]
+ 229     |CHECK B2_MATCH BANK_HIT
+ 230     |
+ 231     |; 0xE000 (page6) -> no hit
+ 232     |SETF A[15] A[14] A[13] /A[12]
+ 233     |CHECK /B2_MATCH
+ 234     |
+ 235     |;---------------------------------------------------------------------
+ 236     |; 4. Bank2 Size=16K, Start=0 (pages 0-3, 0x8000-0xB000), Base=0x33
+ 237     |;---------------------------------------------------------------------
+ 238     |;SETF /CS_BANK /WR A[2] /A[1] /A[0] /D[7] /D[6] /D[5] /D[4] /D[3] /D[2] D[1] /D[0]  ; Size=10, Start=000
+ 239     |SETF /CS_BANK /WR A[2] /A[1] /A[0] /D[5] /D[4] /D[3] /D[2] D[1] /D[0]  ; Size=10, Start=000
+ 240     |CLOCKF CLK
+ 241     |SETF CS_BANK WR
+ 242     |
+ 243     |;SETF /CS_BANK /WR A[2] /A[1] A[0] /D[7] /D[6] D[5] D[4] /D[3] /D[2] D[1] D[0]      ; Base=0x33
+ 244     |SETF /CS_BANK /WR A[2] /A[1] A[0] D[5] D[4] /D[3] /D[2] D[1] D[0]      ; Base=0x33
+ 245     |CLOCKF CLK
+ 246     |SETF CS_BANK WR
+ 247     |
+ 248     |; 0x8000 (page0) -> hit
+ 249     |SETF A[15] /A[14] /A[13] /A[12]
+ 250     |CHECK B2_MATCH BANK_HIT PHYS[5] PHYS[4] /PHYS[3] /PHYS[2] PHYS[1] PHYS[0]   ; 0x33
+ 251     |
+ 252     |; 0xB000 (page3) -> hit (16K covers pages 0-3)
+ 253     |SETF A[15] /A[14] A[13] A[12]
+ 254     |CHECK B2_MATCH BANK_HIT
+ 255     |
+ 256     |; 0xC000 (page4) -> no hit, and Bank3 still disabled -> default PHYS=0x08
+ 257     |SETF A[15] A[14] /A[13] /A[12]
+ 258     |CHECK /B2_MATCH /B3_MATCH /BANK_HIT /PHYS[5] /PHYS[4] PHYS[3] /PHYS[2] /PHYS[1] /PHYS[0]   ; default 0x08
+ 259     |
+ 260     |;---------------------------------------------------------------------
+ 261     |; 5. Bank2 Disabled (Size=11) -> falls back to default at page0
+ 262     |;---------------------------------------------------------------------
+ 263     |;SETF /CS_BANK /WR A[2] /A[1] /A[0] /D[7] /D[6] /D[5] /D[4] /D[3] /D[2] D[1] D[0]   ; Size=11, Start=000 (don't care)
+ 264     |SETF /CS_BANK /WR A[2] /A[1] /A[0] /D[5] /D[4] /D[3] /D[2] D[1] D[0]   ; Size=11, Start=000 (don't care)
+ 265     |CLOCKF CLK
+ 266     |SETF CS_BANK WR
+ 267     |
+ 268     |SETF A[15] /A[14] /A[13] /A[12]
+ 269     |CHECK /B2_MATCH /BANK_HIT PHYS[3] /PHYS[5] /PHYS[4] /PHYS[2] /PHYS[1] /PHYS[0]   ; default 0x08
+ 270     |
+ 271     |;---------------------------------------------------------------------
+ 272     |; 6. Bank3 Size=16K, Start=0, Base=0x24 (Bank2 still disabled)
+ 273     |;---------------------------------------------------------------------
+ 274     |; Control register (A2=1,A1=1,A0=0)
+ 275     |;SETF /CS_BANK /WR A[2] A[1] /A[0] /D[7] /D[6] /D[5] /D[4] /D[3] /D[2] D[1] /D[0]   ; Size=10, Start=000
+ 276     |SETF /CS_BANK /WR A[2] A[1] /A[0] /D[5] /D[4] /D[3] /D[2] D[1] /D[0]   ; Size=10, Start=000
+ 277     |CLOCKF CLK
+ 278     |SETF CS_BANK WR
+ 279     |
+ 280     |; PhysBase (A2=1,A1=1,A0=1)
+ 281     |;SETF /CS_BANK /WR A[2] A[1] A[0] /D[7] /D[6] D[5] /D[4] /D[3] D[2] /D[1] /D[0]     ; Base=0x24
+ 282     |SETF /CS_BANK /WR A[2] A[1] A[0] D[5] /D[4] /D[3] D[2] /D[1] /D[0]     ; Base=0x24
+ 283     |CLOCKF CLK
+ 284     |SETF CS_BANK WR
+ 285     |
+ 286     |; 0x8000 (page0) -> only Bank3 hits
+ 287     |SETF A[15] /A[14] /A[13] /A[12]
+ 288     |CHECK /B2_MATCH B3_MATCH BANK_HIT PHYS[5] /PHYS[4] /PHYS[3] PHYS[2] /PHYS[1] /PHYS[0]   ; 0x24
+ 289     |
+ 290     |;---------------------------------------------------------------------
+ 291     |; 7. Priority test: Bank2 re-enabled, overlaps Bank3 -> Bank2 wins
+ 292     |;---------------------------------------------------------------------
+ 293     |;SETF /CS_BANK /WR A[2] /A[1] /A[0] /D[7] /D[6] /D[5] /D[4] /D[3] /D[2] D[1] /D[0]  ; Size=10, Start=000
+ 294     |SETF /CS_BANK /WR A[2] /A[1] /A[0] /D[5] /D[4] /D[3] /D[2] D[1] /D[0]  ; Size=10, Start=000
+ 295     |CLOCKF CLK
+ 296     |SETF CS_BANK WR
+ 297     |
+ 298     |;SETF /CS_BANK /WR A[2] /A[1] A[0] /D[7] /D[6] D[5] D[4] /D[3] /D[2] D[1] D[0]      ; Base=0x33
+ 299     |SETF /CS_BANK /WR A[2] /A[1] A[0] D[5] D[4] /D[3] /D[2] D[1] D[0]      ; Base=0x33
+ 300     |CLOCKF CLK
+ 301     |SETF CS_BANK WR
+ 302     |
+ 303     |; 0x8000 (page0): both Bank2 and Bank3 match -> Bank2 wins (0x33, not 0x24)
+ 304     |SETF A[15] /A[14] /A[13] /A[12]
+ 305     |CHECK B2_MATCH B3_MATCH BANK_HIT PHYS[5] PHYS[4] /PHYS[3] /PHYS[2] PHYS[1] PHYS[0]   ; 0x33 from Bank2
+ 306     |
+ 307     |;---------------------------------------------------------------------
+ 308     |; 8. EARLY_HIT priority over Bank2/Bank3 (even though both still match)
+ 309     |;---------------------------------------------------------------------
+ 310     |SETF EARLY_HIT /EARLY_BASE[5] /EARLY_BASE[4] /EARLY_BASE[3] EARLY_BASE[2] /EARLY_BASE[1] EARLY_BASE[0]   ; EARLY_BASE=0x05
+ 311     |; address unchanged, still 0x8000, Bank2+Bank3 both would match
+ 312     |CHECK B2_MATCH B3_MATCH BANK_HIT /PHYS[5] /PHYS[4] /PHYS[3] PHYS[2] /PHYS[1] PHYS[0]   ; 0x05 wins over Bank2/Bank3
+ 313     |
+ 314     |;---------------------------------------------------------------------
+ 315     |; 9. True default: EARLY_HIT low, both banks disabled -> PHYS=0x08
+ 316     |;---------------------------------------------------------------------
+ 317     |SETF /EARLY_HIT /EARLY_BASE[5] /EARLY_BASE[4] /EARLY_BASE[3] /EARLY_BASE[2] /EARLY_BASE[1] /EARLY_BASE[0]
+ 318     |
+ 319     |;SETF /CS_BANK /WR A[2] /A[1] /A[0] /D[7] /D[6] /D[5] /D[4] /D[3] /D[2] D[1] D[0]   ; Bank2 Size=11 (disabled)
+ 320     |SETF /CS_BANK /WR A[2] /A[1] /A[0] /D[5] /D[4] /D[3] /D[2] D[1] D[0]   ; Bank2 Size=11 (disabled)
+ 321     |CLOCKF CLK
+ 322     |SETF CS_BANK WR
+ 323     |
+ 324     |;SETF /CS_BANK /WR A[2] A[1] /A[0] /D[7] /D[6] /D[5] /D[4] /D[3] /D[2] D[1] D[0]    ; Bank3 Size=11 (disabled)
+ 325     |SETF /CS_BANK /WR A[2] A[1] /A[0] /D[5] /D[4] /D[3] /D[2] D[1] D[0]    ; Bank3 Size=11 (disabled)
+ 326     |CLOCKF CLK
+ 327     |SETF CS_BANK WR
+ 328     |
+ 329     |SETF A[15] /A[14] /A[13] /A[12]
+ 330     |CHECK /B2_MATCH /B3_MATCH /BANK_HIT /PHYS[5] /PHYS[4] PHYS[3] /PHYS[2] /PHYS[1] /PHYS[0]   ; default 0x08
+ 331     |
+ 332     |TRACE_OFF
+ 333     |
+
+ %% MACHPAR %%    ERROR count:  0     WARNING count:  1
+
+ %% MACHPAR %%    File processed successfully.    File:  Bctrl2.pds
+
+*** Start MACHBPP.E 13:50:25 
+MACHXL 2.1 R9 MACHBPP (1-24-95)
+ (C) - COPYRIGHT ADVANCED MICRO DEVICES INC., 1993, 1994, 1995
+
+EQUATIONS SEGMENT
+Processing equation for ====>B2_SIZE[1]
+Processing equation for ====>B2_SIZE[0]
+Processing equation for ====>B2_START[2]
+Processing equation for ====>B2_START[1]
+Processing equation for ====>B2_START[0]
+Processing equation for ====>B2_BASE[5]
+Processing equation for ====>B2_BASE[4]
+Processing equation for ====>B2_BASE[3]
+Processing equation for ====>B2_BASE[2]
+Processing equation for ====>B2_BASE[1]
+Processing equation for ====>B2_BASE[0]
+Processing equation for ====>B3_SIZE[1]
+Processing equation for ====>B3_SIZE[0]
+Processing equation for ====>B3_START[2]
+Processing equation for ====>B3_START[1]
+Processing equation for ====>B3_START[0]
+Processing equation for ====>B3_BASE[5]
+Processing equation for ====>B3_BASE[4]
+Processing equation for ====>B3_BASE[3]
+Processing equation for ====>B3_BASE[2]
+Processing equation for ====>B3_BASE[1]
+Processing equation for ====>B3_BASE[0]
+Processing equation for ====>B2_SIZE[1..0].CLKF
+Processing equation for ====>B2_START[2..0].CLKF
+Processing equation for ====>B2_BASE[5..0].CLKF
+Processing equation for ====>B3_SIZE[1..0].CLKF
+Processing equation for ====>B3_START[2..0].CLKF
+Processing equation for ====>B3_BASE[5..0].CLKF
+Processing equation for ====>B2_SIZE[1..0].SETF
+Processing equation for ====>B3_SIZE[1..0].SETF
+Processing equation for ====>B2_START[2..0].RSTF
+Processing equation for ====>B2_BASE[5..0].RSTF
+Processing equation for ====>B3_START[2..0].RSTF
+Processing equation for ====>B3_BASE[5..0].RSTF
+Processing equation for ====>B2_MATCH
+Processing equation for ====>B3_MATCH
+Processing equation for ====>BANK_HIT
+Processing equation for ====>PHYS[5]
+Processing equation for ====>PHYS[4]
+Processing equation for ====>PHYS[3]
+Processing equation for ====>PHYS[2]
+Processing equation for ====>PHYS[1]
+Processing equation for ====>PHYS[0]
+SIMULATION SEGMENT
+............................................................
+...........
+ %%  MACHBPP  %% Maximum memory allocated was: 107022 bytes.
+
+ %%  MACHBPP  %% File Processed Successfully.  File: Bctrl2.pds.
+ %%  MACHBPP  %% ERROR count: 0  WARNING count: 0
+
+*** End MACHBPP.EXE 13:50:25; (MACHBPP.EXE= 0 sec.) elapsed time= 0 sec.
+Accumulated Disk space used = 0 bytes
+Free Disk space = 331833344 bytes
+
+*** Start MACHMIN.E 13:50:25 
+MACHXL 2.1 R9 MACHMIN   - (1-24-95)
+ (C) - COPYRIGHT ADVANCED MICRO DEVICES INC., 1994, 1995
+
+
+Processing equation(s) for node B3_MATCH...
+====> B3_MATCH           MIN_ON (14 + pt)
+Processing equation(s) for node B2_MATCH...
+====> B2_MATCH           MIN_ON (14 + pt)
+Processing equation(s) for node B3_BASE[0]...
+====> B3_BASE[0]         MIN_ON (6 + pt)
+====> B3_BASE[0].CLKF    MIN_ON (1 + pt)
+====> B3_BASE[0].RSTF    MIN_ON (1 + pt)
+Processing equation(s) for node B3_BASE[1]...
+====> B3_BASE[1]         MIN_ON (6 + pt)
+====> B3_BASE[1].CLKF    MIN_ON (1 + pt)
+====> B3_BASE[1].RSTF    MIN_ON (1 + pt)
+Processing equation(s) for node B3_BASE[2]...
+====> B3_BASE[2]         MIN_ON (6 + pt)
+====> B3_BASE[2].CLKF    MIN_ON (1 + pt)
+====> B3_BASE[2].RSTF    MIN_ON (1 + pt)
+Processing equation(s) for node B3_BASE[3]...
+====> B3_BASE[3]         MIN_ON (6 + pt)
+====> B3_BASE[3].CLKF    MIN_ON (1 + pt)
+====> B3_BASE[3].RSTF    MIN_ON (1 + pt)
+Processing equation(s) for node B3_BASE[4]...
+====> B3_BASE[4]         MIN_ON (6 + pt)
+====> B3_BASE[4].CLKF    MIN_ON (1 + pt)
+====> B3_BASE[4].RSTF    MIN_ON (1 + pt)
+Processing equation(s) for node B3_BASE[5]...
+====> B3_BASE[5]         MIN_ON (6 + pt)
+====> B3_BASE[5].CLKF    MIN_ON (1 + pt)
+====> B3_BASE[5].RSTF    MIN_ON (1 + pt)
+Processing equation(s) for node B3_START[0]...
+====> B3_START[0]        MIN_ON (6 + pt)
+====> B3_START[0].CLKF   MIN_ON (1 + pt)
+====> B3_START[0].RSTF   MIN_ON (1 + pt)
+Processing equation(s) for node B3_START[1]...
+====> B3_START[1]        MIN_ON (6 + pt)
+====> B3_START[1].CLKF   MIN_ON (1 + pt)
+====> B3_START[1].RSTF   MIN_ON (1 + pt)
+Processing equation(s) for node B3_START[2]...
+====> B3_START[2]        MIN_ON (6 + pt)
+====> B3_START[2].CLKF   MIN_ON (1 + pt)
+====> B3_START[2].RSTF   MIN_ON (1 + pt)
+Processing equation(s) for node B3_SIZE[0]...
+====> B3_SIZE[0]         MIN_ON (6 + pt)
+====> B3_SIZE[0].CLKF    MIN_ON (1 + pt)
+====> B3_SIZE[0].SETF    MIN_ON (1 + pt)
+Processing equation(s) for node B3_SIZE[1]...
+====> B3_SIZE[1]         MIN_ON (6 + pt)
+====> B3_SIZE[1].CLKF    MIN_ON (1 + pt)
+====> B3_SIZE[1].SETF    MIN_ON (1 + pt)
+Processing equation(s) for node B2_BASE[0]...
+====> B2_BASE[0]         MIN_ON (6 + pt)
+====> B2_BASE[0].CLKF    MIN_ON (1 + pt)
+====> B2_BASE[0].RSTF    MIN_ON (1 + pt)
+Processing equation(s) for node B2_BASE[1]...
+====> B2_BASE[1]         MIN_ON (6 + pt)
+====> B2_BASE[1].CLKF    MIN_ON (1 + pt)
+====> B2_BASE[1].RSTF    MIN_ON (1 + pt)
+Processing equation(s) for node B2_BASE[2]...
+====> B2_BASE[2]         MIN_ON (6 + pt)
+====> B2_BASE[2].CLKF    MIN_ON (1 + pt)
+====> B2_BASE[2].RSTF    MIN_ON (1 + pt)
+Processing equation(s) for node B2_BASE[3]...
+====> B2_BASE[3]         MIN_ON (6 + pt)
+====> B2_BASE[3].CLKF    MIN_ON (1 + pt)
+====> B2_BASE[3].RSTF    MIN_ON (1 + pt)
+Processing equation(s) for node B2_BASE[4]...
+====> B2_BASE[4]         MIN_ON (6 + pt)
+====> B2_BASE[4].CLKF    MIN_ON (1 + pt)
+====> B2_BASE[4].RSTF    MIN_ON (1 + pt)
+Processing equation(s) for node B2_BASE[5]...
+====> B2_BASE[5]         MIN_ON (6 + pt)
+====> B2_BASE[5].CLKF    MIN_ON (1 + pt)
+====> B2_BASE[5].RSTF    MIN_ON (1 + pt)
+Processing equation(s) for node B2_START[0]...
+====> B2_START[0]        MIN_ON (6 + pt)
+====> B2_START[0].CLKF   MIN_ON (1 + pt)
+====> B2_START[0].RSTF   MIN_ON (1 + pt)
+Processing equation(s) for node B2_START[1]...
+====> B2_START[1]        MIN_ON (6 + pt)
+====> B2_START[1].CLKF   MIN_ON (1 + pt)
+====> B2_START[1].RSTF   MIN_ON (1 + pt)
+Processing equation(s) for node B2_START[2]...
+====> B2_START[2]        MIN_ON (6 + pt)
+====> B2_START[2].CLKF   MIN_ON (1 + pt)
+====> B2_START[2].RSTF   MIN_ON (1 + pt)
+Processing equation(s) for node B2_SIZE[0]...
+====> B2_SIZE[0]         MIN_ON (6 + pt)
+====> B2_SIZE[0].CLKF    MIN_ON (1 + pt)
+====> B2_SIZE[0].SETF    MIN_ON (1 + pt)
+Processing equation(s) for node B2_SIZE[1]...
+====> B2_SIZE[1]         MIN_ON (6 + pt)
+====> B2_SIZE[1].CLKF    MIN_ON (1 + pt)
+====> B2_SIZE[1].SETF    MIN_ON (1 + pt)
+Processing equation(s) for pin BANK_HIT...
+====> BANK_HIT           MIN_ON (3 + pt)
+Processing equation(s) for pin PHYS[0]...
+====> PHYS[0]            MIN_ON (3 + pt)
+Processing equation(s) for pin PHYS[1]...
+====> PHYS[1]            MIN_ON (3 + pt)
+Processing equation(s) for pin PHYS[2]...
+====> PHYS[2]            MIN_ON (3 + pt)
+Processing equation(s) for pin PHYS[3]...
+====> PHYS[3]            MIN_ON (4 + pt)
+Processing equation(s) for pin PHYS[4]...
+====> PHYS[4]            MIN_ON (3 + pt)
+Processing equation(s) for pin PHYS[5]...
+====> PHYS[5]            MIN_ON (3 + pt)
+
+ %%  MACHMIN  %% Maximum memory allocated was: 63884 bytes.
+
+ %%  MACHMIN  %% File Processed Successfully.  File: Bctrl2.pds.
+ %%  MACHMIN  %% ERROR count: 0  WARNING count: 0
+
+
+*** End MACHMIN.EXE 13:50:25; (MACHMIN.EXE= 0 sec.) elapsed time= 0 sec.
+Accumulated Disk space used = 8192 bytes
+Free Disk space = 331825152 bytes
+
+*** Start MACHMIN.E 13:50:25 
+MACHXL 2.1 R9 MACHTPLA   - (1-24-95)
+ (C) - COPYRIGHT ADVANCED MICRO DEVICES INC., 1994, 1995
+
+
+Converting TRE file bctrl2.tre to PLA file bctrl2.pla...
+
+...............................
+...............................
+
+ %%  MACHTPLA  %% Maximum memory allocated was: 89750 bytes.
+
+ %%  MACHTPLA  %% File Processed Successfully.  File: Bctrl2.pds.
+ %%  MACHTPLA  %% ERROR count: 0  WARNING count: 0
+
+
+*** End MACHMIN.EXE 13:50:25; (MACHMIN.EXE= 0 sec.) elapsed time= 0 sec.
+Accumulated Disk space used = 16384 bytes
+Free Disk space = 331816960 bytes
+
+*** Start MACHFITR. 13:50:25 
+MACHXL 2.1 R11 MACHFITR (3-31-95)
+ (C) - COPYRIGHT ADVANCED MICRO DEVICES INC., 1993, 1994, 1995
+*** Source file is Bctrl2.pds . Device is MACH210 .
+|> INFO z5065 - For outputs, implicit output enables will be set to VCC.
+|> INFO z5070 - Unspecified SET/RESETs are to be treated as DON'T CARE.
+                Hence, a register with unspecified SET/RESET equation(s)
+                may be initialized via SET/RESET product terms that are
+                inherited from partitioning/placement to the same PAL block
+                as other registers for which SET/RESET equations have been
+                written. Therefore, simulation results may be unexpected
+                for any register uninitialized via explicit SET/RESET in
+                the design file.
+
+*** End of Pla2db. 
+Check preplaced pins/nodes
+Check preplaced blocks
+Check unreferenced pins/nodes
+Check clock rules
+
+List of global clocks:
+   CLK:
+
+*** End of Normalization.
+
+*** End of DRC. 
+
+*** Start Partitioning
+.  
+*** Partitioning successful.
+
+*** Routing successful. Assembler invoked.
+...... Unused I/O pins configured as outputs? N
+*** The JEDEC file generated is Bctrl2.JED .
+*** Report Generator invoked.
+
+Partitioning 100% - Completed
+Placement    100% - Completed
+Routing      100% - Completed
+%%% Fitting process is successful %%%
+*** Report Generator end.
+
+%%%% MACHFITR %%%% Fitting successful. File Bctrl2.pds .
+%%%% MACHFITR %%%% ERROR count 0 WARNING count 0 .
+
+*** End MACHFITR.EX 13:50:40; (MACHFITR.EXE=15 sec.) elapsed time=15 sec.
+Accumulated Disk space used = 16384 bytes
+Free Disk space = 331816960 bytes
+
+*** Start MACHSIMU. 13:50:40 
+MACHXL 2.1 R9 MACHSIMU (1-24-95)
+ (C) - COPYRIGHT ADVANCED MICRO DEVICES INC., 1993, 1994, 1995
+
+File  Bctrl2.pds
+Title  Bank control 2
+
+
+
+   1-V1 - TRACE_ON
+          CLK  /SYSRESET  /CS_BANK  /WR  A[2..0]  D[5..0]  
+          A[15..12]  EARLY_001[5..0]  B2_SIZE[1..0]  B2_START[2..0]  
+          B2_BASE[5..0]  B3_SIZE[1..0]  B3_START[2..0]  B3_BASE[5..0]  
+          B2_MATCH  B3_MATCH  BANK_HIT  PHYS[5..0]  
+   1-V1 - SETF
+          /SYSRESET  /EARLY_HIT  /EARLY_001[5]  /EARLY_001[4]  
+          /EARLY_001[3]  /EARLY_001[2]  /EARLY_001[1]  /EARLY_001[0]  
+   2-V1 - CHECK
+          B2_SIZE[1]  B2_SIZE[0]  B3_SIZE[1]  B3_SIZE[0]  
+   2-V2 - SETF
+          SYSRESET  
+   3-V3 - SETF
+          /CS_BANK  /WR  A[2]  /A[1]  /A[0]  /D[5]  D[4]  
+          /D[3]  D[2]  /D[1]  /D[0]  
+   7-V4 - CLOCKF
+          CLK  
+   7-V5 - SETF
+          CS_BANK  WR  
+   8-V6 - SETF
+          /CS_BANK  /WR  A[2]  /A[1]  A[0]  /D[5]  D[4]  /D[3]  
+          /D[2]  /D[1]  D[0]  
+  12-V7 - CLOCKF
+          CLK  
+  12-V8 - SETF
+          CS_BANK  WR  
+  13-V9 - SETF
+          A[15]  A[14]  /A[13]  A[12]  
+  14-V9 - CHECK
+          B2_MATCH  BANK_HIT  /PHYS[5]  PHYS[4]  /PHYS[3]  
+          /PHYS[2]  /PHYS[1]  PHYS[0]  
+  14-V10 - SETF
+          A[15]  A[14]  /A[13]  /A[12]  
+  15-V10 - CHECK
+          /B2_MATCH  /BANK_HIT  
+  15-V11 - SETF
+          /CS_BANK  /WR  A[2]  /A[1]  /A[0]  /D[5]  D[4]  
+          /D[3]  /D[2]  /D[1]  D[0]  
+  19-V12 - CLOCKF
+          CLK  
+  19-V13 - SETF
+          CS_BANK  WR  
+  20-V14 - SETF
+          /CS_BANK  /WR  A[2]  /A[1]  A[0]  D[5]  /D[4]  /D[3]  
+          /D[2]  D[1]  /D[0]  
+  24-V15 - CLOCKF
+          CLK  
+  24-V16 - SETF
+          CS_BANK  WR  
+  25-V17 - SETF
+          A[15]  A[14]  /A[13]  /A[12]  
+  26-V17 - CHECK
+          B2_MATCH  BANK_HIT  PHYS[5]  /PHYS[4]  /PHYS[3]  
+          /PHYS[2]  PHYS[1]  /PHYS[0]  
+  26-V18 - SETF
+          A[15]  A[14]  /A[13]  A[12]  
+  27-V18 - CHECK
+          B2_MATCH  BANK_HIT  
+  27-V19 - SETF
+          A[15]  A[14]  A[13]  /A[12]  
+  28-V19 - CHECK
+          /B2_MATCH  
+  28-V20 - SETF
+          /CS_BANK  /WR  A[2]  /A[1]  /A[0]  /D[5]  /D[4]  
+          /D[3]  /D[2]  D[1]  /D[0]  
+  32-V21 - CLOCKF
+          CLK  
+  32-V22 - SETF
+          CS_BANK  WR  
+  33-V23 - SETF
+          /CS_BANK  /WR  A[2]  /A[1]  A[0]  D[5]  D[4]  /D[3]  
+          /D[2]  D[1]  D[0]  
+  37-V24 - CLOCKF
+          CLK  
+  37-V25 - SETF
+          CS_BANK  WR  
+  38-V26 - SETF
+          A[15]  /A[14]  /A[13]  /A[12]  
+  39-V26 - CHECK
+          B2_MATCH  BANK_HIT  PHYS[5]  PHYS[4]  /PHYS[3]  
+          /PHYS[2]  PHYS[1]  PHYS[0]  
+  39-V27 - SETF
+          A[15]  /A[14]  A[13]  A[12]  
+  40-V27 - CHECK
+          B2_MATCH  BANK_HIT  
+  40-V28 - SETF
+          A[15]  A[14]  /A[13]  /A[12]  
+  41-V28 - CHECK
+          /B2_MATCH  /B3_MATCH  /BANK_HIT  /PHYS[5]  /PHYS[4]  
+          PHYS[3]  /PHYS[2]  /PHYS[1]  /PHYS[0]  
+  41-V29 - SETF
+          /CS_BANK  /WR  A[2]  /A[1]  /A[0]  /D[5]  /D[4]  
+          /D[3]  /D[2]  D[1]  D[0]  
+  45-V30 - CLOCKF
+          CLK  
+  45-V31 - SETF
+          CS_BANK  WR  
+  46-V32 - SETF
+          A[15]  /A[14]  /A[13]  /A[12]  
+  47-V32 - CHECK
+          /B2_MATCH  /BANK_HIT  PHYS[3]  /PHYS[5]  /PHYS[4]  
+          /PHYS[2]  /PHYS[1]  /PHYS[0]  
+  47-V33 - SETF
+          /CS_BANK  /WR  A[2]  A[1]  /A[0]  /D[5]  /D[4]  
+          /D[3]  /D[2]  D[1]  /D[0]  
+  51-V34 - CLOCKF
+          CLK  
+  51-V35 - SETF
+          CS_BANK  WR  
+  52-V36 - SETF
+          /CS_BANK  /WR  A[2]  A[1]  A[0]  D[5]  /D[4]  /D[3]  
+          D[2]  /D[1]  /D[0]  
+  56-V37 - CLOCKF
+          CLK  
+  56-V38 - SETF
+          CS_BANK  WR  
+  57-V39 - SETF
+          A[15]  /A[14]  /A[13]  /A[12]  
+  58-V39 - CHECK
+          /B2_MATCH  B3_MATCH  BANK_HIT  PHYS[5]  /PHYS[4]  
+          /PHYS[3]  PHYS[2]  /PHYS[1]  /PHYS[0]  
+  58-V40 - SETF
+          /CS_BANK  /WR  A[2]  /A[1]  /A[0]  /D[5]  /D[4]  
+          /D[3]  /D[2]  D[1]  /D[0]  
+  62-V41 - CLOCKF
+          CLK  
+  62-V42 - SETF
+          CS_BANK  WR  
+  63-V43 - SETF
+          /CS_BANK  /WR  A[2]  /A[1]  A[0]  D[5]  D[4]  /D[3]  
+          /D[2]  D[1]  D[0]  
+  67-V44 - CLOCKF
+          CLK  
+  67-V45 - SETF
+          CS_BANK  WR  
+  68-V46 - SETF
+          A[15]  /A[14]  /A[13]  /A[12]  
+  69-V46 - CHECK
+          B2_MATCH  B3_MATCH  BANK_HIT  PHYS[5]  PHYS[4]  
+          /PHYS[3]  /PHYS[2]  PHYS[1]  PHYS[0]  
+  69-V47 - SETF
+          EARLY_HIT  /EARLY_001[5]  /EARLY_001[4]  
+          /EARLY_001[3]  EARLY_001[2]  /EARLY_001[1]  EARLY_001[0]  
+  70-V47 - CHECK
+          B2_MATCH  B3_MATCH  BANK_HIT  /PHYS[5]  /PHYS[4]  
+          /PHYS[3]  PHYS[2]  /PHYS[1]  PHYS[0]  
+  70-V48 - SETF
+          /EARLY_HIT  /EARLY_001[5]  /EARLY_001[4]  
+          /EARLY_001[3]  /EARLY_001[2]  /EARLY_001[1]  /EARLY_001[0]  
+  71-V49 - SETF
+          /CS_BANK  /WR  A[2]  /A[1]  /A[0]  /D[5]  /D[4]  
+          /D[3]  /D[2]  D[1]  D[0]  
+  75-V50 - CLOCKF
+          CLK  
+  75-V51 - SETF
+          CS_BANK  WR  
+  76-V52 - SETF
+          /CS_BANK  /WR  A[2]  A[1]  /A[0]  /D[5]  /D[4]  
+          /D[3]  /D[2]  D[1]  D[0]  
+  80-V53 - CLOCKF
+          CLK  
+  80-V54 - SETF
+          CS_BANK  WR  
+  81-V55 - SETF
+          A[15]  /A[14]  /A[13]  /A[12]  
+  82-V55 - CHECK
+          /B2_MATCH  /B3_MATCH  /BANK_HIT  /PHYS[5]  /PHYS[4]  
+          PHYS[3]  /PHYS[2]  /PHYS[1]  /PHYS[0]  
+  82-V56 - TRACE_OFF
+
+   END OF SIMULATION
+Simulation results (history) are in ===> Bctrl2.HST
+Simulation results (trace) are in   ===> Bctrl2.TRF
+Merged results (JEDEC) are in       ===> Bctrl2.JDC
+Simulation results (trace vectors) are in   ===> Bctrl2.TRV
+
+ %%  MACHSIMU  %% Maximum memory allocated was: 302601 bytes.
+
+ %%  MACHSIMU  %% File Processed Successfully.  File: Bctrl2.pds.
+ %%  MACHSIMU  %% ERROR count: 0  WARNING count: 0
+
+*** End MACHSIMU.EX 13:50:41; (MACHSIMU.EXE= 1 sec.) elapsed time=16 sec.
+Accumulated Disk space used = 16384 bytes
+Free Disk space = 331816960 bytes

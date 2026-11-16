@@ -1,0 +1,25 @@
+TITLE           iosel2
+PATTERN         v1
+REVISION        01
+DATE            10/08/85
+AUTHOR          Michael
+COMPANY         SufniFabrik
+
+CHIP iosel2 USER
+NC A7 A6 A5 NC NC NC NC /MX /IOREQ NC NC A4 GND NC NC A3 /CS_BANK 
+/CS_REG /CS_I2C NC NC NC NC NC NC A2 VCC 
+
+EQUATIONS
+
+CS_BANK = /A4  * A5  * /A6  * A7  * IOREQ  * /MX 
+       
+CS_I2C = A3  * A4  * A5  * /A6  * A7  * IOREQ  * /MX 
+      
+CS_REG = /A3  * A4  * A5  * /A6  * A7  * IOREQ  * /MX 
+      
+CS_BANK.TRST = VCC 
+            
+CS_I2C.TRST = VCC 
+           
+CS_REG.TRST = VCC 
+           

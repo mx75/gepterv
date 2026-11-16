@@ -1,0 +1,293 @@
+TITLE            Daisy Chain and BitSelect
+REVISION         1
+PATTERN          ?
+AUTHOR           Grok AI
+COMPANY          _
+DATE            2/10/2026
+
+;=================================================================
+; MACH210 - Daisy-Chain Look-Ahead + SEL + BitSelect
+; 4x KIO + 4x DMA
+;
+; Címzés (ugyanazon /CS-en):
+;   A[0] = 0  →  SEL[2..0] írása   (D[2..0])
+;   A[0] = 1  →  BitSelect írás    (D[0] = adat, D[3..1] = bitcím)
+;
+; Írás: szintérzékeny dekódolás + valódi CLK élre regisztrálás
+; Reset: aszinkron /SYSRESET
+;
+; Tool: PALASM4 / MACHXL
+;=================================================================
+
+CHIP DaisyBS MACH210
+
+;-----------------------------------------------------------------
+; Bemenetek
+;-----------------------------------------------------------------
+PIN 35 CLK ; valódi órajel
+PIN 10 /SYSRESET ; aszinkron reset
+PIN 32 /CS 
+PIN 11 /WR 
+PIN 13 A[0] ; alcím (0=SEL, 1=BitSelect)
+
+PIN 41, 42, 43, 33 D[3..0] 
+
+PIN 40 IEO_KIO_A 
+PIN 39 IEO_KIO_B 
+PIN 38 IEO_KIO_C 
+PIN 37 IEO_KIO_D 
+PIN 36 IEO_DMA_A 
+PIN 24 IEO_DMA_B 
+PIN 25 IEO_DMA_C 
+PIN 26 IEO_DMA_D 
+
+;-----------------------------------------------------------------
+; Kimenetek - Daisy chain IEI
+;-----------------------------------------------------------------
+PIN 2 IEI_KIO_A COMBINATORIAL
+PIN 3 IEI_KIO_B COMBINATORIAL
+PIN 4 IEI_KIO_C COMBINATORIAL
+PIN 5 IEI_KIO_D COMBINATORIAL
+PIN 6 IEI_DMA_A COMBINATORIAL
+PIN 7 IEI_DMA_B COMBINATORIAL
+PIN 8 IEI_DMA_C COMBINATORIAL
+PIN 9 IEI_DMA_D COMBINATORIAL
+
+;-----------------------------------------------------------------
+; Kimenetek / regiszterek - BitSelect
+;-----------------------------------------------------------------
+PIN 14, 15, 16, 17, 18, 19, 20, 21 BSREG[7..0] REGISTERED
+
+;-----------------------------------------------------------------
+; Belső regiszterek
+;-----------------------------------------------------------------
+NODE 65, 34, 50 SEL[2..0] REGISTERED
+
+;-----------------------------------------------------------------
+; STRING-ek
+;-----------------------------------------------------------------
+;STRING  WR_ACTIVE   '/CS * /WR'                 ; általános írás
+STRING  WR_SEL      '(/CS * /WR * /A[0])'          ; SEL regiszter
+STRING  WR_BS       '/CS * /WR *  A[0]'          ; BitSelect
+
+STRING  S000        '/SEL[2] * /SEL[1] * /SEL[0]'
+STRING  S001        '/SEL[2] * /SEL[1] *  SEL[0]'
+STRING  S010        '/SEL[2] *  SEL[1] * /SEL[0]'
+STRING  S011        '/SEL[2] *  SEL[1] *  SEL[0]'
+STRING  S100        ' SEL[2] * /SEL[1] * /SEL[0]'
+STRING  S101        ' SEL[2] * /SEL[1] *  SEL[0]'
+STRING  S110        ' SEL[2] *  SEL[1] * /SEL[0]'
+STRING  S111        ' SEL[2] *  SEL[1] *  SEL[0]'
+
+EQUATIONS
+
+;=================================================================
+; SEL regiszter (3 bit)
+; Minden CLK élre frissül.
+; Ha WR_SEL aktív → új érték (D[2..0]), egyébként tartja a régit.
+;=================================================================
+SEL[2] = WR_SEL * D[2]  +  /WR_SEL * SEL[2]
+SEL[1] = WR_SEL * D[1]  +  /WR_SEL * SEL[1]
+SEL[0] = WR_SEL * D[0]  +  /WR_SEL * SEL[0]
+
+SEL[2..0].CLKF = CLK
+SEL[2..0].RSTF = /SYSRESET
+
+;=================================================================
+; BitSelect regiszter (8 bit)
+; D[3..1] választja ki, melyik bitet írjuk, D[0] az új érték.
+;=================================================================
+BSREG[0] = WR_BS * /D[3] * /D[2] * /D[1] * D[0]  +  /(WR_BS * /D[3] * /D[2] * /D[1]) * BSREG[0]
+BSREG[1] = WR_BS * /D[3] * /D[2] *  D[1] * D[0]  +  /(WR_BS * /D[3] * /D[2] *  D[1]) * BSREG[1]
+BSREG[2] = WR_BS * /D[3] *  D[2] * /D[1] * D[0]  +  /(WR_BS * /D[3] *  D[2] * /D[1]) * BSREG[2]
+BSREG[3] = WR_BS * /D[3] *  D[2] *  D[1] * D[0]  +  /(WR_BS * /D[3] *  D[2] *  D[1]) * BSREG[3]
+BSREG[4] = WR_BS *  D[3] * /D[2] * /D[1] * D[0]  +  /(WR_BS *  D[3] * /D[2] * /D[1]) * BSREG[4]
+BSREG[5] = WR_BS *  D[3] * /D[2] *  D[1] * D[0]  +  /(WR_BS *  D[3] * /D[2] *  D[1]) * BSREG[5]
+BSREG[6] = WR_BS *  D[3] *  D[2] * /D[1] * D[0]  +  /(WR_BS *  D[3] *  D[2] * /D[1]) * BSREG[6]
+BSREG[7] = WR_BS *  D[3] *  D[2] *  D[1] * D[0]  +  /(WR_BS *  D[3] *  D[2] *  D[1]) * BSREG[7]
+
+BSREG[7..0].CLKF = CLK
+BSREG[7..0].RSTF = /SYSRESET
+
+;=================================================================
+; Daisy-chain IEI look-ahead (8 sorrend)
+; 000: KIO_A → KIO_B → KIO_C → KIO_D → DMA_A → DMA_B → DMA_C → DMA_D
+; 001: KIO_A → DMA_A → KIO_B → DMA_B → KIO_C → DMA_C → KIO_D → DMA_D
+; 010: DMA_A → DMA_B → DMA_C → DMA_D → KIO_A → KIO_B → KIO_C → KIO_D
+; 011: DMA_D → DMA_C → DMA_B → DMA_A → KIO_D → KIO_C → KIO_B → KIO_A
+; 100: KIO_D → KIO_C → KIO_B → KIO_A → DMA_D → DMA_C → DMA_B → DMA_A
+; 101: DMA_A → KIO_A → DMA_B → KIO_B → DMA_C → KIO_C → DMA_D → KIO_D
+; 110: KIO_A → KIO_B → DMA_A → DMA_B → KIO_C → KIO_D → DMA_C → DMA_D
+; 111: DMA_B → DMA_A → KIO_A → KIO_B → DMA_D → DMA_C → KIO_C → KIO_D
+;=================================================================
+
+IEI_KIO_A =
+      S000 * VCC
+    + S001 * VCC
+    + S010 * (IEO_DMA_A * IEO_DMA_B * IEO_DMA_C * IEO_DMA_D)
+    + S011 * (IEO_DMA_D * IEO_DMA_C * IEO_DMA_B * IEO_DMA_A * IEO_KIO_D * IEO_KIO_C * IEO_KIO_B)
+    + S100 * (IEO_KIO_D * IEO_KIO_C * IEO_KIO_B)
+    + S101 * (IEO_DMA_A)
+    + S110 * VCC
+    + S111 * (IEO_DMA_B * IEO_DMA_A);
+
+IEI_KIO_B =
+      S000 * (IEO_KIO_A)
+    + S001 * (IEO_KIO_A * IEO_DMA_A)
+    + S010 * (IEO_DMA_A * IEO_DMA_B * IEO_DMA_C * IEO_DMA_D * IEO_KIO_A)
+    + S011 * (IEO_DMA_D * IEO_DMA_C * IEO_DMA_B * IEO_DMA_A * IEO_KIO_D * IEO_KIO_C)
+    + S100 * (IEO_KIO_D * IEO_KIO_C)
+    + S101 * (IEO_DMA_A * IEO_KIO_A * IEO_DMA_B)
+    + S110 * (IEO_KIO_A)
+    + S111 * (IEO_DMA_B * IEO_DMA_A * IEO_KIO_A);
+
+IEI_KIO_C =
+      S000 * (IEO_KIO_A * IEO_KIO_B)
+    + S001 * (IEO_KIO_A * IEO_DMA_A * IEO_KIO_B * IEO_DMA_B)
+    + S010 * (IEO_DMA_A * IEO_DMA_B * IEO_DMA_C * IEO_DMA_D * IEO_KIO_A * IEO_KIO_B)
+    + S011 * (IEO_DMA_D * IEO_DMA_C * IEO_DMA_B * IEO_DMA_A * IEO_KIO_D)
+    + S100 * (IEO_KIO_D)
+    + S101 * (IEO_DMA_A * IEO_KIO_A * IEO_DMA_B * IEO_KIO_B * IEO_DMA_C)
+    + S110 * (IEO_KIO_A * IEO_KIO_B * IEO_DMA_A * IEO_DMA_B)
+    + S111 * (IEO_DMA_B * IEO_DMA_A * IEO_KIO_A * IEO_KIO_B * IEO_DMA_D * IEO_DMA_C);
+
+IEI_KIO_D =
+      S000 * (IEO_KIO_A * IEO_KIO_B * IEO_KIO_C)
+    + S001 * (IEO_KIO_A * IEO_DMA_A * IEO_KIO_B * IEO_DMA_B * IEO_KIO_C * IEO_DMA_C)
+    + S010 * (IEO_DMA_A * IEO_DMA_B * IEO_DMA_C * IEO_DMA_D * IEO_KIO_A * IEO_KIO_B * IEO_KIO_C)
+    + S011 * (IEO_DMA_D * IEO_DMA_C * IEO_DMA_B * IEO_DMA_A)
+    + S100 * VCC
+    + S101 * (IEO_DMA_A * IEO_KIO_A * IEO_DMA_B * IEO_KIO_B * IEO_DMA_C * IEO_KIO_C * IEO_DMA_D)
+    + S110 * (IEO_KIO_A * IEO_KIO_B * IEO_DMA_A * IEO_DMA_B * IEO_KIO_C)
+    + S111 * (IEO_DMA_B * IEO_DMA_A * IEO_KIO_A * IEO_KIO_B * IEO_DMA_D * IEO_DMA_C * IEO_KIO_C);
+
+IEI_DMA_A =
+      S000 * (IEO_KIO_A * IEO_KIO_B * IEO_KIO_C * IEO_KIO_D)
+    + S001 * (IEO_KIO_A)
+    + S010 * VCC
+    + S011 * (IEO_DMA_D * IEO_DMA_C * IEO_DMA_B)
+    + S100 * (IEO_KIO_D * IEO_KIO_C * IEO_KIO_B * IEO_KIO_A * IEO_DMA_D * IEO_DMA_C * IEO_DMA_B)
+    + S101 * VCC
+    + S110 * (IEO_KIO_A * IEO_KIO_B)
+    + S111 * (IEO_DMA_B);
+
+IEI_DMA_B =
+      S000 * (IEO_KIO_A * IEO_KIO_B * IEO_KIO_C * IEO_KIO_D * IEO_DMA_A)
+    + S001 * (IEO_KIO_A * IEO_DMA_A * IEO_KIO_B)
+    + S010 * (IEO_DMA_A)
+    + S011 * (IEO_DMA_D * IEO_DMA_C)
+    + S100 * (IEO_KIO_D * IEO_KIO_C * IEO_KIO_B * IEO_KIO_A * IEO_DMA_D * IEO_DMA_C)
+    + S101 * (IEO_DMA_A * IEO_KIO_A)
+    + S110 * (IEO_KIO_A * IEO_KIO_B * IEO_DMA_A)
+    + S111 * VCC;
+
+IEI_DMA_C =
+      S000 * (IEO_KIO_A * IEO_KIO_B * IEO_KIO_C * IEO_KIO_D * IEO_DMA_A * IEO_DMA_B)
+    + S001 * (IEO_KIO_A * IEO_DMA_A * IEO_KIO_B * IEO_DMA_B * IEO_KIO_C)
+    + S010 * (IEO_DMA_A * IEO_DMA_B)
+    + S011 * (IEO_DMA_D)
+    + S100 * (IEO_KIO_D * IEO_KIO_C * IEO_KIO_B * IEO_KIO_A * IEO_DMA_D)
+    + S101 * (IEO_DMA_A * IEO_KIO_A * IEO_DMA_B * IEO_KIO_B)
+    + S110 * (IEO_KIO_A * IEO_KIO_B * IEO_DMA_A * IEO_DMA_B * IEO_KIO_C * IEO_KIO_D)
+    + S111 * (IEO_DMA_B * IEO_DMA_A * IEO_KIO_A * IEO_KIO_B * IEO_DMA_D);
+
+IEI_DMA_D =
+      S000 * (IEO_KIO_A * IEO_KIO_B * IEO_KIO_C * IEO_KIO_D * IEO_DMA_A * IEO_DMA_B * IEO_DMA_C)
+    + S001 * (IEO_KIO_A * IEO_DMA_A * IEO_KIO_B * IEO_DMA_B * IEO_KIO_C * IEO_DMA_C * IEO_KIO_D)
+    + S010 * (IEO_DMA_A * IEO_DMA_B * IEO_DMA_C)
+    + S011 * VCC
+    + S100 * (IEO_KIO_D * IEO_KIO_C * IEO_KIO_B * IEO_KIO_A)
+    + S101 * (IEO_DMA_A * IEO_KIO_A * IEO_DMA_B * IEO_KIO_B * IEO_DMA_C * IEO_KIO_C)
+    + S110 * (IEO_KIO_A * IEO_KIO_B * IEO_DMA_A * IEO_DMA_B * IEO_KIO_C * IEO_KIO_D * IEO_DMA_C)
+    + S111 * (IEO_DMA_B * IEO_DMA_A * IEO_KIO_A * IEO_KIO_B);
+
+
+;=================================================================
+SIMULATION
+;=================================================================
+
+TRACE_ON CLK /SYSRESET /CS /WR A[0] D[3..0]
+         SEL[2..0] BSREG[7..0]
+         IEO_KIO_A IEO_KIO_B IEO_KIO_C IEO_KIO_D
+         IEO_DMA_A IEO_DMA_B IEO_DMA_C IEO_DMA_D
+         IEI_KIO_A IEI_KIO_B IEI_KIO_C IEI_KIO_D
+         IEI_DMA_A IEI_DMA_B IEI_DMA_C IEI_DMA_D
+
+;---------------------------------------------------------------------
+; 1. Reset test
+;---------------------------------------------------------------------
+SETF /SYSRESET
+CHECK /SEL[2] /SEL[1] /SEL[0] /BSREG[7] /BSREG[6] /BSREG[5] /BSREG[4] /BSREG[3] /BSREG[2] /BSREG[1] /BSREG[0]
+
+SETF SYSRESET
+
+;---------------------------------------------------------------------
+; 2. Write SEL register (A[0]=0)  value = 011
+;---------------------------------------------------------------------
+SETF /CS /WR /A[0]
+SETF /D[3] /D[2] D[1] D[0]     ; D = 00000011
+CLOCKF CLK
+SETF CS WR
+
+CHECK /SEL[2] SEL[1] SEL[0]                            ; SEL = 011
+
+;---------------------------------------------------------------------
+; 3. Write BitSelect bit 0 = 1 (D[3..1]=000, D[0]=1)
+;---------------------------------------------------------------------
+SETF /CS /WR A[0]
+SETF /D[3] /D[2] /D[1] D[0]     ; bitcim=000, adat=1
+CLOCKF CLK
+SETF CS WR
+
+CHECK BSREG[0]
+
+;---------------------------------------------------------------------
+; 4. Write BitSelect bit 3 = 1 (D[3..1]=011, D[0]=1)
+;---------------------------------------------------------------------
+SETF /CS /WR A[0]
+SETF /D[3] D[2] D[1] D[0]       ; bitcim=011, adat=1
+CLOCKF CLK
+SETF CS WR
+
+CHECK BSREG[3]
+
+;---------------------------------------------------------------------
+; 5. Daisy-chain test - SEL=000, all IEO=1
+;    Expected: all IEI = 1
+;---------------------------------------------------------------------
+SETF CS WR A[0] /D[2] /D[1] /D[0]
+CLOCKF CLK
+SETF /CS /WR
+;SETF /SEL[2] /SEL[1] /SEL[0]
+SETF IEO_KIO_A IEO_KIO_B IEO_KIO_C IEO_KIO_D
+SETF IEO_DMA_A IEO_DMA_B IEO_DMA_C IEO_DMA_D
+
+CHECK IEI_KIO_A IEI_KIO_B IEI_KIO_C IEI_KIO_D IEI_DMA_A IEI_DMA_B IEI_DMA_C IEI_DMA_D
+
+;---------------------------------------------------------------------
+; 6. SEL=000, KIO_A blocked (IEO_KIO_A=0)
+;    Expected: IEI_KIO_A=1, everything after it = 0
+;---------------------------------------------------------------------
+SETF /IEO_KIO_A
+CHECK IEI_KIO_A /IEI_KIO_B /IEI_KIO_C /IEI_KIO_D /IEI_DMA_A /IEI_DMA_B /IEI_DMA_C /IEI_DMA_D
+
+;---------------------------------------------------------------------
+; 7. SEL=011 (full reverse), all IEO=1
+;---------------------------------------------------------------------
+SETF CS WR A[0] /D[2] D[1] D[0]
+CLOCKF CLK
+SETF /CS /WR
+;SETF /SEL[2] SEL[1] SEL[0]
+SETF IEO_KIO_A IEO_KIO_B IEO_KIO_C IEO_KIO_D
+SETF IEO_DMA_A IEO_DMA_B IEO_DMA_C IEO_DMA_D
+
+CHECK IEI_KIO_A IEI_KIO_B IEI_KIO_C IEI_KIO_D IEI_DMA_A IEI_DMA_B IEI_DMA_C IEI_DMA_D
+
+;---------------------------------------------------------------------
+; 8. SEL=011, DMA_D blocked
+;    Expected: IEI_DMA_D=1, all others = 0
+;---------------------------------------------------------------------
+SETF /IEO_DMA_D
+CHECK IEI_DMA_D /IEI_DMA_C /IEI_DMA_B /IEI_DMA_A /IEI_KIO_D /IEI_KIO_C /IEI_KIO_B /IEI_KIO_A
+
+TRACE_OFF

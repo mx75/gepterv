@@ -1,0 +1,213 @@
+
+*******************************************************************************
+                                      res
+*******************************************************************************
+
+CUPL            4.0a Serial# MD-40A-8249
+Device          p16r6  Library DLIB-h-26-14
+Created         Wed Oct 07 09:08:27 2026
+Name            res
+Partno          v1
+Revision        01
+Date            10/08/85
+Designer        Michael
+Company         SufniFabrik
+Assembly        None
+Location        None
+
+===============================================================================
+                            Expanded Product Terms
+===============================================================================
+
+Q0.d  =>
+    !PURESET & Q1 & Q2 & Q3 & Q4 & Q5 & !RBUTTON & !SELFRESET
+  # !PURESET & !Q0 & !RBUTTON & !SELFRESET
+
+Q1.d  =>
+    !PURESET & Q0 & Q1 & Q2 & Q3 & Q4 & Q5 & !RBUTTON & !SELFRESET
+  # !PURESET & Q0 & !Q1 & !RBUTTON & !SELFRESET
+  # !PURESET & !Q0 & Q1 & !RBUTTON & !SELFRESET
+
+Q2.d  =>
+    !PURESET & Q2 & Q3 & Q4 & Q5 & !RBUTTON & !SELFRESET
+  # !PURESET & Q0 & Q1 & !Q2 & !RBUTTON & !SELFRESET
+  # !PURESET & !Q1 & Q2 & !RBUTTON & !SELFRESET
+  # !PURESET & !Q0 & Q2 & !RBUTTON & !SELFRESET
+
+Q3.d  =>
+    !PURESET & Q3 & Q4 & Q5 & !RBUTTON & !SELFRESET
+  # !PURESET & Q0 & Q1 & Q2 & !Q3 & !RBUTTON & !SELFRESET
+  # !PURESET & !Q2 & Q3 & !RBUTTON & !SELFRESET
+  # !PURESET & !Q1 & Q3 & !RBUTTON & !SELFRESET
+  # !PURESET & !Q0 & Q3 & !RBUTTON & !SELFRESET
+
+Q4.d  =>
+    !PURESET & Q4 & Q5 & !RBUTTON & !SELFRESET
+  # !PURESET & Q0 & Q1 & Q2 & Q3 & !Q4 & !RBUTTON & !SELFRESET
+  # !PURESET & !Q3 & Q4 & !RBUTTON & !SELFRESET
+  # !PURESET & !Q2 & Q4 & !RBUTTON & !SELFRESET
+  # !PURESET & !Q1 & Q4 & !RBUTTON & !SELFRESET
+  # !PURESET & !Q0 & Q4 & !RBUTTON & !SELFRESET
+
+Q5.d  =>
+    !PURESET & Q5 & !RBUTTON & !SELFRESET
+  # !PURESET & Q0 & Q1 & Q2 & Q3 & Q4 & !RBUTTON & !SELFRESET
+
+SYSRESET =>
+    !Q5
+  # !Q4
+  # !Q3
+  # !Q2
+  # !Q1
+  # !Q0
+
+SYSRESET.oe  =>
+    1 
+
+WR_I2C =>
+    CS_I2C & WR
+
+count =>
+    Q5 , Q4 , Q3 , Q2 , Q1 , Q0
+
+WR_I2C.oe  =>
+    1 
+
+
+===============================================================================
+                                 Symbol Table
+===============================================================================
+
+Pin Variable                                    Pterms   Max     Min    
+Pol   Name              Ext     Pin     Type     Used   Pterms  Level   
+--- --------            ---     ---     ----    ------  ------  -----   
+
+    CLK                         1        V        -       -       -     
+ !  CS_I2C                      6        V        -       -       -     
+ !  PURESET                     2        V        -       -       -     
+ !  Q0                          18       V        -       -       -     
+ !  Q0                  d       18       X        2       8       4     
+ !  Q1                          17       V        -       -       -     
+ !  Q1                  d       17       X        3       8       4     
+ !  Q2                          16       V        -       -       -     
+ !  Q2                  d       16       X        4       8       4     
+ !  Q3                          15       V        -       -       -     
+ !  Q3                  d       15       X        5       8       4     
+ !  Q4                          14       V        -       -       -     
+ !  Q4                  d       14       X        6       8       4     
+ !  Q5                          13       V        -       -       -     
+ !  Q5                  d       13       X        2       8       4     
+ !  RBUTTON                     7        V        -       -       -     
+ !  SELFRESET                   8        V        -       -       -     
+ !  SYSRESET                    12       V        6       7       4     
+    SYSRESET            oe      12       X        1       1       1     
+ !  WR                          9        V        -       -       -     
+ !  WR_I2C                      19       V        1       7       4     
+    count                       0        F        -       -       -     
+    WR_I2C              oe      19       D        1       1       0     
+
+
+LEGEND    F : field      D : default variable        M : extended node
+          N : node       I : intermediate variable   T : function
+          V : variable   X : extended variable       U : undefined
+
+
+===============================================================================
+                                   Fuse Plot
+===============================================================================
+
+Pin #19 
+ 00000 -------------------------------- 
+ 00032 -----------------x-----------x-- 
+ 00064 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00096 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00128 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00160 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00192 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00224 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #18 
+ 00256 x----------x---x---xx--xx--x---- 
+ 00288 x-----x-------------x---x------- 
+ 00320 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00352 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00384 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00416 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00448 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00480 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #17 
+ 00512 x------x---x---x---xx--xx--x---- 
+ 00544 x------x--x---------x---x------- 
+ 00576 x-----x----x--------x---x------- 
+ 00608 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00640 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00672 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00704 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00736 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #16 
+ 00768 x--------------x---xx--xx--x---- 
+ 00800 x------x---x--x-----x---x------- 
+ 00832 x---------x----x----x---x------- 
+ 00864 x-----x--------x----x---x------- 
+ 00896 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00928 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00960 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00992 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #15 
+ 01024 x------------------xx--xx--x---- 
+ 01056 x------x---x---x--x-x---x------- 
+ 01088 x-------------x----xx---x------- 
+ 01120 x---------x--------xx---x------- 
+ 01152 x-----x------------xx---x------- 
+ 01184 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01216 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01248 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #14 
+ 01280 x-------------------x--xx--x---- 
+ 01312 x------x---x---x---xx-x-x------- 
+ 01344 x-----------------x-x--xx------- 
+ 01376 x-------------x-----x--xx------- 
+ 01408 x---------x---------x--xx------- 
+ 01440 x-----x-------------x--xx------- 
+ 01472 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01504 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #13 
+ 01536 x-------------------x---x--x---- 
+ 01568 x------x---x---x---xx--xx------- 
+ 01600 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01632 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01664 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01696 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01728 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01760 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #12 
+ 01792 -------------------------------- 
+ 01824 --------------------------x----- 
+ 01856 ----------------------x--------- 
+ 01888 ------------------x------------- 
+ 01920 --------------x----------------- 
+ 01952 ----------x--------------------- 
+ 01984 ------x------------------------- 
+ 02016 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+
+
+LEGEND    X : fuse not blown 
+          - : fuse blown 
+
+===============================================================================
+                                 Chip Diagram
+===============================================================================
+
+                               ______________
+                              |     res      |
+                      CLK x---|1           20|---x Vcc                      
+                 !PURESET x---|2           19|---x !WR_I2C                  
+                          x---|3           18|---x !Q0                      
+                          x---|4           17|---x !Q1                      
+                          x---|5           16|---x !Q2                      
+                  !CS_I2C x---|6           15|---x !Q3                      
+                 !RBUTTON x---|7           14|---x !Q4                      
+               !SELFRESET x---|8           13|---x !Q5                      
+                      !WR x---|9           12|---x !SYSRESET                
+                      GND x---|10          11|---x                          
+                              |______________|
+

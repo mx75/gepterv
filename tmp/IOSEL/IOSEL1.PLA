@@ -1,0 +1,43 @@
+# Berkeley PLA format generated using
+#
+# CUPL            4.0a Serial# MD-40A-8249
+# Device          p20l8lcc  Library DLIB-h-26-9
+# Created         Wed Oct 07 07:55:25 2026
+# Name            iosel1
+# Partno          v1
+# Revision        01
+# Date            10/08/85
+# Designer        Michael
+# Company         SufniFabrik
+# Assembly        None
+# Location        None
+#
+# Inputs  1 A2 A3 A4 
+#         A5 A6 A7 !CS_DMA1 
+#         !CS_DMA2 !CS_DMA3 !CS_DMA4 !CS_KIO1 
+#         !CS_KIO2 !CS_KIO3 !CS_KIO4 !IOREQ 
+#         !MX 
+# Outputs !CS_DMA1 !CS_DMA2 !CS_DMA3 !CS_DMA4 
+#         !CS_KIO1 !CS_KIO2 !CS_KIO3 !CS_KIO4 
+#         CS_DMA1.oe CS_DMA2.oe CS_DMA3.oe CS_DMA4.oe 
+#         CS_KIO1.oe CS_KIO2.oe CS_KIO3.oe CS_KIO4.oe 
+.i 17
+.o 16
+.p 16
+--00001--------10 1~~~~~~~~~~~~~~~
+--10001--------10 ~1~~~~~~~~~~~~~~
+--01001--------10 ~~1~~~~~~~~~~~~~
+--11001--------10 ~~~1~~~~~~~~~~~~
+---0010--------10 ~~~~1~~~~~~~~~~~
+---1010--------10 ~~~~~1~~~~~~~~~~
+---0110--------10 ~~~~~~1~~~~~~~~~
+---1110--------10 ~~~~~~~1~~~~~~~~
+1---------------- ~~~~~~~~1~~~~~~~
+1---------------- ~~~~~~~~~1~~~~~~
+1---------------- ~~~~~~~~~~1~~~~~
+1---------------- ~~~~~~~~~~~1~~~~
+1---------------- ~~~~~~~~~~~~1~~~
+1---------------- ~~~~~~~~~~~~~1~~
+1---------------- ~~~~~~~~~~~~~~1~
+1---------------- ~~~~~~~~~~~~~~~1
+.end

@@ -1,0 +1,603 @@
+MACHXL 2.1 R11 MACHFITR (3-31-95)
+ (C) - COPYRIGHT ADVANCED MICRO DEVICES INC., 1993, 1994, 1995
+
+********************************************************************
+* Design Name = Bctrl2.pds, Device = MACH210, Oct 09 13:50:40 2026 *
+********************************************************************
+
+***********************
+* MACH FITTER OPTIONS *
+***********************
+SIGNAL PLACEMENT:
+  Handling of Preplacements                      No Change
+  Use placement data from                        Design file
+
+FITTING OPTIONS:
+  SET/RESET treated as DONT_CARE?                Y
+  Unused I/O pins configured as outputs?         N
+  Iterate between partitioning and place/route?  Y
+  Balanced partitioning?                         Y
+  Spread Placement?                              Y
+  Maximun Run Time                               run until completion
+
+***************************
+* DEVICE RESOURCE SUMMARY *
+***************************
+                                 Total
+                               Available  Used  Available  Utilization
+Dedicated Pins
+  Input-Only Pins                 4        2      2    -->    50%
+  Clock/Input Pins                2        2      0    -->   100%
+I/O Pins                         32       27      5    -->    84%
+Central Switch Matrix Outputs    88       87      1    -->    98%
+Product Term Clusters            64       59      5    -->    92%
+Logical Product Terms           256      182     74    -->    71%
+Logic Macrocells                 64       55      9    -->    85%
+  Input Registers                ..        0     ..
+  Unusable Macrocells            ..       24     ..
+
+******************************
+* BLOCK PARTITIONING SUMMARY *
+******************************
+                                                                  # of PT  
+                  Logic   I/O    Inp    Macrocells    Macrocells  clusters 
+          Fanin    PTs    Pins   Reg   Used Unusable  available   available
+|---------------------------------------------------------------------------|
+Maximum     22     64      8      8     ..     ..         16        16
+|---------------------------------------------------------------------------|
+Block A     22     52      8      0      6     10          0         0
+Block B     22     48      8      0      9      7          0         0
+Block C     22     48      8      0      9      7          0         0
+Block D     21     34      3      0      7      0          9         5
+
+> Two rightmost columns above reflect last status of the placement process.
+
+******************
+* SIGNAL SUMMARY *
+******************
+                             Pin/Node Logic              Output
+       Signals Block Loc PTs   Type   Type  Preset  Reset Enable Fanout
+|---------------------------------------------------------------------------|
+          A[0]   A     3  .    input   ...   ...    ...   ...    ABCD
+         A[12]   B    20  .    input   ...   ...    ...   ...    A---
+         A[13]   C    28  .    input   ...   ...    ...   ...    A---
+         A[14]   C    29  .    input   ...   ...    ...   ...    A---
+         A[15]   C    30  .    input   ...   ...    ...   ...    A---
+          A[1]   A     5  .    input   ...   ...    ...   ...    ABCD
+          A[2]   A     6  .    input   ...   ...    ...   ...    ABCD
+      BANK_HIT   D    41  3   output   ...   ...    ...   ...    ----
+       CS_BANK   A     8  .    input   ...   ...    ...   ...    ABCD
+          D[0]   A     4  .    input   ...   ...    ...   ...    --CD
+          D[4]   B    14  .    input   ...   ...    ...   ...    AB--
+          D[5]   C    31  .    input   ...   ...    ...   ...    -B--
+  EARLY_001[0]   B    15  .    input   ...   ...    ...   ...    --C-
+  EARLY_001[1]   B    16  .    input   ...   ...    ...   ...    --C-
+  EARLY_001[2]   B    17  .    input   ...   ...    ...   ...    ---D
+  EARLY_001[3]   B    18  .    input   ...   ...    ...   ...    ---D
+  EARLY_001[4]   C    25  .    input   ...   ...    ...   ...    -B--
+  EARLY_001[5]   C    27  .    input   ...   ...    ...   ...    -B--
+     EARLY_HIT   A     9  .    input   ...   ...    ...   ...    -BCD
+       PHYS[0]   C    24  3   output   ...   ...    ...   ...    ----
+       PHYS[1]   C    26  3   output   ...   ...    ...   ...    ----
+       PHYS[2]   D    39  3   output   ...   ...    ...   ...    ----
+       PHYS[3]   D    43  4   output   ...   ...    ...   ...    ----
+       PHYS[4]   B    21  3   output   ...   ...    ...   ...    ----
+       PHYS[5]   B    19  3   output   ...   ...    ...   ...    ----
+      SYSRESET   A     2  .    input   ...   ...    ...   ...    ABCD
+            WR   A     7  .    input   ...   ...    ...   ...    ABCD
+    B2_BASE[0]   C   C13  6   buried    D    ...      1   ...    --C-
+    B2_BASE[1]   C    C2  6   buried    D    ...      1   ...    --C-
+    B2_BASE[2]   C   C12  6   buried    D    ...      1   ...    --CD
+    B2_BASE[3]   C    C1  6   buried    D    ...      1   ...    --CD
+    B2_BASE[4]   B   B13  6   buried    D    ...      1   ...    -B--
+    B2_BASE[5]   B    B2  6   buried    D    ...      1   ...    -B--
+      B2_MATCH   A    A5 14   buried    C    ...    ...   ...    -BCD
+    B2_SIZE[0]   D    D5  6   buried    D      1    ...   ...    A--D
+    B2_SIZE[1]   D    D9  6   buried    D      1    ...   ...    A--D
+   B2_START[0]   A   A11  6   buried    D    ...      1   ...    A---
+   B2_START[1]   B    B1  6   buried    D    ...      1   ...    AB--
+   B2_START[2]   A   A13  6   buried    D    ...      1   ...    A---
+    B3_BASE[0]   C    C5  6   buried    D    ...      1   ...    --C-
+    B3_BASE[1]   C    C9  6   buried    D    ...      1   ...    --C-
+    B3_BASE[2]   B    B8  6   buried    D    ...      1   ...    -B-D
+    B3_BASE[3]   C    C8  6   buried    D    ...      1   ...    --CD
+    B3_BASE[4]   B    B5  6   buried    D    ...      1   ...    -B--
+    B3_BASE[5]   B    B9  6   buried    D    ...      1   ...    -B--
+      B3_MATCH   A    A1 14   buried    C    ...    ...   ...    -BCD
+    B3_SIZE[0]   D   D12  6   buried    D      1    ...   ...    A--D
+    B3_SIZE[1]   D    D1  6   buried    D      1    ...   ...    A--D
+   B3_START[0]   A    A7  6   buried    D    ...      1   ...    A---
+   B3_START[1]   B   B12  6   buried    D    ...      1   ...    AB--
+   B3_START[2]   A    A9  6   buried    D    ...      1   ...    A---
+      BANK_HIT   D    D4  3  implied    C    ...    ...   ...    ----
+       PHYS[0]   C    C0  3  implied    C    ...    ...   ...    ----
+       PHYS[1]   C    C4  3  implied    C    ...    ...   ...    ----
+       PHYS[2]   D    D8  3  implied    C    ...    ...   ...    ----
+       PHYS[3]   D    D0  4  implied    C    ...    ...   ...    ----
+       PHYS[4]   B    B0  3  implied    C    ...    ...   ...    ----
+       PHYS[5]   B    B4  3  implied    C    ...    ...   ...    ----
+
+**************************************************
+* PRESET, RESET and OUTPUT ENABLE signal SUMMARY *
+**************************************************
+
+PRESET signal summary:
+
+Number      Pin or Node Name      Block 
+|--------------------------------------------------|
+ 1            B2_SIZE[1]          ---D
+
+RESET signal summary:
+
+Number      Pin or Node Name      Block 
+|--------------------------------------------------|
+ 1           B2_START[2]          ABC-
+
+OUTPUT ENABLE signal summary:
+
+Number      Pin or Node Name      Block 
+|--------------------------------------------------|
+
+***********************
+* TABULAR INFORMATION *
+***********************
+
+DEDICATED PINS
+                                             Logic             Clock
+Pin              Signal        Type          Fanout            Fanout
+|------------------------------------------------------------------------|
+ 10                D[1]       input              --CD              ----
+ 11                D[2]       input              ABC-              ----
+ 13(Ck0)           D[3]       input              -BC-              ----
+ 32      ..............          ..              ....              ....
+ 33      ..............          ..              ....              ....
+ 35(Ck1)            CLK     clk/inp              ----              ABCD
+
+**********************************
+* Signals - Equations Where Used *
+**********************************
+Signal Source :    Fanout List
+|---------------------------------------------------------------------------|
+      SYSRESET:     B2_SIZE[1]{D}     B2_SIZE[0]{D}    B2_START[2]{A}
+              :    B2_START[1]{B}    B2_START[0]{A}     B2_BASE[5]{B}
+              :     B2_BASE[4]{B}     B2_BASE[3]{C}     B2_BASE[2]{C}
+              :     B2_BASE[1]{C}     B2_BASE[0]{C}     B3_SIZE[1]{D}
+              :     B3_SIZE[0]{D}    B3_START[2]{A}    B3_START[1]{B}
+              :    B3_START[0]{A}     B3_BASE[5]{B}     B3_BASE[4]{B}
+              :     B3_BASE[3]{C}     B3_BASE[2]{B}     B3_BASE[1]{C}
+              :     B3_BASE[0]{C}
+              {DDA BAB BCC CCD DAB ABB CBC C}
+       CS_BANK:     B2_SIZE[1]{D}     B2_SIZE[0]{D}    B2_START[2]{A}
+              :    B2_START[1]{B}    B2_START[0]{A}     B2_BASE[5]{B}
+              :     B2_BASE[4]{B}     B2_BASE[3]{C}     B2_BASE[2]{C}
+              :     B2_BASE[1]{C}     B2_BASE[0]{C}     B3_SIZE[1]{D}
+              :     B3_SIZE[0]{D}    B3_START[2]{A}    B3_START[1]{B}
+              :    B3_START[0]{A}     B3_BASE[5]{B}     B3_BASE[4]{B}
+              :     B3_BASE[3]{C}     B3_BASE[2]{B}     B3_BASE[1]{C}
+              :     B3_BASE[0]{C}
+              {DDA BAB BCC CCD DAB ABB CBC C}
+            WR:     B2_SIZE[1]{D}     B2_SIZE[0]{D}    B2_START[2]{A}
+              :    B2_START[1]{B}    B2_START[0]{A}     B2_BASE[5]{B}
+              :     B2_BASE[4]{B}     B2_BASE[3]{C}     B2_BASE[2]{C}
+              :     B2_BASE[1]{C}     B2_BASE[0]{C}     B3_SIZE[1]{D}
+              :     B3_SIZE[0]{D}    B3_START[2]{A}    B3_START[1]{B}
+              :    B3_START[0]{A}     B3_BASE[5]{B}     B3_BASE[4]{B}
+              :     B3_BASE[3]{C}     B3_BASE[2]{B}     B3_BASE[1]{C}
+              :     B3_BASE[0]{C}
+              {DDA BAB BCC CCD DAB ABB CBC C}
+          A[2]:     B2_SIZE[1]{D}     B2_SIZE[0]{D}    B2_START[2]{A}
+              :    B2_START[1]{B}    B2_START[0]{A}     B2_BASE[5]{B}
+              :     B2_BASE[4]{B}     B2_BASE[3]{C}     B2_BASE[2]{C}
+              :     B2_BASE[1]{C}     B2_BASE[0]{C}     B3_SIZE[1]{D}
+              :     B3_SIZE[0]{D}    B3_START[2]{A}    B3_START[1]{B}
+              :    B3_START[0]{A}     B3_BASE[5]{B}     B3_BASE[4]{B}
+              :     B3_BASE[3]{C}     B3_BASE[2]{B}     B3_BASE[1]{C}
+              :     B3_BASE[0]{C}
+              {DDA BAB BCC CCD DAB ABB CBC C}
+          A[1]:     B2_SIZE[1]{D}     B2_SIZE[0]{D}    B2_START[2]{A}
+              :    B2_START[1]{B}    B2_START[0]{A}     B2_BASE[5]{B}
+              :     B2_BASE[4]{B}     B2_BASE[3]{C}     B2_BASE[2]{C}
+              :     B2_BASE[1]{C}     B2_BASE[0]{C}     B3_SIZE[1]{D}
+              :     B3_SIZE[0]{D}    B3_START[2]{A}    B3_START[1]{B}
+              :    B3_START[0]{A}     B3_BASE[5]{B}     B3_BASE[4]{B}
+              :     B3_BASE[3]{C}     B3_BASE[2]{B}     B3_BASE[1]{C}
+              :     B3_BASE[0]{C}
+              {DDA BAB BCC CCD DAB ABB CBC C}
+          A[0]:     B2_SIZE[1]{D}     B2_SIZE[0]{D}    B2_START[2]{A}
+              :    B2_START[1]{B}    B2_START[0]{A}     B2_BASE[5]{B}
+              :     B2_BASE[4]{B}     B2_BASE[3]{C}     B2_BASE[2]{C}
+              :     B2_BASE[1]{C}     B2_BASE[0]{C}     B3_SIZE[1]{D}
+              :     B3_SIZE[0]{D}    B3_START[2]{A}    B3_START[1]{B}
+              :    B3_START[0]{A}     B3_BASE[5]{B}     B3_BASE[4]{B}
+              :     B3_BASE[3]{C}     B3_BASE[2]{B}     B3_BASE[1]{C}
+              :     B3_BASE[0]{C}
+              {DDA BAB BCC CCD DAB ABB CBC C}
+          D[5]:     B2_BASE[5]{B}     B3_BASE[5]{B}
+              {BB}
+          D[4]:    B2_START[2]{A}     B2_BASE[4]{B}    B3_START[2]{A}
+              :     B3_BASE[4]{B}
+              {ABA B}
+          D[3]:    B2_START[1]{B}     B2_BASE[3]{C}    B3_START[1]{B}
+              :     B3_BASE[3]{C}
+              {BCB C}
+          D[2]:    B2_START[0]{A}     B2_BASE[2]{C}    B3_START[0]{A}
+              :     B3_BASE[2]{B}
+              {ACA B}
+          D[1]:     B2_SIZE[1]{D}     B2_BASE[1]{C}     B3_SIZE[1]{D}
+              :     B3_BASE[1]{C}
+              {DCD C}
+          D[0]:     B2_SIZE[0]{D}     B2_BASE[0]{C}     B3_SIZE[0]{D}
+              :     B3_BASE[0]{C}
+              {DCD C}
+         A[15]:       B2_MATCH{A}       B3_MATCH{A}
+              {AA}
+         A[14]:       B2_MATCH{A}       B3_MATCH{A}
+              {AA}
+         A[13]:       B2_MATCH{A}       B3_MATCH{A}
+              {AA}
+         A[12]:       B2_MATCH{A}       B3_MATCH{A}
+              {AA}
+     EARLY_HIT:        PHYS[5]{B}        PHYS[4]{B}        PHYS[3]{D}
+              :        PHYS[2]{D}        PHYS[1]{C}        PHYS[0]{C}
+              :       BANK_HIT{D}
+              {BBD DCC D}
+  EARLY_001[5]:        PHYS[5]{B}
+              {B}
+  EARLY_001[4]:        PHYS[4]{B}
+              {B}
+  EARLY_001[3]:        PHYS[3]{D}
+              {D}
+  EARLY_001[2]:        PHYS[2]{D}
+              {D}
+  EARLY_001[1]:        PHYS[1]{C}
+              {C}
+  EARLY_001[0]:        PHYS[0]{C}
+              {C}
+    B2_SIZE[1]:     B2_SIZE[1]{D}       B2_MATCH{A}
+              {DA}
+    B2_SIZE[0]:     B2_SIZE[0]{D}       B2_MATCH{A}
+              {DA}
+   B2_START[2]:    B2_START[2]{A}       B2_MATCH{A}
+              {AA}
+   B2_START[1]:    B2_START[1]{B}       B2_MATCH{A}
+              {BA}
+   B2_START[0]:    B2_START[0]{A}       B2_MATCH{A}
+              {AA}
+    B2_BASE[5]:        PHYS[5]{B}     B2_BASE[5]{B}
+              {BB}
+    B2_BASE[4]:        PHYS[4]{B}     B2_BASE[4]{B}
+              {BB}
+    B2_BASE[3]:        PHYS[3]{D}     B2_BASE[3]{C}
+              {DC}
+    B2_BASE[2]:        PHYS[2]{D}     B2_BASE[2]{C}
+              {DC}
+    B2_BASE[1]:        PHYS[1]{C}     B2_BASE[1]{C}
+              {CC}
+    B2_BASE[0]:        PHYS[0]{C}     B2_BASE[0]{C}
+              {CC}
+    B3_SIZE[1]:     B3_SIZE[1]{D}       B3_MATCH{A}
+              {DA}
+    B3_SIZE[0]:     B3_SIZE[0]{D}       B3_MATCH{A}
+              {DA}
+   B3_START[2]:    B3_START[2]{A}       B3_MATCH{A}
+              {AA}
+   B3_START[1]:    B3_START[1]{B}       B3_MATCH{A}
+              {BA}
+   B3_START[0]:    B3_START[0]{A}       B3_MATCH{A}
+              {AA}
+    B3_BASE[5]:        PHYS[5]{B}     B3_BASE[5]{B}
+              {BB}
+    B3_BASE[4]:        PHYS[4]{B}     B3_BASE[4]{B}
+              {BB}
+    B3_BASE[3]:        PHYS[3]{D}     B3_BASE[3]{C}
+              {DC}
+    B3_BASE[2]:        PHYS[2]{D}     B3_BASE[2]{B}
+              {DB}
+    B3_BASE[1]:        PHYS[1]{C}     B3_BASE[1]{C}
+              {CC}
+    B3_BASE[0]:        PHYS[0]{C}     B3_BASE[0]{C}
+              {CC}
+      B2_MATCH:        PHYS[5]{B}        PHYS[4]{B}        PHYS[3]{D}
+              :        PHYS[2]{D}        PHYS[1]{C}        PHYS[0]{C}
+              :       BANK_HIT{D}
+              {BBD DCC D}
+      B3_MATCH:        PHYS[5]{B}        PHYS[4]{B}        PHYS[3]{D}
+              :        PHYS[2]{D}        PHYS[1]{C}        PHYS[0]{C}
+              :       BANK_HIT{D}
+              {BBD DCC D}
+
+Block A singular list (Input drives only one logic equation)
+    B2_SIZE[1]:       B2_MATCH
+    B2_SIZE[0]:       B2_MATCH
+   B2_START[1]:       B2_MATCH
+    B3_SIZE[1]:       B3_MATCH
+    B3_SIZE[0]:       B3_MATCH
+   B3_START[1]:       B3_MATCH
+
+Block B singular list (Input drives only one logic equation)
+          D[2]:     B3_BASE[2]
+  EARLY_001[5]:        PHYS[5]
+  EARLY_001[4]:        PHYS[4]
+   B2_START[1]:    B2_START[1]
+   B3_START[1]:    B3_START[1]
+    B3_BASE[2]:     B3_BASE[2]
+
+Block C singular list (Input drives only one logic equation)
+          D[2]:     B2_BASE[2]
+  EARLY_001[1]:        PHYS[1]
+  EARLY_001[0]:        PHYS[0]
+    B2_BASE[3]:     B2_BASE[3]
+    B2_BASE[2]:     B2_BASE[2]
+    B3_BASE[3]:     B3_BASE[3]
+
+Block D singular list (Input drives only one logic equation)
+  EARLY_001[3]:        PHYS[3]
+  EARLY_001[2]:        PHYS[2]
+    B2_SIZE[1]:     B2_SIZE[1]
+    B2_SIZE[0]:     B2_SIZE[0]
+    B2_BASE[3]:        PHYS[3]
+    B2_BASE[2]:        PHYS[2]
+    B3_SIZE[1]:     B3_SIZE[1]
+    B3_SIZE[0]:     B3_SIZE[0]
+    B3_BASE[3]:        PHYS[3]
+    B3_BASE[2]:        PHYS[2]
+
+
+BLOCK A LOGIC MACROCELLS & INPUT REGISTERS
+                                  PTS 
+                             T   U   A
+L                            Y   S   V  P   C  S  R   P
+O                            P   E   A  O   L  E  E   I
+C     Node          Signal   E   D   L  L   K  T  S   N   Fanout
+|---------------------------------------------------------------------------|
+A0      2 ................  ...  .   0  .   .  .  .  ..  ....
+A1      3         B3_MATCH   C  14   2  H   .  .  .  ..  -BCD
+A2      4 ................  ...  .   0  .   .  .  .  ..  ....
+A3      5 ................  ...  .   0  .   .  .  .  ..  ....
+A4      6 ................  ...  .   0  .   .  .  .  ..  ....
+A5      7         B2_MATCH   C  14   2  H   .  .  .  ..  -BCD
+A6      8 ................  ...  .   0  .   .  .  .  ..  ....
+A7      9      B3_START[0]   D   6   2  H   .  .  1  ..  A---
+A8     10 ................  ...  .   0  .   .  .  .  ..  ....
+A9     11      B3_START[2]   D   6   2  H   .  .  1  ..  A---
+A10    12 ................  ...  .   0  .   .  .  .  ..  ....
+A11    13      B2_START[0]   D   6   2  H   .  .  1  ..  A---
+A12    14 ................  ...  .   0  .   .  .  .  ..  ....
+A13    15      B2_START[2]   D   6   2  H   .  .  1  ..  A---
+A14    16 ................  ...  .   0  .   .  .  .  ..  ....
+A15    17 ................  ...  .   0  .   .  .  .  ..  ....
+
+BLOCK A I/O PINS
+                  Output
+Pin onode inode  Enable           Signal     Type    Fanout
+|----------------------------------------------------------------|
+  2  ...   ...    ...           SYSRESET     input  ABCD
+  3  ...   ...    ...               A[0]     input  ABCD
+  4  ...   ...    ...               D[0]     input  --CD
+  5  ...   ...    ...               A[1]     input  ABCD
+  6  ...   ...    ...               A[2]     input  ABCD
+  7  ...   ...    ...                 WR     input  ABCD
+  8  ...   ...    ...            CS_BANK     input  ABCD
+  9  ...   ...    ...          EARLY_HIT     input  -BCD
+
+
+BLOCK A LOGIC ARRAY FANIN
+CSM             Signal    Source        CSM             Signal    Source
+|----------------------------------|    |----------------------------------|
+mxA0             D[2]        pin 11     mxA11        SYSRESET         pin 2
+mxA1            A[15]        pin 30     mxA12            A[0]         pin 3
+mxA2            A[12]        pin 20     mxA13            D[4]        pin 14
+mxA3      B3_START[2]     mcell A-9     mxA14            A[1]         pin 5
+mxA4       B3_SIZE[0]    mcell D-12     mxA15            A[2]         pin 6
+mxA5      B2_START[1]     mcell B-1     mxA16              WR         pin 7
+mxA6          CS_BANK         pin 8     mxA17           A[14]        pin 29
+mxA7      B2_START[2]    mcell A-13     mxA18     B2_START[0]    mcell A-11
+mxA8      B3_START[0]     mcell A-7     mxA19      B2_SIZE[0]     mcell D-5
+mxA9      B3_START[1]    mcell B-12     mxA20      B2_SIZE[1]     mcell D-9
+mxA10           A[13]        pin 28     mxA21      B3_SIZE[1]     mcell D-1
+
+
+BLOCK B LOGIC MACROCELLS & INPUT REGISTERS
+                                  PTS 
+                             T   U   A
+L                            Y   S   V  P   C  S  R   P
+O                            P   E   A  O   L  E  E   I
+C     Node          Signal   E   D   L  L   K  T  S   N   Fanout
+|---------------------------------------------------------------------------|
+B0     18          PHYS[4]   C   3   1  H   .  .  .  21  ----
+B1     19      B2_START[1]   D   6   2  H   .  .  1  ..  AB--
+B2     20       B2_BASE[5]   D   6   2  H Ck1  .  1  ..  -B--
+B3     21 ................  ...  .   0  .   .  .  .  ..  ....
+B4     22          PHYS[5]   C   3   1  H   .  .  .  19  ----
+B5     23       B3_BASE[4]   D   6   2  H   .  .  1  ..  -B--
+B6     24 ................  ...  .   0  .   .  .  .  ..  ....
+B7     25 ................  ...  .   0  .   .  .  .  ..  ....
+B8     26       B3_BASE[2]   D   6   2  H Ck1  .  1  ..  -B-D
+B9     27       B3_BASE[5]   D   6   2  H   .  .  1  ..  -B--
+B10    28 ................  ...  .   0  .   .  .  .  ..  ....
+B11    29 ................  ...  .   0  .   .  .  .  ..  ....
+B12    30      B3_START[1]   D   6   2  H Ck1  .  1  ..  AB--
+B13    31       B2_BASE[4]   D   6   2  H   .  .  1  ..  -B--
+B14    32 ................  ...  .   0  .   .  .  .  ..  ....
+B15    33 ................  ...  .   0  .   .  .  .  ..  ....
+
+BLOCK B I/O PINS
+                  Output
+Pin onode inode  Enable           Signal     Type    Fanout
+|----------------------------------------------------------------|
+ 14  ...   ...    ...               D[4]     input  AB--
+ 15  ...   ...    ...       EARLY_001[0]     input  --C-
+ 16  ...   ...    ...       EARLY_001[1]     input  --C-
+ 17  ...   ...    ...       EARLY_001[2]     input  ---D
+ 18  ...   ...    ...       EARLY_001[3]     input  ---D
+ 19   22   ...    ...            PHYS[5]    output  ----
+ 20  ...   ...    ...              A[12]     input  A---
+ 21   18   ...    ...            PHYS[4]    output  ----
+
+
+BLOCK B LOGIC ARRAY FANIN
+CSM             Signal    Source        CSM             Signal    Source
+|----------------------------------|    |----------------------------------|
+mxB0         SYSRESET         pin 2     mxB11      B3_BASE[5]     mcell B-9
+mxB1             D[3]        pin 13     mxB12            A[0]         pin 3
+mxB2         B3_MATCH     mcell A-1     mxB13            D[4]        pin 14
+mxB3       B3_BASE[2]     mcell B-8     mxB14            A[1]         pin 5
+mxB4             A[2]         pin 6     mxB15    EARLY_001[5]        pin 27
+mxB5               WR         pin 7     mxB16      B3_BASE[4]     mcell B-5
+mxB6         B2_MATCH     mcell A-5     mxB17         CS_BANK         pin 8
+mxB7     EARLY_001[4]        pin 25     mxB18       EARLY_HIT         pin 9
+mxB8             D[2]        pin 11     mxB19            D[5]        pin 31
+mxB9      B3_START[1]    mcell B-12     mxB20     B2_START[1]     mcell B-1
+mxB10      B2_BASE[4]    mcell B-13     mxB21      B2_BASE[5]     mcell B-2
+
+
+BLOCK C LOGIC MACROCELLS & INPUT REGISTERS
+                                  PTS 
+                             T   U   A
+L                            Y   S   V  P   C  S  R   P
+O                            P   E   A  O   L  E  E   I
+C     Node          Signal   E   D   L  L   K  T  S   N   Fanout
+|---------------------------------------------------------------------------|
+C0     34          PHYS[0]   C   3   1  H   .  .  .  24  ----
+C1     35       B2_BASE[3]   D   6   2  H   .  .  1  ..  --CD
+C2     36       B2_BASE[1]   D   6   2  H Ck1  .  1  ..  --C-
+C3     37 ................  ...  .   0  .   .  .  .  ..  ....
+C4     38          PHYS[1]   C   3   1  H   .  .  .  26  ----
+C5     39       B3_BASE[0]   D   6   2  H   .  .  1  ..  --C-
+C6     40 ................  ...  .   0  .   .  .  .  ..  ....
+C7     41 ................  ...  .   0  .   .  .  .  ..  ....
+C8     42       B3_BASE[3]   D   6   2  H Ck1  .  1  ..  --CD
+C9     43       B3_BASE[1]   D   6   2  H   .  .  1  ..  --C-
+C10    44 ................  ...  .   0  .   .  .  .  ..  ....
+C11    45 ................  ...  .   0  .   .  .  .  ..  ....
+C12    46       B2_BASE[2]   D   6   2  H Ck1  .  1  ..  --CD
+C13    47       B2_BASE[0]   D   6   2  H   .  .  1  ..  --C-
+C14    48 ................  ...  .   0  .   .  .  .  ..  ....
+C15    49 ................  ...  .   0  .   .  .  .  ..  ....
+
+BLOCK C I/O PINS
+                  Output
+Pin onode inode  Enable           Signal     Type    Fanout
+|----------------------------------------------------------------|
+ 24   34   ...    ...            PHYS[0]    output  ----
+ 25  ...   ...    ...       EARLY_001[4]     input  -B--
+ 26   38   ...    ...            PHYS[1]    output  ----
+ 27  ...   ...    ...       EARLY_001[5]     input  -B--
+ 28  ...   ...    ...              A[13]     input  A---
+ 29  ...   ...    ...              A[14]     input  A---
+ 30  ...   ...    ...              A[15]     input  A---
+ 31  ...   ...    ...               D[5]     input  -B--
+
+
+BLOCK C LOGIC ARRAY FANIN
+CSM             Signal    Source        CSM             Signal    Source
+|----------------------------------|    |----------------------------------|
+mxC0             D[2]        pin 11     mxC11        SYSRESET         pin 2
+mxC1             A[0]         pin 3     mxC12    EARLY_001[0]        pin 15
+mxC2         B3_MATCH     mcell A-1     mxC13            D[0]         pin 4
+mxC3             A[1]         pin 5     mxC14      B2_BASE[2]    mcell C-12
+mxC4             A[2]         pin 6     mxC15      B2_BASE[3]     mcell C-1
+mxC5               WR         pin 7     mxC16      B2_BASE[1]     mcell C-2
+mxC6       B3_BASE[3]     mcell C-8     mxC17      B3_BASE[1]     mcell C-9
+mxC7        EARLY_HIT         pin 9     mxC18        B2_MATCH     mcell A-5
+mxC8     EARLY_001[1]        pin 16     mxC19      B3_BASE[0]     mcell C-5
+mxC9             D[3]        pin 13     mxC20         CS_BANK         pin 8
+mxC10            D[1]        pin 10     mxC21      B2_BASE[0]    mcell C-13
+
+
+BLOCK D LOGIC MACROCELLS & INPUT REGISTERS
+                                  PTS 
+                             T   U   A
+L                            Y   S   V  P   C  S  R   P
+O                            P   E   A  O   L  E  E   I
+C     Node          Signal   E   D   L  L   K  T  S   N   Fanout
+|---------------------------------------------------------------------------|
+D0     50          PHYS[3]   C   4   0  H   .  .  .  43  ----
+D1     51       B3_SIZE[1]   D   6   6  H   .  1  .  ..  A--D
+D2     52 ................  ...  .   4  .   .  .  .  ..  ....
+D3     53 ................  ...  .   4  .   .  .  .  ..  ....
+D4     54         BANK_HIT   C   3   5  H   .  .  .  41  ----
+D5     55       B2_SIZE[0]   D   6   6  H   .  1  .  ..  A--D
+D6     56 ................  ...  .   4  .   .  .  .  ..  ....
+D7     57 ................  ...  .   4  .   .  .  .  ..  ....
+D8     58          PHYS[2]   C   3   5  H   .  .  .  39  ----
+D9     59       B2_SIZE[1]   D   6   6  H   .  1  .  ..  A--D
+D10    60 ................  ...  .   4  .   .  .  .  ..  ....
+D11    61 ................  ...  .   4  .   .  .  .  ..  ....
+D12    62       B3_SIZE[0]   D   6  10  H Ck1  1  .  ..  A--D
+D13    63 ................  ...  .   8  .   .  .  .  ..  ....
+D14    64 ................  ...  .   8  .   .  .  .  ..  ....
+D15    65 ................  ...  .   8  .   .  .  .  ..  ....
+
+BLOCK D I/O PINS
+                  Output
+Pin onode inode  Enable           Signal     Type    Fanout
+|----------------------------------------------------------------|
+ 36  ...   ...    ...   ................        ..  ....
+ 37  ...   ...    ...   ................        ..  ....
+ 38  ...   ...    ...   ................        ..  ....
+ 39   58   ...    ...            PHYS[2]    output  ----
+ 40  ...   ...    ...   ................        ..  ....
+ 41   54   ...    ...           BANK_HIT    output  ----
+ 42  ...   ...    ...   ................        ..  ....
+ 43   50   ...    ...            PHYS[3]    output  ----
+
+
+BLOCK D LOGIC ARRAY FANIN
+CSM             Signal    Source        CSM             Signal    Source
+|----------------------------------|    |----------------------------------|
+mxD0       B3_SIZE[1]     mcell D-1     mxD11      B3_SIZE[0]    mcell D-12
+mxD1             A[0]         pin 3     mxD12             ...           ...
+mxD2         B3_MATCH     mcell A-1     mxD13      B2_SIZE[1]     mcell D-9
+mxD3             A[1]         pin 5     mxD14      B2_BASE[2]    mcell C-12
+mxD4       B2_SIZE[0]     mcell D-5     mxD15            A[2]         pin 6
+mxD5       B3_BASE[2]     mcell B-8     mxD16              WR         pin 7
+mxD6       B3_BASE[3]     mcell C-8     mxD17         CS_BANK         pin 8
+mxD7        EARLY_HIT         pin 9     mxD18        B2_MATCH     mcell A-5
+mxD8       B2_BASE[3]     mcell C-1     mxD19            D[0]         pin 4
+mxD9         SYSRESET         pin 2     mxD20    EARLY_001[3]        pin 18
+mxD10            D[1]        pin 10     mxD21    EARLY_001[2]        pin 17
+
+
+MACH210 report file key:
+
+AVAL          - Additional product terms available within the current
+                steering allocation, plus those potentially available
+                through resteering of free clusters.
+C             - Combinatorial
+Ck0           - Dedicated clock pin
+Ck1           - Dedicated clock pin
+clk           - Clock
+CSM           - Central Switch Matrix
+D             - D-type flip flop
+G             - Ground
+H             - High
+implied       - Node occupying the macrocell drives the output pin
+                but not defined in the design file.
+inode         - Input node
+Inp           - Input
+ipair         - Input paired node
+I/O           - Input or Output
+L             - Low
+L             - Latch
+LOC           - Location
+mcell <X>     - Source is macrocell from block <X>
+Mux           - Multiplexer
+mx            - Block Array input multiplexer
+onode         - Output node
+opair         - Output paired node
+P             - Product Term
+Pol           - Polarity
+PT(s)         - Product term(s)
+Reg           - Register
+Res           - Reset control
+RN_<pin_name> - Output node paired with <pin_name> created by Fitter.
+Set           - Preset control
+T             - T-type flip flop
+<Y>XX-ir      - Macrocell XX in block Y is used as an input register.
+.             - Not available or Not applicable
+
+Partitioning 100% - Completed
+Placement    100% - Completed
+Routing      100% - Completed
+%%% Fitting process is successful %%%
