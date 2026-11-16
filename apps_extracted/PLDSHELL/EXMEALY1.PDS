@@ -1,0 +1,127 @@
+Title      Shows Mealy Machine
+Pattern    pds
+Revision        
+Author     Altera Applications
+Company    Altera
+Date       December 1994
+
+CHIP exmealy1 EP224
+
+;
+; Design is a system state tracker.
+;
+
+PIN      CLOCK    ; clock for state variables
+PIN      SACK     ; input conditions
+PIN      START
+
+PIN      MEAL3    ;  Mealy-machine outputs
+PIN      MEAL2
+PIN      MEAL1
+
+PIN      MSTATE1  ;  Mealy state variables
+PIN      MSTATE0
+
+STRING M1_OUT '/MEAL3 * /MEAL2 *  MEAL1'
+STRING M2_OUT '/MEAL3 *  MEAL2 * /MEAL1'
+STRING M5_OUT ' MEAL3 * /MEAL2 *  MEAL1'
+
+STATE MEALY_MACHINE
+
+DEFAULT_OUTPUT  /MEAL3 /MEAL2 /MEAL1
+
+DEFAULT_BRANCH  HOLD_STATE
+
+; state assignments
+
+    STATE0 = /MSTATE1 * /MSTATE0      ; device powerup state
+    STATE1 = /MSTATE1 *  MSTATE0  
+    STATE2 =  MSTATE1 * /MSTATE0  
+
+; state transitions, which state to go to next
+
+STATE0 := TRIG0          -> STATE2
+        + TRIG1          -> STATE1
+        + TRIG2          -> STATE2
+
+STATE1 := TRIG0          -> STATE2
+        + TRIG1          -> STATE0
+        + TRIG2          -> STATE0
+
+STATE2 := TRIG0          -> STATE0
+        + TRIG1          -> STATE1
+        + TRIG2          -> STATE1
+
+; output transitions, what the output variables should be
+
+STATE0.OUTF = TRIG0  -> M1_OUT
+            + TRIG1  -> M2_OUT
+            + TRIG2  -> M5_OUT
+
+STATE1.OUTF = TRIG0  -> M2_OUT
+            + TRIG1  -> M1_OUT
+            + TRIG2  -> M2_OUT
+
+STATE2.OUTF = TRIG0  -> M5_OUT
+            + TRIG1  -> M5_OUT
+            + TRIG2  -> M1_OUT
+
+; conditions that determine transitions
+
+CONDITIONS
+
+    TRIG0 = /SACK * /START
+    TRIG1 = /SACK *  START
+    TRIG2 =  SACK * /START
+
+EQUATIONS
+
+MSTATE0.CLKF = CLOCK     ; hook clock up, for device independence
+
+MSTATE1.CLKF = CLOCK
+
+SIMULATION
+
+    VECTOR MOUT := [MEAL3, MEAL2, MEAL1]
+    VECTOR STATES := [MSTATE1, MSTATE0]
+    SETF /SACK /START /CLOCK
+    TRACE_ON CLOCK SACK START MOUT STATES
+    PRLDF /MSTATE1 /MSTATE0
+
+; start in state 0, go to 2     output: 0
+
+    CHECK /MEAL3 /MEAL2  MEAL1
+    CHECK /MSTATE1 /MSTATE0
+    CLOCKF CLOCK
+    CHECK  MEAL3 /MEAL2  MEAL1
+    CHECK  MSTATE1 /MSTATE0
+
+; stay in 2                     output: 0
+
+    SETF START SACK
+    CHECK /MEAL3 /MEAL2 /MEAL1
+    CLOCKF CLOCK
+    CLOCKF CLOCK
+
+; stay in state 2               output: 5
+
+    SETF /SACK
+    CHECK  MEAL3 /MEAL2  MEAL1
+
+; go to state 1
+
+    CLOCKF CLOCK
+    CHECK /MSTATE1  MSTATE0
+
+; go to state 0 -> 1 -> 0
+
+    CLOCKF CLOCK
+    CHECK /MSTATE1 /MSTATE0
+    CLOCKF CLOCK
+    CHECK /MSTATE1  MSTATE0
+    CLOCKF CLOCK
+    CHECK /MSTATE1 /MSTATE0
+    TRACE_OFF
+
+; end of simulation
+

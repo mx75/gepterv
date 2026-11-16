@@ -1,0 +1,80 @@
+ 
+                    ADDRESS DECODING PROGRAM
+                         by Bryon Moyer
+ 
+This  program  generates Boolean Equations for  address  decoding
+applications.   All  you have to provide is the number of address
+pins (up to 16), and the bottom and top addresses of the range to
+be decoded, and the program will crank out the Boolean Equations.
+ 
+The procedure is really quite simple and painless.  The following
+are  just some helpful hints in case something just doesn't  make
+sense.
+ 
+To invoke the program, merely type
+ 
+                         DECODE
+
+You  can  either generate equations on the screen,  or have  them 
+sent to a file.   If you choose to have them sent to a file, they 
+will be sent to a file named "decode.out".  Note that if you have 
+run this program previously,  you will already have a file  named 
+"decode.out"  if you did not rename it afterwards.   The  program 
+will  let  you quit and rename the old file so that you will  not 
+lose it.   If you continue the program instead, the old file will 
+be lost.
+ 
+The  prompts should lead you through the  procedure.   Note  that
+when the addresses are requested,
+ 
+     -- enter them in HEX (upper or lower case).
+ 
+     -- use  as  many  digits as appropriate for  the  number  of
+        address  bits  you are using,  including all leading  0s.
+ 
+        For instance,  if the bottom address is 0, then you would
+        enter 0 for 1 - 4 address bits,  but enter 000 for 9 - 12
+        bits.   If you don't do this, the program will keep after
+        you until you appease it.
+ 
+     -- don't  enter an address that's out of range;  you'll  get
+        caught.
+ 
+     -- don't enter a bottom address that's greater than the  top
+        address.   First,  this  makes  no  sense.   Second,  the
+        program won't let you.
+ 
+When  you enter an appropriate address,  the program will echo it
+in BINARY.
+ 
+After the top and bottom addresses have been entered, the program
+will calculate the equations and print them out.  The output name
+will  be Xi,  where i just keeps track of the number of equations
+you have generated.  ALL input pins are specified as Aj,  where j
+is  the  appropriate  bit.     Thus,   if  8  address  lines  are
+specified,   then the  input  pins  will  be  A7...A0,   with  A7
+being  the  most significant bit.
+ 
+After  the equation has been displayed,  the program will  report
+the number of product terms and inputs used.  This may be trivial
+for some equations,  but, for instance, if you specify 16 address
+lines,  and  have bottom address 0001 and  top address FFFE,  240
+product terms  result;  I  challenge you to count them  as   they 
+scroll merrily by.
+ 
+At  this  point,  you will be offered the opportunity  to  decode
+another address range.  When asked, if you enter anything but "Y"
+(or "y"), it will assume "no", and terminate the program.
+  
+If  you have generated a file containing the   equations,  rename 
+the  file after you are done if you wish to keep it.   Otherwise, 
+the  next time you run this program,  you will have to rename  it 
+then.  You will   also need   to use an editor to perform  global 
+replacements   of  default   pin  names  with the ones you  want.     
+Note  that  the equations are generated as active HI signals;  if 
+you want active LO signals,  be sure to add a slash ('/') to  the 
+left-hand  side of the equations.    You can then merge this file  
+in with  your  PDS file.
+ 
+Happy decoding...
+

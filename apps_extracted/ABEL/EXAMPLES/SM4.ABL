@@ -1,0 +1,50 @@
+module SM4
+title 'State machine output example'
+////////////////////////////////////////////////////////////
+// 4-state state machine with state transition outputs.   //
+////////////////////////////////////////////////////////////
+    Clk,Hold,OE pin;             "Inputs
+    Q1,Q0 pin istype 'reg';      "State bits
+    REG1 pin istype 'reg';       "Reg output
+    COM1 pin istype 'com';       "Com output
+
+    A = 0; B = 1; C = 2; D = 3;  "State values
+
+Equations
+    [REG1,Q0,Q1].clk = Clk;
+    [REG1,Q0,Q1].oe = !OE;
+
+State_Diagram [Q1,Q0]
+
+    State A: REG1 := 0;
+             COM1  = 0;
+             If !Hold Then A Else B ;
+
+    State B: REG1 := 1;
+             COM1  = 1;
+             Goto C;
+
+    State C: COM1 = 0;
+             If Hold Then C With REG1 := 0;
+             Else D With REG1 := 1;
+
+    State D: REG1 := 1;
+             COM1 = 1;
+             If Hold Then D Else A;
+
+Test_Vectors ([Clk,OE,Hold] -> [[Q1,Q0],REG1,COM1])
+              [.C., 0,  0 ] -> [  .X. , .X. , .X.];
+              [.C., 0,  0 ] -> [  .X. , .X. , .X.];
+              [.C., 0,  0 ] -> [  .X. , .X. , .X.];
+              [.C., 0,  0 ] -> [   A  ,  0  ,  0 ];
+              [.C., 0,  0 ] -> [   A  ,  0  ,  0 ];
+              [.C., 0,  1 ] -> [   B  ,  0  ,  1 ];
+              [.C., 0,  1 ] -> [   C  ,  1  ,  0 ];
+              [.C., 0,  1 ] -> [   C  ,  0  ,  0 ];
+              [.C., 0,  0 ] -> [   D  ,  1  ,  1 ];
+              [.C., 0,  1 ] -> [   D  ,  1  ,  1 ];
+              [.C., 0,  1 ] -> [   D  ,  1  ,  1 ];
+              [.C., 0,  0 ] -> [   A  ,  1  ,  0 ];
+              [.C., 0,  0 ] -> [   A  ,  0  ,  0 ];
+End
+

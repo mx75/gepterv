@@ -1,0 +1,221 @@
+32VX10 SYNTAX EXAMPLE.
+----------------------
+
+32VX10.PDS	EXAMPLE ON HOW TO PROGRAM BOOLEAN
+                EQUATIONS FOR A PAL32VX10 PART.
+                   		
+
+BOOLEAN EQUATIONS EXAMPLES.
+---------------------------
+
+FILE NAME	DESCRIPTION					DEVICE TYPE
+---------	-----------					-----------
+9BITCNT.PDS	9 BIT COUNTER					20X10
+  
+		The 9-bit synchronous counter has parallel load, increment,
+		and hold capabilities. The carry out pin (/CO) shows how to
+		implement a carry out using a register by anticipated one
+		count before the terminal count if counting and the terminal
+		count if loading.
+  
+		Operations Table
+  
+		/OC   CLK   /LD   D8-D0   Q8-Q0     Operation
+	        ----------------------------------------------
+	         H     X     X      X       Z       HI-Z
+ 	         L     L     X      X       Q       Hold
+	         L     C     L      D       D       Load
+	         L     C     H      X    Q PLUS 1   Increment
+	        ----------------------------------------------
+  
+8COUNT.PDS	8 BIT COUNTER					20X8
+  
+		This 8-bit up/down counter has the hold and load
+		capabilities. It sets all the outputs high if SET=high.
+		It loads new value when SET=low and LOAD=high. Else it
+		counts up if UP=high and counts down if UP=low.
+  
+DCOUNT.PDS	5 BIT DOWN COUNTER				20RA10
+
+CONTROL.PDS	DEC PDP-11 UNIBUS INTERRUPT CONTROLLER		20RA10
+
+OCTCOMP.PDS	OCTAL COMPARATOR				16C1
+
+		The octal comparator establishes when two 8-bit data
+		strings (A7-A0) and (B7-B0) are equivalent (EQ=H) or
+		equivalent (NE=H).
+
+3TO8DMUX.PDS	3-8 DEMULTIPLEXER				16R8
+
+		The 3-to-8 demultiplexer with control storage provides a
+		conventional 8-bit demux function combined with control
+		storage functions:load true, load complement, hold, toggle,
+		polarity, clear and preset. Five inputs(/LD,/CLR,/PR,POL,
+		TOG) select one of six operations. The six operations are
+		summarized in the following operations table:
+  
+		Control   Functions   Polarity Inputs Outputs
+		/OC CLK /CLR /PR /LD  POL  TOG  ABC    Q7-Q0  Operation
+		----------------------------------------------------------
+		 H   X    X   X   X    X    X    X       Z    HI-Z
+		 L   C    L   X   X    X    X    X       L    Clear
+		 L   C    H   L   X    X    X    X       H    PRESET
+		 L   C    H   H   L    H    X    I      MUX   Load true
+		 L   C    H   H   L    L    X    I     /MUX   Load COMP
+		 L   C    H   H   H    X    L    X       Q    Hold
+		 L   C    H   H   H    X    H    X      /Q    Tog polarity
+		-----------------------------------------------------------
+  
+CRT.PDS		CRT CONTROLLER LOGIC				20RA10
+
+PORT.PDS	7-BIT I/O PORT WITH HANDSHAKE LOGIC		20RA10
+
+4CNT.PDS	4 BIT COUNTER					16RP4
+  
+		The 4-bit counter counts up or down and has the clear and
+		load capability. The clear operation overrides count and
+		load. The counter counts up when CLR=low, LOAD=low, and
+		UP=high. 
+
+4-16DEC.PDS	4 - 16 DECODER					6L16
+  
+		The 4 to 16 decoder, decodes four binary decoded inputs
+		into one of 16 mutually exclusive outputs, whenever the
+		two enable lines EN1 and EN2 are high. When one or both
+		of the enable lines are low the outputs are all set to
+		high values.
+
+ADREG16.PDS	16-BIT ADDRESSABLE REGISTER			32R16
+
+		The 16-bit addressable register loads one of 16 registers
+		selected by ADDR[0..3] with data input, DATA.
+
+MEMIO.PDS	PC I/O Mapper					8L14
+
+		Personal computers which are hardware compatible with the
+		ubiquitous IBM PC share this I/O map.
+
+UPCOUNT.PDS	5 BIT UP COUNTER				20RA10
+
+FLIPFLOP.PDS	BASIC FLIP FLOPS				16RP8
+
+MEMORY.PDS	MEMORY HANDSHAKE LOGIC				16RP6
+
+ARBITER .PDS	3 BIT ARBITER					20RA10
+
+LINK.PDS	SERIAL DATA LINK CONTROLLER			20RA10
+
+LATCH.PDS	OCTAL LATCH					10H20P8
+
+		The octal latch is an 8-bit latch with load, hold and clear
+		capability. Clear sets all outputs to low and overrides
+		hold. Load operation loads inputs (D0-D7) into the latch.
+		The hold operation holds the previous values of (Q0-Q7).
+
+9BITREG.PDS	9 BIT REGISTER					20X10
+
+		This is a design of a 9-bit register with parallel load
+		and hold capabilities. The operations of this register are
+		summarized in the following operations table:
+ 
+ 	        /OC  CLK  /LD  D8-D0  Q8-Q0    Operation
+	        ------------------------------------------
+	         H    X    X     X      Z      HI-Z
+	         L    1    H     X      Q      Hold
+	         L    1    L     D      D      Load
+	        ------------------------------------------
+
+10BITREG.PDS	10 BIT REGISTER					20X10
+
+		The 10-bit register loads the data (D9-D0) on the rising
+		edge of the clock(CLK) into the register(Q9-Q0). The data
+		is held in the register until the next posiyive edge of
+		the clock.
+  
+		/OC  CLK  D9-D0  Q9-Q0    Operation
+		------------------------------------
+		 H    X     X      Z      HI-Z
+		 L    C     D      D      Load
+		 L    L     X      Q      Hold
+		------------------------------------
+  
+BTRAFFIC.PDS	TRAFFIC SIGNAL CONTROLLER			16RP8
+
+DCODER.PDS	QIC-02 COMMAND DECODER PAL			20L8
+
+		THIS PAL IS PART OF THE QIC-02 COMMAND SQUENCER DESIGN.
+		THE PRIMARY PURPOSE OF THIS PAL IS TO ENCODE 8 BIT COMMANDS 
+		INTO 4 BIT COMMAND CODES.  THIS PAL IS ALSO USED TO ENCODE 
+		TAPE DRIVE STATUS SIGNALS AND TO SELECT THE DRIVE NUMBER.  
+
+
+COUNTER .PDS	COUNTER						22V10
+
+		SIMULATION OF A COUNTER. EQUATIONS ARE A COMBINATION
+		OF ACTIVE HIGH OR LOW AND REGISTER OR COMBINITORIAL.
+		PRELOAD AND GLOBAL RESET FUNCTIONS ARE INCLUDED.
+
+CRC6.PDS	ERROR DETECTION PAL				20R6
+ 
+		THE CRC-6 PAL PERFORMS ERROR DETECTION ON A SERIAL DATA
+		STREAM.  CRC-6 PAL SUPPORTS THE T1 Fe STANDARD FOR ERROR
+		DETECTION. THE CRC RESULT CAN BE OUTPUTTED EITHER IN SERIAL
+		OR IN PARALLEL.
+
+DEC_R8.PDS	DECODER PAL					16R8
+ 
+SUPER.PDS	SUPER FRAME PAL FOR T1 INTERFACE		16R6
+
+		This PAL counts the T1 Frames and controls the Signal Bits
+		extraction process, including Fly Wheeling.  It also provides
+		various other signals which indicate the frames with signal
+		bits The counter is reset with either RSTB or when frame 
+		detection is SUNK and frame 1 occurs from two different 
+		sources (FRM1 & SOF).
+ 
+SYNC.PDS	T1 FRAME SYNC PAL FOR T1 INTERFACE		20R4
+ 
+		This PAL decides whether the T1 Interface is in Frame Sync,
+		Sync, or Out of Sync.  It controls the Frame Sync process.
+
+TREL12.PDS	TRELLIS ENCODER					20RS8
+
+		This PAL performs the signal  mapping onto the 32 
+		state constellation according to  CCITT V.32, 9600 bps
+		specification.
+
+UDCOUNT.PDS	TEN BIT LOADABLE,EVEN BOUNDARY UP/DOWN COUNTER	PAL20X10.
+
+VIDEO.PDS	VIDEO SHIFT REGISTER. WITH ATTRIBUTES		PAL20X8.
+
+BBENCODE.PDS	MANCHESTER ENCODER FOR BYTE AND BIT INPUTS	PAL22V10.
+
+PIPELINE.PDS	PIPELINE CONTROLLER FOR INSTRUCTION REGISTERS	PAL16R8D.
+
+LIFORAM2.PDS	LIFO RAM CONTROLLER PATTERN 02 OF 2 (8K DEEP)	PAL20X8.
+
+180DEGC.PDS	180 DEGREE UP/DOWN COUNTER			PAL20X10.
+
+8BAPPREG.PDS	8 BIT SUCCESSIVE APPROXIMATION REGISTER		PAL20RS10.
+
+128LRAM.PDS	LIFO RAM CONTROLLER FOR 128 DEEP STACK		PAL32VX10.
+
+VIDSREG.PDS	VIDEO SHIFT REGISTER PAL 3 OF 3			PAL32VX10.
+
+VLSYNCG.PDS	VIDEO LINE SYNC GENERATOR			PAL32VX10.
+
+LIFORAM3.PDS    PROVIDES CONTROL AND ADDRESSING FOR A           PAL22RX8.
+		32-LOCATION DEEP RAM-BASED LIFO
+
+10H20EV8.PDS    EXAMPLE OF 10H20EV8 BOOLEAN EQUATION FILE       PAL10H20EV8
+
+10H20EG8.PDS    EXAMPLE OF 10H20EG8 BOOLEAN EQUATION FILE       PAL10H20EG8
+
+23S8.PDS        EXAMPLE OF 23S8 BOOLEAN EQUATION FILE	        PAL23S8.
+
+26V12.PDS	EXAMPLE OF 26V12 BOOLEAN EQUATION FILE		PAL26V12.
+
+16V8.PDS	EXAMPLE OF 16V8 BOOLEAN  EQUATION FILE          PAL16V8.
+
+20V8.PDS	EXAMPLE OF 20V8 BOOLEAN EQUATION FILE		PAL20V8. 
+

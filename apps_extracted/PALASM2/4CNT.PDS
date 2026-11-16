@@ -1,0 +1,80 @@
+Title     4Bit_Counter
+Pattern   4cnt.pds
+Revision  B
+Author    Mehrnaz Hada, Bill Hollon, Ali Sebt
+Company   Monolithic Memories Inc. Santa Clara, CA
+Date      1/14/85
+  
+CHIP 4BitCounter PAL16RP4
+  
+CLK UP AI BI CI DI CLR LOAD NC GND
+/OC NC NC D C B A NC NC VCC
+  
+EQUATIONS
+  
+A   := /A*/B*/C*/D*/UP*/LOAD*/CLR      ;When CLR=1, A=0.
+     + /A* B* C* D* UP*/LOAD*/CLR      ;Else it will count
+     +  A* B*      /UP*/LOAD*/CLR      ;UP or DOWN.
+     +  A*/B*    D*    /LOAD*/CLR
+     +  A*   /C*    UP*/LOAD*/CLR
+     +  A*    C*/D*    /LOAD*/CLR
+     +                  LOAD*/CLR* AI  ;New value is loaded
+                                       ;when LOAD=1, CLR=0.
+  
+B   :=    /B*/C*/D*/UP*/LOAD*/CLR      ;When CLR=1, B=0.
+     +    /B* C* D* UP*/LOAD*/CLR      ;Else it will count.
+     +     B* C*/D*    /LOAD*/CLR
+     +     B*/C*    UP*/LOAD*/CLR
+     +     B*    D*/UP*/LOAD*/CLR
+     +                  LOAD*/CLR* BI  ;New value is loaded
+                                       ;when LOAD=1, CLR=0.
+  
+C   :=       /C*/D*/UP*/LOAD*/CLR      ;When CLR=1, C=0.
+     +       /C* D* UP*/LOAD*/CLR      ;Else it will count.
+     +        C*/D* UP*/LOAD*/CLR
+     +        C* D*/UP*/LOAD*/CLR
+     +                  LOAD*/CLR* CI  ;New value is loaded
+                                       ;when LOAD=1, CLR=0.
+  
+D   :=          /D*    /LOAD*/CLR      ;Count
+     +                  LOAD*/CLR* DI  ;New value is loaded
+                                       ;when LOAD=1, CLR=0.
+  
+SIMULATION
+  
+TRACE_ON  AI BI CI DI LOAD CLR UP A B C D
+  
+SETF LOAD /CLR AI BI CI DI OC         ;Load all registers
+CLOCKF CLK                             ;to HIGH and count up
+  
+SETF CLR                               ;Clear all registers
+CLOCKF CLK
+  
+SETF /CLR UP /LOAD                     ;Start Counting up
+  
+ FOR I:= 1 TO 16 DO                    ;Count up 16 clock
+  BEGIN                                ;cycles
+    CLOCKF CLK
+  END
+  
+SETF LOAD /CLR /UP AI BI CI DI         ;Load all registers
+CLOCKF                                 ;to HIGH and count
+SETF /LOAD                             ;down
+  FOR I:= 1 TO 16 DO                   ;Count down 16 clock
+   BEGIN                               ;cycles
+     CLOCKF CLK
+   END
+  
+SETF LOAD CLR AI /BI CI /DI            ;Test setting LOAD
+CLOCKF CLK                             ;and CLR on at the
+                                       ;same time.
+SETF /OC
+  
+TRACE_OFF
+  
+;The 4-bit counter counts up or down and has the clear and
+;load capability. The clear operation overrides count and
+;load. The counter counts up when CLR=low, LOAD=low, and
+;UP=high. It counts down whenever CLR=low, LOAD=low, and
+  
+

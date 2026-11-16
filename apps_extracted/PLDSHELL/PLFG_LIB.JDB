@@ -1,0 +1,508 @@
+#/*
+# * **************************  ALTERA PROPRIETARY  ***************************
+# *
+# *       --------------------  DO NOT REPRODUCE  ----------------------
+# *
+# *   Copyright (C) 1994 by Altera Corporation.
+# *   All rights reserved. No part of this program or publication may be 
+# *   reproduced, transmitted, transcribed, stored in a retrieval system, or
+# *   translated into any language or computer language, in any form or by any
+# *   means, electronic, mechanical, magnetic, optical,  chemical,  manual, or
+# *   otherwise,  without the prior written permission of  Altera Corporation,
+# *   2610 Orchard Parkway,  San Jose,  California 95134-2020.
+# *
+# * ***************************************************************************
+# */
+#
+#
+
+#
+#        proc pldlib_init( )
+#        Description:   declare and initialize library database
+#         NOTE: must call prior to calling any other functions defined below!
+#
+proc pldlib_init( )
+{
+    JDBV_progstat = -1     # programmed state
+    JDBV_ptgnum = -1    # count of pterm groups
+    JDBV_mcnum = -1        # count of macrocells
+    load_devdata( )        # load device database
+    JDBV_libinit = 1    # undefined if this function not called!
+}
+
+#         func bit_set( )
+#         Description:  returns '1' if bit is programmed; ie, enabled. Else
+#                    returns '0'.
+#                    returns -256 if lib. db not init.    
+#        Arguments:    $1 - Jedec address of bit
+#        Returns: see description
+func bit_set( )
+{
+    if (!JDBV_libinit)
+        return -256
+    if (JDBV_progstat == -1)
+    {
+        message "JDB library database error, program state not set\n"
+        return -256
+    }
+    JDBV_bitsav = .
+    . = $1
+    if (@. == JDBV_progstat)
+    {
+        . = JDBV_bitsav
+        return 1
+    }
+    . = JDBV_bitsav
+    return 0
+}
+
+#        func mc_arch_used( )
+#        Description: return 1 if any of the macrocells architecture bits are 
+#                    programmed
+#        Arguments:  $1 - macrocell number
+#                    $2 - number of arch. bits
+#        Returns:  see description
+
+func mc_arch_used( )
+{
+    JDBV_archsav = .
+    JDBV_archcnt = 0
+    
+    if (!JDBV_libinit)
+        return -256
+
+    . = mc_archadr( $1 )
+
+    while ( JDBV_archcnt < $2 )
+    {
+        if ( bit_set( . ) == 1 )
+        {
+            . = JDBV_archsav
+            return 1
+        }
+        else
+        {
+            JDBV_archcnt = JDBV_archcnt + 1
+            . = . + 1
+        }
+    }
+    . = JDBV_archsav
+    return 0
+}
+
+#        func term_inp( )
+#        description: determine if an array input is connected
+#        Arguments: $1 - jedec address of first bit of connection
+#
+#        Return: 0 if signal not connected
+#                1 if signal connected true
+#                2 if signal connected false
+#                -1 if signal connected ground
+#         Assumption: there are two fuses for each array input.  The state of
+#                      both of these determines the connection status.
+
+func term_inp( )
+{
+    if (!JDBV_libinit)
+        return -256
+    JDBV_inptermsav = .
+    . = $1
+    if ((bit_set(.)) && (!(bit_set(. + 1)))) 
+    {
+        . = JDBV_inptermsav
+        if (JDBV_invwl1)
+			return 1 # non-inverted signal (most altera devices)
+		return 2 # inverted signal (most pals)
+    }
+    if ((!(bit_set(.))) && (bit_set(.+1))) 
+    {
+        . = JDBV_inptermsav
+        if (JDBV_invwl1)
+			return 2 # inverted signal  (most pals)
+		return 1 # non-inverted signal(most altera devices)
+    }
+    if ((bit_set(.)) && (bit_set(.+1))) # signal not connected
+    {
+        . = JDBV_inptermsav
+        return 0
+    }
+    if ((!(bit_set(.))) && (!(bit_set(.+1)))) # term is gnd
+    {
+        . = JDBV_inptermsav
+        return -1
+    }
+}
+
+#        func pterm_state( )
+#        Description: return state of pterm programming.
+#        Arguments:  $1 - jedec address of pterm 
+#        Returns:   1 - if pterm has array inputs connected
+#                   0 - if pterm is not used and is VCC (all programmed)
+#                   -1 - if pterm is not used and is GND (both sig and sig' 
+#                    not programmed)
+
+func pterm_state( )
+{
+    if (!JDBV_libinit)
+        return -256
+    
+    JDBV_ptsav = .
+    . = $1
+    JDBV_inpstate = -256
+	JDBV_ptstate = 0
+
+    JDBV_wlcnt = 0
+
+    while ( JDBV_wlcnt <  JDBV_wlnum ) # check each wordline pair
+    {
+        JDBV_inpstate = term_inp(.)
+        if (JDBV_inpstate < 0) { # pterm GND
+            . = JDBV_ptsav
+            return -1
+        }
+        if (JDBV_inpstate  > 0) {
+			JDBV_ptstate = 1 # used in eq. ( maybe)
+        }
+        JDBV_wlcnt = JDBV_wlcnt + 2
+        . = . + 2
+    }
+
+    . = JDBV_ptsav 
+	return (JDBV_ptstate)
+}
+
+#        func pterm_gstate( )
+#        Description: Determine state of pterm group 
+#        Arguments:  $1 - pterm group JEDEC address
+#                    $2 - number of pterms in group
+#        Returns:  0 - if pterm group state is VCC
+#                   -1 - if pterm group state is GND
+#                   1 - if pterm group is any other equation
+
+func pterm_gstate( )
+{
+    if (!JDBV_libinit)
+    {
+        return -256
+    }
+    JDBV_ptcnt = 1
+    JDBV_ptgsav = .
+
+    . = $1
+
+	# message "$1 = %d, $2 = %d\n",$1,$2 
+    while (JDBV_ptcnt <= $2 )
+    {
+		# message "checking addr %d\n", .
+        if ( !pterm_state(., JDBV_wlnum )) # VCC
+        {
+            . = JDBV_ptgsav
+            return 0
+        }
+        if (pterm_state(., JDBV_wlnum ) > 0) # is equation
+        {
+            . = JDBV_ptgsav
+            return 1
+        }
+
+        JDBV_ptcnt = JDBV_ptcnt + 1
+        . = . + JDBV_wlnum
+    }
+    . = JDBV_ptgsav
+    return -1
+}
+
+#        func fbused( )
+#        Description: return TRUE if the feedback is used
+#                    Not called during PALASM disassembly
+#        Arguments:  $1 - feedback pin or virtual pin number
+#                        note: must be dip pin number
+#                     $2 - address to start checking at
+#                    $3 -  address to stop checking at
+#        Returns:  see description
+
+func fbused( )
+{
+    if (!JDBV_libinit)
+    {
+        return -256
+    }
+    JDBV_fb_os = fb_gos($1) 
+    JDBV_fbloc = $2
+    JDBV_fbstop = $3 
+
+    while  ( JDBV_fbloc < JDBV_fbstop ) {
+        if ((!bit_set(JDBV_fbloc + JDBV_fb_os)) && (bit_set(JDBV_fbloc + JDBV_fb_os + 1)))
+            return 1
+        if ((bit_set(JDBV_fbloc + JDBV_fb_os)) && (!bit_set(JDBV_fbloc + JDBV_fb_os + 1)))
+            return 1
+        JDBV_fbloc = JDBV_fbloc + JDBV_wlnum
+    }
+    return 0
+}
+
+#        func turbo_bit( )
+#        Description: return TRUE if the turbo bit(s) is programmed
+#        Arguments:  $1 - number of turbo bits
+#                    $2 - jedec address of turbo bit
+#        Returns:  see description
+
+#        func miser_bit( )
+#        Description: return TRUE if the miser bit(s) is programmed
+#        Arguments:  $1 - number of miser bits
+#                    $2 - jedec address of miser bit
+#        Returns:  see description
+
+#        func mc_invert( )
+#        Description: return TRUE if the equation output is inverted
+#        Arguments:  $1 - macrocell number
+#                    $2 - OFFSET (starting w/ '0') of invert bit from arch. bit
+#                        starting address.
+#                     $3 - number of invert bits
+#                      $4 - state (1 | 0) that causes inversion enabling
+#        Returns:  see description
+
+func mc_invert( )
+{
+    if (!JDBV_libinit)
+        return -256
+    
+    JDBV_bit  = mc_archadr($1) + $2
+    JDBV_bitcnt = 0
+    JDBV_invert = 1
+
+    while (JDBV_bitcnt < $3)
+    {
+        if ($4 == 1)
+        {
+            if (!bit_set(JDBV_bit))
+            {
+                return 0
+            }
+        }
+        else 
+        {
+            if (bit_set(JDBV_bit))
+            {
+                return 0
+            }
+        }
+        JDBV_bit = JDBV_bit +1
+        JDBV_bitcnt = JDBV_bitcnt  + 1
+    }
+    return 1
+}
+    
+#        func lang()
+#        set the output language type to PEP or ADF
+#        Arguments: $1 - language type
+#                    0 is adf (default)
+#                    1 is pep
+#
+func lang()
+{
+    if (!JDBV_libinit)
+        return -256
+    if ( ($1 != 0) && ($1 != 1) )
+    {
+    message "JDB library database error, arg to lang() must be 0 or 1\n"
+        return -1
+    }
+    JDBV_langtype = $1
+    return 1
+}
+
+#        func program_state( )
+#        Description: Tells library if fuse programming is '1' or '0' to enable.
+#        Arguments: $1 - '1' if programming is '1' to enable, or '0' if vice
+#                    versa.
+
+func program_state( )
+{
+    if (!JDBV_libinit)
+        return -256
+    if ( ($1 != 0) && ($1 != 1) )
+    {
+    message "JDB library database error, arg to program_state must be 0 or 1\n"
+        return -1
+    }
+    JDBV_progstat = $1
+    return 1
+}
+
+#        func term_output( )
+#        Description: output the equation representation of the pterm
+#        NOTE:  There may be several flavors of this to accomodate different
+#        output formats, JEDEC sense, etc.
+#        Arguments: $1 - Jedec address of pterm
+#        Returns: 1 if term output OK , -1 if database error, 0 if a wordline
+#                not mapped to pin number 
+
+func term_output( )
+{
+    if (!JDBV_libinit)
+        return -256
+    JDBV_vccterm = 0
+    JDBV_gndterm = 0
+    JDBV_wl = 0
+    JDBV_pin = 0
+    JDBV_and = 0
+    JDBV_termsav = .
+    JDBV_pintype = 0
+    . = $1
+
+    while (JDBV_wl < JDBV_wlnum)
+    {
+        if (((JDBV_pin = inp_gpin(JDBV_wl)) != -1) && (JDBV_pin != 0))
+            JDBV_pintype = 1 # input
+        else if (((JDBV_pin = io_gpin(JDBV_wl)) != -1) && (JDBV_pin != 0))
+            JDBV_pintype = 2 # io
+        else if (((JDBV_pin = fb_gpin(JDBV_wl)) != -1) && (JDBV_pin != 0))
+            JDBV_pintype = 3 # feedback - only on dual fb devices or buried mc
+        else
+            return -1
+
+        if (term_inp(.) > 0)
+        {
+            if (JDBV_and)
+            {
+                print " * "
+                JDBV_and = 0
+            }
+
+            if (JDBV_langtype == 1){ # PEP
+                if (term_inp(.) == 2)
+                print "/"
+            }
+
+            if (JDBV_pintype == 1) # 
+                print "in%d", map_pin(JDBV_pin)
+            if (JDBV_pintype == 2) # 
+                print "io%d", map_pin(JDBV_pin)
+            if (JDBV_pintype == 3) # 
+                print "fb%d", map_pin(JDBV_pin)
+            JDBV_and = 1
+        }
+        if (JDBV_langtype == 0){ # ADF 
+            if (term_inp(.) == 2)
+            print "'", map_pin(JDBV_pin)
+        }
+
+        if (term_inp(.) == -1) # gnd
+        {
+            . = JDBV_termsav
+            return 1
+        }
+
+        JDBV_wl = JDBV_wl + 2
+        . = . + 2
+    }
+    . = JDBV_termsav
+    return 1
+}
+
+# proc errmsg()
+# print error messages
+# arguments: message # $1
+# 
+
+proc errmsg()
+{
+    if ($1 == 1)
+        message "ERROR JDBMAC: "
+    if ($1 == 2)
+        message "JEDEC Disassembly Errors Occurred.\n"
+}
+
+# proc infomsg()
+# print informational messages
+# arguments: message # $1
+# 
+
+proc infomsg()
+{
+    if ($1 == 1)
+        message "INFO JDBMAC: "
+    if ($1 == 2)
+        message "JEDEC Disassembly in progress...\n"
+    if ($1 == 3)
+        message "JEDEC Disassembly Successfully Completed\n"
+}
+
+#    func mc_used( ) 
+#    determine if macrocell product terms programmed
+#    Arguments: $1 macrocell of interest
+#    Returns: 1 if programmed, 0 if not
+#
+func mc_used( ) {
+
+
+     if (($1 < 1) || ($1 > JDBV_mcnum))
+     {
+        message "JDB disassembly error - invalid macrocell #.\n"
+        return 0
+     }
+
+     JDBV_ptg = get_ptg($1) # get starting ptg of macrocell
+	 JDBV_startptg = JDBV_ptg
+     JDBV_numptg = get_numptg($1) # get number of ptgs in macrocell
+	 # message "number of groups = %d\n", JDBV_numptg
+
+     while (JDBV_ptg < (JDBV_startptg + JDBV_numptg)) {
+	# 	 message "ptgroup = %d\n", JDBV_ptg
+		 JDBV_ptgpt = get_ptgpt(JDBV_ptg) # get number of pterms in ptg
+	# 	 message "number of pterms in group = %d\n", JDBV_ptgpt
+        JDBV_ptadr = pterm_gaddr(JDBV_ptg)
+        if (pterm_gstate(JDBV_ptadr,JDBV_ptgpt) >= 0) { # not gnd
+            return 1
+        }
+	# 	else message "pterm group is GND\n"
+        JDBV_ptg = JDBV_ptg + 1
+     }
+
+     return 0 
+}
+
+# func pin2array()
+# description: returns 1 if signal from pin connected to array anywhere
+# arguments: $1 pin of interest, $2 address to stop checking
+# returns: see description, returns 0 if no connection, -1 if error
+
+func pin2array()
+{
+    JDBV_start = 0 # address to JDBV_start checking
+    if ((JDBV_offset = io_gos($1)) == -1) {
+        if ((JDBV_offset = inp_gos($1)) == -1) {
+            if ((JDBV_offset = fb_gos($1)) == -1) {
+                return -1
+            }
+        }
+    }
+    while (JDBV_start < $2) { # check for use in equations
+        if ((bit_set(JDBV_start + JDBV_offset)) && (!(bit_set(JDBV_start +JDBV_offset + 1))))
+            return 1
+        if ((bit_set(JDBV_start + JDBV_offset + 1)) && (!(bit_set(JDBV_start + JDBV_offset))))
+            return 1
+        JDBV_start = JDBV_start + JDBV_wlnum
+    }
+    return 0
+}
+
+#    func io_used( )
+#    Description: determine if io pin connected to array or used as output
+#    Arguments: $1 io pin number, $2 address to stop checking at
+#    returns: True if pin used
+#
+func io_used( )
+{
+
+    if (mc_used(pin2mc($1))) # check macrocell to see if programmed
+    {
+        return 1
+    }
+
+    if (pin2array($1,$2) == 1) # check to see if pin connected to array
+        return 1
+
+    return 0
+}

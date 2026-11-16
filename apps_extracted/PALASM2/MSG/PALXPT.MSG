@@ -1,0 +1,227 @@
+1000 >> Message not supported yet.
+2000 >> Messages in the two thousand range are Informational Messages.
+2010 \nEquation being processed for output ==>> %s 
+2020 \nEquation being processed for output ==>> %s.%s 
+2030 \nThe fuse plot is stored in ===>%s 
+2040 \nThe jedec is stored in     ===>%s 
+2050 \nFILE  :%s 
+2060 \nTITLE :%s 
+2070 This design has total number of errors = %d 
+2080 FILE PROCESSED SUCCESSFULLY: %s 
+2090 \nNo jedec output is produced. 
+2100 \nNo fuse map output is produced. 
+2110             %s expected at position = %d.
+2130 \n%%%%% PALXPT %%%%% 
+2150 FILE = %s ERROR COUNT = %d WARNING COUNT = %d 
+2160 %s\n
+3000 >> Messages in the three thousand range are Errors. 
+3020 >> ERROR    Latched equations defined but no latch enable defined. 
+3030 >> ERROR    Cannot define a %s equation for pin %s. 
+3035 >> ERROR    Cannot define a %s.%s equation for pin %s. 
+3040 >> ERROR    Cannot define a functional equation %s.%s
+3040             for pin %s. 
+3060 >> ERROR    Exclusive or (:+:) is not supported for this 
+3060             device. 
+3070 >> ERROR    Exclusive nor (:*:) is not supported for this 
+3070             device. 
+3080 >> ERROR    A global pin cannot be used in this equation. 
+3090 >> ERROR    Pin %s used in this equation has no input 
+3090             into the fuse array. 
+3100 >> ERROR    Output pin %s used in this equation has no 
+3100             feedback into the fuse array. 
+3110 >> ERROR    Pin %s cannot be used for a function as well 
+3110             as to preload the registers. 
+3120 >> ERROR    Pin %s is using more than %d product term(s). 
+3130 >> ERROR    Repeated equations for pin %s.  
+3140 >> ERROR    Equation is repeated for %s.%s. 
+3140             The latest equation will not be processed. 
+3150 >> ERROR    Token %d is not supported for PAL device. 
+3160 >> ERROR    Functional equation should be active high. 
+3170 >> ERROR    Too many pins defined.  
+3170             Total number of pins defined = %d. 
+3170             Total number of pins expected = %d. 
+3180 >> ERROR    Too few pins defined. 
+3180             Total number of pins defined = %d. 
+3180             Total number of pins expected = %d. 
+3190 >> ERROR    This output is combinatorial but has %s 
+3190             function defined. 
+3200 >> ERROR    This device does not support CMBF function. 
+3210 >> ERROR    This output %s is using more than %d product  
+3210             terms. 
+3220 >> ERROR    The polarity of the output equation should be the 
+3220             opposite to the polarity in the pin list. 
+3230 >> ERROR    The polarity of the output equation should be the 
+3230             the same as the polarity in the pin list. 
+3240 >> ERROR    %s function has more than one product term. 
+3250 >> ERROR    This output is registered but has no CLOCK  
+3250             function defined for it. 
+3270 >> ERROR    Cannot define simple/functional equation for an  
+3270             input pin. 
+3275 >> ERROR    Cannot define simple/functional equation for a 
+3275             %s pin. 
+3280 >> ERROR    Output pin %s is using more than one exclusive or 
+3280             (:+:) term. 
+3290 >> ERROR    This output is using more than %d product terms 
+3290             per exclusive or (:+:) term. 
+3300 >> ERROR    Simple/functional equation already defined. 
+3310 >> ERROR    Cannot define functional equation for this output. 
+3320 >> ERROR    This output does not have an exclusive or (:+:) 
+3320             term.
+3330 >> ERROR    Programmable combinatorial funciton (CMBF) 
+3330             not supported for this device. 
+3340 >> ERROR    Exclusive nor (:*:) is not allowed in this equation. 
+3350 >> ERROR    Cannot have active high output and use 
+3350             exclusive or (:+:) in an equation. 
+3370 >> ERROR    Product terms already used by external node equation. 
+3380 >> ERROR    Product terms already used by internal node equation. 
+3390 >> ERROR    A registered equation for an output pin must only be in 
+3390             in terms of its internal node. 
+3400 >> ERROR    Setting TRISTATE to ground invalidates output 
+3400             equations for this device.  Only internal nodes 
+3400             can be defined. 
+3410 >> ERROR    Cannot use exclusive or (:+:) in a %s  
+3410             functional equation. 
+3420 >> ERROR    The GND is not defined correctly in the  
+3420             pin list. 
+3420             GND pin found at position = %d. 
+3430 >> ERROR    The VCC is not defined correctly in the 
+3430             pin list.  
+3430             VCC pin found at position = %d. 
+3460 >> ERROR    Equation is repeated for %s.%s. 
+3460             The latest equation will not be processed. 
+3470 >> ERROR    Cannot define this equation and %s.%s 
+3470             equation for this pin. 
+3480 >> ERROR    Cannot define this equation and a %s 
+3480             equation for this pin. 
+3490 >> ERROR    Only active high equations with single signal 
+3490             or (+) expressions can be used in this equation. 
+3490             Eg. OUT.SETF = A + /B + C ... 
+3500 >> ERROR	 Feedback conflict. Can not use both %s and %s as product
+3500             term variables on right hand side of the equations.
+3510 >> ERROR    Only active high equations with single signal 
+3510             or (+) expressions can be used in this equation. 
+3510             Eg. OUT.TRST = A + /B + C ... 
+3520 >> ERROR    Illegal clock pin exist. This output equation can only 
+3520             use either %s or %s as input clock pin.
+3530 >> ERROR    This output equation can only use one input clock pin, 
+3530             either  OUT.CLKF = %s    or    OUT.CLKF = %s.
+3540 >> ERROR    Product terms feedback conflict. 
+3550             Cannot have both %s and %s exist in product terms.
+3560             Cannot have both %s and (%s elsewhere) exist in product terms.
+3570 >> ERROR    Delete the buried node equation, %s:= ... (or /%s:= ...),
+3570          or put only %s or /%s on the right hand side of this equation.
+3580 >> ERROR    Buried node equation (%s := ...) is defined, therefore
+3580             cannot have %s exist in product term elsewhere.
+3590 >> ERROR    This equation defined %s as feedback, therefore cannot 
+3590             have %s or /%s exist in product term here or elsewhere.
+3600 >> ERROR    Buried node equation (%s := ...) is not defined, therefore
+3600             %s or /%s must be defined here before use elsewhere.
+3610 >> ERROR    The buried node %s 's polarity should be the 
+3610             %s to its polarity in the pin list. 
+3620 >> ERROR    The dual feedback %s's sum of products is not exact
+3620             syntax with %s's sum of products. 
+3630 >> ERROR    %s's operator (%s) is in conflict with its dual feedback 
+3630             pin %s's operator (%s) . They must use the same operator.
+4000 >> Messages in the four thousand range are Severe Errors. 
+4010 >> ERROR    PAL Description file corrupt.
+4020 >> ERROR    Cannot find tree file %s. Please run PARSE. 
+4030 >> ERROR    Given section is not found. Please run PARSE. 
+4040 >> ERROR    Out of memory. 
+4050 >> ERROR    Design too large to fit into memory. 
+4060 >> ERROR    Pin list is not found. 
+4070 >> ERROR    Boolean equation section not found in %s file. 
+4080 >> ERROR    Tree file name is too long. 
+4110 >> ERROR    This equation is defined as %s 
+4110             instead of %s. 
+4120 >> ERROR    The %s device is not supported by this PAL  
+4120             Assembler. 
+4130 >> ERROR    Cannot define a simple/functional equation for the 
+4140 >> ERROR    Token number %d. 
+4140             This device is not supported by this PAL  
+4140             Assembler. 
+4150 >> ERROR    Cannot find device PDF file. 
+4160 >> ERROR    Cannot open xplot output file %s. 
+4170 >> ERROR    Cannot open jedec output file %s. 
+4180 >> ERROR    Cannot open file for debug purpose. 
+4190 >> ERROR    Cannot use %s as pin name for this device. 
+4200 >> ERROR    Cannot find device information in the PDF 
+4200             file for %s. 
+4210 >> ERROR    Please run Expand and Minimize programs. 
+4220 >> ERROR    Disk write error or disk full.
+4230 >> ERROR    MINIMIZE must be run after EXPAND.
+4240 >> ERROR    File name length exceeded for file %s. 
+4240             Maximum file name length is %d characters. 
+5000 >> Messages in the five thousand range are Internal Errors. 
+5010 ** ERROR    Internal error: PALXPT. 
+5010             Please call AMD 800-222-9323 
+5020 ** ERROR    Internal error: Palarr module. 
+5020             Please call AMD 800-222-9323 
+5030 ** ERROR    Internal error: DBG file not found. 
+5030             Please call AMD 800-222-9323 
+5040 ** ERROR    Internal error: Palcheck module. Check_num_pterms. 
+5040             Please call AMD 800-222-9323 
+5050 ** ERROR    Internal error: Palcheck module. Check_eqn_type. 
+5050             Please call AMD 800-222-9323 
+5060 ** ERROR    Internal error: Palcheck module. Check_pdt_ptr. 
+5060             Please call AMD 800-222-9323 
+5070 ** ERROR    Internal error: Paleqn module. gen_fuse. 
+5070             Please call AMD 800-222-9323 
+5080 ** ERROR    Internal error: Palprocs: Set_eqn_ptr. 
+5080             Please call AMD 800-222-9323 
+5090 ** ERROR    Internal error: Palsfuse:  
+5090             Please call AMD 800-222-9323 
+5100 ** ERROR    Internal error: Device Name too long, Palutil: 
+5100             Please call AMD 800-222-9323 
+5110 ** ERROR    Internal error: Paldata unable to support %d pins. 
+5110             Please call AMD 800-222-9323 
+5120 ** ERROR	 Internal error: Palprocs: Pinlist truncated by parse.
+5120		 Please call AMD 800-222-9323
+6010 >> WARNING  The given xplot file is invalid and ignored. 
+6020 >> WARNING  The given jedec file is invalid and ignored. 
+6030 >> WARNING  The given log file is invalid and ignored. 
+6040 >> WARNING  The given parameters are invalid and ignored. 
+6050 >> WARNING  The clock for pin %s assumed to be ground. 
+6070 >> WARNING  Global %s is invalid for combinatorial equations. 
+6080 >> WARNING  The given tree file %s is invalid and ignored. 
+6090 >> WARNING  The output is defined as combinatorial. 
+6090             %s.%s will be programmed, but will not effect 
+6090             the design. 
+6100 >> WARNING  Turbo fuse not programmed for this device. 
+6110 >> WARNING  Global pin %s is invalid for PAL %s, use PAL %sZ. 
+6120 >> WARNING  Inverting Equation %s.%s. Equation is now: 
+6130 >> WARNING  Inverting Equation %s.%s. Equation is now: 
+6140 >> WARNING  Buried node %s is not defined. 
+6150 >> WARNING  Signature fuse data will not fit in %d bits.
+6150	    Extra signature fuse data has been truncated.
+6160 >> WARNING  Signature fuse data contains a decimal number
+6160	    with more than the limit of 15 digits.
+6160	    Signature fuses have not been programmed.
+6160	    Try using hex format for signature fuse data.
+9000 >> Ptre error messages start at 9000.
+9001 >> Given section is not found. Please run PARSE. %s %d 
+9002 >> ERROR   Cannot find tree file %s. Please run PARSE.
+9003 >>         out of memory.   
+9004 >> ERROR   Illegal section.   
+9005 >> ERROR   TITLE is not found.  
+9006 >> ERROR   PATTERN is not found.  
+9007 >> ERROR   REVISION is not found.  
+9008 >> ERROR   AUTHOR is not found.  
+9009 >> ERROR   COMPANY is not found.  
+9010 >> ERROR   DATE is not found.  
+9011 >> ERROR   User library not found. 
+9012 >> ERROR   Macro heading not found. 
+9013 >> ERROR   Wire not found. 
+9014 >> ERROR   Device is not found. 
+9015 >> ERROR   Pin list is not found. 
+9016 >> ERROR   Group assignment is not found. 
+9017 >> ERROR   Boolean equation section not found in pds file. 
+9018 >> ERROR   State start up information not found. 
+9019 >> ERROR   State equation is not found. 
+9020 >> ERROR   State output is not found. 
+9021 >> ERROR   State condition is not found. 
+9022 >> ERROR   Simulation construct is not found. 
+9028 >> ERROR   Tree file name is too long.
+9029 >> ERROR   Missing or bad PALASM2.TRE, cannot assemble file. 
+9029            Run PARSE to generate PALASM2.TRE. 
+9032 >> ERROR	Signature information is not found in .tre file
+

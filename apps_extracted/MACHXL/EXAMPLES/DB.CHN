@@ -1,0 +1,63 @@
+;==!==================================================================
+;==! 01/10/94: MACH JTAGPROG chain file template.
+;==! (c) Copyright AMD 1994
+;==!==================================================================
+;==!
+;==!========================================
+;==! View/Modify JTAG chain
+
+ 'demo_board' MACH445  p 6 db.jdc / -s 1  -o Z -f db.out;
+
+;==!========================================
+
+;==! A JTAG chain file contains a list of JTAG parts and the operations
+;==! to be performed on those parts. A part's position on the list
+;==! determines its position in the JTAG chain.
+;==!
+;==! Ex: Your design has 3 JTAG parts connected into a JTAG chain.
+;==!     The first part is an AMD MACH445, and its TDO is connected
+;==!     to the next JTAG part which is a MACH465. In turn, its TDO is
+;==!     connected to the TDI of the next JTAG part which is a non-AMD
+;==!     part. The JTAG chain file should contain the following:
+;==!
+;==! 'ctrl_0'        MACH445  p 6 control.jed / -s 1 -s 2 -o Z -f control.out;
+;==! 'state_machine' MACH465  p 6 state.jed   /           -o Z -f xfile.out;
+;==! 'non_AMD_part'  part_XXX n 5;
+;==!
+;==! The format for each part description is:
+;==!
+;==! ['design_desc'] part_name opcode instr_width file_name [/ mfg options] ;
+;==!
+;==! where:
+;==!     design_description = alphanumeric string (max 35 chars) beginning
+;==!          with a letter enclosed in single quotes describing the design
+;==!          (this is an optional field).
+;==!     part_name = JTAG part name; e.g., MACH445
+;==!     opcode    = instruction code; can be one of the following:
+;==!               p - program part with JEDEC pattern in file_name and
+;==!                   pattern verify
+;==!               v - verify part against JEDEC pattern in file_name
+;==!               r - read part contents and write to file_name
+;==!               u - read the user code/signature bits
+;==!               m - read the part JTAG ID code
+;==!               n - put part into bypass mode
+;==!     instr_width = number of bits in JTAG instruction register;
+;==!          MACH445 and MACH465 have 6 bit instr registers; for
+;==!          non-AMD JTAG parts, consult the part datasheet
+;==!     file_name = JEDEC file for the specified operation
+;==!
+;==! Manufacturer options are optional. If you do specify them, put
+;==! a '/' and then one of the following:
+;==!
+;==!   -s 1         = program security fuse 1
+;==!   -s 2         = program security fuse 2
+;==!   -o {0|1|X|Z} = set the IO pins to be either driving a 0, 1, or
+;==!                  set the pins to tri-state mode
+;==!   -f result_file = specify a filename to hold the results of the
+;==!                  JTAG operation
+;==!
+;==! Terminate the part description with a semi-colon.
+;==!
+;==! Any non-AMD JTAG parts should be put into bypass mode (see above).
+
+

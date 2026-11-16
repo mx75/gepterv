@@ -1,0 +1,144 @@
+#$Header: /swpg/develop/abel/src/devsel2/newdata/RCS/att.chp,v 1.5 92/04/09 09:50:26 aez Exp $
+# chip report file   Released 5.1 
+#
+$MANUFACTURER ATT AT&T Microelectronics
+$CONTACT (000)000-0000 
+$ADDRESS1 none 1 
+$ADDRESS2 none 2 
+$ADDRESS3 none 3 
+#
+# 132 column 1-line format no user info (default)
+#
+# format is:
+#$C2 mfg part type tech package devname pins spc eraseable preload family pinout did speed setup hold power price
+#
+#
+
+#   mfg       part             type  tech  pack  devname     pins    spc  era preld fam  pin    DID#  speed set  hold pwr prc 
+$C2 ATT       ATT3020-100J100  FPGA  CMOS  FPAK  LCA3000     100     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3020-100J100I FPGA  CMOS  FPAK  LCA3000     100     IND  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3020-100M68   FPGA  CMOS  PLCC  LCA3000      68     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3020-100M68I  FPGA  CMOS  PLCC  LCA3000      68     IND  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3020-100M84   FPGA  CMOS  PLCC  LCA3000      84     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3020-100M84I  FPGA  CMOS  PLCC  LCA3000      84     IND  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3020-100N100  FPGA  CMOS  FPAK  LCA3000     100     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3020-100R84   FPGA  CMOS  PGA   LCA3000      84     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3020-100R84I  FPGA  CMOS  PGA   LCA3000      84     IND  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3020-125J100  FPGA  CMOS  FPAK  LCA3000     100     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3020-125M68   FPGA  CMOS  PLCC  LCA3000      68     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3020-125M84   FPGA  CMOS  PLCC  LCA3000      84     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3020-125N100  FPGA  CMOS  FPAK  LCA3000     100     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3020-125R84   FPGA  CMOS  PGA   LCA3000      84     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3020-70J100   FPGA  CMOS  FPAK  LCA3000     100     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3020-70J100I  FPGA  CMOS  FPAK  LCA3000     100     IND  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3020-70M68    FPGA  CMOS  PLCC  LCA3000      68     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3020-70M68I   FPGA  CMOS  PLCC  LCA3000      68     IND  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3020-70M84    FPGA  CMOS  PLCC  LCA3000      84     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3020-70M84I   FPGA  CMOS  PLCC  LCA3000      84     IND  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3020-70N100   FPGA  CMOS  FPAK  LCA3000     100     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3020-70R84    FPGA  CMOS  PGA   LCA3000      84     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3020-70R84I   FPGA  CMOS  PGA   LCA3000      84     IND  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3020-70N100I  FPGA  CMOS  FPAK  LCA3000     100     IND  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3020-100N100I FPGA  CMOS  FPAK  LCA3000     100     IND  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3030-100J100  FPGA  CMOS  FPAK  LCA3000     100     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3030-100J100I FPGA  CMOS  FPAK  LCA3000     100     IND  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3030-100M44   FPGA  CMOS  PLCC  LCA3000      44     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3030-100M44I  FPGA  CMOS  PLCC  LCA3000      44     IND  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3030-100M68   FPGA  CMOS  PLCC  LCA3000      68     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3030-100M68I  FPGA  CMOS  PLCC  LCA3000      68     IND  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3030-100M84   FPGA  CMOS  PLCC  LCA3000      84     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3030-100M84I  FPGA  CMOS  PLCC  LCA3000      84     IND  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3030-100R84   FPGA  CMOS  PGA   LCA3000      84     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3030-100R84I  FPGA  CMOS  PGA   LCA3000      84     IND  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3030-125J100  FPGA  CMOS  FPAK  LCA3000     100     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3030-125M44   FPGA  CMOS  PLCC  LCA3000      44     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3030-125M68   FPGA  CMOS  PLCC  LCA3000      68     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3030-125M84   FPGA  CMOS  PLCC  LCA3000      84     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3030-125R84   FPGA  CMOS  PGA   LCA3000      84     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3030-70J100   FPGA  CMOS  FPAK  LCA3000     100     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3030-70J100I  FPGA  CMOS  FPAK  LCA3000     100     IND  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3030-70M44    FPGA  CMOS  PLCC  LCA3000      44     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3030-70M44I   FPGA  CMOS  PLCC  LCA3000      44     IND  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3030-70M68    FPGA  CMOS  PLCC  LCA3000      68     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3030-70M68I   FPGA  CMOS  PLCC  LCA3000      68     IND  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3030-70M84    FPGA  CMOS  PLCC  LCA3000      84     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3030-70M84I   FPGA  CMOS  PLCC  LCA3000      84     IND  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3030-70R84    FPGA  CMOS  PGA   LCA3000      84     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3030-70R84I   FPGA  CMOS  PGA   LCA3000      84     IND  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3042-100H132  FPGA  CMOS  PGA   LCA3000     132     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3042-100H132I FPGA  CMOS  PGA   LCA3000     132     IND  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3042-100J100  FPGA  CMOS  FPAK  LCA3000     100     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3042-100J100I FPGA  CMOS  FPAK  LCA3000     100     IND  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3042-100M84   FPGA  CMOS  PLCC  LCA3000      84     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3042-100M84I  FPGA  CMOS  PLCC  LCA3000      84     IND  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3042-100N100  FPGA  CMOS  FPAK  LCA3000     100     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3042-100R132  FPGA  CMOS  PGA   LCA3000     132     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3042-100R132I FPGA  CMOS  PGA   LCA3000     132     IND  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3042-100R84   FPGA  CMOS  PGA   LCA3000      84     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3042-100R84I  FPGA  CMOS  PGA   LCA3000      84     IND  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3042-125H132  FPGA  CMOS  PGA   LCA3000     132     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3042-125J100  FPGA  CMOS  FPAK  LCA3000     100     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3042-125M84   FPGA  CMOS  PLCC  LCA3000      84     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3042-125N100  FPGA  CMOS  FPAK  LCA3000     100     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3042-125R132  FPGA  CMOS  PGA   LCA3000     132     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3042-125R84   FPGA  CMOS  PGA   LCA3000      84     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3042-70H132   FPGA  CMOS  PGA   LCA3000     132     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3042-70H132I  FPGA  CMOS  PGA   LCA3000     132     IND  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3042-70J100   FPGA  CMOS  FPAK  LCA3000     100     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3042-70J100I  FPGA  CMOS  FPAK  LCA3000     100     IND  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3042-70M84    FPGA  CMOS  PLCC  LCA3000      84     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3042-70M84I   FPGA  CMOS  PLCC  LCA3000      84     IND  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3042-70N100   FPGA  CMOS  FPAK  LCA3000     100     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3042-70R132   FPGA  CMOS  PGA   LCA3000     132     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3042-70R132I  FPGA  CMOS  PGA   LCA3000     132     IND  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3042-70R84    FPGA  CMOS  PGA   LCA3000      84     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3042-70R84I   FPGA  CMOS  PGA   LCA3000      84     IND  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3042-70N100I  FPGA  CMOS  FPAK  LCA3000     100     IND  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3042-100N100I FPGA  CMOS  FPAK  LCA3000     100     IND  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3064-100H132  FPGA  CMOS  PGA   LCA3000     132     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3064-100H132I FPGA  CMOS  PGA   LCA3000     132     IND  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3064-100J160  FPGA  CMOS  FPAK  LCA3000     160     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3064-100M84   FPGA  CMOS  PLCC  LCA3000      84     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3064-100M84I  FPGA  CMOS  PLCC  LCA3000      84     IND  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3064-100R132  FPGA  CMOS  PGA   LCA3000     132     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3064-100R132I FPGA  CMOS  PGA   LCA3000     132     IND  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3064-125H132  FPGA  CMOS  PGA   LCA3000     132     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3064-125J160  FPGA  CMOS  FPAK  LCA3000     160     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3064-125M84   FPGA  CMOS  PLCC  LCA3000      84     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3064-125R132  FPGA  CMOS  PGA   LCA3000     132     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3064-70H132   FPGA  CMOS  PGA   LCA3000     132     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3064-70H132I  FPGA  CMOS  PGA   LCA3000     132     IND  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3064-70J160   FPGA  CMOS  FPAK  LCA3000     160     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3064-70M84    FPGA  CMOS  PLCC  LCA3000      84     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3064-70M84I   FPGA  CMOS  PLCC  LCA3000      84     IND  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3064-70R132   FPGA  CMOS  PGA   LCA3000     132     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3064-70R132I  FPGA  CMOS  PGA   LCA3000     132     IND  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3064-70J160I  FPGA  CMOS  FPAK  LCA3000     160     IND  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3064-100J160I FPGA  CMOS  FPAK  LCA3000     160     IND  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3090-100H175  FPGA  CMOS  PGA   LCA3000     175     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3090-100H175I FPGA  CMOS  PGA   LCA3000     175     IND  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3090-100J160  FPGA  CMOS  FPAK  LCA3000     160     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3090-100J160I FPGA  CMOS  FPAK  LCA3000     160     IND  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3090-100M84   FPGA  CMOS  PLCC  LCA3000      84     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3090-100M84I  FPGA  CMOS  PLCC  LCA3000      84     IND  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3090-100N164  FPGA  CMOS  FPAK  LCA3000     164     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3090-100N164I FPGA  CMOS  FPAK  LCA3000     164     IND  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3090-100R175  FPGA  CMOS  PGA   LCA3000     175     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3090-100R175I FPGA  CMOS  PGA   LCA3000     175     IND  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3090-125H175  FPGA  CMOS  PGA   LCA3000     175     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3090-125J160  FPGA  CMOS  FPAK  LCA3000     160     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3090-125M84   FPGA  CMOS  PLCC  LCA3000      84     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3090-125N164  FPGA  CMOS  FPAK  LCA3000     164     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3090-125R175  FPGA  CMOS  PGA   LCA3000     175     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3090-70H175   FPGA  CMOS  PGA   LCA3000     175     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3090-70H175I  FPGA  CMOS  PGA   LCA3000     175     IND  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3090-70J160   FPGA  CMOS  FPAK  LCA3000     160     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3090-70J160I  FPGA  CMOS  FPAK  LCA3000     160     IND  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3090-70M84    FPGA  CMOS  PLCC  LCA3000      84     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3090-70M84I   FPGA  CMOS  PLCC  LCA3000      84     IND  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3090-70N164   FPGA  CMOS  FPAK  LCA3000     164     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3090-70N164I  FPGA  CMOS  FPAK  LCA3000     164     IND  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3090-70R175   FPGA  CMOS  PGA   LCA3000     175     COM  EE   NO   --   --       0    0    0    0    0    0
+$C2 ATT       ATT3090-70R175I  FPGA  CMOS  PGA   LCA3000     175     IND  EE   NO   --   --       0    0    0    0    0    0
+#
+$END

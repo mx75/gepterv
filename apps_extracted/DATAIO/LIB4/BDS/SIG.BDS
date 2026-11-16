@@ -1,0 +1,192 @@
+# $Header: /swpg/develop/abel/src/devsel2/newdata/RCS/sig.chp,v 1.6 92/09/30 17:20:11 aez Exp $
+# chip report file   Released 5.1 
+#
+$MANUFACTURER SIG Signetics Corporation
+$CONTACT (408)991-2366 
+$ADDRESS1 811 Arques Ave. 
+$ADDRESS2 Sunnyvale, CA 94088 
+$ADDRESS3 ------------ 
+#
+# 132 column 1-line format no user info (default)
+#
+# format is:
+#$C2 mfg part type tech package devname pins spc eraseable preload family pinout did speed setup hold power price
+#
+#
+
+
+#   mfg       part             type  tech  pack  devname     pins    spc  era preld fam  pin    DID#  speed set  hold pwr prc 
+$C2 SIG       10020EV8-4A      PAL   ECL   PLCC  EC20EV8C     28     COM  NO   YES  140  76D   4371    5    3    0  975    0
+$C2 SIG       10020EV8-4F      PAL   ECL   CDIP  EC20EV8A     24     COM  NO   YES  140  06D   4370    5    3    0  975    0
+$C2 SIG       10020EV8-6A      PAL   ECL   PLCC  EC20EV8C     28     COM  NO   YES  140  76D   4371    6    4    0  975    0
+$C2 SIG       10020EV8-6F      PAL   ECL   CDIP  EC20EV8A     24     COM  NO   YES  140  06D   4370    6    4    0  975    0
+$C2 SIG       10H20EV8-4A      PAL   ECL   PLCC  EC20EV8C     28     COM  NO   YES  140  13C   4369    5    3    0  975    0
+$C2 SIG       10H20EV8-4F      PAL   ECL   CDIP  EC20EV8A     24     COM  NO   YES  140  13B   4368    5    3    0  975    0
+$C2 SIG       10H20EV8-6A      PAL   ECL   PLCC  EC20EV8C     28     COM  NO   YES  140  13C   4369    6    4    0  975    0
+$C2 SIG       10H20EV8-6F      PAL   ECL   CDIP  EC20EV8A     24     COM  NO   YES  140  13B   4368    6    4    0  975    0
+$C2 SIG       PLS100A          FPLA  TTL   PLCC  F100         28     COM  NO   YES  096  761   2534   50    0    0  600    0
+$C2 SIG       PLS101A          FPLA  TTL   PLCC  F100         28     COM  NO   YES  096  761   4144   50    0    0  600    0
+$C2 SIG       PLS100N          FPLA  TTL   DIP   F100         24     COM  NO   NO   96   61     178   50    0    0  600    0
+$C2 SIG       PLS101N          FPLA  TTL   DIP   F100         24     COM  NO   NO   96   61     179   50    0    0  600    0
+$C2 SIG       PLS105A          FPLS  TTL   PLCC  F105         28     COM  NO   YES  096  763   1581   30   40    5  600    0
+$C2 SIG       PLS105AA         FPLS  TTL   PLCC  F105         28     COM  NO   YES  096  763   1581   30   40    5  600    0
+$C2 SIG       PLUS105-45A      FPLS  TTL   PLCC  F105         28     COM  NO   YES  01B  763   4209   22   13    0  800    0
+$C2 SIG       PLUS105-45N      FPLS  TTL   DIP   F105         24     COM  NO   YES  1B   63    2583   22   13    0  800    0
+$C2 SIG       PLUS105-55N      FPLS  TTL   DIP   F105         24     COM  NO   YES  1B   63    2583   18   10    0  800    0
+$C2 SIG       PLS105AN         FPLS  TTL   DIP   F105         24     COM  NO   YES  96   63     183    0   40    5  600    0
+$C2 SIG       PLS105N          FPLS  TTL   DIP   F105         24     COM  NO   YES  96   63     183    0   60    5  600    0
+$C2 SIG       PLUS105-45N3     FPLS  TTL   DIP   F105         24     COM  NO   YES  1B   63    2583    0   13    0  800    0
+$C2 SIG       PLUS105-55A      FPLS  TTL   PLCC  F105         28     COM  NO   YES  01B  763   4209    0   10    0  800    0
+$C2 SIG       PLUS105-55N3     FPLS  TTL   DIP   F105         24     COM  NO   YES  1B   63    2583    0   10    0  800    0
+$C2 SIG       PLUS153BA-15     FPLA  TTL   PLCC  F153         20     COM  NO   YES  01B  765   3243   15    0    0  750    0
+$C2 SIG       PLUS153BN-15     FPLA  TTL   DIP   F153         20     COM  NO   YES  1B   65    3242   15    0    0  750    0
+$C2 SIG       PLUS153DA-12     FPLA  TTL   PLCC  F153         20     COM  NO   YES  01B  765   3243   12    0    0  750    0
+$C2 SIG       PLUS153DN-12     FPLA  TTL   DIP   F153         20     COM  NO   YES  1B   65    3242   12    0    0  750    0
+$C2 SIG       PLS153A          FPLA  TTL   PLCC  F153         20     COM  NO   NO   096  765   1317   40    0    0  650    0
+$C2 SIG       PLS153AA         FPLA  TTL   PLCC  F153         20     COM  NO   NO   096  765   1317   30    0    0  650    0
+$C2 SIG       PLS153AN         FPLA  TTL   DIP   F153         20     COM  NO   NO   96   65     188   30    0    0  650    0
+$C2 SIG       PLS153N          FPLA  TTL   DIP   F153         20     COM  NO   NO   96   65     188   40    0    0  650    0
+$C2 SIG       PLUS153-10A      FPLA  TTL   PLCC  F153         20     COM  NO   NO   01B  765   3243   10    0    0  750    0
+$C2 SIG       PLUS153-10N      FPLA  TTL   DIP   F153         20     COM  NO   NO   1B   65    3242   10    0    0  750    0
+$C2 SIG       PLUS153BA        FPLA  TTL   PLCC  F153         20     COM  NO   NO   01B  765   3243   15    0    0  750    0
+$C2 SIG       PLUS153BN        FPLA  TTL   DIP   F153         20     COM  NO   NO   1B   65    3242   15    0    0  750    0
+$C2 SIG       PLUS153DA        FPLA  TTL   PLCC  F153         20     COM  NO   NO   01B  765   3243   12    0    0  750    0
+$C2 SIG       PLUS153DN        FPLA  TTL   DIP   F153         20     COM  NO   NO   1B   65    3242   12    0    0  750    0
+$C2 SIG       PLS155A          FPLS  TTL   PLCC  F155         20     COM  NO   YES  096  767   1584   50   40    0  750    0
+$C2 SIG       PLS155N          FPLS  TTL   DIP   F155         20     COM  NO   NO   96   67     190   50   40    0  750    0
+$C2 SIG       PLS157A          FPLS  TTL   PLCC  F157         20     COM  NO   YES  096  768   1592   50   40    0  750    0
+$C2 SIG       PLS157N          FPLS  TTL   DIP   F157         20     COM  NO   NO   96   68     192   50   40    0  750    0
+$C2 SIG       PLS159AA         FPLS  TTL   PLCC  F159         20     COM  NO   YES  096  766   1585   35   35    0  750    0
+$C2 SIG       PLS159AN         FPLS  TTL   DIP   F159         20     COM  NO   NO   64   66    2327   35   35    0  750    0
+$C2 SIG       PLS167A          FPLS  TTL   PLCC  F167C        28     COM  NO   YES  096  760   1441   30   40    0  600    0
+$C2 SIG       PLS167AA         FPLS  TTL   PLCC  F167C        28     COM  NO   YES  096  760   1441   30   40    0  600    0
+$C2 SIG       PLS167AN         FPLS  TTL   DIP   F167         24     COM  NO   NO   96   60    1265    0   40    0  600    0
+$C2 SIG       PLS167N          FPLS  TTL   DIP   F167         24     COM  NO   NO   96   60    1265    0   60    5  600    0
+$C2 SIG       PLS168A          FPLS  TTL   PLCC  F168C        28     COM  NO   YES  096  774    200   30   60    5  600    0
+$C2 SIG       PLS168AA         FPLS  TTL   PLCC  F168C        28     COM  NO   YES  096  774    200   30   60    5  600    0
+$C2 SIG       PLS168AN         FPLS  TTL   DIP   F168         24     COM  NO   NO   96   74    1280    0   40    5  600    0
+$C2 SIG       PLS168N          FPLS  TTL   DIP   F168         24     COM  NO   NO   96   74    1280    0   60    5  600    0
+$C2 SIG       PLS173A-30       FPLA  TTL   PLCC  F173C        28     COM  NO   YES  96   76     201   30    0    0  750    0
+$C2 SIG       PLS173BA-30      FPLA  TTL   PLCC  F173C        28     COM  NO   YES  96   76     201   30    0    0  750    0
+
+
+#   mfg       part             type  tech  pack  devname     pins    spc  era preld fam  pin    DID#  speed set  hold pwr prc 
+$C2 SIG       PLS173BN-30      FPLA  TTL   DIP   F173         24     COM  NO   YES  96   76     201   30    0    0  750    0
+$C2 SIG       PLS173DA-30      FPLA  TTL   PLCC  F173C        28     COM  NO   YES  96   76     201   30    0    0  750    0
+$C2 SIG       PLS173DN-30      FPLA  TTL   DIP   F173         24     COM  NO   YES  96   76     201   30    0    0  750    0
+$C2 SIG       PLS173N-30       FPLA  TTL   DIP   F173         24     COM  NO   YES  96   76     201   30    0    0  750    0
+$C2 SIG       PLUS173A         FPLA  TTL   PLCC  F173C        28     COM  NO   NO   1B   76    3240   12    0    0  750    0
+$C2 SIG       PLUS173N         FPLA  TTL   DIP   F173         24     COM  NO   NO   1B   76    3240   12    0    0  750    0
+$C2 SIG       PLS173A          FPLA  TTL   PLCC  F173C        28     COM  NO   NO   096  776   1586   30    0    0  750    0
+$C2 SIG       PLS173N          FPLA  TTL   DIP   F173         24     COM  NO   NO   96   76     201   30    0    0  750    0
+$C2 SIG       PLHS473A         FPLA  TTL   PLCC  F473         28     COM  NO   NO   --   --       0   30    0    0  750    0
+$C2 SIG       PLHS473N         FPLA  TTL   DIP   F473         24     COM  NO   NO   --   --       0   30    0    0  750    0
+$C2 SIG       PLHS473SA        FPLA  TTL   PLCC  F473         28     COM  NO   NO   --   --       0   30    0    0  750    0
+$C2 SIG       PLHS473SN        FPLA  TTL   DIP   F473         24     COM  NO   NO   --   --       0   30    0    0  750    0
+$C2 SIG       PLUS173-10A      FPLA  TTL   PLCC  F173C        28     COM  NO   NO   01B  776   3241   10    0    0  825    0
+$C2 SIG       PLUS173-10N      FPLA  TTL   DIP   F173         24     COM  NO   NO   1B   76    3240   10    0    0  825    0
+$C2 SIG       PLUS173BA        FPLA  TTL   PLCC  F173C        28     COM  NO   NO   01B  776   3241   15    0    0  750    0
+$C2 SIG       PLUS173BN        FPLA  TTL   DIP   F173         24     COM  NO   NO   1B   76    3240   15    0    0  750    0
+$C2 SIG       PLUS173DA        FPLA  TTL   PLCC  F173C        28     COM  NO   NO   01B  776   3241   12    0    0  750    0
+$C2 SIG       PLUS173DN        FPLA  TTL   DIP   F173         24     COM  NO   NO   1B   76    3240   12    0    0  750    0
+$C2 SIG       PLS179A          FPLS  TTL   PLCC  F179C        28     COM  NO   YES  096  777   3064   30    0    0  750    0
+$C2 SIG       PLS179N          FPLS  TTL   DIP   F179         24     COM  NO   NO   96   77    1589   35   35    0  750    0
+$C2 SIG       PLUS405-37A      FPLS  TTL   PLCC  F405         20     COM  NO   YES  01B  779   3062    0   15    0  950    0
+$C2 SIG       PLUS405-37N      FPLS  TTL   DIP   F405         24     COM  NO   YES  1B   79    1235    0   15    0  950    0
+$C2 SIG       PLUS405-45A      FPLS  TTL   PLCC  F405         28     COM  NO   YES  01B  779   3062    0   12    0  950    0
+$C2 SIG       PLUS405-45N      FPLS  TTL   DIP   F405         24     COM  NO   YES  1B   79    1235    0   12    0  950    0
+$C2 SIG       PLUS405-55A      FPLS  TTL   PLCC  F405         28     COM  NO   YES  01B  779   3062    0   10    0  950    0
+$C2 SIG       PLUS405-55N      FPLS  TTL   DIP   F405         24     COM  NO   YES  1B   79    1235    0   10    0  950    0
+$C2 SIG       PLC415-16FA      FPLS  CMOS  CDIP  F415         24     COM  UV   YES  86   AA    2136   30   38    0  310    0
+$C2 SIG       PLC415-16A       FPLS  CMOS  PLCC  F415         28     COM  NO   YES  086  7AA   4023    0   38    0  310    0
+$C2 SIG       PLC415-16N       FPLS  CMOS  DIP   F415         24     COM  NO   YES  86   AA    2136    0   38    0  310    0
+$C2 SIG       PLC42VA12FA      FPLS  CMOS  CDIP  F42VA12      24     COM  UV   YES  86   8A    2132   35   23    0  450    0
+$C2 SIG       PLC42VA12A       FPLS  CMOS  PLCC  F42VA12C     28     COM  NO   YES  086  78A   4027   35   23    0  450    0
+$C2 SIG       PLC42VA12N       FPLS  CMOS  DIP   F42VA12      24     COM  NO   YES  86   8A    2132   35   23    0  450    0
+$C2 SIG       PLHS502A         FPML  TTL   PLCC  NO_ABEL      68     COM  NO   NO   1C   5E    2572    0    0    0    0    0
+$C2 SIG       PML2552A         FPML  TTL   PLCC  NO_ABEL      68     COM  NO   NO   159  08C   4022    0    0    0    0    0
+$C2 SIG       PLHS16L8AA       PAL   TTL   PLCC  P16L8        20     COM  NO   NO   01A  717   4024   20    0    0  500    0
+$C2 SIG       PLHS16L8AN       PAL   TTL   DIP   P16L8        20     COM  NO   NO   1A   17    2939   20    0    0  500    0
+$C2 SIG       PLHS16L8BA       PAL   TTL   PLCC  P16L8        20     COM  NO   NO   01A  717   4024   15    0    0  500    0
+$C2 SIG       PLHS16L8BN       PAL   TTL   DIP   P16L8        20     COM  NO   NO   1A   17    2939   15    0    0  500    0
+$C2 SIG       PLQ16L8-5A       PAL   CMOS  PLCC  P16L8        20     COM  NO   NO   --   --       0    5    0    0  650    0
+$C2 SIG       PLQ16L8-5N       PAL   CMOS  DIP   P16L8        20     COM  NO   NO   --   --       0    5    0    0  650    0
+$C2 SIG       PLUS16L8-7A      PAL   TTL   PLCC  P16L8        20     COM  NO   NO   01B  717   4020    8    0    0  650    0
+$C2 SIG       PLUS16L8-7N      PAL   TTL   DIP   P16L8        20     COM  NO   NO   1B   17    2093    8    0    0  650    0
+$C2 SIG       PLUS16L8DA       PAL   TTL   PLCC  P16L8        20     COM  NO   NO   01B  717   4020   10    0    0  650    0
+$C2 SIG       PLUS16L8DN       PAL   TTL   DIP   P16L8        20     COM  NO   NO   1B   17    2093   10    0    0  650    0
+$C2 SIG       PHD16N8-5A       PAL   TTL   PLCC  P16N8        20     COM  NO   NO   01B  78F   5233    5    0    0  575    0
+$C2 SIG       PHD16N8-5N       PAL   TTL   DIP   P16N8        20     COM  NO   NO   1B   8F    4453    5    0    0  575    0
+$C2 SIG       PLQ16R4-5A       PAL   CMOS  PLCC  P16R4        20     COM  NO   YES  --   --       0    5    4    0  650    0
+$C2 SIG       PLQ16R4-5N       PAL   CMOS  DIP   P16R4        20     COM  NO   YES  --   --       0    5    4    0  650    0
+$C2 SIG       PLUS16R4-7A      PAL   TTL   PLCC  P16R4        20     COM  NO   NO   01B  724   4021    8    7    0  650    0
+$C2 SIG       PLUS16R4-7N      PAL   TTL   DIP   P16R4        20     COM  NO   NO   1B   24    2098    8    7    0  650    0
+$C2 SIG       PLUS16R4DA       PAL   TTL   PLCC  P16R4        20     COM  NO   NO   01B  724   4021   10    9    0  650    0
+$C2 SIG       PLUS16R4DN       PAL   TTL   DIP   P16R4        20     COM  NO   NO   1B   24    2098   10    9    0  650    0
+$C2 SIG       PLQ16R6-5A       PAL   CMOS  PLCC  P16R6        20     COM  NO   YES  --   --       0    5    4    0  650    0
+$C2 SIG       PLQ16R6-5N       PAL   CMOS  DIP   P16R6        20     COM  NO   YES  --   --       0    5    4    0  650    0
+$C2 SIG       PLUS16R6-7A      PAL   TTL   PLCC  P16R6        20     COM  NO   NO   01B  724   4017    8    7    0  650    0
+
+
+#   mfg       part             type  tech  pack  devname     pins    spc  era preld fam  pin    DID#  speed set  hold pwr prc 
+$C2 SIG       PLUS16R6-7N      PAL   TTL   DIP   P16R6        20     COM  NO   NO   1B   24    2095    8    7    0  650    0
+$C2 SIG       PLUS16R6DA       PAL   TTL   PLCC  P16R6        20     COM  NO   NO   01B  724   4017   10    9    0  650    0
+$C2 SIG       PLUS16R6DN       PAL   TTL   DIP   P16R6        20     COM  NO   NO   1B   24    2095   10    9    0  650    0
+$C2 SIG       PLQ16R8-5A       PAL   CMOS  PLCC  P16R8        20     COM  NO   YES  --   --       0    0    4    0  650    0
+$C2 SIG       PLQ16R8-5N       PAL   CMOS  DIP   P16R8        20     COM  NO   YES  --   --       0    0    4    0  650    0
+$C2 SIG       PLUS16R8-7A      PAL   TTL   PLCC  P16R8        20     COM  NO   NO   01B  724   4016    0    7    0  650    0
+$C2 SIG       PLUS16R8-7N      PAL   TTL   DIP   P16R8        20     COM  NO   NO   1B   24    2092    0    7    0  650    0
+$C2 SIG       PLUS16R8DA       PAL   TTL   PLCC  P16R8        20     COM  NO   NO   01B  724   4016    0    9    0  650    0
+$C2 SIG       PLUS16R8DN       PAL   TTL   DIP   P16R8        20     COM  NO   NO   1B   24    2092   10    9    0  650    0
+$C2 SIG       PLHS18P8AA       PAL   TTL   PLCC  P18P8        28     COM  NO   NO   01A  733   3307   20    0    0  500    0
+$C2 SIG       PLHS18P8AN       PAL   TTL   DIP   P18P8        24     COM  NO   NO   1A   33    2342   20    0    0  500    0
+$C2 SIG       PLHS18P8BA       PAL   TTL   PLCC  P18P8        28     COM  NO   NO   01A  733   3307   15    0    0  500    0
+$C2 SIG       PLHS18P8BN       PAL   TTL   DIP   P18P8        24     COM  NO   NO   1A   33    2342   15    0    0  500    0
+$C2 SIG       PLC18V8Z35A      EPLD  CMOS  PLCC  P18V8Z       28     COM  NO   YES  086  74F   4875   35   25    0   67    0
+$C2 SIG       PLC18V8Z35FA     EPLD  CMOS  CDIP  P18V8Z       24     COM  UV   YES  86   4F    3068   35   25    0   67    0
+$C2 SIG       PLC18V8Z35N      EPLD  CMOS  DIP   P18V8Z       24     COM  NO   YES  86   4F    3068   35   25    0   67    0
+$C2 SIG       PLC18V8ZIA       EPLD  CMOS  PLCC  P18V8Z       28     IND  NO   YES  086  74F   4875   40   30    0   67    0
+$C2 SIG       PLC18V8ZIFA      EPLD  CMOS  CDIP  P18V8Z       24     IND  UV   YES  86   4F    3068   40   30    0   67    0
+$C2 SIG       PLC18V8ZIN       EPLD  CMOS  DIP   P18V8Z       24     IND  NO   YES  86   4F    3068   40   30    0   67    0
+$C2 SIG       PLQ20L8-5A       PAL   CMOS  PLCC  P20L8C       28     COM  NO   NO   --   --       0    5    0    0  750    0
+$C2 SIG       PLQ20L8-5N       PAL   CMOS  DIP   P20L8        24     COM  NO   NO   --   --       0    5    0    0  750    0
+$C2 SIG       PLUS20L8-7N      PAL   TTL   DIP   P20L8        24     COM  NO   NO   1B   26    2113    8    0    0  750    0
+$C2 SIG       PLUS20L8DN       PAL   TTL   DIP   P20L8        24     COM  NO   NO   1B   26    2113   10    0    0  750    0
+$C2 SIG       PLUS20L8-7A      PAL   TTL   PLCC  P20L8C       28     COM  NO   NO   01B  626   4028    8    0    0  750    0
+$C2 SIG       PLUS20L8DA       PAL   TTL   PLCC  P20L8C       28     COM  NO   NO   01B  626   4028   10    0    0  750    0
+$C2 SIG       PLQ20R4-5A       PAL   CMOS  PLCC  P20R4C       28     COM  NO   YES  --   --       0    5    4    0  750    0
+$C2 SIG       PLQ20R4-5N       PAL   CMOS  DIP   P20R4        24     COM  NO   YES  --   --       0    5    4    0  750    0
+$C2 SIG       PLUS20R4-7N      PAL   TTL   DIP   P20R4        24     COM  NO   NO   1B   27    2119    8    7    0  750    0
+$C2 SIG       PLUS20R4DN       PAL   TTL   DIP   P20R4        24     COM  NO   NO   1B   27    2119   10    9    0  750    0
+$C2 SIG       PLUS20R4-7A      PAL   TTL   PLCC  P20R4C       28     COM  NO   NO   01B  627   4029    8    7    0  750    0
+$C2 SIG       PLUS20R4DA       PAL   TTL   PLCC  P20R4C       28     COM  NO   NO   01B  627   4029   10    9    0  750    0
+$C2 SIG       PLQ20R6-5A       PAL   TTL   PLCC  P20R6C       28     COM  NO   YES  --   --       0    5    4    0  750    0
+$C2 SIG       PLQ20R6-5N       PAL   TTL   DIP   P20R6        24     COM  NO   YES  --   --       0    5    4    0  750    0
+$C2 SIG       PLUS20R6-7N      PAL   TTL   DIP   P20R6        24     COM  NO   NO   1B   27    2115    8    7    0  750    0
+$C2 SIG       PLUS20R6DN       PAL   TTL   DIP   P20R6        24     COM  NO   NO   1B   27    2115   10    9    0  750    0
+$C2 SIG       PLUS20R6-7A      PAL   TTL   PLCC  P20R6C       28     COM  NO   NO   01B  627   4019    8    7    0  750    0
+$C2 SIG       PLUS20R6DA       PAL   TTL   PLCC  P20R6C       28     COM  NO   NO   01B  627   4019   10    9    0  750    0
+$C2 SIG       PLQ20R8-5A       PAL   CMOS  PLCC  P20R8C       28     COM  NO   YES  --   --       0    0    4    0  750    0
+$C2 SIG       PLQ20R8-5N       PAL   CMOS  DIP   P20R8        24     COM  NO   YES  --   --       0    0    4    0  750    0
+$C2 SIG       PLUS20R8-7N      PAL   TTL   DIP   P20R8        24     COM  NO   NO   1B   27    2099    0    7    0  750    0
+$C2 SIG       PLUS20R8DN       PAL   TTL   DIP   P20R8        24     COM  NO   NO   1B   27    2099    0    9    0  750    0
+$C2 SIG       PLUS20R8-7A      PAL   TTL   PLCC  P20R8C       28     COM  NO   NO   01B  627   4018    0    7    0  750    0
+$C2 SIG       PLUS20R8DA       PAL   TTL   PLCC  P20R8C       28     COM  NO   NO   01B  627   4018    0    9    0  750    0
+$C2 SIG       PLQ22V10-7A      PAL   CMOS  PLCC  P22V10       28     COM  NO   YES  0A6  728   6541    8    6    0  930    0
+$C2 SIG       PLQ22V10-7F      PAL   CMOS  CDIP  P22V10       24     COM  NO   YES  A6   28    6542    8    6    0  930    0
+$C2 SIG       PLQ22V10-7N      PAL   CMOS  DIP   P22V10       24     COM  NO   YES  A6   28    6542    8    6    0  930    0
+$C2 SIG       PL22V10-10N      PAL   CMOS  DIP   P22V10       24     COM  EE   NO   A6   28      10    7    0  500    0    0
+$C2 SIG       PL22V10-12N      PAL   CMOS  DIP   P22V10       24     COM  EE   NO   A6   28      15    8    0  500    0    0
+$C2 SIG       PL22V10-15N      PAL   CMOS  DIP   P22V10       24     COM  EE   NO   A6   28      15   10    0  500    0    0
+$C2 SIG       PL22V10-10A      PAL   CMOS  PLCC  P22V10C      28     COM  EE   NO   0A6  728     15    7    0  500    0    0
+$C2 SIG       PL22V10-12A      PAL   CMOS  PLCC  P22V10C      28     COM  EE   NO   0A6  728     15    8    0  500    0    0
+
+
+#   mfg       part             type  tech  pack  devname     pins    spc  era preld fam  pin    DID#  speed set  hold pwr prc 
+$C2 SIG       PL22V10-15A      PAL   CMOS  PLCC  P22V10C      28     COM  EE   NO   0A6  728     15   10    0  500    0    0
+$C2 SIG       PHD48N22-7A      PAL   TTL   PLCC  P48N22       68     COM  NO   NO   96   B2    4954    7    0    0 1500    0
+$C2 SIG       PLHS501A         FPML  TTL   PLCC  PML501       68     COM  NO   NO   01C  707   2571   25    0    0 1125    0
+$C2 SIG       PLHS601A         FPML  TTL   PLCC  PML601       68     COM  NO   NO   --   --       0   25    0    0 1125    0
+#
+$END
+

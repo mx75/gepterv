@@ -1,0 +1,84 @@
+ğ
+ASSIGNMENT OPERATOR
+Overview
+A symbol that defines a specific operation interpreted by the software
+when processing design files.  There are several assignment operators,
+which perform different functions depending on the software operation
+and where the operator appears.
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                     Pn     Assignment Operator    Expression
+
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Device support: All PLD devices.
+ú
+Syntax
+You can use the assignment operator in equations, as shown below, and
+in state and conditions segments of a PDS file for either Boolean or
+state-machine descriptions.
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                     Pn     Assignment Operator    Expression
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                     Q0              =             EXT1
+                     Q1             :=             EXT2
+                     Q2             *=             EXT3
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+
+Assignment Operator    The various assignment operators are defined
+                       below.  The := and *= operators are provided to
+                       support older PLD designs that include a pin
+                       list, which does not contain a storage type.
+
+                =   This universal assignment operator agrees with any
+                    data storage type: Combinatorial, registered, or
+                    latched.  You can use this assignment operator in
+                    expressions whether or not the pin or node
+                    statements contain a storage type.  This operator
+                    is best suited to new designs.
+
+                :=  This assignment operator defines a registered
+                    output.  The signals in the expression must be
+                    defined in either the pin or node statement as
+                    registered.  Otherwise, an error occurs and
+                    processing halts.
+
+                *=  This assignment operator defines a latched output.
+                    The signals in the expression must be defined in
+                    either the pin or node state- ment as latched or
+                    an error is reported during processing.
+
+ú
+Use
+In the equations segment, the assignment operator performs two
+functions.
+
+ş    It defines the output on the left side of the equation as a
+     function of the various inputs and feedback signals listed on the
+     right side.
+
+ş    It defines the output storage type.
+
+You can assign the storage type in a pin or node statement.  In this
+case, you can use the universal assignment operator, =, in equations
+or expressions.  If you use the := or *= operators, they must agree
+with the storage type defined in the pin or node statement or an error
+occurs.
+
+You can use assignment operators in the state and conditions
+statements in the state-machine designs, as shown below.
+
+        ...
+        STATE
+        MOORE_MACHINE   ZERO.OUTF = /CNT2 * /CNT1 * /CNT0
+        CONDITIONS  CNTUP = ENABLE * CNT_UP
+        ...
+ú
+Related Topics
+OPERATOR
+ú

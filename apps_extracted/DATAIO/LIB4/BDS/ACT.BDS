@@ -1,0 +1,66 @@
+# $Header: /swpg/develop/abel/src/devsel2/newdata/RCS/act.chp,v 1.3 91/10/22 20:01:28 holley Exp $
+# chip report file   Released 5.1 
+#
+$MANUFACTURER ACT Actel Corp.
+$CONTACT (408)739-1010 
+$ADDRESS1 955 East Arques Avenue 
+$ADDRESS2 Sunnyvale, CA 94086-4520 
+$ADDRESS3 ---------- 
+#
+# 132 column 1-line format no user info (default)
+#
+# format is:
+#$C2 mfg part type tech package devname pins spc eraseable preload family pinout did speed setup hold power price
+#
+#
+
+#   mfg       part             type  tech  pack  devname     pins    spc  era preld fam  pin    DID#  speed set  hold pwr prc 
+$C2 ACT       A1010-JQ44B      FPGA  CMOS  LCC   ACT1         44     MIL  NO   NO   --   --       0    0    0    0    0    0
+$C2 ACT       A1010-JQ44C      FPGA  CMOS  LCC   ACT1         44     COM  NO   NO   --   --       0    0    0    0    0    0
+$C2 ACT       A1010-JQ44M      FPGA  CMOS  LCC   ACT1         44     MIL  NO   NO   --   --       0    0    0    0    0    0
+$C2 ACT       A1010A-PL44C     FPGA  CMOS  PLCC  ACT1         44     COM  NO   NO   12C  0B6   4147    0    0    0    0    0
+$C2 ACT       A1010A-PL44I     FPGA  CMOS  PLCC  ACT1         44     IND  NO   NO   12C  0B6   4147    0    0    0    0    0
+$C2 ACT       A1010-JQ68B      FPGA  CMOS  LCC   ACT1         68     MIL  NO   NO   --   --       0    0    0    0    0    0
+$C2 ACT       A1010-JQ68C      FPGA  CMOS  LCC   ACT1         68     COM  NO   NO   --   --       0    0    0    0    0    0
+$C2 ACT       A1010-JQ68M      FPGA  CMOS  LCC   ACT1         68     MIL  NO   NO   --   --       0    0    0    0    0    0
+$C2 ACT       A1010A-PL68C     FPGA  CMOS  PLCC  ACT1         68     COM  NO   NO   12C  08E   4277    0    0    0    0    0
+$C2 ACT       A1010A-PL68I     FPGA  CMOS  PLCC  ACT1         68     IND  NO   NO   12C  08E   4277    0    0    0    0    0
+$C2 ACT       A1010-PG84B      FPGA  CMOS  PLCC  ACT1         84     MIL  NO   NO   12C  7AC   5964    0    0    0    0    0
+$C2 ACT       A1010-PG84C      FPGA  CMOS  PLCC  ACT1         84     COM  NO   NO   12C  7AC   5964    0    0    0    0    0
+$C2 ACT       A1010-PG84M      FPGA  CMOS  PLCC  ACT1         84     MIL  NO   NO   12C  7AC   5964    0    0    0    0    0
+$C2 ACT       A1010A-PG84C     FPGA  CMOS  PGA   ACT1         84     COM  NO   NO   12C  8AC   4793    0    0    0    0    0
+$C2 ACT       A1010A-PG84M     FPGA  CMOS  PGA   ACT1         84     MIL  NO   NO   12C  8AC   4793    0    0    0    0    0
+$C2 ACT       A1020-JQ44B      FPGA  CMOS  LCC   ACT1         44     MIL  NO   NO   --   --       0    0    0    0    0    0
+$C2 ACT       A1020-JQ44C      FPGA  CMOS  LCC   ACT1         44     COM  NO   NO   --   --       0    0    0    0    0    0
+$C2 ACT       A1020-JQ44M      FPGA  CMOS  LCC   ACT1         44     MIL  NO   NO   --   --       0    0    0    0    0    0
+$C2 ACT       A1020A-PL44C     FPGA  CMOS  PLCC  ACT1         44     COM  NO   NO   146  0B6   4795    0    0    0    0    0
+$C2 ACT       A1020A-PL44I     FPGA  CMOS  PLCC  ACT1         44     IND  NO   NO   146  0B6   4795    0    0    0    0    0
+$C2 ACT       A1020-JQ68B      FPGA  CMOS  LCC   ACT1         68     MIL  NO   NO   --   --       0    0    0    0    0    0
+$C2 ACT       A1020-JQ68C      FPGA  CMOS  LCC   ACT1         68     COM  NO   NO   --   --       0    0    0    0    0    0
+$C2 ACT       A1020-JQ68M      FPGA  CMOS  LCC   ACT1         68     MIL  NO   NO   --   --       0    0    0    0    0    0
+$C2 ACT       A1020A-PL68C     FPGA  CMOS  PLCC  ACT1         68     COM  NO   NO   146  08E   4794    0    0    0    0    0
+$C2 ACT       A1020A-PL68I     FPGA  CMOS  PLCC  ACT1         68     IND  NO   NO   146  08E   4794    0    0    0    0    0
+$C2 ACT       A1020-JQ84B      FPGA  CMOS  LCC   ACT1         84     MIL  NO   NO   --   --       0    0    0    0    0    0
+$C2 ACT       A1020-JQ84C      FPGA  CMOS  LCC   ACT1         84     COM  NO   NO   --   --       0    0    0    0    0    0
+$C2 ACT       A1020-JQ84M      FPGA  CMOS  LCC   ACT1         84     MIL  NO   NO   --   --       0    0    0    0    0    0
+$C2 ACT       A1020-PG84B      FPGA  CMOS  PGA   ACT1         84     MIL  NO   NO   146  8AC   4796    0    0    0    0    0
+$C2 ACT       A1020-PG84C      FPGA  CMOS  PGA   ACT1         84     COM  NO   NO   146  8AC   4796    0    0    0    0    0
+$C2 ACT       A1020-PG84M      FPGA  CMOS  PGA   ACT1         84     MIL  NO   NO   146  8AC   4796    0    0    0    0    0
+$C2 ACT       A1020A-PG84C     FPGA  CMOS  PGA   ACT1         84     COM  NO   NO   146  8AC   4796    0    0    0    0    0
+$C2 ACT       A1020A-PG84M     FPGA  CMOS  PGA   ACT1         84     MIL  NO   NO   146  8AC   4796    0    0    0    0    0
+$C2 ACT       A1020A-PL84C     FPGA  CMOS  PLCC  ACT1         84     COM  NO   NO   146  7AC   4148    0    0    0    0    0
+$C2 ACT       A1020A-PL84I     FPGA  CMOS  PLCC  ACT1         84     IND  NO   NO   146  7AC   4148    0    0    0    0    0
+$C2 ACT       A1225-PG100B     FPGA  CMOS  PGA   NO_ABEL     100     MIL  NO   NO   --   --       0    0    0    0    0    0
+$C2 ACT       A1225-PG100C     FPGA  CMOS  PGA   NO_ABEL     100     COM  NO   NO   --   --       0    0    0    0    0    0
+$C2 ACT       A1225-PG100I     FPGA  CMOS  PGA   NO_ABEL     100     IND  NO   NO   --   --       0    0    0    0    0    0
+$C2 ACT       A1225-PG100M     FPGA  CMOS  PGA   NO_ABEL     100     MIL  NO   NO   --   --       0    0    0    0    0    0
+$C2 ACT       A1240-PG132B     FPGA  CMOS  PGA   NO_ABEL     132     MIL  NO   NO   --   --       0    0    0    0    0    0
+$C2 ACT       A1240-PG132C     FPGA  CMOS  PGA   NO_ABEL     132     COM  NO   NO   --   --       0    0    0    0    0    0
+$C2 ACT       A1240-PG132I     FPGA  CMOS  PGA   NO_ABEL     132     IND  NO   NO   --   --       0    0    0    0    0    0
+$C2 ACT       A1240-PG132M     FPGA  CMOS  PGA   NO_ABEL     132     MIL  NO   NO   --   --       0    0    0    0    0    0
+$C2 ACT       A1280-PG176B     FPGA  CMOS  PGA   NO_ABEL     176     MIL  NO   NO   --   --       0    0    0    0    0    0
+$C2 ACT       A1280-PG176C     FPGA  CMOS  PGA   NO_ABEL     176     COM  NO   NO   --   --       0    0    0    0    0    0
+$C2 ACT       A1280-PG176I     FPGA  CMOS  PGA   NO_ABEL     176     IND  NO   NO   --   --       0    0    0    0    0    0
+$C2 ACT       A1280-PG176M     FPGA  CMOS  PGA   NO_ABEL     176     MIL  NO   NO   --   --       0    0    0    0    0    0
+#
+$END

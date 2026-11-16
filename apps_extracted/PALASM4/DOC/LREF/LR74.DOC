@@ -1,0 +1,86 @@
+ğ
+VECTOR
+Overview
+VECTOR notation allows you to assign a set of descriptions to a set of
+pins or nodes.  It also allows you to compare the value of a set of
+pins or nodes to a radix in a CASE statement.
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+        PIN       x1..xn       NUM[y1..yn]
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+
+Device Support:  All PLD devices.
+ú
+Syntax
+Use vector notation in Boolean and state-machine designs.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+        PIN       x1..xn       NUM[y1..yn]
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+    DECLARATION
+
+        PIN 1 INA COMB
+        ...
+        PIN       5..2         OUT[4..1]
+        PIN       6, 10..8     DATA[4..1]
+        PIN       18..11       ADD[7..0]
+        ...
+    EQUATIONS
+    ...
+    CASE                      (ADD[7..0])
+            BEGIN
+                    #h0F:
+            BEGIN
+            ...
+            END
+        END
+    ...
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+
+x1..xn          This notation specifies the user-defined pin number
+                range.  You must have the same number of pin numbers
+                as pin names.
+
+y1..yn          This notation specifies the user-defined pin name
+                range.  You must have the same number of pin names as
+                pin numbers.
+
+                VECTOR is essentially a dual range notation: "for this
+                range of pins, use this range of names."
+ú
+Use
+To use VECTOR notation, you must do the following.
+
+ş    Declare all pins in the vector in one pin statement.
+
+ş    Use subscripted pin or node names with the format NAME[1] rather
+      than NAME 1.
+
+You can include input and output pins in the same vector if your
+application calls for it, but you cannot include pins and nodes in the
+same vector.
+
+In the syntax example, the software converts the pin definitions as
+follows:
+
+     PIN    2    OUT[1]
+     PIN    3    OUT[2]
+     ...
+     PIN    18   ADD[7]
+
+In the CASE statement, the software tests the value on pins ADD[7]
+through ADD[0].  If they match the hex value 0F, the instructions
+between the Begin and End statement are executed.
+ú
+Related Topics
+GROUP
+OPERATOR
+STRING
+ú

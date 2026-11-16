@@ -1,0 +1,25 @@
+module equal8a
+title 'Multilevel 8-bit identity comparator'
+
+    a7..a0  pin;
+    b7..b0  pin;
+    A_EQ_B  pin istype 'com';
+    TEMP1   node istype 'com';
+    TEMP2   node istype 'com';
+
+    A = [a7..a0];
+    B = [b7..b0];
+
+equations
+    TEMP1 = ([a7..a4] == [b7..b4]);
+    TEMP2 = ([a3..a0] == [b3..b0]);
+    A_EQ_B = TEMP1 & TEMP2;
+
+test_vectors ([  A ,  B ] -> A_EQ_B)
+              [^h00,^h00] ->   1;
+              [^h0F,^h0F] ->   1;
+              [^h1E,^hE0] ->   0;
+              [^h00,^hF0] ->   0;
+              [^h10,^h11] ->   0;
+              [^h33,^h33] ->   1;
+end

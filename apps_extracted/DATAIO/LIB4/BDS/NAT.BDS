@@ -1,0 +1,603 @@
+#$Header: /swpg/develop/abel/src/devsel2/newdata/RCS/nat.chp,v 1.9 92/04/09 09:50:30 aez Exp $
+# chip report file   Released 5.1 
+#
+$MANUFACTURER NAT National Semiconductor Corp.
+$CONTACT (408)721-6065 
+$ADDRESS1 2900 Semiconductor Drive 
+$ADDRESS2 Santa Clara, CA 95052 
+$ADDRESS3 ---------- 
+#
+# format is:
+#$C2 mfg part type tech package devname pins spc eraseable preload family pinout did speed setup hold power price
+#
+#
+
+#   mfg       part             type  tech  pack  devname     pins    spc  era preld fam  pin    DID#  speed set  hold pwr prc 
+#the powers are calculated by the following:
+#f(max) = 15MHz.
+#f(max) = 25MHz -- GAL16V8QS/GAL20V8QS
+#Icc(max) is in mA.
+#For COM Vcc(max) = 5.25V and MIL, IND Vcc(max) = 5.5V.
+#For ECL programmable logic devices VEE(max) = -4.94V
+#Data are copied from 1990 data book.
+#      COM    MIL   IND 
+#      ----   ----  ----
+#Icc   90     90    ****    PAL10H8/10L8/12H6/12L6/14H4/14L4/16H2/16L2/16C1 (standard/A)
+#Icc   45     45    ****    PAL10H8/10L8/12H6/12L6/14H4/14L4/16H2/16L2/16C1 (A2)
+#Icc   180    180   ****    PAL16L8/16R8/16R6/16R4
+#Icc   180    180   ****    PAL16L8A/16R8A/16R6A/16R4A
+#Icc   180    180   ****    PAL16L8B/16R8B/16R6B/16R4B
+#Icc   180    180   ****    PAL16L8D/16R8D/16R6D/16R4D
+#Icc   180    180   ****    PAL16L8-7/16R8-7/16R6-7/16R4-7
+#Icc   100    100   ****    PAL16R8B2/16R6B2/16R4B2
+#Icc   90     90    ****    PAL16L8B2
+#Icc   90     90    ****    PAL16L8A2/16R8A2/16R6A2/16R4A2
+#Icc   100    100   ****    PAL12L10/14L8/16L6/18L4/20L2/20C1
+#Icc   165    165   ****    PAL20L10
+#Icc   180    180   ****    PAL20X4/20X8/20X10
+#Icc   210    210   ****    PAL20L8/20R4/20R6/20R8
+#Icc   210    210   ****    PAL20P8B/20RP4B/20RP6B/20RP8B
+#Icc   170    170   ****    PAL16RA8
+#Icc   170    170   ****    PAL20RA10
+#Icc   45     55    55      GAL16V8-25Q/35Q -- GAL20V8-25Q/35Q
+#Icc   90     110   110     GAL16V8-20L/25L -- GAL20V8-20L/25L
+#Icc   115    140   140     GAL16V8A-10/12/15/20 -- GAL20V8A-10/12/15/20
+#Icc   115    ****  ****    GAL16V8-7/10 -- GAL20V8-7/10 (data sheet)
+#Icc   130    150   150     GAL22V10
+#Icc   150    180   180     GAL20RA10
+#Icc   150    ****  180     GAL6001
+#Icc   90     ****  90      GAL16V8QS-15L/20L/25L -- GAL20V8QS-15L/20L/25L
+#Icc   55     ****  55      GAL16V8QS-15Q/25Q -- GAL20V8QS-15Q/25Q
+#Iee   -240   ****  ****    ECL PAL10/10016P8
+#Iee   -220   -220  ****    ECL PAL10/10016P8-3
+#Iee   -220   ****  ****    ECL PAL10/10016PE8-3 -- PAL10/10016P4A -- PAL10/10016C4-2
+#Iee   -220   -220  ****    ECL PAL10/10016P4-2
+#Iee   -280   ****  ****    ECL PAL10/10016RD8
+#Iee   -240   ****  ****    ECL PAL10/10016RM4A
+
+#   mfg       part             type  tech  pack  devname     pins    spc  era preld fam  pin    DID#  speed set  hold pwr  prc
+$C2 NAT       PAL10016C4-2VC   EPLD  ECL   PLCC  EC16C4A      28     COM  NO   NO   95   AD     4436   2    0    0    924  0
+$C2 NAT       PAL1016C4-2VC    EPLD  ECL   PLCC  EC16C4A      28     COM  NO   NO   95   AD     4435   2    0    0   1087  0
+$C2 NAT       PAL10016P4-2JC   EPLD  ECL   CDIP  EC16P4A      24     COM  NO   NO   95   A0     3190   3    0    0    924  0
+$C2 NAT       PAL10016P4-2NC   EPLD  ECL   DIP   EC16P4A      24     COM  NO   NO   95   A0     3190   3    0    0    924  0
+$C2 NAT       PAL10016P4AJC    EPLD  ECL   CDIP  EC16P4A      24     COM  NO   NO   95   A0     3190   4    0    0    939  0
+$C2 NAT       PAL1016P4-2JC    EPLD  ECL   CDIP  EC16P4A      24     COM  NO   NO   95   A0     3037   3    0    0   1087  0
+$C2 NAT       PAL1016P4-2NC    EPLD  ECL   DIP   EC16P4A      24     COM  NO   NO   95   A0     3037   3    0    0   1087  0
+$C2 NAT       PAL1016P4AJC     EPLD  ECL   CDIP  EC16P4A      24     COM  NO   NO   95   A0     3037   4    0    0   1087  0
+$C2 NAT       PAL10016P8-3JC   EPLD  ECL   CDIP  EC16P8N      24     COM  NO   NO   95   92     1757   3    0    0    924  0
+$C2 NAT       PAL10016P8-3JM   EPLD  ECL   CDIP  EC16P8N      24     MIL  NO   NO   95   92     1757   4    0    0    924  0
+$C2 NAT       PAL10016P8-3NC   EPLD  ECL   DIP   EC16P8N      24     COM  NO   NO   95   92     1757   3    0    0    924  0
+$C2 NAT       PAL10016P8JC     EPLD  ECL   CDIP  EC16P8N      24     COM  NO   NO   95   92     1757   6    0    0   1025  0
+$C2 NAT       PAL10016PE8-3VC  EPLD  ECL   PLCC  EC16P8N      28     COM  NO   NO   95   C2     4434   3    0    0    924  0
+$C2 NAT       PAL1016P8-3JC    EPLD  ECL   CDIP  EC16P8N      24     COM  NO   NO   95   92     472    3    0    0   1087  0
+$C2 NAT       PAL1016P8-3JM    EPLD  ECL   CDIP  EC16P8N      24     MIL  NO   NO   95   92     472    4    0    0   1087  0
+$C2 NAT       PAL1016P8-3NC    EPLD  ECL   DIP   EC16P8N      24     COM  NO   NO   95   92     472    3    0    0   1087  0
+$C2 NAT       PAL1016P8JC      EPLD  ECL   CDIP  EC16P8N      24     COM  NO   NO   95   92     472    6    0    0   1186  0
+$C2 NAT       PAL1016PE8-3VC   EPLD  ECL   PLCC  EC16P8N      28     COM  NO   NO   95   C2     4433   3    0    0   1087  0
+$C2 NAT       PAL1016RD8JC     EPLD  ECL   CDIP  EC16RC8N     24     COM  NO   NO   95   92     1760   6    0    0   1383  0
+$C2 NAT       PAL10016RD8JC    EPLD  ECL   CDIP  EC16RD8N     24     COM  NO   NO   95   92     1761   6    0    0   1196  0
+$C2 NAT       PAL10016RM4AJC   EPLD  ECL   CDIP  EC16RM4N     24     COM  NO   NO   95   92     2304   4    0    0   1025  0
+$C2 NAT       PAL1016RM4AJC    EPLD  ECL   CDIP  EC16RM4N     24     COM  NO   NO   95   92     2270   4    0    0   1186  0
+$C2 NAT       GAL6001-30LNC    GAL   CMOS  DIP   F6001        24     COM  EE   YES  0D   4A     2227   30   25   13   788   0
+
+#   mfg       part             type  tech  pack  devname     pins    spc  era preld fam  pin    DID#  speed set  hold pwr  prc
+$C2 NAT       GAL6001-30LVC    GAL   CMOS  PLCC  F6001C       28     COM  EE   YES  00D  74A    2231   30   25   13   788   0
+$C2 NAT       GAL6001-35LNC    GAL   CMOS  DIP   F6001        24     COM  EE   YES  0D   4A     2227   35   30   15   788   0
+$C2 NAT       GAL6001-35LNI    GAL   CMOS  DIP   F6001        24     IND  EE   YES  0D   4A     2227   35   30   15   990   0
+$C2 NAT       GAL6001-35LVC    GAL   CMOS  PLCC  F6001C       28     COM  EE   YES  00D  74A    2231   35   30   15   788   0
+$C2 NAT       GAL6001-35LVI    GAL   CMOS  PLCC  F6001C       28     IND  EE   YES  00D  74A    2231   35   30   15   990   0
+$C2 NAT       MAPL128VC-33     FPLA  CMOS  PLCC  FMAPL128     28     COM  EE   YES  0D   C0     5486   30   20    0   735   0
+$C2 NAT       MAPL128VC-40     FPLA  CMOS  PLCC  FMAPL128     28     COM  EE   YES  0D   C0     5486   26   17    0   735   0
+$C2 NAT       MAPL128VC-45     FPLA  CMOS  PLCC  FMAPL128     28     COM  EE   YES  0D   C0     5486   25   17    0   735   0
+$C2 NAT       PAL10H8A2JC      PAL   TTL   CDIP  P10H8        20     COM  NO   NO   95   18     137    35    0    0   236   0
+$C2 NAT       PAL10H8A2JM      PAL   TTL   CDIP  P10H8        20     MIL  NO   NO   95   18     137    45    0    0   248   0
+$C2 NAT       PAL10H8A2NC      PAL   TTL   DIP   P10H8        20     COM  NO   NO   95   18     137    35    0    0   236   0
+$C2 NAT       PAL10H8A2VC      PAL   TTL   PLCC  P10H8        20     COM  NO   NO   095  718    1568   35    0    0   236   0
+$C2 NAT       PAL10H8AJC       PAL   TTL   CDIP  P10H8        20     COM  NO   NO   95   18     137    25    0    0   473   0
+$C2 NAT       PAL10H8AJM       PAL   TTL   CDIP  P10H8        20     MIL  NO   NO   95   18     137    30    0    0   495   0
+$C2 NAT       PAL10H8ANC       PAL   TTL   DIP   P10H8        20     COM  NO   NO   95   18     137    25    0    0   473   0
+$C2 NAT       PAL10H8JC        PAL   TTL   CDIP  P10H8        20     COM  NO   NO   95   18     137    35    0    0   473   0
+$C2 NAT       PAL10H8JM        PAL   TTL   CDIP  P10H8        20     MIL  NO   NO   95   18     137    45    0    0   495   0
+$C2 NAT       PAL10H8NC        PAL   TTL   DIP   P10H8        20     COM  NO   NO   95   18     137    35    0    0   473   0
+$C2 NAT       PAL10H8VC        PAL   TTL   PLCC  P10H8        20     COM  NO   NO   095  718    1568   35    0    0   473   0
+$C2 NAT       PAL10L8A2JC      PAL   TTL   CDIP  P10L8        20     COM  NO   NO   95   13     138    35    0    0   236   0
+$C2 NAT       PAL10L8A2JM      PAL   TTL   CDIP  P10L8        20     MIL  NO   NO   95   13     138    45    0    0   248   0
+$C2 NAT       PAL10L8A2NC      PAL   TTL   DIP   P10L8        20     COM  NO   NO   95   13     138    35    0    0   236   0
+$C2 NAT       PAL10L8A2VC      PAL   TTL   PLCC  P10L8        20     COM  NO   NO   095  713    1569   35    0    0   236   0
+
+#   mfg       part             type  tech  pack  devname     pins    spc  era preld fam  pin    DID#  speed set  hold pwr  prc
+$C2 NAT       PAL10L8AJC       PAL   TTL   CDIP  P10L8        20     COM  NO   NO   95   13     138    25    0    0   473   0
+$C2 NAT       PAL10L8AJM       PAL   TTL   CDIP  P10L8        20     MIL  NO   NO   95   13     138    30    0    0   495   0
+$C2 NAT       PAL10L8ANC       PAL   TTL   DIP   P10L8        20     COM  NO   NO   95   13     138    25    0    0   473   0
+$C2 NAT       PAL10L8JC        PAL   TTL   CDIP  P10L8        20     COM  NO   NO   95   13     138    35    0    0   473   0
+$C2 NAT       PAL10L8JM        PAL   TTL   CDIP  P10L8        20     MIL  NO   NO   95   13     138    45    0    0   495   0
+$C2 NAT       PAL10L8NC        PAL   TTL   DIP   P10L8        20     COM  NO   NO   95   13     138    35    0    0   473   0
+$C2 NAT       PAL10L8VC        PAL   TTL   PLCC  P10L8        20     COM  NO   NO   095  713    1569   35    0    0   473   0
+$C2 NAT       PAL12H6A2JC      PAL   TTL   CDIP  P12H6        20     COM  NO   NO   95   19     139    35    0    0   236   0
+$C2 NAT       PAL12H6A2JM      PAL   TTL   CDIP  P12H6        20     MIL  NO   NO   95   19     139    45    0    0   248   0
+$C2 NAT       PAL12H6A2NC      PAL   TTL   DIP   P12H6        20     COM  NO   NO   95   19     139    35    0    0   236   0
+$C2 NAT       PAL12H6A2VC      PAL   TTL   PLCC  P12H6        20     COM  NO   NO   095  719    1570   35    0    0   236   0
+$C2 NAT       PAL12H6AJC       PAL   TTL   CDIP  P12H6        20     COM  NO   NO   95   19     139    25    0    0   473   0
+$C2 NAT       PAL12H6AJM       PAL   TTL   CDIP  P12H6        20     MIL  NO   NO   95   19     139    30    0    0   495   0
+$C2 NAT       PAL12H6ANC       PAL   TTL   DIP   P12H6        20     COM  NO   NO   95   19     139    25    0    0   473   0
+$C2 NAT       PAL12H6JC        PAL   TTL   CDIP  P12H6        20     COM  NO   NO   95   19     139    35    0    0   473   0
+$C2 NAT       PAL12H6JM        PAL   TTL   CDIP  P12H6        20     MIL  NO   NO   95   19     139    45    0    0   495   0
+$C2 NAT       PAL12H6NC        PAL   TTL   DIP   P12H6        20     COM  NO   NO   95   19     139    35    0    0   473   0
+$C2 NAT       PAL12H6VC        PAL   TTL   PLCC  P12H6        20     COM  NO   NO   095  719    1570   35    0    0   473   0
+$C2 NAT       PAL12L10AJC      PAL   TTL   CDIP  P12L10       24     COM  NO   NO   95   01     141    25    0    0   525   0
+$C2 NAT       PAL12L10AJM      PAL   TTL   CDIP  P12L10       24     MIL  NO   NO   95   01     141    30    0    0   550   0
+$C2 NAT       PAL12L10ANC      PAL   TTL   DIP   P12L10       24     COM  NO   NO   95   01     141    25    0    0   525   0
+$C2 NAT       PAL12L10AVC      PAL   TTL   PLCC  P12L10       28     COM  NO   NO   95   01     3398   25    0    0   525   0
+$C2 NAT       PAL12L10JC       PAL   TTL   CDIP  P12L10       24     COM  NO   NO   95   01     141    40    0    0   525   0
+$C2 NAT       PAL12L10JM       PAL   TTL   CDIP  P12L10       24     MIL  NO   NO   95   01     141    45    0    0   550   0
+$C2 NAT       PAL12L10NC       PAL   TTL   DIP   P12L10       24     COM  NO   NO   95   01     141    40    0    0   525   0
+$C2 NAT       PAL12L10VC       PAL   TTL   PLCC  P12L10       28     COM  NO   NO   95   01     3398   40    0    0   525   0
+$C2 NAT       PAL12L6A2JC      PAL   TTL   CDIP  P12L6        20     COM  NO   NO   95   14     140    35    0    0   236   0
+$C2 NAT       PAL12L6A2JM      PAL   TTL   CDIP  P12L6        20     MIL  NO   NO   95   14     140    45    0    0   248   0
+$C2 NAT       PAL12L6A2NC      PAL   TTL   DIP   P12L6        20     COM  NO   NO   95   14     140    35    0    0   236   0
+$C2 NAT       PAL12L6A2VC      PAL   TTL   PLCC  P12L6        20     COM  NO   NO   095  714    1571   35    0    0   236   0
+$C2 NAT       PAL12L6AJC       PAL   TTL   CDIP  P12L6        20     COM  NO   NO   95   14     140    25    0    0   473   0
+$C2 NAT       PAL12L6AJM       PAL   TTL   CDIP  P12L6        20     MIL  NO   NO   95   14     140    30    0    0   495   0
+$C2 NAT       PAL12L6ANC       PAL   TTL   DIP   P12L6        20     COM  NO   NO   95   14     140    25    0    0   473   0
+$C2 NAT       PAL12L6JC        PAL   TTL   CDIP  P12L6        20     COM  NO   NO   95   14     140    35    0    0   473   0
+$C2 NAT       PAL12L6JM        PAL   TTL   CDIP  P12L6        20     MIL  NO   NO   95   14     140    45    0    0   495   0
+$C2 NAT       PAL12L6NC        PAL   TTL   DIP   P12L6        20     COM  NO   NO   95   14     140    35    0    0   473   0
+
+#   mfg       part             type  tech  pack  devname     pins    spc  era preld fam  pin    DID#  speed set  hold pwr  prc
+$C2 NAT       PAL12L6VC        PAL   TTL   PLCC  P12L6        20     COM  NO   NO   095  714    1571   35    0    0   473   0
+$C2 NAT       PAL14H4A2JC      PAL   TTL   CDIP  P14H4        20     COM  NO   NO   95   20     142    35    0    0   236   0
+$C2 NAT       PAL14H4A2JM      PAL   TTL   CDIP  P14H4        20     MIL  NO   NO   95   20     142    45    0    0   248   0
+$C2 NAT       PAL14H4A2NC      PAL   TTL   DIP   P14H4        20     COM  NO   NO   95   20     142    35    0    0   236   0
+$C2 NAT       PAL14H4A2VC      PAL   TTL   PLCC  P14H4        20     COM  NO   NO   095  720    1572   35    0    0   236   0
+$C2 NAT       PAL14H4AJC       PAL   TTL   CDIP  P14H4        20     COM  NO   NO   95   20     142    25    0    0   473   0
+$C2 NAT       PAL14H4AJM       PAL   TTL   CDIP  P14H4        20     MIL  NO   NO   95   20     142    30    0    0   495   0
+$C2 NAT       PAL14H4ANC       PAL   TTL   DIP   P14H4        20     COM  NO   NO   95   20     142    25    0    0   473   0
+$C2 NAT       PAL14H4JC        PAL   TTL   CDIP  P14H4        20     COM  NO   NO   95   20     142    35    0    0   473   0
+$C2 NAT       PAL14H4JM        PAL   TTL   CDIP  P14H4        20     MIL  NO   NO   95   20     142    45    0    0   495   0
+$C2 NAT       PAL14H4NC        PAL   TTL   DIP   P14H4        20     COM  NO   NO   95   20     142    35    0    0   473   0
+$C2 NAT       PAL14H4VC        PAL   TTL   PLCC  P14H4        20     COM  NO   NO   095  720    1572   35    0    0   473   0
+$C2 NAT       PAL14L4A2JC      PAL   TTL   CDIP  P14L4        20     COM  NO   NO   95   15     143    35    0    0   236   0
+$C2 NAT       PAL14L4A2JM      PAL   TTL   CDIP  P14L4        20     MIL  NO   NO   95   15     143    45    0    0   248   0
+$C2 NAT       PAL14L4A2NC      PAL   TTL   DIP   P14L4        20     COM  NO   NO   95   15     143    35    0    0   236   0
+$C2 NAT       PAL14L4A2VC      PAL   TTL   PLCC  P14L4        20     COM  NO   NO   095  715    1573   35    0    0   236   0
+$C2 NAT       PAL14L4AJC       PAL   TTL   CDIP  P14L4        20     COM  NO   NO   95   15     143    25    0    0   473   0
+$C2 NAT       PAL14L4AJM       PAL   TTL   CDIP  P14L4        20     MIL  NO   NO   95   15     143    30    0    0   495   0
+$C2 NAT       PAL14L4ANC       PAL   TTL   DIP   P14L4        20     COM  NO   NO   95   15     143    25    0    0   473   0
+$C2 NAT       PAL14L4JC        PAL   TTL   CDIP  P14L4        20     COM  NO   NO   95   15     143    35    0    0   473   0
+$C2 NAT       PAL14L4JM        PAL   TTL   CDIP  P14L4        20     MIL  NO   NO   95   15     143    45    0    0   495   0
+$C2 NAT       PAL14L4NC        PAL   TTL   DIP   P14L4        20     COM  NO   NO   95   15     143    35    0    0   473   0
+$C2 NAT       PAL14L4VC        PAL   TTL   PLCC  P14L4        20     COM  NO   NO   095  715    1573   35    0    0   473   0
+$C2 NAT       PAL14L8AJC       PAL   TTL   CDIP  P14L8        24     COM  NO   NO   95   02     144    25    0    0   525   0
+$C2 NAT       PAL14L8AJM       PAL   TTL   CDIP  P14L8        24     MIL  NO   NO   95   02     144    30    0    0   550   0
+$C2 NAT       PAL14L8ANC       PAL   TTL   DIP   P14L8        24     COM  NO   NO   95   02     144    25    0    0   525   0
+$C2 NAT       PAL14L8AVC       PAL   TTL   PLCC  P14L8        28     COM  NO   NO   95   02     3400   25    0    0   525   0
+$C2 NAT       PAL14L8JC        PAL   TTL   CDIP  P14L8        24     COM  NO   NO   95   02     144    40    0    0   525   0
+$C2 NAT       PAL14L8JM        PAL   TTL   CDIP  P14L8        24     MIL  NO   NO   95   02     144    45    0    0   550   0
+$C2 NAT       PAL14L8NC        PAL   TTL   DIP   P14L8        24     COM  NO   NO   95   02     144    40    0    0   525   0
+$C2 NAT       PAL14L8VC        PAL   TTL   PLCC  P14L8        28     COM  NO   NO   95   02     3400   40    0    0   525   0
+$C2 NAT       PAL16C1A2JC      PAL   TTL   CDIP  P16C1        20     COM  NO   NO   95   21     145    40    0    0   236   0
+$C2 NAT       PAL16C1A2JM      PAL   TTL   CDIP  P16C1        20     MIL  NO   NO   95   21     145    45    0    0   248   0
+$C2 NAT       PAL16C1A2NC      PAL   TTL   DIP   P16C1        20     COM  NO   NO   95   21     145    40    0    0   236   0
+
+#   mfg       part             type  tech  pack  devname     pins    spc  era preld fam  pin    DID#  speed set  hold pwr  prc
+$C2 NAT       PAL16C1A2VC      PAL   TTL   PLCC  P16C1        20     COM  NO   NO   095  721    1574   40    0    0   236   0
+$C2 NAT       PAL16C1AJC       PAL   TTL   CDIP  P16C1        20     COM  NO   NO   95   21     145    30    0    0   473   0
+$C2 NAT       PAL16C1AJM       PAL   TTL   CDIP  P16C1        20     MIL  NO   NO   95   21     145    35    0    0   495   0
+$C2 NAT       PAL16C1ANC       PAL   TTL   DIP   P16C1        20     COM  NO   NO   95   21     145    30    0    0   473   0
+$C2 NAT       PAL16C1JC        PAL   TTL   CDIP  P16C1        20     COM  NO   NO   95   21     145    35    0    0   473   0
+$C2 NAT       PAL16C1JM        PAL   TTL   CDIP  P16C1        20     MIL  NO   NO   95   21     145    45    0    0   495   0
+$C2 NAT       PAL16C1NC        PAL   TTL   DIP   P16C1        20     COM  NO   NO   95   21     145    35    0    0   473   0
+$C2 NAT       PAL16C1VC        PAL   TTL   PLCC  P16C1        20     COM  NO   NO   095  721    1574   35    0    0   473   0
+$C2 NAT       PAL16H2A2JC      PAL   TTL   CDIP  P16H2        20     COM  NO   NO   95   22     146    35    0    0   236   0
+$C2 NAT       PAL16H2A2JM      PAL   TTL   CDIP  P16H2        20     MIL  NO   NO   95   22     146    45    0    0   248   0
+$C2 NAT       PAL16H2A2NC      PAL   TTL   DIP   P16H2        20     COM  NO   NO   95   22     146    35    0    0   236   0
+$C2 NAT       PAL16H2A2VC      PAL   TTL   PLCC  P16H2        20     COM  NO   NO   095  722    1575   35    0    0   236   0
+$C2 NAT       PAL16H2AJC       PAL   TTL   CDIP  P16H2        20     COM  NO   NO   95   22     146    25    0    0   473   0
+$C2 NAT       PAL16H2AJM       PAL   TTL   CDIP  P16H2        20     MIL  NO   NO   95   22     146    30    0    0   495   0
+$C2 NAT       PAL16H2ANC       PAL   TTL   DIP   P16H2        20     COM  NO   NO   95   22     146    25    0    0   473   0
+$C2 NAT       PAL16H2JC        PAL   TTL   CDIP  P16H2        20     COM  NO   NO   95   22     146    35    0    0   473   0
+$C2 NAT       PAL16H2JM        PAL   TTL   CDIP  P16H2        20     MIL  NO   NO   95   22     146    45    0    0   495   0
+$C2 NAT       PAL16H2NC        PAL   TTL   DIP   P16H2        20     COM  NO   NO   95   22     146    35    0    0   473   0
+$C2 NAT       PAL16H2VC        PAL   TTL   PLCC  P16H2        20     COM  NO   NO   095  722    1575   35    0    0   473   0
+$C2 NAT       PAL16L2A2JC      PAL   TTL   CDIP  P16L2        20     COM  NO   NO   95   16     147    35    0    0   236   0
+$C2 NAT       PAL16L2A2JM      PAL   TTL   CDIP  P16L2        20     MIL  NO   NO   95   16     147    45    0    0   248   0
+$C2 NAT       PAL16L2A2NC      PAL   TTL   DIP   P16L2        20     COM  NO   NO   95   16     147    35    0    0   236   0
+$C2 NAT       PAL16L2A2VC      PAL   TTL   PLCC  P16L2        20     COM  NO   NO   095  716    1576   35    0    0   236   0
+$C2 NAT       PAL16L2AJC       PAL   TTL   CDIP  P16L2        20     COM  NO   NO   95   16     147    25    0    0   473   0
+$C2 NAT       PAL16L2AJM       PAL   TTL   CDIP  P16L2        20     MIL  NO   NO   95   16     147    30    0    0   495   0
+$C2 NAT       PAL16L2ANC       PAL   TTL   DIP   P16L2        20     COM  NO   NO   95   16     147    25    0    0   473   0
+$C2 NAT       PAL16L2JC        PAL   TTL   CDIP  P16L2        20     COM  NO   NO   95   16     147    35    0    0   473   0
+$C2 NAT       PAL16L2JM        PAL   TTL   CDIP  P16L2        20     MIL  NO   NO   95   16     147    45    0    0   485   0
+$C2 NAT       PAL16L2NC        PAL   TTL   DIP   P16L2        20     COM  NO   NO   95   16     147    35    0    0   473   0
+$C2 NAT       PAL16L2VC        PAL   TTL   PLCC  P16L2        20     COM  NO   NO   095  716    1576   35    0    0   473   0
+$C2 NAT       PAL16L6AJC       PAL   TTL   CDIP  P16L6        24     COM  NO   NO   95   03     148    25    0    0   525   0
+$C2 NAT       PAL16L6AJM       PAL   TTL   CDIP  P16L6        24     MIL  NO   NO   95   03     148    30    0    0   550   0
+$C2 NAT       PAL16L6ANC       PAL   TTL   DIP   P16L6        24     COM  NO   NO   95   03     148    25    0    0   525   0
+$C2 NAT       PAL16L6AVC       PAL   TTL   PLCC  P16L6        28     COM  NO   NO   95   03     3404   25    0    0   525   0
+$C2 NAT       PAL16L6JC        PAL   TTL   CDIP  P16L6        24     COM  NO   NO   95   03     148    40    0    0   525   0
+
+#   mfg       part             type  tech  pack  devname     pins    spc  era preld fam  pin    DID#  speed set  hold pwr  prc
+$C2 NAT       PAL16L6JM        PAL   TTL   CDIP  P16L6        24     MIL  NO   NO   95   03     148    45    0    0   550   0
+$C2 NAT       PAL16L6NC        PAL   TTL   DIP   P16L6        24     COM  NO   NO   95   03     148    40    0    0   525   0
+$C2 NAT       PAL16L6VC        PAL   TTL   PLCC  P16L6        28     COM  NO   NO   95   03     3404   40    0    0   525   0
+$C2 NAT       PAL16L8-7JC      PAL   TTL   CDIP  P16L8        20     COM  NO   NO   07   17     5768    7    0    0   945   0
+$C2 NAT       PAL16L8-7NC      PAL   TTL   DIP   P16L8        20     COM  NO   NO   07   17     5768    7    0    0   945   0
+$C2 NAT       PAL16L8-7VC      PAL   TTL   PLCC  P16L8        20     COM  NO   NO   007  717    5772    7    0    0   945   0
+$C2 NAT       PAL16L8A2JC      PAL   TTL   CDIP  P16L8        20     COM  NO   NO   95   17     149    35    0    0   473   0
+$C2 NAT       PAL16L8A2JM      PAL   TTL   CDIP  P16L8        20     MIL  NO   NO   95   17     149    50    0    0   495   0
+$C2 NAT       PAL16L8A2NC      PAL   TTL   DIP   P16L8        20     COM  NO   NO   95   17     149    35    0    0   473   0
+$C2 NAT       PAL16L8A2VC      PAL   TTL   PLCC  P16L8        20     COM  NO   NO   095  717    1577   35    0    0   473   0
+$C2 NAT       PAL16L8AJC       PAL   TTL   CDIP  P16L8        20     COM  NO   NO   95   17     149    25    0    0   945   0
+$C2 NAT       PAL16L8AJM       PAL   TTL   CDIP  P16L8        20     MIL  NO   NO   95   17     149    30    0    0   990   0
+$C2 NAT       PAL16L8ANC       PAL   TTL   DIP   P16L8        20     COM  NO   NO   95   17     149    25    0    0   945   0
+$C2 NAT       PAL16L8AVC       PAL   TTL   PLCC  P16L8        20     COM  NO   NO   095  717    1577   25    0    0   945   0
+$C2 NAT       PAL16L8B2JC      PAL   TTL   CDIP  P16L8        20     COM  NO   NO   95   17     150    25    0    0   473   0
+$C2 NAT       PAL16L8B2JM      PAL   TTL   CDIP  P16L8        20     MIL  NO   NO   95   17     150    30    0    0   495   0
+$C2 NAT       PAL16L8B2NC      PAL   TTL   DIP   P16L8        20     COM  NO   NO   95   17     150    25    0    0   473   0
+$C2 NAT       PAL16L8B2VC      PAL   TTL   PLCC  P16L8        20     COM  NO   NO   --   --       0    25    0    0   473   0
+$C2 NAT       PAL16L8BJC       PAL   TTL   CDIP  P16L8        20     COM  NO   NO   95   17     150    15    0    0   945   0
+$C2 NAT       PAL16L8BJM       PAL   TTL   CDIP  P16L8        20     MIL  NO   NO   95   17     150    20    0    0   990   0
+$C2 NAT       PAL16L8BNC       PAL   TTL   DIP   P16L8        20     COM  NO   NO   95   17     150    15    0    0   945   0
+$C2 NAT       PAL16L8BVC       PAL   TTL   PLCC  P16L8        20     COM  NO   NO   095  717    4127   15    0    0   945   0
+$C2 NAT       PAL16L8DNC       PAL   TTL   DIP   P16L8        20     COM  NO   NO   07   17     2310   10    0    0   945   0
+$C2 NAT       PAL16L8JC        PAL   TTL   CDIP  P16L8        20     COM  NO   NO   95   17     149    35    0    0   945   0
+$C2 NAT       PAL16L8JM        PAL   TTL   CDIP  P16L8        20     MIL  NO   NO   95   17     149    45    0    0   990   0
+$C2 NAT       PAL16L8NC        PAL   TTL   DIP   P16L8        20     COM  NO   NO   95   17     149    35    0    0   945   0
+$C2 NAT       PAL16L8VC        PAL   TTL   PLCC  P16L8        20     COM  NO   NO   095  717    1577   35    0    0   945   0
+$C2 NAT       PAL16L8DJC       PAL   TTL   CDIP  P16L8        20     COM  NO   NO   07   17     2310   10    0    0   945   0
+$C2 NAT       PAL16L8DVC       PAL   TTL   PLCC  P16L8        20     COM  NO   NO   007  717    2728   10    0    0   945   0
+$C2 NAT       PAL16R4-7JC      PAL   TTL   CDIP  P16R4        20     COM  NO   YES  07   24     5769    7    7    0   945   0
+$C2 NAT       PAL16R4-7NC      PAL   TTL   DIP   P16R4        20     COM  NO   YES  07   24     5769    7    7    0   945   0
+$C2 NAT       PAL16R4-7VC      PAL   TTL   PLCC  P16R4        20     COM  NO   YES  007  724    5773    7    7    0   945   0
+$C2 NAT       PAL16R4A2JC      PAL   TTL   CDIP  P16R4        20     COM  NO   NO   95   24     151    35    35   0   473   0
+$C2 NAT       PAL16R4A2JM      PAL   TTL   CDIP  P16R4        20     MIL  NO   NO   95   24     151    50    50   0   495   0
+$C2 NAT       PAL16R4A2NC      PAL   TTL   DIP   P16R4        20     COM  NO   NO   95   24     151    35    35   0   473   0
+$C2 NAT       PAL16R4A2VC      PAL   TTL   PLCC  P16R4        20     COM  NO   NO   095  724    1578   35    35   0   473   0
+$C2 NAT       PAL16R4AJC       PAL   TTL   CDIP  P16R4        20     COM  NO   NO   95   24     151    25    25   0   945   0
+
+#   mfg       part             type  tech  pack  devname     pins    spc  era preld fam  pin    DID#  speed set  hold pwr  prc
+$C2 NAT       PAL16R4AJM       PAL   TTL   CDIP  P16R4        20     MIL  NO   NO   95   24     151    30    30   0   990   0
+$C2 NAT       PAL16R4ANC       PAL   TTL   DIP   P16R4        20     COM  NO   NO   95   24     151    25    25   0   945   0
+$C2 NAT       PAL16R4AVC       PAL   TTL   PLCC  P16R4        20     COM  NO   NO   095  724    1578   25    25   0   945   0
+$C2 NAT       PAL16R4B2JC      PAL   TTL   CDIP  P16R4        20     COM  NO   NO   95   24     152    25    20   0   525   0
+$C2 NAT       PAL16R4B2JM      PAL   TTL   CDIP  P16R4        20     MIL  NO   NO   95   24     152    30    25   0   550   0
+$C2 NAT       PAL16R4B2NC      PAL   TTL   DIP   P16R4        20     COM  NO   NO   95   24     152    25    20   0   525   0
+$C2 NAT       PAL16R4B2VC      PAL   TTL   PLCC  P16R4        20     COM  NO   NO   --   --       0    25    20   0   525   0
+$C2 NAT       PAL16R4BJC       PAL   TTL   CDIP  P16R4        20     COM  NO   NO   95   24     152    15    15   0   945   0
+$C2 NAT       PAL16R4BJM       PAL   TTL   CDIP  P16R4        20     MIL  NO   NO   95   24     152    20    20   0   990   0
+$C2 NAT       PAL16R4BNC       PAL   TTL   DIP   P16R4        20     COM  NO   NO   95   24     152    15    15   0   945   0
+$C2 NAT       PAL16R4BVC       PAL   TTL   PLCC  P16R4        20     COM  NO   NO   095  724    4130   15    15   0   945   0
+$C2 NAT       PAL16R4DNC       PAL   TTL   DIP   P16R4        20     COM  NO   YES  07   24     2315   10    10   0   945   0
+$C2 NAT       PAL16R4JC        PAL   TTL   CDIP  P16R4        20     COM  NO   NO   95   24     151    35    35   0   945   0
+$C2 NAT       PAL16R4JM        PAL   TTL   CDIP  P16R4        20     MIL  NO   NO   95   24     151    45    45   0   990   0
+$C2 NAT       PAL16R4NC        PAL   TTL   DIP   P16R4        20     COM  NO   NO   95   24     151    35    35   0   945   0
+$C2 NAT       PAL16R4VC        PAL   TTL   PLCC  P16R4        20     COM  NO   NO   095  724    1578   35    35   0   945   0
+$C2 NAT       PAL16R4DJC       PAL   TTL   CDIP  P16R4        20     COM  NO   YES  07   24     2315   10    10   0   945   0
+$C2 NAT       PAL16R4DVC       PAL   TTL   PLCC  P16R4        20     COM  NO   YES  007  724    2730   10    10   0   945   0
+$C2 NAT       PAL16R6-7JC      PAL   TTL   CDIP  P16R6        20     COM  NO   YES  07   24     5770    7    7    0   945   0
+$C2 NAT       PAL16R6-7NC      PAL   TTL   DIP   P16R6        20     COM  NO   YES  07   24     5770    7    7    0   945   0
+$C2 NAT       PAL16R6-7VC      PAL   TTL   PLCC  P16R6        20     COM  NO   YES  007  724    5774    7    7    0   945   0
+$C2 NAT       PAL16R6A2JC      PAL   TTL   CDIP  P16R6        20     COM  NO   NO   95   24     153    35    35   0   473   0
+$C2 NAT       PAL16R6A2JM      PAL   TTL   CDIP  P16R6        20     MIL  NO   NO   95   24     153    50    50   0   495   0
+$C2 NAT       PAL16R6A2NC      PAL   TTL   DIP   P16R6        20     COM  NO   NO   95   24     153    35    35   0   473   0
+$C2 NAT       PAL16R6A2VC      PAL   TTL   PLCC  P16R6        20     COM  NO   NO   095  724    1579   35    35   0   473   0
+$C2 NAT       PAL16R6AJC       PAL   TTL   CDIP  P16R6        20     COM  NO   NO   95   24     153    25    25   0   945   0
+$C2 NAT       PAL16R6AJM       PAL   TTL   CDIP  P16R6        20     MIL  NO   NO   95   24     153    30    30   0   990   0
+$C2 NAT       PAL16R6ANC       PAL   TTL   DIP   P16R6        20     COM  NO   NO   95   24     153    25    25   0   945   0
+$C2 NAT       PAL16R6AVC       PAL   TTL   PLCC  P16R6        20     COM  NO   NO   095  724    1579   25    25   0   945   0
+$C2 NAT       PAL16R6B2JC      PAL   TTL   CDIP  P16R6        20     COM  NO   NO   95   24     154    25    20   0   525   0
+$C2 NAT       PAL16R6B2JM      PAL   TTL   CDIP  P16R6        20     MIL  NO   NO   95   24     154    30    25   0   550   0
+$C2 NAT       PAL16R6B2NC      PAL   TTL   DIP   P16R6        20     COM  NO   NO   95   24     154    25    20   0   525   0
+$C2 NAT       PAL16R6B2VC      PAL   TTL   PLCC  P16R6        20     COM  NO   NO   --   --       0    25    20   0   525   0
+$C2 NAT       PAL16R6BJC       PAL   TTL   CDIP  P16R6        20     COM  NO   NO   95   24     154    15    15   0   945   0
+$C2 NAT       PAL16R6BJM       PAL   TTL   CDIP  P16R6        20     MIL  NO   NO   95   24     154    20    20   0   990   0
+$C2 NAT       PAL16R6BNC       PAL   TTL   DIP   P16R6        20     COM  NO   NO   95   24     154    15    15   0   945   0
+
+#   mfg       part             type  tech  pack  devname     pins    spc  era preld fam  pin    DID#  speed set  hold pwr  prc
+$C2 NAT       PAL16R6BVC       PAL   TTL   PLCC  P16R6        20     COM  NO   NO   095  724    4129   15    15   0   945   0
+$C2 NAT       PAL16R6DNC       PAL   TTL   DIP   P16R6        20     COM  NO   YES  07   24     2314   10    10   0   945   0
+$C2 NAT       PAL16R6JC        PAL   TTL   CDIP  P16R6        20     COM  NO   NO   95   24     153    35    35   0   945   0
+$C2 NAT       PAL16R6JM        PAL   TTL   CDIP  P16R6        20     MIL  NO   NO   95   24     153    45    45   0   990   0
+$C2 NAT       PAL16R6NC        PAL   TTL   DIP   P16R6        20     COM  NO   NO   95   24     153    35    35   0   945   0
+$C2 NAT       PAL16R6VC        PAL   TTL   PLCC  P16R6        20     COM  NO   NO   095  724    1579   35    35   0   945   0
+$C2 NAT       PAL16R6DJC       PAL   TTL   CDIP  P16R6        20     COM  NO   YES  07   24     2314   10    10   0   945   0
+$C2 NAT       PAL16R6DVC       PAL   TTL   PLCC  P16R6        20     COM  NO   YES  007  724    2732   10    10   0   945   0
+$C2 NAT       PAL16R8-7JC      PAL   TTL   CDIP  P16R8        20     COM  NO   YES  07   24     5771    0    7    0   945   0
+$C2 NAT       PAL16R8-7NC      PAL   TTL   DIP   P16R8        20     COM  NO   YES  07   24     5771    0    7    0   945   0
+$C2 NAT       PAL16R8-7VC      PAL   TTL   PLCC  P16R8        20     COM  NO   YES  007  724    5775    0    7    0   945   0
+$C2 NAT       PAL16R8A2JC      PAL   TTL   CDIP  P16R8        20     COM  NO   NO   95   24     155     0    35   0   473   0
+$C2 NAT       PAL16R8A2JM      PAL   TTL   CDIP  P16R8        20     MIL  NO   NO   95   24     155     0    50   0   495   0
+$C2 NAT       PAL16R8A2NC      PAL   TTL   DIP   P16R8        20     COM  NO   NO   95   24     155     0    35   0   473   0
+$C2 NAT       PAL16R8A2VC      PAL   TTL   PLCC  P16R8        20     COM  NO   NO   095  724    1580    0    35   0   473   0
+$C2 NAT       PAL16R8AJC       PAL   TTL   CDIP  P16R8        20     COM  NO   NO   95   24     155     0    25   0   945   0
+$C2 NAT       PAL16R8AJM       PAL   TTL   CDIP  P16R8        20     MIL  NO   NO   95   24     155     0    30   0   990   0
+$C2 NAT       PAL16R8ANC       PAL   TTL   DIP   P16R8        20     COM  NO   NO   95   24     155     0    25   0   945   0
+$C2 NAT       PAL16R8AVC       PAL   TTL   PLCC  P16R8        20     COM  NO   NO   095  724    1580    0    25   0   945   0
+$C2 NAT       PAL16R8B2JC      PAL   TTL   CDIP  P16R8        20     COM  NO   NO   95   24     156     0    20   0   525   0
+$C2 NAT       PAL16R8B2JM      PAL   TTL   CDIP  P16R8        20     MIL  NO   NO   95   24     156     0    25   0   550   0
+$C2 NAT       PAL16R8B2NC      PAL   TTL   DIP   P16R8        20     COM  NO   NO   95   24     156     0    20   0   525   0
+$C2 NAT       PAL16R8B2VC      PAL   TTL   PLCC  P16R8        20     COM  NO   NO   --   --       0     0    20   0   525   0
+$C2 NAT       PAL16R8BJC       PAL   TTL   CDIP  P16R8        20     COM  NO   NO   95   24     156     0    15   0   945   0
+$C2 NAT       PAL16R8BJM       PAL   TTL   CDIP  P16R8        20     MIL  NO   NO   95   24     156     0    20   0   990   0
+$C2 NAT       PAL16R8BNC       PAL   TTL   DIP   P16R8        20     COM  NO   NO   95   24     156     0    15   0   945   0
+$C2 NAT       PAL16R8BVC       PAL   TTL   PLCC  P16R8        20     COM  NO   NO   095  724    4128    0    15   0   945   0
+$C2 NAT       PAL16R8DNC       PAL   TTL   DIP   P16R8        20     COM  NO   YES  07   24     2313    0    10   0   945   0
+$C2 NAT       PAL16R8JC        PAL   TTL   CDIP  P16R8        20     COM  NO   NO   95   24     155     0    35   0   945   0
+$C2 NAT       PAL16R8JM        PAL   TTL   CDIP  P16R8        20     MIL  NO   NO   95   24     155     0    45   0   990   0
+$C2 NAT       PAL16R8NC        PAL   TTL   DIP   P16R8        20     COM  NO   NO   95   24     155     0    35   0   945   0
+$C2 NAT       PAL16R8VC        PAL   TTL   PLCC  P16R8        20     COM  NO   NO   095  724    1580    0    35   0   945   0
+$C2 NAT       PAL16R8DJC       PAL   TTL   CDIP  P16R8        20     COM  NO   YES  07   24     2313    0    10   0   945   0
+$C2 NAT       PAL16R8DVC       PAL   TTL   PLCC  P16R8        20     COM  NO   YES  007  724    2733    0    10   0   945   0
+$C2 NAT       PAL16RA8JC       PAL   TTL   CDIP  P16RA8       20     COM  NO   YES  22   31     1680   35    20   0   893   0
+$C2 NAT       PAL16RA8NC       PAL   TTL   DIP   P16RA8       20     COM  NO   YES  22   31     1680   35    20   0   893   0
+
+#   mfg       part             type  tech  pack  devname     pins    spc  era preld fam  pin    DID#  speed set  hold pwr  prc
+$C2 NAT       PAL16RA8VC       PAL   TTL   PLCC  P16RA8       20     COM  NO   YES  022  731    4428   35   20    0   893   0
+$C2 NAT       GAL16V8-7LNC     GAL   CMOS  DIP   P16V8        20     COM  EE   YES  0D   55     6466    8    7    0   604   0
+$C2 NAT       GAL16V8-7LVC     GAL   CMOS  PLCC  P16V8        20     COM  EE   YES  00D  755    6905    8    7    0   604   0
+$C2 NAT       GAL16V8-10LNC    GAL   CMOS  DIP   P16V8        20     COM  EE   YES  0D   55     6906   10   10    0   604   0
+$C2 NAT       GAL16V8-10LVC    GAL   CMOS  PLCC  P16V8        20     COM  EE   YES  00D  755       0   10   10    0   604   0
+$C2 NAT       GAL16V8-20LNC    GAL   CMOS  DIP   P16V8        20     COM  EE   YES  0D   55      3367  20   15    0   473   0
+$C2 NAT       GAL16V8-20LNI    GAL   CMOS  DIP   P16V8        20     IND  EE   YES  0D   55      3367  20   15    0   605   0
+$C2 NAT       GAL16V8-20LVC    GAL   CMOS  PLCC  P16V8        20     COM  EE   YES  00D  755     5492  20   15    0   473   0
+$C2 NAT       GAL16V8-20LVI    GAL   CMOS  PLCC  P16V8        20     IND  EE   YES  00D  755     5492  20   15    0   605   0
+$C2 NAT       GAL16V8-25LNC    GAL   CMOS  DIP   P16V8        20     COM  EE   YES  0D   55      3367  25   20    0   473   0
+$C2 NAT       GAL16V8-25LNI    GAL   CMOS  DIP   P16V8        20     IND  EE   YES  0D   55      3367  25   20    0   605   0
+$C2 NAT       GAL16V8-25LVC    GAL   CMOS  PLCC  P16V8        20     COM  EE   YES  00D  755     5492  25   20    0   473   0
+$C2 NAT       GAL16V8-25LVI    GAL   CMOS  PLCC  P16V8        20     IND  EE   YES  00D  755     5492  25   20    0   605   0
+$C2 NAT       GAL16V8-25QNC    GAL   CMOS  DIP   P16V8        20     COM  EE   YES  0D   55      3367  25   20    0   236   0
+$C2 NAT       GAL16V8-25QNI    GAL   CMOS  DIP   P16V8        20     IND  EE   YES  0D   55      3367  25   20    0   303   0
+$C2 NAT       GAL16V8-25QVC    GAL   CMOS  PLCC  P16V8        20     COM  EE   YES  00D  755     5492  25   20    0   236   0
+$C2 NAT       GAL16V8-25QVI    GAL   CMOS  PLCC  P16V8        20     IND  EE   YES  00D  755     5492  25   20    0   303   0
+$C2 NAT       GAL16V8-35QNC    GAL   CMOS  DIP   P16V8        20     COM  EE   YES  0D   55      3367  35   25    0   236   0
+$C2 NAT       GAL16V8-35QNI    GAL   CMOS  DIP   P16V8        20     IND  EE   YES  0D   55      3367  35   25    0   303   0
+$C2 NAT       GAL16V8-35QVC    GAL   CMOS  PLCC  P16V8        20     COM  EE   YES  00D  755     5492  35   25    0   236   0
+$C2 NAT       GAL16V8-35QVI    GAL   CMOS  PLCC  P16V8        20     IND  EE   YES  00D  755     5492  35   25    0   303   0
+$C2 NAT       GAL16V8A-12LNC   GAL   CMOS  DIP   P16V8        20     COM  EE   YES  0D   55      3367  12   12    0   604   0
+$C2 NAT       GAL16V8A-12LVC   GAL   CMOS  PLCC  P16V8        20     COM  EE   YES  00D  755     5492  12   12    0   604   0
+$C2 NAT       GAL16V8A-15LNC   GAL   CMOS  DIP   P16V8        20     COM  EE   YES  0D   55      3367  15   12    0   604   0
+$C2 NAT       GAL16V8A-15LNI   GAL   CMOS  DIP   P16V8        20     IND  EE   YES  0D   55      3367  15   12    0   770   0
+$C2 NAT       GAL16V8A-15LVC   GAL   CMOS  PLCC  P16V8        20     COM  EE   YES  00D  755     5492  15   12    0   604   0
+$C2 NAT       GAL16V8A-15LVI   GAL   CMOS  PLCC  P16V8        20     IND  EE   YES  00D  755     5492  15   12    0   770   0
+$C2 NAT       GAL16V8QS-15LNC  GAL   CMOS  DIP   P16V8        20     COM  EE   YES  0D   55      3367  15   12    0   473   0
+$C2 NAT       GAL16V8QS-15LVC  GAL   CMOS  PLCC  P16V8        20     COM  EE   YES  00D  755     5492  15   12    0   473   0
+$C2 NAT       GAL16V8QS-15QNC  GAL   CMOS  DIP   P16V8        20     COM  EE   YES  0D   55      3367  15   12    0   289   0
+$C2 NAT       GAL16V8QS-15QVC  GAL   CMOS  PLCC  P16V8        20     COM  EE   YES  00D  755     5492  15   12    0   289   0
+$C2 NAT       GAL16V8QS-20LNC  GAL   CMOS  DIP   P16V8        20     COM  EE   YES  0D   55      3367  20   15    0   473   0
+$C2 NAT       GAL16V8QS-20LNI  GAL   CMOS  DIP   P16V8        20     IND  EE   YES  0D   55      3367  20   15    0   495   0
+$C2 NAT       GAL16V8QS-20LVC  GAL   CMOS  PLCC  P16V8        20     COM  EE   YES  00D  755     5492  20   15    0   473   0
+$C2 NAT       GAL16V8QS-20LVI  GAL   CMOS  PLCC  P16V8        20     IND  EE   YES  00D  755     5492  20   15    0   495   0
+$C2 NAT       GAL16V8QS-25LNC  GAL   CMOS  DIP   P16V8        20     COM  EE   YES  0D   55      3367  25   15    0   473   0
+$C2 NAT       GAL16V8QS-25LNI  GAL   CMOS  DIP   P16V8        20     IND  EE   YES  0D   55      3367  25   20    0   495   0
+$C2 NAT       GAL16V8QS-25LVC  GAL   CMOS  PLCC  P16V8        20     COM  EE   YES  00D  755     5492  25   15    0   473   0
+$C2 NAT       GAL16V8QS-25LVI  GAL   CMOS  PLCC  P16V8        20     IND  EE   YES  00D  755     5492  25   20    0   495   0
+$C2 NAT       GAL16V8QS-25QNC  GAL   CMOS  DIP   P16V8        20     COM  EE   YES  0D   55      3367  25   15    0   289   0
+$C2 NAT       GAL16V8QS-25QNI  GAL   CMOS  DIP   P16V8        20     IND  EE   YES  0D   55      3367  25   20    0   303   0
+$C2 NAT       GAL16V8QS-25QVC  GAL   CMOS  PLCC  P16V8        20     COM  EE   YES  00D  755     5492  25   15    0   289   0
+$C2 NAT       GAL16V8QS-25QVI  GAL   CMOS  PLCC  P16V8        20     IND  EE   YES  00D  755     5492  25   20    0   303   0
+$C2 NAT       PAL18L4AJC       PAL   TTL   CDIP  P18L4        24     COM  NO   NO   95   04      157   25    0    0   525   0
+$C2 NAT       PAL18L4AJM       PAL   TTL   CDIP  P18L4        24     MIL  NO   NO   95   04      157   30    0    0   550   0
+$C2 NAT       PAL18L4ANC       PAL   TTL   DIP   P18L4        24     COM  NO   NO   95   04      157   25    0    0   525   0
+$C2 NAT       PAL18L4AVC       PAL   TTL   PLCC  P18L4        28     COM  NO   NO   95   04      3444  25    0    0   525   0
+$C2 NAT       PAL18L4JC        PAL   TTL   CDIP  P18L4        24     COM  NO   NO   95   04      157   40    0    0   525   0
+$C2 NAT       PAL18L4JM        PAL   TTL   CDIP  P18L4        24     MIL  NO   NO   95   04      157   45    0    0   550   0
+$C2 NAT       PAL18L4NC        PAL   TTL   DIP   P18L4        24     COM  NO   NO   95   04      157   40    0    0   525   0
+
+#   mfg       part             type  tech  pack  devname     pins    spc  era preld fam  pin    DID#  speed set  hold pwr  prc
+$C2 NAT       PAL18L4VC        PAL   TTL   PLCC  P18L4        28     COM  NO   NO   95   04     3444   40    0    0   525   0
+$C2 NAT       PAL20C1AJC       PAL   TTL   CDIP  P20C1        24     COM  NO   NO   95   12     158    30    0    0   525   0
+$C2 NAT       PAL20C1AJM       PAL   TTL   CDIP  P20C1        24     MIL  NO   NO   95   12     158    35    0    0   550   0
+$C2 NAT       PAL20C1ANC       PAL   TTL   DIP   P20C1        24     COM  NO   NO   95   12     158    30    0    0   525   0
+$C2 NAT       PAL20C1AVC       PAL   TTL   PLCC  P20C1        28     COM  NO   NO   95   12     3554   30    0    0   525   0
+$C2 NAT       PAL20C1JC        PAL   TTL   CDIP  P20C1        24     COM  NO   NO   95   12     158    40    0    0   525   0
+$C2 NAT       PAL20C1JM        PAL   TTL   CDIP  P20C1        24     MIL  NO   NO   95   12     158    45    0    0   550   0
+$C2 NAT       PAL20C1NC        PAL   TTL   DIP   P20C1        24     COM  NO   NO   95   12     158    40    0    0   525   0
+$C2 NAT       PAL20C1VC        PAL   TTL   PLCC  P20C1        28     COM  NO   NO   95   12     3554   40    0    0   525   0
+$C2 NAT       PAL20L10AJC      PAL   TTL   CDIP  P20L10       24     COM  NO   NO   95   06     161    30    0    0   866   0
+$C2 NAT       PAL20L10AJM      PAL   TTL   CDIP  P20L10       24     MIL  NO   NO   95   06     161    35    0    0   908   0
+$C2 NAT       PAL20L10ANC      PAL   TTL   DIP   P20L10       24     COM  NO   NO   95   06     161    30    0    0   866   0
+$C2 NAT       PAL20L10AXVC     PAL   TTL   PLCC  P20L10C      28     COM  NO   NO   095  706    3467   30    0    0   866   0
+$C2 NAT       PAL20L10JC       PAL   TTL   CDIP  P20L10       24     COM  NO   NO   95   06     161    50    0    0   866   0
+$C2 NAT       PAL20L10JM       PAL   TTL   CDIP  P20L10       24     MIL  NO   NO   95   06     161    60    0    0   908   0
+$C2 NAT       PAL20L10NC       PAL   TTL   DIP   P20L10       24     COM  NO   NO   95   06     161    50    0    0   866   0
+$C2 NAT       PAL20L10XVC      PAL   TTL   PLCC  P20L10C      28     COM  NO   NO   095  706    3467   50    0    0   866   0
+$C2 NAT       PAL20L10AVC      PAL   TTL   PLCC  P20L10C      28     COM  NO   NO   095  606    3468   30    0    0   866   0
+$C2 NAT       PAL20L10VC       PAL   TTL   PLCC  P20L10C      28     COM  NO   NO   095  606    3468   50    0    0   866   0
+$C2 NAT       PAL20L2AJC       PAL   TTL   CDIP  P20L2        24     COM  NO   NO   95   05     159    25    0    0   525   0
+$C2 NAT       PAL20L2AJM       PAL   TTL   CDIP  P20L2        24     MIL  NO   NO   95   05     159    30    0    0   550   0
+$C2 NAT       PAL20L2ANC       PAL   TTL   DIP   P20L2        24     COM  NO   NO   95   05     159    25    0    0   525   0
+$C2 NAT       PAL20L2AVC       PAL   TTL   PLCC  P20L2        28     COM  NO   NO   95   05     3466   25    0    0   525   0
+$C2 NAT       PAL20L2JC        PAL   TTL   CDIP  P20L2        24     COM  NO   NO   95   05     159    40    0    0   525   0
+$C2 NAT       PAL20L2JM        PAL   TTL   CDIP  P20L2        24     MIL  NO   NO   95   05     159    45    0    0   550   0
+$C2 NAT       PAL20L2NC        PAL   TTL   DIP   P20L2        24     COM  NO   NO   95   05     159    40    0    0   525   0
+$C2 NAT       PAL20L2VC        PAL   TTL   PLCC  P20L2        28     COM  NO   NO   95   05     3466   40    0    0   525   0
+$C2 NAT       PAL20L8-7NC      PAL   TTL   DIP   P20L8        24     COM  NO   YES  07   26      0      7    0    0   1103  0
+$C2 NAT       PAL20L8-7VC      PAL   TTL   PLCC  P20L8C       28     COM  NO   YES  007  726     0      7    0    0   1103  0
+$C2 NAT       PAL20L8-5NC      PAL   TTL   DIP   P20L8        24     COM  NO   YES  --   --      0      6    0    0   1103  0
+$C2 NAT       PAL20L8-5VC      PAL   TTL   PLCC  P20L8C       28     COM  NO   YES  --   --      0      5    0    0   1103  0
+$C2 NAT       PAL20L8AJC       PAL   TTL   CDIP  P20L8        24     COM  NO   NO   95   26     160    25    0    0   1103  0
+$C2 NAT       PAL20L8AJM       PAL   TTL   CDIP  P20L8        24     MIL  NO   NO   95   26     160    30    0    0   1155  0
+$C2 NAT       PAL20L8ANC       PAL   TTL   DIP   P20L8        24     COM  NO   NO   95   26     160    25    0    0   1103  0
+$C2 NAT       PAL20L8AVC       PAL   TTL   PLCC  P20L8C       28     COM  NO   NO   095  626    4424   25    0    0   1103  0
+$C2 NAT       PAL20L8AXVC      PAL   TTL   PLCC  P20L8C       28     COM  NO   NO   095  726    4131   25    0    0   1103  0
+$C2 NAT       PAL20L8BJC       PAL   TTL   CDIP  P20L8        24     COM  NO   NO   95   26     1440   15    0    0   1103  0
+
+#   mfg       part             type  tech  pack  devname     pins    spc  era preld fam  pin    DID#  speed set  hold pwr  prc
+$C2 NAT       PAL20L8BJM       PAL   TTL   CDIP  P20L8        24     MIL  NO   NO   95   26     160    20    0    0   1155  0
+$C2 NAT       PAL20L8BNC       PAL   TTL   DIP   P20L8        24     COM  NO   NO   95   26     160    15    0    0   1103  0
+$C2 NAT       PAL20L8BVC       PAL   TTL   PLCC  P20L8C       28     COM  NO   NO   095  626    3562   15    0    0   1103  0
+$C2 NAT       PAL20L8BXVC      PAL   TTL   PLCC  P20L8C       28     COM  NO   NO   095  726    4123   15    0    0   1103  0
+$C2 NAT       PAL20L8DJC       PAL   TTL   CDIP  P20L8        24     COM  NO   NO   07   26     2316   10    0    0   1103  0
+$C2 NAT       PAL20L8DNC       PAL   TTL   DIP   P20L8        24     COM  NO   NO   07   26     2316   10    0    0   1103  0
+$C2 NAT       PAL20L8DVC       PAL   TTL   PLCC  P20L8C       28     COM  NO   NO   007  726    4429   10    0    0   1103  0
+$C2 NAT       PAL20P8BJC       PAL   TTL   CDIP  P20P8        24     COM  NO   NO   95   42     565    15    0    0   1103  0
+$C2 NAT       PAL20P8BNC       PAL   TTL   DIP   P20P8        24     COM  NO   NO   95   42     565    15    0    0   1103  0
+$C2 NAT       PAL20P8BVC       PAL   TTL   PLCC  P20P8        28     COM  NO   NO   095  742    5904   15    0    0   1103  0
+$C2 NAT       PAL20P8BXVC      PAL   TTL   PLCC  P20P8        28     COM  NO   NO   --   --       0    15    0    0   1103  0
+$C2 NAT       PAL20R4-7NC      PAL   TTL   DIP   P20R4        24     COM  NO   YES  07   27       0     7    7    0   1103  0
+$C2 NAT       PAL20R4-7VC      PAL   TTL   PLCC  P20R4C       28     COM  NO   YES  007  727      0     7    7    0   1103  0
+$C2 NAT       PAL20R4-5NC      PAL   TTL   DIP   P20R4        24     COM  NO   YES  --   --       0     6    4    0   1103  0
+$C2 NAT       PAL20R4-5VC      PAL   TTL   PLCC  P20R4C       28     COM  NO   YES  --   --       0     5    4    0   1103  0
+$C2 NAT       PAL20R4AJC       PAL   TTL   CDIP  P20R4        24     COM  NO   NO   95   27     162    25   25    0   1103  0
+$C2 NAT       PAL20R4AJM       PAL   TTL   CDIP  P20R4        24     MIL  NO   NO   95   27     162    30   30    0   1155  0
+$C2 NAT       PAL20R4ANC       PAL   TTL   DIP   P20R4        24     COM  NO   NO   95   27     162    25   25    0   1103  0
+$C2 NAT       PAL20R4AVC       PAL   TTL   PLCC  P20R4C       28     COM  NO   NO   95   27     4425   25   25    0   1103  0
+$C2 NAT       PAL20R4AXVC      PAL   TTL   PLCC  P20R4C       28     COM  NO   NO   095  727    4134   25   25    0   1103  0
+$C2 NAT       PAL20R4BJC       PAL   TTL   CDIP  P20R4        24     COM  NO   YES  95   27     2233   15   15    0   1103  0
+$C2 NAT       PAL20R4BJM       PAL   TTL   CDIP  P20R4        24     MIL  NO   YES  95   27     2233   20   20    0   1155  0
+$C2 NAT       PAL20R4BNC       PAL   TTL   DIP   P20R4        24     COM  NO   YES  95   27     2233   15   15    0   1103  0
+$C2 NAT       PAL20R4BVC       PAL   TTL   PLCC  P20R4C       28     COM  NO   YES  095  627    3557   15   15    0   1103  0
+$C2 NAT       PAL20R4BXVC      PAL   TTL   PLCC  P20R4C       28     COM  NO   YES  095  727    4126   15   15    0   1103  0
+$C2 NAT       PAL20R4DJC       PAL   TTL   CDIP  P20R4        24     COM  NO   YES  07   27     2344   10   10    0   1103  0
+$C2 NAT       PAL20R4DNC       PAL   TTL   DIP   P20R4        24     COM  NO   YES  07   27     2344   10   10    0   1103  0
+$C2 NAT       PAL20R4DVC       PAL   TTL   PLCC  P20R4C       28     COM  NO   YES  007  727    4430   10   10    0   1103  0
+$C2 NAT       PAL20R6-7NC      PAL   TTL   DIP   P20R6        24     COM  NO   YES  07   27       0     7    7    0   1103  0
+$C2 NAT       PAL20R6-7VC      PAL   TTL   PLCC  P20R6C       28     COM  NO   YES  007  727      0     7    7    0   1103  0
+$C2 NAT       PAL20R6-5NC      PAL   TTL   DIP   P20R6        24     COM  NO   YES  --   --       0     6    4    0   1103  0
+$C2 NAT       PAL20R6-5VC      PAL   TTL   PLCC  P20R6C       28     COM  NO   YES  --   --       0     5    4    0   1103  0
+$C2 NAT       PAL20R6AJC       PAL   TTL   CDIP  P20R6        24     COM  NO   NO   95   27     163    25   25    0   1103  0
+$C2 NAT       PAL20R6AJM       PAL   TTL   CDIP  P20R6        24     MIL  NO   NO   95   27     163    30   30    0   1155  0
+$C2 NAT       PAL20R6ANC       PAL   TTL   DIP   P20R6        24     COM  NO   NO   95   27     163    25   25    0   1103  0
+$C2 NAT       PAL20R6AVC       PAL   TTL   PLCC  P20R6C       28     COM  NO   NO   95   27     4426   25   25    0   1103  0
+$C2 NAT       PAL20R6AXVC      PAL   TTL   PLCC  P20R6C       28     COM  NO   NO   095  727    4133   25   25    0   1103  0
+$C2 NAT       PAL20R6BJC       PAL   TTL   CDIP  P20R6        24     COM  NO   YES  95   27     2234   15   15    0   1103  0
+$C2 NAT       PAL20R6BJM       PAL   TTL   CDIP  P20R6        24     MIL  NO   YES  95   27     2234   20   20    0   1155  0
+$C2 NAT       PAL20R6BNC       PAL   TTL   DIP   P20R6        24     COM  NO   YES  95   27     2234   15   15    0   1103  0
+
+#   mfg       part             type  tech  pack  devname     pins    spc  era preld fam  pin    DID#  speed set  hold pwr  prc
+$C2 NAT       PAL20R6BVC       PAL   TTL   PLCC  P20R6C       28     COM  NO   YES  095  627    3558   15   15    0   1103  0
+$C2 NAT       PAL20R6BXVC      PAL   TTL   PLCC  P20R6C       28     COM  NO   YES  095  727    4125   15   15    0   1103  0
+$C2 NAT       PAL20R6DJC       PAL   TTL   CDIP  P20R6        24     COM  NO   YES  07   27     2340   10   10    0   1103  0
+$C2 NAT       PAL20R6DNC       PAL   TTL   DIP   P20R6        24     COM  NO   YES  07   27     2340   10   10    0   1103  0
+$C2 NAT       PAL20R6DVC       PAL   TTL   PLCC  P20R6C       28     COM  NO   YES  007  727    4431   10   10    0   1103  0
+$C2 NAT       PAL20R8-7NC      PAL   TTL   DIP   P20R8        24     COM  NO   YES  07   27       0     0    7    0   1103  0
+$C2 NAT       PAL20R8-7VC      PAL   TTL   PLCC  P20R8C       28     COM  NO   YES  007  727      0     0    7    0   1103  0
+$C2 NAT       PAL20R8-5NC      PAL   TTL   DIP   P20R8        24     COM  NO   YES  --   --       0     0    4    0   1103  0
+$C2 NAT       PAL20R8-5VC      PAL   TTL   PLCC  P20R8C       28     COM  NO   YES  --   --       0     0    4    0   1103  0
+$C2 NAT       PAL20R8AJC       PAL   TTL   CDIP  P20R8        24     COM  NO   NO   95   27     164     0   25    0   1103  0
+$C2 NAT       PAL20R8AJM       PAL   TTL   CDIP  P20R8        24     MIL  NO   NO   95   27     164     0   30    0   1155  0
+$C2 NAT       PAL20R8ANC       PAL   TTL   DIP   P20R8        24     COM  NO   NO   95   27     164     0   25    0   1103  0
+$C2 NAT       PAL20R8AVC       PAL   TTL   PLCC  P20R8C       28     COM  NO   NO   95   27     4427    0   25    0   1103  0
+$C2 NAT       PAL20R8AXVC      PAL   TTL   PLCC  P20R8C       28     COM  NO   NO   095  727    4132    0   25    0   1103  0
+$C2 NAT       PAL20R8BJC       PAL   TTL   CDIP  P20R8        24     COM  NO   YES  95   27     2235    0   15    0   1103  0
+$C2 NAT       PAL20R8BJM       PAL   TTL   CDIP  P20R8        24     MIL  NO   YES  95   27     2235    0   20    0   1155  0
+$C2 NAT       PAL20R8BNC       PAL   TTL   DIP   P20R8        24     COM  NO   YES  95   27     2235    0   15    0   1103  0
+$C2 NAT       PAL20R8BVC       PAL   TTL   PLCC  P20R8C       28     COM  NO   YES  095  627    3561    0   15    0   1103  0
+$C2 NAT       PAL20R8BXVC      PAL   TTL   PLCC  P20R8C       28     COM  NO   YES  095  727    4124    0   15    0   1103  0
+$C2 NAT       PAL20R8DJC       PAL   TTL   CDIP  P20R8        24     COM  NO   YES  07   27     2319    0   10    0   1103  0
+$C2 NAT       PAL20R8DNC       PAL   TTL   DIP   P20R8        24     COM  NO   YES  07   27     2319    0   10    0   1103  0
+$C2 NAT       PAL20R8DVC       PAL   TTL   PLCC  P20R8C       28     COM  NO   YES  007  727    4432    0   10    0   1103  0
+$C2 NAT       GAL20RA10-15NC   GAL   CMOS  DIP   P20RA10      24     COM  EE   YES  0D   45     5219   15   10    0   788   0
+$C2 NAT       GAL20RA10-15VC   GAL   CMOS  PLCC  P20RA10C     28     COM  EE   YES  00D  745    5485   15   10    0   788   0
+$C2 NAT       GAL20RA10-20NI   GAL   CMOS  DIP   P20RA10      24     IND  EE   YES  0D   45     5219   20   10    0   990   0
+$C2 NAT       GAL20RA10-20VI   GAL   CMOS  PLCC  P20RA10C     28     IND  EE   YES  00D  745    5485   20   10    0   990   0
+$C2 NAT       GAL20RA10-25NC   GAL   CMOS  DIP   P20RA10      24     COM  EE   YES  0D   45     5219   25   15    0   788   0
+$C2 NAT       GAL20RA10-25VC   GAL   CMOS  PLCC  P20RA10C     28     COM  EE   YES  00D  745    5485   25   15    0   788   0
+$C2 NAT       PAL20RA10JC      PAL   TTL   CDIP  P20RA10      24     COM  NO   YES  95   45     1442   35   20    0   1050  0
+$C2 NAT       PAL20RA10JM      PAL   TTL   CDIP  P20RA10      24     MIL  NO   YES  95   45     1442   40   25    0   1100  0
+$C2 NAT       PAL20RA10NC      PAL   TTL   DIP   P20RA10      24     COM  NO   YES  95   45     1442   35   20    0   1050  0
+$C2 NAT       PAL20RA10VC      PAL   TTL   PLCC  P20RA10C     28     COM  NO   YES  095  745    3593   35   20    0   1050  0
+$C2 NAT       PAL20RA10XVC     PAL   TTL   PLCC  P20RA10C     28     COM  NO   YES  095  745    3013   35   20    0   1050  0
+$C2 NAT       PAL20RP4BJC      PAL   TTL   CDIP  P20RP4       24     COM  NO   YES  95   97     567    15   15    0   1103  0
+$C2 NAT       PAL20RP4BNC      PAL   TTL   DIP   P20RP4       24     COM  NO   YES  95   97     567    15   15    0   1103  0
+
+#   mfg       part             type  tech  pack  devname     pins    spc  era preld fam  pin    DID#  speed set  hold pwr  prc
+$C2 NAT       PAL20RP4BVC      PAL   TTL   PLCC  P20RP4       28     COM  NO   YES  --   --       0    15   15    0   1103  0
+$C2 NAT       PAL20RP4BXVC     PAL   TTL   PLCC  P20RP4       28     COM  NO   YES  --   --       0    15   15    0   1103  0
+$C2 NAT       PAL20RP6BJC      PAL   TTL   CDIP  P20RP6       24     COM  NO   YES  95   97     568    15   15    0   1103  0
+$C2 NAT       PAL20RP6BNC      PAL   TTL   DIP   P20RP6       24     COM  NO   YES  95   97     568    15   15    0   1103  0
+$C2 NAT       PAL20RP6BVC      PAL   TTL   PLCC  P20RP6       28     COM  NO   YES  --   --       0    15   15    0   1103  0
+$C2 NAT       PAL20RP6BXVC     PAL   TTL   PLCC  P20RP6       28     COM  NO   YES  --   --       0    15   15    0   1103  0
+$C2 NAT       PAL20RP8BJC      PAL   TTL   CDIP  P20RP8       24     COM  NO   YES  95   97     570     0   15    0   1103  0
+$C2 NAT       PAL20RP8BNC      PAL   TTL   DIP   P20RP8       24     COM  NO   YES  95   97     570     0   15    0   1103  0
+$C2 NAT       PAL20RP8BVC      PAL   TTL   PLCC  P20RP8       28     COM  NO   YES  --   --       0     0   15    0   1103  0
+$C2 NAT       PAL20RP8BXVC     PAL   TTL   PLCC  P20RP8       28     COM  NO   YES  --   --       0     0   15    0   1103  0
+$C2 NAT       GAL20V8-7LNC     GAL   CMOS  DIP   P20V8        24     COM  EE   YES  0D   57     6907    8    7    0   604   0
+$C2 NAT       GAL20V8-7LVC     GAL   CMOS  PLCC  P20V8LCC     28     COM  EE   YES  00D  757      0     8    7    0   604   0
+$C2 NAT       GAL20V8-10LNC    GAL   CMOS  DIP   P20V8        24     COM  EE   YES  0D   57       0    10   10    0   604   0
+$C2 NAT       GAL20V8-10LVC    GAL   CMOS  PLCC  P20V8LCC     28     COM  EE   YES  00D  757      0    10   10    0   604   0
+$C2 NAT       GAL20V8-20LNC    GAL   CMOS  DIP   P20V8        24     COM  EE   YES  0D   57     3383   20   15    0   473   0
+$C2 NAT       GAL20V8-20LNI    GAL   CMOS  DIP   P20V8        24     IND  EE   YES  0D   57     3383   20   15    0   605   0
+$C2 NAT       GAL20V8-20LVC    GAL   CMOS  PLCC  P20V8LCC     28     COM  EE   YES  00D  757    5493   20   15    0   473   0
+$C2 NAT       GAL20V8-20LVI    GAL   CMOS  PLCC  P20V8LCC     28     IND  EE   YES  00D  757    5493   20   15    0   605   0
+$C2 NAT       GAL20V8-25LNC    GAL   CMOS  DIP   P20V8        24     COM  EE   YES  0D   57     3383   25   20    0   473   0
+$C2 NAT       GAL20V8-25LNI    GAL   CMOS  DIP   P20V8        24     IND  EE   YES  0D   57     3383   25   20    0   605   0
+$C2 NAT       GAL20V8-25LVC    GAL   CMOS  PLCC  P20V8LCC     28     COM  EE   YES  00D  757    5493   25   20    0   473   0
+$C2 NAT       GAL20V8-25LVI    GAL   CMOS  PLCC  P20V8LCC     28     IND  EE   YES  00D  757    5493   25   20    0   605   0
+$C2 NAT       GAL20V8-25QNC    GAL   CMOS  DIP   P20V8        24     COM  EE   YES  0D   57     3383   25   20    0   236   0
+$C2 NAT       GAL20V8-25QNI    GAL   CMOS  DIP   P20V8        24     IND  EE   YES  0D   57     3383   25   20    0   303   0
+$C2 NAT       GAL20V8-25QVC    GAL   CMOS  PLCC  P20V8LCC     28     COM  EE   YES  00D  757    5493   25   20    0   236   0
+$C2 NAT       GAL20V8-25QVI    GAL   CMOS  PLCC  P20V8LCC     28     IND  EE   YES  00D  757    5493   25   20    0   303   0
+$C2 NAT       GAL20V8-35QNC    GAL   CMOS  DIP   P20V8        24     COM  EE   YES  0D   57     3383   35   25    0   236   0
+$C2 NAT       GAL20V8-35QNI    GAL   CMOS  DIP   P20V8        24     IND  EE   YES  0D   57     3383   35   25    0   303   0
+$C2 NAT       GAL20V8-35QVC    GAL   CMOS  PLCC  P20V8LCC     28     COM  EE   YES  00D  757    5493   35   25    0   236   0
+$C2 NAT       GAL20V8-35QVI    GAL   CMOS  PLCC  P20V8LCC     28     IND  EE   YES  00D  757    5493   35   25    0   303   0
+$C2 NAT       GAL20V8A-12LNC   GAL   CMOS  DIP   P20V8        24     COM  EE   YES  0D   57     3383   12   12    0   604   0
+$C2 NAT       GAL20V8A-12LVC   GAL   CMOS  PLCC  P20V8LCC     28     COM  EE   YES  00D  757    5493   12   12    0   604   0
+
+#   mfg       part             type  tech  pack  devname     pins    spc  era preld fam  pin    DID#  speed set  hold pwr  prc
+$C2 NAT       GAL20V8A-15LNC   GAL   CMOS  DIP   P20V8        24     COM  EE   YES  0D   57     3383   15   12    0   604   0
+$C2 NAT       GAL20V8A-15LNI   GAL   CMOS  DIP   P20V8        24     IND  EE   YES  0D   57     3383   15   12    0   770   0
+$C2 NAT       GAL20V8A-15LVC   GAL   CMOS  PLCC  P20V8LCC     28     COM  EE   YES  00D  757    5493   15   12    0   604   0
+$C2 NAT       GAL20V8A-15LVI   GAL   CMOS  PLCC  P20V8LCC     28     IND  EE   YES  00D  757    5493   15   12    0   770   0
+$C2 NAT       GAL20V8QS-15LNC  GAL   CMOS  DIP   P20V8        24     COM  EE   YES  0D   57     3383   15   12    0   473   0
+$C2 NAT       GAL20V8QS-15LVC  GAL   CMOS  PLCC  P20V8LCC     28     COM  EE   YES  00D  757    5493   15   12    0   473   0
+$C2 NAT       GAL20V8QS-15QNC  GAL   CMOS  DIP   P20V8        24     COM  EE   YES  0D   57     3383   15   12    0   289   0
+$C2 NAT       GAL20V8QS-15QVC  GAL   CMOS  PLCC  P20V8LCC     28     COM  EE   YES  00D  757    5493   15   12    0   289   0
+$C2 NAT       GAL20V8QS-20LNC  GAL   CMOS  DIP   P20V8        24     COM  EE   YES  0D   57     3383   20   15    0   473   0
+$C2 NAT       GAL20V8QS-20LVC  GAL   CMOS  PLCC  P20V8LCC     28     COM  EE   YES  00D  757    5493   20   15    0   473   0
+$C2 NAT       GAL20V8QS-25LNC  GAL   CMOS  DIP   P20V8        24     COM  EE   YES  0D   57     3383   25   15    0   473   0
+$C2 NAT       GAL20V8QS-25LVC  GAL   CMOS  PLCC  P20V8LCC     28     COM  EE   YES  00D  757    5493   25   15    0   473   0
+$C2 NAT       GAL20V8QS-25QNC  GAL   CMOS  DIP   P20V8        24     COM  EE   YES  0D   57     3383   25   15    0   289   0
+$C2 NAT       GAL20V8QS-25QVC  GAL   CMOS  PLCC  P20V8LCC     28     COM  EE   YES  00D  757    5493   25   15    0   289   0
+$C2 NAT       GAL20V8QS-20LNI  GAL   CMOS  DIP   P20V8        24     IND  EE   YES  0D   57     3383   20   15    0   495   0
+$C2 NAT       GAL20V8QS-20LVI  GAL   CMOS  PLCC  P20V8LCC     28     IND  EE   YES  00D  757    5493   20   15    0   495   0
+$C2 NAT       GAL20V8QS-25LNI  GAL   CMOS  DIP   P20V8        24     IND  EE   YES  0D   57     3383   25   20    0   495   0
+$C2 NAT       GAL20V8QS-25LVI  GAL   CMOS  PLCC  P20V8LCC     28     IND  EE   YES  00D  757    5493   25   20    0   495   0
+$C2 NAT       GAL20V8QS-25QNI  GAL   CMOS  DIP   P20V8        24     IND  EE   YES  0D   57     3383   25   20    0   303   0
+$C2 NAT       GAL20V8QS-25QVI  GAL   CMOS  PLCC  P20V8LCC     28     IND  EE   YES  00D  757    5493   25   20    0   303   0
+$C2 NAT       PAL20X10AJC      PAL   TTL   CDIP  P20X10       24     COM  NO   YES  95   36     1324    0   30    0   945   0
+$C2 NAT       PAL20X10AJM      PAL   TTL   CDIP  P20X10       24     MIL  NO   YES  95   36     1324    0   40    0   990   0
+$C2 NAT       PAL20X10ANC      PAL   TTL   DIP   P20X10       24     COM  NO   YES  95   36     1324    0   30    0   945   0
+$C2 NAT       PAL20X10AXVC     PAL   TTL   PLCC  P20X10C      28     COM  NO   YES  95   23     3604    0   30    0   945   0
+$C2 NAT       PAL20X10JC       PAL   TTL   CDIP  P20X10       24     COM  NO   NO   95   23     167     0   50    0   945   0
+$C2 NAT       PAL20X10JM       PAL   TTL   CDIP  P20X10       24     MIL  NO   NO   95   23     167     0   60    0   990   0
+$C2 NAT       PAL20X10NC       PAL   TTL   DIP   P20X10       24     COM  NO   NO   95   23     167     0   50    0   945   0
+$C2 NAT       PAL20X10XVC      PAL   TTL   PLCC  P20X10C      28     COM  NO   NO   95   23     3604    0   50    0   945   0
+$C2 NAT       PAL20X10AVC      PAL   TTL   PLCC  P20X10C      28     COM  NO   YES  095  636    4423    0   30    0   945   0
+$C2 NAT       PAL20X10VC       PAL   TTL   PLCC  P20X10C      28     COM  NO   NO   095  636    4423    0   50    0   945   0
+$C2 NAT       PAL20X4AJC       PAL   TTL   CDIP  P20X4        24     COM  NO   YES  95   36     576    30   30    0   945   0
+$C2 NAT       PAL20X4AJM       PAL   TTL   CDIP  P20X4        24     MIL  NO   YES  95   36     576    35   40    0   990   0
+$C2 NAT       PAL20X4ANC       PAL   TTL   DIP   P20X4        24     COM  NO   YES  95   36     576    30   30    0   945   0
+$C2 NAT       PAL20X4AXVC      PAL   TTL   PLCC  P20X4C       28     COM  NO   YES  95   23     3600   30   30    0   945   0
+$C2 NAT       PAL20X4JC        PAL   TTL   CDIP  P20X4        24     COM  NO   NO   95   23     165    50   50    0   945   0
+$C2 NAT       PAL20X4JM        PAL   TTL   CDIP  P20X4        24     MIL  NO   NO   95   23     165    60   60    0   990   0
+$C2 NAT       PAL20X4NC        PAL   TTL   DIP   P20X4        24     COM  NO   NO   95   23     165    50   50    0   945   0
+$C2 NAT       PAL20X4XVC       PAL   TTL   PLCC  P20X4C       28     COM  NO   NO   95   23     3600   50   50    0   945   0
+$C2 NAT       PAL20X4AVC       PAL   TTL   PLCC  P20X4C       28     COM  NO   YES  095  736    4420   30   30    0   945   0
+$C2 NAT       PAL20X4VC        PAL   TTL   PLCC  P20X4C       28     COM  NO   NO   095  736    4420   50   50    0   945   0
+$C2 NAT       PAL20X8AJC       PAL   TTL   CDIP  P20X8        24     COM  NO   YES  95   36     573    30   30    0   945   0
+$C2 NAT       PAL20X8AJM       PAL   TTL   CDIP  P20X8        24     MIL  NO   YES  95   36     573    35   40    0   990   0
+$C2 NAT       PAL20X8ANC       PAL   TTL   DIP   P20X8        24     COM  NO   YES  95   36     573    30   30    0   945   0
+$C2 NAT       PAL20X8AXVC      PAL   TTL   PLCC  P20X8C       28     COM  NO   YES  095  723    3602   30   30    0   945   0
+$C2 NAT       PAL20X8JC        PAL   TTL   CDIP  P20X8        24     COM  NO   NO   95   23     166    50   50    0   945   0
+$C2 NAT       PAL20X8JM        PAL   TTL   CDIP  P20X8        24     MIL  NO   NO   95   23     166    60   60    0   990   0
+$C2 NAT       PAL20X8NC        PAL   TTL   DIP   P20X8        24     COM  NO   NO   95   23     166    50   50    0   945   0
+
+#   mfg       part             type  tech  pack  devname     pins    spc  era preld fam  pin    DID#  speed set  hold pwr  prc
+$C2 NAT       PAL20X8XVC       PAL   TTL   PLCC  P20X8C       28     COM  NO   NO   095  723    3602   50   50    0   945   0
+$C2 NAT       PAL20X8AVC       PAL   TTL   PLCC  P20X8C       28     COM  NO   YES  095  636    4421   30   30    0   945   0
+$C2 NAT       PAL20X8VC        PAL   TTL   PLCC  P20X8C       28     COM  NO   NO   095  636    4421   50   50    0   945   0
+$C2 NAT       GAL22V10-15LNC   GAL   CMOS  DIP   P22V10G      24     COM  EE   YES  0D   28     4443   15   12    0   683   0
+$C2 NAT       GAL22V10-15LVC   GAL   CMOS  PLCC  P22V10C      28     COM  EE   YES  00D  728    5484   15   12    0   683   0
+$C2 NAT       GAL22V10-20LNI   GAL   CMOS  DIP   P22V10G      24     IND  EE   YES  0D   28     4443   20   15    0   825   0
+$C2 NAT       GAL22V10-20LVI   GAL   CMOS  PLCC  P22V10C      28     IND  EE   YES  00D  728    5484   20   15    0   825   0
+$C2 NAT       GAL22V10-25LNC   GAL   CMOS  DIP   P22V10G      24     COM  EE   YES  0D   28     4443   25   20    0   683   0
+$C2 NAT       GAL22V10-25LVC   GAL   CMOS  PLCC  P22V10C      28     COM  EE   YES  00D  728    5484   25   20    0   683   0
+$C2 NAT       GAL22V10-30LNI   GAL   CMOS  DIP   P22V10G      24     IND  EE   YES  0D   28     4443   30   25    0   825   0
+$C2 NAT       GAL22V10-30LVI   GAL   CMOS  PLCC  P22V10C      28     IND  EE   YES  00D  728    5484   30   25    0   825   0
+$C2 NAT       MAPL144VC-33     FPLA  CMOS  PLCC  FMAPL144     44     COM  EE   YES  --   --       0    30   20    0   735   0
+$C2 NAT       MAPL144VC-40     FPLA  CMOS  PLCC  FMAPL144     44     COM  EE   YES  --   --       0    26   17    0   735   0
+$C2 NAT       MAPL144VC-45     FPLA  CMOS  PLCC  FMAPL144     44     COM  EE   YES  --   --       0    25   17    0   735   0
+#
+$END

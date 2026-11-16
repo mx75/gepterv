@@ -1,0 +1,79 @@
+ğ
+REGISTERED
+Overview
+This reserved word defines the output data storage type on devices
+with  registered outputs.  A registered output stores its value
+regardless of any data changes.  New data is placed in the register by
+an edge-sensitive clock signal.  A register may consist of D, T, S-R,
+and 2-T flip-flops.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+    PIN OR
+    NODE          Number    Location_Name          Storage
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Device Support:
+PAL10H20EV8    PAL16R4    PAL16R6     PAL16R8    PAL16RA8
+PAL16RP4       PAL16RP6   PAL16RP8    PALCE16V8  PAL18U8
+PAL20R4        PAL20R6    PAL20R8     PAL20RA10  PAL20RS4
+PAL20RS8       PAL20RS10  PALCE20V8   PAL20X4    PAL20X8
+PAL20X10       PAL22IP6   PAL22RX8    PAL22V10   PAL23S8
+PAL24R10       PAL24R4    PAL24R8     PAL26V12   PALCE29M16
+PALCE29MA16    PAL32R16   PAL32VX10   PAL64R32   PALCE610
+PLS105         PLS167     PLS168      PLS30S16   MACH 1
+MACH 2
+ú
+Syntax
+You include this optional reserved word in the pin or node statement
+of Boolean and state-machine designs.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+    PIN OR
+    NODE          Number    Location_Name          Storage
+
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+    ...
+    CHIP COUNTER PAL16R8
+    PIN           15           OUT1                REGISTERED
+    PIN           16           OUT2                REG
+    ...
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+ú
+Definitions
+
+Pin or Node     Identifies the user-defined pin or node name.
+
+Storage         Identifies the value that defines the pin or node
+                storage type. If you do not specify a storage type,
+                combinatorial is the default.
+
+                ş    Place the reserved word, REGISTERED, after the
+                     pin or node name in the corresponding statement.
+
+                ş    Use either the complete word, REGISTERED, or the
+                     three letter abbreviation, reg.
+ú
+Use
+There are two ways to enter the storage type.
+
+ş    Use the declaration segment form, select the Storage field,
+     display the option list, and select an option.
+
+ş    Type the storage value in the appropriate pin or node statement
+     in the PDS file using a text editor.
+
+PALASM requires a data-storage type for each I/O or output pin:
+COMBINATORIAL, LATCHED, or REGISTERED.  Even if the pin or node can
+only be registered, the software requires the registered pin or node
+type.
+ú
+Related Topics
+COMBINATORIAL
+Declaration Segment
+LATCHED
+NODE
+PIN
+ú

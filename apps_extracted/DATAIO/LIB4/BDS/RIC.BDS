@@ -1,0 +1,55 @@
+# $Header: /swpg/develop/abel/src/devsel2/newdata/RCS/ric.chp,v 1.5 92/04/07 14:07:18 aez Exp $
+# chip report file   Released 5.1 
+#
+$MANUFACTURER RIC Ricoh Corp.
+$CONTACT (000)000-0000 
+$ADDRESS1 none 1 
+$ADDRESS2 none 2 
+$ADDRESS3 none 3 
+#
+# 132 column 1-line format no user info (default)
+#
+# format is:
+#$C2 mfg part type tech package devname pins spc eraseable preload family pinout did speed setup hold power price
+#
+#
+
+#   mfg       part             type  tech  pack  devname     pins    spc  era preld fam  pin    DID#  speed set  hold pwr prc 
+$C2 RIC       EPL10P8BD        EPLD  CMOS  CDIP  E10P8        20     COM  UV   NO   39   51    2237   35    0    0  263    0
+$C2 RIC       EPL10P8BP        EPLD  CMOS  DIP   E10P8        20     COM  NO   NO   39   51    2237   35    0    0  263    0
+$C2 RIC       EPL12P6BD        EPLD  CMOS  CDIP  E12P6        20     COM  UV   NO   39   52    2238   35    0    0  263    0
+$C2 RIC       EPL12P6BP        EPLD  CMOS  DIP   E12P6        20     COM  NO   NO   39   52    2238   35    0    0  263    0
+$C2 RIC       EPL14P4BD        EPLD  CMOS  CDIP  E14P4        20     COM  UV   NO   39   53    2239   35    0    0  263    0
+$C2 RIC       EPL14P4BP        EPLD  CMOS  DIP   E14P4        20     COM  NO   NO   39   53    2239   35    0    0  263    0
+$C2 RIC       EPL16P2BD        EPLD  CMOS  CDIP  E16P2        20     COM  UV   NO   39   54    2240   35    0    0  263    0
+$C2 RIC       EPL16P2BP        EPLD  CMOS  DIP   E16P2        20     COM  NO   NO   39   54    2240   35    0    0  263    0
+$C2 RIC       EPL16P8BD        EPLD  CMOS  CDIP  E16P8        20     COM  UV   NO   39   30     174   35    0    0  368    0
+$C2 RIC       EPL16P8BP        EPLD  CMOS  DIP   E16P8        20     COM  NO   NO   39   30     174   35    0    0  368    0
+$C2 RIC       EPL16RP4BD       EPLD  CMOS  CDIP  E16RP4       20     COM  UV   NO   39   31     175   35   25    0  368    0
+$C2 RIC       EPL16RP4BP       EPLD  CMOS  DIP   E16RP4       20     COM  NO   NO   39   31     175   35   25    0  368    0
+$C2 RIC       EPL16RP6BD       EPLD  CMOS  CDIP  E16RP6       20     COM  UV   NO   39   31     176   35   25    0  368    0
+$C2 RIC       EPL16RP6BP       EPLD  CMOS  DIP   E16RP6       20     COM  NO   NO   39   31     176   35   25    0  368    0
+$C2 RIC       EPL16RP8BD       EPLD  CMOS  CDIP  E16RP8       20     COM  UV   NO   39   31     177    0   25    0  368    0
+$C2 RIC       EPL16RP8BP       EPLD  CMOS  DIP   E16RP8       20     COM  NO   NO   39   31     177    0   25    0  368    0
+$C2 RIC       EPL204EP         EPLD  CMOS  DIP   E204         20     COM  NO   NO   39   6F    4410   25   18   10  368    0
+$C2 RIC       EPL204ED         EPLD  CMOS  CDIP  E204         20     COM  UV   NO   39   6F    4410   25   18   10  368    0
+$C2 RIC       EPL241EJ         EPLD  CMOS  PLCC  P241         28     COM  NO   NO   039  75A   2242   25   18   10  735    0
+$C2 RIC       EPL241EP         EPLD  CMOS  DIP   P241         24     COM  NO   NO   39   5A    2241   25   18   10  735    0
+$C2 RIC       EPL241ED         EPLD  CMOS  CDIP  P241         24     COM  UV   NO   39   5A    2241   25   18   10  735    0
+$C2 RIC       EPL242ED         EPLD  CMOS  CDIP  E242         24     COM  UV   NO   --   --    6134   25   18    0  400     0
+$C2 RIC       EPL242EP         EPLD  CMOS  DIP   E242         24     COM  NO   NO   --   --    6134   25   18    0  400     0
+$C2 RIC       EPL242EJ         EPLD  CMOS  PLCC  E242C        28     COM  NO   NO   --   --    6416   25   18    0  400     0
+$C2 RIC       EPL16P8FP        EPLD  CMOS  DIP   E16P8F       20     COM  NO   NO   --   --    6724   15   12    0  350     0
+$C2 RIC       EPL16P8FD        EPLD  CMOS  CDIP  E16P8F       20     COM  UV   NO   --   --    6724   15   12    0  350     0
+$C2 RIC       EPL16P8FJ        EPLD  CMOS  PLCC  E16P8F       20     COM  NO   NO   --   --    6874   15   12    0  350     0
+$C2 RIC       EPL16RP8FP       EPLD  CMOS  DIP   E16RP8F      20     COM  NO   YES  --   --    6723   15   12    0  350     0
+$C2 RIC       EPL16RP8FD       EPLD  CMOS  CDIP  E16RP8F      20     COM  UV   YES  --   --    6723   15   12    0  350     0
+$C2 RIC       EPL16RP8FJ       EPLD  CMOS  PLCC  E16RP8F      20     COM  NO   YES  --   --    6875   15   12    0  350     0
+$C2 RIC       EPL16RP6FP       EPLD  CMOS  DIP   E16RP6F      20     COM  NO   YES  --   --    6722   15   12    0  350     0
+$C2 RIC       EPL16RP6FD       EPLD  CMOS  CDIP  E16RP6F      20     COM  UV   YES  --   --    6722   15   12    0  350     0
+$C2 RIC       EPL16RP6FJ       EPLD  CMOS  PLCC  E16RP6F      20     COM  NO   YES  --   --    6876   15   12    0  350     0
+$C2 RIC       EPL16RP4FP       EPLD  CMOS  DIP   E16RP4F      20     COM  NO   YES  --   --    6721   15   12    0  350     0
+$C2 RIC       EPL16RP4FD       EPLD  CMOS  CDIP  E16RP4F      20     COM  UV   YES  --   --    6721   15   12    0  350     0
+$C2 RIC       EPL16RP4FJ       EPLD  CMOS  PLCC  E16RP4F      20     COM  NO   YES  --   --    6877   15   12    0  350     0
+#
+$END

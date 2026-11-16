@@ -1,0 +1,55 @@
+ğ
+VCC
+Overview
+You can include this reserved word in an equation to hold a pin, node, 
+or functional equation unconditionally high.  
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+        Pn or
+        Functional Equation   Assignment operator     VCC
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+
+Device Support:  All PLD devices.
+ú
+Syntax
+You use the reserved word, VCC, in the equations segment of Boolean
+and state-machine designs.
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+        Pn or
+        Functional Equation   Assignment operator     VCC
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+    EQUATIONS
+    ...
+        OUT5                            =             VCC
+        OE1.TRST                        =             VCC
+    ...
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+
+Pn or           Defines the element to be held high.
+Functional
+Equation
+
+                ş    The pin or node name defined in the pin or node
+                     statement of the declaration segment
+
+                ş    The pin or node function defined in an earlier
+                     functional equation
+ú
+Use
+VCC is normally used for functional equations.  You can use 1 instead
+of VCC anywhere you want an unconditional high value.
+
+Important:  You must define the VCC pin in a pin statement.
+ú
+Related Topics
+GND
+ú

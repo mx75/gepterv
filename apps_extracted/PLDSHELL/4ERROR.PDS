@@ -1,0 +1,73 @@
+Title           4-Bit Counter Sample File
+Pattern		pds
+Revision        1	
+Author		Your Name
+Company		Your Company
+Date		Date
+
+CHIP  4_count  EP224
+
+; pin assignments
+
+PIN	1	CLK	; clock pin
+PIN	2	ENA	; counter enable
+PIN	15	QA	; LSB
+PIN	16	QB
+PIN	17	QC
+PIN	18	QD	; MSB
+
+; Boolean equations for registers
+
+EQUATIONS
+      
+	QA := ENA * /Q.A
+
+	QB := ENA * QB * /QA
+	    + ENA * /QB * QA
+
+	QC := ENA * QC * /QA
+	    + ENA * QC * /QB
+	    + ENA * /QC * QB * QA
+
+	QD := ENA * QD * /QA
+	    + ENA * QD * /QB
+	    + ENA * QD * /QC
+	    + ENA * /QD * QC * QB * QA
+
+SIMULATION
+
+; set up vector and trace
+; set to known state, preload registers (all low)
+
+VECTOR COUNT := [ QD, QC, QB, QA ]
+TRACE_ON  ENA  CLK  QD  QC  QB  QA
+SETF  ENA  /CLK
+PRLDF  /QA  /QB  /QC  /QD       ; clock set before
+                                ; preload command
+; count 4 times
+
+    FOR X:=0 TO 3 DO
+        BEGIN
+            CLOCKF CLK
+        END
+
+; disable counting, then try 4 more times
+
+SETF  /ENA
+    FOR X:=0 TO 3 DO
+        BEGIN
+            CLOCKF CLK
+        END
+
+; enable counting, then count 9 times
+
+SETF  ENA
+    FOR X:=0 TO 8 DO
+        BEGIN
+            CLOCKF CLK
+        END
+
+TRACE_OFF
+
+; end of simulation
+

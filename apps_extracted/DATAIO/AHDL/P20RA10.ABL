@@ -1,0 +1,54 @@
+module P20RA10
+
+TITLE   'EXAMPLE OF USING COMBINATORIAL FEEDBACK TO CLOCK
+         A REGISTERED OUTPUT by ALEX KINE  8/27/91.'
+
+"        NOTE: THIS DESIGN FAILS UNDER PLASIM V4.00 AND PASSES
+"              UNDER V4.03.
+
+        P20RA10         device  'P20RA10';
+
+"INPUTS
+        PR                      PIN 1;"PRELOAD PIN
+        CLOCK_IN                PIN 2;
+        INPUT                   PIN 3;
+        RESET                   PIN 11;
+        ENAB                    PIN 13;"OUTPUT ENABLE PIN
+
+"OUTPUTS       
+        CLOCK_OUT               PIN 23  ISTYPE 'COM';
+        OUTPUT                  PIN 22  ISTYPE 'REG_D,INVERT';
+
+        C,X,Z           = .C.,.X.,.Z.;
+
+equations
+
+        CLOCK_OUT       = CLOCK_IN;
+        CLOCK_OUT.OE    = !ENAB;
+
+        OUTPUT.D        = INPUT;
+        OUTPUT.CLK      = CLOCK_OUT;
+        OUTPUT.OE       = !ENAB;
+        OUTPUT.AR       = RESET;
+
+test_vectors
+
+   ([PR ,RESET,ENAB,CLOCK_IN,INPUT]->[CLOCK_OUT,OUTPUT])
+    [ 1 ,  0  ,  0 ,    0   ,  0  ]->[    0    ,  X   ];"POWER-UP UNKNOWN
+    [ 1 ,  1  ,  0 ,    0   ,  0  ]->[    0    ,  1   ];"RESET
+    [ 1 ,  0  ,  1 ,    0   ,  0  ]->[    Z    ,  Z   ];"TRI-STATE
+    [ 1 ,  0  ,  0 ,    0   ,  0  ]->[    0    ,  1   ];
+
+    [ 1 ,  0  ,  0 ,    0   ,  1  ]->[    0    ,  1   ];"INPUT HIGH
+
+    [ 1 ,  0  ,  0 ,    0   ,  1  ]->[    0    ,  1   ];"LOW  CLOCK
+    [ 1 ,  0  ,  0 ,    1   ,  1  ]->[    1    ,  0   ];"HIGH CLOCK
+    [ 1 ,  0  ,  0 ,    0   ,  1  ]->[    0    ,  0   ];"LOW  CLOCK
+
+    [ 1 ,  0  ,  0 ,    0   ,  0  ]->[    0    ,  0   ];"INPUT LOW
+
+    [ 1 ,  0  ,  0 ,    0   ,  0  ]->[    0    ,  0   ];"LOW  CLOCK
+    [ 1 ,  0  ,  0 ,    1   ,  0  ]->[    1    ,  1   ];"HIGH CLOCK
+    [ 1 ,  0  ,  0 ,    0   ,  0  ]->[    0    ,  1   ];"LOW  CLOCK
+
+end

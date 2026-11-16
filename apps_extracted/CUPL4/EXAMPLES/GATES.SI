@@ -1,0 +1,55 @@
+Name            Gates;
+Partno          CA0001;
+Revision        04;
+Date            9/12/89;
+Designer        G. Woolhiser;
+Company         Logical Devices, Inc.;
+Location        None;
+Assembly        None;
+Device          G16V8;
+
+/****************************************************************/
+/*                                                              */
+/*      This is a example to demonstrate how CUPL               */
+/*      compiles simple gates.                                  */
+/*                                                              */
+/****************************************************************/
+/*      Target Devices: P16L8, P16LD8, P16P8, EP300, and 82S153 */
+/****************************************************************/
+
+
+/*
+ * Order:  define order, polarity, and output
+ * spacing of stimulus and response values
+ */
+
+Order:  a, %2, b, %4, inva, %3, invb, %5, and, %8,
+        nand, %7, or, %8, nor, %7, xor, %8, xnor;
+
+/*
+ * Vectors:  define stimulus and response values, with header
+ *           and intermediate messages for the simulator listing.
+ *
+ * Note: Don't Care state (X) on inputs is reflected in outputs
+ *       where appropriate.
+ */
+
+Vectors:
+
+$msg "";
+$msg "                            Simple Gates Simulation";
+$msg "";
+$msg "            inverters  and      nand     or      nor     xor      xnor";
+$msg "      a  b   !a  !b   a & b  !(a & b)  a # b  !(a # b)  a $ b  !(a $ b)";
+$msg "      -  -   --  --   -----  --------  -----  --------  -----  --------";
+
+00 HHLHLHLH
+01 HLLHHLHL
+10 LHLHHLHL
+11 LLHLHLLH
+1X LXXXHLXX
+X1 XLXXHLXX
+0X HXLHXXXX
+X0 XHLHXXXX
+XX XXXXXXXX
+

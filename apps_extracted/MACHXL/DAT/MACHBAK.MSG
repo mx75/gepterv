@@ -1,0 +1,58 @@
+110 |> ERROR K110  Cannot open input PDS file %s
+120 |> ERROR K120  Cannot open input PLC file %s
+130 |> ERROR K130  Cannot open output PDS file %s
+140 |> ERROR K140  Cannot find input PDS file %s
+150 |> ERROR K150  Cannot find input PLC file %s
+160 |> ERROR K160  Cannot create output PDS file %s
+170 |> ERROR K170  Cannot find input TNC file %s
+200 |> ERROR K200  Input file %s is not a valid PDS file.
+210 |> ERROR K210  Input file %s is not a valid PLC file.
+220 |> ERROR K220  Not enough memory.
+230 |> ERROR K230  A pin or node number is assigned to different
+230               signals in the design file and the placement file.
+230               - first, float all signals with backannotate
+230               - then backannotate from '.plc' file.
+240 |> ERROR K240  Invalid group definition %s.
+250 |> ERROR K250  Cannot translate %s to %s.
+260 |> ERROR K260  Syntax
+260                %s.
+270 |> ERROR K270  Invalid range numbers
+270 |>             %s
+300 |> WARNING K300  Input file %s doesn't have any floating pin/node.
+310 |> WARNING K310  All pins/nodes are floating in %s file.
+320 |> WARNING K320  -plc option is ignored due to -udo option
+330 |> WARNING K330  Pin number 0 is assigned to signal %s in %s file.
+331 |> WARNING K331  Negative pin (signal %s) is found in %s file.
+332 |> WARNING K332  Signal %s is missing in %s file.
+400 %%%%  MACHBAK  %%%% Program successful.  File  %s
+401 %%%%  MACHBAK  %%%% Program successful.  File  %s
+410 %%%%  MACHBAK  %%%% File processing terminated.  File  %s
+411 %%%%  MACHBAK  %%%% File processing terminated.  File  %s
+420 %%%%  MACHBAK  %%%% ERROR count  %d  WARNING count  %d
+421 %%%%  MACHBAK  %%%% ERROR count  %d  WARNING count  %d
+430 Backannotated PDS file is stored in %s
+431 Backup PDS file %s.bak is created
+432 Translated PDS file is stored in %s
+440 Backannotated PDS file with errors is stored in %s.pbk
+441 Backannotated PDS file with warnings is stored in %s.pbk
+442 A total of %d signals missing in %s.plc file
+500 MACHBAK HELP  Invalid options are used 
+510 MACHBAK HELP  -pbk and -udo options must be used exclusively
+520 MACHBAK HELP  Duplicate LOG filename is specified
+530 MACHBAK HELP  Input file is not specified
+600    Command format to invoke MACHBAK:
+600      MACHBAK <filename[.pds]> [OPTION...]
+600      OPTION -pbk [<filename[.pds]>] | -udo [<filename[.pds]>] |
+600             -udn [<filename[.pds]>]      
+600             -plc [<filename[.plc]>]      
+600             -log [<filename[.log]>]
+600             -tnc [<filename[.tnc]>]
+600             -xlt [<device_name>]
+600      option flag description:
+600         -pbk  assign pin/node numbers to floating pins/nodes
+600         -plc  specify plc input filename
+600         -udo  assign floating pin/node(?) to all pins/nodes
+600         -udn  assign floating node(?) to nodes
+600         -tnc  read truncated name-conversion file from <filename>
+600         -log  capture screen message to disk file
+600         -xlt  translate to device <device_name>

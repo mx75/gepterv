@@ -1,0 +1,256 @@
+Title 'PLACE DEMONSTRATION DESIGN FOR PA7024 '
+Designer 'Joe Peel'
+Date '6-17-90'
+
+Description
+             PLACE Demonstration Design for PA7024
+
+  This design example implements four applications in one PA7024.
+
+  GATES    Basic combinatorial functions including: AND, OR, NOR, NAND, EXOR,
+           Inverter, 4 to 1 mux, and 4-bit comparitor.
+  REGS     Basic registers including: D, T and JK flip-flops with independent
+           clocks, presets and resets, an SR Latch (for debouncing inputs),
+           a gated-latch (LAT1), a basic storage register (REG1), a 2-bit
+           state machine (S0,S1), and a 4-bit shift register (SHF0-3).
+  COUNTER  An 8-bit down counter with Hold, Preset and Reset.
+  PORT     An 8-bit bi-directional I/O port with registered input.
+
+  The mode inputs, MODE1 and MODE2, control application selection. Pins names
+  A through H are used as inputs and/or control, pins I through P are used
+  as outputs. The outputs of each application are selected via eight 4 to 1
+  muxes. Output enable and direction (in PORT mode) are selected by CONTROL.
+
+End_Desc;
+
+PA7024
+
+SYS_CLK PIN 1
+IN_CLK PIN 13
+
+"IOC CONFIGURATION DECLARATION
+"IOC (PIN_NO 'PIN_NAME' POLARITY IO_TYPE) <- LCC_NO
+
+IOC ( 2 'MODE1' Pos IO ) <- 1A
+IOC ( 3 'MODE2' Pos IO ) <- 2A
+IOC ( 4 'A' Pos IO ) <- 3A
+IOC ( 5 'B' Pos IO ) <- 3B
+IOC ( 6 'C' Pos IO ) <- 4A
+IOC ( 7 'D' Pos IO ) <- 4B
+IOC ( 8 'E' Pos IO ) <- 5A
+IOC ( 9 'F' Pos IO ) <- 5B
+IOC (10 'G' Pos IO ) <- 5C
+IOC (11 'H' Pos IO ) <- 5D
+IOC (14 'INVERT_P' Pos Lat) <- 4D
+IOC (15 'EQUAL_O' Pos Lat) <- 3D
+IOC (16 'MUX_N' Pos Lat) <- 2D
+IOC (17 'EXOR_M' Pos Lat) <- 1D
+IOC (18 'NOR_L' Pos Lat) <- 4C
+IOC (19 'NAND_K' Pos Lat) <- 3C
+IOC (20 'OR_J' Pos Lat) <- 2C
+IOC (21 'AND_I' Pos Lat) <- 1C
+IOC (22 'CONTROL' Pos IO ) <- 2B
+IOC (23 'HALF_CLK' Pos Out) <- 1B
+
+"LCC CONFIGURATION DECLARATION
+"LCC (LCC_NO 'LCC_NAME' REG_TYPE CLK_TYPE BUR_OUT EXT_OUT)
+
+LCC (1A 'D1' D   SumD Reg  Reg )
+LCC (2A 'T1' T   SumD Reg  Reg )
+LCC (3A 'LAT1' D   Neg  SumB SumC)
+LCC (4A 'S0' T   Pos  Reg  SumC)
+LCC (5A 'SHF0' D   SumC Reg  SumB)
+LCC (1B 'SR1' T   Pos  SumC Reg )
+LCC (2B 'JK1' JK  SumD Reg  Reg )
+LCC (3B 'REG1' D   Pos  Reg  SumC)
+LCC (4B 'S1' T   Pos  Reg  SumC)
+LCC (5B 'SHF1' D   SumC Reg  SumB)
+LCC (1C 'Q0' T   Pos  Reg  SumC)
+LCC (2C 'Q1' T   Pos  Reg  SumC)
+LCC (3C 'Q2' T   Pos  Reg  SumC)
+LCC (4C 'Q3' T   Pos  Reg  SumC)
+LCC (5C 'SHF2' D   SumC Reg  SumB)
+LCC (1D 'Q4' T   Pos  Reg  SumC)
+LCC (2D 'Q5' T   Pos  Reg  SumC)
+LCC (3D 'Q6' T   Pos  Reg  SumC)
+LCC (4D 'Q7' T   Pos  Reg  SumC)
+LCC (5D 'SHF3' D   SumC Reg  SumB)
+
+"GBC CONFIGURATION FDECLARATION
+"GBC (GROUP LCC_CLK IOC_CLK)
+
+Global = 1
+GBC (A Clk1 Clk2)
+GBC (B Clk1 Clk1)
+
+
+DEFINE
+
+STROBE  = [S1 S0];
+
+GATES   = /Mode2 * /Mode1;  "when 0 0 then Gates and Comparator
+REGS    = /Mode2 *  Mode1;  "when 0 1 then Registers, Latches and Shifter
+COUNTER =  Mode2 * /Mode1;  "when 1 0 then 8-bit Counter
+PORT    =  Mode2 *  Mode1;  "when 1 1 then Bi-directional Port
+
+
+STATE_DIAGRAM STROBE
+STATE 0: Goto 1
+STATE 1: Goto 2
+STATE 2: If /H Then 3 Else 2
+STATE 3: Goto 0
+END;
+
+
+EQUATIONS
+
+"Global output names specified in the equations below are reserved words.
+RTA = 0;        "Global Reg-Type not used
+PCLKA = PORT * IN_CLK;      "Optional product term clock
+PRESETA = 0;    "Global Preset not used
+RESETA = COUNTER * D +   "Global Reset
+         REGS * C;
+
+RTB = 0;        "Reg-Type Product Term
+PCLKB = 0;      "I/O Clock Product Term
+PRESETB = 0;    "Preset Sum Term
+RESETB = 0;     "Reset Sum Term
+
+D1.D = REGS * A;      "D Register, A=Input
+D1.AP = REGS * B;      "D Register, B=Asynchronous Preset
+D1.AR = REGS * C;      "D Register, C=Asynchronous Reset
+D1.CLK = REGS * D;      "D Register, D=Clock
+
+T1.T = REGS * A;       "T1 Register, A=Input
+T1.AP = REGS * B;      "T1 Register, B=Asynchronous Preset
+T1.AR = REGS * C;      "T1 Register, C=Asynchronous Reset
+T1.CLK = REGS * D;     "T1 Register, D=Clock
+
+JK1.J = REGS * A;      "JK1 Register, A = J Input
+JK1.K = REGS * B;      "JK1 Register, B = K Input
+JK1.AR = REGS * C;      "JK1 Register, C = Asynchrounous Reset
+JK1.CLK = REGS * D;      "JK1 Register, D = Clock
+
+HALF_CLK.T = control + /control;  "Toggle on Sys_Clk rising edge
+HALF_CLK.AP = 0;        "preset set inactive
+SR1.COM = REGS * /(B + /(A + SR1));      "SR1 Latch, A=Set B=Reset
+SR1.SumD = 0;            "output enable not used
+
+A.SumA = 0;          "LCC input not used
+LAT1.COM = Regs * ((E * D) + (LAT1 * /D) + (E * LAT1)); "Gated Latch
+                     "E for latch in, D for latch enable
+A.COM = AND_I;   "A output if in port mode (see output enable)
+A.OE = PORT * /Control;  "Enable Output if Port Mode and Control=0
+
+REG1.D = Regs * A;          "D Register, A=Input
+REG1.AP = Regs * B;         "D Register, B=Asynchronous Preset
+B.COM = OR_J;   "B output if in port mode (see output enable)
+B.OE = PORT * /Control;  "Enable Output if Port Mode and Control=0
+
+S0.T = 0;   "Unused here, used for State-machine design STROBE
+S0.AP = 0;
+C.COM = NAND_K;  "C output if in port mode (see output enable)
+C.OE = PORT * /Control;  "Enable Output if Port Mode and Control=0
+
+S1.T = 0;   "Unused here, used for State-machine design STROBE
+S1.AP = 0;
+D.COM = NOR_L;   "D output if in port mode (see output enable)
+D.OE = PORT * /Control;  "Enable Output if Port Mode and Control=0
+
+SHF0.D = Regs * G;     "Shift Register Bit 0
+E.COM = EXOR_M;  "E output if in port mode (see output enable)
+SHF0.CLK = Regs * D;    "Shift Register, D=clock
+E.OE = PORT * /Control;  "Enable Output if Port Mode and Control=0
+
+SHF1.D = Regs * SHF0;     "Shift Register Bit 1;
+F.COM = MUX_N;   "F output if in port mode (see output enable)
+SHF1.CLK = Regs * D;    "Shift Register, D=clock;
+F.OE = PORT * /Control;  "Enable Output if Port Mode and Control=0
+
+SHF2.D = Regs * SHF1;     "Shift Register Bit 2;
+G.COM = EQUAL_O;  "G output if in port mode (see output enable)
+SHF2.CLK = Regs * D;    "Shift Register, D=clock;
+G.OE = PORT * /Control;  "Enable Output if Port Mode and Control=0
+
+SHF3.D = Regs * SHF2;     "Shift Register Bit 3;
+H.COM = INVERT_P;    "H output if in port mode (see output enable)
+SHF3.CLK = Regs * D;    "Shift Register, D=clock;
+H.OE = PORT * /Control;  "Enable Output if Port Mode and Control=0
+
+Q0.T = COUNTER *
+       !B;         "Bit 0 of Counter, B = HOLD
+Q0.AP = COUNTER * A;  "Input A presets Counter
+AND_I.COM = GATES * A * B * C * D * E * F * G * H +  "8 input AND gate
+            REGS * D1 +                               "D reg output
+            COUNTER * Q0 +                           "Bit 0 of counter
+            PORT * A;                                "A input
+AND_I.OE =  Control;      "Control is used to enable outputs I-P
+
+Q1.T = COUNTER *
+       !B * !Q0;    "Bit 1 of Counter, B = HOLD
+Q1.AP = COUNTER * A;   "Input A presets Counter
+OR_J.COM =  GATES * (A + B + C + D + E + F + G + H) +  "8 input OR gate
+            REGS * T1 +                                 "T1 reg output
+            COUNTER * Q1 +                             "Bit 1 of counter
+            PORT * B;                                  "B input
+OR_J.OE =   Control;     "Control is used to enable outputs I-P
+
+Q2.T = COUNTER *
+       !B * !Q0 * !Q1;   "Bit 2 of Counter, B = HOLD
+Q2.AP = COUNTER * A;   "Input A presets Counter
+NAND_K.COM = GATES * /(A * B * C * D * E * F * G * H) + "8 input NAND gate
+             REGS * JK1 +                                "JK1 reg output
+             COUNTER * Q2 +                             "Bit 2 of counter
+             PORT * C;                                  "C input to K output
+NAND_K.OE = Control;     "Control is used to enable outputs I-P
+
+Q3.T = COUNTER *
+       !B * !Q0 * !Q1 * !Q2;   "Bit 3 of Counter, B = HOLD
+Q3.AP = COUNTER * A;   "Input A presets Counter
+NOR_L.COM = GATES * /(A + B + C + D + E + F + G + H) + "8 input NOR gate
+            REGS * SR1 +                                "SR1 latch output
+            COUNTER * Q3 +                             "Bit 3 of counter
+            PORT * D;                                  "D input to L output
+
+NOR_L.OE =  Control;     "Control is used to enable outputs I-P
+
+Q4.T = COUNTER *
+       !B * !Q0 * !Q1 * !Q2 * !Q3;  "Bit 4 of Counter, B = HOLD
+Q4.AP = COUNTER * A;   "Input A presets Counter
+EXOR_M.COM = GATES * (A $ B) +    "Exclusive-OR gate
+             REGS * LAT1 +        "Gated latch 1 output
+             COUNTER * Q4 +       "Bit 4 of counter
+             PORT * E;            "E input to M output
+EXOR_M.OE = Control;     "Control=1 is used to enable outputs I-P
+
+Q5.T = COUNTER *
+       !B * !Q0 * !Q1 * !Q2 * !Q3 * !Q4;  "Bit 5 of Counter, B = HOLD
+Q5.AP = COUNTER * A;   "Input A presets Counter
+MUX_N.COM = REGS * REG1 +     "Reg1 output
+             COUNTER * Q5 +   "Bit 5 of counter
+             PORT * F +       "F input to N output
+                              "4 TO 1 MUX, (ABCD TO N)  EF=SELECT
+             GATES * (A * /E * /F + B * /E * F + C * E * /F + D * E * F);
+MUX_N.OE = Control;     "Control is used to enable outputs I-P
+
+Q6.T = COUNTER *           "Bit 6 of Counter, B = HOLD
+       !B * !Q0 * !Q1 * !Q2 * !Q3 * !Q4 * !Q5;
+Q6.AP = COUNTER * A;   "Input A presets Counter
+EQUAL_O.COM = REGS * SHF3 +    "4-bit shift register output
+              COUNTER * Q6 +    "Bit 6 of counter
+              PORT * G  +          "G input to O output
+                                "Equalty comparator, ABCD = EFGH
+              GATES * /((A $ E) + (B $ F) + (C $ G) + (D $ H));
+
+EQUAL_O.OE = Control;     "Control is used to enable outputs I-P
+
+Q7.T = COUNTER *          "Bit 7 of Counter, B = HOLD
+       !B * !Q0 * !Q1 * !Q2 * !Q3 * !Q4 * !Q5 * !Q6;
+Q7.AP = COUNTER * A;   "Input A presets Counter
+INVERT_P.COM = REGS * S1 * /S0 +       "Strobe output from state machine
+              COUNTER * Q7 +    "Bit 6 of counter
+              PORT * H  +       "H input to O output
+              GATES * /A ;      "INVERTER, A INPUT
+INVERT_P.OE = Control;     "Control is used to enable outputs I-P
+
+

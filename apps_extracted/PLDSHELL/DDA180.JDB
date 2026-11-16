@@ -1,0 +1,7 @@
+# execute disassembly for 5C180
+
+
+load "da180.jdb"
+
+de180(1)
+

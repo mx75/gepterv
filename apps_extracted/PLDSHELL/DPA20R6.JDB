@@ -1,0 +1,202 @@
+#/*
+# * **************************  ALTERA PROPRIETARY  ***************************
+# *
+# *       --------------------  DO NOT REPRODUCE  ----------------------
+# *
+# *   Copyright (C) 1994 by Altera Corporation.
+# *   All rights reserved. No part of this program or publication may be 
+# *   reproduced, transmitted, transcribed, stored in a retrieval system, or
+# *   translated into any language or computer language, in any form or by any
+# *   means, electronic, mechanical, magnetic, optical,  chemical,  manual, or
+# *   otherwise,  without the prior written permission of  Altera Corporation,
+# *   2610 Orchard Parkway,  San Jose,  California 95134-2020.
+# *
+# * ***************************************************************************
+# */
+#
+#
+
+#
+# load "20r6_lib.jdb" (device database) & "plfg_lib.jdb" (disassembly library)
+# prior to loading these macros
+#
+#
+#    func equations( )
+#    description: determine if an equation needs to be generated and output to
+#                 equation section of adf
+#    arguments
+#    returns:status
+#    algorithm:  determine if any controls/sops used, call term_output as
+#                needed
+#
+func equations( ) {
+     eq_i = 1  # macrocell equation counter
+     while ( eq_i <= JDBV_mcnum ) { # check all macrocells 
+       message "Processing Macrocell [ %d ] \n", eq_i
+       ptg_cnt = 1
+       pin_num_i = ((NUM_PINS - eq_i) -1) # pin number component of node name
+       if ( mc_used( eq_i ) == 1 ) { # check to see if any equations
+            numofptg = 1
+            pt_num = SPPTNUM + OEPTNUM # eight for registered mc
+            mc_ptg = get_ptg(eq_i)
+            if ((eq_i < 2) || (eq_i > 7))  # mc is comb.
+            {
+                pt_num = OEPTNUM
+                numofptg = 2
+            }
+            while (ptg_cnt <= numofptg) {
+               if ((ptg_cnt == 2) || (numofptg == 1)) 
+                   print "/"
+               if (ptg_cnt == 2) {
+                   pt_num = SPPTNUM
+                   mc_ptg = mc_ptg + 1
+               }
+               ptermadr = pterm_gaddr(mc_ptg) # pterm address
+               print "io%d", map_pin(pin_num_i)
+               if ((numofptg == 2) && (ptg_cnt == 1)) # oe equation
+                   print ".TRST"
+               if (numofptg == 1) {  # registered macrocell
+                   print " := " 
+               }
+               else
+                   print " = "
+               need_or = 0
+               if (pterm_gstate(ptermadr,pt_num) == 1) # equation used
+               {
+                   pt_cnt = 1
+                   while (pt_cnt <= pt_num)
+                   {
+                       if (pterm_state(ptermadr) == 1)
+                       {
+                           if (need_or)
+                              print "\n+ "
+                           need_or = 1
+                           if (term_output(ptermadr,JDBV_wlnum) <= 0) {
+                              message "JDB disassembly error, processing equation %d\n" ,eq_i
+                              return 1
+                           }
+                       }
+                       ptermadr = ptermadr + JDBV_wlnum
+                       pt_cnt = pt_cnt + 1
+                   }
+               }
+               else  
+               if (pterm_gstate(ptermadr,pt_num) == 0) # VCC
+                   print "VCC"
+               else
+               if (pterm_gstate(ptermadr,pt_num) == -1) # GND
+                   print "GND"
+
+               if ((ptg_cnt == 2) || (numofptg == 1))
+               {
+                   print "\n; NOTE: Preceding equation inverted to maintain original design logic sense.\n"
+               }
+    
+               print "\n\n"
+
+               if (numofptg == 1) { # registered
+                   print "io%d.TRST = /oe ; NOTE: OE inverted to maintain original design logic sense.\n\n", map_pin(pin_num_i)
+               }
+               ptg_cnt = ptg_cnt + 1
+           }
+       }
+       else if (!io_used(pin_num_i,JDBV_lptadr)) { # macrocell not programmed - must be GND
+           print "/io%d ",pin_num_i
+            if ((eq_i > 1) && (eq_i < 8))  # mc is reg.
+                print ":"
+            print "= GND"
+            print "\n; NOTE: Preceding equation inverted to maintain original design logic sense.\n\n\n"
+            if ((eq_i < 2) || (eq_i > 7))  # mc is comb.
+               print "io%d.TRST = VCC\n\n",pin_num_i
+            else
+               print "io%d.TRST = /oe ; NOTE: OE inverted to maintain original design logic sense.\n\n", pin_num_i
+       }
+       eq_i = eq_i + 1
+     }
+     return 0
+}
+
+
+
+#    proc pinlst( )
+#    Description: list input and output pins, including no-connects
+#    Argument/returns: none
+#
+proc pinlst( )
+{
+     pin_num = 1
+     end = NUM_PINS
+     while (pin_num <= end)
+     {
+        if (((pin_num == 1) || (pin_num == 8) || (pin_num == 15) || (pin_num == 22)) && (pinmap_20r6)){ # plcc pkgs only
+            print "PIN    "
+            if (pin_num < 9)
+                print " "
+            print "%d    NC\n", pin_num
+        }
+
+        print "PIN    "
+        if ((pin_num < 8) || ((pin_num < 10) && (!pinmap_20r6)))
+            print " "
+        print "%d", map_pin(pin_num)
+        if (pin_num == 1) 
+            print "    clk"
+        else if (pin_num == 12) 
+            print "    GND"
+        else if (pin_num == 13) 
+            print "    oe"
+        else if (pin_num == 24)
+            print "    VCC"
+        else if ((pin_num <= 14) || (pin_num == 23)) {
+            if (pin2array(pin_num, JDBV_lptadr)) {
+                print "    in%d", map_pin(pin_num)
+            }
+            else {
+                print "    NC"
+            }
+        }
+        else if (pin_num > 14) {
+            print "    io%d", map_pin(pin_num)
+        }
+        print "\n"
+        pin_num = pin_num + 1
+    }
+}
+proc dpa20r6( ) {
+     pldlib_init()
+     program_state(1)
+     lang(1)    # PEP output
+     pinmap_20r6 = $1
+     if (jedec_fuses() != 2560) {
+        errmsg(1)
+        message "The source JEDEC file is incompatible with the 20R6 device.\n"
+        exit 1
+     }
+     infomsg(1)
+     if (pinmap_20r6)
+        message "20R6 -> N85C224 "
+     else
+        message "20R6 -> 85C224 "
+     infomsg(2)
+     print "OPTIONS TURBO = ON\n\n"
+     print "\n"
+     print "CHIP U1 "
+     if (pinmap_20r6)
+        print "N"
+     print "85C224\n"
+     print "\n"
+     pinlst( ) # list the pins
+     print "\n\n"
+     print "EQUATIONS\n"
+     print "\n"
+
+     if (equations( )) {
+        errmsg(1)
+        errmsg(2)
+     }
+     else {
+        infomsg(1)
+        infomsg(3)
+     }
+     print "\n"
+}

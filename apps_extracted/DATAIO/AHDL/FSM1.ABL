@@ -1,0 +1,120 @@
+MODULE FSM1
+
+        TITLE   'ABEL V4.10/4.20 FINITE STATE MACHINE(FSM) EXAMPLE
+                 by ALEX KINE of DATA I/O CORPORATION, 9/30/91'
+
+@MESSAGE        'See file FSM1.TXT for a detailed description of this
+                 example.'
+
+        FSM1            device 'P22V10';
+
+"Inputs
+
+        CLOCK                   pin 1;
+        START                   pin 2;
+       !STOP                    pin 3;       "Asynchronous register reset
+        RPM3,RPM2,RPM1,RPM0     pin 4,5,6,7; "Speed (RPM)
+        TEST                    pin 8;       "Output Enable
+
+"Outputs
+
+        Q2              pin 23 istype 'REG_D,INVERT';
+        Q1              pin 22 istype 'REG_D,INVERT';
+        Q0              pin 21 istype 'REG_D,INVERT';
+
+        ON              pin 20 istype 'COM';
+
+"Constants
+
+        C,X,Z,H,L,P     = .C.,.X.,.Z.,1,0,.P.;
+
+        RPM             = [RPM3..RPM0];
+
+        SREG            = [ Q2 , Q1 , Q0 ];
+        IDLE            = [ L  , L  , L  ];
+        SLOW            = [ L  , L  , H  ];
+        FAST            = [ L  , H  , H  ];
+        BRAKE           = [ H  , H  , H  ];
+
+EQUATIONS
+
+        SREG.CLK        = CLOCK;
+        SREG.AR         = STOP;
+        SREG.OE         = TEST;
+
+        ON              =   (!SREG.Q != IDLE);
+
+@DCSET
+
+STATE_DIAGRAM  SREG
+
+        STATE IDLE:
+                        CASE
+                               START :  SLOW;
+                              !START :  IDLE;
+                     ENDCASE;
+
+        STATE SLOW:
+                        CASE
+                             (RPM <  10) : SLOW;
+                             (RPM >= 10) : FAST;
+                     ENDCASE;
+
+        STATE FAST:
+                        CASE
+                               STOP : BRAKE;
+                              !STOP :  FAST;
+                     ENDCASE;
+
+        STATE BRAKE:
+                        CASE
+                              (RPM == 0) :  IDLE;
+                              (RPM >  0) : BRAKE;
+                     ENDCASE;
+
+
+TEST_VECTORS 'FSM SREG using Detailed Register Syntax'
+
+ ([CLOCK,START,STOP,RPM,TEST,  SREG ] -> [  SREG , ON])
+  [  0  ,  0  , 0  , 0 ,  1 ,   X   ] -> [   X   , X ]; "Power-up
+  [  0  ,  0  , 1  , 0 ,  1 ,   X   ] -> [ BRAKE , X ]; "Reset
+  [  0  ,  0  , 0  , 0 ,  1 ,   X   ] -> [ BRAKE , X ]; "Verify Reset
+  [  C  ,  0  , 0  , 0 ,  1 ,   X   ] -> [  IDLE , L ]; "Goto IDLE
+  [  C  ,  1  , 0  , 0 ,  1 ,   X   ] -> [  SLOW , H ]; "Start
+  [  C  ,  0  , 0  , 5 ,  1 ,   X   ] -> [  SLOW , H ]; "Stay in SLOW
+  [  0  ,  0  , 1  , 7 ,  1 ,   X   ] -> [ BRAKE , H ]; "Stop
+  [  C  ,  0  , 0  , 2 ,  1 ,   X   ] -> [ BRAKE , H ]; "Stay in BRAKE
+  [  C  ,  0  , 0  , 0 ,  1 ,   X   ] -> [  IDLE , L ]; "Goto IDLE
+  [  C  ,  1  , 0  , 0 ,  1 ,   X   ] -> [  SLOW , H ]; "Start
+  [  C  ,  0  , 0  ,10 ,  1 ,   X   ] -> [  FAST , H ]; "Goto FAST
+  [  C  ,  0  , 0  ,15 ,  1 ,   X   ] -> [  FAST , H ]; "Stay in FAST
+  [  0  ,  0  , 1  ,15 ,  1 ,   X   ] -> [ BRAKE , H ]; "Stop
+  [  C  ,  0  , 0  , 7 ,  1 ,   X   ] -> [ BRAKE , H ]; "Stay in BRAKE
+  [  C  ,  0  , 0  , 0 ,  1 ,   X   ] -> [  IDLE , L ]; "Goto IDLE
+
+
+TEST_VECTORS 'Preload FSM SREG to an arbitrary state for testing'
+
+ ([CLOCK,START,STOP,RPM,TEST,  SREG ] -> [  SREG , ON])
+  [  0  ,  0  , 0  , 0 ,  1 ,   X   ] -> [   X   , X ]; "Power-up
+  [  0  ,  0  , 1  , 0 ,  1 ,   X   ] -> [ BRAKE , X ]; "Reset
+  [  0  ,  0  , 0  , 0 ,  1 ,   X   ] -> [ BRAKE , X ]; "Verify Reset
+  [  C  ,  0  , 0  , 0 ,  1 ,   X   ] -> [  IDLE , L ]; "Goto IDLE
+  [  0  ,  0  , 0  , 0 ,  1 ,   X   ] -> [  IDLE , L ]; "Disable Clock
+  [  0  ,  0  , 0  , 0 ,  0 ,   X   ] -> [   Z   , X ]; "Disable Outputs
+  [  0  ,  0  , 0  , 0 ,  0 , BRAKE ] -> [   X   , L ]; "Apply Inputs
+  [  P  ,  0  , 0  , 0 ,  0 , BRAKE ] -> [   X   , H ]; "Load Inputs
+  [  0  ,  0  , 0  , 0 ,  1 ,   X   ] -> [ BRAKE , H ]; "Echo Preload
+  [  C  ,  0  , 0  , 0 ,  1 ,   X   ] -> [  IDLE , L ]; "Goto IDLE
+
+@IF (0)
+
+         {     If you found this example file helpful, then let us
+          recommend a comprehensive textbook authored by David Pellerin
+          and Mike Holley, two of DATA I/O's engineering experts on PLD's
+          and FPGA's.  The book is titled, "Practical Design Using
+          Programmable Logic" and can be ordered directly from DATA
+          I/O or from your local bookstore (ISBN: 0-13-723834-7).}
+
+
+END FSM1

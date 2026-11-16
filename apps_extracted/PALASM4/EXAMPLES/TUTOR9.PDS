@@ -1,0 +1,89 @@
+;PALASM Design Description
+
+;---------------------------------- Declaration Segment ------------
+TITLE    TUTOR9.PDS
+PATTERN  A
+REVISION 2.0
+AUTHOR   J.ENGINEER
+COMPANY  ADVANCED MICRO DEVICES
+DATE     01/01/90
+
+CHIP   ANSWER   PAL22V10
+
+;---------------------------------- PIN Declarations ---------------
+PIN  1          CLOCK                COMBINATORIAL             ; INPUT
+PIN  2          DIALTONE             COMBINATORIAL             ; INPUT
+PIN  3          RING                 COMBINATORIAL             ; INPUT
+PIN  4          ENDGREETING          COMBINATORIAL             ; INPUT
+PIN  5          ENDMESSAGE           COMBINATORIAL             ; INPUT
+PIN  12         GND                                            ; INPUT
+PIN  17         ANSWER               REGISTERED                ; OUTPUT
+PIN  18         PLAY                 REGISTERED                ; OUTPUT
+PIN  19         RECORD               REGISTERED                ; OUTPUT
+PIN  24         VCC                                            ; INPUT
+
+;-----------------------------------State Segment ------------------
+STATE
+MEALY_MACHINE
+START_UP := POWER_UP -> WAITING
+START_UP.OUTF := POWER_UP -> /ANSWER * /PLAY * /RECORD
+
+; begin transition equations
+WAITING         :=   BEGINPLAY   -> ANSWERING
+                +->  WAITING
+
+ANSWERING       :=   RUNPLAYER   ->  ANSWERING
+                +    BEGINRECORD ->  ANSWERING
+                +->  WAITING
+
+;begin output equations
+WAITING.OUTF     = BEGINPLAY     ->  ANSWER *  PLAY * /RECORD
+                                +-> /ANSWER * /PLAY * /RECORD
+
+ANSWERING.OUTF  =  RUNPLAYER     ->  ANSWER *  PLAY * /RECORD
+                +  BEGINRECORD   ->  ANSWER * /PLAY *  RECORD
+                                +-> /ANSWER * /PLAY * /RECORD
+
+;begin condition equations
+CONDITIONS
+BEGINPLAY       =  RING
+RUNPLAYER       = /DIALTONE * /ENDGREETING * /ENDMESSAGE
+BEGINRECORD     = /DIALTONE *  ENDGREETING * /ENDMESSAGE
+DONE            =  DIALTONE +  ENDMESSAGE
+
+;----------------------------------- Simulation Segment ------------
+SIMULATION
+TRACE_ON DIALTONE RING ENDGREETING ENDMESSAGE ANSWER PLAY RECORD
+SETF /CLOCK /RING DIALTONE /ENDGREETING /ENDMESSAGE
+CLOCKF CLOCK
+CHECK WAITING /ANSWER /PLAY /RECORD
+CLOCKF CLOCK
+CLOCKF CLOCK
+CHECK WAITING /ANSWER /PLAY /RECORD    ; VERIFY HELD IN STATE WAITING
+
+SETF RING /DIALTONE                    ; SET CONDITION BEGINPLAY/RUNPLAYER
+CLOCKF CLOCK
+CHECK ANSWERING ANSWER PLAY /RECORD
+
+SETF /RING                             ; STILL CONDITION RUNPLAYER
+CLOCKF CLOCK
+CHECK ANSWERING ANSWER PLAY /RECORD
+
+SETF ENDGREETING                       ; CONDITION BEGINRECORD
+CLOCKF CLOCK
+CHECK ANSWERING ANSWER /PLAY RECORD
+
+CLOCKF CLOCK
+CLOCKF CLOCK
+CHECK ANSWERING ANSWER /PLAY RECORD    ; VERIFY HELD IN ANSWERING
+
+SETF ENDMESSAGE                        ; DEFAULT CONDITION
+CLOCKF CLOCK
+CHECK WAITING /ANSWER /PLAY /RECORD
+
+CLOCKF CLOCK
+CLOCKF CLOCK
+CHECK WAITING /ANSWER /PLAY /RECORD    ; HOLD IN WAITING
+
+TRACE_OFF
+;-------------------------------------------------------------------

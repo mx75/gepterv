@@ -1,0 +1,79 @@
+<HP/LaserJet>      --------------------- HP/LASERJET ------------------
+1,27,38,108,48,79,# << Portrait >>
+1,27,38,108,49,79,# << Landscape >>
+1,14,15,#           << SO - Switch Out, SI - Switch In >>
+1,44,84,70,82,71,#  << H_L, H_to_L1, H_to_L2, L_to_H1, L_to_H2 >>
+1,75,100,#          << Page length: 75 for Portrait, 100 for Landscape >>
+1,27,40,115,51,84,# << Typeface selection - Courier>>
+1,27,41,48,66,#     << Secondary font selection >>
+0,#               
+<HP/LaserJetII>    --------------------- HP/LASERJET-II ---------------
+1,27,38,108,48,79,# << Portrait >>
+1,27,38,108,49,79,# << Landscape >>
+0,0,0,#             << disabled, use default one >>
+1,196,191,192,218,217,# <<transition symbols>>
+1,75,100,#        
+0,27,40,1,88,#      <<typeface selection>>
+1,27,40,49,48,85,#  <<Symbol set selection>>
+<HP/LaserJetIIP>   --------------------- HP/LASERJET-IIP---------------
+1,27,38,108,48,79,# << Portrait >>
+1,27,38,108,49,79,# << Landscape >>
+0,0,0,#             << disabled, use default one >>
+1,196,191,192,218,217,# <<transition symbols>>
+1,75,100,#        
+1,27,40,49,48,85,27,40,115,48,112,49,48,104,49,50,118,48,115,48,98,51,84,#
+1,27,40,49,48,85,#  <<Symbol set selection>>
+<HP/LaserJetIII>   --------------------- HP/LASERJET-III---------------
+1,27,38,108,48,79,# << Portrait >>
+1,27,38,108,49,79,# << Landscape >>
+0,0,0,#             << disabled, use default one >>
+1,196,191,192,218,217,# <<transition symbols>>
+1,75,100,#        
+1,27,40,49,48,85,27,40,115,48,112,49,48,104,49,50,118,48,115,48,98,51,84,#
+1,27,40,49,48,85,#  <<Symbol set selection>>
+<IBM/ProPrinter>   --------------------- IBM/Pro-Printer --------------
+0,0,#
+0,0,#
+0,0,0,#
+0,#                 << 196,191,192,218,217 >>
+1,75,100,#
+0,0,#               << 0 = disable, Typeface >>
+0,0,#               << 0 = disable, secondary font >>
+0,#               
+<EPSON/FX-80>     --------------------- EPSON/FX-80 ------------------
+0,0,#               << 0 = disable Portrait  >>
+0,0,#               << 0 = disable Landscape >>
+0,0,0,#             << 0 = disable SO/SI >>
+1,128,129,130,131,132,#   << graphic char. >>
+1,75,100,#
+0,0,#
+0,0,#
+0,0,#   <<*** Below lists download characters ***** extra codes *********>>
+1,27,65,8,#         << Set line spacing to 8 (dots/line) >>
+1,27,58,0,0,0,#     << Copies original char.patterns into download char set >>
+1,27,37,1,0,#       << select download char set >>
+1,27,54,#           << select ASCII 128 to 159 as printable code >>
+1,27,38,0,#         << define char into ASCII 128 to 132 >>
+1,128,132,#      
+1,139,#             << send pattern for ASCII 128 --- HL >>
+1,8,0,8,0,8,#    
+1,0,#
+1,8,0,8,0,8,#
+1,139,#             << send pattern for ASCII 129 --- H_L1 >>
+1,8,0,0,0,15,#
+1,0,#
+1,0,0,0,0,0,#
+1,139,#             << send pattern for ASCII 130 --- H_L2 >>
+1,0,0,0,0,248,#
+1,0,#
+1,8,0,8,0,8,#
+1,139,#             << send pattern for ASCII 131 --- L_H1 >>
+1,0,0,0,0,15,#
+1,0,#
+1,8,0,8,0,8,#
+1,139,#             << send pattern for ASCII 132 --- L_H2 >>
+1,8,0,8,0,248,#
+1,0,#
+1,0,0,0,0,0,#
+
+

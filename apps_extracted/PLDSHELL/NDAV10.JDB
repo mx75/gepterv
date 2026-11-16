@@ -1,0 +1,7 @@
+# execute disassembly for PLCC N85C22V10
+
+
+load "dav10.jdb"
+
+da22v10(1)
+

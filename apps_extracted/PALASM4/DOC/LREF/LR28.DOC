@@ -1,0 +1,96 @@
+ð
+IF-THEN-ELSE, SIMULATION
+Overview
+This construct provides conditional statements used during simulation.
+This construct literally means "if the condition is true, do this; if
+not, do that."
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+            IF (Condition) THEN
+                BEGIN
+                    Task
+                END
+            ELSE
+                BEGIN
+                    Task
+                END
+
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Device Support:  All PLD devices.
+ú
+Syntax
+You use this construct in Boolean and state-machine designs.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+            IF (Condition) THEN
+                BEGIN
+                    Task
+                END
+            ELSE
+                BEGIN
+                    Task
+                END
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+            SIMULATION
+            SETF /OE /CLOCK COUNT
+            IF (J = 5) THEN
+                BEGIN
+                    CHECK Q0
+                END
+            ELSE
+                BEGIN
+                    CHECK /Q0
+                END
+            ...
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+
+Condition       Defines any Boolean expression.
+
+                þ  You can use more than one condition if you separate
+                   them by commas.  The software ANDs multiple
+                   conditions together.
+
+                þ  You can use parentheses to enclose the IF
+                   condition.  However, you cannot nest parentheses.
+
+                The condition can be any Boolean expression of logic
+                signals or mathematical equality: =, >, <, >=, <=, and
+                <>.
+
+Task            Defines the simulation task the software performs
+                during the IF-THEN-ELSE loop.  You use BEGIN-END
+                statements to enclose the task and indent them to make
+                your program easier to follow.
+ú
+Use
+There is no limit to the number of constructs you can have in your
+design.  However, minimal nesting makes the file easier to follow and
+faster to compile.
+
+You can nest IF-THEN-ELSE constructs within other IF-THEN-ELSE
+constructs and with the following statements.
+
+þ    CASE
+
+þ    FOR-TO-DO
+
+þ    WHILE-DO
+
+If the condition is false when the construct is reached, the task is
+not executed.
+
+Note: If you nest the IF-THEN-ELSE construct in a FOR-TO-DO construct,
+      the condition can also be the index variable of the FOR-TO-DO
+      construct.  You cannot use an index variable outside its
+      defining FOR-TO-DO construct.
+ú
+Related Topics
+Boolean Equation
+CASE
+EXPRESSION
+IF-THEN-ELSE, EQUATIONS
+ú

@@ -1,0 +1,48 @@
+% PLACE Postscript Printer data file
+
+/plainframe
+{
+1.5 setlinewidth
+newpath         % ! _
+closepath
+stroke
+} def
+
+
+plainframe
+
+742
+460
+70
+10
+
+/points exch def
+/margin exch def
+/llength exch def
+/ypos exch def
+/ycur ypos def
+/leading
+points 2 add def
+
+/Courier findfont points scalefont setfont
+
+/newline
+{
+ /ycur
+ ycur leading sub def
+ margin ycur moveto
+ ycur 50 lt
+ {
+  /ycur ypos def
+  showpage
+  plainframe
+  margin ycur moveto
+ } if
+} def
+
+margin ypos moveto
+
+%@ receive txt from PLACE
+showpage
+
+

@@ -1,0 +1,186 @@
+Title 'PA7024 BI-DIRECTIONAL I/O PORT'
+Designer 'Scott Peel'
+Date '6-26-90'
+
+Description
+             PA7024 BI-DIRECTIONAL I/O PORT
+
+This application example is one of four main applications integrated
+into a single PA7024 in the DEMO1A example.  The bi-directional port
+application has two eight bit I/O ports grouped as A-H and I-P inputs.
+The data flow direction of the port is controled by the CONTROL input.
+When CONTROL=1 than A-H are inputs and I-P are outputs.  When CONTROL=0
+I-P are inputs and A-H are outputs. The I-P inputs utilize the
+transparent input lataches which are clocked by the IN_CLK input.
+Using the many features of the PA7024 there are many alternate ways
+to design bi-directional I/O ports or dual port interfaces.  Note that
+this application does not use any of the 20 buried nodes or registers
+leaving much of the internal PA7024 logic free for use.
+
+
+End_Desc;
+
+PA7024
+
+IN_CLK PIN 13
+
+"IOC CONFIGURATION DECLARATION
+"IOC (PIN_NO 'PIN_NAME' POLARITY IO_TYPE) <- LCC_NO
+
+IOC ( 2 '' Pos IO ) <- 1A
+IOC ( 3 '' Pos IO ) <- 1C
+IOC ( 4 'A' Pos IO ) <- 2A
+IOC ( 5 'B' Pos IO ) <- 2B
+IOC ( 6 'C' Pos IO ) <- 3A
+IOC ( 7 'D' Pos IO ) <- 3B
+IOC ( 8 'E' Pos IO ) <- 4A
+IOC ( 9 'F' Pos IO ) <- 4B
+IOC (10 'G' Pos IO ) <- 5A
+IOC (11 'H' Pos IO ) <- 5B
+IOC (14 'P' Pos Lat) <- 5D
+IOC (15 'O' Pos Lat) <- 5C
+IOC (16 'N' Pos Lat) <- 4D
+IOC (17 'M' Pos Lat) <- 4C
+IOC (18 'L' Pos Lat) <- 3D
+IOC (19 'K' Pos Lat) <- 3C
+IOC (20 'J' Pos Lat) <- 2D
+IOC (21 'I' Pos Lat) <- 2C
+IOC (22 'CONTROL' Pos IO ) <- 1D
+IOC (23 '' Pos IO ) <- 1B
+
+"LCC CONFIGURATION DECLARATION
+"LCC (LCC_NO 'LCC_NAME' REG_TYPE CLK_TYPE BUR_OUT EXT_OUT)
+
+LCC (1A '' D   Neg  Reg  Reg )
+LCC (2A '' D   Neg  Reg  SumC)
+LCC (3A '' D   Neg  Reg  SumC)
+LCC (4A '' D   Neg  Reg  SumC)
+LCC (5A '' D   Neg  Reg  SumC)
+LCC (1B '' D   Neg  Reg  Reg )
+LCC (2B '' D   Neg  Reg  SumC)
+LCC (3B '' D   Neg  Reg  SumC)
+LCC (4B '' D   Neg  Reg  SumC)
+LCC (5B '' D   Neg  Reg  SumC)
+LCC (1C '' D   Neg  Reg  Reg )
+LCC (2C '' D   Neg  Reg  SumC)
+LCC (3C '' D   Neg  Reg  SumC)
+LCC (4C '' D   Neg  Reg  SumC)
+LCC (5C '' D   Neg  Reg  SumC)
+LCC (1D '' D   SumD Reg  Reg )
+LCC (2D '' D   Neg  Reg  SumC)
+LCC (3D '' D   Neg  Reg  SumC)
+LCC (4D '' D   Neg  Reg  SumC)
+LCC (5D '' D   Neg  Reg  SumC)
+
+"GBC CONFIGURATION FDECLARATION
+"GBC (GROUP LCC_CLK IOC_CLK)
+
+Global = 1
+GBC (A Clk1 Clk2)
+GBC (B Clk1 Clk1)
+
+
+DEFINE
+
+EQUATIONS
+
+"Global output names specified in the equations below are reserved words.
+RTA = 0;        "unused
+PCLKA = IN_CLK; "I/O Clock Product Term
+PRESETA = 0;    "unused
+RESETA = 0;     "unused
+
+
+RTB = 0;        "unused
+PCLKB = 0;      "unused
+PRESETB = 0;    "unused
+RESETB = 0;     "unused
+
+
+A.SumA = 0;
+A.SumB = 0;
+A.COM = I;   "I input, A output
+A.OE =  /Control;  "Enable Output when Control=0
+
+B.SumA = 0;
+B.SumB = 0;
+B.COM = J;   "J input, B output
+B.OE =  /Control;  "Enable Output when Control=0
+
+C.SumA = 0;
+C.SumB = 0;
+C.COM = K;   "K input, A output
+C.OE =  /Control;  "Enable Output when Control=0
+
+D.SumA = 0;
+D.SumB = 0;
+D.COM = L;   "L input, A output
+D.OE =  /Control;  "Enable Output when Control=0
+
+E.SumA = 0;
+E.SumB = 0;
+E.COM = M;   "M input, E output
+E.OE =  /Control;  "Enable Output when Control=0
+
+F.SumA = 0;
+F.SumB = 0;
+F.COM = N;  "N input, F output
+F.OE =  /Control;  "Enable Output when Control=0
+
+G.SumA = 0;
+G.SumB = 0;
+G.COM = O;    "O input, G output;
+G.OE = /Control;  "Enable Output when Control=0
+
+H.SumA = 0;
+H.SumB = 0;
+H.COM = P;    "P input, H output;
+H.OE = /Control;  "Enable Output when Control=0
+
+I.SumA = 0;
+I.SumB = 0;
+I.COM =  A;   "A input, I output
+I.OE =  Control;      "Enable Output when Control=1
+
+J.SumA = 0;
+J.SumB = 0;
+J.COM =  B;   "B input, J output
+J.OE =  Control;      "Enable Output when Control=1
+
+K.SumA = 0;
+K.SumB = 0;
+K.COM =  C;   "C input, K output
+K.OE =  Control;      "Enable Output when Control=1
+
+L.SumA = 0;
+L.SumB = 0;
+L.COM =  D;   "D input, L output
+L.OE =  Control;      "Enable Output when Control=1
+
+M.SumA = 0;
+M.SumB = 0;
+M.COM =  E;   "E input, M output
+M.OE =  Control;      "Enable Output when Control=1
+
+N.SumA = 0;
+N.SumB = 0;
+N.COM =  F;   "F input, N output
+N.OE =  Control;      "Enable Output when Control=1
+
+O.SumA = 0;
+O.SumB = 0;
+O.COM =  G;   "G input, O output
+O.OE =  Control;      "Enable Output when Control=1
+
+P.SumA = 0;
+P.SumB = 0;
+P.COM =  H;   "H input, P output
+P.OE =  Control;      "Enable Output when Control=1
+
+CONTROL.SumA = 0;
+CONTROL.SumB = 0;
+CONTROL.SumC = 0;
+CONTROL.SumD = 0;
+
+
+

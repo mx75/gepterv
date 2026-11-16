@@ -1,0 +1,32 @@
+module ex215f
+
+title 'T FFs in AMD MACH'
+
+ex215f    device  'MACH215a';
+
+        A,B             pin;
+        Clk,Clr,Set     pin;
+        R1              pin istype 'reg_T,buffer';
+        R2              pin istype 'reg_T,invert';
+
+equations
+        R1.T    = A & B;
+        R1.Clk  = Clk;
+        R1.AR   = Clr;
+        R1.AP   = Set;
+
+        R2.T    = A & B;
+        R2.Clk  = Clk;
+        R2.AR   = Clr;
+        R2.AP   = Set;
+
+test_vectors
+       ([A,B,Clk,Clr,Set] -> [R1 ,R2 ])
+        [0,0, 0 , 0 , 1 ] -> [ 1 , 0 ];
+        [0,0, 0 , 1 , 0 ] -> [ 0 , 1 ];
+        [1,1,.C., 0 , 0 ] -> [ 1 , 0 ];
+        [1,1,.C., 0 , 0 ] -> [ 0 , 1 ];
+        [0,0,.C., 0 , 0 ] -> [ 0 , 1 ];
+        [1,1,.C., 0 , 0 ] -> [ 1 , 0 ];
+        [0,0,.C., 0 , 0 ] -> [ 1 , 0 ];
+end

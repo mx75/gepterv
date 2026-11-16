@@ -1,0 +1,16 @@
+;==! 08/10/93: MACHPRO setup/startup file. This file should be in the
+;==! user's current directory or in the same directory as MACHPRO.EXE.
+;==! The following fields are supported:
+;==!   DEVICE_DATA = C:\jtag\datafile\ ;
+;==!   PORT = lpt1 ;
+;==!
+;==! - DEVICE_DATA specifies an alternate directory for MACHPRO to
+;==!   search when looking for the BSM and other JTAG data files.
+;==!   Note that the directory name should end with a slash and
+;==!   semicolon.
+;==! - PORT will specify the communications port to send and receive
+;==!   programming data from.
+
+device_data = c:\jtag\datafile\;
+port = lpt1;
+

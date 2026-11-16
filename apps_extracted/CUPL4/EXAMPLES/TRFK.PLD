@@ -1,0 +1,119 @@
+Name       trfk;
+Partno     XXXXX;
+Date       05/08/90;
+Revision   02;
+Designer   SDB;
+Company    Logical Devices, Inc.;
+Assembly   XXXXX;
+Location   XXXXX;
+Device     p20g10;
+
+/******************************************************************/
+/*                                                                */
+/*                      Traffic Controller                        */
+/*                                                                */
+/*   A Moore state machine design that controls traffic at the    */
+/*   intersection of two one-way streets.                         */
+/*                                                                */
+/******************************************************************/
+/*   Allowable Target Device Types:  20G10 and 22V10              */
+/******************************************************************/
+
+/**  Inputs  **/
+
+Pin     1    = Clock     ;      /*  State machine clock           */
+Pin     2    = Sen1      ;      /*  Sensor for direction 1        */
+Pin     3    = Sen2      ;      /*  Sensor for direction 2        */
+Pin    13    = Enable    ;      /*  Output enable                 */
+
+/**  Outputs  **/
+
+Pin [17..19] = [Q2..0]   ;      /*  State machine registers       */
+
+Pin    14    = !Red1     ;      /*  Red light for direction 1     */
+Pin    15    = !Yellow1  ;      /*  Yellow light for direction 1  */
+Pin    16    = !Green1   ;      /*  Green light for direction 1   */
+
+Pin    23    = !Red2     ;      /*  Red light for direction 2     */
+Pin    22    = !Yellow2  ;      /*  Yellow light for direction 2  */
+Pin    21    = !Green2   ;      /*  Green light for direction 2   */
+
+/** Declarations and Intermediate Variable Definitions **/
+
+/* Define the state bits for the individual states */
+$define  S0  'b'000
+$define  S1  'b'001
+$define  S2  'b'010
+$define  S3  'b'011
+$define  S4  'b'100
+$define  S5  'b'101
+$define  S6  'b'110
+$define  S7  'b'111
+
+
+
+
+
+
+
+
+
+/* Define the state bits as a field for the state machine */
+Field Traffic = [Q2..0];
+
+/**  Logic Equations  **/
+
+Sequenced Traffic  {
+
+    Present  S0
+        if  Sen1 &  Sen2   Next S1;
+        if !Sen1 & !Sen2   Next S1;
+        if !Sen1 &  Sen2   Next S3;
+        if  Sen1 & !Sen2   Next S0;
+        Out Green1  Out Red2;
+
+    Present  S1
+        Default Next S2;
+        Out Green1  Out Red2;
+
+    Present  S2
+        Default Next S3;
+        Out Green1  Out Red2;
+
+    Present  S3
+        Default Next S4;
+        Out Yellow1 Out Red2;
+
+    Present  S4
+        if  Sen1 &  Sen2   Next S5;
+        if !Sen1 & !Sen2   Next S5;
+        if !Sen1 &  Sen2   Next S4;
+        if  Sen1 & !Sen2   Next S7;
+        Out Red1    Out Green2;
+
+    Present  S5
+        Default Next S6;
+        Out Red1    Out Green2;
+
+    Present  S6
+        Default Next S7;
+        Out Red1    Out Green2;
+
+    Present  S7
+        Default Next S0;
+        Out Red1    Out Yellow2;
+}
+
+/* Minimize state machine equations */
+MIN [Q2..0].d = 4;
+
+/* Enable the outputs by using a Low-True input pin */
+[Q2..0].oe = !Enable;
+Red1.oe    = !Enable;
+Yellow1.oe = !Enable;
+Green1.oe  = !Enable;
+Red2.oe    = !Enable;
+Yellow2.oe = !Enable;
+Green2.oe  = !Enable;
+
+

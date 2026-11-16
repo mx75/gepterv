@@ -1,0 +1,33 @@
+module ex215a 
+
+title 'Dual feedback in AMD MACH'
+
+ex215a  device  'MACH215A';
+
+        A,B,C,D         pin;
+        Clk,Clr,Set     pin;
+        F1              pin istype 'reg_D,invert';
+        F2,F3           pin;
+
+equations
+        F1.D    = A & B;
+        F1.Clk  = Clk;
+        F1.AR   = Clr;
+        F1.AP   = Set;
+
+        F2 = C & F1.PIN;    "Pin Feedback
+
+        F3 = D & F1.Q;  "Internal Feedback
+
+test_vectors
+       ([A,B,C,D,Clk,Clr,Set] -> [F1 ,F2 ,F3 ])
+        [0,0,0,0, 0 , 0 , 1 ] -> [ 0 , 0 , 0 ];
+        [0,0,1,1, 0 , 0 , 0 ] -> [ 0 , 0 , 1 ];
+        [0,0,0,0, 0 , 1 , 0 ] -> [ 1 , 0 , 0 ];
+        [0,0,1,1, 0 , 0 , 0 ] -> [ 1 , 1 , 0 ];
+
+        [1,1,0,0,.C., 0 , 0 ] -> [ 0 , 0 , 0 ];
+        [0,0,1,1, 0 , 0 , 0 ] -> [ 0 , 0 , 1 ];
+        [0,0,1,1,.C., 0 , 0 ] -> [ 1 , 1 , 0 ];
+        [1,1,1,1,.C., 0 , 0 ] -> [ 0 , 0 , 1 ];
+end

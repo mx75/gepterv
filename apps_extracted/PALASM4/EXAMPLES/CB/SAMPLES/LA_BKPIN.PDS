@@ -1,0 +1,325 @@
+;PALASM Design Description
+
+;---------------------------------- Declaration Segment ------------
+TITLE    Logic Analyzer States
+PATTERN  
+REVISION 
+AUTHOR   john davis
+COMPANY  SIVAD for AMD
+DATE     10/15/90
+
+CHIP  _la_comb  MACH210
+;---------------------------------- PIN Declarations ---------------
+PIN 33 /POR COMBINATORIAL			; Power On Reset
+PIN  35 CLK1							; Default Clock on pin 35
+PIN  13  K_CLK COMBINATORIAL             ; 
+
+PIN ? MSW[1] REGISTERED                 ; 
+PIN ? MSW[2] REGISTERED                 ; 
+PIN 32 MSW[3] REGISTERED                 ; 
+PIN 24 MSW[4] REGISTERED                 ; 
+PIN 11 MSW[5] REGISTERED                 ; 
+PIN 10 MSW[15] REGISTERED                ; 
+PIN 2 REQ REGISTERED                ; 
+PIN 41 RPL REGISTERED                ; 
+PIN 31 GO COMBINATORIAL             ; 
+PIN 27 DONE COMBINATORIAL           ; 
+PIN 4 HIT COMBINATORIAL             ; 
+PIN 29 TC COMBINATORIAL               ; 
+PIN 43 AM_G_ADDR_CK COMBINATORIAL        ; 
+PIN 42 /AM_G_CS COMBINATORIAL             ; 
+PIN 20 /AM_G_OE COMBINATORIAL             ; 
+
+;*******************Swap Pins 17 and 21************************
+;PIN 17 /AM_G_WE COMBINATORIAL             ; 
+PIN 21 /AM_G_WE COMBINATORIAL             ; 
+
+PIN 18 PM_G_ADDR_CK COMBINATORIAL        ; 
+PIN 15 /PM_G_CS COMBINATORIAL             ; 
+PIN 16 /PM_G_OE COMBINATORIAL             ; 
+
+;*******************Swap Pins 17 and 21************************
+;PIN 21 /PM_G_WE COMBINATORIAL             ; 
+PIN 17 /PM_G_WE COMBINATORIAL             ; 
+
+PIN 26 LOAD 
+PIN 25 /CLR_SR 
+PIN 30 /HOLD 
+PIN 9 INP3 
+PIN 8 INP2 
+PIN 6 INP1 
+PIN 5 INP0 
+PIN 3 K_C4 REGISTERED                   ; 
+
+PIN ? AM_LOAD ; 
+PIN 19 CLK_PIPE COMBINATORIAL            ; 
+
+;************ BURIED REGISTERS ********************
+NODE 1 POR_INIT
+NODE 23 ON COMBINATORIAL               ; 
+NODE 9 K0 REGISTERED                     ; 
+NODE 12 K1 REGISTERED                     ; 
+NODE 6 K2 REGISTERED                     ; 
+NODE 13 K3 REGISTERED                     ; 
+NODE 29 K_C0_0 REGISTERED                 ; 
+NODE 32 K_C0_1 REGISTERED                 ; 
+NODE 21 K_C1 REGISTERED                   ; 
+NODE 33 K_C2_0 REGISTERED                 ; 
+NODE 14 K_C2_1 REGISTERED                 ; 
+NODE 27 K_C3 REGISTERED                   ; 
+
+NODE 37 SR0 REGISTERED                    ;Internal timing shift register
+NODE 55 SR1 REGISTERED                    ;Internal timing shift register
+NODE 56 SR2 REGISTERED                    ;Internal timing shift register
+NODE 38 SR3 REGISTERED                    ;Internal timing shift register
+NODE 58 SR4 REGISTERED                    ;Internal timing shift register
+NODE 47 SR5 REGISTERED                    ;Internal timing shift register
+NODE 64 SR6 REGISTERED                    ;Internal timing shift register
+NODE 65 SR7 REGISTERED                    ;Internal timing shift register
+NODE 53 SR8 REGISTERED                    ;Internal timing shift register
+;       
+NODE 48 AK0 REGISTERED                    ; 
+NODE 34 AK1 REGISTERED                    ; 
+NODE 36 AK2 REGISTERED                    ; 
+NODE 40 AK3 REGISTERED                    ; 
+
+;       
+;STRING DECLARATIONS.
+STRING GL 'MSW[0]'
+STRING DL 'MSW[1]'
+STRING BF 'MSW[2]'
+STRING TR0 'MSW[3]'
+STRING TR1 'MSW[4]'
+STRING TR2 'MSW[5]'
+STRING ST 'MSW[6]'
+STRING XCK 'MSW[7]'
+STRING TG 'MSW[8]'
+STRING SM 'MSW[9]'
+STRING XS 'MSW[10]'				;External Sync Input
+STRING CS 'MSW[11]'
+STRING EQ 'MSW[12]'
+STRING TA 'MSW[13]'
+STRING TD 'MSW[14]'
+STRING RUN 'MSW[15]'
+
+STRING S_K0  '/POR*RUN*/K3*/K2*/K1*/K0'		;Main Control State Bits
+STRING S_K1  '/POR*RUN*/K3*/K2*/K1* K0'
+STRING S_K2  '/POR*RUN*/K3*/K2* K1*/K0'
+STRING S_K3  '/POR*RUN*/K3*/K2* K1* K0'
+STRING S_K4  '/POR*RUN*/K3* K2*/K1*/K0'
+STRING S_K5  '/POR*RUN*/K3* K2*/K1* K0'
+STRING S_K6  '/POR*RUN*/K3* K2* K1*/K0'
+STRING S_K7  '/POR*RUN*/K3* K2* K1* K0'
+STRING S_K8  '/POR*RUN* K3*/K2*/K1*/K0'
+
+STRING S_LOAD '/POR*LOAD'
+STRING SHIFT 'HOLD'
+STRING S_R0  'SR0'
+STRING S_K_C4  ' K_C4'
+STRING S_TDD	'/TR2*/TR1*/TR0'		;Operational Mode Bits
+STRING S_TTD	'/TR2*/TR1* TR0'
+STRING S_TAD	'/TR2* TR1*/TR0'
+STRING S_TBD 	'/TR2* TR1* TR0'
+STRING S_LD_RG 	' TR2*/TR1*/TR0'
+STRING S_LD_AT 	' TR2*/TR1* TR0'
+STRING S_LSA 	'(S_TDD+S_TTD+S_TAD+S_TBD)'
+STRING S_SET 	'(S_LD_RG+S_LD_AT)'
+
+;------------------- Boolean Equation Segment ------
+EQUATIONS
+;------------ Initialization ---------------
+POR_INIT.RSTF=POR
+;------------ Outputs -------------------- 
+AM_G_CS = /K_C0_1 * K_C0_0
+	+ K_C0_1 * /K_C0_0
+ 	+ AK3
+AM_G_OE = /K_C0_1 * K_C0_0
+	+ K_C0_1 * /K_C0_0
+  	+  AK3*/AK2*/AK1* AK0
+AM_G_WE = /K_C0_1 * K_C0_0
+	+ K_C0_1 * /K_C0_0
+	+ AK3
+AM_G_ADDR_CK = /K_C0_1 * K_C0_0
+	+ AK3
+PM_G_CS = /K_C0_1 * K_C0_0
+	+ K_C0_1 * /K_C0_0
+PM_G_OE = /K_C0_1 * K_C0_0
+	+ K_C0_1 * /K_C0_0
+PM_G_WE = /K_C0_1 * K_C0_0
+	+ K_C0_1 * /K_C0_0
+PM_G_ADDR_CK = /K_C0_1 * K_C0_0
+;-----------------------Operation--------------------------
+
+K_C0_0 := /POR*MSW[15]*/MSW[5]*MSW[4]*MSW[3]*/K3*K2*/K1*K0*/K_C0_0
+	+ /POR*MSW[15]*/MSW[5]*/MSW[4]*/MSW[3]*/K3*/K2*K1*/K0*/K_C0_0
+	+ /POR*/MSW[5]*K_C0_1*/K_C0_0
+K_C0_1 := /POR*MSW[15]*/MSW[5]*/MSW[4]*/MSW[3]*/K3*/K2*K1*/K0*/K_C0_1*K_C0_0
+	+ /POR*MSW[15]*/MSW[5]*MSW[4]*MSW[3]*/K3*K2*/K1*K0*/K_C0_1*K_C0_0
+	+ /POR*/MSW[5]*K_C0_1*/K_C0_0*/HIT
+
+K_C1 := HIT * /MSW[5] * /MSW[3] * /K3 * /K2 * K1 * /K0 * /K_C1
+	+ HIT * /MSW[5] * /MSW[4] * MSW[3] * /K3 * /K2 * K1 * K0 * /K_C1
+	+ HIT * /MSW[5] * MSW[4] * MSW[3] * /K3 * K2 * /K1 * K0 * /K_C1
+	+ HIT * /MSW[5] * MSW[4] * /K3 * /K2 * K1 * /K0 * /K_C1
+
+K_C2_0 := /MSW[5] * /K3 * K2 * /K1 * /K0 * /K_C2_1 * /K_C2_0 * /MSW[3]
+	+ /MSW[5] * /MSW[4] * /K3 * /K2 * K1 * K0 * /K_C2_1 * /K_C2_0 * MSW[3]
+	+ /MSW[5] * MSW[4] * /K3 * K2 * /K1 * /K0 * /K_C2_1 * /K_C2_0
+K_C2_1 := /MSW[5] * /K3 * K2 * /K1 * /K0 * K_C2_0 * /MSW[3]
+	+ /MSW[5] * /MSW[4] * /K3 * /K2 * K1 * K0 * K_C2_0 * MSW[3]
+	+ /MSW[5] * MSW[4] * /K3 * K2 * /K1 * /K0 * K_C2_0
+
+K_C3 := MSW[5] * K_C3
+	+ /MSW[5] * /MSW[4] * /MSW[3] * /K3 * K2 * /K1 * /K0 * /K_C3
+	+ /MSW[5] * MSW[4] * /MSW[3] * /K3 * /K2 * K1 * K0 * /K_C3
+	+ K_C3 * /TC
+
+K_C4 := /MSW[5] * MSW[3] * /POR * MSW[15] * /K3 * K2 * K1 * /K0 * /K_C4 * MSW[4]
+	+ /MSW[5] * MSW[3] * /POR * MSW[15] * /K3 * K2 * /K1 * /K0 * /K_C4 * /MSW[4]
+	+ /MSW[5] * /MSW[3] * /POR * MSW[15] * /K3 * K2 * /K1 * K0 * /K_C4
+
+ON = /POR * MSW[15]
+
+REQ.CLKF = CLK1
+REQ := /POR * /MSW[5] * /K1 * /REQ
+	+ /POR * /MSW[5] * REQ * /RPL * ON
+	+ /POR * /MSW[5] * /REQ * K3
+	+ /POR * /MSW[5] * /REQ * /K0 * MSW[4]
+	+ /POR * /MSW[5] * /REQ * MSW[3] * K0 * /MSW[4]
+	+ /POR * /MSW[5] * /REQ * /MSW[3] * /K0
+	+ /POR * /MSW[5] * /REQ * K2
+
+RPL.CLKF = CLK1
+RPL := /POR * /MSW[5] * /RPL * K_C1 * HIT
+	+ /POR * /MSW[5] * K_C0_1 * K_C0_0 * /RPL
+	+ /POR * /MSW[5] * /RPL * K_C3 * TC
+
+SR8 =  /CLR_SR*SHIFT*SR7+/CLR_SR*/HOLD*SR8
+SR7 =  /CLR_SR*SHIFT*SR6+/CLR_SR*/HOLD*SR7
+SR6 =  /CLR_SR*SHIFT*SR5+/CLR_SR*/HOLD*SR6
+SR5 =  /CLR_SR*SHIFT*SR4+/CLR_SR*/HOLD*SR5
+SR4 =  /CLR_SR*SHIFT*SR3+/CLR_SR*/HOLD*SR4
+SR3 =  /CLR_SR*SHIFT*SR2+/CLR_SR*/HOLD*SR3
+SR2 =  /CLR_SR*SHIFT*SR1+/CLR_SR*/HOLD*SR3
+SR1 =  /CLR_SR*SHIFT*SR0+/CLR_SR*/HOLD*SR1
+SR0 =  /CLR_SR*LOAD*SHIFT*(S_K3+S_K4)
+
+CLK_PIPE = K_CLK * /POR * /AK3 * AK2 * /AK1
+	+ K_CLK * /POR * /AK3 * /AK2 * AK1
+	+ K_CLK * /POR * /AK3 * AK2 * /AK0
+
+AK0 := AK2 * /AK0
+	+ /POR * /MSW[5] * /MSW[4] * MSW[3] * AK3 * /AK0
+	+ /POR * GO * MSW[5] * /MSW[4] * MSW[3] * /AK3 * /AK0
+	+ AK1 * /AK0
+AK1 := /AK3 * /AK1 * AK0
+	+ AK3 * /AK0 * /POR * MSW[5] * /MSW[4] * MSW[3]
+	+ AK1 * /AK0
+AK2 := AK2 * /AK0
+	+ /AK2 * AK1 * AK0
+	+ AK2 * /AK1
+AK3 := AK3 * /AK0 * /POR * /MSW[5] * /MSW[4] * MSW[3]
+	+ AK2 * AK1 * AK0
+
+STATE
+
+M_K0  = /K3*/K2*/K1*/K0 		;Main Control State Definition
+M_K1  = /K3*/K2*/K1* K0 
+M_K2  = /K3*/K2* K1*/K0 
+M_K3  = /K3*/K2* K1* K0 
+M_K4  = /K3* K2*/K1*/K0 
+M_K5  = /K3* K2*/K1* K0 
+M_K6  = /K3* K2* K1*/K0 
+M_K7  = /K3* K2* K1* K0 
+M_K8  =  K3*/K2*/K1*/K0
+
+
+MEALY_MACHINE			;Main  Trace Control State Machine
+
+M_K0 :=   T_START -> M_K1
+		+ L_START -> M_K1
+		+-> M_K0;
+
+M_K1 :=   N_ACK -> M_K2
+		+ T_ACK -> M_K1
+		+ CLR_X -> M_K0
+		+-> M_K2;
+
+M_K2 :=  ; N_ACK -> M_K3
+		;+ T_ACK -> M_K2
+		  C_TRACE2 -> M_K3
+		+ CLR_2 -> M_K0
+
+		+ T_LOAD -> M_K3
+		+-> M_K2;
+
+M_K3 :=  ; N_ACK -> M_K4
+		;+ T_ACK -> M_K3
+		  CLR_3 -> M_K0
+		+ C_TRACE3 -> M_K4
+
+		+ T_ZERO -> M_K7
+        + N_ZERO ->M_K4
+                +-> M_K0;
+
+M_K4 :=   N_ACK -> M_K5
+		+ T_ACK -> M_K4
+		+ CLR_X -> M_K0
+
+		+ T_SR8 -> M_K5
+        + N_SR8 -> M_K3
+                +-> M_K0;
+
+M_K5 :=   N_ACK -> M_K6
+		+ T_ACK -> M_K5
+		+ CLR_X -> M_K0
+
+		+ C_SET -> M_K6
+                +-> M_K0;
+
+M_K6 :=   N_ACK -> M_K7
+		+ T_ACK -> M_K6
+		+ CLR_X -> M_K0
+
+		+ C_SET -> M_K0
+                +-> M_K0;
+
+M_K7 :=   N_ACK -> M_K8
+		+ T_ACK -> M_K7
+		+ CLR_X -> M_K0
+
+		+ C_SET -> M_K8
+                +-> M_K0;
+
+M_K8 :=   N_ACK -> M_K0
+		+ T_ACK -> M_K8
+		+ CLR_X -> M_K0
+
+		+ N_SR8 -> M_K7
+        + T_SR8 -> M_K0
+                +-> M_K0;
+
+
+;-----------------------Outputs--------------------------
+CONDITIONS
+T_START = /POR*GO*/DONE*S_LSA
+
+T_ACK= /POR*GO*/K_C4*REQ*/RPL*S_LSA
+N_ACK= /POR*GO*/K_C4*RPL*S_LSA
+CLR_X = /POR* K_C4*S_LSA
+CLR_2 =  POR
+CLR_3 =  POR
+C_TRACE2 = /POR*GO*S_TTD + /POR*GO*/K_C4*RPL*(S_TDD+S_TAD+S_TBD)
+C_TRACE3 = /POR*GO*(S_TDD+S_TAD+S_TBD)+ /POR*GO*/K_C4*RPL*S_TTD
+C_SET = S_SET
+
+L_START = /POR*GO*S_LD_RG
+T_LOAD = /POR*LOAD*S_LD_RG
+T_ZERO = /POR* /INP3*/INP2*/INP1*/INP0*S_LD_RG
+N_ZERO = /POR*( INP3+ INP2+ INP1+ INP1)*S_LD_RG
+
+T_SR8 = /POR*LOAD* SR8*S_LD_RG
+N_SR8 = /POR*LOAD*/SR8*S_LD_RG
+;----------------------------------- Simulation Segment ------------
+
+

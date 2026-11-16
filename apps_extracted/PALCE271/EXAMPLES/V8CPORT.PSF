@@ -1,0 +1,87 @@
+TITLE 'PEEL18CV8 CHANGE-OF-STATE INPUT PORT WITH INTERRUPT'
+DESIGNER 'James Peel'
+DATE '9/4/87'
+
+Description
+
+  This application uses the PEEL18CV8 as an 8-bit input port of which 4 of
+  its inputs can detect a change-of-state. When detected, the INTR output is
+  set for interrupting a CPU. The state change is latched by four pseudo-
+  buried registers which can be read by the CPU on D0-D3 as listed in the
+  address table below. Once read, unless another change has occurred, the
+  INTR will be reset. The D4 output can be used for status polling of any
+  remaining state change. The I4-7 inputs do not detect state changes but can
+  be read as a standard input port.
+
+End_Desc;
+
+PEEL18CV8
+
+CLK pin 1;
+I0 pin 2;
+I1 pin 3;
+I2 pin 4;
+I3 pin 5;
+I4 pin 6;
+I5 pin 7;
+I6 pin 8;
+I7 pin 9;
+A0 pin 11;
+IOC (12 '!CS' Pos In Feed_Pin)
+IOC (13 '!RD' Pos In Feed_Pin)
+IOC (14 'INTR' Pos In Feed_Or)
+IOC(15 'D4' POS COM FEED_OR);
+IOC(16 'D3' POS COM FEED_REG);
+IOC(17 'D2' POS COM FEED_REG);
+IOC(18 'D1' POS COM FEED_REG);
+IOC(19 'D0' POS COM FEED_REG);
+
+AC NODE 21;
+SP NODE 22;
+
+Define
+
+EQUATIONS
+
+D0.COM = I0 & !CS #
+         I0 & CS & !RD #
+         D0 & CS & RD & !A0 #
+         I4 & CS & RD & A0 ;
+D0.OE = CS & RD ;
+D1.COM = I1 & !CS #
+         I1 & CS & !RD #
+         D1 & CS & RD & !A0 #
+         I5 & CS & RD & A0 ;
+D1.OE = CS & RD ;
+D2.COM = I2 & !CS #
+         I2 & CS & !RD #
+         D2 & CS & RD & !A0 #
+         I6 & CS & RD & A0 ;
+D2.OE = CS & RD ;
+D3.COM = I3 & !CS #
+         I3 & CS & !RD #
+         D3 & CS & RD & !A0 #
+         I7 & CS & RD & A0 ;
+D3.OE = CS & RD ;
+D4.COM = I0 & !D0 #
+        !I0 & D0 #
+         I1 & !D1 #
+        !I1 & D1 #
+         I2 & !D2 #
+        !I2 & D2 #
+         I3 & !D3 #
+        !I3 & D3 ;
+D4.OE = CS & RD ;
+INTR.COM = D4 & !CS #
+           D4 & !RD #
+           D4 & A0 #
+           INTR & !CS #
+           INTR & !RD #
+           INTR & A0;
+
+!CS.SumB = 0;
+!CS.And = 0;
+!RD.SumB = 0;
+!RD.And = 0;
+INTR.And = 1;
+

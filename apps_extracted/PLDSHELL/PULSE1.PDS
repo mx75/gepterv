@@ -1,0 +1,130 @@
+Title		Shows various forms of pulse-signals
+Pattern		pds
+Revision	1        
+Author		Altera Applications
+Company		Altera
+Date		December 1994
+
+CHIP  pulse1  EP312
+
+; Design has to generate a pulse signal, and then reset itself
+; before the next clock cycle.
+
+PIN  2   CLOCK
+
+PIN      START     ; ok to strobe
+PIN      NACK      ; acknowledge from peripheral
+
+PIN      AS_LATCH    ; Async Strobe
+
+PIN      MEAL_STRB   ; Mealy Machine output
+
+PIN      MOOR_STRB   ; Moore Machine output
+PIN      A_MO_STRB   ; Moore Machine output, with async. clear
+
+STATE MEALY_MACHINE
+
+DEFAULT_BRANCH  HOLD_STATE
+
+; state assignments
+
+    PS1 = /MEAL_STRB    ; device powerup state
+    PS2 =  MEAL_STRB
+
+; state transitions
+
+    PS1 = TRIGGER1        -> PS2   ; wait for start signal and ok acknowledge
+    PS2 = TRIGGER2        -> PS1
+
+CONDITIONS
+    TRIGGER1 =  CLOCK * /START * NACK
+    TRIGGER2 = /CLOCK                   ; stays high for clock pulse width
+
+;------------------------------------------------------------------
+
+STATE MOORE_MACHINE
+
+DEFAULT_BRANCH  HOLD_STATE
+
+; state assignments
+
+    SS1 = /MOOR_STRB       ; device powerup state
+    SS2 =  MOOR_STRB
+
+; state transitions
+
+    SS1 := TRIGGER1        -> SS2   ; wait for start signal and ok acknowledge
+    SS2 := VCC             -> SS1
+
+
+;------------------------------------------------------------------
+
+STATE MOORE_MACHINE
+
+DEFAULT_BRANCH  HOLD_STATE
+
+; state assignments
+
+    AS1 = /A_MO_STRB       ; device powerup state
+    AS2 =  A_MO_STRB
+
+; state transitions
+
+    AS1 := TRIGGER1        -> AS2   ; wait for start signal and ok acknowledge
+    AS2 := VCC             -> AS1
+
+
+EQUATIONS
+
+MOOR_STRB.CLKF = CLOCK
+A_MO_STRB.CLKF = CLOCK
+
+; This will clear the signal, after Tclr time
+;                reset on signal, but not before clock goes away
+A_MO_STRB.RSTF = A_MO_STRB        * /CLOCK 
+
+AS_LATCH =  CLOCK * /START * NACK * /AS_LATCH
+         +  CLOCK * /START * NACK *  AS_LATCH
+
+; conditions that determine transitions
+
+SIMULATION
+
+; set circuits to known state
+
+    SETF START NACK /CLOCK
+    PRLDF /MOOR_STRB /A_MO_STRB
+
+; clock
+
+    CLOCKF CLOCK
+
+; enable machines - then clock
+
+    SETF /START
+    CLOCKF CLOCK
+
+; hold state - then disable machines
+
+    SETF /START
+    SETF CLOCK /NACK
+
+; enable machines after clock
+
+    SETF NACK
+
+; disable machines
+
+    SETF /CLOCK
+
+; now enable before clock
+
+    SETF NACK
+    SETF CLOCK
+
+; enable machines
+
+    SETF /CLOCK
+
+; end simulation
+

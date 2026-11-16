@@ -1,0 +1,165 @@
+Title       FIFO Read Pointer - 7 bits wide
+Pattern     1
+Revision    1
+Date        Current Date
+
+CHIP    rdptr    EPX780QC132
+
+; inputs
+    
+PIN             WR_             ; Write
+PIN             RD_             ; Read
+PIN             ENABLE_         ; FIFO Enable
+PIN            /EMPTY_          ; Pointer Disable
+
+; outputs
+
+PIN             RP0             ; Read Pointer (address)
+PIN             RP1
+PIN             RP2
+PIN             RP3
+PIN             RP4
+PIN             RP5
+PIN             RP6
+
+EQUATIONS
+
+; read pointer equations
+
+	RP0 := /RP0
+
+	RP1 :=  RP1 * /RP0
+	     + /RP1 *  RP0
+
+	RP2 :=  RP2 * /RP0
+	     +  RP2 * /RP1
+	     + /RP2 *  RP1 * RP0
+
+	RP3 :=  RP3 * /RP0
+	     +  RP3 * /RP1
+	     +  RP3 * /RP2
+	     + /RP3 *  RP2 * RP1 * RP0
+
+	RP4 :=  RP4 * /RP0
+	     +  RP4 * /RP1
+	     +  RP4 * /RP2
+	     +  RP4 * /RP3
+	     + /RP4 *  RP3 * RP2 * RP1 * RP0
+
+	RP5 :=  RP5 * /RP0
+	     +  RP5 * /RP1
+	     +  RP5 * /RP2
+	     +  RP5 * /RP3
+	     +  RP5 * /RP4
+	     + /RP5 *  RP4 * RP3 * RP2 * RP1 * RP0
+
+	RP6 :=  RP6 * /RP0
+	     +  RP6 * /RP1
+	     +  RP6 * /RP2
+	     +  RP6 * /RP3
+	     +  RP6 * /RP4
+	     +  RP6 * /RP5
+	     + /RP6 *  RP5 * RP4 * RP3 * RP2 * RP1 * RP0
+
+; pointer clock equation
+
+	/RP[0:6].ACLK = /ENABLE_ * /RD_ * WR_ * EMPTY_
+
+SIMULATION
+
+VECTOR READPTR := [ RP6 RP5 RP4 RP3 RP2 RP1 RP0 ]
+SETF  ENABLE_  RD_  WR_  EMPTY_
+PRLDF /RP0  /RP1  /RP2  /RP3  /RP4  /RP5  /RP6
+
+; idle
+
+SETF  RD_  WR_
+SETF  RD_  WR_
+SETF  RD_  WR_
+
+; write 4 consecutive locations
+
+SETF /ENABLE_
+FOR WRITELOOP := 1 TO 4 DO
+    BEGIN
+	SETF /WR_
+	SETF  WR_
+    END
+SETF  ENABLE_
+
+; idle
+
+SETF  RD_  WR_
+SETF  RD_  WR_
+SETF  RD_  WR_
+
+; read 4 consecutive locations
+
+SETF /ENABLE_
+FOR READLOOP := 1 TO 4 DO
+    BEGIN
+	SETF /RD_
+	SETF  RD_
+    END
+SETF  ENABLE_
+
+; idle
+
+SETF  RD_  WR_
+SETF  RD_  WR_
+SETF  RD_  WR_
+
+; test for underflow
+
+SETF /EMPTY_
+SETF /ENABLE_
+FOR READLOOP := 1 TO 4 DO
+    BEGIN
+	SETF /RD_
+	SETF  RD_
+    END
+SETF  ENABLE_
+
+; idle
+
+SETF  RD_  WR_
+SETF  RD_  WR_
+SETF  RD_  WR_
+
+; read 4 consecutive locations
+
+SETF  EMPTY_
+SETF /ENABLE_
+FOR READLOOP := 1 TO 4 DO
+    BEGIN
+	SETF /RD_
+	SETF  RD_
+    END
+SETF  ENABLE_
+
+; idle
+
+SETF  RD_  WR_
+SETF  RD_  WR_
+SETF  RD_  WR_
+
+; preload high count to check for rollover
+; then read 8 times
+
+SETF  READPTR := 0x7E
+SETF /ENABLE_
+FOR READLOOP := 1 TO 8 DO
+    BEGIN
+	SETF /RD_
+	SETF  RD_
+    END
+SETF  ENABLE_
+
+; idle
+
+SETF  RD_  WR_
+SETF  RD_  WR_
+SETF  RD_  WR_
+
+; end of simulation
+

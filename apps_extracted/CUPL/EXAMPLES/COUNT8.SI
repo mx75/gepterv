@@ -1,0 +1,62 @@
+Name      Count8;
+Partno	  CA0008;
+Date      7/19/84;
+Revision  01;
+Designer  Kahl;
+Company   Assisted Technology;
+Assembly  None;
+Location  None;
+
+/****************************************************************/
+/** Allowable Target Device Types :  PAL20X8		       	*/
+/****************************************************************/
+
+ORDER:
+
+clock,%3,!out_enable,%4,instr1,%2,instr0,%2,D7..0,%3,!carry_in,%3,
+!carry_out,%3,Q7..0;
+
+VECTORS:
+
+$msg"                     -INPUT-            -OUTPUT-";
+$msg"     CONTROL  INSTR  DDDDDDDD  CARRY    QQQQQQQQ";
+$msg"     CLK !OC  I1 I0  76543210  !CI !CO  76543210";
+$msg"     -------------------------------------------";
+           
+           C   0   1  0   00000001   X   H   LLLLLLLH
+           C   0   1  1   XXXXXXXX   0   H   LLLLLLHL 
+           C   0   1  0   00000011   X   H   LLLLLLHH
+           C   0   1  1   XXXXXXXX   0   H   LLLLLHLL
+           C   0   1  0   00000111   X   H   LLLLLHHH
+           C   0   1  1   XXXXXXXX   0   H   LLLLHLLL
+           C   0   1  0   00001111   X   H   LLLLHHHH
+           C   0   1  1   XXXXXXXX   0   H   LLLHLLLL
+           C   0   1  0   00011111   X   H   LLLHHHHH
+           C   0   1  1   XXXXXXXX   0   H   LLHLLLLL
+           C   0   1  0   00111111   X   H   LLHHHHHH
+           C   0   1  1   XXXXXXXX   0   H   LHLLLLLL
+           C   0   1  0   01111111   X   H   LHHHHHHH
+           C   0   1  1   XXXXXXXX   0   H   HLLLLLLL
+           C   0   1  0   11111111   0   L   HHHHHHHH
+           C   0   1  1   XXXXXXXX   0   H   LLLLLLLL
+           C   0   1  0   11111111   0   L   HHHHHHHH
+           C   0   1  0   11111110   X   H   HHHHHHHL
+           C   0   1  0   11111101   X   H   HHHHHHLH
+           C   0   1  0   11111011   X   H   HHHHHLHH
+           C   0   1  0   11110111   X   H   HHHHLHHH
+           C   0   1  0   11101111   X   H   HHHLHHHH
+           C   0   1  0   11011111   X   H   HHLHHHHH
+           C   0   1  0   10111111   X   H   HLHHHHHH
+           C   0   1  0   01111111   X   H   LHHHHHHH
+           C   0   1  0   11111111   0   L   HHHHHHHH
+           C   0   0  0   XXXXXXXX   X   H   LLLLLLLL
+           C   0   1  1   XXXXXXXX   0   H   LLLLLLLH
+           C   0   1  1   XXXXXXXX   0   H   LLLLLLHL
+           C   0   1  1   XXXXXXXX   0   H   LLLLLLHH
+           C   0   1  1   XXXXXXXX   0   H   LLLLLHLL
+           C   0   1  0   11111110   X   H   HHHHHHHL
+           C   0   1  1   XXXXXXXX   0   L   HHHHHHHH
+           C   0   1  1   XXXXXXXX   1   H   HHHHHHHH
+           C   0   0  1   00000000   0   L   HHHHHHHH
+           C   0   1  1   11111111   0   H   LLLLLLLL
+           X   1   X  X   XXXXXXXX   X   H   ZZZZZZZZ

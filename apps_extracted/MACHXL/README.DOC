@@ -1,0 +1,362 @@
+
+                     MACHXL v2.0 RELEASE NOTES
+                  =============================
+
+                        Table of Contents
+                        -----------------
+
+I.   New in MACHXL version 2.0
+II.  System configuration and installation
+III. Retargeting 1xx/2xx designs to MACH3xx/4xx
+IV.  Known problems with MACHXL version 2.0
+V.   Software Trouble Reporting
+VI.  Errors or Omissions in the MACHXL v2.0 Software User's Guide
+VII. Caveat Emptor
+
+I. New in MACHXL v2.0
+  A. Supported devices:
+     In addition to the previously supported MACH355/435/445/465,
+     MACHXL v2.0 supports
+         JEDEC ON   MACH110/111/120/130/131/210/220/231
+         JEDEC OFF  MACH211
+     Of these, the MACHxx1 devices offer powerdown.
+     See pages 393-394 of chapter 10 in the MACHXL v2.0
+     Software User's Guide for a description of powerdown.
+
+     The MACH111 device has two more clocks and significantly
+     more routing resources than its pin-compatible predecessor,
+     the MACH110.
+     The MACH231 removes the "sibling block" routing restriction of
+     its predecessor, the MACH230.
+
+     For a tabular summary of MACH family and
+     device features, see pages 377 through 379 of the device
+     reference, chapter 10, in the MACHXL v2.0 Software User's Guide.
+  B. Support of vector syntax has been enhanced
+     in the simulation section. See pages 250 through 252 of
+     the MACHXL v2.0 Software User's Guide.
+
+     In the Simulation Section, all restrictions on the
+     presence of GROUP names within the signal
+     list of statements such as SETF have been removed.
+     In other words, a signal list for a SETF, TRACE_ON,
+     CLOCKF, PRELOAD, CHECK, or CHECKQ statement
+     may contain group names and those group names
+     may be defined in GROUP statements containing
+     lists of signals AND some of those signals might be
+     vectored signals ( i.e. signals with a 'range operator' ).
+     See pages 150 and 151 of the MACHXL v2.0 Software User's Guide.
+
+     Vectors may be viewed in the waveform display under
+     VIEW:SIMULATION:TRACE SIGNALS ONLY:VECTORED.
+     See pages 259 through 261 of the MACHXL v2.0 software
+     user's guide.
+  C. If device has XORs( 3xx/4xx ), then XNORs ( :*: )
+     are converted by the minimizer to XORs instead of SOP.
+     Subsequent XOR processing may retain the XOR expression
+     or collapse XOR to SOP.
+  D. An automatic node number conversion option for turning
+     previously-fit and backannotated MACH110 design files
+     into MACH111 design files has been added to the menu.
+     See page 104 of the MACHXL v2.0 software user's guide.
+  E. A "FLOAT NODES ONLY" option has been added to the menu.
+     As a special case, this can be used to convert from MACH110
+     to MACH111. More generally, it can be used to convert from
+     MACHxx0 to MACHxx1. Still, more generally, it can be used
+     to improve fitting on any design file with preplaced nodes.
+     See page 104 of the MACHXL v2.0 software user's guide.
+  F. Improved Fitting
+      i) Iteration between partitioning and place/route.
+           - a new time allotment ( see page 83 of the MACHXL v2.0
+             Software User's Guide as modified by item VI. d. below
+             in this readme file ), has been implemented
+             for the up to 4 iterations;
+           - an adaptive ( in view of prior iterations ) strategy
+             is now used;
+           - for 3xx/4xx, as a last resort, the partitioner
+             switches to a more aggresive estimate of what
+             will fit in the block. ( related to the XOR product term )
+     ii) Hands-off partitioning for MACH1xx/2xx.
+         Historically, at recommended utilization levels MACH1xx
+         and MACH2xx have required manual partitioning via
+         GROUP MACH_SEG_x statements ( where x denotes a block
+         letter ). More often than not, with the MACHXL fitter,
+         manual partitioning of MACH1xx/2xx devices is a hindrance
+         rather than an assist to fitting.
+     iii) New Fitting Options
+         Spread Placement ( within blocks )
+         Balanced Partitioning ( among blocks )
+         See pages 84 & 85 of the MACHXL 2.0 Software User's Guide.
+  G. New Syntax
+     New syntax has been added to constrain individual signals to
+     synchronous or asynchronous macrocell implementation in
+     3xx/4xx devices:
+        GROUP ASYNC_LIST  <async_list>
+        GROUP SYNC_LIST   <sync_list>
+     This syntax, described on pages 133 and 182 of the MACHXL
+     v2.0 Software User's Guide, can be used to influence
+     gate-splitting and to control the allocation of clocks
+     emanating from global clock pins. In particular, a
+     registered signal in <sync_list> cannot use a product
+     term clock and, therefore, may be clocked without compromise
+     in maximum operating frequency. For more information,
+     see chapter 5 and pages 417 through 420 of
+     chapter 10 of the MACHXL v2.0 Software User's Guide. 
+
+     New syntax has been added to specify powerdown for
+     individual signals ( xx1 devices )
+        GROUP LOW_POWER_LIST <powered-down list>
+     See pages 156 & 157 of the MACHXL v2.0 Software User's Guide.
+  H. A JEDEC vector number, preceded by a V, has been added to
+     the simulation output in the .LOG file for ease in cross
+     referencing to the .JDC file. Also, the simulation command
+     -- TRACE_ON, SETF, CLOCKF, PRELOAD, CHECK or CHECKQ --
+     is displayed on the same line as the JEDEC vector number.
+     Starting with the next line, is the relevant
+     signal list with signals in the order of appearance in
+     the corresponding JDC vector.
+     Example:
+        14-V6 - SETF
+                /SET /RESET /CLKEN  /CLK  OE /IN
+
+      This shows that the sixth test vector in the JDC file
+      will have 6 signals in the indicated order and phase.
+      Ignore the history file index number, in this example
+      equal to 14, that is displayed prior to V6.
+
+II. System configuration and installation
+  1. See chapter 1 of the MACHXL Software User's Guide
+     for detailed instructions on installing and
+     configuring MACHXL software.
+
+     Assuming your configuration is adequate, to install from
+     the A drive:
+        - place disk1 into drive A
+        - from the DOS prompt, type
+            A:install
+        - wait for the MACHXL screen to appear and
+        - press any key to proceed with the installation
+          and respond to solicited choices.
+
+     Installation from B drive is identical, with A in the above
+     procedure replaced by B.
+
+     MACHXL software is supported under DOS 5 and DOS 6 and
+     as a DOS application under Windows and WINDOWS NT operating
+     systems. See WIN31.DOC in the ..\MACHXL\DOC directory
+     for a procedure to create a WINDOWS icon for MACHXL. Eight
+     megabytes or more of extended memory is recommended.
+
+     If you choose to keep one or more older versions of MACHXL
+     on your system, be sure that the new version is installed
+     in a separate directory. If, in addition, you choose to
+     inhibit automatic update of autoexec.bat and config.sys,
+     then you must perform the update manually BEFORE your first
+     invocation of the new MACHXL version. Failure to do so, may
+     corrupt several key files and thereby result in spurious
+     operation of MACHXL.
+
+  2. Parallel Port for programming JTAG devices via cable.
+     The JTAG download cable cannot be used with some software keys.
+     Remove all software keys from your PC's parallel port to which
+     you connect the JTAG cable. Attach the other end
+     to the 10-pin header on your JTAG circuit board (see the
+     MACHPRO document ).
+
+     ************************************************************
+     ************************************************************
+     IMPORTANT: To avoid damage to your computer, be sure that
+     your COMPUTER IS POWERED ON BEFORE THE JTAG CIRCUIT BOARD
+     is powered on.
+     ************************************************************
+     ************************************************************
+
+  3. NT support notes for MACHXL 2.0
+     MACHXL v2.0 is supported as a DOS application under
+     WINDOWS NT.
+     - If run in a DOS box under NT, MACHXL must be invoked as
+       MACHXL -NT
+     - MACHXL 2.0 has been tested under both
+       Build528(NT3.1) and Build807 which is the
+       RELEASE version (10/01/94) of NT 3.5.
+       If you have Build511/512(NT 3.1), you should
+       install ( the free ) patch USP2 to bring your
+       system up to Build 528.
+     - The DOS box in Windows NT has problems with
+       both TSR's and DPMI services in general. Under
+       rigorous use, you may find that you
+       have occasional problems.
+         +  If you are having lots of troubles,
+            add "ntcmdprompt" to  %systemroot%\system32\config.nt.
+            This is actually a NON-DOS compatibility option, but
+            the software seems to work better with it than
+            without.
+         +  The DOS BOX may suddenly go into "print-screen"
+            loop and will not stop  unless you go
+            to the system menu for the DOS BOX and effect a
+            CLOSE. This seems to be a DPMI-related problem
+            which occurs more frequently on NT builds prior to 807.
+         +  if your MACHXL software is frequently encountering
+            General Protection Faults (GPFs), try modifying the
+            WINNT\SYSTEM32\CONFIG.NT file. If there is no line
+            containing "fcbs=", then add it. Else, modify the
+            value which is probably either 4 or 16 and change
+            it to 32. For example:
+            fcbs=32,0
+            The fcbs parameter controls the number of file
+            control blocks available to an NT DOS session.
+            It has been found to relieve some GPFs in
+            applications other than MACHXL.
+     -  Generally, performance is slightly better under NT than
+        under DOS. However, under NT3.1 builds prior
+        to 807, runtimes are occasionally 10x slower than under
+        DOS due to a DPMI bug.
+
+  4. MACHXL v2.0 software has not been tested in and is not
+     supported in networked environments.  However, if you will be
+     installing MACHXL in a networked environment, make certain that
+     users run MACHXL software from a directory that they have
+     read/write access to.
+
+  5. MACHXL v2.0 software is not supported under DR-DOS.
+     Limited testing demonstrates that MACHXL may be run as a
+     DOS application under OS-2. However, AMD cannot guarantee
+     its operation in that environment.
+
+III. Retargeting 1xx/2xx designs to MACH3xx/4xx
+    When retargeting a MACH1xx/2xx design to a MACH3xx/4xx device,
+    it may be necessary to modify certain equations. This is
+    a consequence of supporting MACH1xx/2xx in a manner
+    compatible with old designs which were fit under PALASM.
+
+    EXAMPLE 1:
+    In a 1xx/2xx design, the implied or unnamed default clock will
+    be identified with a named clock placed on the default clock
+    pin.  However, the identification is avoided and an error
+    results in this circumstance for MACH 3xx/4xx. The solution
+    in this case is to either float the named clock, preplace it
+    at another location, or to remove the implied default clock
+    from the design by replacing it with the named clock.
+
+    EXAMPLE 2:
+    In a MACH1xx/2xx design, the fitter will issue a warning when
+    a signal is defined non-ground and identical SET and RESET.
+    This may happen inadvertently due to the set/reset banking
+    of MACH1xx/2xx! In MACH3xx/4xx, it spurs an error which
+    terminates the fitting process.
+
+IV. Known problems with MACHXL version 2.0
+    1. False Warning
+       In certain instances, the Boolean Postprocess  (MACHBPP),
+       will issue a warning
+          |> WARNING B626
+                The number in the numeric equation is not
+                large enough to represent the signal label(s)
+                on the lefthand side. The higher order signal
+                values will be assigned the value ZERO.
+
+      for an IF construct where a comparison is made between a binary
+      number and a group/vector of pins/nodes. This warning is
+      unnecessary and misleading in the instance where the binary
+      number being compared STARTS (left-hand-side) with a leading
+      0 (i.e. #b01111111). The leading 0 is getting stripped
+      internally and when the check for proper bit-matching is made,
+      there are LESS bits remaining (in this case 7 instead of 8)
+      and hence the warning tells the user that the number of bits
+      on the LHS and RHS do not match while the SOURCE file shows
+      they do indeed match. In this situation, the warning can be
+      ignored.
+   2. Out of memory messages
+      If you encounter an out of memory message, check to see that you
+      have the recommended minimum memory configuration of 8 MB.
+
+      Other situations that might occur:
+      a. When the parser is invoked as a DOS application under
+         Windows, Windows NT or OS2 and the current design has a
+         large number of very complex CASE statements, the
+         Parser may run out of memory.  If this happens, try
+         running MACHXL directly from DOS.
+      b. If the Minimizer reports an out of memory condition, try
+         rerunning the design using fast minimization (found in the Logic
+         Synthesis menu). This problem usually occurs when the logic
+         synthesis options "Optimize Registers for D/T-type" is set to
+         "Change all to D-type" or "Change  all to T-type",
+         "Use Automatic Gate Splitting" is set to "Y", and "Ensure
+         polarity after minimization is" is set to "Best for device".
+         The solution is to reduce the number of minimization options
+         selected. "Ensure polarity after minimization is: Best for
+         device" is the most memory intensive of these options.
+      c. If the Minimizer reports a 64K segment limit condition, it has
+         encountered an equation that has a large number of product
+         terms (i.e. 25 to 30) where each product term has only one
+         or two unique signal names. A sparse Karnaugh map results,
+         which is unlikely to reduce further. To correct the
+         problem, try turning on fast minimization or manually gate
+         splitting the offending equation.
+
+V. Software Trouble Reporting
+    To report a MACHXL software problem such as a general protection
+    fault or internal error, refer to the file \MACHXL\README.BUG or
+    to Appendix D of the MACHXL revision 2.0 Software User's Guide.
+
+VI. Errors or Omissions in the MACHXL v2.0 Software User's Guide
+      a. SIGNATURE
+         On page 175, the beginning of the second paragraph under
+         REMARKS should read
+
+         In a number signature, the signature form is <radix><number> ...
+         where the second reference to signature should be italicized.
+      b. SIGNATURE
+         On page 176, the implied assertion that the U field
+         will be represented in the JEDEC as ASCII or HEX
+         ( i.e. with a UA or UH prefix ) is false. Although
+         ASCII and HEX signatures are allowed as input, they
+         will be represented in the JEDEC and after disassembly as
+         BINARY.
+      c. The footnote at the bottom of page 417, should also
+         mention that the letter designators,
+         'A' for asynchronous and 'S' for synchronous, may be found
+         in the 3xx/4xx .RPT file in the "type" column of a
+         "BLOCK X LOGIC MACROCELLS" section wherein the signal
+         was placed. Therefore, it is not mandatory that the
+         user consult the .PRD file to determine if a signal
+         was implemented async or sync.
+      d. Time allocation for MODE 1 and MODE 2 on page 83
+         should read as follows:
+
+          MODE 1
+          The "Iterate between partition & place/route" option
+          is set to "Y" and the Run Time Upper Bound in 15 minutes"
+          option is set to a value L greater than 0.
+
+          Time remaining = 15 * L - ( the time elapsed since
+          entering the first iteration of partitioning ). Time
+          remaining is reported by place and route. Time remaining
+          is checked several times within each iteration of
+          PARTITIONING. If time has runs out ( i.e. time remaining
+          is less than or equal to zero ), then terminate with
+          non-success.
+          If time does not run out in a successful
+          partitioning iteration, then place/route is called with
+          an iteration time limit of (L*15)/4 minutes.
+          Time remaining is reported by place/route relative
+          to the place/route iteration time limit.
+
+          MODE 2
+          The "Iterate between partition & place/route" option
+          is set to "Y" and the Run Time Upper Bound in 15 minutes"
+          option is set to 0. No time limit is imposed on the
+          Partitioner. A time limit of four hours is imposed on
+          each of the first three place/route iterations. No time
+          limit is imposed on the fourth and final place/route
+          iteration.
+
+VII. Caveat Emptor
+     ************************************************************
+     ************************************************************
+     IMPORTANT: To avoid damage to your computer, be sure that
+     your COMPUTER IS POWERED ON BEFORE THE JTAG CIRCUIT BOARD
+     is powered on.
+     ************************************************************
+     ************************************************************
+

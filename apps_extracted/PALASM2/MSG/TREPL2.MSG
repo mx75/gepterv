@@ -1,0 +1,18 @@
+000  TREPL2,   V1.0 I -  MMI INTERNAL RELEASE (30-MARCH-1987)
+001  (C)   - COPYRIGHT MONOLITHIC MEMORIES INC.  1987
+002  %%%% TREPL2+ %%%%   File Processed Successfully.
+003  %%%% TREPL2+ %%%%   Processing Terminated.
+004  TREPL2+:   CONVERTING  %s  TO  %s.
+005  Treefile name (default = palasm2.tre) >> 
+006  Output file name (default = out.pds)  >> 
+007  ** INTERNAL PTRE COLLECTION ERROR.  PLEASE CALL MMI.
+008  >> ERROR     
+009  Unable to open 
+010  Out of memory.
+011  Problem with syntax in design file.
+012  Filename length too long.
+013  intermediate treefile - please run PARSE first.
+014  %%%% TREPL2+ %%%%   Error Count :
+015  Warning Count :
+016  %%%% TREPL2+ %%%%   No errors   No warnings
+

@@ -1,0 +1,69 @@
+# $Header: /swpg/develop/abel/src/devsel2/newdata/RCS/ict.chp,v 1.3 91/10/22 20:01:59 holley Exp $
+# chip report file   Released 5.1 
+#
+$MANUFACTURER ICT International CMOS Technology, Inc.
+$CONTACT (408)434-0678 
+$ADDRESS1 2125 Lundy Ave. 
+$ADDRESS2 San Jose, CA 95131 
+$ADDRESS3 ------------ 
+#
+# 132 column 1-line format no user info (default)
+#
+# format is:
+#$C2 mfg part type tech package devname pins spc eraseable preload family pinout did speed setup hold power price
+#
+#
+
+#   mfg       part             type  tech  pack  devname     pins    spc  era preld fam  pin    DID#  speed set  hold pwr prc 
+$C2 ICT       PEEL153P-40      PEEL  CMOS  DIP   F153         20     COM  EE   NO   8D   65    3039   40    0    0  200    0
+$C2 ICT       PEEL153P-30      PEEL  CMOS  DIP   F153         20     COM  EE   NO   8D   65    3039   30    0    0  200    0
+$C2 ICT       PEEL153P-35      PEEL  CMOS  DIP   F153         20     COM  EE   NO   8D   65    3039   35    0    0  200    0
+$C2 ICT       PEEL173P-15      PEEL  CMOS  DIP   F173         24     COM  EE   NO   8D   76    3040   15    0    0  200    0
+$C2 ICT       PEEL173P-30      PEEL  CMOS  DIP   F173         24     COM  EE   NO   8D   76    3040   30    0    0  200    0
+$C2 ICT       PEEL173P-35      PEEL  CMOS  DIP   F173         24     COM  EE   NO   8D   76    3040   35    0    0  200    0
+$C2 ICT       PEEL173P-40      PEEL  CMOS  DIP   F173         20     COM  EE   NO   8D   65    3040   40    0    0  200    0
+$C2 ICT       PEEL253P-30      PEEL  CMOS  DIP   F253         20     COM  EE   NO   8D   85    1379   30    0    0  200    0
+$C2 ICT       PEEL253P-35      PEEL  CMOS  DIP   F253         20     COM  EE   NO   8D   85    1379   35    0    0  200    0
+$C2 ICT       PEEL273P-15      PEEL  CMOS  DIP   F273         24     COM  EE   NO   8D   86    1328   15    0    0  200    0
+$C2 ICT       PEEL273P-30      PEEL  CMOS  DIP   F273         24     COM  EE   NO   8D   86    1328   30    0    0  200    0
+$C2 ICT       PEEL273P-35      PEEL  CMOS  DIP   F273         24     COM  EE   NO   8D   86    1328   35    0    0  200    0
+$C2 ICT       PEEL18CV8J-10    PEEL  CMOS  PLCC  P18CV8       20     COM  EE   NO   08D  73A   3058   10    7    0  600    0
+$C2 ICT       PEEL18CV8J-12    PEEL  CMOS  PLCC  P18CV8       20     COM  EE   NO   08D  73A   3058   12    9    0  600    0
+$C2 ICT       PEEL18CV8J-15    PEEL  CMOS  PLCC  P18CV8       20     COM  EE   NO   08D  73A   3058   15   12    0  600    0
+$C2 ICT       PEEL18CV8J-20    PEEL  CMOS  PLCC  P18CV8       20     COM  EE   NO   08D  73A   3058   20   15    0  150    0
+$C2 ICT       PEEL18CV8P-20    PEEL  CMOS  DIP   P18CV8       20     COM  EE   NO   8D   3A    2211   20   15    0  150    0
+$C2 ICT       PEEL18CV8J-25    PEEL  CMOS  PLCC  P18CV8       20     COM  EE   NO   08D  73A   3058   25   20    0  150    0
+$C2 ICT       PEEL18CV8J-35    PEEL  CMOS  PLCC  P18CV8       20     COM  EE   NO   08D  73A   3058   35   30    0  150    0
+$C2 ICT       PEEL18CV8P-10    PEEL  CMOS  DIP   P18CV8       20     COM  EE   NO   8D   3A    2211   10    7    0  600    0
+$C2 ICT       PEEL18CV8P-12    PEEL  CMOS  DIP   P18CV8       20     COM  EE   NO   8D   3A    2211   12    9    0  600    0
+$C2 ICT       PEEL18CV8P-15    PEEL  CMOS  DIP   P18CV8       20     COM  EE   NO   8D   3A    2211   15   12    0  600    0
+$C2 ICT       PEEL18CV8P-25    PEEL  CMOS  DIP   P18CV8       20     COM  EE   NO   8D   3A    2211   25   20    0  150    0
+$C2 ICT       PEEL18CV8P-35    PEEL  CMOS  DIP   P18CV8       20     COM  EE   NO   8D   3A    2211   35   30    0  150    0
+$C2 ICT       PEEL18CV8PI-25   PEEL  CMOS  DIP   P18CV8       20     IND  EE   NO   8D   3A    2211   25   20    0  150    0
+$C2 ICT       PEEL18CV8PI-35   PEEL  CMOS  DIP   P18CV8       20     IND  EE   NO   8D   3A    2211   35   30    0  150    0
+$C2 ICT       PEEL20CG10J-25   PEEL  CMOS  PLCC  P20CG10      28     COM  EE   NO   8D   56    5446   25   15    0  350    0
+$C2 ICT       PEEL20CG10J-35   PEEL  CMOS  PLCC  P20CG10      28     COM  EE   NO   8D   56    5446   35   30    0  350    0
+$C2 ICT       PEEL20CG10P-20   PEEL  CMOS  DIP   P20CG10      24     COM  EE   NO   8D   56    2570   20   12    0  350    0
+$C2 ICT       PEEL20CG10P-25   PEEL  CMOS  DIP   P20CG10      24     COM  EE   NO   8D   56    2570   25   15    0  350    0
+$C2 ICT       PEEL20CG10P-35   PEEL  CMOS  DIP   P20CG10      24     COM  EE   NO   8D   56    2570   35   30    0  350    0
+$C2 ICT       PEEL20CG10PI-35  PEEL  CMOS  DIP   P20CG10      24     IND  EE   NO   8D   56    2570   35   30    0  350    0
+$C2 ICT       PEEL22CV10AJ-12  PEEL  CMOS  PLCC  P22CV10C     28     COM  EE   NO   0A6  728   6286   12    8    0  700    0
+$C2 ICT       PEEL22CV10AJ-15  PEEL  CMOS  PLCC  P22CV10C     28     COM  EE   NO   0A6  728   6286   15   10    0  700    0
+$C2 ICT       PEEL22CV10J-25   PEEL  CMOS  PLCC  P22CV10C     28     COM  EE   NO   08D  728   4645   25   15    0  350    0
+$C2 ICT       PEEL22CV10J-35   PEEL  CMOS  PLCC  P22CV10C     28     COM  EE   NO   08D  728   4645   35   30    0  350    0
+$C2 ICT       PEEL22CV10AJ-10  PEEL  CMOS  PLCC  P22CV10C     28     COM  EE   NO   0A6  728   6286   10    6    0  700    0
+$C2 ICT       PEEL22CV10ZJ-25  PEEL  CMOS  PLCC  P22CV10Z     28     COM  EE   YES  08D  7A3   4805   25   15    0  300    0
+$C2 ICT       PEEL22CV10ZJ-35  PEEL  CMOS  PLCC  P22CV10Z     28     COM  EE   YES  08D  7A3   4805   35   30    0  300    0
+$C2 ICT       PEEL22CV10ZP-20  PEEL  CMOS  DIP   P22CV10Z     24     COM  EE   YES  8D   A3    3023   20   12    0  300    0
+$C2 ICT       PEEL22CV10ZP-25  PEEL  CMOS  DIP   P22CV10Z     24     COM  EE   YES  8D   A3    3023   25   15    0  300    0
+$C2 ICT       PEEL22CV10ZP-35  PEEL  CMOS  DIP   P22CV10Z     24     COM  EE   YES  8D   A3    3023   35   30    0  300    0
+$C2 ICT       PEEL22CV10AP-12  PEEL  CMOS  DIP   P22CV10Z     24     COM  EE   NO   A6   28    6260   12    8    0  700    0
+$C2 ICT       PEEL22CV10AP-15  PEEL  CMOS  DIP   P22CV10Z     24     COM  EE   NO   A6   28    6260   15   10    0  700    0
+$C2 ICT       PEEL22CV10P-20   PEEL  CMOS  DIP   P22CV10Z     24     COM  EE   NO   8D   28    3328   20   12    0  350    0
+$C2 ICT       PEEL22CV10P-25   PEEL  CMOS  DIP   P22CV10Z     24     COM  EE   NO   8D   28    3328   25   15    0  350    0
+$C2 ICT       PEEL22CV10P-35   PEEL  CMOS  DIP   P22CV10Z     24     COM  EE   NO   8D   28    3328   35   30    0  350    0
+$C2 ICT       PEEL22CV10PI-35  PEEL  CMOS  DIP   P22CV10Z     24     IND  EE   NO   8D   28    3328   35   30    0  350    0
+$C2 ICT       PEEL22CV10AP-10  PEEL  CMOS  DIP   P22CV10Z     24     COM  EE   NO   A6   28    6260   10    6    0  700    0
+$C2 ICT       PEEL22CV10API-15 PEEL  CMOS  DIP   P22CV10Z     24     IND  EE   NO   A6   28    6260   15   10    0  700    0
+#
+$END

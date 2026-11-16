@@ -1,0 +1,293 @@
+*GENERAL HELP
+ABOUT THIS VERSION 2.40 ...
+  - Added "Optimization" feature for speeding up the programming time.
+
+THE "MAIN MENU"
+  Once the PEEL Translator Software is booted-up, the first screen to
+  appear will be the "Main Menu". This main menu is divided into three 
+  sections:
+  DEVICE:  
+  JEDEC FILE: controls operations such as Display/print, Read/Translate 
+              and Check sum.
+  UTILITIES:  includes Help, DOS Shell, and Quit.
+
+COMMAND SELECTION
+  To select a command from the main menu, simply press the capital letter
+  that corresponds to its adjacent command word. Some commands will have
+  secondary command menus which must be followed to complete the original
+  command.
+
+
+
+COMMAND DESCRIPTIONS
+*READ/TRANSLATE HELP
+
+
+R = Read/              
+    Translate        
+                      Translates a JEDEC file from disk to the PEEL
+                      JEDEC format. 
+
+                      Enters Translate mode which allows
+                      translation of a JEDEC file from
+                      memory or disk. The translated file is
+                      automatically saved to disk with the
+                      same filename but a .JEX extension.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*DISPLAY HELP
+
+
+D = Display/print     Allows displaying or printing of the
+                      contents in the memory.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*K CHECKSUM HELP
+
+
+K = checK sum         Shows the current check sum calculated
+                      by last read or write of a file or by
+                      loading a PLD. A manual checksum can
+                      also be invoked by typing "K".
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*P OPTIMIZATION HELP
+
+
+P = oPtimization      Optimizes the fuse map for speeding up
+                      the programming time. Please be aware 
+                      of that the checksum might be changed
+                      after optimization.            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*HELP HELP
+
+
+H = Help              Lists the basic operation of each
+                      command.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*EDIT HELP
+
+
+E = Edit              Allows selection of a file and then
+                      enters a WordStar(TM)-like editor with
+                      pulldown menus. Follow the instructions
+                      displayed on the upper-right of the screen
+                      and/or reference the PEEL manual.
+
+                      File Selection   For a description of
+                      Options          the options, please
+                                       QUIT to return to the
+                                       main screen menu and
+                                       press "H" (for Help).
+                                       Then, press "O" (for
+                                       Options).
+
+IMPORTANT NOTE: The editor files are located on the Applications
+                disk. These files must be on the drive B disk when
+                using the "dual floppy system mode".
+
+
+*O DOS HELP
+
+
+D = DOS              Enters the DOS shell. The JEDEC file which was read
+    Command          into the memory prior to executing this command is
+                     undisturbed.
+
+                     Note: In order for the DOS commands to function, you
+                           must have a method of accessing the COMMAND.COM
+                           file. The two methods which can be used are:
+
+                              (1)  Hard-disk system only:  Using the PATH
+                                   environment variable in your AUTOEXEC.BAT
+                                   file. Example:
+                                              PATH=C:\;C:\DOS
+
+                              (2)  Copying the COMMAND.COM file into the
+                                   PEEL directory. For dual-floppy system,
+                                   you must copy the COMMAND.COM file into
+                                   the PEEL Development Software System
+                                   diskette (Disk 1).
+
+*QUIT HELP
+
+
+Q = Quit              Exit the program.
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*OPTIONS HELP
+
+
+File Selection        These options allows you to select the
+Options               disk drive number and directory, or
+                      file mask in the file selection menu.
+
+
+D = Drive             Allows selection of the disk drive
+                      number.
+
+                      Examples:
+                      [a:]  selects drive A
+
+                      [C:]  selects drive C
+                            (usually hard disk)
+
+
+
+
+
+More Options (Next Page)
+
+
+
+I = dIrectory         Selects the disk drive directory.
+
+                      Examples:
+                      [\]      selects the root directory
+
+                      [\PEEL]  selects the PEEL directory
+
+
+Note: Below is an alternative method for selecting the directory.
+      Each sub-directories is preceded by a "/". The directory or
+      sub-directory can be selected by moving the cursor to it
+      and pressing the ENTER key.
+
+               /.         go to root directory
+               /..        go to directory immediately
+                          above the current one
+               /FILES     go to sub-directory "FILES"
+
+More Options (Next Page)
+
+
+
+M = Mask              Allows further specification of the
+                      file types to be displayed from the
+                      current path selected. A "*" character
+                      can be used as a "wild card" allowing
+                      any characters to be accepted.
+
+                      Examples:
+                      [*.JED]  shows only those files with
+                               an extension of .JED
+
+                      [*.JE*]  shows only those files with
+                               an extension of .JED, .JEX,
+                               etc.
+
+                      [*.*]    shows all files
+
+
+
+More OPTIONS (Next Page)
+
+
+
+Q = Quit to           Returns to the main screen menu.
+    last menu
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

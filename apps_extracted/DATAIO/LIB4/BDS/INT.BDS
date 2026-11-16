@@ -1,0 +1,157 @@
+# $Header: /swpg/develop/abel/src/devsel2/newdata/RCS/int.chp,v 1.6 92/09/30 17:20:03 aez Exp $
+# chip report file   Released 5.1 
+#
+$MANUFACTURER INT Intel Corporation
+$CONTACT 1-800-323-EPLD (Hotline) or Local Sales Office
+$ADDRESS1 Mailstop FM1-76 
+$ADDRESS2 1900 Prairie City Road 
+$ADDRESS3 Folsom, CA 95630 USA 
+#
+# 132 column 1-line format no user info (default)
+#
+# format is:
+#$C2 mfg part type tech package devname pins spc eraseable preload family pinout did speed setup hold power price
+#
+#
+
+
+#   mfg       part             type  tech  pack  devname     pins    spc  era preld fam  pin    DID#  speed set  hold pwr prc 
+$C2 INT       D85C220-66       EPLD  CMOS  CDIP  E0320        20     COM  UV   NO   55   95     4850   12    9     0  160   0
+$C2 INT       D85C220-80       EPLD  CMOS  CDIP  E0320        20     COM  UV   NO   55   95     4850   10    7     0  160   0
+$C2 INT       MD85C220-66      EPLD  CMOS  CDIP  E0320        20     MIL  UV   NO   55   95     4850   12    9     0  185   0
+$C2 INT       N85C220-7        EPLD  CMOS  PLCC  E0320        20     COM  NO   NO   055  795      0     8    7     0  170   0
+$C2 INT       N85C220-8        EPLD  CMOS  PLCC  E0320        20     COM  NO   NO   055  795      0     9    8     0  170   0
+$C2 INT       N85C220-66       EPLD  CMOS  PLCC  E0320        20     COM  NO   NO   055  795    5232   12    9     0  160   0
+$C2 INT       N85C220-80       EPLD  CMOS  PLCC  E0320        20     COM  NO   NO   055  795    5232   10    7     0  160   0
+$C2 INT       P85C220-66       EPLD  CMOS  DIP   E0320        20     COM  NO   NO   55   95     4850   12    9     0  160   0
+$C2 INT       P85C220-80       EPLD  CMOS  DIP   E0320        20     COM  NO   NO   55   95     4850   10    7     0  160   0
+$C2 INT       TD85C220-66      EPLD  CMOS  CDIP  E0320        20     IND  UV   NO   55   95     4850   12    9     0  160   0
+$C2 INT       TN85C220-66      EPLD  CMOS  PLCC  E0320        20     IND  NO   NO   055  795    5232   12    9     0  160   0
+$C2 INT       D5C032-30        EPLD  CMOS  CDIP  E0320        20     COM  UV   NO   55   95     2364   30   23     0  105   0
+$C2 INT       D5C032-35        EPLD  CMOS  CDIP  E0320        20     COM  UV   NO   55   95     2364   35   25     0  105   0
+$C2 INT       D5C032-40        EPLD  CMOS  CDIP  E0320        20     COM  UV   NO   55   95     2364   40   30     0  105   0
+$C2 INT       P5C032-30        EPLD  CMOS  DIP   E0320        20     COM  NO   NO   55   95     2364   30   23     0  105   0
+$C2 INT       P5C032-35        EPLD  CMOS  DIP   E0320        20     COM  NO   NO   55   95     2364   35   25     0  105   0
+$C2 INT       P5C032-40        EPLD  CMOS  DIP   E0320        20     COM  NO   NO   55   95     2364   40   30     0  105   0
+$C2 INT       TD5C032-35       EPLD  CMOS  CDIP  E0320        20     IND  UV   NO   55   95     2364   35   25     0  105   0
+$C2 INT       TD5C032-40       EPLD  CMOS  CDIP  E0320        20     IND  UV   NO   55   95     2364   40   30     0  105   0
+$C2 INT       TP5C032-35       EPLD  CMOS  DIP   E0320        20     IND  UV   NO   55   95     2364   35   25     0  105   0
+$C2 INT       TP5C032-40       EPLD  CMOS  DIP   E0320        20     IND  UV   NO   55   95     2364   40   30     0  105   0
+$C2 INT       D85C060-10       EPLD  CMOS  CDIP  E0600        24     COM  UV   NO   67   59     5311   10    7     5  105   0
+$C2 INT       D85C060-12       EPLD  CMOS  CDIP  E0600        24     COM  UV   NO   67   59     5311   12    8     5  105   0
+$C2 INT       D85C060-15       EPLD  CMOS  CDIP  E0600        24     COM  UV   NO   67   59     5311   15   12     6  105   0
+$C2 INT       D85C060-25       EPLD  CMOS  CDIP  E0600        24     COM  UV   NO   67   59     5311   25   15     8  105   0
+$C2 INT       N85C060-10       EPLD  CMOS  PLCC  E0600C       28     COM  NO   NO   067  759    5316   10    7     5  105   0
+$C2 INT       N85C060-12       EPLD  CMOS  PLCC  E0600C       28     COM  NO   NO   067  759    5316   12    8     5  105   0
+$C2 INT       N85C060-15       EPLD  CMOS  PLCC  E0600C       28     COM  NO   NO   067  759    5316   15   12     6  105   0
+$C2 INT       N85C060-25       EPLD  CMOS  PLCC  E0600C       28     COM  NO   NO   067  759    5316   25   15     8  105   0
+$C2 INT       P85C060-10       EPLD  CMOS  DIP   E0600        24     COM  NO   NO   67   59     5311   10    7     5  105   0
+$C2 INT       P85C060-12       EPLD  CMOS  DIP   E0600        24     COM  NO   NO   67   59     5311   12    8     5  105   0
+$C2 INT       P85C060-15       EPLD  CMOS  DIP   E0600        24     COM  NO   NO   67   59     5311   15   12     6  105   0
+$C2 INT       P85C060-25       EPLD  CMOS  DIP   E0600        24     COM  NO   NO   67   59     5311   25   15     8  105   0
+$C2 INT       TD85C060-15      EPLD  CMOS  CDIP  E0600        24     IND  UV   NO   67   59     5311   15   12     6  105   0
+$C2 INT       TD85C060-25      EPLD  CMOS  CDIP  E0600        24     IND  UV   NO   67   59     5311   25   15     8  105   0
+$C2 INT       TN85C060-15      EPLD  CMOS  PLCC  E0600C       28     IND  NO   NO   067  759    5316   15   12     6  105   0
+$C2 INT       TN85C060-25      EPLD  CMOS  PLCC  E0600C       28     IND  NO   NO   067  759    5316   25   15     8  105   0
+
+
+#   mfg       part             type  tech  pack  devname     pins    spc  era preld fam  pin    DID#  speed set  hold pwr prc
+
+$C2 INT       D5C060-45        EPLD  CMOS  CDIP  E0600        24     COM  UV   NO   55   59     2212   45   38    15  390   0
+$C2 INT       D5C060-55        EPLD  CMOS  CDIP  E0600        24     COM  UV   NO   55   59     2212   55   43    15  390   0
+$C2 INT       MD5C060-55       EPLD  CMOS  CDIP  E0600        24     MIL  UV   NO   55   59     2212   55   45    15  425   0
+$C2 INT       N5C060-45        EPLD  CMOS  PLCC  E0600C       28     COM  NO   NO   055  759     25    45   38    15  390   0
+$C2 INT       N5C060-55        EPLD  CMOS  PLCC  E0600C       28     COM  NO   NO   055  759     25    55   43    15  390   0
+$C2 INT       P5C060-45        EPLD  CMOS  DIP   E0600        24     COM  NO   NO   55   59     2212   45   38    15  390   0
+$C2 INT       P5C060-55        EPLD  CMOS  DIP   E0600        24     COM  NO   NO   55   59     2212   55   43    15  390   0
+$C2 INT       TD5C060-55       EPLD  CMOS  CDIP  E0600        24     IND  UV   NO   55   59     2212   55   43    15  390   0
+$C2 INT       TN5C060-55       EPLD  CMOS  PLCC  E0600C       28     IND  NO   NO   055  759     25    55   43    15  390   0
+$C2 INT       TP5C060-55       EPLD  CMOS  DIP   E0600        24     IND  NO   NO   55   59     2212   55   43    15  390   0
+$C2 INT       D85C090-15       EPLD  CMOS  CDIP  E0900        40     COM  UV   NO   67   96     5312   15   11     6  150   0
+$C2 INT       D85C090-20       EPLD  CMOS  CDIP  E0900        40     COM  UV   NO   67   96     5312   20   13     7  150   0
+$C2 INT       D85C090-25       EPLD  CMOS  CDIP  E0900        40     COM  UV   NO   67   96     5312   25   16     8  150   0
+$C2 INT       N85C090-15       EPLD  CMOS  PLCC  E0900C       44     COM  NO   NO   067  796    5315   15   11     6  150   0
+$C2 INT       N85C090-20       EPLD  CMOS  PLCC  E0900C       44     COM  NO   NO   067  796    5315   20   13     7  150   0
+$C2 INT       P85C090-15       EPLD  CMOS  DIP   E0900        40     COM  NO   NO   67   96     5312   15   11     6  150   0
+$C2 INT       P85C090-20       EPLD  CMOS  DIP   E0900        40     COM  NO   NO   67   96     5312   20   13     7  150   0
+$C2 INT       P85C090-25       EPLD  CMOS  DIP   E0900        40     COM  NO   NO   67   96     5312   25   16     8  150   0
+$C2 INT       TD85C090-20      EPLD  CMOS  CDIP  E0900        40     IND  UV   NO   67   96     5312   20   13     7  150   0
+$C2 INT       TD85C090-25      EPLD  CMOS  CDIP  E0900        40     IND  UV   NO   67   96     5312   25   16     8  150   0
+$C2 INT       TN85C090-20      EPLD  CMOS  PLCC  E0900C       44     IND  NO   NO   067  796    5315   20   13     7  150   0
+$C2 INT       TN85C090-25      EPLD  CMOS  PLCC  E0900C       44     IND  NO   NO   067  796    5315   25   16     8  150   0
+$C2 INT       N85C090-25       EPLD  CMOS  PLCC  E0900C       44     COM  NO   NO   067  796    5315   25   16     8  150   0
+$C2 INT       D5C090-50        EPLD  CMOS  CDIP  E0900        40     COM  UV   NO   55   96     1306   50   38    15  120   0
+$C2 INT       D5C090-60        EPLD  CMOS  CDIP  E0900        40     COM  UV   NO   55   96     1306   60   46    17  120   0
+$C2 INT       MD5C090-60       EPLD  CMOS  CDIP  E0900        40     MIL  UV   NO   55   96     1306   60   48    17  425   0
+$C2 INT       N5C090-50        EPLD  CMOS  PLCC  E0900C       44     COM  NO   NO   055  796     24    50   38    15  120   0
+$C2 INT       N5C090-60        EPLD  CMOS  PLCC  E0900C       44     COM  NO   NO   055  796     24    60   46    17  120   0
+$C2 INT       P5C090-50        EPLD  CMOS  DIP   E0900        40     COM  NO   NO   55   96     1306   50   38    15  120   0
+$C2 INT       P5C090-60        EPLD  CMOS  DIP   E0900        40     COM  NO   NO   55   96     1306   60   46    17  120   0
+$C2 INT       TD5C090-60       EPLD  CMOS  CDIP  E0900        40     IND  UV   NO   55   96     1306   60   46    17  120   0
+$C2 INT       TN5C090-60       EPLD  CMOS  PLCC  E0900C       44     IND  NO   NO   055  796     24    60   46    17  120   0
+$C2 INT       TP5C090-60       EPLD  CMOS  DIP   E0900        40     IND  NO   NO   55   96     1306   60   46    17  120   0
+$C2 INT       D85C224-66       EPLD  CMOS  CDIP  E224         24     COM  UV   NO   179  0DC    5314   12    9     0  160   0
+$C2 INT       D85C224-80       EPLD  CMOS  CDIP  E224         24     COM  UV   NO   179  0DC    5314   10    7     0  160   0
+$C2 INT       N85C224-7        EPLD  CMOS  PLCC  E224C        28     COM  NO   NO   179  7DC      0     8    7     0  170   0
+$C2 INT       N85C224-8        EPLD  CMOS  PLCC  E224C        28     COM  NO   NO   179  7DC      0     9    8     0  170   0
+$C2 INT       P85C224-66       EPLD  CMOS  DIP   E224         24     COM  NO   NO   179  0DC    5314   12    9     0  160   0
+$C2 INT       P85C224-80       EPLD  CMOS  DIP   E224         24     COM  NO   NO   179  0DC    5314   10    7     0  160   0
+$C2 INT       N85C224-66       EPLD  CMOS  PLCC  E224C        28     COM  NO   NO   179  7DC    5313   12    9     0  160   0
+$C2 INT       N85C224-80       EPLD  CMOS  PLCC  E224C        28     COM  NO   NO   179  7DC    5313   10    7     0  160   0
+$C2 INT       D5AC312-25       EPLD  CMOS  CDIP  E5AC312      24     COM  UV   NO   55   3F     3063   25   15     5  100   0
+$C2 INT       D5AC312-30       EPLD  CMOS  CDIP  E5AC312      24     COM  UV   NO   55   3F     3063   30   20     5  100   0
+$C2 INT       N5AC312-25       EPLD  CMOS  PLCC  E5AC312      28     COM  NO   NO   055  73F    2053   25   15     5  100   0
+
+
+#   mfg       part             type  tech  pack  devname     pins    spc  era preld fam  pin    DID#  speed set  hold pwr prc
+
+$C2 INT       N5AC312-30       EPLD  CMOS  PLCC  E5AC312      28     COM  NO   NO   055  73F    2053   30   20     5  100   0
+$C2 INT       P5AC312-25       EPLD  CMOS  DIP   E5AC312      24     COM  NO   NO   55   3F     3063   25   15     5  100   0
+$C2 INT       P5AC312-30       EPLD  CMOS  DIP   E5AC312      24     COM  NO   NO   55   3F     3063   30   20     5  100   0
+$C2 INT       MD5AC312-30      EPLD  CMOS  CDIP  E5AC312      24     MIL  UV   NO   55   3F     3063   30   20     5  120   0
+$C2 INT       MD5AC312-35      EPLD  CMOS  CDIP  E5AC312      24     MIL  UV   NO   55   3F     3063   35   25     5  120   0
+$C2 INT       TN5AC312-30      EPLD  CMOS  PLCC  E5AC312      28     IND  NO   NO   055  73F    2053   30   20     5  120   0
+$C2 INT       D5AC324-25       EPLD  CMOS  CDIP  E5AC324      40     COM  UV   NO   17C  0BA    2846   25   13     3  160   0
+$C2 INT       D5AC324-30       EPLD  CMOS  CDIP  E5AC324      40     COM  UV   NO   17C  0BA    2846   30   20     4  160   0
+$C2 INT       D5AC324-35       EPLD  CMOS  CDIP  E5AC324      40     COM  UV   NO   17C  0BA    2846   35   25     5  160   0
+$C2 INT       N5AC324-25       EPLD  CMOS  PLCC  E5AC324      44     COM  NO   NO   17C  7BA    4167   25   13     3  160   0
+$C2 INT       N5AC324-30       EPLD  CMOS  PLCC  E5AC324      44     COM  NO   NO   17C  7BA    4167   30   20     4  160   0
+$C2 INT       N5AC324-35       EPLD  CMOS  PLCC  E5AC324      44     COM  NO   NO   17C  7BA    4167   35   25     5  160   0
+$C2 INT       P5AC324-25       EPLD  CMOS  DIP   E5AC324      40     COM  NO   NO   17C  0BA    2846   25   13     3  160   0
+$C2 INT       P5AC324-30       EPLD  CMOS  DIP   E5AC324      40     COM  NO   NO   17C  0BA    2846   30   20     4  160   0
+$C2 INT       P5AC324-35       EPLD  CMOS  DIP   E5AC324      40     COM  NO   NO   17C  0BA    2846   35   25     5  160   0
+$C2 INT       TN5AC324-30      EPLD  CMOS  PLCC  E5AC324      44     IND  NO   NO   17C  7BA    4167   30   20     4  180   0
+$C2 INT       D85C508-10       EPLD  CMOS  CDIP  P508         24     COM  UV   NO   55   B0     4178   10    7    -3   15   0
+$C2 INT       D85C508-7        EPLD  CMOS  CDIP  P508         24     COM  UV   NO   55   B0     4178    8    6    -5   15   0
+$C2 INT       P85C508-10       EPLD  CMOS  DIP   P508         24     COM  NO   NO   55   B0     4178   10    7    -3   15   0
+$C2 INT       P85C508-7        EPLD  CMOS  DIP   P508         24     COM  NO   NO   55   B0     4178    8    6    -5   15   0
+$C2 INT       N85C508-10       EPLD  CMOS  PLCC  P508         28     COM  NO   NO   --   --       0    10    7    -3   15   0
+$C2 INT       N85C508-7        EPLD  CMOS  PLCC  P508         28     COM  NO   NO   --   --       0     8    6    -5   15   0
+$C2 INT       D85C22V10-10     EPLD  CMOS  CDIP  P22V10I      24     COM  UV   NO   --   --       0    10    8     0  130   0
+$C2 INT       D85C22V10-15     EPLD  CMOS  CDIP  P22V10I      24     COM  UV   NO   --   --       0    15   10     0  130   0
+$C2 INT       N85C22V10-10     EPLD  CMOS  PLCC  P22V10IC     28     COM  NO   NO   --   --       0    10    8     0  130   0
+$C2 INT       N85C22V10-15     EPLD  CMOS  PLCC  P22V10IC     28     COM  NO   NO   --   --       0    15   10     0  130   0
+$C2 INT       P85C22V10-15     EPLD  CMOS  CDIP  P22V10I      24     COM  UV   NO   --   --       0    15   10     0  130   0
+$C2 INT       P85C22V10-10     EPLD  CMOS  CDIP  P22V10I      24     COM  UV   NO   --   --       0    10    8     0  130   0
+$C2 INT       TD85C22V10-15    EPLD  CMOS  CDIP  P22V10I      24     IND  UV   NO   --   --       0    15   10     0  130   0
+$C2 INT       TN85C22V10-15    EPLD  CMOS  PLCC  P22V10IC     28     IND  NO   NO   --   --       0    15   10     0  130   0
+$C2 INT       MG5C180-90       EPLD  CMOS  PGA   E1800        68     MIL  UV   NO   055  99A    2647   90   67     0  1125  0
+$C2 INT       MQ5C180-90       EPLD  CMOS  FPAK  E1800        68     MIL  UV   NO   --   --       0    90   67     0  1125  0
+$C2 INT       N5C180-70        EPLD  CMOS  PLCC  E1800        68     COM  NO   NO   55   9A     1588   70   53    30  950   0
+$C2 INT       N5C180-75        EPLD  CMOS  PLCC  E1800        68     COM  NO   NO   55   9A     1588   75   56    30  950   0
+$C2 INT       N5C180-90        EPLD  CMOS  PLCC  E1800        68     COM  NO   NO   55   9A     1588   90   67    30  950   0
+$C2 INT       TN5C180-90       EPLD  CMOS  PLCC  E1800        68     IND  NO   NO   55   9A     1588   90   67    30  950   0
+$C2 INT       D85C960-20       EPLD  CMOS  CDIP  NO_ABEL      24     COM  UV   NO   55   F4     4474   10   15     2   25   0
+$C2 INT       D85C960-25       EPLD  CMOS  CDIP  NO_ABEL      24     COM  UV   NO   55   F4     4474   10   12     2   25   0
+$C2 INT       N85C960-20       EPLD  CMOS  PLCC  NO_ABEL      28     COM  NO   NO   055  7F4    5465   10   15     2   25   0
+$C2 INT       N85C960-25       EPLD  CMOS  PLCC  NO_ABEL      28     COM  NO   NO   055  7F4    5465   10   12     2   25   0
+
+#
+# note that _ added to the two following parts to make them unique, they differ from package types
+$C2 INT  iFX780-10_   FPGA  CMOS  PLCC NO_ABEL   84   COM  NO   YES     --   --    8423   10    7     0    2     0
+$C2 INT  iFX780-15_   FPGA  CMOS  PLCC NO_ABEL   84   COM  NO   YES     --   --    8424   15   11     0    2     0
+$C2 INT  iFX780-10   FPGA  CMOS  FPAK NO_ABEL  132   COM  NO   YES     --   --    8425   10    7     0    2     0
+$C2 INT  iFX780-15   FPGA  CMOS  FPAK NO_ABEL  132   COM  NO   YES     --   --    8426   15   11     0    2     0 
+#
+$END
+

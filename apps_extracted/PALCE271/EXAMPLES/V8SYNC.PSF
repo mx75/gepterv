@@ -1,0 +1,76 @@
+TITLE 'APEEL FILE: PEEL18CV8 SYNCHRONIZATION CIRCUITS'
+DESIGNER: 'JAMES PEEL'
+DATE: '9/13/88'
+
+Description
+
+This example demonstrates the usefulness of the feedback from the OR gate.
+Eigth asynchronous signals can be synchronized by using the circuit below.
+Each FEED_OR feedback first latches the signal. This signal is then clocked
+out on the next rising edge of the clock from pin 1. The RESET pin is used
+to clear the latches and registers.
+
+End_Desc;
+
+PEEL18CV8
+
+
+ CLK pin 1;
+I1 pin 2;
+I2 pin 3;
+I3 pin 4;
+I4 pin 5;
+I5 pin 6;
+I6 pin 7;
+I7 pin 8;
+I8 pin 9;
+RESET pin 11;
+IOC (12 'SYNC8' Pos OutReg Feed_Or)
+IOC (13 'SYNC7' Pos OutReg Feed_Or)
+IOC (14 'SYNC6' Pos OutReg Feed_Or)
+IOC (15 'SYNC5' Pos OutReg Feed_Or)
+IOC (16 'SYNC4' Pos OutReg Feed_Or)
+IOC (17 'SYNC3' Pos OutReg Feed_Or)
+IOC (18 'SYNC2' Pos OutReg Feed_Or)
+IOC (19 'SYNC1' Pos OutReg Feed_Or)
+
+AC NODE 21
+SP NODE 22
+
+Define
+
+EQUATIONS
+
+SYNC1.D := !RESET & CLK & I1 # 
+           !RESET & !CLK & SYNC1 #
+           !RESET & I1 & SYNC1 ;
+SYNC2.D := !RESET & CLK & I2 #
+           !RESET & !CLK & SYNC2 #
+           !RESET & I2 & SYNC2;
+SYNC3.D := !RESET & CLK & I3 #
+           !RESET & !CLK & SYNC3 #
+           !RESET & I3 & SYNC3;
+SYNC4.D := !RESET & CLK & I4 #
+           !RESET & !CLK & SYNC4 #
+           !RESET & I4 & SYNC4;
+SYNC5.D := !RESET & CLK & I5 #
+           !RESET & !CLK & SYNC5 #
+           !RESET & I5 & SYNC5;
+SYNC6.D := !RESET & CLK & I6 #
+           !RESET & !CLK & SYNC6 #
+           !RESET & I6 & SYNC6;
+SYNC7.D := !RESET & CLK & I7 #
+           !RESET & !CLK & SYNC7 #
+           !RESET & I7 & SYNC7;
+SYNC8.D := !RESET & CLK & I8 #
+           !RESET & !CLK & SYNC8 #
+           !RESET & I8 & SYNC8;
+
+SYNC8.And = 1;
+SYNC7.And = 1;
+SYNC6.And = 1;
+SYNC5.And = 1;
+SYNC4.And = 1;
+SYNC3.And = 1;
+SYNC2.And = 1;
+SYNC1.And = 1;

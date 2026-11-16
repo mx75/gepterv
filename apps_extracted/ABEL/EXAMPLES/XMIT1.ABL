@@ -1,0 +1,131 @@
+module XMIT1 
+title 'Serial transmiter'
+
+// Inputs
+        DI7..DI0       pin;
+        Clk2,Clk1      pin;
+        Clr,Send       pin;
+
+// Outputs
+        D7..D0         pin istype 'reg';
+        SM3..SM0       pin istype 'reg';
+        NextWord,TXD   pin istype 'com';
+
+// Sets
+        Data         = [D7..D0];
+        DataShift    = [D0,D7..D1];
+        Sreg         = [SM3,SM2,SM1,SM0];
+        DataIn       = [DI7..DI0];
+        BaudClk      = [Clk1,Clk2];
+
+Equations
+        Sreg.C = Clk1;
+        Data.C = Clk2;
+
+        Sreg.AR = Clr;
+        Data.AR = Clr;
+
+Declarations
+// States
+        StopBit1 =  0;
+        StopBit2 =  1;
+        StartBit =  2;
+        SendD0   =  8;
+        SendD1   =  9;
+        SendD2   = 10;
+        SendD3   = 11;
+        SendD4   = 12;
+        SendD5   = 13;
+        SendD6   = 14;
+        SendD7   = 15;
+
+
+State_Diagram Sreg
+        State StopBit1: NextWord  = 1;
+                        TXD       = 1;
+                        Data     := DataIn;
+                        goto StopBit2;
+                        
+        State StopBit2: NextWord  = 0;
+                        TXD       = 1;
+                        Data     := DataIn;
+                        if(Send) then StartBit else StopBit2;
+
+        State StartBit: NextWord  = 0;
+                        TXD       = 0;
+                        Data     := DataIn;
+                        goto SendD0;
+
+        State SendD0:   NextWord  = 0;
+                        TXD       = D0;
+                        Data     := DataShift;
+                        goto SendD1;
+
+        State SendD1:   NextWord  = 0;
+                        TXD       = D0;
+                        Data     := DataShift;
+                        goto SendD2;
+
+        State SendD2:   NextWord  = 0;
+                        TXD       = D0;
+                        Data     := DataShift;
+                        goto SendD3;
+
+        State SendD3:   NextWord  = 0;
+                        TXD       = D0;
+                        Data     := DataShift;
+                        goto SendD4;
+
+        State SendD4:   NextWord  = 0;
+                        TXD       = D0;
+                        Data     := DataShift;
+                        goto SendD5;
+
+        State SendD5:   NextWord  = 0;
+                        TXD       = D0;
+                        Data     := DataShift;
+                        goto SendD6;
+
+        State SendD6:   NextWord  = 0;
+                        TXD       = D0;
+                        Data     := DataShift;
+                        goto SendD7;
+
+        State SendD7:   NextWord  = 0;
+                        TXD       = D0;
+                        Data     := DataShift;
+                        goto StopBit1;
+
+Declarations
+        C = .C.;
+
+test_vectors
+       ([BaudClk,Clr,Send,DataIn] -> [Sreg    ,NextWord,TXD])
+        [   C   , 1 ,  0 ,   0  ] -> [StopBit1,    1   , 1 ];
+        [   C   , 1 ,  0 ,   0  ] -> [StopBit1,    1   , 1 ];
+        [   C   , 0 ,  0 ,   0  ] -> [StopBit2,    0   , 1 ];
+        [   C   , 0 ,  0 , ^h55 ] -> [StopBit2,    0   , 1 ];
+        [   C   , 0 ,  0 , ^h55 ] -> [StopBit2,    0   , 1 ];
+        [   C   , 0 ,  1 , ^h55 ] -> [StartBit,    0   , 0 ];
+        [   C   , 0 ,  1 , ^h55 ] -> [SendD0  ,    0   , 1 ];
+        [   C   , 0 ,  0 ,   0  ] -> [SendD1  ,    0   , 0 ];
+        [   C   , 0 ,  0 ,   0  ] -> [SendD2  ,    0   , 1 ];
+        [   C   , 0 ,  0 ,   0  ] -> [SendD3  ,    0   , 0 ];
+        [   C   , 0 ,  0 ,   0  ] -> [SendD4  ,    0   , 1 ];
+        [   C   , 0 ,  0 ,   0  ] -> [SendD5  ,    0   , 0 ];
+        [   C   , 0 ,  0 ,   0  ] -> [SendD6  ,    0   , 1 ];
+        [   C   , 0 ,  0 ,   0  ] -> [SendD7  ,    0   , 0 ];
+        [   C   , 0 ,  0 ,   0  ] -> [StopBit1,    1   , 1 ];
+        [   C   , 0 ,  0 , ^h0F ] -> [StopBit2,    0   , 1 ];
+        [   C   , 0 ,  0 , ^h0F ] -> [StopBit2,    0   , 1 ];
+        [   C   , 0 ,  1 , ^h0F ] -> [StartBit,    0   , 0 ];
+        [   C   , 0 ,  1 , ^h0F ] -> [SendD0  ,    0   , 1 ];
+        [   C   , 0 ,  0 ,   0  ] -> [SendD1  ,    0   , 1 ];
+        [   C   , 0 ,  0 ,   0  ] -> [SendD2  ,    0   , 1 ];
+        [   C   , 0 ,  0 ,   0  ] -> [SendD3  ,    0   , 1 ];
+        [   C   , 0 ,  0 ,   0  ] -> [SendD4  ,    0   , 0 ];
+        [   C   , 0 ,  0 ,   0  ] -> [SendD5  ,    0   , 0 ];
+        [   C   , 0 ,  0 ,   0  ] -> [SendD6  ,    0   , 0 ];
+        [   C   , 0 ,  0 ,   0  ] -> [SendD7  ,    0   , 0 ];
+        [   C   , 0 ,  0 ,   0  ] -> [StopBit1,    1   , 1 ];
+end

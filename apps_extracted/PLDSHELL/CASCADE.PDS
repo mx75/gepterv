@@ -1,0 +1,42 @@
+
+TITLE		Cascaded XOR (with feedback)
+PATTERN 	AB-8
+REVISION 	1.0	
+AUTHOR  	Example
+COMPANY 	Altera
+DATE  		12/6/94
+
+CHIP	fbk_xor EP220
+
+; Inputs
+PIN	A
+PIN	B
+PIN	C
+PIN	D
+PIN	E
+PIN	F
+
+; Outputs
+PIN	OUT
+PIN	FBK   ; feed back into array to reduce pterm count
+
+
+EQUATIONS
+	OUT = ( ( FBK :+: E) :+: F)
+	
+	FBK = ( ( (A :+: B) :+: C) :+: D)
+
+
+SIMULATION
+
+; make a vector of the inputs to simplify test vector generation
+VECTOR V := [A, B, C, D, E, F]
+
+; generate all possible combinations of the six inputs (2^6 = 64)
+FOR I := 0 TO 63 DO
+BEGIN
+	SETF V := I
+END
+
+; end of simulation
+

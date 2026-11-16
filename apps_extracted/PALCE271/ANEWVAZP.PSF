@@ -1,0 +1,46 @@
+TITLE ' '
+DESIGNER ' '
+DATE ' '
+
+Description
+  Enter description here ...
+End_Desc;
+
+PEEL22V10AZ+
+
+CLK pin 1
+
+"I/O CONFIGURATION DECLARATION
+"IOC (PIN_NO 'PIN_NAME' OUTPUT_POLARITY OUTPUT_TYPE FEEDBACK_TYPE)
+IOC (14 '' POS COM FEED_PIN)
+IOC (15 '' POS COM FEED_PIN)
+IOC (16 '' POS COM FEED_PIN)
+IOC (17 '' POS COM FEED_PIN)
+IOC (18 '' POS COM FEED_PIN)
+IOC (19 '' POS COM FEED_PIN)
+IOC (20 '' POS COM FEED_PIN)
+IOC (21 '' POS COM FEED_PIN)
+IOC (22 '' POS COM FEED_PIN)
+IOC (23 '' POS COM FEED_PIN)
+
+AR NODE 25  "Global Asynchronous Reset
+SP NODE 26  "Global Synchronous Preset
+CS NODE 27  "Product Term Clock
+
+DEFINE
+
+
+EQUATIONS
+
+AR = 0;
+
+SP = 0;
+
+CS = 0;
+
+"All Equations must end with semicolons.
+"Internal or External output names appended with extensions:
+"  1) .COM for Combinatorial Output
+"  2) .D for D-type Registered Output
+"  3) .OE for Output Enable Control
+

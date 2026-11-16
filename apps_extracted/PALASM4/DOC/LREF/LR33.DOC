@@ -1,0 +1,101 @@
+ğ
+MACH_SEG_A, MACH_SEG_B, MACH_SEG_C, MACH_SEG_D
+Overview
+These reserved words can be used as the name in a Group statement to
+cluster signals within a single block of a MACH device.  The same
+control logic is applied to all signals in the block.
+
+Once declared, you can include the group name in any equation rather
+than writing a separate equation for each pin or node in the group.
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+            GROUP     Group_name    Pn_List
+
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Device support:  All MACH device designs.
+ú
+Syntax
+You can use the reserved word only in the Group statement in the
+declaration segment of Boolean or state-machine designs.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+            GROUP     Group_name    Pn_List
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+            pin/node statements
+            ...
+            GROUP     MACH_SEG_A    R[0]  R[1]  R[2]
+                                    R[3]  O[0]  O[1]
+                                    O[2]  O[3]  O[4]
+                                    O[5]  O[6]  O[7]
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+
+MACH_SEG_A
+MACH_SEG_B      Identifies the block of a MACH device within which
+MACH_SEG_C      the named group of signals will be clustered.  The
+MACH_SEG_D      block you specify must be one of the following.
+
+                ş   MACH 110
+                    MACH_SEG_A
+                    MACH_SEG_B
+
+                ş   MACH 210
+                    MACH_SEG_A
+                    MACH_SEG_B
+                    MACH_SEG_C
+                    MACH_SEG_D
+
+                Once declared, you can use the name either on the left
+                side of an equation, as shown under Use, or to define
+                pins or nodes in the simulation segment or file.
+
+                In PDS files produced from converted schematic
+                designs, signals are clustered into one block when a
+                common value is found in part field 2 of certain
+                macros.
+
+Pn_List         Identify the pins or nodes to be included in the
+                group.  This list must follow the group name
+
+                ş  Names must match those used in previous pin or node
+                   statements.You can include a range operator, [ ],
+                   to define a group of pins or nodes if they are
+                   defined that way in previous statements.
+
+                ş  Blank spaces or tab characters should be used to
+                   separate each pin or node listed; no [Return]
+                   characters are allowed.
+ú
+Use
+Using the reserved word as a group name can be helpful when modifying
+a design that doesn't fit.  The sample below shows a declared group,
+MACH_SEG_A, and its appearance in an equation in the PDS file.
+
+    ;...pin/node statements...
+    GROUP   MACH_SEG_A   R[0] R[1] R[2] R[3]
+                         O[0] O[1] O[2] O[3]
+                         O[4] O[5] O[6] O[7]
+    ;... equations ...
+    MACH_SEG_A.TRST =    IN [1]
+
+The equation above enables all outputs in block A when input IN [1] is
+high.  The next example shows how the previous equation is
+automatically expanded during software processing.
+
+    R[0].TRST = IN[1]
+    R[1].TRST = IN[1]
+    ...
+    R[3].TRST = IN[1]
+    O[0].TRST = IN[1]
+    O[1].TRST = IN[1]
+    ...
+    O[7].TRST = IN[1]
+ú
+Related Topics
+GROUP
+NODE
+PIN
+ú

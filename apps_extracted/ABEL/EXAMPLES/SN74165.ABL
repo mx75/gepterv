@@ -1,0 +1,33 @@
+Module sn74165
+Title 'Parallel-Load 8-bit Shift Register, async load'
+
+    ShLd,ClkInh,Clk,SER   pin;
+    A,B,C,D,E,F,G,H       pin;
+    QA,QB,QC,QD,QE,QF,QG  node istype 'reg,buffer';
+    QH                    pin istype 'reg,buffer';
+    QH_                   pin istype 'com';
+
+Equations
+
+    QH_ = !QH;
+
+    [QH,QG,QF,QE,QD,QC,QB,QA] :=[QG,QF,QE,QD,QC,QB,QA,SER];
+    [QH,QG,QF,QE,QD,QC,QB,QA].clk = Clk # ClkInh;
+
+    when (!ShLd) then
+    { [QH,QG,QF,QE,QD,QC,QB,QA].ar = ![H,G,F,E,D,C,B,A];
+      [QH,QG,QF,QE,QD,QC,QB,QA].ap = [H,G,F,E,D,C,B,A];
+    }
+
+Test_Vectors ([Clk,ClkInh,ShLd,SER,A,B,C,D,E,F,G,H]->[QA,QB,QC,QD,QE,QF,QG,QH,QH_])
+              [.C.,   1  ,  0 , 0 ,1,0,1,0,1,0,1,1]->[ 1, 0, 1, 0, 1, 0, 1, 1, 0 ];
+              [.C.,   1  ,  1 , 0 ,1,0,1,0,1,0,1,1]->[ 1, 0, 1, 0, 1, 0, 1, 1, 0 ];
+              [.C.,   0  ,  1 , 0 ,0,0,0,0,0,0,0,0]->[ 0, 1, 0, 1, 0, 1, 0, 1, 0 ];
+              [.C.,   0  ,  1 , 0 ,0,0,0,0,0,0,0,0]->[ 0, 0, 1, 0, 1, 0, 1, 0, 1 ];
+              [.C.,   0  ,  1 , 1 ,0,0,0,0,0,0,0,0]->[ 1, 0, 0, 1, 0, 1, 0, 1, 0 ];
+              [.C.,   0  ,  1 , 1 ,0,1,1,1,1,0,0,0]->[ 1, 1, 0, 0, 1, 0, 1, 0, 1 ];
+              [.C.,   0  ,  1 , 0 ,0,1,1,1,1,1,0,0]->[ 0, 1, 1, 0, 0, 1, 0, 1, 0 ];
+              [ 0 ,   0  ,  1 , 0 ,0,1,1,1,1,1,0,0]->[ 0, 1, 1, 0, 0, 1, 0, 1, 0 ];
+              [ 0 ,   1  ,  1 , 0 ,0,1,1,1,1,1,0,0]->[ 0, 0, 1, 1, 0, 0, 1, 0, 1 ];
+              [.C.,   1  ,  0 , 0 ,0,1,1,1,1,1,0,0]->[ 0, 1, 1, 1, 1, 1, 0, 0, 1 ];
+End

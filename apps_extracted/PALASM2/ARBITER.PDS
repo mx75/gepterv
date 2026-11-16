@@ -1,0 +1,85 @@
+TITLE    3-Bit Arbiter
+Pattern  Arbiter.pds
+Revision A
+Author   Sadahiro Horiko
+Company  Monolithic Memories Inc., Japan
+Date     7/19/84
+  
+CHIP ARBITER PAL20RA10
+  
+PL S0 S1 S2 NC NC NC NC NC SYSCLK /CLR GND
+/OE PH1 PH0 Q1 Q0 R2 R1 R0 G2 G1 G0 VCC
+  
+EQUATIONS
+  
+R0              := S0                   ;Synch. request0 LSB
+R0.CLKF          = Q0*/Q1               ;Phase clock 0
+R0.SETF          = CLR                  ;Clear
+  
+R1              := S1                   ;Synch. request 1
+R1.CLKF          = Q0*/Q1               ;Phase clock 0
+R1.SETF          = CLR                  ;Clear
+  
+R2              := S2                   ;Synch. request2 MSB
+R2.CLKF          = Q0*/Q1               ;Phase clock 0
+R2.SETF          = CLR                  ;Clear
+  
+G2              := R2*/R1*G1            ;Level 1 complete
+                 + R2*/R0*G0            ;Level 0 complete
+                 + R2*/G1*/G0           ;Idle
+                 + R2*G2                ;Hold level 2
+G2.CLKF          = /Q0*Q1               ;Phase clock 1
+G2.SETF          = CLR                  ;Clear
+  
+G1              := R1*/R2*G2            ;Level 2 complete
+                 + R1*/R2*/R0*G0        ;Level 0 complete
+                 + R1*/R2*/G2*/G0       ;Idle
+                 + R1*G1                ;Hold level 1
+G1.CLKF          = /Q0*Q1               ;Phase clock 1
+G1.SETF          = CLR                  ;Clear
+  
+G0              := R0*/R2*/R1*G2        ;Level 2 complete
+                 + R0*/R2*/R1*G1        ;Level 1 complete
+                 + R0*/R2*/R1*/G2*/G1   ;Idle
+                 + R0*G0                ;Hold level 0
+G0.CLKF          = /Q0*Q1               ;Phase clock 1
+G0.SETF          = CLR                  ;Clear
+  
+Q0              := /Q1                  ;Phase clock fedback
+                                        ;generator 1
+Q0.CLKF          = SYSCLK               ;System clock
+Q0.SETF          = CLR                  ;Clear
+  
+Q1              := Q0                   ;Phase clock input
+                                        ;to generator 1
+Q1.CLKF          = SYSCLK               ;System clock
+Q1.SETF          = CLR                  ;Clear
+  
+PH0              = Q0*/Q1               ;Phase clock 0
+PH1              = /Q0*Q1               ;Phase clock 1
+  
+  
+SIMULATION
+  
+TRACE_ON CLR SYSCLK Q0 Q1 PH0 PH1       ;Observed signals
+  
+SETF OE PL SYSCLK CLR                   ;Initialize
+  
+SETF /CLR                               ;Reset clear and
+                                        ;give a clock
+SETF /SYSCLK                            ;Generate negative
+                                        ;clock edge
+  
+FOR I:=1 TO 6 DO                        ;Repeat clock pulse
+ BEGIN                                  ;generation 6 times
+  SETF SYSCLK                           ;No. of clock pulse
+                                        ;generated depends
+  SETF /SYSCLK                          ;on FOR loop
+                                        ;indices.
+ END
+TRACE_OFF
+  
+  
+  
+  
+

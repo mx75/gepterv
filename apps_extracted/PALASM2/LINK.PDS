@@ -1,0 +1,80 @@
+Title     Serial Data Link Controller
+Pattern   Link.pds
+Revision  A
+Author    Jose Juntas / Kelvin Chow
+Company   Monolithic Memories Inc., Santa Clara, Ca
+Date      3/1/85
+  
+CHIP SE_CH_CNTRL  PAL20RA10
+  
+TEST SYSRESET A2 A1 HDSHAKE CK E AUXDECOD A3 A4 A5 GND
+/OE A6 SPEEDSEL DIV4 DIV3 DIV2 DIV1 CSO BLOCREC DIRDIV
+/TPH VCC
+  
+EQUATIONS
+  
+/TPH            := A2                   ;Load A2 as flag
+/TPH.CLKF        = CSO                  ;CLK W/ ADDR. decode
+/TPH.SETF        = SYSRESET             ;global system reset
+  
+DIRDIV          := A1                   ;Load speed ratio
+DIRDIV.CLKF      = CSO                  ;CLK W/ ADDR. decode
+DIRDIV.SETF      = /HDSHAKE             ;CLR by CTS/RTS line
+  
+/BLOCREC         = /DIRDIV              ;Controlled by speed
+                 + HDSHAKE              ;option and CTS/RTS
+                                        ;line
+CSO              = /A6*A5*A4*A3*AUXDECOD*E
+                                        ;UART address valid
+/DIV1           := DIV1                 ;4-bit synchronous
+                                        ;divider LSB
+/DIV1.CLKF       = CK                   ;CLK by CK(external)
+/DIV1.SETF       = /DIRDIV              ;CLR by speed option
+  
+/DIV2           := /DIV1*/DIV2          ;2ND stage of
+                 + DIV1*DIV2            ;divider
+/DIV2.CLKF       = CK                   ;CLK by CK(external)
+/DIV2.SETF       = /DIRDIV              ;CLR by speed option
+  
+/DIV3           := /DIV2*/DIV3          ;3RD stage of
+                 + /DIV1*/DIV3          ;divider
+                 + DIV1*DIV2*DIV3
+/DIV3.CLKF       = CK                   ;CLK by CK(external)
+/DIV3.SETF       = /DIRDIV              ;CLR by speed option
+  
+/DIV4           := /DIV3*/DIV4          ;4TH stage of
+                 + /DIV2*/DIV4          ;divider MSB
+                 + /DIV1*/DIV4
+                 + DIV1*DIV2*DIV3*DIV4
+/DIV4.CLKF       = CK                   ;CLK by CK(external)
+/DIV4.SETF       = /DIRDIV              ;CLR by speed option
+  
+SPEEDSEL        := /A1                  ;Load speed choice
+SPEEDSEL.CLKF    = CSO                  ;CLK W/ ADDR. decode
+SPEEDSEL.SETF    = /HDSHAKE             ;CLR by CTS/RTS line
+  
+SIMULATION
+  
+TRACE_ON A1 A2 A3 A4 A5 A6 E           ;Signals to be
+         AUXDECOD SYSRESET /TPH HDSHAKE        ;observed
+         CSO SPEEDSEL DIRDIV CK
+         DIV1 DIV2 DIV3 DIV4
+SETF SYSRESET /HDSHAKE TEST OE CK        ;Reset all regs
+  
+CHECK /SPEEDSEL /DIRDIV TPH
+SETF /SYSRESET A1 A2 A3 A4 A5 /A6 HDSHAKE  ;Set decode
+    E AUXDECOD                              ;condition
+  
+CHECK /SPEEDSEL DIRDIV                  ;Check SPEEDSEL and
+                                        ;DIRDIV regs
+FOR I:=1 TO 15 DO
+ BEGIN                                  ;This portion
+  SETF CK                               ;simulates divide
+                                        ;by four counter
+  SETF /CK
+ END
+  
+TRACE_OFF
+  
+  
+

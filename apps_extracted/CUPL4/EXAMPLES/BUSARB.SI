@@ -1,0 +1,121 @@
+Name      Busarb;
+Partno	  CA0019;
+Date      3/19/85;
+Revision  01;
+Designer  Kahl;
+Company   Assisted Technology;
+Assembly  None;
+Location  None;
+
+/****************************************************************/
+/*								*/
+/* Multiprocessor Bus Arbiter					*/
+/*								*/
+/****************************************************************/
+
+ORDER:	sys_reset,%1,sys_clk,%1,	/* Reset and Clock	*/
+	!r2..0,%1,!R4..0,%2,		/* Bus Requests		*/
+	A,B,C,D,E,F,%2,			/* Internal State Bits	*/
+	g2b,g1b,g0b,%1,			/* Priority b Grants	*/
+	G4A,G3A,G2A,G1A,G0A;		/* Priority A Grants	*/
+
+VECTORS:
+
+	1 0 XXX XXXXX  HHHHHH HHH HHHHH	/* Preset all registers	*/
+	0 C 111 11111  HHHHHH HHH HHHHH	/* Wait for a request	*/
+	0 C XX0 11111  HLHHHH HHL HHHHH	/* Grant priority b:0	*/
+	0 C XX1 XXXXX  HHHHHH HHH HHHHH	/* Go to WAIT0		*/
+	0 C X01 11111  HHLHHH HLH HHHHH	/* Grant priority b:1	*/
+	0 C X1X XXXXX  HHHHHH HHH HHHHH	/* Go to WAIT0		*/
+	0 C 011 11111  HLLHHH LHH HHHHH	/* Grant priority b:2	*/
+	0 C 1XX XXXXX  HHHHHH HHH HHHHH	/* Go to WAIT0		*/
+	0 C XXX XXXX0  LLLHHL HHH HHHHL	/* Grant priority A:0	*/
+	0 C XXX XXXX0  LLLHHL HHH HHHHL	/* Hold grant		*/
+	0 C XXX XXXX1  HHHHHL HHH HHHHH	/* Go to WAIT1		*/
+	0 C XX0 11111  HLHHHL HHL HHHHH	/* Grant priority b:0	*/
+	0 C XX1 XXXXX  HHHHHL HHH HHHHH	/* Go to WAIT1		*/
+	0 C X01 11111  HHLHHL HLH HHHHH	/* Grant priority b:1	*/
+	0 C X1X XXXXX  HHHHHL HHH HHHHH	/* Go to WAIT1		*/
+	0 C 011 11111  HLLHHL LHH HHHHH	/* Grant priority b:2	*/
+	0 C 1XX XXXXX  HHHHHL HHH HHHHH	/* Go to WAIT1		*/
+	0 C XXX XXX0X  LLLHHH HHH HHHLH	/* Grant priority A:1	*/
+	0 C XXX XXX0X  LLLHHH HHH HHHLH	/* Hold grant		*/
+	0 C XXX XXX1X  HHHHLH HHH HHHHH	/* Go to WAIT2		*/
+	0 C XX0 11111  HLHHLH HHL HHHHH	/* Grant priority b:0	*/
+	0 C XX1 XXXXX  HHHHLH HHH HHHHH	/* Go to WAIT2		*/
+	0 C X01 11111  HHLHLH HLH HHHHH	/* Grant priority b:1	*/
+	0 C X1X XXXXX  HHHHLH HHH HHHHH	/* Go to WAIT2		*/
+	0 C 011 11111  HLLHLH LHH HHHHH	/* Grant priority b:2	*/
+	0 C 1XX XXXXX  HHHHLH HHH HHHHH	/* Go to WAIT2		*/
+	0 C XXX XX0XX  LLHHHL HHH HHLHH	/* Grant priority A:2	*/
+	0 C XXX XX0XX  LLHHHL HHH HHLHH	/* Hold grant		*/
+	0 C XXX XX1XX  HHHHLL HHH HHHHH	/* Go to WAIT3		*/
+	0 C XX0 11111  HLHHLL HHL HHHHH	/* Grant priority b:0	*/
+	0 C XX1 XXXXX  HHHHLL HHH HHHHH	/* Go to WAIT3		*/
+	0 C X01 11111  HHLHLL HLH HHHHH	/* Grant priority b:1	*/
+	0 C X1X XXXXX  HHHHLL HHH HHHHH	/* Go to WAIT3		*/
+	0 C 011 11111  HLLHLL LHH HHHHH	/* Grant priority b:2	*/
+	0 C 1XX XXXXX  HHHHLL HHH HHHHH	/* Go to WAIT3		*/
+	0 C XXX X0XXX  LLHHHH HHH HLHHH	/* Grant priority A:3	*/
+	0 C XXX X0XXX  LLHHHH HHH HLHHH	/* Hold grant		*/
+	0 C XXX X1XXX  HHHLHH HHH HHHHH	/* Go to WAIT4		*/
+	0 C XX0 11111  HLHLHH HHL HHHHH	/* Grant priority b:0	*/
+	0 C XX1 XXXXX  HHHLHH HHH HHHHH	/* Go to WAIT4		*/
+	0 C X01 11111  HHLLHH HLH HHHHH	/* Grant priority b:1	*/
+	0 C X1X XXXXX  HHHLHH HHH HHHHH	/* Go to WAIT4		*/
+	0 C 011 11111  HLLLHH LHH HHHHH	/* Grant priority b:2	*/
+	0 C 1XX XXXXX  HHHLHH HHH HHHHH	/* Go to WAIT4		*/
+	0 C XXX 0XXXX  LHLHHL HHH LHHHH	/* Grant priority A:4	*/
+	0 C XXX 0XXXX  LHLHHL HHH LHHHH	/* Hold grant		*/
+	0 C XXX 1XXXX  HHHHHH HHH HHHHH	/* Go to WAIT0		*/
+	0 C XXX XXX01  LLLHHH HHH HHHLH	/* Grant priority A:1	*/
+	0 C XXX XXX1X  HHHHLH HHH HHHHH	/* Go to WAIT2		*/
+	0 C XXX X01XX  LLHHHH HHH HLHHH	/* Grant priority A:3	*/
+	0 C XXX X1XXX  HHHLHH HHH HHHHH	/* Go to WAIT4		*/
+	0 C XXX 1XXX0  LLLHHL HHH HHHHL	/* Grant priority A:0	*/
+	0 C XXX XXXX1  HHHHHL HHH HHHHH	/* Go to WAIT1		*/
+	0 C XXX XX01X  LLHHHL HHH HHLHH	/* Grant priority A:2	*/
+	0 C XXX XX1XX  HHHHLL HHH HHHHH	/* Go to WAIT3		*/
+	0 C XXX 01XXX  LHLHHL HHH LHHHH	/* Grant priority A:4	*/
+	0 C XXX 1XXXX  HHHHHH HHH HHHHH	/* Go to WAIT0		*/
+	0 C XXX XX011  LLHHHL HHH HHLHH	/* Grant priority A:2	*/
+	0 C XXX XX1XX  HHHHLL HHH HHHHH	/* Go to WAIT3		*/
+	0 C XXX 11XX0  LLLHHL HHH HHHHL	/* Grant priority A:0	*/
+	0 C XXX XXXX1  HHHHHL HHH HHHHH	/* Go to WAIT1		*/
+	0 C XXX X011X  LLHHHH HHH HLHHH	/* Grant priority A:3	*/
+	0 C XXX X1XXX  HHHLHH HHH HHHHH	/* Go to WAIT4		*/
+	0 C XXX 1XX01  LLLHHH HHH HHHLH	/* Grant priority A:1	*/
+	0 C XXX XXX1X  HHHHLH HHH HHHHH	/* Go to WAIT2		*/
+	0 C XXX 011XX  LHLHHL HHH LHHHH	/* Grant priority A:4	*/
+	0 C XXX 1XXXX  HHHHHH HHH HHHHH	/* Go to WAIT0		*/
+	0 C XXX X0111  LLHHHH HHH HLHHH	/* Grant priority A:3	*/
+	0 C XXX X1XXX  HHHLHH HHH HHHHH	/* Go to WAIT4		*/
+	0 C XXX 1X011  LLHHHL HHH HHLHH	/* Grant priority A:2	*/
+	0 C XXX XX1XX  HHHHLL HHH HHHHH	/* Go to WAIT3		*/
+	0 C XXX 11X01  LLLHHH HHH HHHLH	/* Grant priority A:1	*/
+	0 C XXX XXX1X  HHHHLH HHH HHHHH	/* Go to WAIT2		*/
+	0 C XXX 111X0  LLLHHL HHH HHHHL	/* Grant priority A:0	*/
+	0 C XXX XXXX1  HHHHHL HHH HHHHH	/* Go to WAIT1		*/
+	0 C XXX 0111X  LHLHHL HHH LHHHH	/* Grant priority A:4	*/
+	0 C XXX 1XXXX  HHHHHH HHH HHHHH	/* Go to WAIT0		*/
+
+	0 C XXX 01111  LHLHHL HHH LHHHH	/* Grant priority A:4	*/
+	0 C XXX 1XXXX  HHHHHH HHH HHHHH	/* Go to WAIT0		*/
+	0 C XXX XXXX0  LLLHHL HHH HHHHL	/* Grant priority A:0	*/
+	0 C XXX XXXX1  HHHHHL HHH HHHHH	/* Go to WAIT1		*/
+	0 C XXX 11110  LLLHHL HHH HHHHL	/* Grant priority A:0	*/
+	0 C XXX XXXX1  HHHHHL HHH HHHHH	/* Go to WAIT1		*/
+	0 C XXX XXX0X  LLLHHH HHH HHHLH	/* Grant priority A:1	*/
+	0 C XXX XXX1X  HHHHLH HHH HHHHH	/* Go to WAIT2		*/
+	0 C XXX 11101  LLLHHH HHH HHHLH	/* Grant priority A:1	*/
+	0 C XXX XXX1X  HHHHLH HHH HHHHH	/* Go to WAIT2		*/
+	0 C XXX XX0XX  LLHHHL HHH HHLHH	/* Grant priority A:2	*/
+	0 C XXX XX1XX  HHHHLL HHH HHHHH	/* Go to WAIT3		*/
+	0 C XXX 11011  LLHHHL HHH HHLHH	/* Grant priority A:2	*/
+	0 C XXX XX1XX  HHHHLL HHH HHHHH	/* Go to WAIT3		*/
+	0 C XXX X0XXX  LLHHHH HHH HLHHH	/* Grant priority A:3	*/
+	0 C XXX X1XXX  HHHLHH HHH HHHHH	/* Go to WAIT4		*/
+	0 C XXX 10111  LLHHHH HHH HLHHH	/* Grant priority A:3	*/
+	0 C XXX X1XXX  HHHLHH HHH HHHHH	/* Go to WAIT4		*/
+	0 C XXX 0XXXX  LHLHHL HHH LHHHH	/* Grant priority A:4	*/
+	0 C XXX 1XXXX  HHHHHH HHH HHHHH	/* Go to WAIT0		*/

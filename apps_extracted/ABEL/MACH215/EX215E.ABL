@@ -1,0 +1,32 @@
+module ex215e
+title 'Input register example  Data I/O Corp.'
+
+ex215e   device  'Mach215a';
+
+        A,B             pin;
+        Clk             pin;
+
+        R1,R2           node    istype 'reg';
+        F1              pin     istype 'com';
+
+
+equations
+        R1.clk  = Clk;
+        R2.clk  = Clk;
+
+        R1 := A;     "positive input pin register
+        R2 := !B;    "negative input pin register
+
+        F1 = R1 & R2;
+
+test_vectors
+       ([Clk,A,B] -> [F1])
+        [.c.,0,0] -> [0 ];
+        [.c.,1,0] -> [1 ];
+        [ 0 ,1,1] -> [1 ];
+        [.c.,1,1] -> [0 ];
+        [ 0 ,1,0] -> [0 ];
+        [.c.,1,0] -> [1 ];
+end
+ 
+

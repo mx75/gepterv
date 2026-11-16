@@ -1,0 +1,126 @@
+module cnt10rom 
+title 'Up/Down counter State Machine in Registered PROM
+Bob LaTurner  Data I/O Corp.  18 Mar 1992'
+
+        cnt10rom        device 'RA10R8';
+
+" The RA10R8 models the Cypress Cy7C235, AMD Am27S35 or AMD 63RS881
+" Pin   ABEL        Device
+" 21 -  N/C         Combinatoral Enable
+" 20 -  N/C         Initialize
+" 19 -  Enable      Registered Enable
+" 18 -  Clock       Clock
+
+        Clr,Dir,Clk,OE          pin 3,4,18,19;
+        I3,I2,I1,I0             pin 5,6,7,8;
+        Q3,Q2,Q1,Q0             pin 13,11,10,9 ;
+        
+" Inputs I3..I0 are the external feedback from registers Q3..Q0.
+
+        Input   = [I3,I2,I1,I0];
+        Output  = [Q3,Q2,Q1,Q0];
+
+        C,X,Z   =  .C.,.X., .Z.;
+
+" Counter States
+        S0 = 0; S1 = 1; S2 = 2; S3 = 3; S4 = 4;
+        S5 = 5; S6 = 6; S7 = 7; S8 = 8; S9 = 9;
+
+" Counter modes
+        Mode    = [Clr,Dir];
+        Up      = [ 1 , 1 ];
+        Down    = [ 1 , 0 ];
+        Clear   = [ 0 , X ];
+
+" The ABEL device file allows for up to 16 bytes for initializion
+" as found in the 63RS881. The Cy7C235 and Am27S35 only use one byte
+" but the extra will be ignored by the PROM programmer.
+"
+" ABEL does not simulate the initialization function.
+"
+" This FUSES section will set the initialization words to force the 
+" device to power up in state S9.  A different value could be used 
+" for each of the 16 words.  To see the fuse numbers, Compile with 
+" Expanded Listing option and then View Compiler Listing. 
+
+fuses   @const a = 1024 * 8;    
+        @repeat 16 {
+        [@expr a; .. @expr a + 7;] = S9;  @const a = a + 8;}
+
+test_vectors (  [Clk,OE, Mode ,Input] -> Output)
+                [ C , 0, Clear,  X  ] ->    S0;
+                [ C , 0, Up   , S0  ] ->    S1;
+                [ C , 0, Up   , S1  ] ->    S2;
+                [ C , 0, Up   , S2  ] ->    S3;
+                [ C , 0, Up   , S3  ] ->    S4;
+                [ C , 0, Up   , S4  ] ->    S5;
+                [ C , 0, Up   , S5  ] ->    S6;
+                [ 0 , 0, Up   ,  X  ] ->    S6;
+                [ C , 0, Up   , S6  ] ->    S7;
+                [ C , 0, Up   , S7  ] ->    S8;
+                [ C , 0, Up   , S8  ] ->    S9;
+                [ C , 0, Up   , S9  ] ->    S0;
+                [ C , 0, Up   , S0  ] ->    S1;
+                [ C , 0, Down , S1  ] ->    S0;
+                [ C , 0, Down , S0  ] ->    S9;
+                [ C , 1, Down , S9  ] ->    Z ;
+                [ C , 0, Down , S8  ] ->    S7;
+                [ C , 0, Clear,  X  ] ->    S0;
+
+Equations
+        Output.clk = Clk;
+        Output.oe = !OE;
+
+state_diagram Input->Output
+
+        State S0:       case (Mode == Up)    : S1;
+                             (Mode == Down)  : S9;
+                             (Mode == Clear) : S0;
+                        endcase;
+
+        State S1:       case (Mode == Up)    : S2;
+                             (Mode == Down)  : S0;
+                             (Mode == Clear) : S0;
+                        endcase;
+
+        State S2:       case (Mode == Up)    : S3;
+                             (Mode == Down)  : S1;
+                             (Mode == Clear) : S0;
+                        endcase;
+
+        State S3:       case (Mode == Up)    : S4;
+                             (Mode == Down)  : S2;
+                             (Mode == Clear) : S0;
+                        endcase;
+
+        State S4:       case (Mode == Up)    : S5;
+                             (Mode == Down)  : S3;
+                             (Mode == Clear) : S0;
+                        endcase;
+
+        State S5:       case (Mode == Up)    : S6;
+                             (Mode == Down)  : S4;
+                             (Mode == Clear) : S0;
+                        endcase;
+
+        State S6:       case (Mode == Up)    : S7;
+                             (Mode == Down)  : S5;
+                             (Mode == Clear) : S0;
+                        endcase;
+
+        State S7:       case (Mode == Up)    : S8;
+                             (Mode == Down)  : S6;
+                             (Mode == Clear) : S0;
+                        endcase;
+
+        State S8:       case (Mode == Up)    : S9;
+                             (Mode == Down)  : S7;
+                             (Mode == Clear) : S0;
+                        endcase;
+
+        State S9:       case (Mode == Up)    : S0;
+                             (Mode == Down)  : S8;
+                             (Mode == Clear) : S0;
+                        endcase;
+end 
+

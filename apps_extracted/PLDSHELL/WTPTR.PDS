@@ -1,0 +1,165 @@
+Title       FIFO Write Pointer - 7 bits wide
+Pattern     1
+Revision    1
+Date        Current Date
+
+CHIP    wtptr    EPX780QC132
+
+; inputs
+    
+PIN             WR_             ; Write
+PIN             RD_             ; Read
+PIN             ENABLE_         ; FIFO Enable
+PIN            /FULL_           ; Pointer Disable
+
+; outputs
+
+PIN             WP0             ; Write Pointer (address)
+PIN             WP1
+PIN             WP2
+PIN             WP3
+PIN             WP4
+PIN             WP5
+PIN             WP6
+
+EQUATIONS
+
+; write pointer equations
+
+	WP0 := /WP0
+
+	WP1 :=  WP1 * /WP0
+	     + /WP1 *  WP0
+
+	WP2 :=  WP2 * /WP0
+	     +  WP2 * /WP1
+	     + /WP2 *  WP1 * WP0
+
+	WP3 :=  WP3 * /WP0
+	     +  WP3 * /WP1
+	     +  WP3 * /WP2
+	     + /WP3 *  WP2 * WP1 * WP0
+
+	WP4 :=  WP4 * /WP0
+	     +  WP4 * /WP1
+	     +  WP4 * /WP2
+	     +  WP4 * /WP3
+	     + /WP4 *  WP3 * WP2 * WP1 * WP0
+
+	WP5 :=  WP5 * /WP0
+	     +  WP5 * /WP1
+	     +  WP5 * /WP2
+	     +  WP5 * /WP3
+	     +  WP5 * /WP4
+	     + /WP5 *  WP4 * WP3 * WP2 * WP1 * WP0
+
+	WP6 :=  WP6 * /WP0
+	     +  WP6 * /WP1
+	     +  WP6 * /WP2
+	     +  WP6 * /WP3
+	     +  WP6 * /WP4
+	     +  WP6 * /WP5
+	     + /WP6 *  WP5 * WP4 * WP3 * WP2 * WP1 * WP0
+
+; pointer clock equation
+
+	/WP[0:6].ACLK = RD_ * /WR_ * FULL_
+
+SIMULATION
+
+VECTOR WRITEPTR := [ WP6 WP5 WP4 WP3 WP2 WP1 WP0 ]
+SETF  ENABLE_  RD_  WR_  FULL_
+PRLDF /WP0  /WP1  /WP2  /WP3  /WP4  /WP5  /WP6
+
+; idle
+
+SETF  RD_  WR_
+SETF  RD_  WR_
+SETF  RD_  WR_
+
+; read 4 consecutive locations
+
+SETF /ENABLE_
+FOR READLOOP := 1 TO 4 DO
+    BEGIN
+	SETF /RD_
+	SETF  RD_
+    END
+SETF  ENABLE_
+
+; idle
+
+SETF  RD_  WR_
+SETF  RD_  WR_
+SETF  RD_  WR_
+
+; write 4 consecutive locations
+
+SETF /ENABLE_
+FOR WRITELOOP := 1 TO 4 DO
+    BEGIN
+	SETF /WR_
+	SETF  WR_
+    END
+SETF  ENABLE_
+
+; idle
+
+SETF  RD_  WR_
+SETF  RD_  WR_
+SETF  RD_  WR_
+
+; test for overflow
+
+SETF /FULL_
+SETF /ENABLE_
+FOR WRITELOOP := 1 TO 4 DO
+    BEGIN
+	SETF /WR_
+	SETF  WR_
+    END
+SETF  ENABLE_
+
+; idle
+
+SETF  RD_  WR_
+SETF  RD_  WR_
+SETF  RD_  WR_
+
+; write 4 consecutive locations
+
+SETF  FULL_
+SETF /ENABLE_
+FOR WRITELOOP := 1 TO 4 DO
+    BEGIN
+	SETF /WR_
+	SETF  WR_
+    END
+SETF  ENABLE_
+
+; idle
+
+SETF  RD_  WR_
+SETF  RD_  WR_
+SETF  RD_  WR_
+
+; preload high count to check for rollover
+; then write 8 times
+
+SETF  WRITEPTR := 0x7E
+SETF /ENABLE_
+FOR WRITELOOP := 1 TO 8 DO
+    BEGIN
+	SETF /WR_
+	SETF  WR_
+    END
+SETF  ENABLE_
+
+; idle
+
+SETF  RD_  WR_
+SETF  RD_  WR_
+SETF  RD_  WR_
+
+; end of simulation
+

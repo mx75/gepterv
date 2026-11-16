@@ -1,0 +1,36 @@
+Name      decade;
+Partno    CA0015;
+Date      12/19/84;
+Revision  01;
+Designer  Kahl;
+Company   Assisted Technology;
+Assembly  None;
+Location  None;
+Device    f157;
+
+/****************************************************************/
+/* Allowable Target Device Types :  82S157                      */
+/****************************************************************/
+
+ORDER: !en,%3,clk,%4,preset,%6,valid_states,%4,Q3,Q2,Q1,Q0,%2,wave;
+
+VECTORS:
+$msg"                    valid  QQQQ     ";
+$msg"     !en clk preset states 3210 wave";
+$msg"     --- --- ------ ------ ---- ----";
+           0   0    0      H    LLLL  L    /* complement array forces to 0    */
+           0   C    0      H    LLLH  H    /* count to state 1 output sets    */
+           0   C    0      H    LLHL  H    /* count to state 2                */
+           0   C    0      H    LLHH  H    /* count to state 3                */
+           0   C    0      H    LHLL  H    /* count to state 4                */
+           0   C    0      H    LHLH  H    /* count to state 5                */
+           0   C    0      H    LHHL  L    /* count to state 6 output resets  */
+           0   C    0      H    LHHH  L    /* count to state 7                */
+           0   C    0      H    HLLL  L    /* count to state 8                */
+           0   C    0      H    HLLH  L    /* count to state 9                */
+           0   C    0      H    LLLL  L    /* count to state 0                */
+           0   C    0      H    LLLH  H    /* count to state 1 output sets    */
+           0   C    0      H    LLHL  H    /* count to state 2                */
+           0   C    0      H    LLHH  H    /* count to state 3                */
+           1   0    0      H    ZZZZ  Z    /* test common output enable       */
+

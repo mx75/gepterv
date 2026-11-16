@@ -1,0 +1,29 @@
+# $Header: /swpg/develop/abel/src/devsel2/newdata/RCS/tos.chp,v 1.7 92/10/14 12:58:07 aez Exp $
+# chip report file   Released 5.1 
+#
+$MANUFACTURER TOS Toshiba
+$CONTACT (000)000-0000 
+$ADDRESS1 none 1 
+$ADDRESS2 none 2 
+$ADDRESS3 none 3 
+#
+# 132 column 1-line format no user info (default)
+#
+# format is:
+#$C2 mfg part type tech package devname pins spc eraseable preload family pinout did speed setup hold power price
+#
+#
+
+#   mfg       part             type  tech  pack  devname     pins    spc  era preld fam  pin    DID#  speed set  hold pwr prc 
+$C2 TOS       TC9800P          FPLA  CMOS  DIP   F9800        20     COM  EE   NO   149  0B1   4536   60   47    0  125    0
+$C2 TOS       TC9800FW         FPLA  CMOS  SOIC  F9800        20     COM  EE   NO   --   --       0   60   47    0  125    0
+$C2 TOS       TC9801P          FPLA  CMOS  DIP   F9800        20     COM  EE   NO   14A  0B1   4538   60   47    0  125    0
+$C2 TOS       TC9801FW         FPLA  CMOS  SOIC  F9800        20     COM  EE   NO   --   --       0   60   47    0  125    0
+$C2 TOS       TC9804P          FPLA  CMOS  DIP   F9804Cx_GEN  24     COM  EE   YES  --   --    6481   25    0    0  125    0
+$C2 TOS       TC9805P          FPLA  CMOS  DIP   F9804Cx_GEN  24     COM  EE   YES  --   --    6727   25    0    0  125    0
+$C2 TOS       TC9806P          PLD   CMOS  DIP   F9806        20     COM  EE   NO   --   --    7334    0    0    0    0    0
+$C2 TOS       TC9807P          PLD   CMOS  DIP   F9806        20     COM  EE   NO   --   --    7481    0    0    0    0    0
+$C2 TOS       TC9808P          FPLA  CMOS  DIP   F9808        20     COM  EE   NO   --   --    7332    0    0    0    0    0
+$C2 TOS       TC9809P          FPLA  CMOS  DIP   F9808        20     COM  EE   NO   --   --    7480    0    0    0    0    0
+#
+$END

@@ -1,0 +1,274 @@
+*SETUP
+Auto
+Manual
+*SYNTHESIS_1
+4
+8
+12
+16
+*SYNTHESIS_2
+As specified in design file
+D, change all to D-type
+T, change all to T-type
+Best type for device
+*SYNTHESIS_3
+As specified in design file
+Best for device
+Low, active low
+High, active high
+*SYNTHESIS_4
+Don't care
+Off
+*MACH_4
+Last successful placement
+Saved placement
+*MACH_5
+Brief
+Detailed
+*Full
+*MACH_6
+Design file
+Last successful placement
+Saved placement
+*MACH_7
+Use all fitting options
+Run until 1st success: STD
+Run until 1st success: EXTRA
+Select one combination...
+*MACH_8
+H
+L
+*PDS_MODE
+Schematic
+Text
+*SUPPL
+draft.exe /c [parameter]
+*MACH_DEVICE
+MACH110
+MACH120
+MACH130
+MACH210
+MACH215
+MACH220
+MACH230
+*DEVICE
+MACH110
+MACH120
+MACH130
+MACH210
+MACH215
+MACH220
+MACH230
+PAL16L8
+PAL16R4    
+PAL16R6    
+PAL16R8    
+PAL20L10   
+PAL20L8    
+PAL20R4    
+PAL20R6    
+PAL20R8    
+PAL20X10   
+PAL20X4    
+PAL20X8    
+PAL22V10   
+PAL23S8
+PAL24L10
+PAL24R10
+PAL24R4
+PAL24R8
+PAL29M16
+PAL29MA16
+PALCE16V8
+PALCE16V8HD
+PALCE20V8
+PALCE24V10
+PALCE26V12
+PALCE610
+PAL10H20EG8
+PAL10H20EV8
+PAL10H20G8 
+PAL10H20P8 
+PAL10H8    
+PAL10L8    
+PAL12H6    
+PAL12L10   
+PAL12L6    
+PAL14H4    
+PAL14L4    
+PAL14L8    
+PAL16C1    
+PAL16H2    
+PAL16L2    
+PAL16L6    
+PAL16P8
+PAL16RA8   
+PAL16RP4   
+PAL16RP6   
+PAL16RP8   
+PAL18L4    
+PAL18P8    
+PAL20C1    
+PAL20L2    
+PAL20RA10  
+PAL20RS10  
+PAL20RS4   
+PAL20RS8   
+PAL20S10   
+PAL22IP6   
+PAL22P10   
+PAL22RX8   
+PAL32R16   
+PAL32VX10  
+PAL64R32   
+PAL6L16    
+PAL8L14    
+PALC18U8    
+PLS105
+PLS167
+PLS168
+PLS30S16
+*=================POP-UP FIELDS FOR CREATE NEW PDS TEMPLATE PROGRAM ========
+*PIN_NODE
+
+PIN
+NODE
+*INPUT_OUTPUT
+
+INPUT
+OUTPUT
+IO
+*CMB_REG_LAT
+
+COMBINATORIAL
+REGISTERED
+LATCHED
+*ACT_LOW_HIGH
+
+ACTIVE_HIGH
+ACTIVE_LOW
+*moreDEVICEs
+PAL10H20EG8
+PAL10H20EV8
+PAL10H20G8 
+PAL10H8    
+PAL10L8    
+PAL12H6    
+PAL12L10   
+PAL12L6    
+PAL14H4    
+PAL14L4    
+PAL14L8    
+PAL16C1    
+PAL16H2    
+PAL16L2    
+PAL16L6
+PAL16P8
+PAL16RP4   
+PAL16RP6   
+PAL16RP8   
+PAL18L4    
+PAL20C1    
+PAL20L2    
+PAL20RS10  
+PAL20RS4   
+PAL20RS8   
+PAL20S10   
+PAL22IP6   
+PAL22RX8   
+PAL32R16   
+PAL64R32   
+PAL6L16    
+PAL8L14    
+PALC18U8    
+*newDEVICEs
+MACH110
+MACH120
+MACH130
+MACH210
+MACH215
+MACH220
+MACH230
+PALCE16V8
+PALCE16V8HD
+PALCE20V8
+PALCE24V10
+PALCE26V12
+PAL10H20P8
+PAL16L8
+PAL16R4    
+PAL16R6    
+PAL16R8    
+PAL16RA8   
+PAL18P8    
+PAL20L10   
+PAL20L8    
+PAL20R4    
+PAL20R6    
+PAL20R8    
+PAL20RA10  
+PAL20X10   
+PAL20X4    
+PAL20X8    
+PAL22P10   
+PAL22V10   
+PAL23S8
+PAL29M16
+PAL29MA16
+PAL32VX10  
+PALCE610
+PLS105
+PLS167
+PLS168
+PLS30S16
+more ...
+*=================HELP FOR CREATE NEW PDS TEMPLATE PROGRAM ================
+*TITLE
+Title   : Description of the Design Function.
+*PATTERN
+Pattern : File name or other code to identify design.
+*REVISION
+Revision: Version number for this design.
+*AUTHOR
+Author  : Design Engineer name.
+*COMPANY
+Company : Company or other Business id.
+*DATE
+Date    : Date this design was created.
+*CHIPNAME
+Chip Name is an 8 character word to identifier chip design.
+
+Characters allowed are:-   'A - Z', 'a - z', '0 - 9', '_' 
+ 
+Entry is REQUIRED.
+*DEVICENAME 
+Device used for this design. eg. PAL16R8
+*PINNUMBER
+PIN NUMBER can be from 1 to Maximum number of physical pins on device.
+	eg. Maximum for:- PAL16V8 = 20,  PAL22V10 = 24,  PAL26V12 = 28
+
+NODE NUMBER can be from 1 to Maximum number of nodes defined for device.
+	eg. Maximum for:- PAL16V8 = 0,  PAL22V10 = 1,  PAL26V12 = 13
+
+Input Format is either as <number> or <range> where:-
+
+	<number>  = integer 1 to max Pin/Node number
+	<range>   = <number>..<number>
+		  = <number>,<number>
+		  	
+check manual for exact syntax.
+*PINNAME
+PIN/NODE name is a logical equivalent identifier to the PIN/NODE number
+
+All design signals are described in terms of the PIN/NODE name.
+
+Input Format is either as <name> or name[<range>] where:-
+        <name>    = identifier using the characters: -
+			'A - Z', 'a - z', '0 - 9', '_' 
+		    The first character must be Alphabetic.
+
+	<number>  = integer
+	<range>   = <number>..<number>
+		  = <number>,<number>
+		  	
+check manual for exact syntax.

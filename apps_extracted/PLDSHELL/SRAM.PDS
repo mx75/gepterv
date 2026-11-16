@@ -1,0 +1,108 @@
+Title       128 x 9 SRAM Block
+Pattern     1
+Revision    1
+Date        Current Date
+
+CHIP    sram1    EPX780QC132
+
+; inputs
+
+PIN             /OE_            ; SRAM Output Enable 
+								; / in front means negitive logic
+PIN             WR_             ; SRAM Write Enable
+PIN             ENABLE_         ; SRAM Block Enable
+PIN             A[0:6]          ; SRAM Address bus
+PIN             DIN[0:8]        ; RAM Inputs
+
+; outputs
+
+PIN             DOUT[0:8]       RAM     3VOLT   ; RAM Outputs
+
+EQUATIONS
+; For sram .be .we and .trst are negitive logic.
+; define the logic to  be compatible with
+; other merged files in FIFO1.PDS
+
+	DOUT[0:8].DATA = DIN[0:8]
+	DOUT[0:6].ADDR = A[0:6] 
+	DOUT.BE = /ENABLE_            
+	DOUT.WE = /WR_
+	DOUT.TRST = OE_
+	
+SIMULATION
+
+VECTOR ADDRESS := [ A6 A5 A4 A3 A2 A1 A0 ]
+VECTOR INDAT := [ DIN8 DIN7 DIN6 DIN5 DIN4 DIN3 DIN2 DIN1 DIN0 ]
+VECTOR OUTDAT := [ DOUT8 DOUT7 DOUT6 DOUT5 DOUT4 DOUT3 DOUT2 DOUT1 DOUT0 ]
+
+TRACE_ON   ADDRESS ENABLE_ WR_ OE_ INDAT OUTDAT
+;trace sets up trf file.  Look at sram.trf
+
+SETF  WR_  ENABLE_  /OE_
+SETF  WR_  ENABLE_  OE_
+
+; write to bottom location
+
+SETF  ADDRESS := 0x00  INDAT := 0x155  
+SETF /WR_ /ENABLE_
+SETF WR_  ENABLE_
+
+; write to top location
+
+SETF  ADDRESS := 0x7F  INDAT := 0x0AA  WR_  ENABLE_
+SETF /WR_ /ENABLE_
+SETF WR_ ENABLE_
+
+; write to a middle location
+
+SETF  ADDRESS := 0x2E  INDAT := 0x063  WR_  ENABLE_
+SETF /WR_ /ENABLE_
+SETF  WR_  ENABLE_
+
+; write to a middle location with no OE_
+
+SETF  /OE_
+SETF  ADDRESS := 0x4C  INDAT := 0x12B  WR_  ENABLE_
+SETF /WR_ /ENABLE_
+SETF WR_  ENABLE_
+SETF  ADDRESS := 0x00  OE_
+
+; test write enable with no block enable
+
+SETF WR_
+SETF /WR_
+SETF WR_
+
+; read from bottom location
+
+SETF  INDAT := 0x000
+SETF  ADDRESS := 0x00  WR_  ENABLE_
+SETF  WR_ /ENABLE_
+SETF  WR_ ENABLE_
+
+; read from top location
+
+SETF  ADDRESS := 0x7F  WR_  /ENABLE_
+SETF  WR_ /ENABLE_
+SETF  WR_  ENABLE_
+
+; write then read from a middle location
+
+SETF  ADDRESS := 0x2E  /WR_  /ENABLE_
+SETF  WR_ /ENABLE_
+SETF  WR_  ENABLE_
+
+; write then read from a middle location
+
+SETF  ADDRESS := 0x4C  /WR_  /ENABLE_
+SETF  WR_ /ENABLE_
+SETF  WR_ ENABLE_
+
+; space out signals
+
+SETF  WR_  ENABLE_ OE_
+SETF  WR_  ENABLE_ /OE_
+
+TRACE_OFF
+
+; end of simulation

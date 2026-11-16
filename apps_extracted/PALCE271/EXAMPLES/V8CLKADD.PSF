@@ -1,0 +1,74 @@
+TITLE 'PEEL18CV8 CLOCK DIVIDER AND ADDRESS DECODER'
+DESIGNER 'Scott Peel'
+DATE '9/20/87'
+
+Description
+
+  This application uses the PEEL18CV8 for two common microprocessor system
+  functions: a clock divider and a memory mapped address decoder. The clock
+  divider provides divide 2, 4 and 8 clock outputs. The SET input sets all
+  clock outputs high. The address decoder decodes the processor address lines
+  to select one of five memory or I/O devices. The chip select for these
+  devices are active low. The memory map over a 64K boundary is shown below.
+
+  Memory Map for Address Decoder
+  ----------------------------------
+  EPROM  (32K X 8)     8000-FFFF hex
+  EEPROM ( 2K X 8)     5000-5FFF hex
+  UART                 4100-41FF hex
+  PORT                 4000-40FF hex
+  SRAM   ( 8K X 8)     0000-1FFF hex
+
+End_Desc;
+
+PEEL18CV8
+
+CLK pin 1;
+SET pin 2;
+A08 pin 3;
+A09 pin 4;
+A10 pin 5;
+A11 pin 6;
+A12 pin 7;
+A13 pin 8;
+A14 pin 9;
+A15 pin 11;
+IOC (12 'SRAM' Neg OutCom Feed_Pin)
+IOC (13 'PORT' Neg OutCom Feed_Pin)
+IOC (14 'UART' Neg OutCom Feed_Pin)
+IOC (15 'EEPROM' Neg OutCom Feed_Pin)
+IOC (16 'EPROM' Neg OutCom Feed_Pin)
+IOC (17 'CLK8' Pos OutReg Feed_Reg)
+IOC (18 'CLK4' Pos OutReg Feed_Reg)
+IOC (19 'CLK2' Pos OutReg Feed_Reg)
+
+AC NODE 21
+SP NODE 22
+
+Define
+
+EQUATIONS
+
+SP = SET ;
+CLK2.D := !CLK2 ;
+CLK4.D := !CLK4 & CLK2 #
+           CLK4 & !CLK2;
+CLK8.D := !CLK8 & CLK4 & CLK2 #
+           CLK8 & !CLK4 #
+           CLK8 & !CLK2;
+SRAM.COM = !A15 & !A14 & !A13 ;
+PORT.COM = !A15 & A14 & !A13 & !A12 & !A11 & !A10 & !A09 & !A08;
+UART.COM = !A15 & A14 & !A13 & !A12 & !A11 & !A10 & !A09 & A08;
+EEPROM.COM = !A15 & A14 & !A13 & A12 & !A11;
+EPROM.COM = A15;
+
+SRAM.And = 1;
+PORT.And = 1;
+UART.And = 1;
+EEPROM.And = 1;
+EPROM.And = 1;
+CLK8.And = 1;
+CLK4.And = 1;
+CLK2.And = 1;
+
+

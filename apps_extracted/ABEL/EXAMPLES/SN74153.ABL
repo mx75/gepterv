@@ -1,0 +1,38 @@
+Module sn74153
+Title 'Dual 4-line to 1-line data-selector/multiplexer'
+
+    _1C0,_1C1,_1C2,_1C3  pin;
+    _2C0,_2C1,_2C2,_2C3  pin;
+    A,B,_1G,_2G          pin;
+    _1Y,_2Y              pin istype 'com';
+
+    C0 = [_2C0,_1C0];
+    C1 = [_2C1,_1C1];
+    C2 = [_2C2,_1C2];
+    C3 = [_2C3,_1C3];
+    G  = [ _2G, _1G];
+    Y  = [ _2Y, _1Y];
+
+Equations
+
+    When (!B & !A) Then
+        Y = C0 & !G;
+    Else When (!B & A) Then
+        Y = C1 & !G;
+    Else When ( B & !A) Then
+        Y = C2 & !G;
+    Else When ( B & A) Then
+        Y = C3 & !G;
+
+Test_Vectors ([ G, B, A,C0,C1,C2,C3] -> Y)
+              [ 0, 0, 0, 0, 1, 2, 3] -> 0;
+              [ 0, 0, 1, 0, 1, 2, 3] -> 1;
+              [ 0, 1, 0, 0, 1, 2, 3] -> 2;
+              [ 0, 1, 1, 0, 1, 2, 3] -> 3;
+              [ 1, 1, 1, 3, 3, 3, 3] -> 2;
+              [ 2, 1, 1, 3, 3, 3, 3] -> 1;
+              [ 0, 0, 0, 3, 2, 1, 0] -> 3;
+              [ 0, 0, 1, 3, 2, 1, 0] -> 2;
+              [ 0, 1, 0, 3, 2, 1, 0] -> 1;
+              [ 0, 1, 1, 3, 2, 1, 0] -> 0;
+End

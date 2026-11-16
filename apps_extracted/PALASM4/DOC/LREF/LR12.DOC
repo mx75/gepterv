@@ -1,0 +1,50 @@
+ğ
+COMBINATORIAL
+Overview
+This optional reserved word defines the output type for devices with
+programmable outputs.  When a pin or node is defined as combinatorial,
+the logic output is immediate; the output value is not stored.
+
+Device Support: All devices except the PAL16R8, PAL20R8, and PAL20X10.
+ú
+Syntax
+You include the optional reserved word in the pin or node statement of
+Boolean and state-machine designs.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+            Pn        Number     Location_Name       Storage
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+            PIN       14         OUT1                COMBINATORIAL
+            NODE      15         OUT2                COMB
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+
+Only the reserved word, COMBINATORIAL, is discussed below.
+
+Storage         Assign COMBINATORIAL as a value to define a specific
+                pin or node storage type.  Combinatorial is also the
+                default when you do not specify a storage type.
+
+                ş  Place the reserved word, COMBINATORIAL, after the
+                   pin or node name in the corresponding statement.
+
+                ş  Use either the complete word, COMBINATORIAL, or the
+                   four-letter abbreviation, Comb.
+ú
+Use
+There are two ways to enter the storage type.
+
+ş    Use the declaration segment form, select the Storage field,
+     display the option list, and select an option.
+
+ş    Type the storage value in the appropriate pin or node statement
+     in the PDS file using a text editor.
+ú
+Related Topics
+Declaration Segment
+LATCHED
+NODE
+PIN
+REGISTERED
+ú

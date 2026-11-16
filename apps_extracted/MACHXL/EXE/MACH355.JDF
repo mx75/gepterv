@@ -1,0 +1,708 @@
+;==!=======================================================
+;==! 03/08/94: MACH355.JDF
+;==!
+;==! Modifications
+;==! xx/xx/xx:
+;==!
+;==!
+;==!
+;==!
+;==!
+;==!
+;==!
+;==!=======================================================
+
+    -1         ; device has no JEDEC-compatible counterpart
+    10         ; programming pulse width in milliseconds
+    20         ; erase pulse width in milliseconds
+    66         ; number of fuses per row when printing JEDEC map
+
+ 43773         ; tot_fuses
+ 43740         ; number of fuses to use when computing checksums
+   144         ; number of device pins
+    80         ; row_size
+   642         ; col_size
+
+   294         ; scan_size
+    32         ; idcode_size
+    0 0 0 0   1 1 1 1    1 1 1 1   1 1 1 1
+    1 1 1 1   1 1 1 1    1 1 1 1   1 1 1 1
+               ; 32-bit mask for comparing IDCODEs; this permits different
+               ; versions of the same part to share the same part name
+               ; and the version field can indicate different process
+               ; lots, etc.
+
+    32         ; usercode_size
+
+   144         ; number of JEDEC vector elements; usually the same as
+               ; number of device pins
+
+     5         ; password_width
+     8         ; prog_password  Programming password => 01000
+
+    19         ; num_instr
+
+   0           ; instr_code[EXTEST         ]
+   2           ; instr_code[SAMPLE_PRELOAD ]
+  12           ; instr_code[INTEST         ]
+   1           ; instr_code[IDCODE         ]
+  16           ; instr_code[USERCODE       ]
+  17           ; instr_code[HI_Z           ]
+   3           ; instr_code[ROW            ]
+   4           ; instr_code[COLUMN         ]
+   5           ; instr_code[BULK_ERASE     ]
+   6           ; instr_code[PROGRAM        ]
+   7           ; instr_code[VERIFY         ]
+   8           ; instr_code[SECURITY1      ]
+   9           ; instr_code[SECURITY2      ]
+  10           ; instr_code[PRELOAD        ]
+  11           ; instr_code[OBSERVE        ]
+  13           ; instr_code[COL8X          ]
+  14           ; instr_code[VER8X          ]
+  15           ; instr_code[PROGRAM_MODES  ]
+  63           ; instr_code[BYPASS         ]
+
+   0           ; row_array_start
+  65           ; row_array_end
+  66           ; row_arch_start
+  79           ; row_arch_end
+  66           ; convert_row_col_val
+
+   6           ; num_prog_blks
+
+      0        ; block_offset[A]
+   7290        ; block_offset[B]
+  14580        ; block_offset[C]
+  21870        ; block_offset[D]
+  29160        ; block_offset[E]
+  36450        ; block_offset[F]
+
+    107        ; columns_per_block
+
+      0        ; fuse_offset
+      0        ; top_bottom_delimiter
+
+     16        ; size_arch_col; indicates size of the next two arrays
+               ; which hold the column register bit positions of the
+               ; macrocell architecture cells
+
+;==! Column numbers for programming architecture fuses
+ 14   15   26   27   38   39   50  51   62  63   74  75  86   87   98   99
+
+;==! Column numbers for verifying architecture fuses
+ 14   19   26   31   38   43   50  55   62  67   74  79  86   91   98  103
+
+;==!====================================================================
+;==! The JEDEC address for the architecture fuses is computed as follows:
+;==!   ARCH_FUSE_BASE[x/y] + row_fuse_offset[row-arch_row_start]
+;==!                       + (x%y)*(num_arch_per_mcell)
+;==! where x   = macrocell being processed
+;==!       y   = number of macrocells per block
+;==!       row = architecture row being processed (66 to 79 for MACH445)
+;==!
+;==! For c = each architecture row (0-13 or from 66-79)
+;==!   for a = each architecture column (0-15; see above two arrays)
+;==!     for b = each COL_ARCH_DEFAULT (0 to 7)
+;==!       column reg addr = [ arch_col[a] + col_arch_default[b] ]
+;==!
+;==! Macrocell being processed is a%b which is the y in the
+;==! JEDEC address computation above.
+;==!====================================================================
+
+;==! number of macrocells per block (NUM_MCELL_PER_BLK)
+  16
+
+;==! size of COL_ARCH_DEFAULT[]
+      6
+    535   ; for block A
+    428   ; for block B
+    321   ; for block C
+    214   ; for block D
+    107   ; for block E
+      0   ; for block F
+
+;==! number of architecture fuses per macrocell (NUM_ARCH_PER_MCELL)
+  14
+
+;==! Base JEDEC fuse numbers for each block. This information is read into
+;==! ARCH_FUSE_BASE[].
+   6
+     7066 ; block A
+    14356 ; block B
+    21646 ; block C
+    28936 ; block D
+    36226 ; block E
+    43516 ; block F
+
+;==! Row fuse offset. Ex: Architecture rows are from 66 to 79 (or
+;==! normalized to 0-13). It just so happens that for each row, the
+;==! offset is the same as the index, so for row 67 (or 1), the offset
+;==! is also 1. This information is read into ROW_FUSE_OFFSET[].
+  14
+   0  1  2  3  4  5  6  7  8  9 10 11 12 13
+
+;==!====================================================================
+;==! Global fuse information: MACH465 has user code and input hold
+;==! time fuses here. First number will be the number of groups for the
+;==! global fuses, followed by the column numbers for these fuses.
+;==!
+;==! 11/09/93: If the the global row is -1, then this means that there
+;==! is no row associated with this fuse group. If the field is *, then
+;==! the fuse group is not associated with any JEDEC field, and fuses
+;==! will not be read in. These conventions were provided to support
+;==! a fuse group that is processed in different ways.
+;==!
+;==! For example: There are 32 fuses for the USERCODE group, but they
+;==! are really composed of 4-8 bit groups. The fuses for the 4 groups
+;==! are processed as follows:
+;==!
+;==!    54096-54103   =>   694 - 701  -> group 0
+;==!    54104-54111   =>     8 -   1  -> group 1
+;==!    54112-54119   =>   298 - 305  -> group 2
+;==!    54120-54127   =>   404 - 397  -> group 3
+;==!
+;==! Groups 0,2 have the columns in increasing order, but groups 1,3
+;==! are descending. By reading in the fuses using the virtual fuse group
+;==! (which has the global row = -1), all 32 fuses are read in, and then
+;==! the DO_GLOBAL_ROWS() function will use the 4 virtual fields to
+;==! process the fuses read in according to the increment field.
+;==!
+;==! For the MACH355:
+;==!    43740-43747   =>   536 - 543  -> group 0
+;==!    43748-43755   =>     8 -   1  -> group 1
+;==!    43756-43763   =>   215 - 223  -> group 2
+;==!    43764-43771   =>   329 - 322  -> group 3
+;==!====================================================================
+   6    ; six column groups
+
+    -1  ; group of fuses is a virtual row.
+    32  ; group is 32-bits long
+ 43740  ; ==> starting from fuse 54096,
+     1  ;
+     1  ; ==> increment column by 1; fuses 43740 to 43771 will correspond
+    -1  ; ==> to virtual column registers.
+     U  ; ==> U field in JEDEC map
+     0  ; ==> do not add to checksum
+     1  ; ==> Do special verify operation
+
+    79  ; group of fuses is on row 79
+     8  ; group is 8-bits long
+ 43740  ; ==> starting from fuse 43740,
+     1  ;
+     1  ; ==> increment column by 1; fuses 43740 to 43747 will correspond
+   536  ; ==> to column registers 536 to 543
+     *  ; ==> virtual field
+     0  ; ==> do not add to checksum
+     2  ; ==> Verify only in condensed mode
+
+    79  ; group of fuses is on row 79
+     8  ; group is 8-bits long
+ 43748  ; ==> starting from fuse 43748,
+     1  ;
+    -1  ; ==> decrement column by 1; fuses 43755 to 43748 will correspond
+     8  ; ==> to column registers 8 to 1
+     *  ; ==> virtual field
+     0  ; ==> do not add to checksum
+     2  ; ==> Verify only in condensed mode
+
+    79  ; group of fuses is on row 79
+     8  ; group is 8-bits long
+ 43756  ; ==> starting from fuse 43756,
+     1  ;
+     1  ; ==> increment column by 1; fuses 43756 to 43763 will correspond
+   215  ; ==> to column registers 215 to 223
+     *  ; ==> virtual field
+     0  ; ==> do not add to checksum
+     2  ; ==> Verify only in condensed mode
+
+    79  ; group of fuses is on row 79
+     8  ; group is 8-bits long
+ 43764  ; ==> starting from fuse 43764,
+     1  ;
+    -1  ; ==> decrement column by 1; fuses 43771 to 43764 will correspond
+   329  ; ==> to column registers 329 to 322
+     *  ; ==> virtual field
+     0  ; ==> do not add to checksum
+     2  ; ==> Verify only in condensed mode
+
+    79  ; E fuse is on row 79
+     1  ; second column group is only 1 fuse long
+ 43772
+     1
+     1
+   428
+     E  ; ==> E field in JEDEC map
+     1  ; ==> add to checksum
+     0  ; ==> Do not verify
+
+;==!====================================================================
+;==! Clk information. If 1, then there is clock information, else just
+;==! set the CLK_INFO pointer to NULL.
+ 1
+
+ 4    75   69   73   77      ; There are 4 clock rows and the JEDEC fuse
+    7062 7063 7064 7065      ; numbers associated with these clocks must
+                             ; be added to the corresponding block offsets
+                             ; of which there are 6. (See *A*)
+;==! There are 6 clock columns. In the MACH355, these 6 are:
+;==! MACH445 Block A   535
+;==!               B   428
+;==!               C   321
+;==!               D   214
+;==!               E   107
+;==!               F     0
+
+
+  6   535    428    321    214    107      0
+
+;==! JEDEC block clock offsets to be added to JEDEC fuse numbers above (*A*)
+        0   7290  14580  21870  29160  36450
+
+;==! JEDEC vector symbols-to-JTAG boundary scan register mapping information.
+;==! The following array was created by the program MVCTR355.C.
+   294  ;==! number of boundary scan registers
+   IO_A13   114  254  253  252 ; Pin    1
+   IO_A14   114  251  250  249 ; Pin    2
+   IO_A15   114  248  247  246 ; Pin    3
+   VCC      115                ; Pin    4
+   TDI      116                ; Pin    5
+   IN05     110    0           ; Pin    6
+   GND      115                ; Pin    7
+   IN0_CK0  113  197           ; Pin    8
+   IN1_CK1  113  196           ; Pin    9
+   IO_B15   114  200  199  198 ; Pin   10
+   IO_B14   114  203  202  201 ; Pin   11
+   VCC      115                ; Pin   12
+   IO_B13   114  206  205  204 ; Pin   13
+   IO_B12   114  209  208  207 ; Pin   14
+   GND      115                ; Pin   15
+   IO_B11   114  212  211  210 ; Pin   16
+   IO_B10   114  215  214  213 ; Pin   17
+   IO_B09   114  218  217  216 ; Pin   18
+   IO_B08   114  221  220  219 ; Pin   19
+   IO_B00   114  245  244  243 ; Pin   20
+   IO_B01   114  242  241  240 ; Pin   21
+   VCC      115                ; Pin   22
+   GND      115                ; Pin   23
+   IO_B02   114  239  238  237 ; Pin   24
+   IO_B03   114  236  235  234 ; Pin   25
+   IO_B04   114  233  232  231 ; Pin   26
+   IO_B05   114  230  229  228 ; Pin   27
+   IO_B06   114  227  226  225 ; Pin   28
+   IO_B07   114  224  223  222 ; Pin   29
+   GND      115                ; Pin   30
+   TMS      116                ; Pin   31
+   TCK      116                ; Pin   32
+   VCC      115                ; Pin   33
+   IO_C15   114  150  149  148 ; Pin   34
+   IO_C14   114  153  152  151 ; Pin   35
+   IO_C13   114  156  155  154 ; Pin   36
+   IO_C12   114  159  158  157 ; Pin   37
+   GND      115                ; Pin   38
+   IO_C11   114  162  161  160 ; Pin   39
+   IO_C10   114  165  164  163 ; Pin   40
+   IO_C09   114  168  167  166 ; Pin   41
+   IO_C08   114  171  170  169 ; Pin   42
+   VCC      115                ; Pin   43
+   IO_C07   114  174  173  172 ; Pin   44
+   IO_C06   114  177  176  175 ; Pin   45
+   GND      115                ; Pin   46
+   IO_C05   114  180  179  178 ; Pin   47
+   IO_C04   114  183  182  181 ; Pin   48
+   IO_C03   114  186  185  184 ; Pin   49
+   IO_C02   114  189  188  187 ; Pin   50
+   IO_C01   114  192  191  190 ; Pin   51
+   IO_C00   114  195  194  193 ; Pin   52
+   VCC      115                ; Pin   53
+   GND      115                ; Pin   54
+   GND      115                ; Pin   55
+   VCC      115                ; Pin   56
+   IO_D00   114  146  145  144 ; Pin   57
+   IO_D01   114  143  142  141 ; Pin   58
+   IO_D02   114  140  139  138 ; Pin   59
+   IO_D03   114  137  136  135 ; Pin   60
+   IO_D04   114  134  133  132 ; Pin   61
+   IO_D05   114  131  130  129 ; Pin   62
+   GND      115                ; Pin   63
+   IO_D06   114  128  127  126 ; Pin   64
+   IO_D07   114  125  124  123 ; Pin   65
+   VCC      115                ; Pin   66
+   IO_D08   114  122  121  120 ; Pin   67
+   IO_D09   114  119  118  117 ; Pin   68
+   IO_D10   114  116  115  114 ; Pin   69
+   IO_D11   114  113  112  111 ; Pin   70
+   GND      115                ; Pin   71
+   IO_D12   114  110  109  108 ; Pin   72
+   IO_D13   114  107  106  105 ; Pin   73
+   IO_D14   114  104  103  102 ; Pin   74
+   IO_D15   114  101  100   99 ; Pin   75
+   VCC      115                ; Pin   76
+   ENABLE   116                ; Pin   77
+   IN02     110  147           ; Pin   78
+   GND      115                ; Pin   79
+   IO_E07   114   77   76   75 ; Pin   80
+   IO_E06   114   80   79   78 ; Pin   81
+   IO_E05   114   83   82   81 ; Pin   82
+   IO_E04   114   86   85   84 ; Pin   83
+   IO_E03   114   89   88   87 ; Pin   84
+   IO_E02   114   92   91   90 ; Pin   85
+   GND      115                ; Pin   86
+   VCC      115                ; Pin   87
+   IO_E01   114   95   94   93 ; Pin   88
+   IO_E00   114   98   97   96 ; Pin   89
+   IO_E08   114   74   73   72 ; Pin   90
+   IO_E09   114   71   70   69 ; Pin   91
+   IO_E10   114   68   67   66 ; Pin   92
+   IO_E11   114   65   64   63 ; Pin   93
+   GND      115                ; Pin   94
+   IO_E12   114   62   61   60 ; Pin   95
+   IO_E13   114   59   58   57 ; Pin   96
+   VCC      115                ; Pin   97
+   IO_E14   114   56   55   54 ; Pin   98
+   IO_E15   114   53   52   51 ; Pin   99
+   IN3_CK2  113   49           ; Pin  100
+   IN4_CK3  113   50           ; Pin  101
+   GND      115                ; Pin  102
+   TRST     116                ; Pin  103
+   TDO      117                ; Pin  104
+   VCC      115                ; Pin  105
+   IO_F15   114    3    2    1 ; Pin  106
+   IO_F14   114    6    5    4 ; Pin  107
+   IO_F13   114    9    8    7 ; Pin  108
+   IO_F12   114   12   11   10 ; Pin  109
+   GND      115                ; Pin  110
+   IO_F11   114   15   14   13 ; Pin  111
+   IO_F10   114   18   17   16 ; Pin  112
+   IO_F09   114   21   20   19 ; Pin  113
+   IO_F08   114   24   23   22 ; Pin  114
+   VCC      115                ; Pin  115
+   IO_F07   114   27   26   25 ; Pin  116
+   IO_F06   114   30   29   28 ; Pin  117
+   GND      115                ; Pin  118
+   IO_F05   114   33   32   31 ; Pin  119
+   IO_F04   114   36   35   34 ; Pin  120
+   IO_F03   114   39   38   37 ; Pin  121
+   IO_F02   114   42   41   40 ; Pin  122
+   IO_F01   114   45   44   43 ; Pin  123
+   IO_F00   114   48   47   46 ; Pin  124
+   VCC      115                ; Pin  125
+   GND      115                ; Pin  126
+   GND      115                ; Pin  127
+   VCC      115                ; Pin  128
+   IO_A00   114  293  292  291 ; Pin  129
+   IO_A01   114  290  289  288 ; Pin  130
+   IO_A02   114  287  286  285 ; Pin  131
+   IO_A03   114  284  283  282 ; Pin  132
+   IO_A04   114  281  280  279 ; Pin  133
+   IO_A05   114  278  277  276 ; Pin  134
+   GND      115                ; Pin  135
+   IO_A06   114  275  274  273 ; Pin  136
+   IO_A07   114  272  271  270 ; Pin  137
+   VCC      115                ; Pin  138
+   IO_A08   114  269  268  267 ; Pin  139
+   IO_A09   114  266  265  264 ; Pin  140
+   IO_A10   114  263  262  261 ; Pin  141
+   IO_A11   114  260  259  258 ; Pin  142
+   GND      115                ; Pin  143
+   IO_A12   114  257  256  255 ; Pin  144
+
+;==! 03/09/94: Power-up data. If the next integer > 0, then load
+;==! power-up information for each bit in the part. Skip this
+;==! section if it is 0.
+
+     294
+    AP00_0  110     0    -1     0
+     A_00   114     1     0     0      7072     1     0
+    AP00_1  110     2    -1     0
+    AP01_0  110     3    -1     0
+     A_01   114     4     0     1      7086     1     0
+    AP01_1  110     5    -1     0
+    AP02_0  110     6    -1     0
+     A_02   114     7     0     2      7100     1     0
+    AP02_1  110     8    -1     0
+    AP03_0  110     9    -1     0
+     A_03   114    10     0     3      7114     1     0
+    AP03_1  110    11    -1     0
+    AP04_0  110    12    -1     0
+     A_04   114    13     0     4      7128     1     0
+    AP04_1  110    14    -1     0
+    AP05_0  110    15    -1     0
+     A_05   114    16     0     5      7142     1     0
+    AP05_1  110    17    -1     0
+    AP06_0  110    18    -1     0
+     A_06   114    19     0     6      7156     1     0
+    AP06_1  110    20    -1     0
+    AP07_0  110    21    -1     0
+     A_07   114    22     0     7      7170     1     0
+    AP07_1  110    23    -1     0
+    AP08_0  110    24    -1     0
+     A_08   114    25     0     8      7184     1     0
+    AP08_1  110    26    -1     0
+    AP09_0  110    27    -1     0
+     A_09   114    28     0     9      7198     1     0
+    AP09_1  110    29    -1     0
+    AP10_0  110    30    -1     0
+     A_10   114    31     0    10      7212     1     0
+    AP10_1  110    32    -1     0
+    AP11_0  110    33    -1     0
+     A_11   114    34     0    11      7226     1     0
+    AP11_1  110    35    -1     0
+    AP12_0  110    36    -1     0
+     A_12   114    37     0    12      7240     1     0
+    AP12_1  110    38    -1     0
+    AP13_0  110    39    -1     0
+     A_13   114    40     0    13      7254     1     0
+    AP13_1  110    41    -1     0
+    AP14_0  110    42    -1     0
+     A_14   114    43     0    14      7268     1     0
+    AP14_1  110    44    -1     0
+    AP15_0  110    45    -1     0
+     A_15   114    46     0    15      7282     1     0
+    AP15_1  110    47    -1     0
+    BP00_0  110    48    -1     0
+     B_00   114    49     1     0     14362     1     0
+    BP00_1  110    50    -1     0
+    BP01_0  110    51    -1     0
+     B_01   114    52     1     1     14376     1     0
+    BP01_1  110    53    -1     0
+    BP02_0  110    54    -1     0
+     B_02   114    55     1     2     14390     1     0
+    BP02_1  110    56    -1     0
+    BP03_0  110    57    -1     0
+     B_03   114    58     1     3     14404     1     0
+    BP03_1  110    59    -1     0
+    BP04_0  110    60    -1     0
+     B_04   114    61     1     4     14418     1     0
+    BP04_1  110    62    -1     0
+    BP05_0  110    63    -1     0
+     B_05   114    64     1     5     14432     1     0
+    BP05_1  110    65    -1     0
+    BP06_0  110    66    -1     0
+     B_06   114    67     1     6     14446     1     0
+    BP06_1  110    68    -1     0
+    BP07_0  110    69    -1     0
+     B_07   114    70     1     7     14460     1     0
+    BP07_1  110    71    -1     0
+    BP08_0  110    72    -1     0
+     B_08   114    73     1     8     14474     1     0
+    BP08_1  110    74    -1     0
+    BP09_0  110    75    -1     0
+     B_09   114    76     1     9     14488     1     0
+    BP09_1  110    77    -1     0
+    BP10_0  110    78    -1     0
+     B_10   114    79     1    10     14502     1     0
+    BP10_1  110    80    -1     0
+    BP11_0  110    81    -1     0
+     B_11   114    82     1    11     14516     1     0
+    BP11_1  110    83    -1     0
+    BP12_0  110    84    -1     0
+     B_12   114    85     1    12     14530     1     0
+    BP12_1  110    86    -1     0
+    BP13_0  110    87    -1     0
+     B_13   114    88     1    13     14544     1     0
+    BP13_1  110    89    -1     0
+    BP14_0  110    90    -1     0
+     B_14   114    91     1    14     14558     1     0
+    BP14_1  110    92    -1     0
+    BP15_0  110    93    -1     0
+     B_15   114    94     1    15     14572     1     0
+    BP15_1  110    95    -1     0
+    II_00   110    96    -1     0
+    II_01   110    97    -1     0
+    CP00_0  110    98    -1     0
+     C_00   114    99     2     0     21652     1     0
+    CP00_1  110   100    -1     0
+    CP01_0  110   101    -1     0
+     C_01   114   102     2     1     21666     1     0
+    CP01_1  110   103    -1     0
+    CP02_0  110   104    -1     0
+     C_02   114   105     2     2     21680     1     0
+    CP02_1  110   106    -1     0
+    CP03_0  110   107    -1     0
+     C_03   114   108     2     3     21694     1     0
+    CP03_1  110   109    -1     0
+    CP04_0  110   110    -1     0
+     C_04   114   111     2     4     21708     1     0
+    CP04_1  110   112    -1     0
+    CP05_0  110   113    -1     0
+     C_05   114   114     2     5     21722     1     0
+    CP05_1  110   115    -1     0
+    CP06_0  110   116    -1     0
+     C_06   114   117     2     6     21736     1     0
+    CP06_1  110   118    -1     0
+    CP07_0  110   119    -1     0
+     C_07   114   120     2     7     21750     1     0
+    CP07_1  110   121    -1     0
+    CP08_0  110   122    -1     0
+     C_08   114   123     2     8     21764     1     0
+    CP08_1  110   124    -1     0
+    CP09_0  110   125    -1     0
+     C_09   114   126     2     9     21778     1     0
+    CP09_1  110   127    -1     0
+    CP10_0  110   128    -1     0
+     C_10   114   129     2    10     21792     1     0
+    CP10_1  110   130    -1     0
+    CP11_0  110   131    -1     0
+     C_11   114   132     2    11     21806     1     0
+    CP11_1  110   133    -1     0
+    CP12_0  110   134    -1     0
+     C_12   114   135     2    12     21820     1     0
+    CP12_1  110   136    -1     0
+    CP13_0  110   137    -1     0
+     C_13   114   138     2    13     21834     1     0
+    CP13_1  110   139    -1     0
+    CP14_0  110   140    -1     0
+     C_14   114   141     2    14     21848     1     0
+    CP14_1  110   142    -1     0
+    CP15_0  110   143    -1     0
+     C_15   114   144     2    15     21862     1     0
+    CP15_1  110   145    -1     0
+    II_02   110   146    -1     0
+    DP00_0  110   147    -1     0
+     D_00   114   148     3     0     28942     1     0
+    DP00_1  110   149    -1     0
+    DP01_0  110   150    -1     0
+     D_01   114   151     3     1     28956     1     0
+    DP01_1  110   152    -1     0
+    DP02_0  110   153    -1     0
+     D_02   114   154     3     2     28970     1     0
+    DP02_1  110   155    -1     0
+    DP03_0  110   156    -1     0
+     D_03   114   157     3     3     28984     1     0
+    DP03_1  110   158    -1     0
+    DP04_0  110   159    -1     0
+     D_04   114   160     3     4     28998     1     0
+    DP04_1  110   161    -1     0
+    DP05_0  110   162    -1     0
+     D_05   114   163     3     5     29012     1     0
+    DP05_1  110   164    -1     0
+    DP06_0  110   165    -1     0
+     D_06   114   166     3     6     29026     1     0
+    DP06_1  110   167    -1     0
+    DP07_0  110   168    -1     0
+     D_07   114   169     3     7     29040     1     0
+    DP07_1  110   170    -1     0
+    DP08_0  110   171    -1     0
+     D_08   114   172     3     8     29054     1     0
+    DP08_1  110   173    -1     0
+    DP09_0  110   174    -1     0
+     D_09   114   175     3     9     29068     1     0
+    DP09_1  110   176    -1     0
+    DP10_0  110   177    -1     0
+     D_10   114   178     3    10     29082     1     0
+    DP10_1  110   179    -1     0
+    DP11_0  110   180    -1     0
+     D_11   114   181     3    11     29096     1     0
+    DP11_1  110   182    -1     0
+    DP12_0  110   183    -1     0
+     D_12   114   184     3    12     29110     1     0
+    DP12_1  110   185    -1     0
+    DP13_0  110   186    -1     0
+     D_13   114   187     3    13     29124     1     0
+    DP13_1  110   188    -1     0
+    DP14_0  110   189    -1     0
+     D_14   114   190     3    14     29138     1     0
+    DP14_1  110   191    -1     0
+    DP15_0  110   192    -1     0
+     D_15   114   193     3    15     29152     1     0
+    DP15_1  110   194    -1     0
+    EP00_0  110   195    -1     0
+     E_00   114   196     4     0     36232     1     0
+    EP00_1  110   197    -1     0
+    EP01_0  110   198    -1     0
+     E_01   114   199     4     1     36246     1     0
+    EP01_1  110   200    -1     0
+    EP02_0  110   201    -1     0
+     E_02   114   202     4     2     36260     1     0
+    EP02_1  110   203    -1     0
+    EP03_0  110   204    -1     0
+     E_03   114   205     4     3     36274     1     0
+    EP03_1  110   206    -1     0
+    EP04_0  110   207    -1     0
+     E_04   114   208     4     4     36288     1     0
+    EP04_1  110   209    -1     0
+    EP05_0  110   210    -1     0
+     E_05   114   211     4     5     36302     1     0
+    EP05_1  110   212    -1     0
+    EP06_0  110   213    -1     0
+     E_06   114   214     4     6     36316     1     0
+    EP06_1  110   215    -1     0
+    EP07_0  110   216    -1     0
+     E_07   114   217     4     7     36330     1     0
+    EP07_1  110   218    -1     0
+    EP08_0  110   219    -1     0
+     E_08   114   220     4     8     36344     1     0
+    EP08_1  110   221    -1     0
+    EP09_0  110   222    -1     0
+     E_09   114   223     4     9     36358     1     0
+    EP09_1  110   224    -1     0
+    EP10_0  110   225    -1     0
+     E_10   114   226     4    10     36372     1     0
+    EP10_1  110   227    -1     0
+    EP11_0  110   228    -1     0
+     E_11   114   229     4    11     36386     1     0
+    EP11_1  110   230    -1     0
+    EP12_0  110   231    -1     0
+     E_12   114   232     4    12     36400     1     0
+    EP12_1  110   233    -1     0
+    EP13_0  110   234    -1     0
+     E_13   114   235     4    13     36414     1     0
+    EP13_1  110   236    -1     0
+    EP14_0  110   237    -1     0
+     E_14   114   238     4    14     36428     1     0
+    EP14_1  110   239    -1     0
+    EP15_0  110   240    -1     0
+     E_15   114   241     4    15     36442     1     0
+    EP15_1  110   242    -1     0
+    II_04   110   243    -1     0
+    II_03   110   244    -1     0
+    FP00_0  110   245    -1     0
+     F_00   114   246     5     0     43522     1     0
+    FP00_1  110   247    -1     0
+    FP01_0  110   248    -1     0
+     F_01   114   249     5     1     43536     1     0
+    FP01_1  110   250    -1     0
+    FP02_0  110   251    -1     0
+     F_02   114   252     5     2     43550     1     0
+    FP02_1  110   253    -1     0
+    FP03_0  110   254    -1     0
+     F_03   114   255     5     3     43564     1     0
+    FP03_1  110   256    -1     0
+    FP04_0  110   257    -1     0
+     F_04   114   258     5     4     43578     1     0
+    FP04_1  110   259    -1     0
+    FP05_0  110   260    -1     0
+     F_05   114   261     5     5     43592     1     0
+    FP05_1  110   262    -1     0
+    FP06_0  110   263    -1     0
+     F_06   114   264     5     6     43606     1     0
+    FP06_1  110   265    -1     0
+    FP07_0  110   266    -1     0
+     F_07   114   267     5     7     43620     1     0
+    FP07_1  110   268    -1     0
+    FP08_0  110   269    -1     0
+     F_08   114   270     5     8     43634     1     0
+    FP08_1  110   271    -1     0
+    FP09_0  110   272    -1     0
+     F_09   114   273     5     9     43648     1     0
+    FP09_1  110   274    -1     0
+    FP10_0  110   275    -1     0
+     F_10   114   276     5    10     43662     1     0
+    FP10_1  110   277    -1     0
+    FP11_0  110   278    -1     0
+     F_11   114   279     5    11     43676     1     0
+    FP11_1  110   280    -1     0
+    FP12_0  110   281    -1     0
+     F_12   114   282     5    12     43690     1     0
+    FP12_1  110   283    -1     0
+    FP13_0  110   284    -1     0
+     F_13   114   285     5    13     43704     1     0
+    FP13_1  110   286    -1     0
+    FP14_0  110   287    -1     0
+     F_14   114   288     5    14     43718     1     0
+    FP14_1  110   289    -1     0
+    FP15_0  110   290    -1     0
+     F_15   114   291     5    15     43732     1     0
+    FP15_1  110   292    -1     0
+    II_05   110   293    -1     0
+

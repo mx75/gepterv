@@ -1,0 +1,97 @@
+;PALASM Design Description
+
+;---------------------------------- Declaration Segment ------------
+TITLE    implementation of keyboard function
+PATTERN  
+REVISION 
+AUTHOR   john davis
+COMPANY  SIVAD for AMD
+DATE     01/14/91
+
+CHIP  _i_kb_int  MACH210
+
+;---------------------------------- PIN Declarations ---------------
+PIN     ?       /POR                               
+NODE    ?       M19_QA               REGISTERED     
+PIN     ?       KB_CLK                              
+NODE    ?       M19_QB               REGISTERED     
+; NODE    ?       M19_QC               REGISTERED     
+; NODE    ?       M19_QD               REGISTERED     
+PIN     ?       E_KB_ROW                          
+PIN     ?       ROW_SEL3             COMBINATORIAL  
+PIN     ?       ROW_SEL2             COMBINATORIAL  
+PIN     ?       ROW_SEL1             COMBINATORIAL  
+PIN     ?       ROW_SEL0             COMBINATORIAL  
+
+PIN      ?       COL_DAT0             COMBINATORIAL  
+PIN      ?       COL_DAT1             COMBINATORIAL  
+PIN      ?       COL_DAT2             COMBINATORIAL  
+PIN      ?       COL_DAT3             COMBINATORIAL  
+PIN      ?       COL_DAT4             COMBINATORIAL  
+PIN      ?       COL_DAT5             COMBINATORIAL  
+PIN      ?       COL_DAT6             COMBINATORIAL  
+PIN      ?       COL_DAT7             COMBINATORIAL  
+PIN      ?       COL_DAT8             COMBINATORIAL ;use only for special keys
+
+NODE     ?       INP_0               REGISTERED     
+NODE     ?       INP_1               REGISTERED     
+NODE     ?       INP_2               REGISTERED     
+NODE     ?       INP_3               REGISTERED     
+NODE     ?       INP_4               REGISTERED     
+NODE     ?       INP_5               REGISTERED     
+NODE     ?       INP_6               REGISTERED     
+NODE     ?       INP_7               REGISTERED     
+
+STRING AT_RISE 'COL_DAT8*COL_DAT0'
+STRING AT_FALL 'COL_DAT8*COL_DAT1'
+STRING AT_HIGH 'COL_DAT8*COL_DAT2'
+STRING AT_LOW  'COL_DAT8*COL_DAT3'
+STRING AT_GLIT 'COL_DAT8*COL_DAT4'
+
+EQUATIONS
+
+ M19_QA.T = (/POR * M19_QA) + (POR * VCC * VCC * M19_QA) + (POR * VCC
+         * /M19_QA * GND) + (POR * VCC * GND * VCC)
+ M19_QA.clkf = KB_CLK
+ M19_QB.T = (/POR * M19_QB) + (POR * VCC * VCC * M19_QB) + (POR * VCC
+         * /M19_QB * GND) + (POR * M19_QA * (POR * VCC * GND * VCC))
+ M19_QB.clkf = KB_CLK
+
+ ROW_SEL3 = /E_KB_ROW * M19_QB * M19_QA
+ ROW_SEL2 = /E_KB_ROW * M19_QB * /M19_QA
+ ROW_SEL1 = /E_KB_ROW * /M19_QB * M19_QA
+ ROW_SEL0 = /E_KB_ROW * /M19_QB * /M19_QA
+
+;---------------Special Attribute Loading ---------------------
+ INP_0 = /COL_DAT8*COL_DAT0+AT_RISE
+ INP_0.setf = GND
+ INP_0.rstf = GND
+
+ INP_1 = /COL_DAT8*COL_DAT1+AT_FALL
+ INP_1.setf = GND
+ INP_1.rstf = GND
+
+ INP_2 = /COL_DAT8*COL_DAT2+AT_HIGH
+ INP_2.setf = GND
+ INP_2.rstf = GND
+
+ INP_3 = /COL_DAT8*COL_DAT3+AT_LOW
+ INP_3.setf = GND
+ INP_3.rstf = GND
+
+ INP_4 = /COL_DAT8*COL_DAT4+AT_GLIT
+ INP_4.setf = GND
+ INP_4.rstf = GND
+
+ INP_5 = COL_DAT5
+ INP_5.setf = GND
+ INP_5.rstf = GND
+
+ INP_6 = COL_DAT6
+ INP_6.setf = GND
+ INP_6.rstf = GND
+
+ INP_7 = COL_DAT7
+ INP_7.setf = GND
+ INP_7.rstf = GND
+

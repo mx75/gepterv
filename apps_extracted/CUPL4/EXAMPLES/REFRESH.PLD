@@ -1,0 +1,69 @@
+Name      Refresh;
+Partno    CA0027;
+Date      02/17/87;
+Rev       02;
+Designer  Breuniger;
+Company   Texas Instruments;
+Assembly  NONE;
+Location  NONE;
+Device    F507;
+
+/****************************************************************/
+/*                                                              */
+/* Refresh Timer                                                */
+/*                                                              */
+/* This is the second example from "A Designer's Guide to the   */
+/* PSG507", by R. Breuniger.  In this example a dynamic memory  */
+/* refresh timer, which generates a refresh request every       */
+/* 15.4 uS, is implemented for the TI PSG507 using CUPL.  In    */
+/* this implementation the built-in 6-bit counter is extended   */
+/* by using one of the buried state registers as the 7th bit.   */
+/*                                                              */
+/* This example demonstrates how to use the built-in counter    */
+/* synchronous clear and count hold functions along with the    */
+/* buried state registers.  The counter clear and hold func-    */
+/* tions must be declared as NODE's in the order in which they  */
+/* exist in the device (SCLR0, SCLR1, CNTHOLD0, CNTHOLD1), as   */
+/* buried nodes are assigned according to order of declaration. */
+/* Since these are the first buried nodes in the device they    */
+/* must be declared before any of the buried state registers.   */
+/****************************************************************/
+/* Allowable Target Device Types :  TI PSG507                   */
+/****************************************************************/
+
+/**  Inputs  **/
+
+pin 1            = PSG_CLK;     /* 5MHZ SYSTEM CLOCK            */
+pin 2            = RESET;       /* RESET OR INITIALIZE REQUEST  */
+pin 4            = RFC;         /* REFRESH COMPLETE             */
+
+/**  Outputs  **/
+
+pin 8            = !REFREQ;      /* REFRESH REQUEST              */
+
+pinnode [33..38] = [C0..5];      /* BUILT-IN 6-bit COUNTER       */
+pinnode 39       = SCLRO;        /* SYNCH CLEAR FOR COUNTER      */
+pinnode 40       = SCLR1;
+pinnode 41       = CNTHOLD0;     /* COUNTER HOLD             */
+pinnode 42       = CNTHOLD1;
+node               C6;           /* EXTENSION TO BURIED COUNTER  */
+node               BREFREQ;      /* BURIED REFRESH REQUEST       */
+
+/** Declarations and Intermediate Variable Definitions **/
+
+field 6BIT       = [C0..5].CNT;
+field COUNTER    = [6BIT,C6];   /* FULL 7-bit COUNTER           */
+
+REFREQ    = !BREFREQ;           /* GENERATE REFRESH REQUEST SIGNAL */
+                                /* FROM BURIED STATE REGISTER      */
+BREFREQ.S = !RESET & RFC # RESET;
+BREFREQ.R = COUNTER:'d'76 & !RESET;
+
+/* EXTEND BUILT-IN 6-bit COUNTER BY ADDING A BURIED STATE REGISTER */
+C6.S = COUNTER:'d'63 & !RESET;
+C6.R = COUNTER:'d'76 & !RESET
+        # COUNTER:'d'127 & !RESET
+        # RESET;
+
+/* BUILT-IN COUNTER CONTROL EQUATIONS */
+SCLRO = COUNTER:'d'76 & !RESET # RESET;

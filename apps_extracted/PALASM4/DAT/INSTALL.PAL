@@ -1,0 +1,81 @@
+*MODE
+Install All Software
+Replace with Standard memory software
+Replace with Extended memory software
+Install interface to OrCAD/SDT
+Reinitialize PALASM Setup files
+*MOUSE
+<none>
+2 Buttons
+3 Buttons
+*HELPMODE
+You may select what portions of the software to install or update.
+
+The prime reason for installing only part of the software is to save
+Hard Disk space. If disk space is not an issue we recommend you
+install ALL of the software.
+*HELPCOMMAND
+The COMMAND.COM is used by the menu to generate DOS shell environments.
+
+It is necessary to have this file on the directory PATH that is normally
+set-up in the AUTOEXEC.BAT at system boot-up. The install procedure will
+include the path set here at installation on the DOS PATH statement.
+*HELPROOT
+The installation process will create the following directory structure:
+                  ... --><PALASM root>
+				|--> EXE
+				|--> DAT
+                                |--> LIB
+                                |--> DOC
+                                |-->  |-->EREF
+                                |-->  |-->IREF
+                                |-->  |-->LREF
+                                |--> EXAMPLES
+                                |-->  |-->CB
+                                |-->  |-->WB
+PALASM has it own Directory structure from the root directory specified
+at installation.
+*HELPDRIVE
+PALASM can be installed on any logical drive existing on your Hard Disk.
+*HELPAUTOEXEC
+Enter 'Y' if we can automatically update your AUTOEXEC.BAT file to include
+the necessary statements to make PALASM operational.
+
+Enter 'N' and these statements will be written to a file. You must include
+these statements yourself be PALASM will be operational.
+*HELPAUTOFILE
+Name of file to use if you have entered 'N' to the previous entry.
+*HELPCONFIG
+Enter 'Y' if we can automatically update your CONFIG.SYS file to include
+the necessary statements to make PALASM operational.
+
+Enter 'N' and these statements will be written to a file. You must include
+these statements yourself be PALASM will be operational.
+*HELPCONFILE
+Name of file to use if you have entered 'N' to the previous entry.
+*HELPORCADDRIVE
+ORCAD can be installed on any logical drive existing on your Hard Disk.
+*HELPORCADINT
+If you intend to use PALASM with the ORCAD SDT editor you must install
+the PALASM interface to ORCAD. Enter 'Y' to install else the relevant
+PALASM executables & libraries will not be installed on your hard disk.
+
+You may install the ORCAD interface only at a later date by selecting
+the correct install option & entering 'Y' here.
+*HELPMOUSE
+PALASM allows installation of a mouse to work with your PC software.
+
+note:
+        2 Button mice must be compatible with the Microsoft Mouse.
+
+        3 Button mice must be compatible with either Logitech or
+          PC Mouse Systems mice.
+*HELPEDITOR
+PALASM provides a comprehensive Text Editor for your use, check manual for
+instructions. If you prefer then you may use your personal editor by
+entering  the path and program name.
+
+WARNING!!! 
+   If you use your own editor it must operate in TEXT mode and not use the
+   special documentation modes for output formating .
+

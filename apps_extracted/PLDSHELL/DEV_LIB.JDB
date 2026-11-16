@@ -1,0 +1,1751 @@
+#/*
+# * **************************  ALTERA PROPRIETARY  ***************************
+# *
+# *       --------------------  DO NOT REPRODUCE  ----------------------
+# *
+# *   Copyright (C) 1994 by Altera Corporation.
+# *   All rights reserved. No part of this program or publication may be 
+# *   reproduced, transmitted, transcribed, stored in a retrieval system, or
+# *   translated into any language or computer language, in any form or by any
+# *   means, electronic, mechanical, magnetic, optical,  chemical,  manual, or
+# *   otherwise,  without the prior written permission of  Altera Corporation,
+# *   2610 Orchard Parkway,  San Jose,  California 95134-2020.
+# *
+# * ***************************************************************************
+# */
+#
+#
+
+#  85c220 device database for JDB
+#
+#
+
+#          proc load_ptermg( )
+##        Description: load the library database with jedec addresses of all
+##        pterm groups. 150 pterm groups are supported.  Called during
+##        initialization
+#
+proc load_ptermg( )
+{
+		JDBV_ptgnum =  		# number of pterm groups
+        JDBV_ptg1adr =          # main sop pterm #1
+        JDBV_ptg2adr =          # oe pterm #1
+        JDBV_ptg3adr =          # main sop pterm #2
+        JDBV_ptg4adr =          # oe pterm #2
+        JDBV_ptg5adr =          # main sop pterm #3
+        JDBV_ptg6adr =          # oe pterm #3
+        JDBV_ptg7adr =          # main sop pterm #4
+        JDBV_ptg8adr =          # oe pterm #4
+        JDBV_ptg9adr =          # main sop pterm #5
+        JDBV_ptg10adr =          # oe pterm #5
+        JDBV_ptg11adr =          # main sop pterm #6
+        JDBV_ptg12adr =          # oe pterm #6
+        JDBV_ptg13adr =          # main sop pterm #7
+        JDBV_ptg14adr =          # oe pterm #7
+        JDBV_ptg15adr =          # main sop pterm #8
+        JDBV_ptg16adr =          # oe pterm #8
+        JDBV_ptg17adr = 
+        JDBV_ptg18adr = 
+        JDBV_ptg19adr = 
+        JDBV_ptg20adr = 
+        JDBV_ptg21adr = 
+        JDBV_ptg22adr = 
+        JDBV_ptg23adr = 
+        JDBV_ptg24adr = 
+        JDBV_ptg25adr = 
+        JDBV_ptg26adr = 
+        JDBV_ptg27adr = 
+        JDBV_ptg28adr = 
+        JDBV_ptg29adr = 
+        JDBV_ptg30adr = 
+        JDBV_ptg31adr = 
+        JDBV_ptg32adr = 
+        JDBV_ptg33adr = 
+        JDBV_ptg34adr = 
+        JDBV_ptg35adr = 
+        JDBV_ptg36adr = 
+        JDBV_ptg37adr = 
+        JDBV_ptg38adr = 
+        JDBV_ptg39adr = 
+        JDBV_ptg40adr = 
+        JDBV_ptg41adr = 
+        JDBV_ptg42adr = 
+        JDBV_ptg43adr = 
+        JDBV_ptg44adr = 
+        JDBV_ptg45adr = 
+        JDBV_ptg46adr = 
+        JDBV_ptg47adr = 
+        JDBV_ptg48adr = 
+        JDBV_ptg49adr = 
+        JDBV_ptg50adr = 
+        JDBV_ptg51adr = 
+        JDBV_ptg52adr = 
+        JDBV_ptg53adr = 
+        JDBV_ptg54adr = 
+        JDBV_ptg55adr = 
+        JDBV_ptg56adr = 
+        JDBV_ptg57adr = 
+        JDBV_ptg58adr = 
+        JDBV_ptg59adr = 
+        JDBV_ptg60adr = 
+        JDBV_ptg61adr = 
+        JDBV_ptg62adr = 
+        JDBV_ptg63adr = 
+        JDBV_ptg64adr = 
+        JDBV_ptg65adr = 
+        JDBV_ptg66adr = 
+        JDBV_ptg67adr = 
+        JDBV_ptg68adr = 
+        JDBV_ptg69adr = 
+        JDBV_ptg70adr = 
+        JDBV_ptg71adr = 
+        JDBV_ptg72adr = 
+        JDBV_ptg73adr = 
+        JDBV_ptg74adr = 
+        JDBV_ptg75adr = 
+        JDBV_ptg76adr = 
+        JDBV_ptg77adr = 
+        JDBV_ptg78adr = 
+        JDBV_ptg79adr = 
+        JDBV_ptg80adr = 
+        JDBV_ptg81adr = 
+        JDBV_ptg82adr = 
+        JDBV_ptg83adr = 
+        JDBV_ptg84adr = 
+        JDBV_ptg85adr = 
+        JDBV_ptg86adr = 
+        JDBV_ptg87adr = 
+        JDBV_ptg88adr = 
+        JDBV_ptg89adr = 
+        JDBV_ptg90adr = 
+        JDBV_ptg91adr = 
+        JDBV_ptg92adr = 
+        JDBV_ptg93adr = 
+        JDBV_ptg94adr = 
+        JDBV_ptg95adr = 
+        JDBV_ptg96adr = 
+        JDBV_ptg97adr = 
+        JDBV_ptg98adr = 
+        JDBV_ptg99adr = 
+        JDBV_ptg100adr = 
+        JDBV_ptg101adr = 
+        JDBV_ptg102adr = 
+        JDBV_ptg103adr = 
+        JDBV_ptg104adr = 
+        JDBV_ptg105adr = 
+        JDBV_ptg106adr = 
+        JDBV_ptg107adr = 
+        JDBV_ptg108adr = 
+        JDBV_ptg109adr = 
+        JDBV_ptg110adr = 
+        JDBV_ptg111adr = 
+        JDBV_ptg112adr = 
+        JDBV_ptg113adr = 
+        JDBV_ptg114adr = 
+        JDBV_ptg115adr = 
+        JDBV_ptg116adr = 
+        JDBV_ptg117adr = 
+        JDBV_ptg118adr = 
+        JDBV_ptg119adr = 
+        JDBV_ptg120adr = 
+        JDBV_ptg121adr = 
+        JDBV_ptg122adr = 
+        JDBV_ptg123adr = 
+        JDBV_ptg124adr = 
+        JDBV_ptg125adr = 
+        JDBV_ptg126adr = 
+        JDBV_ptg127adr = 
+        JDBV_ptg128adr = 
+        JDBV_ptg129adr = 
+        JDBV_ptg130adr = 
+        JDBV_ptg131adr = 
+        JDBV_ptg132adr = 
+        JDBV_ptg133adr = 
+        JDBV_ptg134adr = 
+        JDBV_ptg135adr = 
+        JDBV_ptg136adr = 
+        JDBV_ptg137adr = 
+        JDBV_ptg138adr = 
+        JDBV_ptg139adr = 
+        JDBV_ptg140adr = 
+        JDBV_ptg141adr = 
+        JDBV_ptg142adr = 
+        JDBV_ptg143adr = 
+        JDBV_ptg144adr = 
+        JDBV_ptg145adr = 
+        JDBV_ptg146adr = 
+        JDBV_ptg147adr = 
+        JDBV_ptg148adr = 
+        JDBV_ptg149adr = 
+        JDBV_ptg150adr = -1
+}
+
+
+#        proc load_archadr( )
+#        Description: load the library database with jedec addresses of each 
+#        macrocell's architecture bits. 64 macrocells supported. Called in 
+#        initialization.
+
+proc load_archadr( )
+{
+		JDBV_mcnum =  
+        JDBV_mc8adr =   		# io mc 1 arch
+        JDBV_mc7adr =   		# io mc 2 arch  
+        JDBV_mc6adr =   		# io mc 3 arch 
+        JDBV_mc5adr =   		# io mc 4 arch 
+        JDBV_mc4adr =   		# io mc 5 arch 
+        JDBV_mc3adr =   		# io mc 6 arch 
+        JDBV_mc2adr =   		# io mc 7 arch 
+        JDBV_mc1adr =   		# io mc 8 arch 
+        JDBV_mc9adr = 
+        JDBV_mc10adr = 
+        JDBV_mc11adr = 
+        JDBV_mc12adr = 
+        JDBV_mc13adr = 
+        JDBV_mc14adr = 
+        JDBV_mc15adr = 
+        JDBV_mc16adr = 
+        JDBV_mc17adr = 
+        JDBV_mc18adr = 
+        JDBV_mc19adr = 
+        JDBV_mc20adr = 
+        JDBV_mc21adr = 
+        JDBV_mc22adr = 
+        JDBV_mc23adr = 
+        JDBV_mc24adr = 
+        JDBV_mc25adr = 
+        JDBV_mc26adr = 
+        JDBV_mc27adr = 
+        JDBV_mc28adr = 
+        JDBV_mc29adr = 
+        JDBV_mc30adr = 
+        JDBV_mc31adr = 
+        JDBV_mc32adr = 
+        JDBV_mc33adr = 
+        JDBV_mc34adr = 
+        JDBV_mc35adr = 
+        JDBV_mc36adr = 
+        JDBV_mc37adr = 
+        JDBV_mc38adr = 
+        JDBV_mc39adr = 
+        JDBV_mc40adr = 
+        JDBV_mc41adr = 
+        JDBV_mc42adr = 
+        JDBV_mc43adr = 
+        JDBV_mc44adr = 
+        JDBV_mc45adr = 
+        JDBV_mc46adr = 
+        JDBV_mc47adr = 
+        JDBV_mc48adr = 
+        JDBV_mc49adr = 
+        JDBV_mc50adr = 
+        JDBV_mc51adr = 
+        JDBV_mc52adr = 
+        JDBV_mc53adr = 
+        JDBV_mc54adr = 
+        JDBV_mc55adr = 
+        JDBV_mc56adr = 
+        JDBV_mc57adr = 
+        JDBV_mc58adr = 
+        JDBV_mc59adr = 
+        JDBV_mc60adr = 
+        JDBV_mc61adr = 
+        JDBV_mc62adr = 
+        JDBV_mc63adr = 
+        JDBV_mc64adr = -1
+    
+}
+
+#        proc map_inputs( )
+#        Description: map the dedicated input pin numbers to array input offsets
+#        16 dedicated inputs supported
+
+proc map_inputs( )
+{
+
+		JDBV_inpnum =  
+        JDBV_inp1 =  
+        JDBV_inp1os =   
+        JDBV_inp2 =  
+        JDBV_inp2os =   
+        JDBV_inp3 =  
+        JDBV_inp3os =  
+        JDBV_inp4 =  
+        JDBV_inp4os =   
+        JDBV_inp5 =  
+        JDBV_inp5os =  
+        JDBV_inp6 =  
+        JDBV_inp6os =    
+        JDBV_inp7 =  
+        JDBV_inp7os =   
+        JDBV_inp8 =  
+        JDBV_inp8os =   
+        JDBV_inp9 =  
+        JDBV_inp9os =  
+        JDBV_inp10 =  
+        JDBV_inp10os =  
+        JDBV_inp11 =
+        JDBV_inp11os =
+        JDBV_inp12 =
+        JDBV_inp12os =
+        JDBV_inp13 = 
+        JDBV_inp13os = 
+        JDBV_inp14 = 
+        JDBV_inp14os = 
+        JDBV_inp15 = 
+        JDBV_inp15os = 
+        JDBV_inp16 = 
+        JDBV_inp16os = -1
+    
+}
+
+#        proc map_ios( )
+#        Description: map the io pin numbers to array input offsets
+
+proc map_ios( )
+{
+
+		JDBV_ionum =  
+        JDBV_io1 =  
+        JDBV_io1os =  
+        JDBV_io2 =   
+        JDBV_io2os =  
+        JDBV_io3 =  
+        JDBV_io3os =  
+        JDBV_io4 =  
+        JDBV_io4os =  
+        JDBV_io5 =  
+        JDBV_io5os =  
+        JDBV_io6 =  
+        JDBV_io6os =  
+        JDBV_io7 =  
+        JDBV_io7os =  
+        JDBV_io8 =  
+        JDBV_io8os =  
+        JDBV_io9 =
+        JDBV_io9os = 
+        JDBV_io10 = 
+        JDBV_io10os = 
+        JDBV_io11 = 
+        JDBV_io11os = 
+        JDBV_io12 = 
+        JDBV_io12os = 
+        JDBV_io13 = 
+        JDBV_io13os = 
+        JDBV_io14 = 
+        JDBV_io14os = 
+        JDBV_io15 = 
+        JDBV_io15os = 
+        JDBV_io16 = 
+        JDBV_io16os = 
+        JDBV_io17 = 
+        JDBV_io17os = 
+        JDBV_io18 = 
+        JDBV_io18os = 
+        JDBV_io19 = 
+        JDBV_io19os = 
+        JDBV_io20 = 
+        JDBV_io20os = 
+        JDBV_io21 = 
+        JDBV_io21os = 
+        JDBV_io22 = 
+        JDBV_io22os = 
+        JDBV_io23 = 
+        JDBV_io23os = 
+        JDBV_io24 = 
+        JDBV_io24os = 
+        JDBV_io25 = 
+        JDBV_io25os = 
+        JDBV_io26 = 
+        JDBV_io26os = 
+        JDBV_io27 = 
+        JDBV_io27os = 
+        JDBV_io28 = 
+        JDBV_io28os = 
+        JDBV_io29 = 
+        JDBV_io29os = 
+        JDBV_io30 = 
+        JDBV_io30os = 
+        JDBV_io31 = 
+        JDBV_io31os = 
+        JDBV_io32 = 
+        JDBV_io32os = 
+        JDBV_io33 = 
+        JDBV_io33os = 
+        JDBV_io34 = 
+        JDBV_io34os = 
+        JDBV_io35 = 
+        JDBV_io35os = 
+        JDBV_io36 = 
+        JDBV_io36os = 
+        JDBV_io37 = 
+        JDBV_io37os = 
+        JDBV_io38 = 
+        JDBV_io38os = 
+        JDBV_io39 = 
+        JDBV_io39os = 
+        JDBV_io40 = 
+        JDBV_io40os = 
+        JDBV_io41 = 
+        JDBV_io41os = 
+        JDBV_io42 = 
+        JDBV_io42os = 
+        JDBV_io43 = 
+        JDBV_io43os = 
+        JDBV_io44 = 
+        JDBV_io44os = 
+        JDBV_io45 = 
+        JDBV_io45os = 
+        JDBV_io46 = 
+        JDBV_io46os = 
+        JDBV_io47 = 
+        JDBV_io47os = 
+        JDBV_io48 = 
+        JDBV_io48os = 
+        JDBV_io49 = 
+        JDBV_io49os = 
+        JDBV_io50 = 
+        JDBV_io50os = 
+        JDBV_io51 = 
+        JDBV_io51os = 
+        JDBV_io52 = 
+        JDBV_io52os = 
+        JDBV_io53 = 
+        JDBV_io53os = 
+        JDBV_io54 = 
+        JDBV_io54os = 
+        JDBV_io55 = 
+        JDBV_io55os = 
+        JDBV_io56 = 
+        JDBV_io56os = 
+        JDBV_io57 = 
+        JDBV_io57os = 
+        JDBV_io58 = 
+        JDBV_io58os = 
+        JDBV_io59 = 
+        JDBV_io59os = 
+        JDBV_io60 = 
+        JDBV_io60os = 
+        JDBV_io61 = 
+        JDBV_io61os = 
+        JDBV_io62 = 
+        JDBV_io62os = 
+        JDBV_io63 = 
+        JDBV_io63os = 
+        JDBV_io64 = 
+        JDBV_io64os = -1
+
+}
+
+#        proc map_fbs( )
+#        Description: map the feedbacks pin numbers to array input offsets
+#            note: for local feedbacks remapping may be required
+
+proc map_fbs( )
+{
+		JDBV_fbnum =  
+        JDBV_fb1 =  
+        JDBV_fb1os =   
+        JDBV_fb2 =  
+        JDBV_fb2os =  
+        JDBV_fb3 =   
+        JDBV_fb3os =  
+        JDBV_fb4 =  
+        JDBV_fb4os =  
+        JDBV_fb5 =  
+        JDBV_fb5os =  
+        JDBV_fb6 =  
+        JDBV_fb6os =  
+        JDBV_fb7 =  
+        JDBV_fb7os =  
+        JDBV_fb8 =  
+        JDBV_fb8os =  
+        JDBV_fb9 = 
+        JDBV_fb9os = 
+        JDBV_fb10 = 
+        JDBV_fb10os = 
+        JDBV_fb11 = 
+        JDBV_fb11os = 
+        JDBV_fb12 = 
+        JDBV_fb12os = 
+        JDBV_fb13 = 
+        JDBV_fb13os = 
+        JDBV_fb14 = 
+        JDBV_fb14os = 
+        JDBV_fb15 = 
+        JDBV_fb15os = 
+        JDBV_fb16 = 
+        JDBV_fb16os = 
+        JDBV_fb17 = 
+        JDBV_fb17os = 
+        JDBV_fb18 = 
+        JDBV_fb18os = 
+        JDBV_fb19 = 
+        JDBV_fb19os = 
+        JDBV_fb20 = 
+        JDBV_fb20os = 
+        JDBV_fb21 = 
+        JDBV_fb21os = 
+        JDBV_fb22 = 
+        JDBV_fb22os = 
+        JDBV_fb23 = 
+        JDBV_fb23os = 
+        JDBV_fb24 = 
+        JDBV_fb24os = 
+        JDBV_fb25 = 
+        JDBV_fb25os = 
+        JDBV_fb26 = 
+        JDBV_fb26os = 
+        JDBV_fb27 = 
+        JDBV_fb27os = 
+        JDBV_fb28 = 
+        JDBV_fb28os = 
+        JDBV_fb29 = 
+        JDBV_fb29os = 
+        JDBV_fb30 = 
+        JDBV_fb30os = 
+        JDBV_fb31 = 
+        JDBV_fb31os = 
+        JDBV_fb32 = 
+        JDBV_fb32os = 
+        JDBV_fb33 = 
+        JDBV_fb33os = 
+        JDBV_fb34 = 
+        JDBV_fb34os = 
+        JDBV_fb35 = 
+        JDBV_fb35os = 
+        JDBV_fb36 = 
+        JDBV_fb36os = 
+        JDBV_fb37 = 
+        JDBV_fb37os = 
+        JDBV_fb38 = 
+        JDBV_fb38os = 
+        JDBV_fb39 = 
+        JDBV_fb39os = 
+        JDBV_fb40 = 
+        JDBV_fb40os = 
+        JDBV_fb41 = 
+        JDBV_fb41os = 
+        JDBV_fb42 = 
+        JDBV_fb42os = 
+        JDBV_fb43 = 
+        JDBV_fb43os = 
+        JDBV_fb44 = 
+        JDBV_fb44os = 
+        JDBV_fb45 = 
+        JDBV_fb45os = 
+        JDBV_fb46 = 
+        JDBV_fb46os = 
+        JDBV_fb47 = 
+        JDBV_fb47os = 
+        JDBV_fb48 = 
+        JDBV_fb48os = 
+        JDBV_fb49 = 
+        JDBV_fb49os = 
+        JDBV_fb50 = 
+        JDBV_fb50os = 
+        JDBV_fb51 = 
+        JDBV_fb51os = 
+        JDBV_fb52 = 
+        JDBV_fb52os = 
+        JDBV_fb53 = 
+        JDBV_fb53os = 
+        JDBV_fb54 = 
+        JDBV_fb54os = 
+        JDBV_fb55 = 
+        JDBV_fb55os = 
+        JDBV_fb56 = 
+        JDBV_fb56os = 
+        JDBV_fb57 = 
+        JDBV_fb57os = 
+        JDBV_fb58 = 
+        JDBV_fb58os = 
+        JDBV_fb59 = 
+        JDBV_fb59os = 
+        JDBV_fb60 = 
+        JDBV_fb60os = 
+        JDBV_fb61 = 
+        JDBV_fb61os = 
+        JDBV_fb62 = 
+        JDBV_fb62os = 
+        JDBV_fb63 = 
+        JDBV_fb63os = 
+        JDBV_fb64 = 
+        JDBV_fb64os = -1
+}
+#        func pterm_gaddr( )
+#        Description: return the jedec address of pterm group
+#                    Call AFTER load_ptermg ( )
+#        Arguments: $1 - pterm group number of interest
+#        Return: Jedec address of first pterm of group
+#		 -1 if error
+#
+
+func pterm_gaddr( )
+{
+    if (!JDBV_libinit)
+        return -256
+
+    if ($1 > 150) {
+        message "JDB library error, arg 1 to pterm_gaddr() > 150\n"
+        return -1
+    }
+
+    if ($1 == 1 ) {
+        return JDBV_ptg1adr
+    }
+    if ($1 == 2 ) {
+        return JDBV_ptg2adr
+    }
+    if ($1 == 3 ) {
+        return JDBV_ptg3adr
+    }
+    if ($1 == 4 ) {
+        return JDBV_ptg4adr
+    }
+    if ($1 == 5 ) {
+        return JDBV_ptg5adr
+    }
+    if ($1 == 6 ) {
+        return JDBV_ptg6adr
+    }
+    if ($1 == 7 ) {
+        return JDBV_ptg7adr
+    }
+    if ($1 == 8 ) {
+        return JDBV_ptg8adr
+    }
+    if ($1 == 9 ) {
+        return JDBV_ptg9adr
+    }
+    if ($1 == 10 ) {
+        return JDBV_ptg10adr
+    }
+    if ($1 == 11 ) {
+        return JDBV_ptg11adr
+    }
+    if ($1 == 12 ) {
+        return JDBV_ptg12adr
+    }
+    if ($1 == 13 ) {
+        return JDBV_ptg13adr
+    }
+    if ($1 == 14 ) {
+        return JDBV_ptg14adr
+    }
+    if ($1 == 15 ) {
+        return JDBV_ptg15adr
+    }
+    if ($1 == 16 ) {
+        return JDBV_ptg16adr
+    }
+    if ($1 == 17 ) {
+        return JDBV_ptg17adr
+    }
+    if ($1 == 18 ) {
+        return JDBV_ptg18adr
+    }
+    if ($1 == 19 ) {
+        return JDBV_ptg19adr
+    }
+    if ($1 == 20 ) {
+        return JDBV_ptg20adr
+    }
+    if ($1 == 21 ) {
+        return JDBV_ptg21adr
+    }
+    if ($1 == 22 ) {
+        return JDBV_ptg22adr
+    }
+    if ($1 == 23 ) {
+        return JDBV_ptg23adr
+    }
+    if ($1 == 24 ) {
+        return JDBV_ptg24adr
+    }
+    if ($1 == 25 ) {
+        return JDBV_ptg25adr
+    }
+    if ($1 == 26 ) {
+        return JDBV_ptg26adr
+    }
+    if ($1 == 27 ) {
+        return JDBV_ptg27adr
+    }
+    if ($1 == 28 ) {
+        return JDBV_ptg28adr
+    }
+    if ($1 == 29 ) {
+        return JDBV_ptg29adr
+    }
+    if ($1 == 30 ) {
+        return JDBV_ptg30adr
+    }
+    if ($1 == 31 ) {
+        return JDBV_ptg31adr
+    }
+    if ($1 == 32 ) {
+        return JDBV_ptg32adr
+    }
+    if ($1 == 33 ) {
+        return JDBV_ptg33adr
+    }
+    if ($1 == 34 ) {
+        return JDBV_ptg34adr
+    }
+    if ($1 == 35 ) {
+        return JDBV_ptg35adr
+    }
+    if ($1 == 36 ) {
+        return JDBV_ptg36adr
+    }
+    if ($1 == 37 ) {
+        return JDBV_ptg37adr
+    }
+    if ($1 == 38 ) {
+        return JDBV_ptg38adr
+    }
+    if ($1 == 39 ) {
+        return JDBV_ptg39adr
+    }
+    if ($1 == 40 ) {
+        return JDBV_ptg40adr
+    }
+    if ($1 == 41 ) {
+        return JDBV_ptg41adr
+    }
+    if ($1 == 42 ) {
+        return JDBV_ptg42adr
+    }
+    if ($1 == 43 ) {
+        return JDBV_ptg43adr
+    }
+    if ($1 == 44 ) {
+        return JDBV_ptg44adr
+    }
+    if ($1 == 45 ) {
+        return JDBV_ptg45adr
+    }
+    if ($1 == 46 ) {
+        return JDBV_ptg46adr
+    }
+    if ($1 == 47 ) {
+        return JDBV_ptg47adr
+    }
+    if ($1 == 48 ) {
+        return JDBV_ptg48adr
+    }
+    if ($1 == 49 ) {
+        return JDBV_ptg49adr
+    }
+    if ($1 == 50 ) {
+        return JDBV_ptg50adr
+    }
+    if ($1 == 51 ) {
+        return JDBV_ptg51adr
+    }
+    if ($1 == 52 ) {
+        return JDBV_ptg52adr
+    }
+    if ($1 == 53 ) {
+        return JDBV_ptg53adr
+    }
+    if ($1 == 54 ) {
+        return JDBV_ptg54adr
+    }
+    if ($1 == 55 ) {
+        return JDBV_ptg55adr
+    }
+    if ($1 == 56 ) {
+        return JDBV_ptg56adr
+    }
+    if ($1 == 57 ) {
+        return JDBV_ptg57adr
+    }
+    if ($1 == 58 ) {
+        return JDBV_ptg58adr
+    }
+    if ($1 == 59 ) {
+        return JDBV_ptg59adr
+    }
+    if ($1 == 60 ) {
+        return JDBV_ptg60adr
+    }
+    if ($1 == 61 ) {
+        return JDBV_ptg61adr
+    }
+    if ($1 == 62 ) {
+        return JDBV_ptg62adr
+    }
+    if ($1 == 63 ) {
+        return JDBV_ptg63adr
+    }
+    if ($1 == 64 ) {
+        return JDBV_ptg64adr
+    }
+    if ($1 == 65) {
+        return JDBV_ptg65adr
+    }
+    if ($1 == 66) {
+        return JDBV_ptg66adr
+    }
+    if ($1 == 67) {
+        return JDBV_ptg67adr
+    }
+    if ($1 == 68) {
+        return JDBV_ptg68adr
+    }
+    if ($1 == 69) {
+        return JDBV_ptg69adr
+    }
+    if ($1 == 70) {
+        return JDBV_ptg70adr
+    }
+    if ($1 == 71) {
+        return JDBV_ptg71adr
+    }
+    if ($1 == 72) {
+        return JDBV_ptg72adr
+    }
+    if ($1 == 73) {
+        return JDBV_ptg73adr
+    }
+    if ($1 == 74) {
+        return JDBV_ptg74adr
+    }
+    if ($1 == 75) {
+        return JDBV_ptg75adr
+    }
+    if ($1 == 76) {
+        return JDBV_ptg76adr
+    }
+    if ($1 == 77) {
+        return JDBV_ptg77adr
+    }
+    if ($1 == 78) {
+        return JDBV_ptg78adr
+    }
+    if ($1 == 79) {
+        return JDBV_ptg79adr
+    }
+    if ($1 == 80) {
+        return JDBV_ptg80adr
+    }
+    if ($1 == 81) {
+        return JDBV_ptg81adr
+    }
+    if ($1 == 82) {
+        return JDBV_ptg82adr
+    }
+    if ($1 == 83) {
+        return JDBV_ptg83adr
+    }
+    if ($1 == 84) {
+        return JDBV_ptg84adr
+    }
+    if ($1 == 85) {
+        return JDBV_ptg85adr
+    }
+    if ($1 == 86) {
+        return JDBV_ptg86adr
+    }
+    if ($1 == 87) {
+        return JDBV_ptg87adr
+    }
+    if ($1 == 88) {
+        return JDBV_ptg88adr
+    }
+    if ($1 == 89) {
+        return JDBV_ptg89adr
+    }
+    if ($1 == 90) {
+        return JDBV_ptg90adr
+    }
+    if ($1 == 91) {
+        return JDBV_ptg91adr
+    }
+    if ($1 == 92) {
+        return JDBV_ptg92adr
+    }
+    if ($1 == 93) {
+        return JDBV_ptg93adr
+    }
+    if ($1 == 94) {
+        return JDBV_ptg94adr
+    }
+    if ($1 == 95) {
+        return JDBV_ptg95adr
+    }
+    if ($1 == 96) {
+        return JDBV_ptg96adr
+    }
+    if ($1 == 97) {
+        return JDBV_ptg97adr
+    }
+    if ($1 == 98) {
+        return JDBV_ptg98adr
+    }
+    if ($1 == 99) {
+        return JDBV_ptg99adr
+    }
+    if ($1 == 100) {
+        return JDBV_ptg100adr
+    }
+    if ($1 == 101) {
+        return JDBV_ptg101adr
+    }
+    if ($1 == 102) {
+        return JDBV_ptg102adr
+    }
+    if ($1 == 103) {
+        return JDBV_ptg103adr
+    }
+    if ($1 == 104) {
+        return JDBV_ptg104adr
+    }
+    if ($1 == 105) {
+        return JDBV_ptg105adr
+    }
+    if ($1 == 106) {
+        return JDBV_ptg106adr
+    }
+    if ($1 == 107) {
+        return JDBV_ptg107adr
+    }
+    if ($1 == 108) {
+        return JDBV_ptg108adr
+    }
+    if ($1 == 109) {
+        return JDBV_ptg109adr
+    }
+    if ($1 == 110) {
+        return JDBV_ptg110adr
+    }
+    if ($1 == 111) {
+        return JDBV_ptg111adr
+    }
+    if ($1 == 112) {
+        return JDBV_ptg112adr
+    }
+    if ($1 == 113) {
+        return JDBV_ptg113adr
+    }
+    if ($1 == 114) {
+        return JDBV_ptg114adr
+    }
+    if ($1 == 115) {
+        return JDBV_ptg115adr
+    }
+    if ($1 == 116) {
+        return JDBV_ptg116adr
+    }
+    if ($1 == 117) {
+        return JDBV_ptg117adr
+    }
+    if ($1 == 118) {
+        return JDBV_ptg118adr
+    }
+    if ($1 == 119) {
+        return JDBV_ptg119adr
+    }
+    if ($1 == 120) {
+        return JDBV_ptg120adr
+    }
+    if ($1 == 121) {
+        return JDBV_ptg121adr
+    }
+    if ($1 == 122) {
+        return JDBV_ptg122adr
+    }
+    if ($1 == 123) {
+        return JDBV_ptg123adr
+    }
+    if ($1 == 124) {
+        return JDBV_ptg124adr
+    }
+    if ($1 == 125) {
+        return JDBV_ptg125adr
+    }
+    if ($1 == 126) {
+        return JDBV_ptg126adr
+    }
+    if ($1 == 127) {
+        return JDBV_ptg127adr
+    }
+    if ($1 == 128) {
+        return JDBV_ptg128adr
+    }
+    if ($1 == 129) {
+        return JDBV_ptg129adr
+    }
+    if ($1 == 130) {
+        return JDBV_ptg130adr
+    }
+    if ($1 == 131) {
+        return JDBV_ptg131adr
+    }
+    if ($1 == 132) {
+        return JDBV_ptg132adr
+    }
+    if ($1 == 133) {
+        return JDBV_ptg133adr
+    }
+    if ($1 == 134) {
+        return JDBV_ptg134adr
+    }
+    if ($1 == 135) {
+        return JDBV_ptg135adr
+    }
+    if ($1 == 136) {
+        return JDBV_ptg136adr
+    }
+    if ($1 == 137) {
+        return JDBV_ptg137adr
+    }
+    if ($1 == 138) {
+        return JDBV_ptg138adr
+    }
+    if ($1 == 139) {
+        return JDBV_ptg139adr
+    }
+    if ($1 == 140) {
+        return JDBV_ptg140adr
+    }
+    if ($1 == 141) {
+        return JDBV_ptg141adr
+    }
+    if ($1 == 142) {
+        return JDBV_ptg142adr
+    }
+    if ($1 == 143) {
+        return JDBV_ptg143adr
+    }
+    if ($1 == 144) {
+        return JDBV_ptg144adr
+    }
+    if ($1 == 145) {
+        return JDBV_ptg145adr
+    }
+    if ($1 == 146) {
+        return JDBV_ptg146adr
+    }
+    if ($1 == 147) {
+        return JDBV_ptg147adr
+    }
+    if ($1 == 148) {
+        return JDBV_ptg148adr
+    }
+    if ($1 == 149) {
+        return JDBV_ptg149adr
+    }
+    if ($1 == 150) {
+        return JDBV_ptg150adr
+    }
+}
+
+
+#        func mc_archadr( )
+#        Description: return the jedec address of first architecture bit of
+#        macrocell. 
+#        Arguments: $1 - macrocell number
+#        Return: Jedec address of first arch bit of macrocell
+#		 -1 if error
+
+func mc_archadr( )
+{
+    if (!JDBV_libinit)
+        return -256
+
+    if ($1 > 64)
+    {
+        message "JDB library database error, arg 1 to mc_archadr > 64\n"
+        return -1
+    }
+
+    if ($1 == 1 ) {
+        return JDBV_mc1adr
+    }
+    if ($1 == 2 ) {
+        return JDBV_mc2adr
+    }
+    if ($1 == 3 ) {
+        return JDBV_mc3adr
+    }
+    if ($1 == 4 ) {
+        return JDBV_mc4adr
+    }
+    if ($1 == 5 ) {
+        return JDBV_mc5adr
+    }
+    if ($1 == 6 ) {
+        return JDBV_mc6adr
+    }
+    if ($1 == 7 ) {
+        return JDBV_mc7adr
+    }
+    if ($1 == 8 ) {
+        return JDBV_mc8adr
+    }
+    if ($1 == 9 ) {
+        return JDBV_mc9adr
+    }
+    if ($1 == 10 ) {
+        return JDBV_mc10adr
+    }
+    if ($1 == 11 ) {
+        return JDBV_mc11adr
+    }
+    if ($1 == 12 ) {
+        return JDBV_mc12adr
+    }
+    if ($1 == 13 ) {
+        return JDBV_mc13adr
+    }
+    if ($1 == 14 ) {
+        return JDBV_mc14adr
+    }
+    if ($1 == 15 ) {
+        return JDBV_mc15adr
+    }
+    if ($1 == 16 ) {
+        return JDBV_mc16adr
+    }
+    if ($1 == 17 ) {
+        return JDBV_mc17adr
+    }
+    if ($1 == 18 ) {
+        return JDBV_mc18adr
+    }
+    if ($1 == 19 ) {
+        return JDBV_mc19adr
+    }
+    if ($1 == 20 ) {
+        return JDBV_mc20adr
+    }
+    if ($1 == 21 ) {
+        return JDBV_mc21adr
+    }
+    if ($1 == 22 ) {
+        return JDBV_mc22adr
+    }
+    if ($1 == 23 ) {
+        return JDBV_mc23adr
+    }
+    if ($1 == 24 ) {
+        return JDBV_mc24adr
+    }
+    if ($1 == 25 ) {
+        return JDBV_mc25adr
+    }
+    if ($1 == 26 ) {
+        return JDBV_mc26adr
+    }
+    if ($1 == 27 ) {
+        return JDBV_mc27adr
+    }
+    if ($1 == 28 ) {
+        return JDBV_mc28adr
+    }
+    if ($1 == 29 ) {
+        return JDBV_mc29adr
+    }
+    if ($1 == 30 ) {
+        return JDBV_mc30adr
+    }
+    if ($1 == 31 ) {
+        return JDBV_mc31adr
+    }
+    if ($1 == 32 ) {
+        return JDBV_mc32adr
+    }
+    if ($1 == 33 ) {
+        return JDBV_mc33adr
+    }
+    if ($1 == 34 ) {
+        return JDBV_mc34adr
+    }
+    if ($1 == 35 ) {
+        return JDBV_mc35adr
+    }
+    if ($1 == 36 ) {
+        return JDBV_mc36adr
+    }
+    if ($1 == 37 ) {
+        return JDBV_mc37adr
+    }
+    if ($1 == 38 ) {
+        return JDBV_mc38adr
+    }
+    if ($1 == 39 ) {
+        return JDBV_mc39adr
+    }
+    if ($1 == 40 ) {
+        return JDBV_mc40adr
+    }
+    if ($1 == 41 ) {
+        return JDBV_mc41adr
+    }
+    if ($1 == 42 ) {
+        return JDBV_mc42adr
+    }
+    if ($1 == 43 ) {
+        return JDBV_mc43adr
+    }
+    if ($1 == 44 ) {
+        return JDBV_mc44adr
+    }
+    if ($1 == 45 ) {
+        return JDBV_mc45adr
+    }
+    if ($1 == 46 ) {
+        return JDBV_mc46adr
+    }
+    if ($1 == 47 ) {
+        return JDBV_mc47adr
+    }
+    if ($1 == 48 ) {
+        return JDBV_mc48adr
+    }
+    if ($1 == 49 ) {
+        return JDBV_mc49adr
+    }
+    if ($1 == 50 ) {
+        return JDBV_mc50adr
+    }
+    if ($1 == 51 ) {
+        return JDBV_mc51adr
+    }
+    if ($1 == 52 ) {
+        return JDBV_mc52adr
+    }
+    if ($1 == 53 ) {
+        return JDBV_mc53adr
+    }
+    if ($1 == 54 ) {
+        return JDBV_mc54adr
+    }
+    if ($1 == 55 ) {
+        return JDBV_mc55adr
+    }
+    if ($1 == 56 ) {
+        return JDBV_mc56adr
+    }
+    if ($1 == 57 ) {
+        return JDBV_mc57adr
+    }
+    if ($1 == 58 ) {
+        return JDBV_mc58adr
+    }
+    if ($1 == 59 ) {
+        return JDBV_mc59adr
+    }
+    if ($1 == 60 ) {
+        return JDBV_mc60adr
+    }
+    if ($1 == 61 ) {
+        return JDBV_mc61adr
+    }
+    if ($1 == 62 ) {
+        return JDBV_mc62adr
+    }
+    if ($1 == 63 ) {
+        return JDBV_mc63adr
+    }
+    if ($1 == 64 ) {
+        return JDBV_mc64adr
+    }
+}
+
+#        func fb_gos( )
+#        Description: return the offset of the feedback to the array
+#                    Not called during PALASM disassembly
+#        Arguments:  $1 - feedback pin or virtual pin number
+#        Returns:  see description
+
+func fb_gos( )
+{
+    if (!JDBV_libinit)
+    {
+        return -256
+    }
+    if ($1 > 64)
+    {
+        message "JDB database error, arg1 to fb_gos() > 64\n"
+        return -1
+    }
+    if ($1 == JDBV_fb1 )
+        return JDBV_fb1os
+    if ($1 == JDBV_fb2 )
+        return JDBV_fb2os
+    if ($1 == JDBV_fb3 )
+        return JDBV_fb3os
+    if ($1 == JDBV_fb4 )
+        return JDBV_fb4os
+    if ($1 == JDBV_fb5 )
+        return JDBV_fb5os
+    if ($1 == JDBV_fb6 )
+        return JDBV_fb6os
+    if ($1 == JDBV_fb7 )
+        return JDBV_fb7os
+    if ($1 == JDBV_fb8 )
+        return JDBV_fb8os
+    if ($1 == JDBV_fb9 )
+        return JDBV_fb9os
+    if ($1 == JDBV_fb10 )
+        return JDBV_fb10os
+    if ($1 == JDBV_fb11 )
+        return JDBV_fb11os
+    if ($1 == JDBV_fb12 )
+        return JDBV_fb12os
+    if ($1 == JDBV_fb13 )
+        return JDBV_fb13os
+    if ($1 == JDBV_fb14 )
+        return JDBV_fb14os
+    if ($1 == JDBV_fb15 )
+        return JDBV_fb15os
+    if ($1 == JDBV_fb16 )
+        return JDBV_fb16os
+    if ($1 == JDBV_fb17 )
+        return JDBV_fb17os
+    if ($1 == JDBV_fb18 )
+        return JDBV_fb18os
+    if ($1 == JDBV_fb19 )
+        return JDBV_fb19os
+    if ($1 == JDBV_fb20 )
+        return JDBV_fb20os
+    if ($1 == JDBV_fb21 )
+        return JDBV_fb21os
+    if ($1 == JDBV_fb22 )
+        return JDBV_fb22os
+    if ($1 == JDBV_fb23 )
+        return JDBV_fb23os
+    if ($1 == JDBV_fb24 )
+        return JDBV_fb24os
+    if ($1 == JDBV_fb25 )
+        return JDBV_fb25os
+    if ($1 == JDBV_fb26 )
+        return JDBV_fb26os
+    if ($1 == JDBV_fb27 )
+        return JDBV_fb27os
+    if ($1 == JDBV_fb28 )
+        return JDBV_fb28os
+    if ($1 == JDBV_fb29 )
+        return JDBV_fb29os
+    if ($1 == JDBV_fb30 )
+        return JDBV_fb30os
+    if ($1 == JDBV_fb31 )
+        return JDBV_fb31os
+    if ($1 == JDBV_fb32 )
+        return JDBV_fb32os
+    if ($1 == JDBV_fb33 )
+        return JDBV_fb33os
+    if ($1 == JDBV_fb34 )
+        return JDBV_fb34os
+    if ($1 == JDBV_fb35 )
+        return JDBV_fb35os
+    if ($1 == JDBV_fb36 )
+        return JDBV_fb36os
+    if ($1 == JDBV_fb37 )
+        return JDBV_fb37os
+    if ($1 == JDBV_fb38 )
+        return JDBV_fb38os
+    if ($1 == JDBV_fb39 )
+        return JDBV_fb39os
+    if ($1 == JDBV_fb40 )
+        return JDBV_fb40os
+    if ($1 == JDBV_fb41 )
+        return JDBV_fb41os
+    if ($1 == JDBV_fb42 )
+        return JDBV_fb42os
+    if ($1 == JDBV_fb43 )
+        return JDBV_fb43os
+    if ($1 == JDBV_fb44 )
+        return JDBV_fb44os
+    if ($1 == JDBV_fb45 )
+        return JDBV_fb45os
+    if ($1 == JDBV_fb46 )
+        return JDBV_fb46os
+    if ($1 == JDBV_fb47 )
+        return JDBV_fb47os
+    if ($1 == JDBV_fb48 )
+        return JDBV_fb48os
+    if ($1 == JDBV_fb49 )
+        return JDBV_fb49os
+    if ($1 == JDBV_fb50 )
+        return JDBV_fb50os
+    if ($1 == JDBV_fb51 )
+        return JDBV_fb51os
+    if ($1 == JDBV_fb52 )
+        return JDBV_fb52os
+    if ($1 == JDBV_fb53 )
+        return JDBV_fb53os
+    if ($1 == JDBV_fb54 )
+        return JDBV_fb54os
+    if ($1 == JDBV_fb55 )
+        return JDBV_fb55os
+    if ($1 == JDBV_fb56 )
+        return JDBV_fb56os
+    if ($1 == JDBV_fb57 )
+        return JDBV_fb57os
+    if ($1 == JDBV_fb58 )
+        return JDBV_fb58os
+    if ($1 == JDBV_fb59 )
+        return JDBV_fb59os
+    if ($1 == JDBV_fb60 )
+        return JDBV_fb60os
+    if ($1 == JDBV_fb61 )
+        return JDBV_fb61os
+    if ($1 == JDBV_fb62 )
+        return JDBV_fb62os
+    if ($1 == JDBV_fb63 )
+        return JDBV_fb63os
+    if ($1 == JDBV_fb64 )
+        return JDBV_fb64os
+}
+
+#        func inp_gpin( )
+#        Description: return the pin corresponding to the passed offset
+#        Arguments: $1 - the wordline offset of interest
+#        Returns: see description , -1 returned for invalid offset, 0 for 
+#                 no pin corresponding to offset
+
+func inp_gpin( )
+{
+    if (!JDBV_libinit)
+        return -256
+    if ($1 == JDBV_inp1os)
+        return JDBV_inp1
+    if ($1 == JDBV_inp2os)
+        return JDBV_inp2
+    if ($1 == JDBV_inp3os)
+        return JDBV_inp3
+    if ($1 == JDBV_inp4os)
+        return JDBV_inp4
+    if ($1 == JDBV_inp5os)
+        return JDBV_inp5
+    if ($1 == JDBV_inp6os)
+        return JDBV_inp6
+    if ($1 == JDBV_inp7os)
+        return JDBV_inp7
+    if ($1 == JDBV_inp8os)
+        return JDBV_inp8
+    if ($1 == JDBV_inp9os)
+        return JDBV_inp9
+    if ($1 == JDBV_inp10os)
+        return JDBV_inp10
+    if ($1 == JDBV_inp11os)
+        return JDBV_inp11
+    if ($1 == JDBV_inp12os)
+        return JDBV_inp12
+    if ($1 == JDBV_inp13os)
+        return JDBV_inp13
+    if ($1 == JDBV_inp14os)
+        return JDBV_inp14
+    if ($1 == JDBV_inp15os)
+        return JDBV_inp15
+    if ($1 == JDBV_inp16os)
+        return JDBV_inp16
+    return 0
+}
+
+#        func io_gpin( )
+#        Description: return the pin corresponding to the passed offset
+#        Arguments: $1 - the wordline offset of interest
+#        Returns: see description , -1 returned for invalid offset, 0 for 
+#                 no pin corresponding to offset
+func io_gpin( )
+{
+    if (!JDBV_libinit)
+        return -256
+    if ($1 == JDBV_io1os)
+        return JDBV_io1
+    if ($1 == JDBV_io2os)
+        return JDBV_io2
+    if ($1 == JDBV_io3os)
+        return JDBV_io3
+    if ($1 == JDBV_io4os)
+        return JDBV_io4
+    if ($1 == JDBV_io5os)
+        return JDBV_io5
+    if ($1 == JDBV_io6os)
+        return JDBV_io6
+    if ($1 == JDBV_io7os)
+        return JDBV_io7
+    if ($1 == JDBV_io8os)
+        return JDBV_io8
+    if ($1 == JDBV_io9os)
+        return JDBV_io9
+    if ($1 == JDBV_io10os)
+        return JDBV_io10
+    if ($1 == JDBV_io11os)
+        return JDBV_io11
+    if ($1 == JDBV_io12os)
+        return JDBV_io12
+    if ($1 == JDBV_io13os)
+        return JDBV_io13
+    if ($1 == JDBV_io14os)
+        return JDBV_io14
+    if ($1 == JDBV_io15os)
+        return JDBV_io15
+    if ($1 == JDBV_io16os)
+        return JDBV_io16
+    if ($1 == JDBV_io17os)
+        return JDBV_io17
+    if ($1 == JDBV_io18os)
+        return JDBV_io18
+    if ($1 == JDBV_io19os)
+        return JDBV_io19
+    if ($1 == JDBV_io20os)
+        return JDBV_io20
+    if ($1 == JDBV_io21os)
+        return JDBV_io21
+    if ($1 == JDBV_io22os)
+        return JDBV_io22
+    if ($1 == JDBV_io23os)
+        return JDBV_io23
+    if ($1 == JDBV_io24os)
+        return JDBV_io24
+    if ($1 == JDBV_io25os)
+        return JDBV_io25
+    if ($1 == JDBV_io26os)
+        return JDBV_io26
+    if ($1 == JDBV_io27os)
+        return JDBV_io27
+    if ($1 == JDBV_io28os)
+        return JDBV_io28
+    if ($1 == JDBV_io29os)
+        return JDBV_io29
+    if ($1 == JDBV_io30os)
+        return JDBV_io30
+    if ($1 == JDBV_io31os)
+        return JDBV_io31
+    if ($1 == JDBV_io32os)
+        return JDBV_io32
+    if ($1 == JDBV_io33os)
+        return JDBV_io33
+    if ($1 == JDBV_io34os)
+        return JDBV_io34
+    if ($1 == JDBV_io35os)
+        return JDBV_io35
+    if ($1 == JDBV_io36os)
+        return JDBV_io36
+    if ($1 == JDBV_io37os)
+        return JDBV_io37
+    if ($1 == JDBV_io38os)
+        return JDBV_io38
+    if ($1 == JDBV_io39os)
+        return JDBV_io39
+    if ($1 == JDBV_io40os)
+        return JDBV_io40
+    if ($1 == JDBV_io41os)
+        return JDBV_io41
+    if ($1 == JDBV_io42os)
+        return JDBV_io42
+    if ($1 == JDBV_io43os)
+        return JDBV_io43
+    if ($1 == JDBV_io44os)
+        return JDBV_io44
+    if ($1 == JDBV_io45os)
+        return JDBV_io45
+    if ($1 == JDBV_io46os)
+        return JDBV_io46
+    if ($1 == JDBV_io47os)
+        return JDBV_io47
+    if ($1 == JDBV_io48os)
+        return JDBV_io48
+    if ($1 == JDBV_io49os)
+        return JDBV_io49
+    if ($1 == JDBV_io50os)
+        return JDBV_io50
+    if ($1 == JDBV_io51os)
+        return JDBV_io51
+    if ($1 == JDBV_io52os)
+        return JDBV_io52
+    if ($1 == JDBV_io53os)
+        return JDBV_io53
+    if ($1 == JDBV_io54os)
+        return JDBV_io54
+    if ($1 == JDBV_io55os)
+        return JDBV_io55
+    if ($1 == JDBV_io56os)
+        return JDBV_io56
+    if ($1 == JDBV_io57os)
+        return JDBV_io57
+    if ($1 == JDBV_io58os)
+        return JDBV_io58
+    if ($1 == JDBV_io59os)
+        return JDBV_io59
+    if ($1 == JDBV_io60os)
+        return JDBV_io60
+    if ($1 == JDBV_io61os)
+        return JDBV_io61
+    if ($1 == JDBV_io62os)
+        return JDBV_io62
+    if ($1 == JDBV_io63os)
+        return JDBV_io63
+    if ($1 == JDBV_io64os)
+        return JDBV_io64
+    return 0
+}
+
+#        func fb_gpin( )
+#        Description: return the pin correspondinpg to the passed offset
+#        Arguments: $1 - the wordline offset of interest
+#        Returns: see description , -1 returned for invalid offset, 0 for 
+#                 no pin corresponding to offset
+
+func fb_gpin( )
+{
+    if (!JDBV_libinit)
+        return -256
+    if ($1 == JDBV_fb1os)
+        return JDBV_fb1
+    if ($1 == JDBV_fb2os)
+        return JDBV_fb2
+    if ($1 == JDBV_fb3os)
+        return JDBV_fb3
+    if ($1 == JDBV_fb4os)
+        return JDBV_fb4
+    if ($1 == JDBV_fb5os)
+        return JDBV_fb5
+    if ($1 == JDBV_fb6os)
+        return JDBV_fb6
+    if ($1 == JDBV_fb7os)
+        return JDBV_fb7
+    if ($1 == JDBV_fb8os)
+        return JDBV_fb8
+    if ($1 == JDBV_fb9os)
+        return JDBV_fb9
+    if ($1 == JDBV_fb10os)
+        return JDBV_fb10
+    if ($1 == JDBV_fb11os)
+        return JDBV_fb11
+    if ($1 == JDBV_fb12os)
+        return JDBV_fb12
+    if ($1 == JDBV_fb13os)
+        return JDBV_fb13
+    if ($1 == JDBV_fb14os)
+        return JDBV_fb14
+    if ($1 == JDBV_fb15os)
+        return JDBV_fb15
+    if ($1 == JDBV_fb16os)
+        return JDBV_fb16
+    if ($1 == JDBV_fb17os)
+        return JDBV_fb17
+    if ($1 == JDBV_fb18os)
+        return JDBV_fb18
+    if ($1 == JDBV_fb19os)
+        return JDBV_fb19
+    if ($1 == JDBV_fb20os)
+        return JDBV_fb20
+    if ($1 == JDBV_fb21os)
+        return JDBV_fb21
+    if ($1 == JDBV_fb22os)
+        return JDBV_fb22
+    if ($1 == JDBV_fb23os)
+        return JDBV_fb23
+    if ($1 == JDBV_fb24os)
+        return JDBV_fb24
+    if ($1 == JDBV_fb25os)
+        return JDBV_fb25
+    if ($1 == JDBV_fb26os)
+        return JDBV_fb26
+    if ($1 == JDBV_fb27os)
+        return JDBV_fb27
+    if ($1 == JDBV_fb28os)
+        return JDBV_fb28
+    if ($1 == JDBV_fb29os)
+        return JDBV_fb29
+    if ($1 == JDBV_fb30os)
+        return JDBV_fb30
+    if ($1 == JDBV_fb31os)
+        return JDBV_fb31
+    if ($1 == JDBV_fb32os)
+        return JDBV_fb32
+    if ($1 == JDBV_fb33os)
+        return JDBV_fb33
+    if ($1 == JDBV_fb34os)
+        return JDBV_fb34
+    if ($1 == JDBV_fb35os)
+        return JDBV_fb35
+    if ($1 == JDBV_fb36os)
+        return JDBV_fb36
+    if ($1 == JDBV_fb37os)
+        return JDBV_fb37
+    if ($1 == JDBV_fb38os)
+        return JDBV_fb38
+    if ($1 == JDBV_fb39os)
+        return JDBV_fb39
+    if ($1 == JDBV_fb40os)
+        return JDBV_fb40
+    if ($1 == JDBV_fb41os)
+        return JDBV_fb41
+    if ($1 == JDBV_fb42os)
+        return JDBV_fb42
+    if ($1 == JDBV_fb43os)
+        return JDBV_fb43
+    if ($1 == JDBV_fb44os)
+        return JDBV_fb44
+    if ($1 == JDBV_fb45os)
+        return JDBV_fb45
+    if ($1 == JDBV_fb46os)
+        return JDBV_fb46
+    if ($1 == JDBV_fb47os)
+        return JDBV_fb47
+    if ($1 == JDBV_fb48os)
+        return JDBV_fb48
+    if ($1 == JDBV_fb49os)
+        return JDBV_fb49
+    if ($1 == JDBV_fb50os)
+        return JDBV_fb50
+    if ($1 == JDBV_fb51os)
+        return JDBV_fb51
+    if ($1 == JDBV_fb52os)
+        return JDBV_fb52
+    if ($1 == JDBV_fb53os)
+        return JDBV_fb53
+    if ($1 == JDBV_fb54os)
+        return JDBV_fb54
+    if ($1 == JDBV_fb55os)
+        return JDBV_fb55
+    if ($1 == JDBV_fb56os)
+        return JDBV_fb56
+    if ($1 == JDBV_fb57os)
+        return JDBV_fb57
+    if ($1 == JDBV_fb58os)
+        return JDBV_fb58
+    if ($1 == JDBV_fb59os)
+        return JDBV_fb59
+    if ($1 == JDBV_fb60os)
+        return JDBV_fb60
+    if ($1 == JDBV_fb61os)
+        return JDBV_fb61
+    if ($1 == JDBV_fb62os)
+        return JDBV_fb62
+    if ($1 == JDBV_fb63os)
+        return JDBV_fb63
+    if ($1 == JDBV_fb64os)
+        return JDBV_fb64
+    return 0
+}
+# proc load_devdata( )        
+# Description:  load device database defined above, called during init
+# no arguments or returns
+#
+proc load_devdata( )        
+{
+    load_ptermg( ) # the pterm group addresses
+    load_archadr( ) # the architecture addresses
+    map_fbs( ) # offset to pin maps
+    map_inputs( )
+    map_ios( )
+	JDBV_wlnum = (JDBV_mcnum + JDBV_inpnum) * 2 # number of wordlines
+	SPPTNUM =   # number of pterms in sop pterm group
+	OEPTNUM =    # number of pterms in oe pterm group
+	IOMCPTGNUM =   # number of pterm groups in i/o macrocell
+	NUM_PINS = -1   # number of pins
+
+}
+
+
+

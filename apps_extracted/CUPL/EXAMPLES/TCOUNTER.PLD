@@ -1,0 +1,114 @@
+Name      Tcounter;
+Partno	  CA0020;
+Date      6/9/86;
+Revision  01;
+Designer  Kahl;
+Company   Personal CAD Systems, Inc.;
+Assembly  None;
+Location  None;
+Device    ep600;
+
+/****************************************************************/
+/*								*/
+/* 16 Bit Synchronous Up/Down Counter				*/
+/*								*/
+/* This is a 16-bit up/down counter with built-in shift         */ 
+/* register using toggle flip-flops.  The various modes are 	*/
+/* controlled by the signals CNTUP (1 = count up)              	*/
+/*                           SHIFT (1 = shift)           	*/
+/*                           SHLFT (1 = shift left)             */
+/****************************************************************/
+/* Allowable Target Device Types :  EP600                      	*/
+/****************************************************************/
+
+/**  Inputs  **/
+
+Pin 1	= clock1; 		/* Counter Clock 1		*/
+Pin 13  = clock2;       	/* Counter Clock 2              */
+Pin 2   = data_in;    		/* Serial Shift Data Input      */
+Pin 11	= cntup;    		/* Count Up/Down Mode Control   */
+Pin 14  = shift;                /* Shift/Count Mode Control     */
+Pin 23  = shlft;                /* Shift Left Mode Control      */
+
+/**  Outputs  **/
+
+Pin [3..10,15..22] = [q0..15];  /* Counter/Shifter Outputs      */
+
+/** Declarations and Intermediate Variable Definitions **/
+
+count_up = !shift & cntup & !shlft;
+count_down = !shift & !cntup & !shlft;
+shift_left = shift & !cntup & shlft;
+shift_right = shift & !cntup & !shlft;
+reset_count = shift & cntup & shlft;   /* Counter Reset Command */
+
+Field counter = [q15..0];	/* Declared Counter Field	*/
+
+/** Logic Equations **/
+
+counter.t = 'h'0001 & (count_up & 'b'1		/* BIT 0 (LSB)  */
+                    # count_down & 'b'1
+                    # shift_left & (data_in $ q0)
+                    # shift_right & (q0 $ q1))
+          # 'h'0002 & (count_up & q0		/* BIT 1 	*/
+                    # count_down & !q0
+                    # shift_left & (q0 $ q1)
+                    # shift_right & (q1 $ q2))
+          # 'h'0004 & (count_up & [q0..1]:&	/* BIT 2	*/
+                    # count_down & ![q0..1]:&
+                    # shift_left & (q1 $ q2)
+                    # shift_right & (q2 $ q3))
+          # 'h'0008 & (count_up & [q0..2]:&	/* BIT 3	*/
+                    # count_down & ![q0..2]:&
+                    # shift_left & (q2 $ q3)
+                    # shift_right & (q3 $ q4))
+          # 'h'0010 & (count_up & [q0..3]:&	/* BIT 4	*/
+                    # count_down & ![q0..3]:&
+                    # shift_left & (q3 $ q4)
+                    # shift_right & (q4 $ q5))
+          # 'h'0020 & (count_up & [q0..4]:&	/* BIT 5	*/
+                    # count_down & ![q0..4]:&
+                    # shift_left & (q4 $ q5)
+                    # shift_right & (q5 $ q6))
+          # 'h'0040 & (count_up & [q0..5]:&	/* BIT 6	*/
+                    # count_down & ![q0..5]:&
+                    # shift_left & (q5 $ q6)
+                    # shift_right & (q6 $ q7))
+          # 'h'0080 & (count_up & [q0..6]:&	/* BIT 7	*/
+                    # count_down & ![q0..6]:&
+                    # shift_left & (q6 $ q7)
+                    # shift_right & (q7 $ q8))
+          # 'h'0100 & (count_up & [q0..7]:&	/* BIT 8	*/
+                    # count_down & ![q0..7]:&
+                    # shift_left & (q7 $ q8)
+                    # shift_right & (q8 $ q9))
+          # 'h'0200 & (count_up & [q0..8]:&	/* BIT 9	*/
+                    # count_down & ![q0..8]:&
+                    # shift_left & (q8 $ q9)
+                    # shift_right & (q9 $ q10))
+          # 'h'0400 & (count_up & [q0..9]:&	/* BIT 10	*/
+                    # count_down & ![q0..9]:&
+                    # shift_left & (q9 $ q10)
+                    # shift_right & (q10 $ q11))
+          # 'h'0800 & (count_up & [q0..10]:&	/* BIT 11	*/
+                    # count_down & ![q0..10]:&
+                    # shift_left & (q10 $ q11)
+                    # shift_right & (q11 $ q12))
+          # 'h'1000 & (count_up & [q0..11]:&	/* BIT 12	*/
+                    # count_down & ![q0..11]:&
+                    # shift_left & (q11 $ q12)
+                    # shift_right & (q12 $ q13))
+          # 'h'2000 & (count_up & [q0..12]:&	/* BIT 13	*/
+                    # count_down & ![q0..12]:&
+                    # shift_left & (q12 $ q13)
+                    # shift_right & (q13 $ q14))
+          # 'h'4000 & (count_up & [q0..13]:&	/* BIT 14	*/
+                    # count_down & ![q0..13]:&
+                    # shift_left & (q13 $ q14)
+                    # shift_right & (q14 $ q15))
+          # 'h'8000 & (count_up & [q0..14]:&	/* BIT 15 (MSB) */
+                    # count_down & ![q0..14]:&
+                    # shift_left & (q14 $ q15)
+                    # shift_right & (q15 $ data_in))  ;
+
+counter.ar = reset_count;		  /* Resets the Counter */

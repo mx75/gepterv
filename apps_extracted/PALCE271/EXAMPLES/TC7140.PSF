@@ -1,0 +1,259 @@
+TITLE '8-bit Timer/Counter'
+Designer 'Scott Lien'
+Date '9-17-91'
+
+Description
+
+This example uses a PA7140 device to implement a timer/counter application
+which is typically used in a microprocessor-based computer system. The
+circuit employs a multiplexer to allow either the incoming or latched data
+to be loaded into the counter. The desired data is then loaded into the
+counter either by reseting the counter and the compare register, or by a
+match between the counter's state and the value in the compare register.
+
+End_Desc;
+
+PA7140
+
+CLK PIN 2
+
+"Input Cell Declaration
+"INP (Pin_no 'pin_name' Input_type)
+I5 PIN 24
+
+INC ( 3 'RESET' Com)
+INC ( 4 'SELECT' Com)
+INC ( 5 'D0' Com)
+INC (19 'I2' Com)
+INC (20 'I3' Com)
+INC (21 'I4' Com)
+INC (25 'I6' Com)
+INC (26 'I7' Com)
+INC (27 '' COM)
+INC (41 '' COM)
+INC (42 'RLOAD' Com)
+INC (43 'PLOAD' Com)
+
+"IOC Declaration
+"IOC (Pin_no 'pin_name' Polarity IO_TYPE) <- LCC_NO
+IOC ( 6 'D1' Pos InCom) <- 2A
+IOC ( 7 'D2' Pos InCom) <- 3A
+IOC ( 8 'D3' Pos InCom) <- 4A
+IOC ( 9 'D4' Pos InCom) <- 5A
+IOC (10 'D5' Pos InCom) <- 6A
+IOC (11 'D6' Pos InCom) <- 1B
+IOC (12 'D7' Pos InCom) <- 2B
+IOC (13 '' Pos IO) <- 1A
+IOC (14 'C1' Pos DCOM) <- 3B
+IOC (15 'C2' Pos DCOM) <- 4B
+IOC (16 'I0' Pos InCom) <- 5B
+IOC (18 'I1' Pos InCom) <- 6B
+IOC (28 '' Pos IO) <- 1C
+IOC (29 '' POS IO ) <- 2C
+IOC (30 '' POS IO ) <- 3C
+IOC (31 '' POS IO ) <- 4C
+IOC (32 'O0' Pos Out) <- 5C
+IOC (33 'O1' Pos Out) <- 6C
+IOC (34 'O2' Pos Out) <- 1D
+IOC (35 'O3' Pos Out) <- 2D
+IOC (36 'O4' Pos Out) <- 3D
+IOC (37 'O5' Pos Out) <- 4D
+IOC (38 'O6' Pos Out) <- 5D
+IOC (40 'O7' Pos Out) <- 6D
+
+"LCC CONFIGURATION DECLARATION
+"LCC (LCC_NO 'LCC_NAME' REG_TYPE CLK_TYPE BUR_OUT EXT_OUT)
+
+LCC (1A 'P0' D   Pos  Reg  SumC)
+LCC (2A 'P1' D   Pos  Reg  SumC)
+LCC (3A 'P2' D   Pos  Reg  SumC)
+LCC (4A 'P3' D   Pos  Reg  SumC)
+LCC (5A 'P4' D   Pos  Reg  SumC)
+LCC (6A 'P5' D   Pos  Reg  SumC)
+LCC (1B 'P6' D   Pos  Reg  SumC)
+LCC (2B 'P7' D   Pos  Reg  SumC)
+LCC (3B 'R0' D   Pos  Reg  SumC)
+LCC (4B 'R1' D   Pos  Reg  SumC)
+LCC (5B 'R2' D   Pos  Reg  SumC)
+LCC (6B 'R3' D   Pos  Reg  SumC)
+LCC (1C 'R4' D   Pos  Reg  SumC)
+LCC (2C 'R5' D   Pos  Reg  SumC)
+LCC (3C 'R6' D   Pos  Reg  SumC)
+LCC (4C 'R7' D   Pos  Reg  SumC)
+LCC (5C 'Q0' TD  Pos  Reg  Reg )
+LCC (6C 'Q1' TD  Pos  Reg  Reg )
+LCC (1D 'Q2' TD  Pos  Reg  Reg )
+LCC (2D 'Q3' TD  Pos  Reg  Reg )
+LCC (3D 'Q4' TD  Pos  Reg  Reg )
+LCC (4D 'Q5' TD  Pos  Reg  Reg )
+LCC (5D 'Q6' TD  Pos  Reg  Reg )
+LCC (6D 'Q7' TD  Pos  Reg  Reg )
+
+"GBC CONFIGURATION DECLARATION
+"GBC (GROUP   LCC_CLK    IOC_CLK)
+"       A     Clk1,Clk2  Clk1,CLk2,PCLKA
+"       B     Clk1,Clk2  Clk1,CLk2,PCLKB
+"       IN               Clk1,CLk2,PCLKC
+
+Global = 2
+GBC (A Clk1 Clk1)
+GBC (B Clk1 Clk1)
+GBC (C __  Clk2)
+
+
+DEFINE
+COMPARE = /(C1 # C2)
+
+EQUATIONS
+
+"Global output names specified in the equations below are reserved words.
+RTA = 0;        "Reg-Type Product Term
+PCLKA = 0;      "I/O Clock Product Term
+PRESETA = 0;    "Preset Sum Term
+RESETA = RESET; "Reset Sum Term
+
+RTB = COMPARE;  "Reg-Type Product Term
+PCLKB = 0;      "I/O Clock Product Term
+PRESETB = 0;    "Preset Sum Term
+RESETB = RESET; "Reset Sum Term
+
+PCLKC = 0;      "Input Cell Product Term Clock
+
+
+"Internal or External output names appended with extensions:
+"  1) .COM for Combinatorial Internal or External Output (Sum A, B, or C)
+"  2) .OE for External Output Enable (Sum D only)
+"  3) .CLK for Asynchronous Logic Control Clock (Sum C or D)
+"  4) .AP for Asynchronous Preset for LCC Register (Sum B only)
+"  5) .AR for Asynchronous Reset for LCC Register (Sum C only)
+
+"If Sum D is fed back internally, the output name of equation will be
+"pin_name.FB
+
+P0.D = PLOAD & D0 # /PLOAD & P0;
+P0.AP = 0;
+P0.SumC = 0;
+"COMPARE.FB = /(C1 # C2);
+
+P1.D = PLOAD & D1 # /PLOAD & P1;
+P1.AP = 0;
+D1.SumC = 0;
+D1.SumD = 0;
+
+P2.D = PLOAD & D2 # /PLOAD & P2;
+P2.AP = 0;
+D2.SumC = 0;
+D2.SumD = 0;
+
+P3.D = PLOAD & D3 # /PLOAD & P3;
+P3.AP = 0;
+D3.SumC = 0;
+D3.SumD = 0;
+
+P4.D = PLOAD & D4 # /PLOAD & P4;
+P4.AP = 0;
+D4.SumC = 0;
+D4.SumD = 0;
+
+P5.D = PLOAD & D5 # /PLOAD & P5;
+P5.AP = 0;
+D5.SumC = 0;
+D5.SumD = 0;
+
+P6.D = PLOAD & D6 # /PLOAD & P6;
+P6.AP = 0;
+D6.SumC = 0;
+D6.SumD = 0;
+
+P7.D = PLOAD & D7 # /PLOAD & P7;
+P7.AP = 0;
+D7.SumC = 0;
+D7.SumD = 0;
+
+Q0.T = COMPARE & (SELECT & P0 # /SELECT & I0) #
+       /COMPARE & 1;
+Q0.AP = 0; 
+O0.AR = RESET;
+"O0.FB = SELECT & P0 # /SELECT & I0;
+
+O1.T = COMPARE & (SELECT & P1 # /SELECT & I1) #
+       /COMPARE & Q0;
+O1.AP = 0;
+O1.AR = RESET;
+"O1.FB = SELECT & P1 # /SELECT & I1;
+
+O2.T = COMPARE & (SELECT & P2 # /SELECT & I2) #
+       /COMPARE & Q0 & Q1;
+O2.AP = 0;
+O2.AR = RESET;
+"O2.FB = SELECT & P2 # /SELECT & I2;
+
+O3.T = COMPARE & (SELECT & P3 # /SELECT & I3) #
+       /COMPARE & Q0 & Q1 & Q2;
+O3.AP = 0;
+O3.AR = RESET;
+"O3.FB = SELECT & P3 # /SELECT & I3;
+
+O4.T = COMPARE & (SELECT & P4 # /SELECT & I4) #
+       /COMPARE & Q0 & Q1 & Q2 & Q3;
+O4.AP = 0;
+O4.AR = RESET;
+"O4.FB = SELECT & P4 # /SELECT & I4;
+
+O5.T = COMPARE & (SELECT & P5 # /SELECT & I5) #
+       /COMPARE & Q0 & Q1 & Q2 & Q3 & Q4;
+O5.AP = 0;
+O5.AR = RESET;
+"O5.FB = SELECT & P5 # /SELECT & I5;
+
+O6.T = COMPARE & (SELECT & P6 # /SELECT & I6) #
+       /COMPARE & Q0 & Q1 & Q2 & Q3 & Q4 & Q5;
+O6.AP = 0;
+O6.AR = RESET;
+"O6.FB = SELECT & P6 # /SELECT & I6;
+
+O7.T = COMPARE & (SELECT & P7 # /SELECT & I7) #
+       /COMPARE & Q0 & Q1 & Q2 & Q3 & Q4 & Q5 & Q6;
+O7.AP = 0;
+O7.AR = RESET;
+"O7.FB = SELECT & P7 # /SELECT & I7;
+
+R0.D = RLOAD & D0 # /RLOAD & R0;
+R0.AP = 0;
+C1.COM = 0;
+C1.FB = (Q0 $ R0) # (Q1 $ R1) # (Q2 $ R2) # (Q4 $ R3);
+
+R1.D = RLOAD & D1 # /RLOAD & R1;
+R1.AP = 0;
+C2.COM = 0;
+C2.FB = (Q4 $ R4) # (Q5 $ R5) # (Q6 $ R6) # (Q7 $ R7);
+
+R2.D = RLOAD & D2 # /RLOAD & R2;
+R2.AP = 0;
+R2.SumC = 0;
+R2.SumD = 0;
+
+R3.D = RLOAD & D3 # /RLOAD & R3;
+R3.AP = 0;
+R3.SumC = 0;
+R3.SumD = 0; 
+
+R4.D = RLOAD & D4 # /RLOAD & R4;
+R4.AP = 0;
+R4.SumC = 0;
+R4.SumD = 0;
+
+R5.D = RLOAD & D5 # /RLOAD & R5;
+R5.AP = 0;
+R5.SumC = 0;
+R5.SumD = 0;
+
+R6.D = RLOAD & D6 # /RLOAD & R6;
+R6.AP = 0;
+R6.SumC = 0;
+R6.SumD = 0;
+
+R7.D = RLOAD & D7 # /RLOAD & R7;
+R7.AP = 0;
+R7.SumC = 0;
+R7.SumD = 0;

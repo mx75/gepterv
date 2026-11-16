@@ -1,0 +1,195 @@
+;PALASM Design Description
+
+;---------------------------------- Declaration Segment ------------
+TITLE    8 Bit Full Adder (2 bit with lookahead carry techniques)
+PATTERN  EXADD8.PDS
+REVISION A
+AUTHOR   George Landers
+COMPANY  Advanced Micro Devices, Inc.
+DATE     07/30/90
+
+CHIP  EXADD8  MACH110
+
+;---------------------------------- PIN Declarations ---------------
+PIN  44         VCC                             ;
+PIN  1          GND                             ;
+PIN  ?          C0                              ;
+PIN  ?          A1                              ;
+PIN  ?          A2                              ;
+PIN  ?          A3                              ;
+PIN  ?          A4                              ;
+PIN  ?          A5                              ;
+PIN  ?          A6                              ;
+PIN  ?          A7                              ;
+PIN  ?          A8                              ;
+PIN  ?          B1                              ;
+PIN  ?          B2                              ;
+PIN  ?          B3                              ;
+PIN  ?          B4                              ;
+PIN  ?          B5                              ;
+PIN  ?          B6                              ;
+PIN  ?          B7                              ;
+PIN  ?          B8                              ;
+NODE ?          P4                   COMBINATORIAL ;
+NODE ?          P6                   COMBINATORIAL ;
+NODE ?          P8                   COMBINATORIAL ;
+NODE ?          G4                   COMBINATORIAL ;
+NODE ?          G6                   COMBINATORIAL ;
+NODE ?          G8                   COMBINATORIAL ;
+PIN  ?          S1                   COMBINATORIAL ;
+PIN  ?          S2                   COMBINATORIAL ;
+PIN  ?          S3                   COMBINATORIAL ;
+PIN  ?          S4                   COMBINATORIAL ;
+PIN  ?          S5                   COMBINATORIAL ;
+PIN  ?          S6                   COMBINATORIAL ;
+PIN  ?          S7                   COMBINATORIAL ;
+PIN  ?          S8                   COMBINATORIAL ;
+NODE ?          C2                   COMBINATORIAL ;
+NODE ?          C4                   COMBINATORIAL ;
+NODE ?          C6                   COMBINATORIAL ;
+PIN  ?          C8                   COMBINATORIAL ;
+
+;----------------------------------- Boolean Equation Segment ------
+EQUATIONS
+
+P4 = A3 * A4
+   + A3 * B4
+   + B3 * A4
+   + B3 * B4
+
+P6 = A5 * A6
+   + A5 * B6
+   + B5 * A6
+   + B5 * B6
+
+P8 = A7 * A8
+   + A7 * B8
+   + B7 * A8
+   + B7 * B8
+
+G4 = A4 * B4
+   + A3 * B3 * A4
+   + A3 * B3 * B4
+
+G6 = A6 * B6
+   + A5 * B5 * A6
+   + A5 * B5 * B6
+
+G8 = A8 * B8
+   + A7 * B7 * A8
+   + A7 * B7 * B8
+
+C2 = A2 * B2
+   + A1 * B1 * A2
+   + A1 * B1 * B2
+   + C0 * A1 * A2
+   + C0 * A1 * B2
+   + C0 * B1 * A2
+   + C0 * B1 * B2
+
+C4 = G4
+   + C2 * P4
+
+C6 = G6
+   + G4 * P6
+   + C2 * P4 * P6
+
+C8 = G8
+   + G6 * P8
+   + G4 * P6 * P8
+   + C2 * P4 * P6 * P8
+
+S1 = A1 :+: B1 :+: C0
+S2 = A2 :+: B2 :+: ((A1 * B1) + (A1 * C0) + (B1 * C0))
+S3 = A3 :+: B3 :+: C2
+S4 = A4 :+: B4 :+: ((A3 * B3) + (A3 * C2) + (B3 * C2))
+S5 = A5 :+: B5 :+: C4
+S6 = A6 :+: B6 :+: ((A5 * B5) + (A5 * C4) + (B5 * C4))
+S7 = A7 :+: B7 :+: C6
+S8 = A8 :+: B8 :+: ((A7 * B7) + (A7 * C6) + (B7 * C6))
+
+;----------------------------------- Simulation Segment ------------
+SIMULATION
+TRACE_ON  C0 B8 B7 B6 B5 B4 B3 B2 B1 A8 A7 A6 A5 A4 A3 A2 A1 C8
+          S8 S7 S6 S5 S4 S3 S2 S1
+; 0
+SETF /C0 /A1 /A2 /B1 /B2 /A3 /A4 /B3 /B4 /A5 /A6 /B5 /B6 /A7 /A8 /B7 /B8
+CHECK /S1 /S2 /C2 /S3 /S4 /C4 /S5 /S6 /C6 /S7 /S8 /C8
+SETF /C0  A1 /A2 /B1 /B2  A3 /A4 /B3 /B4  A5 /A6 /B5 /B6  A7 /A8 /B7 /B8
+CHECK  S1 /S2 /C2  S3 /S4 /C4  S5 /S6 /C6  S7 /S8 /C8
+SETF /C0 /A1  A2 /B1 /B2 /A3  A4 /B3 /B4 /A5  A6 /B5 /B6 /A7  A8 /B7 /B8
+CHECK /S1  S2 /C2 /S3  S4 /C4 /S5  S6 /C6 /S7  S8 /C8
+SETF /C0  A1  A2 /B1 /B2  A3  A4 /B3 /B4  A5  A6 /B5 /B6  A7  A8 /B7 /B8
+CHECK  S1  S2 /C2  S3  S4 /C4  S5  S6 /C6  S7  S8 /C8
+; 4
+SETF /C0 /A1 /A2  B1 /B2 /A3 /A4  B3 /B4 /A5 /A6  B5 /B6 /A7 /A8  B7 /B8
+CHECK  S1 /S2 /C2  S3 /S4 /C4  S5 /S6 /C6  S7 /S8 /C8
+SETF /C0  A1 /A2  B1 /B2  A3 /A4  B3 /B4  A5 /A6  B5 /B6  A7 /A8  B7 /B8
+CHECK /S1  S2 /C2 /S3  S4 /C4 /S5  S6 /C6 /S7  S8 /C8
+SETF /C0 /A1  A2  B1 /B2 /A3  A4  B3 /B4 /A5  A6  B5 /B6 /A7  A8  B7 /B8
+CHECK  S1  S2 /C2  S3  S4 /C4  S5  S6 /C6  S7  S8 /C8
+SETF /C0  A1  A2  B1 /B2 /A3 /A4 /B3 /B4  A5  A6  B5 /B6 /A7 /A8 /B7 /B8
+CHECK /S1 /S2  C2  S3 /S4 /C4 /S5 /S6  C6  S7 /S8 /C8
+; 8
+SETF /C0 /A1 /A2 /B1  B2  A3  A4  B3 /B4 /A5 /A6 /B5 /B6  A7  A8  B7 /B8
+CHECK /S1  S2 /C2 /S3 /S4  C4  S5 /S6 /C6 /S7 /S8  C8
+SETF /C0  A1 /A2 /B1  B2 /A3 /A4 /B3  B4 /A5 /A6 /B5  B6 /A7 /A8 /B7  B8
+CHECK  S1  S2 /C2 /S3  S4 /C4 /S5  S6 /C6 /S7  S8 /C8
+SETF /C0 /A1  A2 /B1  B2  A3 /A4 /B3 /B4  A5 /A6 /B5  B6  A7 /A8 /B7  B8
+CHECK /S1 /S2  C2 /S3  S4 /C4  S5  S6 /C6  S7  S8 /C8
+SETF /C0  A1  A2 /B1  B2 /A3  A4 /B3 /B4 /A5  A6 /B5  B6  A7 /A8 /B7 /B8
+CHECK  S1 /S2  C2  S3  S4 /C4 /S5 /S6  C6 /S7  S8 /C8
+; 12
+SETF /C0 /A1 /A2  B1  B2  A3 /A4 /B3  B4  A5  A6 /B5  B6 /A7  A8 /B7 /B8
+CHECK  S1  S2 /C2  S3  S4 /C4  S5 /S6  C6  S7  S8 /C8
+SETF /C0  A1 /A2  B1  B2  A3  A4 /B3 /B4  A5 /A6 /B5 /B6 /A7  A8 /B7  B8
+CHECK /S1 /S2  C2 /S3 /S4  C4 /S5  S6 /C6 /S7 /S8  C8
+SETF /C0 /A1  A2  B1  B2 /A3 /A4  B3 /B4 /A5 /A6  B5  B6  A7  A8 /B7  B8
+CHECK  S1 /S2  C2 /S3  S4 /C4  S5  S6 /C6  S7 /S8  C8
+SETF /C0  A1  A2  B1  B2  A3 /A4  B3 /B4  A5 /A6  B5  B6  A7  A8 /B7 /B8
+CHECK /S1  S2  C2  S3  S4 /C4 /S5 /S6  C6 /S7 /S8  C8
+; 16
+SETF  C0 /A1 /A2 /B1 /B2 /A3  A4 /B3  B4 /A5  A6 /B5 /B6 /A7 /A8  B7  B8
+CHECK  S1 /S2 /C2 /S3 /S4  C4  S5  S6 /C6  S7  S8 /C8
+SETF  C0  A1 /A2 /B1 /B2  A3  A4 /B3  B4  A5  A6 /B5 /B6 /A7 /A8  B7 /B8
+CHECK /S1  S2 /C2  S3 /S4  C4 /S5 /S6  C6 /S7  S8 /C8
+SETF  C0 /A1  A2 /B1 /B2 /A3 /A4  B3  B4 /A5  A6  B5  B6  A7 /A8  B7 /B8
+CHECK  S1  S2 /C2  S3  S4 /C4  S5 /S6  C6  S7  S8 /C8
+SETF  C0  A1  A2 /B1 /B2 /A3  A4  B3 /B4 /A5 /A6  B5 /B6  A7 /A8  B7  B8
+CHECK /S1 /S2  C2 /S3 /S4  C4 /S5  S6 /C6 /S7 /S8  C8
+; 20
+SETF  C0 /A1 /A2  B1 /B2  A3 /A4  B3  B4  A5 /A6  B5 /B6 /A7  A8  B7  B8
+CHECK /S1  S2 /C2 /S3 /S4  C4  S5  S6 /C6  S7 /S8  C8
+SETF  C0  A1 /A2  B1 /B2 /A3  A4  B3  B4 /A5  A6  B5 /B6 /A7  A8  B7 /B8
+CHECK  S1  S2 /C2  S3 /S4  C4 /S5 /S6  C6 /S7 /S8  C8
+SETF  C0 /A1  A2  B1 /B2  A3  A4  B3 /B4  A5  A6  B5 /B6  A7 /A8  B7  B8
+CHECK /S1 /S2  C2  S3 /S4  C4  S5 /S6  C6  S7 /S8  C8
+SETF  C0  A1  A2  B1 /B2 /A3 /A4 /B3  B4  A5  A6  B5  B6 /A7 /A8 /B7  B8
+CHECK  S1 /S2  C2  S3  S4 /C4 /S5  S6  C6  S7  S8 /C8
+; 24
+SETF  C0 /A1 /A2 /B1  B2  A3  A4  B3  B4 /A5  A6 /B5 /B6  A7  A8  B7  B8
+CHECK  S1  S2 /C2 /S3  S4  C4  S5  S6 /C6 /S7  S8  C8
+SETF  C0  A1 /A2 /B1  B2  A3 /A4 /B3  B4  A5 /A6 /B5  B6  A7 /A8 /B7  B8
+CHECK /S1 /S2  C2 /S3 /S4  C4 /S5 /S6  C6 /S7 /S8  C8
+SETF  C0 /A1  A2 /B1  B2 /A3  A4 /B3  B4 /A5  A6 /B5  B6 /A7  A8 /B7  B8
+CHECK  S1 /S2  C2  S3 /S4  C4  S5 /S6  C6  S7 /S8  C8
+SETF  C0  A1  A2 /B1  B2  A3  A4 /B3  B4  A5  A6 /B5  B6  A7  A8 /B7  B8
+CHECK /S1  S2  C2 /S3  S4  C4 /S5  S6  C6 /S7  S8  C8
+; 28
+SETF  C0 /A1 /A2  B1  B2 /A3 /A4  B3  B4 /A5 /A6  B5  B6 /A7 /A8  B7  B8
+CHECK /S1 /S2  C2 /S3 /S4  C4 /S5 /S6  C6 /S7 /S8  C8
+SETF  C0  A1 /A2  B1  B2  A3 /A4  B3  B4  A5 /A6  B5  B6  A7 /A8  B7  B8
+CHECK  S1 /S2  C2  S3 /S4  C4  S5 /S6  C6  S7 /S8  C8
+SETF  C0 /A1  A2  B1  B2 /A3  A4  B3  B4 /A5  A6  B5  B6 /A7  A8  B7  B8
+CHECK /S1  S2  C2 /S3  S4  C4 /S5  S6  C6 /S7  S8  C8
+SETF  C0  A1  A2  B1  B2  A3  A4  B3  B4  A5  A6  B5  B6  A7  A8  B7  B8
+CHECK  S1  S2  C2  S3  S4  C4  S5  S6  C6  S7  S8  C8
+; 32
+TRACE_OFF
+
+;-------------------------------------------------------------------
+
+
+
+;-------------------------------------------------------------------
+

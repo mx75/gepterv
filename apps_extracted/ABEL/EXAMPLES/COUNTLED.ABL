@@ -1,0 +1,52 @@
+module CountLED
+title '7-segment display decoder state machine'
+
+    Clk,Reset,OE    pin;
+    a,b,c,d,e,f,g   pin istype 'dc,reg';
+
+    ON,OFF = 0,1;
+    led    = [ a, b, c, d, e, f, g];
+    S0     = [ ON, ON, ON, ON, ON, ON,OFF];
+    S1     = [OFF, ON, ON,OFF,OFF,OFF,OFF];
+    S2     = [ ON, ON,OFF, ON, ON,OFF, ON];
+    S3     = [ ON, ON, ON, ON,OFF,OFF, ON];
+    S4     = [OFF, ON, ON,OFF,OFF, ON, ON];
+    S5     = [ ON,OFF, ON, ON,OFF, ON, ON];
+    S6     = [ ON,OFF, ON, ON, ON, ON, ON];
+    S7     = [ ON, ON, ON,OFF,OFF,OFF,OFF];
+    S8     = [ ON, ON, ON, ON, ON, ON, ON];
+    S9     = [ ON, ON, ON, ON,OFF, ON, ON];
+    S15    = [OFF,OFF,OFF,OFF,OFF,OFF,OFF];
+
+equations
+    led.clk = Clk;
+    led.oe  = !OE;
+
+state_diagram led
+    state S0:  if Reset then S0 else S1;
+    state S1:  if Reset then S0 else S2;
+    state S2:  if Reset then S0 else S3;
+    state S3:  if Reset then S0 else S4;
+    state S4:  if Reset then S0 else S5;
+    state S5:  if Reset then S0 else S6;
+    state S6:  if Reset then S0 else S7;
+    state S7:  if Reset then S0 else S8;
+    state S8:  if Reset then S0 else S9;
+    state S9:  if Reset then S0 else S0;
+    state S15: goto S0;
+
+test_vectors ([Clk,OE,Reset]-> led)
+              [.c., 0,  1  ]->  S0;
+              [.c., 0,  0  ]->  S1;
+              [.c., 0,  0  ]->  S2;
+              [.c., 0,  0  ]->  S3;
+              [.c., 0,  0  ]->  S4;
+              [.c., 0,  0  ]->  S5;
+              [.c., 1,  0  ]-> .z.;
+              [.c., 0,  0  ]->  S7;
+              [.c., 0,  0  ]->  S8;
+              [.c., 0,  0  ]->  S9;
+              [.c., 0,  0  ]->  S0;
+              [.c., 0,  0  ]->  S1;
+end
+

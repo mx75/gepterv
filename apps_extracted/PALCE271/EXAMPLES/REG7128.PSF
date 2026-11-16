@@ -1,0 +1,195 @@
+TITLE 'PA7128 BASIC REGISTERS AND LATCHES '
+Designer 'Albert Place '
+Date ' 6/22/93'
+
+Description
+*** Adopt from REG7024.psf ***
+Basic registers and latches include:
+
+* D, T and JK flip-flops with clock, preset and reset
+* SR-latch for debouncing inputs (SR1)
+* Gated-latch (LAT1)
+* Basic storage register (REG1)
+* 2-bit state machine (S0,S1)
+* 4-bit shift register (SHF0-3)
+
+In this application, both the buried path and the direct path
+have been provided where applicable.The CONTROL input enables
+and disables all outputs with the exception of the D,T and
+JK flip-flops.
+
+End_Desc;
+
+PA7128 "Only in PLCC package
+
+SYS_CLK PIN 1
+CONTROL PIN 28
+
+"Input Cell Declaration
+"INC (Pin_no 'pin_name' Input_type)
+
+INC ( 2 'A' Com)
+INC ( 3 'B' Com)
+INC ( 4 'C' Com)
+INC ( 5 'D' Com)
+INC ( 6 'E' Com)
+INC ( 8 'F' Com)
+INC ( 9 'G' Com)
+INC (10 'H' Com)
+INC (11 '' COM)
+INC (12 '' COM)
+INC (13 '' COM)
+INC (14 '' COM)
+
+"IOC Declaration
+"IOC (Pin_no 'pin_name' Polarity IO_TYPE) <- LCC_NO
+IOC (15 '' POS IO ) <- 1A  "POS = pos or neg 
+IOC (16 'STROBE_P' Pos IO) <- 2A
+IOC (17 'SHF3_O' Pos IO) <- 3A
+IOC (18 'REG1_N' Pos IO) <- 1B
+IOC (19 'LAT1_M' Pos IO) <- 2B
+                           "     INCOM => Combinatorial Input
+IOC (20 'SR1_L' Pos IO) <- 3B
+IOC (22 'JK1_K' Pos Out) <- 1C
+IOC (23 'T1_J' Pos Out) <- 2C
+IOC (24 'D1_I' Pos Out) <- 3C
+IOC (25 '' Pos Out) <- 1D
+IOC (26 '' Pos Out) <- 2D
+IOC (27 '' Pos Out) <- 3D
+                           "     OUT => dedicate output with COM feedback
+
+"LCC CONFIGURATION DECLARATION
+"LCC (LCC_NO 'LCC_NAME' REG_TYPE CLK_TYPE BUR_OUT EXT_OUT)
+"      1A                  D       POS     reg     reg
+"      2A                  T       NEG     SumA    SumA
+"      3A                  JK      SUMC    SumB    SumB
+"      1B                  DT      SUMD    SumC    SumC
+"      2B                  TD
+"      3B                  JKD
+"      1C
+"      2C
+"      3C
+"      1D
+"      2D
+"      3D
+
+LCC (1A 'S0' T   Pos  Reg  SumC)
+LCC (2A 'S1' T   Pos  Reg  SumC)
+LCC (3A 'SHF3' D   SumC Reg  Reg )
+LCC (1B 'REG1' D   Neg  Reg  Reg )
+LCC (2B 'LAT1' D   Neg  SumB SumB)
+LCC (3B 'SR1' T   Neg  SumC SumC)
+LCC (1C 'JK1' JK  SumD Reg  Reg )
+LCC (2C 'T1' T   SumD Reg  Reg )
+LCC (3C 'D1' D   SumD Reg  Reg )
+LCC (1D 'SHF0' D   SumD Reg  Reg )
+LCC (2D 'SHF1' D   SumD Reg  Reg )
+LCC (3D 'SHF2' D   SumD Reg  Reg )
+
+"GBC CONFIGURATION DECLARATION
+"GBC (GROUP   LCC_CLK    IOC_CLK)
+"       A     Clk1,Clk2  Clk1,CLk2,PCLKA
+"       B                Clk1,CLk2,PCLKB
+
+Global = 1
+GBC (A Clk1 Clk1)
+GBC (B __   Clk1)
+
+
+DEFINE
+STROBE = [S1 S0]
+
+
+STATE_DIAGRAM STROBE
+STATE 0: STROBE_P=0
+         Goto 1
+STATE 1: STROBE_P=0
+         Goto 2
+STATE 2: STROBE_P=1
+         If /H Then 3 Else 2
+STATE 3: STROBE_P=0
+         Goto 0
+END;
+
+EQUATIONS
+
+"Global output names specified in the equations below are reserved words.
+RT = 0;        "Reg-Type Product Term
+PCLKA = 0;      "I/O Clock Product Term
+PRESET = 0;    "Preset Sum Term
+RESET = C;     "Reset Sum Term
+
+PCLKB = 0;      "Input Cell Product Term Clock
+
+
+"Internal or External output names appended with extensions:
+"  1) .COM for Combinatorial Internal or External Output (Sum A, B, or C)
+"  2) .OE for External Output Enable (Sum D only)
+"  3) .CLK for Asynchronous Logic Control Clock (Sum C or D)
+"  4) .AP for Asynchronous Preset for LCC Register (Sum B only)
+"  5) .AR for Asynchronous Reset for LCC Register (Sum C only)
+
+"If Sum D is fed back internally, the output name of equation will be
+"                                 pin_name.FB
+
+
+S1.T = 0;             "Unused here since it has been defined in State Machine
+S1.AP = 0;
+STROBE_P.COM = 0;
+STROBE_P.OE = Control;
+
+SHF3.D = SHF2;
+SHF3.AP = B;
+SHF3.CLK = D;
+SHF3_O.OE = Control;
+
+REG1.D = A;
+REG1.AP = B;
+REG1.AR = C;
+REG1_N.OE = Control;
+
+LAT1.SumA = 0; 
+LAT1.COM = ((E * D) + (LAT1 * /D) + (E * LAT1)); "Gated Latch
+                     "E for latch in, D for latch enable
+LAT1_M.SumC = 0;
+LAT1_M.OE = Control;
+
+SR1_L.SumA = 0;
+SR1.SumB = 0; 
+SR1.COM = /(B + /(A +SR1));         "SR1 LATCH, A=SET B=RESET
+SR1_L.OE = CONTROL; 
+
+JK1.J = A; 
+JK1.K = B;
+JK1.AR = C;
+JK1.CLK = D; 
+
+T1.T = A; 
+T1.AP = B; 
+T1.AR = C; 
+T1.CLK = D;
+
+D1.D = A; 
+D1.AP = B;
+D1.AR = C;
+D1.CLK = D;
+
+S0.T = 0;         "Unused here since it has been defined in State Machine
+S0.AP = 0;
+S0.SumC = 0;
+S0.SumD = 0;
+
+SHF0.D = G;
+SHF0.AP = B;
+SHF0.AR = C;
+SHF0.CLK = D;
+
+SHF1.D = SHF0;
+SHF1.AP = B;
+SHF1.AR = C;
+SHF1.CLK = D;
+
+SHF2.D = SHF1;
+SHF2.AP = B;
+SHF2.AR = C;
+SHF2.CLK = D;

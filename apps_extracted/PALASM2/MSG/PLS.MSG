@@ -1,0 +1,311 @@
+1      TRUE
+101 >> Given section is not found. Please run PARSE. %s %d \n
+102 >> ERROR Cannot find tre file %s. Please run PARSE.\n
+103 >>       out of memory.   \n
+104 >> ERROR Illegal section   \n
+105 >> ERROR title is not found  \n
+106 >> ERROR pattern is not found  \n
+107 >> ERROR revision is not found  \n
+108 >> ERROR author is not found  \n 
+109 >> ERROR company is not found  \n
+110 >> ERROR date is not found  \n
+111 >> ERROR user library not found \n
+112 >> ERROR macro heading not found \n
+113 >> ERROR wire not found \n
+114 >> ERROR device is not found \n
+115 >> ERROR pin list is not found \n
+116 >> ERROR group assignment is not found \n
+117 >> ERROR boolean equation section not found in pds file \n
+118 >> ERROR state start up information not found \n
+119 >> ERROR state equation is not found \n
+120 >> ERROR state output is not found \n
+121 >> ERROR state condition is not found \n
+122 >> ERROR simulation construct is not found \n
+128 >> ERROR tree file name is too long.\n
+129 >> ERROR Parser did not generate correct trefile (syntax error) \n
+129          Please run parse again \n
+130  Equation being processed is for output==>> %s  \n
+131  Equation being processed is for output==>> %s.S  \n
+132  Equation being processed is for output==>> %s.R \n
+133  Equation being processed is for output==>> %s.CLKF \n
+134  Equation being processed is for output==>> %s.SETF  \n
+135  Equation being processed is for output==>> %s.RSTF  \n
+136  Equation being processed is for output==>> %s.TRST  \n
+137  Equation being processed is for output==>> %s.CMBF   \n
+138  The fuse plot is stored in ===>%s  \n
+139  The jedec is stored in     ===>%s  \n
+145 FILE  :%s\n
+146 TITLE :%s\n
+148 \n %%%% PLSASM %%%% Program Successful.  File: %s\n
+148  %%%% PLSASM %%%% ERROR count: %d  WARNING count: %d\n
+149 \n %%%% PLSASM %%%% Program Unsuccessful.  File: %s\n
+149  %%%% PLSASM %%%% ERROR count: %d  WARNING count: %d\n
+150  No jedec output is produced. \n
+151  No fuse map output is produced\n
+201  >> ERROR   This output is using a combinatorial equation (=) instead \n
+201             of registered (:=) equation                              \n
+202  >> ERROR   This output is using a registered equation (:=) instead \n
+202             of combinatorial (=) equation   \n
+204  >> ERROR   This output is using a registered equation (:=) for %s.CLKF\n
+204             instead of combinatorial (=) equation     \n
+205  >> ERROR   This output is using a registered equation (:=) for %s.SETF\n
+205             instead of combinatorial (=) equation      \n
+206  >> ERROR   This output is using a registered equation for %s.RSTF \n
+206             instead of combinatorial (=) equation       \n
+207  >> ERROR   This equation %s.TRST is using a registered equation (:=) \n
+207             instead of combinatorial equation \n
+209  >> ERROR   Cannot define a simple equation for the pin name %s     \n
+210  >> ERROR   Cannot define a functional equation for the pin name %s \n
+212  >> ERROR   Cannot define a clock function for pin name %s \n
+213  >> ERROR   Cannot define set function for pin name %s\n
+214  >> ERROR   Cannot define reset function for pin name %s   \n
+215  >> ERROR   Cannot define tristate output for pin name %s\n
+216  >> ERROR   Cannot define a simple/functional equation for the  \n
+216             input pin %s                                        \n
+217  >> ERROR   This output used as complement array pin should have left \n
+217             side of the equation opposite to the polarity defined  in\n
+217             the pin list                                             \n
+218  >> ERROR   XOR (:+:) is not supported for this pls part     \n
+219  >> ERROR   XNOR (:*:) is not supported for this pls part. \n
+220  >> ERROR   Undefinable/Unusable pin %s used as input in this \n
+220             equation                                          \n
+221  >> ERROR   Undefinable/Unusable pin %s in this equation      \n
+223  >> ERROR   Output %s cannot be used as feedback         \n
+225  >> ERROR   Pin %s used to control a function. It should have the  \n
+225             same polarity as the polarity in the pin list \n
+226  >> ERROR   The complement array pin %s used as an input pin    \n
+226             should have same polarity as the polarity in the   \n
+226             pin list                                           \n
+228  >> ERROR   Pin %s cannot be used for a function as well as to \n
+228             preload the registers                                 \n
+230  >> ERROR   Output is using more than %d product term (s)   \n
+231  >> WARNING Equation is repeated for %s   \n
+231             The latest equation will not be processed \n
+232  >> WARNING Equation is repeated for %s.S \n
+232             The latest equation will not be processed \n
+233  >> WARNING Equation is repeated for %s.R \n
+233             The latest equation will not be processed \n
+234  >> WARNING Equation is repeated for %s.CLK \n
+234             The latest equation will not be processed \n
+235  >> WARNING Equation is repeated for %s.SETF \n
+235             The latest equation will not be processed \n
+236  >> WARNING Equation is repeated for %s.RSTF \n
+236             The latest equation will not be processed \n
+237  >> WARNING Equation is repeated for %s.TRST \n
+237             The latest equation will not be processed \n
+238  >> WARNING Equation is repeated for %s.SETUP \n
+238             The latest equation will not be processed \n
+240  >> ERROR   Token %d is not supported for pls part.   \n
+241  >> ERROR   PLS part does not support %s token \n
+243  >> ERROR   Output is using a signal %s which has both true and \n
+243             complement polarity.                           \n
+243             No output will be generated for this equation   \n
+249  >> ERROR   Pls part does not support the CMBF function \n
+250  >> ERROR   S & R equations for pin %s share the product term:\n
+251                 %s\n
+252  >> ERROR   The complement array pin %s cannot be used as an input \n
+252             in the equation defining that same complement array pin \n
+253  >> ERROR   Out of Memory. Terminating Program. \n
+260  >> ERROR   The design exceeds %d product terms allowed for \n
+260             this %s device.\n
+261  >> ERROR   Token number %d  \n
+261             This PLS part is not supported by the PLS Assembler \n
+262    >> ERROR Pls part %s is not supported by pdf program. \n
+263  >> ERROR   Too many pins defined.                         \n
+263             Total number of pins defined = %d               \n
+264  >> ERROR   Too few pins defined. \n
+264             Total number of pins defined = %d \n
+265    >> ERROR  Cannot open xplot file.                      \n
+266    >> ERROR  Cannot open jedec file.                      \n
+267    >> ERROR  Cannot open file for debug purpose.          \n
+268  >> ERROR   While executing the test plan if the flag for test plan \n
+268             is set true then ,PLSASM expects the DBG.ERR file under \n
+268             current context.                              \n
+269  >> ERROR   Cannot use %s as pin name for this device.\n
+270  >> ERROR Cannot find the PDF file for PLS device\n
+271  >> ERROR Please run Expander/Minimize program. \n
+272  ** ERROR Module Plcheck : check_num_pterms. Please call AMD \n
+272           (800) 222-9323\n
+273  ** ERROR Module Plcheck : check_eqn_type.   Please call AMD \n
+273           (800) 222-9323\n
+274  ** ERROR Module Plcheck : get_pdt_ptr.      Please call AMD \n 
+274           (800) 222-9323\n
+275  ** ERROR Module Pleqn : blow_or_fuse.       Please call AMD \n
+275           (800) 222-9323\n
+276  ** ERROR Moduel Pleqn : gen_fuse.           Please call AMD \n
+276           (800) 222-9323\n
+277  ** ERROR Module Plprocs : set_eqn_ptr.      Please call AMD \n
+277           (800) 222-9323\n
+278  >> ERROR Debug file not found. \n
+279  ** ERROR Module PalArr  : out of bounds.    Please call AMD \n
+279           (800) 222-9323\n
+284  >> WARNING Token %s is not defined correctly in the pin list  \n
+284             Actual pin number is %d  \n
+285  >> WARNING Polarity of the output on the left side of the equation\n
+285             must be the same as the polarity in the pin list \n
+285             Active high feedback is assumed for state register %s.\n
+286  >> WARNING Polarity of the output on the left side of the equation \n
+286             must be the same as the polarity in the pin list \n
+286             Active high output is assumed for pin name  %s .\n
+287  >> WARNING Active low functional equation is invalid. '/' is \n
+287             ignored. \n
+288  >> WARNING The given xpt file %s is invalid and ignored.\n
+289  >> WARNING The given jed file %s is invalid and ignored.\n
+290  >> WARNING The given log file %s is invalid and ignored. \n
+291  >> WARNING The given parameters are invalid and ignored.\n
+400  ** ERROR    #400 Please call AMD \n
+400           (800) 222-9323\n
+401  ** ERROR   #401 Please call AMD \n
+401           (800) 222-9323\n
+402  ** ERROR   #402 Please call AMD \n
+402           (800) 222-9323\n
+403  ** ERROR   #403 Please call AMD \n
+403           (800) 222-9323\n
+404  ** ERROR   #404 Please call AMD \n
+404           (800) 222-9323\n
+405  ** ERROR   #405 Please call AMD \n
+405           (800) 222-9323\n
+406  ** ERROR   #406 Please call AMD \n
+406           (800) 222-9323\n
+407  ** ERROR    #407 Please call AMD \n
+407           (800) 222-9323\n
+408  ** ERROR   #408 Please call AMD \n
+408           (800) 222-9323\n
+409  ** ERROR   #409 Please call AMD \n
+409           (800) 222-9323\n
+410  ** ERROR   #410 Please call AMD \n
+410           (800) 222-9323\n
+411  ** ERROR   #411 Please call AMD \n
+411           (800) 222-9323\n
+412  ** ERROR   #412 Please call AMD \n
+412           (800) 222-9323\n
+413  ** ERROR   #413 Please call AMD \n
+413           (800) 222-9323\n
+414  ** ERROR   #414 Please call AMD \n
+414           (800) 222-9323\n
+415  ** ERROR    #415 Please call AMD \n
+415           (800) 222-9323\n
+416  ** ERROR   #416 Please call AMD \n
+416           (800) 222-9323\n
+417  ** ERROR   #417 Please call AMD \n
+417           (800) 222-9323\n
+418  ** ERROR   #418 Please call AMD \n
+418           (800) 222-9323\n
+419  ** ERROR   #419 Please call AMD \n
+419           (800) 222-9323\n
+420  ** ERROR   #420 Please call AMD \n
+420           (800) 222-9323\n
+421  ** ERROR   #421 Please call AMD \n
+421           (800) 222-9323\n
+1311  Equation being processed is for output==>> %s.J  \n
+1322  Equation being processed is for output==>> %s.K \n
+1323  Equation being processed is for output==>> %s.SETUP \n
+1324  Equation being processed is for output==>> %s.T1 \n
+1325  Equation being processed is for output==>> %s.T2 \n
+2091  >> ERROR	 This pin %s does not support S_R flip flop \n
+2092  >> ERROR	 This pin %s does not support J_K flip flop \n
+2093  >> WARNING This pin %s supports J_K flip flop ,still  \n
+2093		 the equation will be processed \n
+2094  >> ERROR	 This pin %s does not support D flip flop \n
+2122  >> ERROR   Clock equation for  this pin can not be supported \n
+2130  >>ERROR	 Setf equation for pin %s. \n
+2130		 has been already defined and preset_clear_fuse is absent \n
+2131  >>ERROR	 Reset equation for pin %s. \n
+2131		 has been already defined and preset_clear_fuse is absent \n
+2133  >> ERROR   Setf equation for pin %d \n
+2133		 not supported  \n
+2144  >> ERROR   Rstf equation for pin %d \n
+2144		 not supported  \n
+2150	>> ERROR   Trst equation for pin %d \n
+2150		 not supported  \n
+2155  >> ERROR   This macro output pin %s can appear only on the \n
+2155		  right side of an equation \n
+2156  >> ERROR   This macro input pin %s can appear only on the \n
+2156		  left side of an equation \n
+2157  >> WARNING This pin does not have mux support \n 
+2157		 Any way this pin will be fed by or array \n
+2158  >> WARNING This pin %s does not have or array support \n
+2158  >>	 Any way this pin will be controlled through mux. \n
+2159  >> ERROR	   A diff equation has already been defined for another pin \n
+2159		  belonging to same bank as this pin  %s \n
+2160  >> ERROR	  Undefinable/unusable pin  %s is used \n
+2161  >> ERROR    NO orline support for this pin %s \n
+2162  >> ERROR    NO andline support for this pin %s \n
+2163  >> ERROR 	  Already the differnt configuration for this pin %s \n
+2163 		  has been defined \n
+2164  >> WARNING  Already the same signal for a pin belonging to the same \n
+2164 		  bank as this pin %s has been defined \n
+2165  >> ERROR   Illegal attribute for pin %s has been defined \n
+2166  >> ERROR	 No fuse present.. for pin %s Call AMD  \n
+2167  >> ERROR	 A conflicting flip_flop equation for either \n
+2167		 buried node or external pin  for %s has been defined \n
+2168  >> ERROR	 Only flip flop and functional equations \n
+2168             are allowed on this %s buried node \n
+2169  >> WARNING Since only combinatorial eqns are allowed , = should be \n
+2169		 used  for this pin %s \n
+2170  >> ERROR   Clock equation can not be allowed for pin %s \n
+2171  >> ERROR   Setf equation can not be allowed for pin %s \n
+2172  >> ERROR   Rstf equation can not be allowed for pin %s \n
+2173  >> ERROR   Trst equation can not be allowed for pin %s \n
+2174  >> ERROR   No flip flop equations are allowed for this \n 
+2174		 hard macro pin %s \n
+2175  >> ERROR   Either the pin support for pin %s is absent \n
+2175		 or check the polarity of input \n
+2176  >> ERROR   No orline support for clock for pin %s \n
+2177  >> ERROR   Setup equation can not be defined for %s \n
+2177		 Only hard macro name can be used for this function \n
+2178  >> ERROR   Only hard macro output pins can exist in the \n
+2178  	   	 Setup equation of this %s pin \n
+2179  >> ERROR   No multiple product terms are allowed for \n
+2179		 this pin %s (hard macro init pin) \n
+2180  >> ERROR   An Set function has already been defined \n
+2180		 for this %s pin \n
+2181  >> ERROR   An Reset function has already been defined \n
+2181		 for this %s pin \n
+2182  >> ERROR   An Reset function has already been defined for pin %s \n
+2182		 belonging to the same bank as above pin \n
+2183  >> ERROR   An Setf function has already been defined for pin %s \n
+2183		 belonging to the same bank as above pin \n
+2184  >> ERROR   Illegal token %s is found   \n
+2185  >> ERROR   Illegal token %s is found   \n
+2186  >> ERROR    NO product term support for this pin %s \n
+2187  >> ERROR   Clock pin %s (but not an input pin) can not be used \n
+2187		 as an input. \n
+2188  >> ERROR   The format of number specified is illegal \n
+2189  >> ERROR   The number specified has value %s greater than \n
+2189  >>	 number of HARD MACRO output pins(dec equivalent) #d %d \n
+2190  >> ERROR   Only SETUP equations can have the above %s format \n
+2191  >> WARNING An Reset function has already been defined for a pin  \n
+2191		 belonging to the same bank as %s pin \n
+2192  >> WARNING An Setf function has already been defined for a pin  \n
+2192		 belonging to the same bank as %s pin \n
+2193  >> ERROR   Only a simple equation can be defined for this \n
+2193		 %s burierd node pin (no flip_flop,setf,rstf etc) \n
+2194  >> ERROR   Only a simple equation can be defined for this \n
+2194		 %s pin (no flip_flop,setf,rstf etc) \n
+2195  >> ERROR   This %s pin is either not  declared in pin list or \n
+2195		 ignored by the parser \n
+2196  >> ERROR   This output is using a latch equation (*=) instead \n
+2196            of combinatorial (=) equation                       \n
+2197 >> ERROR   This output is using a latch equation (*=) instead \n
+2197            of registered (:=) equation                              \n
+2198  >> ERROR   This output is using a combinatorial equation (=) instead \n
+2198             of latch (*=) equation                            \n
+2199  >> ERROR   This output is using a registered equation (:=) instead \n
+2199             of latch (*=) equation                            \n
+2644  >> ERROR   Total number of macros allowed  = %d  \n
+2644             Too many macros defined. \n
+2645  >> ERROR   No hard macros are supported in this device \n
+2646  >> ERROR   Trying to calculate  to power of %d ,\n
+2646		 greater than  32 bits \n
+2699  >> ERROR   Cannot use %s as hard_macro name for this device.\n
+2700  >> ERROR	 This pin %s is an undeclared pin \n
+2877  >> WARNING Polarity of the output on the left side of the equation\n
+2877             must be Active high .\n
+2877             Active high is assumed for pin %s.\n
+2878  >> WARNING Polarity of the output on the left side of the equation\n
+2878             must be Active low. \n
+2878		 Active Low is assumed for pin %s.\n  
+3000  >> ERROR   This device does not support T flip_flops .\n
+3001  >> ERROR   The global oe_prst pin %s has already been used. \n
+

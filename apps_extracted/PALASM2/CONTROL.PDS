@@ -1,0 +1,67 @@
+Title     DEC PDP-11 unibus interrupt controller
+Pattern   Control.pds
+Revision  A
+Author    Dan Kinsella
+Company   Monolithic Memories Inc., Santa Clara, CA
+Date      3/1/85
+  
+CHIP INTR_CONTROL PAL20RA10
+  
+PL AINTR NC ABGIN FF1RESET SSYN BINTR NC FF3RESET BBGIN
+NC GND
+OE OUT4 OUT3 OUT2 OUT1 FF3 NFF4 FF4 NFF2 FF2 FF1 VCC
+  
+EQUATIONS
+  
+/FF1            := /FF1*FF2             ;Master control
+FF1.SETF         = /FF1RESET            ;block A
+FF1.CLKF         = /ABGIN
+  
+FF2             := FF1                  ;Bus Busy Signal
+FF2.SETF         = /AINTR
+FF2.CLKF         = ABGIN*FF2*/SSYN
+  
+/NFF2           := FF1                  ;Bus sack signal
+NFF2.SETF        = /AINTR
+NFF2.CLKF        = ABGIN*NFF2*/SSYN
+  
+/FF3            := /FF3*FF4             ;Master control
+FF3.SETF         = /FF3RESET            ;block B
+FF3.CLKF         = /BBGIN
+  
+FF4             := FF4                  ;Bus busy signal
+FF4.SETF         = /BINTR
+FF4.CLKF         = BBGIN*FF4*/SSYN
+  
+/NFF4           := FF3                  ;Bus sack signal
+NFF4.SETF        = /BINTR
+NFF4.CLKF        = BBGIN*NFF4*/SSYN
+  
+/OUT1            = FF1+FF2              ;Bus request signal
+                                        ;block A
+/OUT2            = FF4+FF3              ;Bus request signal
+                                        ;block B
+/OUT3            = AINTR                ;Intr. signal for
+                                        ;bus req. block A
+/OUT4            = BINTR                ;Intr. signal for
+                                        ;bus req. block B
+  
+SIMULATION
+  
+TRACE_ON FF1RESET FF3RESET AINTR BINTR SSYN ABGIN BBGIN
+         FF1 FF3 NFF2 NFF4 OUT1 OUT2 OUT3 OUT4
+  
+SETF PL /OE /FF1RESET /FF3RESET AINTR BINTR ABGIN SSYN BBGIN    ;Reset all regs
+  
+SETF FF1RESET FF3RESET /AINTR /BINTR    ;Clock FF1 and FF3
+     ABGIN BBGIN                        ;regs
+  
+SETF /SSYN                              ;Clock NFF and NFF3
+                                        ;regs
+TRACE_OFF
+  
+  
+  
+  
+  
+

@@ -1,0 +1,77 @@
+module  CNTBUF   
+title   'Counter and Bidirectional Buffer 
+Dennis Freidman and John Gromala  21 Sept 1992, Data I/O Corporation'
+
+        cntbuf  device 'E0320';
+
+" Inputs
+        Clk, Clr, Dir, OE          pin 1, 2, 3, 11;
+
+" Outputs
+        Q3,Q2,Q1,Q0               pin 14, 15, 16, 17;
+        Q3,Q2,Q1,Q0               ISTYPE 'reg,buffer';
+
+        A1,A0,B1,B0               pin 12, 13, 18, 19;
+        A1,A0,B1,B0               ISTYPE 'com';
+        
+" Special Constants
+        C, X, Z  = .C. , .X., .Z.;
+
+" Set assignments
+        A     = [A1,A0];
+        B     = [B1,B0];
+        Count = [Q3..Q0];
+
+equations
+        Count.OE  = !OE;
+        Count.Clk = Clk;
+
+        Count := (Count.fb + 1) & !Clr;
+
+trace ([Clk,OE,Clr,Dir] -> [Count,A,B])
+test_vectors 'Counter'
+       ([Clk,OE,Clr] -> Count)
+        [ C , 0, 1 ] ->    0;
+        [ C , 0, 0 ] ->    1;
+        [ C , 0, 0 ] ->    2;
+        [ C , 0, 0 ] ->    3;
+        [ C , 1, 0 ] ->    Z;
+        [ C , 0, 0 ] ->    5;
+        [ C , 0, 0 ] ->    6;
+        [ C , 0, 0 ] ->    7;
+        [ C , 0, 0 ] ->    8;
+        [ C , 0, 0 ] ->    9;
+        [ C , 0, 0 ] ->   10;
+        [ C , 0, 0 ] ->   11;
+        [ C , 0, 0 ] ->   12;
+        [ C , 0, 0 ] ->   13;
+        [ C , 0, 0 ] ->   14;
+        [ C , 0, 0 ] ->   15;
+        [ C , 0, 0 ] ->    0;
+        [ C , 0, 0 ] ->    1;
+        [ C , 0, 0 ] ->    2;
+        [ C , 0, 0 ] ->    3;
+        [ C , 0, 1 ] ->    0;
+        [ C , 0, 1 ] ->    0;
+
+equations
+        A.OE =  Dir;
+        B.OE = !Dir;
+ 
+        A = B.pin; "Combinatorial signal can only have pin feedback 
+        B = A.pin; "for this device.
+
+trace([Clk,OE,Clr,Dir]-> [Count,A,B]);
+test_vectors 'Buffer'
+       ([ A , B ,Dir] -> [ A , B ])
+        [ X , X , 0 ] -> [ Z , X ];
+        [ X , X , 1 ] -> [ X , Z ];
+        [^h0, X , 0 ] -> [ X ,^h0];
+        [^h1, X , 0 ] -> [ X ,^h1];
+        [^h2, X , 0 ] -> [ X ,^h2];
+        [^h3, X , 0 ] -> [ X ,^h3];
+        [ X ,^h0, 1 ] -> [^h0, X ];
+        [ X ,^h1, 1 ] -> [^h1, X ];
+        [ X ,^h2, 1 ] -> [^h2, X ];
+        [ X ,^h3, 1 ] -> [^h3, X ];
+end

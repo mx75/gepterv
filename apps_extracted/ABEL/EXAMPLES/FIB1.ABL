@@ -1,0 +1,55 @@
+module fib1
+title 'Fibonacci sequence generator'
+    Clk,Clr      pin;
+    A7..A0       node istype 'reg,buffer';
+    B7..B0       pin istype 'reg,buffer';
+    S7..S0       pin istype 'com';
+    Cout,C7..C1  node istype 'com';
+    Zero         node istype 'com';
+    Restart      node istype 'reg';
+    A            = [A7..A0];
+    B            = [B7..B0];
+    S            = [S7..S0];
+    Carry        = [C7..C1,0];
+    CarryOut     = [Cout,C7..C1];
+    CarryIn       = [C7..C1,0];  
+
+equations
+    S        = A $ B $ CarryIn;            "Generate a chained adder
+    CarryOut = B & A # (B # A) & CarryIn;  "Generate carry for adder chain
+
+    Zero     = (S == 0);
+
+    When (Zero) Then A := 1;
+                Else A := B;
+
+    B        := S;
+    Restart  := Cout;                      "Restart when it overflows
+
+    [A,B].ar    = Clr # Restart;
+    [A,B].clk   = Clk;
+    Restart.clk = Clk;
+
+Test_Vectors ([Clk,Clr] ->  [  A,  B,  S])
+              [.C., 1 ] ->  [  0,  0,  0];
+              [.C., 0 ] ->  [  1,  0,  1];
+              [.C., 0 ] ->  [  0,  1,  1];
+              [.C., 0 ] ->  [  1,  1,  2];
+              [.C., 0 ] ->  [  1,  2,  3];
+              [.C., 0 ] ->  [  2,  3,  5];
+              [.C., 0 ] ->  [  3,  5,  8];
+              [.C., 0 ] ->  [  5,  8, 13];
+              [.C., 0 ] ->  [  8, 13, 21];
+              [.C., 0 ] ->  [ 13, 21, 34];
+              [.C., 0 ] ->  [ 21, 34, 55];
+              [.C., 0 ] ->  [ 34, 55, 89];
+              [.C., 0 ] ->  [ 55, 89,144];
+              [.C., 0 ] ->  [ 89,144,233];
+              [.C., 0 ] ->  [144,233,.X.];
+              [.C., 0 ] ->  [  0,  0,  0];
+              [.C., 0 ] ->  [  0,  0,  0];
+              [.C., 0 ] ->  [  1,  0,  1];
+              [.C., 0 ] ->  [  0,  1,  1];
+              [.C., 0 ] ->  [  1,  1,  2];
+end
+

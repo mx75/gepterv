@@ -1,0 +1,116 @@
+TITLE 'PEEL22CV10A+ CHANGE-OF-STATE INPUT PORT WITH INTERRUPT'
+DESIGNER 'Cindy Peel'
+DATE '5/1/87'
+
+Description
+
+  This application uses the PEEL22CV10A+ as an 8-bit input port of which all
+  of its inputs can detect a change-of-state. When detected, the INTR output
+  is set for interrupting a CPU. The state change is latched by eight pseudo-
+  buried registers which can be read by the CPU on D0-D7 as listed in the
+  address table below. Once read, unless another change has occurred, the
+  INTR will be reset. The NEQ output can be used for status polling of any
+  remaining state change. To reduce the average power consumption, the ZERO-
+  POWER mode is used.
+
+End_Desc;
+
+PEEL22CV10A+
+
+CLK pin 1;
+I0 pin 2;
+I1 pin 3;
+I2 pin 4;
+I3 pin 5;
+!RD pin 6;
+!CS pin 7;
+I4 pin 8;
+I5 pin 9;
+I6 pin 10;
+I7 pin 11;
+A0 pin 13;
+
+IOC(14 'D7' POS COM FEED_REG);
+IOC(15 'D6' POS COM FEED_REG);
+IOC(16 'D5' POS COM FEED_REG);
+IOC(17 'D4' POS COM FEED_REG);
+IOC (18 'INTR' Pos OutCom Feed_Or)
+IOC (19 'NEQ' Pos OutCom Feed_Or)
+IOC(20 'D3' POS COM FEED_REG);
+IOC(21 'D2' POS COM FEED_REG);
+IOC(22 'D1' POS COM FEED_REG);
+IOC(23 'D0' POS COM FEED_REG);
+
+AC NODE 25;
+SP NODE 26;
+
+Define
+
+EQUATIONS
+
+D0.COM = I0 & !CS #
+         I0 & CS & !RD #
+         D0 & CS & RD & !A0 #
+         I0 & CS & RD & A0 ;
+D0.OE = CS & RD ;
+D1.COM = I1 & !CS #
+         I1 & CS & !RD #
+         D1 & CS & RD & !A0 #
+         I1 & CS & RD & A0 ;
+D1.OE = CS & RD ;
+D2.COM = I2 & !CS #
+         I2 & CS & !RD #
+         D2 & CS & RD & !A0 #
+         I2 & CS & RD & A0 ;
+D2.OE = CS & RD ;
+D3.COM = I3 & !CS #
+         I3 & CS & !RD #
+         D3 & CS & RD & !A0 #
+         I3 & CS & RD & A0 ;
+D3.OE = CS & RD ;
+D4.COM = I4 & !CS #
+         I4 & CS & !RD #
+         D4 & CS & RD & !A0 #
+         I4 & CS & RD & A0 ;
+D4.OE = CS & RD ;
+D5.COM = I5 & !CS #
+         I5 & CS & !RD #
+         D5 & CS & RD & !A0 #
+I5 & CS & RD & A0 ;
+D5.OE = CS & RD ;
+D6.COM = I6 & !CS #
+         I6 & CS & !RD #
+         D6 & CS & RD & !A0 #
+         I6 & CS & RD & A0 ;
+D6.OE = CS & RD ;
+D7.COM = I7 & !CS #
+         I7 & CS & !RD #
+         D7 & CS & RD & !A0 #
+         I7 & CS & RD & A0 ;
+D7.OE = CS & RD ;
+NEQ.COM = I0 & !D0 #
+         !I0 & D0 #
+          I1 & !D1 #
+         !I1 & D1 #
+          I2 & !D2 #
+         !I2 & D2 #
+          I3 & !D3 #
+         !I3 & D3 #
+          I4 & !D4 #
+         !I4 & D4 #
+          I5 & !D5 #
+         !I5 & D5 #
+          I6 & !D6 #
+         !I6 & D6 #
+          I7 & !D7 #
+         !I7 & D7;
+INTR.COM = NEQ & !CS #
+           NEQ & !RD #
+           NEQ & A0 #
+           INTR & !CS #
+           INTR & !RD #
+           INTR & A0;
+
+INTR.And = 1;
+NEQ.And = 1;
+

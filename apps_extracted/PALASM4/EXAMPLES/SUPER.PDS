@@ -1,0 +1,115 @@
+;************* MODIFICATIONS 1/27/92 *************************
+;* This design was previously a PAL16R6 design. It has been
+;* modified to compile into a MACH110. Also, the first product
+;* associated with Q[2] was corrected: it was changed from
+;* Q[1]*Q[0] to Q[2]*Q[1]*Q[0].
+;*************************************************************
+; Corected for error in Q2 - 1/27/92
+
+AUTHOR STEVE PATTERSON AND THERESA SHAFER
+COMPANY
+PATTERN SUPER FRAME PAL FOR T1 INTERFACE
+TITLE SUPER_FRAME_PAL
+REVISION P1.02
+DATE 1/16/87
+;  This PAL counts the T1 Frames and controls the Signal Bits extraction
+;  process, including Fly Wheeling.  It also provides various other
+;  signals which indicate the frames with signal bits
+;  The counter is reset with either RSTB or when frame detection is SUNK
+;  and frame 1 occurs from two different sources (FRM1 & SOF).
+
+CHIP SUPER_FRAME MACH110
+  
+PIN 35 T1_CKB 
+PIN 33 RSTB 
+PIN 32 FRM1B 
+PIN 11 SUNK 
+PIN 13 SOF 
+PIN 10 OEB 
+PIN 4, 2, 7, 5 Q[3..0] 
+PIN 25 FRM_6
+PIN 24 FRM_12 
+ 
+;INPUTS:T1_CKB		ACTIVE LOW EXTERNAL T1 CLOCK
+;	RSTB		ACTIVE LOW MASTER RESET
+;	SOF		LAST KNOWN START OF FRAME
+;	SUNK 		ACTIVE HIGH SIGNAL INDICATING "IN FRAME SYNC"
+;	OEB		ACTIVE LOW OUTPUT ENABLE INPUT
+ 
+;OUTPUTS:Q(3-0)		STATE VARIABLES
+;	FRM_6		CLOCK SIGNAL WHICH INDICATES SIGNAL BIT A
+;	FRM_12		CLOCK SIGNAL WHICH INDICATES SIGNAL BIT B
+ 	
+ 
+EQUATIONS
+ 
+Q[0..3].CLKF = T1_CKB
+FRM_6.CLKF   = T1_CKB
+FRM_12.CLKF  = T1_CKB
+
+Q[0..3].TRST = /OEB
+FRM_6.TRST   = /OEB
+FRM_12.TRST  = /OEB
+
+/Q[2] := Q[2] * Q[1] * Q[0] ;modified 1/27/92. Was: /Q[2]:=Q[1]*Q[0]
+     + /Q[2] * Q[3]
+     + /Q[2] * /Q[1]
+     + /Q[2] * /Q[0]
+     + /FRM1B * SOF * SUNK
+     + /RSTB
+  
+/Q[1] := Q[1] * Q[0]
+     + /Q[1] * /Q[0]
+     + /FRM1B * SOF * SUNK
+     + /RSTB
+ 
+/Q[0] := Q[0]
+    + /FRM1B * SOF * SUNK
+    + /RSTB
+ 
+/Q[3] := /Q[2] * Q[1] * Q[0]
+    + /Q[3] * /Q[2]
+    + /Q[3] * /Q[1]
+    + /Q[3] * /Q[0]
+    + /FRM1B * SOF * SUNK
+    + /RSTB
+
+/FRM_6  := Q[3] + /Q[2] + Q[1] + Q[0]
+ 
+/FRM_12 := /Q[3] +  Q[2] + /Q[1] + Q[0]
+
+SIMULATION
+ 
+TRACE_ON T1_CKB RSTB FRM1B SOF SUNK Q[3] Q[2] Q[1] Q[0] FRM_6 FRM_12
+ 
+
+SETF /OEB		; ENABLE OUTPUT
+     /RSTB 		; RESET REGISTERS
+     /T1_CKB            ; INITIALIZE THE CLOCK PIN
+CLOCKF T1_CKB
+SETF RSTB /SOF FRM1B SUNK
+CLOCKF T1_CKB
+ 
+FOR I:=1 TO 24 DO
+	BEGIN
+	CLOCKF T1_CKB
+	END
+ 
+SETF /SUNK SOF /FRM1B
+CLOCKF T1_CKB
+SETF /SUNK /SOF /FRM1B
+CLOCKF T1_CKB
+SETF /SUNK SOF FRM1B
+CLOCKF T1_CKB
+SETF /SUNK /SOF FRM1B
+CLOCKF T1_CKB
+SETF SUNK SOF /FRM1B
+CLOCKF T1_CKB
+SETF SUNK /SOF /FRM1B
+CLOCKF T1_CKB
+SETF SUNK /SOF FRM1B
+CLOCKF T1_CKB
+SETF SUNK SOF FRM1B
+CLOCKF T1_CKB
+TRACE_OFF
+

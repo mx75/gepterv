@@ -1,0 +1,80 @@
+MODULE POL1
+
+        TITLE   'ABEL V4.10 EXAMPLE FILE DEMONSTRATING THE ANSWERS TO 
+                 THE QUESTIONS MOST OFTEN ASKED BY CUSTOMERS, REGARDING
+                 POLARITY AND PIN-TO-PIN SYNTAX'
+
+        POL1        device 'P22V10';
+
+"Inputs
+        CLK             pin 1;
+        D0,D1           pin 2,3;
+
+"Outputs
+        QAND0           pin 23 istype 'REG';
+        QAND1           pin 22 istype 'REG'; "Active-low
+        QOR0            pin 21 istype 'REG';
+        QOR1            pin 20 istype 'REG'; "Active-low
+
+"Constants
+        C,X,Z,H,L       = .C.,.X.,.Z.,1,0;
+
+EQUATIONS
+
+"Programmed equations using On-sets (positive-polarity)
+
+        QAND0      := D0 & D1;    "QAND0 =                 (D0 & D1)
+       !QAND1      := D0 & D1;    "QAND1 = !( D0 &  D1) = !(D0 & D1)
+
+"Programmed equations using Off-sets (demorgen equivalents)
+
+        QOR0       := D0 # D1;    "QOR0 = !(!D0 & !D1) =  (D0 # D1)
+       !QOR1       := D0 # D1;    "QOR1 =  (!D0 & !D1) = !(D0 # D1)
+
+        [QAND0,QAND1].clk    = CLK;
+        [QOR0,QOR1].clk      = CLK;
+
+TEST_VECTORS 'Polarity and Pin-to-pin Register Syntax'
+
+       ([CLK, D0, D1] -> [QAND0,QAND1,QOR0,QOR1])
+        [ 0 , 0 , 0 ] -> [  X  ,  X  , X  , X  ]; "Power-up
+        [ C , 0 , 0 ] -> [  L  ,  H  , L  , H  ]; "Begin Clocking
+        [ C , 1 , 0 ] -> [  L  ,  H  , H  , L  ]; "
+        [ C , 0 , 1 ] -> [  L  ,  H  , H  , L  ]; "
+        [ C , 1 , 1 ] -> [  H  ,  L  , H  , L  ]; "
+        [ 0 , 1 , 1 ] -> [  H  ,  L  , H  , L  ]; "Stop Clocking
+        [ 0 , 0 , 1 ] -> [  H  ,  L  , H  , L  ]; "
+        [ 0 , 0 , 0 ] -> [  H  ,  L  , H  , L  ]; "
+        [ C , 0 , 0 ] -> [  L  ,  H  , L  , H  ]; "Resume Clocking
+
+
+DECLARATIONS
+
+"Outputs
+        AND0            pin 19 istype 'COM';
+        AND1            pin 18 istype 'COM'; "Active-low
+        OR0             pin 17 istype 'COM';
+        OR1             pin 16 istype 'COM'; "Active-low
+
+EQUATIONS
+
+"Programmed equations using On-sets (positive-polarity)
+
+        AND0        = D0 & D1;    "AND0 =                 (D0 & D1)
+       !AND1        = D0 & D1;    "AND1 = !( D0 &  D1) = !(D0 & D1)
+
+"Programmed equations using Off-sets (demorgen equivalents)
+
+        OR0        = D0 # D1;     "OR0  = !(!D0 & !D1) =  (D0 # D1)
+       !OR1        = D0 # D1;     "OR1  =  (!D0 & !D1) = !(D0 # D1)
+
+TEST_VECTORS 'Polarity and Combinatorial Syntax'
+
+       ([ D0, D1] -> [AND0,AND1,OR0,OR1])
+        [ 0 , 0 ] -> [ X  , X  , X , X ]; "Power-up
+        [ 0 , 0 ] -> [ L  , H  , L , H ]; 
+        [ 1 , 0 ] -> [ L  , H  , H , L ]; 
+        [ 0 , 1 ] -> [ L  , H  , H , L ]; 
+        [ 1 , 1 ] -> [ H  , L  , H , L ]; 
+
+END POL1

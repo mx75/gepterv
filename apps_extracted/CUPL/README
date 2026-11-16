@@ -1,0 +1,2 @@
+SET LIBCUPL=C:\CUPL\LIB\CUPL.DL
+c:\cupl\cupl.exe -jnx %1

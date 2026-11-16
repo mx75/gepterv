@@ -1,0 +1,45 @@
+Name      Ioport;
+Partno    CA0014;
+Revision  02;
+Designer  T. Kahl;
+Date      12/21/84;
+Company   Assisted Technology;
+Assembly  none;
+Location  none;
+Device    P20RA10;
+
+/****************************************************************/
+/** Allowable Target Device Types :  PAL20RA10                 **/
+/****************************************************************/
+
+ORDER:  !pl,%1,!oe,%1,!ce,%1,clr,%1,dclk,%1,D6..0,%1,dack,%2,
+        drdy,%1,Q6..0;
+
+VECTORS:
+
+$msg"              d         d  d        ";
+$msg"      ! ! ! c c         a  r        ";
+$msg"      p o c l l DDDDDDD c  d QQQQQQQ";
+$msg"      l e e r k 6543210 k  y 6543210";
+$msg"      --------------------------------";
+           1 0 0 1 0 XXXXXXX 0  L LLLLLLL       /* asyncrhonous clear   */
+           1 0 0 0 C 0000000 0  H LLLLLLL       /* write 0's to port    */
+           1 0 0 0 0 XXXXXXX C  L LLLLLLL       /* dack clears drdy     */
+           1 0 0 0 C 1111111 0  H HHHHHHH       /* write 1's to port    */
+           1 0 0 0 0 XXXXXXX C  L HHHHHHH       /* dack clears drdy     */
+           1 0 0 0 C 1010101 0  H HLHLHLH       /* write 101.. to port  */
+           1 0 0 0 0 XXXXXXX C  L HLHLHLH       /* dack clears drdy     */
+           1 0 0 0 C 0101010 0  H LHLHLHL       /* write 010.. to port  */
+           1 0 0 0 0 XXXXXXX C  L LHLHLHL       /* dack clears drdy     */
+           1 0 0 0 1 1010101 0  H HLHLHLH       /* clock port with 010  */
+           1 0 0 0 0 1010101 0  H HLHLHLH       /* dack clears drdy     */
+           1 0 0 0 0 1010101 1  L HLHLHLH       /* clock drdy with 010  */
+           1 0 0 0 0 1010101 0  L HLHLHLH
+           1 1 0 0 0 XXXXXXX 0  L ZZZZZZZ       /* test register hi-Z   */
+           1 0 1 0 0 XXXXXXX 0  Z ZZZZZZZ       /* test all output hi-Z */
+           1 1 1 0 0 XXXXXXX 0  Z ZZZZZZZ
+           K 1 1 X X XXXXXXX X  0 0000000       /* test TTL preload */
+           1 0 0 0 0 XXXXXXX 0  L LLLLLLL       /* clear all registers */
+           K 1 1 X X XXXXXXX X  1 1111111       /* test TTL preload */
+           1 0 0 0 0 XXXXXXX 0  H HHHHHHH       /* set all registers */
+

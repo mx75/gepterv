@@ -1,0 +1,85 @@
+
+;PALASM Design Description
+
+;---------------------------------- Declaration Segment ------------
+TITLE    TUTOR10.PDS
+PATTERN  A
+REVISION 1.0
+AUTHOR   J.ENGINEER
+COMPANY  ADVANCED MICRO DEVICES
+DATE     01/01/90
+
+CHIP   TRAFFIC   PAL22V10
+
+;---------------------------------- PIN Declarations ---------------
+PIN  1          CLOCK                COMBINATORIAL             ; INPUT
+PIN  2          SENSOR               COMBINATORIAL             ; INPUT
+PIN  12         GND                                            ; INPUT
+PIN  14         RED1                 REGISTERED                ; OUTPUT
+PIN  15         YEL1                 REGISTERED                ; OUTPUT
+PIN  16         GRN1                 REGISTERED                ; OUTPUT
+PIN  17         RED2                 REGISTERED                ; OUTPUT
+PIN  18         YEL2                 REGISTERED                ; OUTPUT
+PIN  19         GRN2                 REGISTERED                ; OUTPUT
+PIN  24         VCC                                            ; INPUT
+
+NODE 1          GLOBAL
+;-----------------------------------State Segment ------------------
+STATE
+MOORE_MACHINE
+START_UP := POWER_UP -> 1GREEN
+
+;TRANSITION EQUATIONS------------------
+1GREEN    :=  SENSOR      -> 1YELLOW
+          +  /SENSOR      -> 1GREEN
+1YELLOW   :=  VCC          -> 2GREEN
+2GREEN    := /SENSOR      -> 2YELLOW
+          +   SENSOR      -> 2GREEN
+2YELLOW   :=  VCC         -> 1GREEN
+
+;OUTPUT EQUATIONS----------------------
+1GREEN.OUTF  = /RED1 * /YEL1 *  GRN1 *  RED2 * /YEL2 * /GRN2
+1YELLOW.OUTF = /RED1 *  YEL1 * /GRN1 *  RED2 * /YEL2 * /GRN2
+2GREEN.OUTF  =  RED1 * /YEL1 * /GRN1 * /RED2 * /YEL2 *  GRN2
+2YELLOW.OUTF =  RED1 * /YEL1 * /GRN1 * /RED2 *  YEL2 * /GRN2
+
+;----------------------------------- Simulation Segment ------------
+SIMULATION
+
+TRACE_ON SENSOR RED1 YEL1 GRN1 RED2 YEL2 GRN2
+
+SETF   /SENSOR
+PRELOAD 1GREEN
+CHECK   1GREEN 
+CLOCKF  CLOCK
+CHECK   1GREEN  /RED1 /YEL1 GRN1 RED2 /YEL2 /GRN2
+
+SETF    SENSOR
+CLOCKF  CLOCK
+CHECK   1YELLOW
+CLOCKF  CLOCK
+CHECK   2GREEN /RED1 YEL1 /GRN1 RED2 /YEL2 /GRN2
+
+CLOCKF  CLOCK
+CHECK   2GREEN  RED1 /YEL1 /GRN1 /RED2 /YEL2 GRN2
+
+CLOCKF  CLOCK
+CLOCKF  CLOCK
+CHECK   2GREEN  RED1 /YEL1 /GRN1 /RED2 /YEL2 GRN2
+
+SETF   /SENSOR
+CLOCKF  CLOCK
+CHECK   2YELLOW
+CLOCKF  CLOCK
+CHECK   1GREEN  RED1 /YEL1 /GRN1 /RED2 YEL2 /GRN2
+
+CLOCKF  CLOCK
+CHECK   1GREEN /RED1 /YEL1 GRN1 RED2 /YEL2 /GRN2
+
+CLOCKF  CLOCK
+CLOCKF  CLOCK
+CLOCKF  CLOCK
+CHECK   1GREEN /RED1 /YEL1 GRN1 RED2 /YEL2 /GRN2
+
+TRACE_OFF
+;-------------------------------------------------------------------

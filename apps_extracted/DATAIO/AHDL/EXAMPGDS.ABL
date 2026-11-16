@@ -1,0 +1,83 @@
+module exampgds 
+
+        ispgds       device  'ISPGDS22';
+
+        A1       pin 1;
+        AND      pin 28;
+
+library 'gds';         " Load the macros
+
+" This macro should be called first. It initializes all the fuses to 0. 
+" This is required to reset any fuses configured by the dummy equation
+GDS_DEVICE_INIT;       " Sets all fuses to 0;
+
+" The following macro is used to configure the macrocells. The macro is 
+" called as follows:
+"       GDS_IO(Group,Macrocell_Number,Configuration);
+" where:
+"       Group = 'A' or 'B' macrocell group
+"       Macrocell_Number = 0 through 10 for the GDS22
+"       Configuration = 'INPUT' for input
+"                       'OUT_NOINV' for output, non-inverting
+"                       'OUT_INV' for output, inverting
+"                       'TTL_1' for TTL 1
+"                       'TTL_0' for TTL 0
+"                       'OUT_TRI' for output, tristate
+
+GDS_IO(A,0,OUT_NOINV); 
+GDS_IO(A,1,OUT_NOINV); 
+GDS_IO(A,2,OUT_NOINV); 
+GDS_IO(A,3,OUT_NOINV); 
+GDS_IO(A,4,OUT_NOINV); 
+GDS_IO(A,5,OUT_NOINV); 
+GDS_IO(A,6,OUT_NOINV); 
+GDS_IO(A,7,OUT_NOINV); 
+GDS_IO(A,8,OUT_NOINV); 
+GDS_IO(A,9,OUT_NOINV); 
+GDS_IO(A,10,OUT_NOINV);
+
+GDS_IO(B,0,INPUT);  
+GDS_IO(B,1,INPUT);  
+GDS_IO(B,2,INPUT);  
+GDS_IO(B,3,INPUT);  
+GDS_IO(B,4,INPUT);  
+GDS_IO(B,5,INPUT);  
+GDS_IO(B,6,INPUT);  
+GDS_IO(B,7,INPUT);  
+GDS_IO(B,8,INPUT);  
+GDS_IO(B,9,INPUT);  
+GDS_IO(B,10,INPUT); 
+
+
+" This macro connects the inputs and outputs. The format is:
+"       GDS_CONNECT(Group, Output_Macrocell_Number, Input_Macrocell_Number)
+" where:
+"       Group = the output macrocell group, 'A' or 'B'
+"       Output_Macrocell_Number = 0 through 10 for the GDS22
+"       Input_Macrocell_Number =  0 through 10 for the GDS22. It is assumed
+"                                 that the input group is the opposite of the
+"                                 output group.
+"
+GDS_CONNECT(A,0,0);   
+GDS_CONNECT(A,1,1);   
+GDS_CONNECT(A,2,2);   
+GDS_CONNECT(A,3,3);   
+GDS_CONNECT(A,4,4);   
+GDS_CONNECT(A,5,5);   
+GDS_CONNECT(A,6,6);   
+GDS_CONNECT(A,7,7);   
+GDS_CONNECT(A,8,8);   
+GDS_CONNECT(A,9,9);   
+GDS_CONNECT(A,10,10);   
+
+equations
+"	The following is a dummy example that is required in order
+"	to get ABEL to process this design. Since the macros used
+"	above only generate FUSES statements, there needs to be at
+"	least one equation in the design file. This dummy equation
+"	will be overwritten by the macro outputs, so it will not
+"	effect the JEDEC output.
+
+         AND    = A1;  "Dummy equation to satisfy ABEL
+
+end exampgds

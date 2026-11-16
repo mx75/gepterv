@@ -1,0 +1,55 @@
+ğ
+DATE
+Overview
+This is the keyword that begins the statement identifying the creation
+date of the design.
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+            DATE       Creation Date
+
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Device Support: All PLD devices.
+ú
+Syntax
+You use this keyword in the declaration segment of either a Boolean or
+state-machine design.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+            DATE       Creation Date
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+            TITLE
+            PATTERN
+            REVISION
+            AUTHOR
+            COMPANY
+            DATE       01/09/91
+            CHIP
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+
+Creation        Identifies a set of numbers that represent the month,
+Date            day, and year the design was created or edited.  The
+                date may be entered as any 60 character string.  Place
+                the date statement after the company statement and
+                before the Chip statement.
+ú
+Use
+The following error conditions pertain to the DATE statement.
+
+ş    Without a DATE statement, a warning is issued and processing
+     continues.
+
+ş    With multiple DATE statements, an error is reported and
+     processing stops.
+ú
+Related Topics
+AUTHOR
+CHIP
+COMPANY
+Declaration Segment
+PATTERN
+REVISION
+ú

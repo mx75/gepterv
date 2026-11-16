@@ -1,0 +1,130 @@
+Name      Stepper;
+Partno    CA0024;
+Date      10/10/86;
+Rev       01;
+Designer  Woolhiser;
+Company   Personal CAD Systems, Inc.;
+Assembly  None;
+Location  None;
+Device    p19r6t;
+
+/************************************************************************/
+/*                                                              	*/
+/* Stepper Motor Controller                                     	*/
+/*                                                              	*/
+/* Memory mapped stepper motor controller interfaced to the     	*/
+/* 8048 single chip micro processor.  Generates either full     	*/
+/* or half step sequences for a unipolar drive stepper motor.   	*/
+/* A high current buffer is required to drive the motor coils.  	*/
+/*                                                              	*/
+/*         Half Step Control Sequence Table                     	*/
+/*                                                              	*/
+/*              Step    Q0  Q1  Q2  Q3                          	*/
+/*               1       1   0  1   0                           	*/
+/*               2       1   0  0   0                           	*/
+/*            v  3       1   0  0   1   ^                       	*/
+/* Clockwise  v  4       0   0  0   1   ^  Counterclockwise     	*/
+/* Rotation   v  5       0   1  0   1   ^  Rotation             	*/
+/*            v  6       0   1  0   0   ^                       	*/
+/*            v  7       0   1  1   0   ^                       	*/
+/*               8       0   0  1   0                           	*/
+/*               1       1   0  1   0                           	*/
+/************************************************************************/
+/* Allowable Target Device Types :  PALT19R6                    	*/
+/************************************************************************/
+
+/** Inputs **/
+
+Pin 1 = STEP_CLK;               /* Stepper Motor Clock Defines Rate	*/
+Pin [2,3,22,23] = [A8..11];     /* 8048 Upper 4 Address Bits		*/
+Pin [4..11] = [DB0..7];         /* 8048 Multiplexed Address/Data Bits	*/
+Pin 13 = !COE;                  /* Common Output Enable for Registers	*/
+Pin 14 = !ALE;                  /* 8048 ALE output used latches Address */
+
+/** Outputs **/
+
+Pin [20..17] = ![Q3..0];	/* Motor Coil Control Lines		*/
+Pin 16 = !COMPLETE;		/* Step Process Complete Signal		*/
+Pin 15 = !STATUS;		/* Status Bit Accessible to 8048 	*/
+
+/** Declarations and Intermediate Variable Definitions **/
+
+$define STEP1   'b'0101		/* Half Step Sequence States */
+$define STEP2   'b'0001
+$define STEP3   'b'1001
+$define STEP4   'b'1000
+$define STEP5   'b'1010
+$define STEP6   'b'0010
+$define STEP7   'b'0110
+$define STEP8   'b'0100
+
+$define FULL_STEP_UP   'h'FF0	/* Stepper Control Addresses */
+$define FULL_STEP_DOWN 'h'FF1
+$define HALF_STEP_UP   'h'FF2
+$define HALF_STEP_DOWN 'h'FF3
+$define READ_STEP      'h'FF4
+
+Field ADDRESS = [A11..8,DB7.lq,DB6.lq,DB5.lq,DB4.lq,DB3.lq,DB2.lq,DB1.lq,DB0.lq];
+Field MOTOR   = [Q3..0];
+
+full_up   = ADDRESS:FULL_STEP_UP;
+full_down = ADDRESS:FULL_STEP_DOWN;
+half_up   = ADDRESS:HALF_STEP_UP;
+half_down = ADDRESS:HALF_STEP_DOWN;
+hold      = ADDRESS:[000..7FF];
+
+/** Logic Equations **/
+
+Sequence MOTOR {
+        Present STEP1
+                if full_up      next STEP3      out COMPLETE;
+                if full_down    next STEP7      out COMPLETE;
+                if half_up      next STEP2      out COMPLETE;
+                if half_down    next STEP8      out COMPLETE;
+                if hold         next STEP1;
+        Present STEP2
+                if full_up      next STEP4      out COMPLETE;
+                if full_down    next STEP8      out COMPLETE;
+                if half_up      next STEP3      out COMPLETE;
+                if half_down    next STEP1      out COMPLETE;
+                if hold         next STEP2;
+        Present STEP3
+                if full_up      next STEP5      out COMPLETE;
+                if full_down    next STEP1      out COMPLETE;
+                if half_up      next STEP4      out COMPLETE;
+                if half_down    next STEP2      out COMPLETE;
+                if hold         next STEP3;
+        Present STEP4
+                if full_up      next STEP6      out COMPLETE;
+                if full_down    next STEP2      out COMPLETE;
+                if half_up      next STEP5      out COMPLETE;
+                if half_down    next STEP3      out COMPLETE;
+                if hold         next STEP4;
+        Present STEP5
+                if full_up      next STEP7      out COMPLETE;
+                if full_down    next STEP3      out COMPLETE;
+                if half_up      next STEP6      out COMPLETE;
+                if half_down    next STEP4      out COMPLETE;
+                if hold         next STEP5;
+        Present STEP6
+                if full_up      next STEP8      out COMPLETE;
+                if full_down    next STEP4      out COMPLETE;
+                if half_up      next STEP7      out COMPLETE;
+                if half_down    next STEP5      out COMPLETE;
+                if hold         next STEP6;
+        Present STEP7
+                if full_up      next STEP1      out COMPLETE;
+                if full_down    next STEP5      out COMPLETE;
+                if half_up      next STEP8      out COMPLETE;
+                if half_down    next STEP6      out COMPLETE;
+                if hold         next STEP7;
+        Present STEP8
+                if full_up      next STEP2      out COMPLETE;
+                if full_down    next STEP6      out COMPLETE;
+                if half_up      next STEP1      out COMPLETE;
+                if half_down    next STEP7      out COMPLETE;
+                if hold         next STEP8;
+}
+
+STATUS.oe = ADDRESS:READ_STEP;
+STATUS = COMPLETE;

@@ -1,0 +1,134 @@
+Title		Example of a POS Implementation for the PS/2
+Pattern		None
+Revision	1.0
+Author		Altera Applications
+Company		Altera Corporation
+Date		Current Date
+
+OPTIONS
+    TURBO = ON
+
+CHIP  ps2_pos EP312
+
+PIN    1     CLK			; input
+PIN    2     SM0			; buried output
+PIN    3     MIO        REGISTERED	; input
+PIN    4     S0         REGISTERED	; input
+PIN    5     S1         REGISTERED	; input
+PIN    6     CDSETUP    REGISTERED	; input
+PIN    7     CMD        REGISTERED	; input
+PIN    8     A0         REGISTERED	; input
+PIN    9     A1         REGISTERED	; input
+PIN    10    A2         REGISTERED	; input
+PIN    13    DECODE			; input
+PIN    23    D0				; input
+
+PIN    23    D00			; output
+PIN    22    D01			; output
+PIN    21    D02			; output
+PIN    20    D03			; output
+PIN    19    D04			; output
+PIN    18    D05			; output
+PIN    17    D06			; output
+PIN    16    D07			; output
+PIN    15    SM2			; buried output
+PIN    14    EN				; output
+PIN    11    SM1			; buried output
+
+STRING ENABLE_EQ '  SM2 * /SM1 * /SM0 * /MIO * /S0 * /A2 * /A1 * DECODE * S1
+                 + /SM2 * SM1 * /SM0 * /MIO * /S0 * /A2 * /A1 * DECODE * S1'
+
+EQUATIONS
+
+	/D00.D := SM2 * SM1
+	D00.TRST = ENABLE_EQ
+
+	/D01.D := SM2 * SM1
+	D01.TRST = ENABLE_EQ
+
+	/D02.D := SM2 * SM1
+	D02.TRST = ENABLE_EQ
+
+	/D03.D := SM2 * SM1
+	D03.TRST = ENABLE_EQ
+
+	/D04.D := SM2 * SM1
+	D04.TRST = ENABLE_EQ
+
+	/D05.D := SM2 * SM1
+	D05.TRST = ENABLE_EQ
+
+	/D06.D := SM2 * SM1
+	D06.TRST = ENABLE_EQ
+
+	D07.D := /SM2 * /SM0
+	       + /SM2 * /SM1
+	D07.TRST = ENABLE_EQ
+
+	EN.D := D0 * /MIO * /A2 * A1 * /A0 * DECODE * SM2
+              * /SM1 * SM0 * /S1 * S0
+	      + /S0 * EN
+	      + S1 * EN
+	      + /SM0 * EN
+	      + SM1 * EN
+	      + /SM2 * EN
+	      + /DECODE * EN
+	      + A0 * EN
+	      + /A1 * EN
+	      + A2 * EN
+	      + MIO * EN
+	EN.TRST = VCC
+
+	/SM0.D := /SM2 * SM0 * /MIO * /S0 * S1 * /A2 * /A1 * DECODE
+	        + SM2 * /SM0 * /MIO * /S0 * S1 * /A2 * /A1 * DECODE
+	        + SM1 * /MIO * /S0 * S1 * /A2 * /A1 * DECODE
+	        + SM2 * SM0
+	        + CDSETUP
+	SM0.TRST = GND
+
+	SM1.D := /SM2 * /SM1 * SM0 * /CDSETUP * /MIO
+               * /S0 * /A2 * /A1 * DECODE * S1
+	       + /SM2 * SM1 * /SM0 * /CDSETUP
+	       + /SM2 * SM1 * /CDSETUP * /DECODE
+	       + /SM2 * SM1 * /CDSETUP * A1
+	       + /SM2 * SM1 * /CDSETUP * A2
+	       + /SM2 * SM1 * /CDSETUP * /S1
+	       + /SM2 * SM1 * /CDSETUP * S0
+	       + /SM2 * SM1 * /CDSETUP * MIO
+	SM1.TRST = GND
+	
+	SM2.D := /SM2 * SM1 * SM0 * /CDSETUP * /MIO
+               * /S0 * /A2 * /A1 * DECODE * S1
+	       + SM2 * /SM1 * /CDSETUP
+	SM2.TRST = GND
+
+; end of design
+
+SIMULATION
+	VECTOR D := [ D07 D06 D05 D04 D03 D02 D01 D00 ]
+	VECTOR A := [ A2 A1 A0 ]
+	VECTOR SM := [ SM2 SM1 SM0 ]
+	SETF CLK /MIO /S0 A := 0x07 DECODE S1 MIO CDSETUP CMD D0
+	PRELOAD /SM0 /SM1 /SM2 /EN /D00 /D01 /D02 /D03 /D04 /D05 /D06 /D07
+	CLOCKF CLK DECODE
+	SETF /MIO /CDSETUP
+	FOR I := 0 TO 7 DO
+            BEGIN
+               SETF A := I
+	       SETF /CDSETUP
+	       CLOCKF DECODE
+	       SETF CDSETUP
+	       CLOCKF CLK
+	       IF ( D = 0xFF ) THEN
+		    BEGIN
+		        SETF S0 /S1
+			CLOCKF CLK
+		        SETF S0 S1
+			CLOCKF CLK
+		    END
+	    END
+	CLOCKF CLK DECODE
+	CLOCKF CLK DECODE
+
+; end of simulation
+

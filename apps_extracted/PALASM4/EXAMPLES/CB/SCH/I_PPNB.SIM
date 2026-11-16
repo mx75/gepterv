@@ -1,0 +1,64 @@
+STRING CLR_ALL
+	'
+	setf /sample0 /cmp_clk
+	setf /di_rst
+	setf /di_rst
+	setf di_rst
+	setf di_rst
+	'
+STRING CLR_PAT 'setf /di_rst
+				setf di_rst
+				'
+STRING PAT_0_U ' attr0 /attr1 /attr2 /attr3 /attr4'
+STRING PAT_0_D '/attr0  attr1 /attr2 /attr3 /attr4'
+STRING PAT_0_R '/attr0 /attr1  attr2 /attr3 /attr4'
+STRING PAT_0_F '/attr0 /attr1 /attr2  attr3 /attr4'
+STRING PAT_0_G '/attr0 /attr1 /attr2 /attr3  attr4'
+STRING PAT_0_A ' attr0  attr1  attr2  attr3  attr4'
+
+STRING MASK_0 '/sample0 /sample1 /sample2 /sample3'
+STRING MASK_1 '/sample0 /sample1 /sample2 /sample3'
+STRING MASK_2 '/sample0 /sample1 /sample2 /sample3'
+STRING MASK_3 '/sample0 /sample1 /sample2 /sample3'
+STRING MASK_A ' sample0  sample1  sample2  sample3'
+
+STRING DATA_0 '/inp0 /inp1 /inp2 /inp3'
+STRING DATA_1 '/inp0 /inp1 /inp2 /inp3'
+STRING DATA_2 '/inp0 /inp1 /inp2 /inp3'
+STRING DATA_3 '/inp0 /inp1 /inp2 /inp3'
+STRING DATA_A ' inp0  inp1  inp2  inp3'
+
+SIMULATION
+
+trace_on cmp_clk sample0
+		PAT0
+		glit0 hit0 hit1 hit2 hit3
+
+CLR_ALL
+setf PAT_0_A MASK_A DATA_A
+clockf cmp_clk
+check /hit0
+clockf cmp_clk
+clockf cmp_clk
+clockf cmp_clk
+clockf cmp_clk
+CLR_PAT
+clockf cmp_clk
+clockf cmp_clk
+clockf cmp_clk
+check  hit0 
+clockf cmp_clk
+clockf cmp_clk
+clockf cmp_clk
+clockf cmp_clk
+check /glit0
+setf sample0
+setf sample0
+setf /sample0
+setf /sample0
+setf sample0
+setf sample0
+setf /sample0
+check glit0
+setf /sample0
+trace_off

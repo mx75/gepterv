@@ -1,0 +1,113 @@
+0001e|module actlow
+0002e|
+0003e|TITLE   'Functional example of active low output signals, 22 July 1992
+0004e|         John Gromala, Data I/O Corporation.'
+0005e|
+0006e|" Generic example file demonstrating how active low signals are treated
+0007e|" in simulation (PLASIM).
+0008e|
+0009e|actlow DEVICE 'p22v10';
+0010e|
+0011e|"inputs
+0012e|
+0013e|      clock  pin 1;
+0014e|      in1    pin 2;
+0015e|      in2    pin 3;
+0016e|
+0017e|"outputs
+0018e|
+0019e|      !out1   pin 23 ISTYPE 'reg,buffer'; "active low signal
+0020e|       out2   pin 22 ISTYPE 'reg,buffer'; "active high signal
+0021e|
+0022e|      !out3   pin 21 ISTYPE 'reg,invert'; "active low signal
+0023e|       out4   pin 20 ISTYPE 'reg,invert'; "active high signal
+0024e|
+0025e|" Constant assignments
+0026e|
+0027e|      x, c, H, L  =  .x., .c., 1, 0 ;
+0028e|
+0029e|" Set Declaration
+0030e|
+0031e|      outputs  =  [ out1, out2, out3, out4 ];
+0032e|
+0033e|equations
+0034e|
+0035e|      out1   :=   in1  &  in2 ;
+0036e|      out2   :=   in1  &  in2 ;
+0037e|
+0038e|      out3   :=   in1  &  in2 ;
+0039e|      out4   :=   in1  &  in2 ;
+0040e|
+0041e|      outputs.clk  =  clock ;
+0042e|
+0043e|test_vectors
+0044e|
+0045e|      ([ clock, in1, in2 ] -> [ out1, out2, out3, out4 ])
+0046e|
+0047e|"The first vector is for the power up state.  The registers all 
+0048e|"power up LOW but the values at the pins are based on whether there
+0049e|"is an inverter or buffer from the register to the pin.  Since out3
+0050e|"and out4 have inverters they will be HIGH at their pins as 
+0051e|"demonstrated by the test vectors (look at simulator results).
+0052e|
+0053e|       [   0  ,  x ,  x  ] -> [  x  ,  x  ,  x  ,  x   ]; 
+0054e| 
+0055e|"The second vector is written for the equations in the equation section.  
+0056e|"These are all active high equations and the test vectors should be written
+0057e|"to test the logic for these equations.  However, when you view the simulator 
+0058e|"results, signals one and three will be HIGH for their values even though 
+0059e|"the vector is written with LOWS.  The reason being these are actually
+0060e|"active low signals and when the logic is not true their values should be HIGH.
+0061e|
+0062e|       [   c  ,  0 ,  0  ] -> [  L  ,  L  ,  L  ,  L   ];
+0063e|
+0064e|" This vector demonstrates the same as the previous vector except for
+0065e|"now the logic is true and the signals, one and three, have LOWS as
+0066e|"their values in the simulator results.  However, you write the vector
+0067e|"for active high logic and thus the highs in the actual vector written.
+0068e|
+0069e|       [   c  ,  1 ,  1  ] -> [  H  ,  H  ,  H  ,  H   ];
+0070e|       [   c  ,  0 ,  1  ] -> [  L  ,  L  ,  L  ,  L   ];
+0071e|
+0072e|end
+0073e|
+0074e|
+0075e|
+0076e|
+0077e|
+0078e|
+0079e|
+0080e|
+0081e|
+0082e|
+0083e|
+0084e|
+0085e|
+0086e|
+0087e|
+0088e|
+0089e|
+0090e|
+0091e|
+0092e|
+0093e|
+0094e|
+0095e|
+0096e|
+0097e|
+0098e|
+0099e|
+0100e|
+0101e|
+0102e|
+0103e|
+0104e|
+0105e|
+0106e|
+0107e|
+0108e|
+0109e|
+0110e|
+0111e|
+0112e|
+0113e|

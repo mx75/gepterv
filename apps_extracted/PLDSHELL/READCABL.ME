@@ -1,0 +1,127 @@
+FLEXlogic Prototyping Cable Kit & FLEXlogic Evaluation Board
+V5.0 README FILE
+------------------------------------------------------------
+
+Thank you for your interest in PLDshell Plus support for the
+FLEXlogic Prototyping Cable Kit and FLEXlogic Evaluation Board.
+
+If you have any questions that are not answered by this README file,
+the main PLDshell Plus/PLDasm README file, or in the PLDshell 
+Plus/PLDasm V5.0 User's Guide, contact Altera Applications:
+
+Altera Corporation
+Applications Department
+2610 Orchard Parkway
+San Jose, CA. 95134-2020
+Tel: (800) 800-EPLD or (408) 894-7000
+
+
+Batch Files
+-----------
+
+Three batch files that simplify operation of the FLEXlogic
+Prototyping Cable Kit and FLEXlogic Evaluation Board are included 
+with the PLDshell Plus/PLDasm software. They are:
+
+SRAM_W.BAT
+SRAM_R.BAT
+MSG.BAT
+
+SRAM_W.BAT and SRAM_R.BAT
+
+   The SRAM_W.BAT and SRAM_R.BAT files are used to write a JEDEC file 
+   to an EPX780 configuration SRAM, and to read an EPX780 configuration
+   SRAM into a JEDEC file, respectively. Type the following text
+   at the DOS command line to run these batch files:
+
+   SRAM_W name
+
+   SRAM_R name
+
+   where "name" is the basename of the JEDEC file name (without
+   the .JED extension).
+
+   Both of these batch files call the executable file PENGN with the
+   proper parameters. Refer to the actual batch files for more 
+   information.
+
+FLEXlogic Evaluation Kit Message Generator (MSG.BAT)
+
+   The batch file MSG.BAT can be used to easily customize flashing or
+   scrolling LCD displays on the FLEXlogic Evaluation Board. Type the
+   following text at the DOS command line to run this batch file:
+
+   MSG name
+
+   where "name" becomes the basename of the .PDS PLDasm source
+   file.
+
+   The MSG.BAT batch file does the following:
+
+   -  If filename.IN does not exist, it copies the file TEMPLATE.IN
+      to filename.IN.
+
+   -  It calls "EDIT filename.IN". An ASCII editor named EDIT must be
+      in your path. This is typically the DOS editor, but this
+      is not a requirement. The purpose of calling the editor is
+      to allow the user to enter their custom message.  See
+      "Message Entry" below for more details.
+
+   -  It calls FLS_DFLT to convert filename.IN to filename.PDS.
+      FLS_DFLT converts the RAM_DEFAULTS section of filename.IN to 
+      a form that is acceptable to PLDasm.
+
+   -  It calls PARPDS, LOCMIN, and, FITENGN to parse, minimize, and
+      fit the design.
+
+   -  It calls batch file SRAM_W to write the design to the EPX780
+      SRAM.
+
+   -  It returns to the DOS command line. The LCD should now be 
+      flashing or scrolling your message.
+
+
+Entering Messages
+-----------------
+
+The RAM_DEFAULTS section of TEMPLATE.IN includes an example of a
+scrolling message, which appears as follows:
+
+RAM_DEFAULTS PROM
+
+; #BEGIN FLASH
+; #END FLASH
+#BEGIN SCROLL
+EPX780 10ns FLEXlogic device with SRAM option -- 80MHz System...
+#END SCROLL
+
+Either a flashing or scrolling message can be selected, but not both.
+
+When the editor is entered, the scrolling message can be changed, or
+it can be deleted and flashing messages can be entered. The entire
+scrolling message, up to 120 characters, must be entered on one line.
+
+The following is example shows how to disable the scrolling message and
+enter a flashing message:
+
+#BEGIN FLASH
+  Good Morning
+    World!
+#END FLASH
+; #BEGIN SCROLL
+; EPX780 10ns FLEXlogic device with SRAM option -- 80MHz System...
+; #END SCROLL
+
+Up to 16 characters can be entered for each flashing line. The
+total number of lines that can be entered depends on their length;
+typically 5 to 7 lines can be entered. Lines at the end that don't
+fit in the SRAM block are automatically dropped.
+
+Note that the #BEGIN and #END keywords must start in column 1, and
+there can be no blank lines between #BEGIN and #END. If you
+comment out the unused lines with semicolons as shown above, you
+can easily switch between flashing and scrolling displays.
+
+Once a JEDEC file with the desired message has been generated, it
+can be re-loaded into the EPX780 with the SRAM_W batch file.
+

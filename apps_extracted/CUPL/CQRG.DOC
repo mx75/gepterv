@@ -1,0 +1,279 @@
+                      CUPL's Quick Reference Guide
+
+
+CUPL and CSIM input and output files
+
+                                ÚÄÄÄÄÄÄÄÄÄ¿
+                                ³ Device  ³
+                ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´ Library ÃÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+                ³               ÀÄÄÄÄÄÄÄÄÄÙ               ³
+                ³                                         ³
+           ÚÄÄÄÄÁÄÄÄÄ¿                               ÚÄÄÄÄÁÄÄÄÄ¿
+           ³         ÃÄÄÄÄÄÄÄÄÄÄÄÄ .ABS ÄÄÄÄÄÄÄÄÄÄÄÄ³         ³
+   .PLD ÄÄ³  CUPL   ÃÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄ³  CSIM   ³ÄÄ .SI
+           ³         ÃÄÄÄÄÄÄÄÄÄÄÄ¿       ³      ÚÄÄÄÄ´         ³
+           ÀÄÂÄÂÄÂÄÂÄÙ           ³       ³      ³    ÀÄÄÄÄÂÄÄÂÄÙ
+             ³ ³ ³ ³             ³       ³      ³         ³  ³
+             ³ ³ ³ ³             ³     .JED     ³         ³  ÀÄÄ .PRT
+    .LST ÄÄÄÙ ³ ³ ³             ³       ³      ³         ³
+               ³ ³ ³             ³       ³      ³         ÀÄÄÄ .SO
+     .DOC ÄÄÄÄÙ ³ ³            .HL      ³    .JED
+                 ³ ³             ³       ³      ³
+        .MX ÄÄÄÄÙ ³             ³       ³      ³
+                   ÀÄ .HEX Ä¿    ³       ³      ³
+                            ³    ³       ³      ³
+                      ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+                      ³      Logic Programmer        ³
+                      ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+        .ABS - Absolute file needed for simulation
+        .DOC - Documentation file
+        .HEX - HEX download file
+        .HL  - HL download file
+        .JED - JEDEC download file with or without test vectors
+        .LST - Listing file with errors
+        .MX  - Expanded Macro definition file
+        .PRT - Waveform simulation output file
+        .PLD - Logic source file
+        .SI  - Simulation source file
+        .SO  - Simulator output with errors
+
+
+THE CUPL PREPROCESSOR
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+The preprocessor program operates on the CUPL source file before compiler
+operations actually begin.  Preprocessor capabilities include:
+
+String Substitution
+        $DEFINE argument1 argument2
+where argument1 is replaced with argument2 until
+        $UNDEF argument1
+is encountered.
+
+File inclusion
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+        $INCLUDE filename
+where filename becomes part of the specification at the compile time.  The
+file must be in the current directory.
+
+Conditional Compilation
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+Portions of the source specification can be compiled or not depending on
+whether or not the argument has been defined using the $DEFINE command.
+The formats are:
+
+          $IFDEF argument                     $IFNDEF argument
+            ... statements ...                  ... statements ...
+          $ELSE                               $ELSE
+            ... statements ...                  ... statements ...
+          $ENDIF                              $ENDIF
+
+
+RUNNING CUPL
+ÄÄÄÄÄÄÄÄÄÄÄÄ
+In the main menu, select Compile CUPL file.  Select the PLD file that you
+want to compile.  A list of CUPL compiler option flags will appear.  Choose
+the needed flags for your design.  Press F5 when finished.
+
+
+LOGIC DESCRIPTION FORMATS
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+A design can be described with a combination of three formats:  state
+machine, truth table, or boolean equation.
+
+State Machines
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+When implementing a design with a state machine, use the following format
+
+                        Input
+        ÖÄÄÄÄÄÄÄÄÄ·   Condition   ÖÄÄÄÄÄÄÄÄÄ·             ÖÄÄÄÄÄÄÄÄÄ·
+   ÚÄÄÄº State 0 ºÄÄÄÄÄÄÄÂÄÄÄÄÄÄº State 1 ºÄÄÄÄÄÄÄÄÄÄÄÄº State 2 º
+   ³    ÓÄÄÄÄÂÄÄÄÄ½       ³       ÓÄÄÄÄÄÄÄÄÄ½             ÓÄÄÄÄÄÄÄÄÄ½
+   ³         ³            
+   ÀÄÄÄÄÄÄÄÄÄÙ         output
+     !Input           variable
+    Condition
+
+
+    SEQUENCE name_of_sequence {
+        PRESENT state0
+            IF input_condition  NEXT state1     OUT output_variable ;
+            DEFAULT             NEXT state0 ;
+        PRESENT state1
+                                NEXT state2 ;
+        . . .
+    }
+
+The simple, flexible syntax allows variations in the IF NEXT OUT or DEFAULT
+NEXT OUT formats to properly represent any element of a state machine.
+
+
+    IF          NEXT                    Conditional Next State
+    IF          NEXT        OUT         Conditional Synchronous Output
+                NEXT                    Unconditional Next State
+                NEXT        OUT         Unconditional Synchronous Output
+                            OUT         Unconditional Asynchronous Output
+    IF                      OUT         Conditional Asynchronous Output
+    DEFAULT     NEXT                    Default Next State
+    DEFAULT                 OUT         Default Asynchronous Output
+    DEFAULT     NEXT        OUT         Default Synchronous Output
+
+
+Truth Tables
+ÄÄÄÄÄÄÄÄÄÄÄÄ
+When logic is best described in tabular form, use the format in the
+following decoder example:
+
+    FIELD input = [in1..0] ;
+    FIELD output = [out3..0] ;
+    TABLE input => output  {
+        0 => 'b'0001 ;
+        1 => 'b'0010 ;
+        2 => 'b'0100 ;
+        3 => 'b'1000 ;
+    }
+
+
+High-Level Equations
+    output(s).EXT = expression ;
+
+
+CUPL SYNTAX
+ÄÄÄÄÄÄÄÄÄÄÄ
+        Logical operators             Arithmetic operators for Macros
+        ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ             ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+       &   =   Logical AND                 +   =   Addition
+       #   =   Logical OR                  -   =   Subtraction
+       $   =   Logical XOR                 *   =   Multiplication
+       !   =   Logical NEGATION            /   =   Division
+                                           %   =   Modulus
+    Free Form Comment Structure            **  =   Exponentiation
+    ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+        /*  =   Start Comment
+        */  =   End Comment
+
+Variable Extensions
+        .D            D input of D-type flip-flop
+        .L            D input of transparent latch
+        .J            J input of JK-type flip-flop
+        .K            K input of JK-type flip-flop
+        .S            S input of SR-type flip-flop
+        .R            R input of SRÄtype flip-flop
+        .T            T input of toggle flip-flop
+        .DQ           Q output of D-type flip-flop
+        .LQ           Q output of transparent latch
+        .AP           Asynchronous preset of flip-flop
+        .AR           Asynchronous reset of flip-flop
+        .SP           Synchronous preset of flip-flop
+        .SR           Synchronous reset of flip-flop
+        .CK           Programmable clock of flip-flop
+        .OE           Programmable output enable
+        .CA           Complement array
+        .PR           Programmable preload
+        .CE           CE input of enabled D-CE type flip-flop
+        .LE           Programmable latch enable
+        .OBS          Programmable observability of buried nodes
+        .BYP          Programmable register bypass
+        .DFB          D registered feedback path selection
+        .LFB          D latched feedback path selection
+        .TFB          T registered feedback path selection
+        .IO           Pin feedback path selection
+        .IOD          Pin D registered feedback path selection
+        .IOL          Pin Latched feedback path selection
+        .IOT          Pin T registered feedback path selection
+        .INT          Internal feedback path selection
+        .CKMUX        Clock multiplexor selection
+        .LEMUX        Latch Enable multiplexor selection
+        .OEMUX        Tristate multiplexor selection
+        .IMUX         Input multiplexor selection
+        .TEC          Technology-dependent fuse selection
+        .T1           T1 input of 2-T flip-flop
+        .T2           T2 input of 2-T flip-flop
+
+Node Declarations
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+    NODE variable_name ;        /* Single node, as when used for      */
+                                /* complement_array: in IFL devices.  */
+    NODE [variable_list] ;      /* Multiple nodes, as when used for   */
+                                /* buried state bits.                 */
+
+Macro Substitution
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+You can arbitrarily create and define a symbolic name as follows:
+
+        MEMREQ = MEMW # MEMR ;
+where MEMREQ does not appear as a pin variable name.
+
+MEMREQ can then be used in expressions for other variables.  The value
+"MEMW # MEMR" will be substituted wherever MEMREQ is used.
+
+The List Notations
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+You can represent groups of bits to be equal to a single symbolic name as
+follows:
+        FIELD IOADR = [A7..0] ;
+where IOADR can then be used in expressions for [A7..0].
+
+
+Equality and Address Range
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+The : operator compares a bit field with a hex constant value or list of
+constant values.  For example
+
+        IOADR:C3
+           or
+        IOADR:[10..3F]
+
+The latter statement will be true for addresses in the range of 10 hex
+through 3F hex, inclusive.
+
+NOTE: Hex constant values must contain the proper number of nibbles to
+include the most significant bit of the bit-field variable list.
+
+You can also use the : operator to operate on a bit-field variable list, as
+follows:
+
+        IOADR:&   replaces   A7 & A6 & A5 & A4 & A3 & A2 & A1 & A0
+        IOADR:#   replaces   A7 # A6 # A5 # A4 # A3 # A2 # A1 # A0
+
+
+CSIM: THE SIMULATOR
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+CSIM is a stimulus/response function table oriented simulator that compares
+each expected response with that which the logic in the associated .PLD
+file would produce given the specified stimulus.  The simulator input file
+(filename.SI) must contain the same header information as the associated
+logic source file (filename.PLD).  Also, CUPL must have been previously run
+for the .PLD file with the -A option flag to produce an absolute file
+(filename.ABS), and also with the -J flag if you would like CSIM to append
+the function table test-vector information to your .JED file to produce a
+.JED file with both fuse and testing information.
+
+The general format for the .SI file is:
+
+        "Header Information"
+
+    ORDER:
+        var1, var2, . . . , varN ;
+
+    VECTORS:
+        Stimulus pattern1           Response pattern1
+        Stimulus pattern2           Response pattern2
+                .                           .
+                .                           .
+                .                           .
+        Stimulus patternN           Response patternN
+
+Within the vector table, inputs are defined with 1 (+5V), and 0 (GND),
+while outputs are defined with H (+5V), L (GND), and Z (high impedance).
+"Don't Cares" are represented by an X.  An * in the response field causes
+the simulator to determine the output according to the logic definition
+contained in the .ABS file, which was derived from your .PLD file.
+
+Directives
+ÄÄÄÄÄÄÄÄÄÄ
+To run CSIM, select Simulate CUPL file in the main menu.  Select the .SI
+file that contains the test vectors for your design.  A list of CSIM option
+flags appear.  Choose the needed flags for your design.
+

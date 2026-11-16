@@ -1,0 +1,62 @@
+; simulation section for merged design - FIFO1.PDS
+; (RDPTR.PDS + WTPTR.PDS + SRAM.PDS + MUXCOMP.PDS)
+
+SIMULATION
+
+; form vectors for ease of description
+VECTOR INDAT  := [  DIN8  DIN7  DIN6  DIN5  DIN4  DIN3  DIN2  DIN1  DIN0 ]
+VECTOR OUTDAT := [ DOUT8 DOUT7 DOUT6 DOUT5 DOUT4 DOUT3 DOUT2 DOUT1 DOUT0 ]
+VECTOR SADDR  := [  A6  A5  A4  A3  A2  A1  A0 ]
+VECTOR MACHN  := [  EMPTY_ FULL_ Q2  Q1  Q0 ]
+VECTOR RPTR   := [ RP6 RP5 RP4 RP3 RP2 RP1 RP0 ]
+VECTOR WPTR   := [ WP6 WP5 WP4 WP3 WP2 WP1 WP0 ]
+
+; specify signals to be in trace (.TRF) file
+TRACE_ON  CLK  WR_  RD_  INDAT  OUTDAT  SADDR  MACHN  FULL_  EMPTY_ 
+          RPTR WPTR ENABLE_
+
+; initialize inputs
+SETF  INDAT := 0x1FF  CLK  ENABLE_  RD_  WR_  OE_
+
+; initialize registers
+PRLDF /RP0 /RP1 /RP2 /RP3 /RP4 /RP5 /RP6
+      /WP0 /WP1 /WP2 /WP3 /WP4 /WP5 /WP6
+      /Q2  /Q1  /Q0  /EMPTY_  /FULL_
+
+; idle for 2 clocks
+
+CLOCKF CLK
+CLOCKF CLK
+
+; write 5 consecutive locations
+
+FOR WRITELOOP := 0 TO 4 DO
+    BEGIN
+        CLOCKF CLK
+        SETF INDAT := WRITELOOP
+        SETF /WR_ 
+        SETF /ENABLE_
+        CLOCKF CLK
+        SETF  ENABLE_
+        SETF  WR_
+    END
+
+; idle for 2 clocks
+
+CLOCKF CLK
+CLOCKF CLK
+
+; read 5 consecutive locations
+
+FOR READLOOP := 0 TO 4 DO
+    BEGIN
+        SETF /RD_ /ENABLE_ /OE_
+        CLOCKF CLK
+        SETF  RD_ ENABLE_ OE_
+        CLOCKF CLK
+    END
+
+TRACE_OFF
+; end of simulation
+
+

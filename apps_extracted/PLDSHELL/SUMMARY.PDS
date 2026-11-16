@@ -1,0 +1,404 @@
+Title       PLDasm Language Summary   (summary.pds)
+Pattern     <<pattern label>>
+Revision    <<rev. number>>
+Author      <<your name>>
+Company     <<your company>>
+Date        <<current date>>
+
+; Comments up to the first CHIP, OPTIONS or DEFMOD keyword are included in
+; the Header for the Report and JEDEC file for a design.
+
+; Optional Module definitions
+DEFMOD <module name> ( <argument list> )
+
+CHIP <module name>  ALTERA_ARCH
+
+PIN  <argument list name>
+NODE <any buried pin>
+
+; valid PDS syntax that defines a logic function.
+; EQUATIONS/STATE/MODULE/T_TAB Sections allowed
+
+ENDMOD
+
+;--------------------------------------------------------------------------
+
+OPTIONS     ; Must be before CHIP keyword section
+
+; Not all options are available for every device.
+; The Default value is the first value in each options list
+
+    TURBO        = [ON|OFF]       ; sets TURBO bit in device
+    SECURITY     = [OFF|ON]       ; sets SECURITY bit(s) in device
+
+    EXPAND       = [ON|OFF]       ; Reduce to 2-level SOP equations
+    INVERSION    = [ON|OFF]       ; Allow left-hand side to be inverted
+    DT_SYNTHESIS = [ON|OFF]       ; D or T Flip-flops; FLEXlogic devices only
+    MINIMIZATION = [ON|OFF]       ; Controls Espresso algorithm
+
+    ; Options that only work with the FLEXlogic device fitter
+    DRIVE_LEVEL  = [5VOLT|3VOLT]   ; default I/O voltage level
+
+    FITTER_PINS  = [KEEP|TRY|IGNORE]  ; What to do with pins in .PDS file
+    FITTER_PREV_PINS = [ON|OFF]       ; use .PIN file first, if it exists
+    FITTER_ALGORITHM = [NORMAL|COMPLETE]  ; COMPLETE takes a looong time!
+
+; When using the PLDshell GUI interface, all of these options
+; can be overridden by the Compile->Compile Options Menu,
+; except for TURBO, SECURITY and DRIVE_LEVEL.
+
+
+;--------------------------------------------------------------------------
+;      Design Name     Partname
+CHIP   summary         EPxxxx
+
+;
+; For further partname information, see Table 1-1 in the PLDshell Plus Manual
+; and the Altera Data Book.
+;
+
+; PINLIST
+
+PIN     1   CLOCK
+
+PIN     1   DCLOCK  DELAYCLK  ; uses delayed clock
+
+
+PIN         UPDOWN    ; undefined pin assignment
+PIN         /CLEAR    ; active-low signal
+
+PIN     2   I1        ; Direct Inputs, with pin assignments
+PIN     3   I2
+PIN     4   I3
+PIN     5   I4
+
+PIN  [2:5]  I[1:4]    ; with vector notation
+
+PIN[0:3]    D[0:3]    ; vector notation
+
+NODE  32    Q0        ; buried state variables for a state machine
+NODE        Q1        ; unassigned
+NODE        Q2
+NODE  IO27  Q3        ; assigned to a macrocell
+
+
+; -- Output Types --
+    ; Combinatorial Output, I/O Feedback
+    PIN          O1    COMB   PINFBK
+
+    ; Combinatorial Output, MC Feedback, 5VOLT output
+    PIN          O2    COMB   CMBFBK   5VOLT
+
+    ; Combinatorial Output, Reg Feedback (EP22V10E, and EPX7xx only)
+    PIN          O3    COMB   REGFBK
+
+    ; Buried Combinatorial Macrocell
+    NODE         O4    CMBFBK BURIED
+
+    ; Registered Output, I/O Feedback, with 3.3 VOLT output
+    PIN          O5    REG    PINFBK   3VOLT
+
+    ; Registered Output, MC Feedback
+    PIN          O6    REG    REGFBK
+
+    ; Buried Register
+    PIN          O7    REGFBK BURIED
+    
+    ; Or the equivalent is to use the NODE keyword
+    NODE         O7    REG
+
+
+    ; A 5 volt Open Drain Output
+    PIN          10     5VOLT OPEN_DRAIN
+
+    ; T Feedback Combinatorial Output
+    PIN          cout_t     TREGFBK
+
+    ; JK Feedback Combinatorial Output    
+    PIN          cout_t     JKFBK    
+
+    ; SR Feedback Combinatorial Output
+    PIN          cout_sr    SRFBK
+
+    ; T Output Combinatorial Feedback
+    PIN          tout       CMBFBK
+
+    ; JK Output Combinatorial Feedback
+    PIN          jkout      CMBFBK
+
+    ; SR Output Combinatorial Feedback     
+    PIN          srout      CMBFBK
+
+; -- Input Types --
+    ; Latched Input     (EP312/EP324)
+    PIN   5      LIN1  LATCHED
+
+    ; Registered Input  (EP312/EP324)
+    PIN   6      RIN1  REG
+
+    ; CMOS LEVEL INPUTS
+    PIN   7      IN2    5VOLT   CMOS_LEVEL
+
+    ; TTL LEVEL INPUTS
+    PIN   8      IN3    3VOLT   TTL_LEVEL
+
+
+; -- SRAM Types --
+
+    ; Combinatorial SRAM output
+    PIN  BUFRAM[0:9] RAM
+
+    ; Buried Combinatorial SRAM
+    NODE ROMTAB[8:0] RAM
+
+    ; Buried Registered (D) SRAM
+    NODE MACHTAB[9:0] REG RAM 
+
+
+; -- String Substitutions throughout file --
+; These must appear after all Pin declarations
+
+    STRING   QADS    ' (ADS * PCLK * /RESET) '
+    STRING   RASON   ' ((RAS0 + RAS1) * /IREADY) '
+
+;  Design Sections can appear in any order; but the Simulation
+;  section must appear last
+;
+;       [ STATE ]        -- can have multiple state machines
+;       [ EQUATIONS ]    -- can have multipe equation sections
+;       [ T_TAB ]        -- can have multiple truth tables
+;       [ MODULE ]       -- can have multiple module calls
+;       [ RAM_DEFAULTS ] -- can have multiple ram defaults
+;
+;       [ SIMULATION ]   -- only one simulation section allowed, must be last
+;
+;   At least one STATE/EQUATIONS/T_TAB/MODULE section must appear.
+
+
+; -- State Machine Format --
+STATE  [MEALY_MACHINE|MOORE_MACHINE]
+
+;                    1     0          specifies output values on hold conditions
+    OUTPUT_HOLD      OUT1 /OUT2
+
+;                    0    1     X     specifies default output values
+    DEFAULT_OUTPUT  /OUT1 OUT2 %OUT3
+
+;                                     branches for unresolved states
+    DEFAULT_BRANCH S0                 ; go to S0
+    DEFAULT_BRANCH HOLD_STATE         ; stay in current state        
+    DEFAULT_BRANCH NEXT_STATE         ; go to next state in assignments list
+
+; State assignments, value of the machine variables for each state.
+; Gray code state assignments for a two-bit machine, S0-S3
+
+    S0 = /Q1 * /Q0    ; power-up state of Altera Device Registers
+    S1 = /Q1 *  Q0 
+    S2 =  Q1 *  Q0
+    S3 =  Q1 * /Q0
+
+; Gray code state assignments for a three-bit machine, S0-S7
+
+    S0 = /Q2 * /Q1 * /Q0    ; power-up state of Altera Device Registers
+    S1 = /Q2 * /Q1 *  Q0 
+    S2 = /Q2 *  Q1 *  Q0
+    S3 = /Q2 *  Q1 * /Q0
+    S4 =  Q2 *  Q1 * /Q0
+    S5 =  Q2 *  Q1 *  Q0
+    S6 =  Q2 * /Q1 *  Q0
+    S7 =  Q2 * /Q1 * /Q0
+    
+; state transitions
+
+    S0 := VCC       -> S1   ; on next clock go to S1
+
+    S1 := UP        -> S2
+        + DOWN      -> S4
+
+; output transitions, MOORE
+; Moore outputs are default transitions (VCC) only
+
+    S1.OUTF :=  VCC      -> LOCAL * /MEMORY * /INTACK ; registered
+    S2.OUTF  =  VCC      -> ASTRB                     ; combinatorial
+    S3.OUTF  =  VCC      -> ASTRB
+
+; output transitions, MEALY
+; Mealy's may have conditions on the output transitions
+
+    S1.OUTF :=  DOWN     ->  LOCAL * /MEMORY * /INTACK ; registered
+                + UP     -> /LOCAL
+    S2.OUTF  =  UP       -> ASTRB                     ; combinatorial
+    S3.OUTF  =  VCC      -> ASTRB
+
+
+; input conditions that determine state and output transitions
+    CONDITIONS
+        UP   =  UPDOWN * /CLEAR
+        DOWN = /UPDOWN * /CLEAR
+        ACTIVE = /EN + RDY
+
+; Moore machines are level sensitive.  The outputs do not change until
+; the next clock edge.  Mealy machines can generate pulse signals.
+; The outputs may change before the next clock edge.  See also the
+; examples in exmealy1.pds and pulse1.pds.
+
+; -- Boolean Equations section --
+EQUATIONS
+
+    O1    = ...     ; -- Combinatorial Output    (COMBINATORIAL)
+    O1   := ...     ; -- Registered (D) Output   (REGISTERED)
+            O1.FB   ; -- Feedback path from macrocell (REGFBK, CMBFBK)
+
+    O1.D := ...     ; -- Registered (D) Output   (REGISTERED)
+    O1.T := ...     ; -- Toggle (T) Output
+
+    O1.J := ...     ; -- J/K Output (emulated J/K.  Synchronized with .CLKF)
+    O1.K := ...
+
+    O1.S := ...     ; -- S/R Output (emulated J/K.  Synchronized with .CLKF)
+    O1.R := ...
+
+; -- Control Signals --
+    O1.CLKF = CLOCK           ; Register clock signal
+    O1.ACLK = CLOCK * ENABLE  ; Asynchronous clock signal, from pterm array
+
+    ; See Device Descriptions Chapter in the PLDshell Plus Manual for 
+    ; specific device clocking options, and macrocell control signals.
+
+    O1.RSTF = CLEAR   ; Register Clear signal
+    O1.SETF = PRESET  ; Register Preset signal
+    O1.TRST = /OE     ; OE signal
+
+; -- Logic --
+     AND1   = IN1 * IN2    ; Logical AND
+    /NAND1  = IN1 * IN2    ; Logical NAND
+
+     OR1    = IN1 + IN2    ; Logical OR
+    /NOR1   = IN1 + IN2    ; Logical NOR
+
+     XOR1   = IN1 :+: IN2  ; Logical XOR
+    /XOR1   = IN1 :+: IN2  ; Logical XNOR
+
+     NOT    = /IN1         ; Logical NOT
+
+     SOP    = /(IN1 + IN2) * IN3     ; precedence handled with ()'s
+            + (IN4 :+: IN5) * /IN6
+
+; -- Hardware Compare --
+    OUT.CMP := [cntl1, cntl2]==[addr1, addr2] ; compares if cntl1==addr1, 
+                                              ;             cntl2==addr2
+
+    BYTE.CMP := [ bigend[8:1] ] == [ little[1:8] ] 
+                                             
+; -- SRAM Equations --
+    ; Declaration in pinlist is:    
+	;  PIN BUFRAM[0:9] RAM BUFRAM
+
+    BUFRAM[0:6].ADDR = <addr6, addr5, ...,addr0>
+    BUFRAM[0:9].DATA = <data9, data8, ...,data0>
+    /BUFRAM[0:9].TRST = oe  ; control signals are single input
+    /BUFRAM.BE = ce
+    /BUFRAM.WE = we
+
+
+; -- Truth Table Section --
+T_TAB   ; combinatorial truth table
+    ( I1 I2 I3 I4  >> C1 C2 C3 C4 )
+       1  0  0  0  :   1  0  0  0
+       0  1  0  0  :   0  1  0  0
+       0  0  1  0  :   0  0  1  0
+       0  0  0  1  :   0  0  0  1
+
+T_TAB   ; registered truth table
+    ( I1 I2 I3 I4  :>> R1 R2 R3 R4 )     ; Latched used *>> operator
+       1  0  0  0  :   1  0  0  0
+       0  1  0  0  :   0  1  0  0
+       0  0  1  0  :   0  0  1  0
+       0  0  0  1  :   0  0  0  1
+       
+
+; -- Module Examples -- 
+; Format for calling a Lower Level Module
+;    MODULE <module name> [INSTANCE <instance name>] [FILE <file name>] 
+;                       ( <argument list> )
+
+;
+MODULE swapbyte (in[1:8] = big_end[1:8], out[1:8] = little_end[1:8])
+
+
+MODULE 74161 INSTANCE banka FILE ttlmod ( in[1:4] = GND,  out[1:4] = cnt[1:4],
+                    nCLR = clear, CLK=clk, 
+                    ENP = VCC, ENT = VCC, RCO = CO)
+
+MODULE 74161 INSTANCE bankb FILE ttlmod ( in[1:4] = GND,  out[1:4] = cnt[5:8],
+                    nCLR = clear, CLK=clk, 
+                    ENP = VCC, ENT = CO)
+
+MODULE 8count FILE epldmod (in[8:1] = GND, out[8:1] = cnt[8:1],
+                    CLR = clear, CLK=clk)
+	
+; -- RAM Defaults --
+; Used for initializing RAM structures with pre-defined values.
+
+RAM_DEFAULTS bongo
+    DEFAULT_VALUE #h3       ; default value for non-specified RAM locations
+    
+    ; Address         Value
+     0           :    #hF      ; (hex)     0xF is also valid
+    [10:20]      :    #o17     ; (octal)
+    [25:37]      :    32       ; (decimal) #d32 is also valid)
+    [44:66]      :    #b00101  ; (binary)
+
+
+; -- Simulation section --
+SIMULATION
+
+    ;-- Build vectors of outputs to use as tests for IF's and WHILE's
+
+    VECTOR INS  := [ IN8,IN7,IN6,IN5,IN4,IN3,IN2,IN1,IN0 ]
+    VECTOR NUM  := [ Q3, Q2, Q1, Q0 ]
+    VECTOR GLOB := [ ADDR23, ADDR22, ADDR16, ADDR15, ADDR12 ]
+
+    ;-- Set all inputs to known values
+    ;     0       0    1   0   1 
+    SETF /CLKPIN /ILE  I1 /I2 /I3  INS:=#o377
+
+
+    ;-- Preload registers to a known state (Altera Device registers power-up to 0)
+
+    ;-- Except for 22V10's, Altera Devices do not have a PRELOAD instruction.
+    ;-- All PRLDF's must therefore come *before* any CLOCKF or other simulation
+    ;-- action.  They should always be 0, which is the power-up state of
+    ;-- all device registers.
+
+    PRLDF /Q0 /Q1 /Q2 /Q3
+
+    ;-- Clock an input signal  0-->1-->0
+
+    CLOCKF CLKPIN
+
+    ;-- CHECK output values, report any mismatches
+    ;     1   0   0   0   1   1
+    CHECK O1 /O2 /O3 /O4  O5  O6
+    CHECK /AOK[15:0]
+
+    ;-- FOR loop to count up 6 clocks
+
+    FOR j := 0 TO 5 DO
+    BEGIN
+        SETF INS := j
+        CLOCKF CLK
+        IF ( NUM == 4 )     ; when in state 4
+        BEGIN
+            SETF /OE        ; disable OE
+        END
+    END
+
+    ;-- loop until OUTA and OUTB are both low
+
+    WHILE ( OUTA + OUTB ) DO
+    BEGIN
+        CLOCKF ACLK1
+    END
+
+    ; end simulation

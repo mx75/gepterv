@@ -1,0 +1,61 @@
+Name       trfk;
+Partno     XXXXX;
+Date       05/08/90;
+Revision   02;
+Designer   SDB;
+Company    Logical Devices, Inc.;
+Assembly   XXXXX;
+Location   XXXXX;
+Device     p20g10;
+
+/******************************************************************/
+/*                                                                */
+/*                      Traffic Controller                        */
+/*                                                                */
+/*   A Moore state machine design that controls traffic at the    */
+/*   intersection of two one-way streets.                         */
+/*                                                                */
+/******************************************************************/
+/*   Allowable Target Device Types:  20G10 and 22V10              */
+/******************************************************************/
+
+Order:  Clock,%1,Sen1,Sen2,%1,Enable, %2, Q2..0, %2,
+        Red1, Yellow1, Green1, %1, Red2, Yellow2, Green2;
+
+Vectors:
+$msg"        SS         RYG RYG";
+$msg"      C ee         eer eer";
+$msg"      l nn O  QQQ  dln dln";
+$msg"      k 12 E  210  111 222";
+$msg"      - -- -  ---  --- ---";
+           0 00 0  LLL  LLH HLL
+           C 00 0  LLH  LLH HLL
+           C 00 0  LHL  LLH HLL
+           C 00 0  LHH  LHL HLL
+           C 00 0  HLL  HLL LLH
+           C 00 0  HLH  HLL LLH
+           C 00 0  HHL  HLL LLH
+           C 00 0  HHH  HLL LHL
+           C 01 0  LLL  LLH HLL
+           C 01 0  LHH  LHL HLL
+           C 01 0  HLL  HLL LLH
+           C 01 0  HLL  HLL LLH
+           C 01 0  HLL  HLL LLH
+           C 01 0  HLL  HLL LLH
+           C 10 0  HHH  HLL LHL
+           C 10 0  LLL  LLH HLL
+           C 10 0  LLL  LLH HLL
+           C 10 0  LLL  LLH HLL
+           C 10 0  LLL  LLH HLL
+           C 10 0  LLL  LLH HLL
+           C 11 0  LLH  LLH HLL
+           C 11 0  LHL  LLH HLL
+           C 11 0  LHH  LHL HLL
+           C 11 0  HLL  HLL LLH
+           C 11 0  HLH  HLL LLH
+           C 11 0  HHL  HLL LLH
+           C 00 0  HHH  HLL LHL
+           C 00 0  LLL  LLH HLL
+           C 00 0  LLH  LLH HLL
+
+

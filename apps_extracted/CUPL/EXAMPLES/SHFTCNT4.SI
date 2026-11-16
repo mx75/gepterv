@@ -1,0 +1,56 @@
+Name		Shftcnt4;
+Partno		CA0004;
+Date		6/18/84;
+Revision	01;
+Designer	T. Kahl;
+Company		Assisted Technology, Inc.;
+Assembly	None;
+Location	None;
+
+ORDER: 		clk,%1,I3..0,%1,!oe,%2,F3..0;
+
+VECTORS:
+
+$msg"      c      !";
+$msg"      l IIII o  FFFF";
+$msg"      k 3210 e  3210";
+$msg"      --------------";
+	   c 1xxx 1  zzzz	/* clear and hi-z output */
+	   c 1xxx 0  llll
+	   c 0011 0  lllh	/* up */
+	   c 0011 0  llhl
+	   c 0100 0  lhll	/* left */
+$msg 				"test shift right";
+	   c 1xxx 0  llll	/* clear */
+	   c 1xxx 0  llll
+	   c 0101 0  hhhh	/* down */
+	   c 0101 0  hhhl	/* down */
+	   c 0010 0  lhhh	/* right */
+	   c 0010 0  hlhh
+	   c 0010 0  hhlh
+	   c 0010 0  hhhl
+$msg 				"test shift left";
+	   c 1xxx 0  llll	/* clear */
+	   c 0011 0  lllh	/* up */
+	   c 0100 0  llhl	/* left */
+	   c 0100 0  lhll
+	   c 0100 0  hlll
+	   c 0100 0  lllh
+$msg	 			"test up counter";
+	   c 1xxx 0  llll	/* clear */
+	   c 0011 0  lllh	/* up */
+	   c 0011 0  llhl
+	   c 0011 0  llhh
+	   c 0011 1  zzzz	/* hi-z output */
+	   c 0011 1  zzzz
+	   c 0011 1  zzzz
+	   c 0011 0  lhhh
+	   c 0011 0  hlll
+	   c 0011 0  hllh
+	   c 0011 0  hlhl
+	   c 0011 0  hlhh
+	   c 0011 0  hhll
+	   c 0011 0  hhlh
+	   c 0011 0  hhhl
+	   c 0011 0  hhhh
+	   c 0011 0  llll

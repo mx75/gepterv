@@ -1,0 +1,163 @@
+Title    3to8_Dmux
+Pattern  3to8Dmux.pds
+Revision A
+Author   Mehrnaz Hada
+Company  Monolithic Memories Inc., Santa Clara, CA
+Date     1/29/85
+  
+;The 3-to-8 demultiplexer with control storage provides a
+;conventional 8-bit demux function combined with control
+;storage functions:load true, load complement, hold, toggle,
+;polarity, clear and preset. Five inputs(/LD,/CLR,/PR,POL,
+;TOG) select one of six operations. The six operations are
+;summarized in the following operations table:
+  
+;Control   Functions   Polarity Inputs Outputs
+;/OC CLK /CLR /PR /LD  POL  TOG  ABC    Q7-Q0  Operation
+;----------------------------------------------------------
+; H   X    X   X   X    X    X    X       Z    HI-Z
+; L   C    L   X   X    X    X    X       L    Clear
+; L   C    H   L   X    X    X    X       H    PRESET
+; L   C    H   H   L    H    X    I      MUX   Load true
+; L   C    H   H   L    L    X    I     /MUX   Load COMP
+; L   C    H   H   H    X    L    X       Q    Hold
+; L   C    H   H   H    X    H    X      /Q    Tog polarity
+;-----------------------------------------------------------
+  
+CHIP 3to8Dmux PAL16R8
+  
+CLK /CLR /PR A  B  C  /LD POL TOG GND
+/OC  Q7   Q6 Q5 Q4 Q3  Q2 Q1  Q0  VCC
+  
+EQUATIONS
+  
+/Q0 :=  CLR                             ;Clear Q0
+     + /PR* LD*/POL*/C*/B*/A            ;Decode 000
+     + /PR* LD* POL*       A            ;Load true
+     + /PR* LD* POL*    B               ;Load true
+     + /PR* LD* POL* C                  ;Load true
+     + /PR*/LD*/TOG*/Q0                 ;Hold
+     + /PR*/LD* TOG* Q0                 ;Toggle polarity
+  
+/Q1 :=  CLR                             ;Clear Q1
+     + /PR* LD*/POL*/C*/B* A            ;Decode 001
+     + /PR* LD* POL*      /A            ;Load true
+     + /PR* LD* POL*    B               ;Load true
+     + /PR* LD* POL* C                  ;Load true
+     + /PR*/LD*/TOG*/Q1                 ;Hold
+     + /PR*/LD* TOG* Q1                 ;Toggle polarity
+  
+/Q2 :=  CLR                             ;Clear Q2
+     + /PR* LD*/POL*/C* B*/A            ;Decode 010
+     + /PR* LD* POL*       A            ;Load true
+     + /PR* LD* POL*   /B               ;Load true
+     + /PR* LD* POL* C                  ;Load true
+     + /PR*/LD*/TOG*/Q2                 ;Hold
+     + /PR*/LD* TOG* Q2                 ;Toggle polarity
+  
+/Q3 :=  CLR                             ;Clear Q3
+     + /PR* LD*/POL*/C* B* A            ;Decode 011
+     + /PR* LD* POL*      /A            ;Load true
+     + /PR* LD* POL*   /B               ;Load true
+     + /PR* LD* POL* C                  ;Load true
+     + /PR*/LD*/TOG*/Q3                 ;Hold
+     + /PR*/LD* TOG* Q3                 ;Toggle polarity
+  
+/Q4 :=  CLR                             ;Clear Q4
+     + /PR* LD*/POL* C*/B*/A            ;Decode 100
+     + /PR* LD* POL*       A            ;Load true
+     + /PR* LD* POL*    B               ;Load true
+     + /PR* LD* POL*/C                  ;Load true
+     + /PR*/LD*/TOG*/Q4                 ;Hold
+     + /PR*/LD* TOG* Q4                 ;Toggle polarity
+  
+/Q5 :=  CLR                             ;Clear Q5
+     + /PR* LD*/POL* C*/B* A            ;Decode 101
+     + /PR* LD* POL*      /A            ;Load true
+     + /PR* LD* POL*    B               ;Load true
+     + /PR* LD* POL*/C                  ;Load true
+     + /PR*/LD*/TOG*/Q5                 ;Hold
+     + /PR*/LD* TOG* Q5                 ;Toggle polarity
+  
+/Q6 :=  CLR                             ;Clear Q6
+     + /PR* LD*/POL* C* B*/A            ;Decode 110
+     + /PR* LD* POL*       A            ;Load true
+     + /PR* LD* POL*   /B               ;Load true
+     + /PR* LD* POL*/C                  ;Load true
+     + /PR*/LD*/TOG*/Q6                 ;Hold
+     + /PR*/LD* TOG* Q6                 ;Toggle polarity
+  
+/Q7 :=  CLR                             ;Clear Q7
+     + /PR* LD*/POL* C* B* A            ;Decode 111
+     + /PR* LD* POL*      /A            ;Load true
+     + /PR* LD* POL*   /B               ;Load true
+     + /PR* LD* POL*/C                  ;Load true
+     + /PR*/LD*/TOG*/Q7                 ;Hold
+     + /PR*/LD* TOG* Q7                 ;Toggle polarity
+  
+SIMULATION
+  
+TRACE_ON /OC /CLR /PR /LD POL TOG C B A
+         Q7 Q6 Q5 Q4 Q3 Q2 Q1 Q0
+  
+SETF OC CLR PR LD POL /TOG              ;Clear
+CLOCKF CLK
+SETF /CLR                               ;Preset
+CLOCKF CLK
+SETF /PR /C /B /A                       ;Load 0
+CLOCKF CLK
+SETF A                                  ;Load 1
+CLOCKF CLK
+SETF B /A                               ;Load 2
+CLOCKF CLK
+SETF A                                  ;Load 3
+CLOCKF CLK
+SETF /LD                                ;Hold
+SETF TOG                                ;Toggle polarity
+CLOCKF CLK
+CLOCKF CLK                              ;Toggle polarity
+  
+SETF /POL LD /C /B /A                   ;Load 0 complement
+CLOCKF CLK
+SETF A                                  ;Load 1 complement
+CLOCKF CLK
+SETF /OC                                ;Test HI-Z
+CLOCKF CLK
+  
+TRACE_OFF
+  
+;Function Table for PALASM1
+  
+;/OC CLK /CLR /PR /LD POL TOG C B A Q7 Q6 Q5 Q4 Q3 Q2 Q1 Q0
+  
+;Control   Functions   Polarity  Input  Output
+;/OC CLK /CLR /PR /LD  POL  TOG   CBA  Q7----Q0  Comments
+;----------------------------------------------------------
+; L   C    L   L   L    H    L    XXX  LLLLLLLL  Clear
+; L   C    H   L   L    H    L    XXX  HHHHHHHH  PRESET
+; L   C    H   H   L    H    X    LLL  LLLLLLLH  Load 0
+; L   C    H   H   L    H    X    LLH  LLLLLLHL  Load 1
+; L   C    H   H   L    H    X    LHL  LLLLLHLL  Load 2
+; L   C    H   H   L    H    X    LHH  LLLLHLLL  Load 3
+; L   C    H   H   L    H    X    HLL  LLLHLLLL  Load 4
+; L   C    H   H   L    H    X    HLH  LLHLLLLL  Load 5
+; L   C    H   H   L    H    X    HHL  LHLLLLLL  Load 6
+; L   C    H   H   L    H    X    HHH  HLLLLLLL  Load 7
+; L   C    H   H   H    X    L    XXX  HLLLLLLL  Hold 7
+; L   C    H   H   H    X    H    XXX  LHHHHHHH  Hold
+; L   C    H   H   H    X    H    XXX  HLLLLLLL  Hold
+; L   C    H   H   L    L    X    LLL  HHHHHHHL  Load 0
+; L   C    H   H   L    L    X    LLH  HHHHHHLH  Load 1
+; L   C    H   H   L    L    X    LHL  HHHHHLHH  Load 2
+; L   C    H   H   L    L    X    LHH  HHHHLHHH  Load 3
+; L   C    H   H   L    L    X    HLL  HHHLHHHH  Load 4
+; L   C    H   H   L    L    X    HLH  HHLHHHHH  Load 5
+; L   C    H   H   L    L    X    HHL  HLHHHHHH  Load 6
+; L   C    H   H   L    L    X    HHH  LHHHHHHH  Load 7
+; L   C    H   H   H    X    L    XXX  LHHHHHHH  Hold 7
+; L   C    H   H   H    X    H    XXX  HLLLLLLL  Hold
+; L   C    H   H   H    X    H    XXX  LHHHHHHH  Hold
+; H   X    X   X   X    X    X    XXX  ZZZZZZZZ  Test HI-Z
+;----------------------------------------------------------
+  
+

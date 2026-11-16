@@ -1,0 +1,321 @@
+|*
+|* ***************************************************************************
+|*
+|*   Copyright (C) 1994 by Altera Corporation.
+|*   All rights reserved. No part of this program or publication may be
+|*   reproduced, transmitted, transcribed, stored in a retrieval system, or
+|*   translated into any language or computer language, in any form or by any
+|*   means, electronic, mechanical, magnetic, optical,  chemical,  manual, or
+|*   otherwise,  without the prior written permission of  Altera Corporation,
+|*   2610 Orchard Parkway, San Jose, CA  95134-2020.
+|*
+|* ***************************************************************************
+|*
+|
+| Device type definitions for JED2JTAG and PENGN
+|
+| Permission is given to modify this library in any manner for use
+| by customers of Altera.  Altera is not responsible for any such
+| modifications.
+
+| Conventions:
+|   NAME should be the mfg. specification
+|   ID numbers are in hex
+|   IR_LENGTH values are in decimal
+|   DR_LENGTH values are in <hex> for Instructions,
+|	and <decimal> for Data length
+
+| Texas Instruments 74ABT8245
+{
+  ID                        0
+  NAME           TI_74ABT8245
+  IR_LENGTH                 8
+|              Instruction <hex>   Data Length <decimal>
+  DR_LENGTH                FF            1      | FF is BYPASS
+}
+
+| Texas Instruments 74BCT8374
+{
+  ID                        0
+  NAME           TI_74BCT8374
+  IR_LENGTH                 8
+|              Instruction <hex>   Data Length <decimal>
+  DR_LENGTH                FF            1      | FF is BYPASS
+  DR_LENGTH                02           18      | 02 is SAMPLE for this
+}
+
+| Texas Instruments 74BCT8373
+{
+  ID                        0
+  NAME           TI_74BCT8373
+  IR_LENGTH                 8
+|              Instruction <hex>   Data Length <decimal>
+  DR_LENGTH                FF            1
+  DR_LENGTH                02           18      | 02 is SAMPLE for this
+}
+
+| Intel Pentium
+{
+  ID                        0
+  NAME                PENTIUM
+  IR_LENGTH                 13
+|              Instruction <hex>   Data Length <decimal>
+  DR_LENGTH                FF            1   | BYPASS
+  DR_LENGTH                02           32   | IDCODE
+}
+
+| Intel 486DX2
+{
+  ID                        0
+  NAME                i486DX2
+  IR_LENGTH                 4
+|              Instruction <hex>   Data Length <decimal>
+  DR_LENGTH                FF            1
+  DR_LENGTH                02           32   | IDCODE
+}
+
+| Altera EPX780, 84 pin PLCC
+{
+  ID              10621013
+  NAME            EPX780LC84
+  IR_LENGTH                 5
+|              Instruction <hex>   Data Length <decimal>
+  DR_LENGTH                00            264    | EXTEST
+  DR_LENGTH                01            264    | SAMPLE/PRELOAD
+  DR_LENGTH                02             32    | IDCODE
+  DR_LENGTH                05             43    | LDVECT
+  DR_LENGTH                06            600    | FREAD data len is 2nd cycle
+  DR_LENGTH                0F            606    | SWRITE
+  DR_LENGTH                10            600    | SREAD data len is 2nd cycle
+  DR_LENGTH                15              1    | FPGM
+  DR_LENGTH                1D              1    | HIZ
+  DR_LENGTH                16            600    | UESCODE
+  DR_LENGTH                1E             80    | ISCAN
+  DR_LENGTH                1F              1    | BYPASS
+}
+
+| Altera EPX780, 132 pin QFP
+{
+  ID               00621013
+  NAME            EPX780QC132
+  IR_LENGTH                 5
+|              Instruction <hex>   Data Length <decimal>
+  DR_LENGTH                00            264    | EXTEST
+  DR_LENGTH                01            264    | SAMPLE/PRELOAD
+  DR_LENGTH                02             32    | IDCODE
+  DR_LENGTH                05             43    | LDVECT
+  DR_LENGTH                06            600    | FREAD data len is 2nd cycle
+  DR_LENGTH                0F            606    | SWRITE
+  DR_LENGTH                10            600    | SREAD data len is 2nd cycle
+  DR_LENGTH                15              1    | FPGM
+  DR_LENGTH                1D              1    | HIZ
+  DR_LENGTH                16            600    | UESCODE
+  DR_LENGTH                1E             80    | ISCAN
+  DR_LENGTH                1F              1    | BYPASS
+}
+
+
+| Altera EPX740, 44 pin PLCC
+{
+  ID               10622013
+  NAME             EPX740LC44
+  IR_LENGTH                 5
+|              Instruction <hex>   Data Length <decimal>
+  DR_LENGTH                00            264    | EXTEST
+  DR_LENGTH                01            264    | SAMPLE/PRELOAD
+  DR_LENGTH                02             32    | IDCODE
+  DR_LENGTH                05             43    | LDVECT
+  DR_LENGTH                06            300    | FREAD data len is 2nd cycle
+  DR_LENGTH                0F            306    | SWRITE
+  DR_LENGTH                10            300    | SREAD data len is 2nd cycle
+  DR_LENGTH                15              1    | FPGM
+  DR_LENGTH                1D              1    | HIZ
+  DR_LENGTH                16            300    | UESCODE
+  DR_LENGTH                1E             40    | ISCAN
+  DR_LENGTH                1F              1    | BYPASS
+}
+
+| Altera EPX740, 68 pin PLCC
+{
+  ID               00622013
+  NAME             EPX740LC68
+  IR_LENGTH                 5
+|              Instruction <hex>   Data Length <decimal>
+  DR_LENGTH                00            264    | EXTEST
+  DR_LENGTH                01            264    | SAMPLE/PRELOAD
+  DR_LENGTH                02             32    | IDCODE
+  DR_LENGTH                05             43    | LDVECT
+  DR_LENGTH                06            300    | FREAD data len is 2nd cycle
+  DR_LENGTH                0F            306    | SWRITE
+  DR_LENGTH                10            300    | SREAD data len is 2nd cycle
+  DR_LENGTH                15              1    | FPGM
+  DR_LENGTH                1D              1    | HIZ
+  DR_LENGTH                16            300    | UESCODE
+  DR_LENGTH                1E             40    | ISCAN
+  DR_LENGTH                1F              1    | BYPASS
+}
+
+| Altera EPX8160, 208 pin QFP (Device 0)
+{
+  ID               00624013
+  NAME            EPX8160QC208.0
+  IR_LENGTH                 5
+|              Instruction <hex>   Data Length <decimal>
+  DR_LENGTH                00            206    | EXTEST
+  DR_LENGTH                01            206    | SAMPLE/PRELOAD
+  DR_LENGTH                02             32    | IDCODE
+  DR_LENGTH                05             43    | LDVECT
+  DR_LENGTH                06            616    | FREAD data len is 2nd cycle
+  DR_LENGTH                0F            622    | SWRITE
+  DR_LENGTH                10            616    | SREAD data len is 2nd cycle
+  DR_LENGTH                15              1    | FPGM
+  DR_LENGTH                1D              1    | HIZ
+  DR_LENGTH                16            616    | UESCODE
+  DR_LENGTH                1C             20    | BSCAN
+  DR_LENGTH                1E             80    | ISCAN
+  DR_LENGTH                1F              1    | BYPASS
+}
+
+| Altera EPX8160, 208 pin QFP (Device 1)
+{
+  ID               00623013
+  NAME            EPX8160QC208.1
+  IR_LENGTH                 5
+|              Instruction <hex>   Data Length <decimal>
+  DR_LENGTH                00            206    | EXTEST
+  DR_LENGTH                01            206    | SAMPLE/PRELOAD
+  DR_LENGTH                02             32    | IDCODE
+  DR_LENGTH                05             43    | LDVECT
+  DR_LENGTH                06            616    | FREAD data len is 2nd cycle
+  DR_LENGTH                0F            622    | SWRITE
+  DR_LENGTH                10            616    | SREAD data len is 2nd cycle
+  DR_LENGTH                15              1    | FPGM
+  DR_LENGTH                1D              1    | HIZ
+  DR_LENGTH                16            616    | UESCODE
+  DR_LENGTH                1C             20    | BSCAN
+  DR_LENGTH                1E             80    | ISCAN
+  DR_LENGTH                1F              1    | BYPASS
+}
+
+| Intel iFX780, 84 pin PLCC
+{
+  ID              10621013
+  NAME            FX780_84
+  IR_LENGTH                 5
+|              Instruction <hex>   Data Length <decimal>
+  DR_LENGTH                00            264    | EXTEST
+  DR_LENGTH                01            264    | SAMPLE/PRELOAD
+  DR_LENGTH                02             32    | IDCODE
+  DR_LENGTH                05             43    | LDVECT
+  DR_LENGTH                06            600    | FREAD data len is 2nd cycle
+  DR_LENGTH                0F            606    | SWRITE
+  DR_LENGTH                10            600    | SREAD data len is 2nd cycle
+  DR_LENGTH                15              1    | FPGM
+  DR_LENGTH                1D              1    | HIZ
+  DR_LENGTH                16            600    | UESCODE
+  DR_LENGTH                1E             80    | ISCAN
+  DR_LENGTH                1F              1    | BYPASS
+}
+
+| Intel iFX780, 132 pin QFP
+{
+  ID               00621013
+  NAME            FX780_132
+  IR_LENGTH                 5
+|              Instruction <hex>   Data Length <decimal>
+  DR_LENGTH                00            264    | EXTEST
+  DR_LENGTH                01            264    | SAMPLE/PRELOAD
+  DR_LENGTH                02             32    | IDCODE
+  DR_LENGTH                05             43    | LDVECT
+  DR_LENGTH                06            600    | FREAD data len is 2nd cycle
+  DR_LENGTH                0F            606    | SWRITE
+  DR_LENGTH                10            600    | SREAD data len is 2nd cycle
+  DR_LENGTH                15              1    | FPGM
+  DR_LENGTH                1D              1    | HIZ
+  DR_LENGTH                16            600    | UESCODE
+  DR_LENGTH                1E             80    | ISCAN
+  DR_LENGTH                1F              1    | BYPASS
+}
+
+| Intel iFX740, 44 pin PLCC
+{
+  ID               10622013
+  NAME             FX740_44
+  IR_LENGTH                 5
+|              Instruction <hex>   Data Length <decimal>
+  DR_LENGTH                00            264    | EXTEST
+  DR_LENGTH                01            264    | SAMPLE/PRELOAD
+  DR_LENGTH                02             32    | IDCODE
+  DR_LENGTH                05             43    | LDVECT
+  DR_LENGTH                06            300    | FREAD data len is 2nd cycle
+  DR_LENGTH                0F            306    | SWRITE
+  DR_LENGTH                10            300    | SREAD data len is 2nd cycle
+  DR_LENGTH                15              1    | FPGM
+  DR_LENGTH                1D              1    | HIZ
+  DR_LENGTH                16            300    | UESCODE
+  DR_LENGTH                1E             40    | ISCAN
+  DR_LENGTH                1F              1    | BYPASS
+}
+
+| Intel iFX740, 68 pin PLCC
+{
+  ID               00622013
+  NAME             FX740_68
+  IR_LENGTH                 5
+|              Instruction <hex>   Data Length <decimal>
+  DR_LENGTH                00            264    | EXTEST
+  DR_LENGTH                01            264    | SAMPLE/PRELOAD
+  DR_LENGTH                02             32    | IDCODE
+  DR_LENGTH                05             43    | LDVECT
+  DR_LENGTH                06            300    | FREAD data len is 2nd cycle
+  DR_LENGTH                0F            306    | SWRITE
+  DR_LENGTH                10            300    | SREAD data len is 2nd cycle
+  DR_LENGTH                15              1    | FPGM
+  DR_LENGTH                1D              1    | HIZ
+  DR_LENGTH                16            300    | UESCODE
+  DR_LENGTH                1E             40    | ISCAN
+  DR_LENGTH                1F              1    | BYPASS
+}
+
+| Intel iFX8160, 208 pin QFP (Device 0)
+{
+  ID               00624013
+  NAME            FX8160_208.0
+  IR_LENGTH                 5
+|              Instruction <hex>   Data Length <decimal>
+  DR_LENGTH                00            206    | EXTEST
+  DR_LENGTH                01            206    | SAMPLE/PRELOAD
+  DR_LENGTH                02             32    | IDCODE
+  DR_LENGTH                05             43    | LDVECT
+  DR_LENGTH                06            616    | FREAD data len is 2nd cycle
+  DR_LENGTH                0F            622    | SWRITE
+  DR_LENGTH                10            616    | SREAD data len is 2nd cycle
+  DR_LENGTH                15              1    | FPGM
+  DR_LENGTH                1D              1    | HIZ
+  DR_LENGTH                16            616    | UESCODE
+  DR_LENGTH                1C             20    | BSCAN
+  DR_LENGTH                1E             80    | ISCAN
+  DR_LENGTH                1F              1    | BYPASS
+}
+ 
+| Intel iFX8160, 208 pin QFP (Device 1)
+{
+  ID               00623013
+  NAME            FX8160_208.1
+  IR_LENGTH                 5
+|              Instruction <hex>   Data Length <decimal>
+  DR_LENGTH                00            206    | EXTEST
+  DR_LENGTH                01            206    | SAMPLE/PRELOAD
+  DR_LENGTH                02             32    | IDCODE
+  DR_LENGTH                05             43    | LDVECT
+  DR_LENGTH                06            616    | FREAD data len is 2nd cycle
+  DR_LENGTH                0F            622    | SWRITE
+  DR_LENGTH                10            616    | SREAD data len is 2nd cycle
+  DR_LENGTH                15              1    | FPGM
+  DR_LENGTH                1D              1    | HIZ
+  DR_LENGTH                16            616    | UESCODE
+  DR_LENGTH                1C             20    | BSCAN
+  DR_LENGTH                1E             80    | ISCAN
+  DR_LENGTH                1F              1    | BYPASS
+}
+

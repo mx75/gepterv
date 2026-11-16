@@ -1,0 +1,157 @@
+Title           COUNTER
+Pattern         COUNTER
+Revision        A
+Author          Andrew Lai
+Company         MMI
+Date            2/20/87
+  
+Chip    COUNTER        pal22v10
+  
+;********************************************************
+; SIMULATION OF A COUNTER. EQUATIONS ARE A COMBINATION
+; OF ACTIVE HIGH OR LOW AND REGISTER OR COMBINITORIAL.
+; PRELOAD AND GLOBAL RESET FUNCTIONS ARE INCLUDED.
+;********************************************************
+  
+clk  /rs clr st  nc  nc  nc  nc  nc  nc  nc  gnd
+/oe  s0  s1  s2  s3  s4  s8 HLD s6  s7  s5   vcc
+global
+  
+equations
+  
+global.rstf     = rs
+global.setf     = /st
+  
+s0      := /s0 *  hld                           ;ACTIVE HIGH
+         +  s0 * /hld
+         + /clr
+  
+s1      :=  s0 * /s1 *  hld                     ;ACTIVE HIGH
+         + /s0 *  s1 *  hld
+         +        s1 * /hld
+         + /clr
+  
+s2      :=  s0 *  s1 * /s2 *  hld               ;ACTIVE HIGH
+         + /s1 *  s2 *  hld
+         + /s0 *  s2 *  hld
+         +        s2 * /hld
+         + /clr
+  
+s3      :=  s0 *  s1 *  s2 * /s3 *  hld         ;ACTIVE HIGH
+         + /s2 *  s3 *  hld
+         + /s1 *  s3 *  hld
+         + /s0 *  s3 *  hld
+         +        s3 * /hld
+         + /clr
+  
+/s4     :=  s0 *  s1 *  s2 *  s3 *  s4 *  hld   ;ACTIVE LOW
+         + /s3 * /s4 *  hld
+         + /s2 * /s4 *  hld
+         + /s1 * /s4 *  hld
+         + /s0 * /s4 *  hld
+         +       /s4 * /hld
+         + /clr
+  
+s5      :=  s0 *  s1 *  s2 *  s3 *  s4 * /s5 *  hld   ;ACTIVE HIGH
+         + /s4 *  s5 *  hld
+         + /s3 *  s5 *  hld
+         + /s2 *  s5 *  hld
+         + /s1 *  s5 *  hld
+         + /s0 *  s5 *  hld
+         +        s5 * /hld
+         + /clr
+  
+s6      :=  s0 *  s1 *  s2 *  s3 *  s4 *  s5 * /s6 *  hld   ;ACTIVE HIGH
+         + /s5 *  s6 *  hld
+         + /s4 *  s6 *  hld
+         + /s3 *  s6 *  hld
+         + /s2 *  s6 *  hld
+         + /s1 *  s6 *  hld
+         + /s0 *  s6 *  hld
+         +        s6 * /hld
+         + /clr
+  
+/s7     :=  s0 *  s1 *  s2 *  s3 *  s4 *  s5 *  s6 * s7 *  hld   ;ACTIVE LOW
+         + /s6 * /s7 *  hld
+         + /s5 * /s7 *  hld
+         + /s4 * /s7 *  hld
+         + /s3 * /s7 *  hld
+         + /s2 * /s7 *  hld
+         + /s1 * /s7 *  hld
+         + /s0 * /s7 *  hld
+         +       /s7 * /hld
+         + /clr
+  
+;COMBINATORIAL
+s8       =  s0 * /s1 * /s2 * /s3 * /s4 * /s5 * /s6 * /s7   ;01
+         +  s0 *  s1 * /s2 * /s3 * /s4 * /s5 * /s6 * /s7   ;03
+         + /s0 *  s1 *  s2 * /s3 * /s4 * /s5 * /s6 * /s7   ;06
+         +  s0 *  s1 * /s2 *  s3 * /s4 * /s5 * /s6 * /s7   ;0B
+         + /s0 *  s1 * /s2 * /s3 *  s4 * /s5 * /s6 * /s7   ;12
+         +  s0 * /s1 *  s2 *  s3 *  s4 * /s5 * /s6 * /s7   ;1D
+         + /s0 *  s1 * /s2 *  s3 * /s4 *  s5 * /s6 * /s7   ;2A
+         +  s0 *  s1 * /s2 *  s3 *  s4 *  s5 * /s6 * /s7   ;3B
+         + /s0 *  s1 *  s2 *  s3 * /s4 * /s5 *  s6 * /s7   ;4E
+         +  s0 * /s1 *  s2 * /s3 * /s4 *  s5 *  s6 * /s7   ;65
+         + /s0 *  s1 * /s2 * /s3 * /s4 * /s5 * /s6 *  s7   ;82
+         +  s0 * /s1 * /s2 * /s3 * /s4 *  s5 * /s6 *  s7   ;A1
+         + /s0 *  s1 *  s2 * /s3 * /s4 * /s5 *  s6 *  s7   ;C6
+         +  s0 *  s1 *  s2 *  s3 * /s4 *  s5 *  s6 *  s7   ;EF
+  
+  
+hld     = gnd           ;DEDICATE OUTPUT PIN AS INPUT PIN
+  
+s0.trst = oe
+s1.trst = oe
+s2.trst = oe
+s3.trst = oe
+s4.trst = oe
+s5.trst = oe
+s6.trst = oe
+s7.trst = oe
+s8.trst = oe
+hld.trst = gnd
+  
+Simulation
+  
+Trace_on        s0 s1 s2 s3 s4 s5 s6 s7 s8 rs hld clr
+  
+setf    rs st hld clr oe
+check   /s0 /S1 /S2 /S3 S4 /S5 /S6 S7
+setf    /rs /clr
+check   /s0 /s1 /s2 /s3 s4 /s5 /s6 s7
+clockf  clk
+check   s0 s1 s2 s3 /s4 s5 s6 /s7
+setf    clr
+for I := 1 to 20 do
+        begin
+        clockf clk
+        end
+setf    /hld
+clockf  clk
+clockf  clk
+clockf  clk
+setf    hld
+prldf   s0 s1 s2 /s3 s4 s5 s6 s7
+for I := 1 to 20 do
+        begin
+        clockf clk
+        end
+prldf   /s0 s1 /s2 s3 /s4 s5 /s6 s7
+for I := 1 to 10 do
+        begin
+        clockf clk
+        end
+prldf   s0 /s1 s2 /s3 s4 /s5 s6 /s7
+for I := 1 to 10 do
+        begin
+        clockf clk
+        end
+prldf   s0 /s1 /s2 /s3 /s4 /s5 /s6 /s7
+for I := 1 to 10 do
+        begin
+        clockf clk
+        end
+trace_off
+
+

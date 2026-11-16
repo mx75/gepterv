@@ -1,0 +1,103 @@
+module XMIT2 
+title 'Serial transmiter with counter'
+        
+// Inputs
+        DI7..DI0        pin;
+        Clk2,Clk1       pin;
+        Clr,Send        pin;
+
+// Outputs
+        D7..D0          pin istype 'reg';
+        B2,B1,B0        pin istype 'reg_T,buffer';
+        SM1,SM0         pin istype 'reg,buffer';
+        NextWord,TXD    pin istype 'com';
+        DataLoad        pin istype 'com';
+
+// Sets
+        Bits            = [B2..B0];
+        Data            = [D7..D0];
+        DataShift       = [0,D7..D1];
+        Sreg            = [SM1,SM0];
+        DataIn          = [DI7..DI0];
+        BaudClk         = [Clk1,Clk2];
+
+Equations
+
+// Data Shift Register
+        Data    :=  DataLoad & DataIn           "Load
+                 # !DataLoad & DataShift;       "Shift
+
+// Bit Counter (T f/f)
+        Bits.t  = Bits.fb $ (Bits.fb + 1);
+
+        Sreg.C          = Clk1;
+        Data.C          = Clk2;
+        Bits.C          = Clk2;
+
+        Sreg.AR         = Clr;
+        Data.AR         = Clr;
+
+Declarations
+// States
+        StopBit1        = 0;
+        StopBit2        = 1;
+        StartBit        = 2;
+        Shift           = 3;
+
+State_Diagram Sreg
+        State StopBit1:
+                        NextWord  = 1;
+                        DataLoad  = 1;
+                        TXD       = 1;
+                        goto StopBit2;
+                        
+        State StopBit2:
+                        NextWord  = 0;
+                        DataLoad  = 1;
+                        TXD       = 1;
+                        if(Send) then StartBit else StopBit2;
+
+        State StartBit:
+                        NextWord  = 0;
+                        DataLoad  = 1;
+                        TXD       = 0;
+                        Bits.AR   = !0;
+                        goto Shift;
+
+        State Shift:
+                        NextWord  = 0;
+                        DataLoad  = 0;
+                        TXD       = D0;
+                        Bits.AR   = 0;
+                        if (Bits.fb == 7) then StopBit1 else Shift;
+
+test_vectors
+([BaudClk,Clr,Send,DataIn] -> [Sreg    ,Bits,NextWord,DataLoad,TXD])
+ [  .C.  , 1 ,  0 ,   0  ] -> [StopBit1, .X.,    1   ,   1    , 1 ];
+ [  .C.  , 1 ,  0 ,   0  ] -> [StopBit1, .X.,    1   ,   1    , 1 ];
+ [  .C.  , 0 ,  0 ,   0  ] -> [StopBit2, .X.,    0   ,   1    , 1 ];
+ [  .C.  , 0 ,  0 , ^h55 ] -> [StopBit2, .X.,    0   ,   1    , 1 ];
+ [  .C.  , 0 ,  0 , ^h55 ] -> [StopBit2, .X.,    0   ,   1    , 1 ];
+ [  .C.  , 0 ,  1 , ^h55 ] -> [StartBit,  0 ,    0   ,   1    , 0 ];
+ [  .C.  , 0 ,  1 , ^h55 ] -> [Shift   ,  0 ,    0   ,   0    , 1 ];
+ [  .C.  , 0 ,  0 ,   0  ] -> [Shift   ,  1 ,    0   ,   0    , 0 ];
+ [  .C.  , 0 ,  0 ,   0  ] -> [Shift   ,  2 ,    0   ,   0    , 1 ];
+ [  .C.  , 0 ,  0 ,   0  ] -> [Shift   ,  3 ,    0   ,   0    , 0 ];
+ [  .C.  , 0 ,  0 ,   0  ] -> [Shift   ,  4 ,    0   ,   0    , 1 ];
+ [  .C.  , 0 ,  0 ,   0  ] -> [Shift   ,  5 ,    0   ,   0    , 0 ];
+ [  .C.  , 0 ,  0 ,   0  ] -> [Shift   ,  6 ,    0   ,   0    , 1 ];
+ [  .C.  , 0 ,  0 ,   0  ] -> [Shift   ,  7 ,    0   ,   0    , 0 ];
+ [  .C.  , 0 ,  0 ,   0  ] -> [StopBit1, .X.,    1   ,   1    , 1 ];
+ [  .C.  , 0 ,  0 , ^h0F ] -> [StopBit2, .X.,    0   ,   1    , 1 ];
+ [  .C.  , 0 ,  0 , ^h0F ] -> [StopBit2, .X.,    0   ,   1    , 1 ];
+ [  .C.  , 0 ,  1 , ^h0F ] -> [StartBit,  0 ,    0   ,   1    , 0 ];
+ [  .C.  , 0 ,  1 , ^h0F ] -> [Shift   ,  0 ,    0   ,   0    , 1 ];
+ [  .C.  , 0 ,  0 ,   0  ] -> [Shift   ,  1 ,    0   ,   0    , 1 ];
+ [  .C.  , 0 ,  0 ,   0  ] -> [Shift   ,  2 ,    0   ,   0    , 1 ];
+ [  .C.  , 0 ,  0 ,   0  ] -> [Shift   ,  3 ,    0   ,   0    , 1 ];
+ [  .C.  , 0 ,  0 ,   0  ] -> [Shift   ,  4 ,    0   ,   0    , 0 ];
+ [  .C.  , 0 ,  0 ,   0  ] -> [Shift   ,  5 ,    0   ,   0    , 0 ];
+ [  .C.  , 0 ,  0 ,   0  ] -> [Shift   ,  6 ,    0   ,   0    , 0 ];
+ [  .C.  , 0 ,  0 ,   0  ] -> [Shift   ,  7 ,    0   ,   0    , 0 ];
+ [  .C.  , 0 ,  0 ,   0  ] -> [StopBit1, .X.,    1   ,   1    , 1 ];
+End

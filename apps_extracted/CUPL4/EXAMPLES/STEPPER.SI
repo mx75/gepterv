@@ -1,0 +1,81 @@
+Name      Stepper;
+Partno    CA0024;
+Date      10/10/86;
+Rev       01;
+Designer  Woolhiser;
+Company   Personal CAD Systems, Inc.;
+Assembly  None;
+Location  None;
+Device    p19r6t;
+
+/****************************************************************/
+/*                                                              */
+/* Stepper Motor Controller                                     */
+/*                                                              */
+/* Memory mapped stepper motor controller interfaced to the     */
+/* 8048 single chip micro processor.  Generates either full     */
+/* or half step sequences for a unipolar drive stepper motor.   */
+/* A high current buffer is required to drive the motor coils.  */
+/*                                                              */
+/*         Half Step Control Sequence Table                     */
+/*                                                              */
+/*              Step    Q0  Q1  Q2  Q3                          */
+/*               1       1   0  1   0                           */
+/*               2       1   0  0   0                           */
+/*            v  3       1   0  0   1   ^                       */
+/* Clockwise  v  4       0   0  0   1   ^  Counterclockwise     */
+/* Rotation   v  5       0   1  0   1   ^  Rotation             */
+/*            v  6       0   1  0   0   ^                       */
+/*            v  7       0   1  1   0   ^                       */
+/*               8       0   0  1   0                           */
+/*               1       1   0  1   0                           */
+/****************************************************************/
+/* Allowable Target Device Types :  PALT19R6                    */
+/****************************************************************/
+
+ORDER:  STEP_CLK,%1,!COE,%1,!ALE,%1,A11..8,DB7..0,%2,
+        !Q3..0,%1,!COMPLETE,%1,!STATUS;
+
+VECTORS:
+$msg"                               !  ";
+$msg"      S                        C  ";
+$msg"      T                        O !";
+$msg"      E                        M S";
+$msg"      P                        P T";
+$msg"      - ! !                    L A";
+$msg"      C C A AAAADDDDDDDD  !!!! E T";
+$msg"      L O L 11  BBBBBBBB  QQQQ T U";
+$msg"      K E E 109876543210  3210 E S";
+$msg"      ----------------------------";
+           P x x xxxxxxxxxxxx  1010 1 x   /* Preload to state STEP1 */
+           0 0 x xxxxxxxxxxxx  HLHL H N   /* Check preload          */
+           C 0 0 000000000000  HLHL H Z   /* Hold while 8048 runs   */
+                                          /* in mem locations 0-7FF */
+           C 0 1 000000000000  HLHL H Z   /* ALE inactive           */
+           0 0 1 111111110000  HLHL H Z   /* Address Shows next cmd */
+           0 0 0 111111110000  HLHL H Z   /* Full Step Up Command   */
+           C 0 0 111111110000  LHHL L Z   /* Full Step Up Command   */
+           0 0 1 111111110000  LHHL L Z   /* ALE inactive           */
+           0 0 0 111111110100  LHHL L Z   /* Read Status Command    */
+           0 0 1 111111110100  LHHL L L   /* ALE inactive           */
+           0 0 1 111111110000  LHHL L Z   /* Address Shows next cmd */
+           0 0 0 111111110000  LHHL L Z   /* Full Step Up Command   */
+           C 0 0 111111110000  LHLH L Z   /* Full Step Up Command   */
+           C 0 0 111111110000  HLLH L Z   /* Full Step Up Command   */
+           0 0 1 111111110000  HLLH L Z   /* ALE inactive           */
+           0 0 1 111111110010  HLLH L Z   /* Address Shows next cmd */
+           0 0 0 111111110010  HLLH L Z   /* Half Step Up Command   */
+           C 0 0 111111110010  HLHH L Z   /* Half Step Up Command   */
+           0 0 1 111111110010  HLHH L Z   /* ALE inactive           */
+           0 0 1 111111110011  HLHH L Z   /* Address Shows next cmd */
+           0 0 0 111111110011  HLHH L Z   /* Half Step Down Command */
+           C 0 0 111111110011  HLLH L Z   /* Half Step Down Command */
+           0 0 1 111111110011  HLLH L Z   /* ALE inactive           */
+           0 0 1 111111110001  HLLH L Z   /* Address Shows next cmd */
+           0 0 0 111111110001  HLLH L Z   /* Half Step Down Command */
+           C 0 0 111111110001  LHLH L Z   /* Full Step Down Command */
+           C 0 0 111111110001  LHHL L Z   /* Full Step Down Command */
+           C 0 0 111111110001  HLHL L Z   /* Full Step Down Command */
+                                          /* Returns to STEP1       */
+
+

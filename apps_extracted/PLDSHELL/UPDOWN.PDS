@@ -1,0 +1,110 @@
+Title           4 Bit Up/Down and Fast/Slow Counter
+Pattern         none
+Revision	1.0
+Author          John Doe
+Company         Altera
+Date            12/6/94
+
+CHIP	updown	 ALTERA_ARCH 
+
+PIN      clock		; clock input
+PIN      up		; count up
+PIN      down		; count down
+PIN      fast		; /fast -> count regular :: fast -> count by two
+PIN      reset		; reset flip-flops
+PIN      set		; set flip-flops
+PIN      q0		; lsb
+PIN      q1		;  .
+PIN      q2		;  .
+PIN      q3		; msb
+
+STATE  MOORE_MACHINE
+	s0 = /q3 * /q2 * /q1 * /q0	s1 = /q3 * /q2 * /q1 *  q0
+	s2 = /q3 * /q2 *  q1 * /q0	s3 = /q3 * /q2 *  q1 *  q0
+	s4 = /q3 *  q2 * /q1 * /q0	s5 = /q3 *  q2 * /q1 *  q0
+	s6 = /q3 *  q2 *  q1 * /q0	s7 = /q3 *  q2 *  q1 *  q0
+	s8 =  q3 * /q2 * /q1 * /q0	s9 =  q3 * /q2 * /q1 *  q0
+	sa =  q3 * /q2 *  q1 * /q0	sb =  q3 * /q2 *  q1 *  q0
+	sc =  q3 *  q2 * /q1 * /q0	sd =  q3 *  q2 * /q1 *  q0
+	se =  q3 *  q2 *  q1 * /q0	sf =  q3 *  q2 *  q1 *  q0
+
+	s0:= upby2 -> s2 + dnby2 -> se + upby1 -> s1 + dnby1 -> sf
+	s1:= upby2 -> s3 + dnby2 -> sf + upby1 -> s2 + dnby1 -> s0
+	s2:= upby2 -> s4 + dnby2 -> s0 + upby1 -> s3 + dnby1 -> s1
+	s3:= upby2 -> s5 + dnby2 -> s1 + upby1 -> s4 + dnby1 -> s2
+	s4:= upby2 -> s6 + dnby2 -> s2 + upby1 -> s5 + dnby1 -> s3
+	s5:= upby2 -> s7 + dnby2 -> s3 + upby1 -> s6 + dnby1 -> s4
+	s6:= upby2 -> s8 + dnby2 -> s4 + upby1 -> s7 + dnby1 -> s5
+	s7:= upby2 -> s9 + dnby2 -> s5 + upby1 -> s8 + dnby1 -> s6
+	s8:= upby2 -> sa + dnby2 -> s6 + upby1 -> s9 + dnby1 -> s7
+	s9:= upby2 -> sb + dnby2 -> s7 + upby1 -> sa + dnby1 -> s8
+	sa:= upby2 -> sc + dnby2 -> s8 + upby1 -> sb + dnby1 -> s9
+	sb:= upby2 -> sd + dnby2 -> s9 + upby1 -> sc + dnby1 -> sa
+	sc:= upby2 -> se + dnby2 -> sa + upby1 -> sd + dnby1 -> sb
+	sd:= upby2 -> sf + dnby2 -> sb + upby1 -> se + dnby1 -> sc
+	se:= upby2 -> s0 + dnby2 -> sc + upby1 -> sf + dnby1 -> sd
+	sf:= upby2 -> s1 + dnby2 -> sd + upby1 -> s0 + dnby1 -> se
+
+CONDITIONS
+	upby1 = /fast *  up * /down   dnby1 = /fast * /up *  down
+	upby2 =  fast *  up * /down   dnby2 =  fast * /up *  down
+
+EQUATIONS
+	q0.clkf = clock   q1.clkf = clock   q2.clkf = clock   q3.clkf = clock
+	q0.rstf = reset   q1.rstf = reset   q2.rstf = reset   q3.rstf = reset
+	q0.setf = set     q1.setf = set     q2.setf = set     q3.setf = set
+	q0.trst = vcc     q1.trst = vcc     q2.trst = vcc     q3.trst = vcc
+
+SIMULATION
+
+  VECTOR count := [q3,q2,q1,q0]
+
+  SETF /fast up /down /reset /clock
+  PRLDF /q0 /q1 /q2 /q3
+  SETF clock
+  SETF reset /clock
+  SETF /reset set
+  SETF /reset /set
+  CLOCKF clock
+
+;count up to 15 by 1 and roll over
+ FOR x:=1 to 17 DO
+   BEGIN
+     CLOCKF clock
+   END
+
+;test nop (up and down=vcc)
+ SETF /fast up down
+ FOR x:=1 to 9 DO
+   BEGIN
+     CLOCKF clock 
+   END
+
+;test reset and set
+ SETF /down
+ CLOCKF clock 
+ CLOCKF clock 
+ CLOCKF clock 
+ CLOCKF clock 
+ SETF reset
+ FOR x:=1 to 4 DO
+   BEGIN
+     CLOCKF clock 
+   END
+ SETF /reset set
+ FOR x:=1 to 4 DO
+   BEGIN
+     CLOCKF clock 
+   END
+
+;count to 10
+ SETF /set
+ PRLDF /q0 /q1 /q2 /q3
+ SETF /down up /fast /reset 
+ WHILE (count < 10) DO
+   BEGIN
+     CLOCKF clock 
+   END
+
+; end simulation section
+

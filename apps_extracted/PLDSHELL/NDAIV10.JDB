@@ -1,0 +1,7 @@
+# execute disassembly for dip ipld22v10N
+
+
+load "dav10.jdb"
+
+da22v10(3)
+

@@ -1,0 +1,1262 @@
+;
+;/*
+; * **************************  ALTERA PROPRIETARY  ***************************
+; *
+; *       --------------------  DO NOT REPRODUCE  ----------------------
+; *
+; *   Copyright (C) 1994 by Altera Corporation.
+; *   All rights reserved. No part of this program or publication may be 
+; *   reproduced, transmitted, transcribed, stored in a retrieval system, or
+; *   translated into any language or computer language, in any form or by any
+; *   means, electronic, mechanical, magnetic, optical,  chemical,  manual, or
+; *   otherwise,  without the prior written permission of  Altera Corporation,
+; *   2610 Orchard Parkway,  San Jose,  California 95134-2020.
+; *
+; * ***************************************************************************
+; */
+; Altera 85C22V10 PLD Primitive Set
+;
+;
+; INP.IO --  Resolve I/O State
+;
+;	$1 : output node    -- POINTER
+;	$2 : input node     -- POINTER
+;	$3 : resolved node  -- POINTER
+;
+proc INP.IO( ) {
+	if ( isenabled( &$1 ) ) {		; output enabled
+	     @$3 := @$1
+	     enable &$3
+	}
+	else {					; output disabled
+             if ( isdriven( &$2 ) ) {
+                  @$3 := @$2
+                  enable &$3
+                  drive &$3
+             }
+             else {
+                  disable &$2
+                  disable &$3
+             }
+	}
+	return
+}
+
+;
+; SCRAM --  Static Configurable RAM
+;
+;	$1 : address of ram 
+;	$2 : data in vector node         -- POINTER
+;	$3 : memory array node           -- POINTER
+;       $4 : number of words
+;       $5 : number of bits/word
+;       $6 : OE output enable active low -- POINTER
+;       $7 : BE block enable active high
+;       $8 : WE write enable active high
+;	$9 : data out vector node        -- POINTER
+;
+proc SCRAM( ) {
+
+     if ( $7 == VCC ) {			; block is enabled
+          if ( isdisabled( &$9 ) ) {
+               enable &$9
+          }
+          if ( $1 != UNKNOWN ) {
+               $1 := $1 * $5
+               if ( $8 == VCC ) {		; writting into ram
+                    SCRAM.j := 0
+                    for SCRAM.i := ($1 + ($5 - 1)) downto $1 {
+                        @$3[SCRAM.i] := ((@$2 >> SCRAM.j) & 0x1)
+	                SCRAM.j := SCRAM.j + 1
+                    }
+               }
+               SCRAM.j := ($5-1)		; read ram location
+	       @$9 := 0
+               for SCRAM.i := $1 to ($1 + ($5 - 1)) {
+                   @$9 := @$9 | (@$3[SCRAM.i] << SCRAM.j)
+	           SCRAM.j := SCRAM.j - 1
+               }
+          }
+          else {
+	       @$9 := UNKNOWN
+          }
+          if ( @$6 < VCC ) {		; output disabled
+               disable &$9
+          }
+     }
+     else {
+          if ( isenabled( &$9 ) ) {
+               disable &$9
+          }
+     }
+     return
+}
+
+;
+; RINP  --  Registered Input
+;
+;	$1 : next state
+;	$2 : clock	    -- POINTER
+;	$3 : clear
+;	$4 : preset
+;	$5 : current state  -- POINTER
+;
+proc RINP( ) {
+	if ( ($3 == VCC) || (alpha == VCC) ) {	; clear register
+	     @$5 := GND
+	}
+	else if ( $3 == UNKNOWN ) {
+	     @$5 := UNKNOWN
+	}
+	else if ( $4 == VCC ) {			; set register
+	     @$5 := VCC
+	}
+	else if ( $4 == UNKNOWN ) {
+	     @$5 := UNKNOWN
+	}
+	else {
+	     @$5 := fd_fflop( &$2, $1, @$5 )	; execute register
+	}
+	return					; return new state
+}
+
+;
+; LINP  --  Registered Input
+;
+;	$1 : next state
+;	$2 : ile            -- POINTER
+;	$3 : current state  -- POINTER
+;
+proc LINP( ) {
+
+	if ( @$2 == VCC ) {
+	     @$3 := $1
+	}
+	else if ( @$2 == UNKNOWN ) {
+	     @$3 := UNKNOWN
+	}
+
+	return					; return new state
+}
+
+;
+; CLKB  --  Clock Buffer
+;
+;	$1 : Input
+;	$2 : Output  --  POINTER
+;
+proc CLKB( ) {
+	@$2 := $1
+	return
+}
+
+;
+; LINB  --  Latched Input Buffer
+;
+;	$1 : Input
+;	$2 : Output  --  POINTER
+;
+proc LINB( ) {
+	@$2 := $1
+	return
+}
+
+;
+; INP  --  Input Buffer
+;
+;	$1 : Input
+;	$2 : Output  --  POINTER
+;
+proc INP( ) {
+	@$2 := $1
+	return
+}
+
+;
+; RORF  --  Registered Output Registered Feedback
+;
+;	$1 : invert SOP
+;	$2 : SOP
+;	$3 : clock     -- POINTER
+;	$4 : clear
+;	$5 : preset
+;	$6 : oe
+;	$7 : output    -- POINTER
+;	$8 : feedback  -- POINTER
+;
+proc RORF( ) {
+
+	if ( ($4 == VCC) || (alpha == VCC) ) {		; clear register
+	     if ( $1 == VCC )
+	          @$7 := VCC
+	     else
+	          @$7 := GND
+	}
+	else if ( $4 == UNKNOWN ) {			; set unknown
+	     @$7 := UNKNOWN
+	}
+	else if ( $5 == UNKNOWN ) {			; set unknown
+	     @$7 := UNKNOWN
+	}						; synchronous preset
+	else if ( ( $5 == VCC ) && isrising( &$3 ) ) {
+	     if ( $1 == VCC )
+	          @$7 := GND
+	     else
+	          @$7 := VCC
+	}
+	else {
+	     if ( isdisabled( &$7 ) ) {
+		  enable &$7
+		  RORF.OS := @$7
+		  disable &$7
+	     }
+	     else {
+		  RORF.OS := @$7
+	     }
+	     if ( $1 == VCC )
+		  $2 := !$2
+	     @$7 := rd_fflop( &$3, $2, RORF.OS )	; execute register
+	}
+
+	if ( isdisabled( &$7 ) ) {
+	     enable &$7
+	     @$8 := @$7
+	     disable &$7
+	}
+	else {
+	     @$8 := @$7
+	}
+	if ( $6 == VCC ) { 				; check OE
+	     enable &$7
+	}
+	else if ( $6 == UNKNOWN ) {			; unknown
+	     @$7 := UNKNOWN
+	     enable &$7
+	}
+	else {
+	     disable &$7
+	}
+
+	return					; return new state
+}
+
+;
+; NORF  --  No Output Registered Feedback
+;
+;	$1 : invert SOP
+;	$2 : SOP
+;	$3 : clock     -- POINTER
+;	$4 : clear
+;	$5 : preset
+;	$6 : feedback  -- POINTER
+;
+proc NORF( ) {
+
+	if ( ($4 == VCC) || (alpha == VCC) ) {		; clear register
+	     if ( $1 == VCC )
+	          @$6 := VCC
+	     else
+	          @$6 := GND
+	}
+	else if ( $4 == UNKNOWN ) {			; set unknown
+	     @$6 := UNKNOWN
+	}
+	else if ( $5 == UNKNOWN ) {			; set unknown
+	     @$6 := UNKNOWN
+	}						; synchronous preset
+	else if ( ( $5 == VCC ) && isrising( &$3 ) ) {
+	     if ( $1 == VCC )
+	          @$6 := GND
+	     else
+	          @$6 := VCC
+	}
+	else {
+	     if ( $1 == VCC )
+		  $2 := !$2
+	     @$6 := rd_fflop( &$3, $2, @$6 )	; execute register
+	}
+	return					; return new state
+}
+
+;
+; ROCF  --  Registered Output Combinatorial Feedback
+;
+;	$1 : invert SOP
+;	$2 : SOP
+;	$3 : clock     -- POINTER
+;	$4 : clear
+;	$5 : preset
+;	$6 : oe
+;	$7 : output    -- POINTER
+;	$8 : feedback  -- POINTER
+;
+proc ROCF( ) {
+
+	if ( $1 == VCC )
+	     $2 := !$2
+
+	if ( ($4 == VCC) || (alpha == VCC) ) {		; clear register
+	     if ( $1 == VCC )
+	          @$7 := VCC
+	     else
+	          @$7 := GND
+	}
+	else if ( $4 == UNKNOWN ) {			; set unknown
+	     @$7 := UNKNOWN
+	}
+	else if ( $5 == UNKNOWN ) {			; set unknown
+	     @$7 := UNKNOWN
+	}						; synchronous preset
+	else if ( ( $5 == VCC ) && isrising( &$3 ) ) {
+	     if ( $1 == VCC )
+	          @$7 := GND
+	     else
+	          @$7 := VCC
+	}
+	else {
+	     if ( isdisabled( &$7 ) ) {
+		  enable &$7
+		  ROCF.OS := @$7
+		  disable &$7
+	     }
+	     else {
+		  ROCF.OS := @$7
+	     }
+	     @$7 := rd_fflop( &$3, $2, ROCF.OS ); execute register
+	}
+
+	@$8 := $2
+
+	if ( $6 == VCC ) {				; check OE
+	     enable &$7
+	}
+	else if ( $6 == UNKNOWN ) {			; unknown
+	     @$7 := UNKNOWN
+	     enable &$7
+	}
+	else {
+	     disable &$7
+	}
+
+	return					; return new state
+}
+
+;
+; ROIF  --  Registered Output I/O Feedback
+;
+;	$1 : invert SOP
+;	$2 : SOP
+;	$3 : clock     -- POINTER
+;	$4 : clear
+;	$5 : preset
+;	$6 : oe
+;	$7 : output    -- POINTER
+;	$8 : feedback  -- POINTER
+;
+proc ROIF( ) {
+
+	if ( ($4 == VCC) || (alpha == VCC) ) {		; clear register
+	     if ( $1 == VCC )
+	          ROIF.CS := VCC
+	     else
+	          ROIF.CS := GND
+	}
+	else if ( $4 == UNKNOWN ) {			; set unknown
+	     ROIF.CS := UNKNOWN
+	}
+	else if ( $5 == UNKNOWN ) {			; set unknown
+	     ROIF.CS := UNKNOWN
+	}						; synchronous preset
+	else if ( ( $5 == VCC ) && isrising( &$3 ) ) {
+	     if ( $1 == VCC )
+	          ROIF.CS := GND
+	     else
+	          ROIF.CS := VCC
+	}
+	else {
+	     if ( isdisabled( &$7 ) ) {
+		  enable &$7
+		  ROIF.OS := @$7
+		  disable &$7
+	     }
+	     else {
+		  ROIF.OS := @$7
+	     }
+	     if ( $1 == VCC )
+		  $2 := !$2
+	     ROIF.CS := rd_fflop( &$3, $2, ROIF.OS )
+	}
+
+	if ( $6 == VCC ) {				; check OE
+	     enable &$7
+	     @$8 := ROIF.CS
+	     @$7 := ROIF.CS
+	}
+	else if ( $6 == UNKNOWN ) {			; unknown
+	     @$7 := UNKNOWN
+	     enable &$7
+	}
+	else {
+	     @$7 := ROIF.CS
+	     disable &$7
+	}
+
+	return					; return new state
+}
+
+;
+; RONF  --  Registered Output No Feedback
+;
+;	$1 : invert SOP
+;	$2 : SOP
+;	$3 : clock     -- POINTER
+;	$4 : clear
+;	$5 : preset
+;	$6 : oe
+;	$7 : output    -- POINTER
+;
+proc RONF( ) {
+
+	if ( ($4 == VCC) || (alpha == VCC) ) {		; clear register
+	     if ( $1 == VCC )
+	          @$7 := VCC
+	     else
+	          @$7 := GND
+	}
+	else if ( $4 == UNKNOWN ) {			; set unknown
+	     @$7 := UNKNOWN
+	}
+	else if ( $5 == UNKNOWN ) {			; set unknown
+	     @$7 := UNKNOWN
+	}						; synchronous preset
+	else if ( ( $5 == VCC ) && isrising( &$3 ) ) {
+	     if ( $1 == VCC )
+	          @$7 := GND
+	     else
+	          @$7 := VCC
+	}
+	else {
+	     if ( isdisabled( &$7 ) ) {
+		  enable &$7
+		  RONF.OS := @$7
+		  disable &$7
+	     }
+	     else {
+		  RONF.OS := @$7
+	     }
+	     if ( $1 == VCC )
+		  $2 := !$2
+	     @$7 := rd_fflop( &$3, $2, RONF.OS )    ; execute register
+	}
+
+	if ( $6 == VCC ) {				; check OE
+	     enable &$7
+	}
+	else if ( $6 == UNKNOWN ) {			; unknown
+	     @$7 := UNKNOWN
+	     enable &$7
+	}
+	else {
+	     disable &$7
+	}
+
+	return
+}
+
+;
+; TOTF  --  Toggle Output Toggle Feedback
+;
+;	$1 : invert SOP
+;	$2 : SOP
+;	$3 : clock     -- POINTER
+;	$4 : clear
+;	$5 : preset
+;	$6 : oe
+;	$7 : output    -- POINTER
+;	$8 : feedback  -- POINTER
+;
+proc TOTF( ) {
+
+	if ( ($4 == VCC) || (alpha == VCC) ) {		; clear register
+	     if ( $1 == VCC )
+	          @$7 := VCC
+	     else
+	          @$7 := GND
+	}
+	else if ( $4 == UNKNOWN ) {			; set unknown
+	     @$7 := UNKNOWN
+	}
+	else if ( $5 == UNKNOWN ) {			; set unknown
+	     @$7 := UNKNOWN
+	}						; set
+	else if ( $5 == VCC ) {
+	     if ( $1 == VCC )
+	          @$7 := GND
+	     else
+	          @$7 := VCC
+	}
+	else {
+	     if ( isdisabled( &$7 ) ) {
+		  enable &$7
+		  TOTF.OS := @$7
+		  disable &$7
+	     }
+	     else {
+		  TOTF.OS := @$7
+	     }
+	     if ( $1 == VCC )
+		  $2 := !$2
+	     @$7 := rt_fflop( &$3, $2, TOTF.OS )	; execute register
+	}
+
+	if ( isdisabled( &$7 ) ) {
+	     enable &$7
+	     @$8 := @$7
+	     disable &$7
+	}
+	else {
+	     @$8 := @$7
+	}
+	if ( $6 == VCC ) {				; check OE
+	     enable &$7
+	}
+	else if ( $6 == UNKNOWN ) {			; unknown
+	     @$7 := UNKNOWN
+	     enable &$7
+	}
+	else {
+	     disable &$7
+	}
+
+	return
+}
+
+;
+; NOTF  --  No Output Toggle Feedback
+;
+;	$1 : invert SOP
+;	$2 : SOP
+;	$3 : clock     -- POINTER
+;	$4 : clear
+;	$5 : preset
+;	$6 : feedback  -- POINTER
+;
+proc NOTF( ) {
+
+	if ( ($4 == VCC) || (alpha == VCC) ) {		; clear register
+	     if ( $1 == VCC )
+	          @$6 := VCC
+	     else
+	          @$6 := GND
+	}
+	else if ( $4 == UNKNOWN ) {			; set unknown
+	     @$6 := UNKNOWN
+	}
+	else if ( $5 == VCC ) {				; set register
+	     if ( $1 == VCC )
+	          @$6 := GND
+	     else
+	          @$6 := VCC
+	}
+	else if ( $5 == UNKNOWN ) {			; set unknown
+	     @$6 := UNKNOWN
+	}
+	else {
+	     if ( $1 == VCC )
+		  $2 := !$2
+	     @$6 := rt_fflop( &$3, $2, @$6 )	; execute register
+	}
+	return
+}
+
+;
+; TOCF  --  Toggle Output Combinatorial Feedback
+;
+;	$1 : invert SOP
+;	$2 : SOP
+;	$3 : clock     -- POINTER
+;	$4 : clear
+;	$5 : preset
+;	$6 : oe
+;	$7 : output    -- POINTER
+;	$8 : feedback  -- POINTER
+;
+proc TOCF( ) {
+
+	if ( $1 == VCC )
+	     $2 := !$2
+
+	if ( ($4 == VCC) || (alpha == VCC) ) {		; clear register
+	     if ( $1 == VCC )
+	          @$7 := VCC
+	     else
+	          @$7 := GND
+	}
+	else if ( $4 == UNKNOWN ) {			; set unknown
+	     @$7 := UNKNOWN
+	}
+	else if ( $5 == VCC ) {				; set register
+	     if ( $1 == VCC )
+	          @$7 := GND
+	     else
+	          @$7 := VCC
+	}
+	else if ( $5 == UNKNOWN ) {			; set unknown
+	     @$7 := UNKNOWN
+	}
+	else {
+	     if ( isdisabled( &$7 ) ) {
+		  enable &$7
+		  TOCF.OS := @$7
+		  disable &$7
+	     }
+	     else {
+		  TOCF.OS := @$7
+	     }
+	     @$7 := rt_fflop( &$3, $2, TOCF.OS ); execute register
+	}
+
+	@$8 := $2
+
+	if ( $6 == VCC ) {				; check OE
+	     enable &$7
+	}
+	else if ( $6 == UNKNOWN ) {			; unknown
+	     @$7 := UNKNOWN
+	     enable &$7
+	}
+	else {
+	     disable &$7
+	}
+
+	return
+}
+
+;
+; TOIF  --  Toggle Output I/O Feedback
+;
+;	$1 : invert SOP
+;	$2 : SOP
+;	$3 : clock     -- POINTER
+;	$4 : clear
+;	$5 : preset
+;	$6 : oe
+;	$7 : output    -- POINTER
+;	$8 : feedback  -- POINTER
+;
+proc TOIF( ) {
+
+
+	if ( ($4 == VCC) || (alpha == VCC) ) {		; clear register
+	     if ( $1 == VCC )
+	          TOIF.CS := VCC
+	     else
+	          TOIF.CS := GND
+	}
+	else if ( $4 == UNKNOWN ) {			; set unknown
+	     TOIF.CS := UNKNOWN
+	}
+	else if ( $5 == VCC ) {				; set register
+	     if ( $1 == VCC )
+	          TOIF.CS := GND
+	     else
+	          TOIF.CS := VCC
+	}
+	else if ( $5 == UNKNOWN ) {			; set unknown
+	     TOIF.CS := UNKNOWN
+	}
+	else {
+	     if ( isdisabled( &$7 ) ) {
+		  enable &$7
+		  TOIF.OS := @$7
+		  disable &$7
+	     }
+	     else {
+		  TOIF.OS := @$7
+	     }
+	     if ( $1 == VCC )
+		  $2 := !$2
+	     TOIF.CS := rt_fflop( &$3, $2, TOIF.OS )
+	}
+
+	if ( $6 == VCC ) {				; check OE
+	     enable &$7
+	     @$8 := TOIF.CS
+	     @$7 := TOIF.CS
+	}
+	else if ( $6 == UNKNOWN ) {			; unknown
+	     @$7 := UNKNOWN
+	     enable &$7
+	}
+	else {
+	     @$7 := TOIF.CS
+	     disable &$7
+	}
+
+	return
+}
+
+;
+; TONF  --  Toggle Output No Feedback
+;
+;	$1 : invert SOP
+;	$2 : SOP
+;	$3 : clock     -- POINTER
+;	$4 : clear
+;	$5 : preset
+;	$6 : oe
+;	$7 : output    -- POINTER
+;
+proc TONF( ) {
+
+	if ( ($4 == VCC) || (alpha == VCC) ) {		; clear register
+	     if ( $1 == VCC )
+	          @$7 := VCC
+	     else
+	          @$7 := GND
+	}
+	else if ( $4 == UNKNOWN ) {			; set unknown
+	     @$7 := UNKNOWN
+	}
+	else if ( $5 == VCC ) {				; set register
+	     if ( $1 == VCC )
+	          @$7 := GND
+	     else
+	          @$7 := VCC
+	}
+	else if ( $5 == UNKNOWN ) {			; set unknown
+	     @$7 := UNKNOWN
+	}
+	else {
+	     if ( isdisabled( &$7 ) ) {
+		  enable &$7
+		  TONF.OS := @$7
+		  disable &$7
+	     }
+	     else {
+		  TONF.OS := @$7
+	     }
+	     if ( $1 == VCC )
+		  $2 := !$2
+	     @$7 := rt_fflop( &$3, $2, TONF.OS ) 	; execute register
+	}
+
+	if ( $6 == VCC ) {				; check OE
+	     enable &$7
+	}
+	else if ( $6 == UNKNOWN ) {			; unknown
+	     @$7 := UNKNOWN
+	     enable &$7
+	}
+	else {
+	     disable &$7
+	}
+
+	return
+}
+
+;
+; CORF  --  Combinatorial Output Registered Feedback
+;
+;	$1 : invert SOP
+;	$2 : SOP
+;	$3 : clock     -- POINTER
+;	$4 : clear
+;	$5 : preset
+;	$6 : oe
+;	$7 : output    -- POINTER
+;	$8 : feedback  -- POINTER
+;
+proc CORF( ) {
+
+	if ( $1 == VCC )
+	     $2 := !$2
+	if ( ($4 == VCC) || (alpha == VCC) ) {		; clear register
+	     if ( $1 == VCC )
+	          @$8 := VCC
+	     else
+	          @$8 := GND
+	}
+	else if ( $4 == UNKNOWN ) {			; set unknown
+	     @$8 := UNKNOWN
+	}
+	else if ( $5 == UNKNOWN ) {			; set unknown
+	     @$8 := UNKNOWN
+	}						; synchronous preset
+	else if ( ( $5 == VCC ) && isrising( &$3 ) ) {
+	     if ( $1 == VCC )
+	          @$8 := GND
+	     else
+	          @$8 := VCC
+	}
+	else {
+	     CORF.OS := @$8
+	     @$8 := rd_fflop( &$3, $2, CORF.OS )
+	}
+
+	@$7 := $2
+
+	if ( $6 == VCC ) {				; check OE
+	     enable &$7
+	}
+	else if ( $6 == UNKNOWN ) {			; unknown
+	     @$7 := UNKNOWN
+	     enable &$7
+	}
+	else {
+	     disable &$7
+	}
+
+	return
+}
+
+;
+; COCF  --  Combinatorial Output Combinatorial Feedback
+;
+;	$1 : invert SOP
+;	$2 : SOP
+;	$3 : oe
+;	$4 : output    -- POINTER
+;	$5 : feedback  -- POINTER
+;
+proc COCF( ) {
+
+	if ( $1 == VCC ) {				; invert mcell output
+	     $2 := !$2
+	}
+
+	@$5 :=  $2
+	@$4 :=  $2
+
+	if ( $3 == VCC ) {				; check OE
+	     enable &$4
+	}
+	else if ( $3 == UNKNOWN ) {			; unknown
+	     @$4 := UNKNOWN
+	     enable &$4
+	}
+	else {
+	     disable &$4
+	}
+
+	return
+}
+
+;
+; CONF  --  Combinatorial Output No Feedback
+;
+;	$1 : invert SOP
+;	$2 : SOP
+;	$3 : oe
+;	$4 : output    -- POINTER
+;
+proc CONF( ) {
+
+	if ( $1 == VCC ) {				; invert mcell output
+	     $2 := !$2
+	}
+
+	@$4 := $2
+	if ( $3 == VCC ) {				; check OE
+	     enable &$4
+	}
+	else if ( $3 == UNKNOWN ) {			; unknown
+	     @$4 := UNKNOWN
+	     enable &$4
+	}
+	else {
+	     disable &$4
+	}
+
+	return
+}
+
+;
+; NOCF  --  Combinatorial Output Combinatorial Feedback
+;
+;	$1 : invert SOP
+;	$2 : SOP
+;	$3 : feedback  -- POINTER
+;
+proc NOCF( ) {
+
+	if ( $1 == VCC ) {				; invert mcell output
+	     @$3 := !$2
+	}
+	else {
+	     @$3 := $2
+	}
+
+	return
+}
+
+;
+; COIF  --  Combinatorial Output I/O Feedback
+;
+;	$1 : invert SOP
+;	$2 : SOP
+;	$3 : oe
+;	$4 : output    -- POINTER
+;	$5 : feedback  -- POINTER
+;
+proc COIF( ) {
+
+
+	if ( $1 == VCC ) {				; invert mcell output
+	     $2 := !$2
+	}
+
+	if ( $3 == VCC ) {				; check OE
+	     enable &$4
+	     @$4 := $2
+	     @$5 :=  $2
+	}
+	else if ( $3 == UNKNOWN ) {			; unknown
+	     @$4 := UNKNOWN
+	     enable &$4
+	}
+	else {
+	     @$4 := $2
+	     disable &$4
+	}
+
+	return
+}
+
+;
+; JOJF  --  JK Output JK Feedback
+;
+;	$1 : invert SOP
+;	$2 : J
+;	$3 : clk       -- POINTER
+;	$4 : K
+;	$5 : clear
+;	$6 : preset
+;	$7 : oe
+;	$8 : output    -- POINTER
+;	$9 : feedback  -- POINTER
+;
+proc JOJF( ) {
+
+	if ( ($5 == VCC) || (alpha == VCC) ) {		; clear register
+	     if ( $1 == VCC )
+	          @$8 := VCC
+	     else
+	          @$8 := GND
+	}
+	else if ( $5 == UNKNOWN ) {			; set unknown
+	     @$8 := UNKNOWN
+	}
+	else if ( $6 == VCC ) {				; set register
+	     if ( $1 == VCC )
+	          @$8 := GND
+	     else
+	          @$8 := VCC
+	}
+	else if ( $6 == UNKNOWN ) {			; set unknown
+	     @$8 := UNKNOWN
+	}
+	else {
+	     if ( isdisabled( &$8 ) ) {
+		  enable &$8
+		  JOJF.OS := @$8
+		  disable &$8
+	     }
+	     else {
+		  JOJF.OS := @$8
+	     }
+	     if ( $1 == VCC )
+		  $2 := !$2
+	     @$8 := rjk_fflop( &$3, $2, $4, JOJF.OS )	; execute register
+	}
+
+	if ( isdisabled( &$8 ) ) {
+	     enable &$8
+	     @$9 := @$8
+	     disable &$8
+	}
+	else {
+	     @$9 := @$8
+	}
+
+	if ( $7 == VCC ) {				; check OE
+	     enable &$8
+	}
+	else if ( $7 == UNKNOWN ) {			; unknown
+	     @$8 := UNKNOWN
+	     enable &$8
+	}
+	else {
+	     disable &$8
+	}
+
+	return
+}
+
+;
+; NOJF  --  No Output JK Feedback
+;
+;	$1 : invert SOP
+;	$2 : J
+;	$3 : clk       -- POINTER
+;	$4 : K
+;	$5 : clear
+;	$6 : preset
+;	$7 : feedback  -- POINTER
+;
+proc NOJF( ) {
+
+	if ( ($5 == VCC) || (alpha == VCC) ) {		; clear register
+	     if ( $1 == VCC )
+	          @$7 := VCC
+	     else
+	          @$7 := GND
+	}
+	else if ( $5 == UNKNOWN ) {			; set unknown
+	     @$7 := UNKNOWN
+	}
+	else if ( $6 == VCC ) {				; set register
+	     if ( $1 == VCC )
+	          @$7 := GND
+	     else
+	          @$7 := VCC
+	}
+	else if ( $6 == UNKNOWN ) {			; set unknown
+	     @$7 := UNKNOWN
+	}
+	else {
+	     if ( $1 == VCC )
+		  $2 := !$2
+	     @$7 := rjk_fflop( &$3, $2, $4, @$7 )	; execute register
+	}
+
+	return
+}
+
+;
+; JONF  --  JK Output No Feedback
+;
+;	$1 : invert SOP
+;	$2 : J
+;	$3 : clk       -- POINTER
+;	$4 : K
+;	$5 : clear
+;	$6 : preset
+;	$7 : oe
+;	$8 : output    -- POINTER
+;
+proc JONF( ) {
+
+	if ( ($5 == VCC) || (alpha == VCC) ) {		; clear register
+	     if ( $1 == VCC )
+	          @$8 := VCC
+	     else
+	          @$8 := GND
+	}
+	else if ( $5 == UNKNOWN ) {			; set unknown
+	     @$8 := UNKNOWN
+	}
+	else if ( $6 == VCC ) {				; set register
+	     if ( $1 == VCC )
+	          @$8 := GND
+	     else
+	          @$8 := VCC
+	}
+	else if ( $6 == UNKNOWN ) {			; set unknown
+	     @$8 := UNKNOWN
+	}
+	else {
+	     if ( isdisabled( &$8 ) ) {
+		  enable &$8
+		  JONF.OS := @$8
+		  disable &$8
+	     }
+	     else {
+		  JONF.OS := @$8
+	     }
+	     if ( $1 == VCC )
+		  $2 := !$2
+	     @$8 := rjk_fflop( &$3, $2, $4, JONF.OS ); execute register
+	}
+
+	if ( $7 == VCC ) {				; check OE
+	     enable &$8
+	}
+	else if ( $7 == UNKNOWN ) {			; unknown
+	     @$8 := UNKNOWN
+	     enable &$8
+	}
+	else {
+	     disable &$8
+	}
+
+	return
+}
+
+;
+; SOSF  --  SR Output SR Feedback
+;
+;	$1 : invert SOP
+;	$2 : S
+;	$3 : clk       -- POINTER
+;	$4 : R
+;	$5 : clear
+;	$6 : preset
+;	$7 : oe
+;	$8 : output    -- POINTER
+;	$9 : feedback  -- POINTER
+;
+proc SOSF( ) {
+
+	if ( ($5 == VCC) || (alpha == VCC) ) {		; clear register
+	     if ( $1 == VCC )
+	          @$8 := VCC
+	     else
+	          @$8 := GND
+	}
+	else if ( $5 == UNKNOWN ) {			; set unknown
+	     @$8 := UNKNOWN
+	}
+	else if ( $6 == VCC ) {				; set register
+	     if ( $1 == VCC )
+	          @$8 := GND
+	     else
+	          @$8 := VCC
+	}
+	else if ( $6 == UNKNOWN ) {			; set unknown
+	     @$8 := UNKNOWN
+	}
+	else {
+	     if ( isdisabled( &$8 ) ) {
+		  enable &$8
+		  SOSF.OS := @$8
+		  disable &$8
+	     }
+	     else {
+		  SOSF.OS := @$8
+	     }
+	     if ( $1 == VCC )
+		  $2 := !$2
+	     @$8 := rsr_fflop( &$3, $2, $4, SOSF.OS )	; execute register
+	}
+
+	if ( isdisabled( &$8 ) ) {
+	     enable &$8
+	     @$9 := @$8
+	     disable &$8
+	}
+	else {
+	      @$9 := @$8
+	}
+	if ( $7 == VCC ) {				; check OE
+	     enable &$8
+	}
+	else if ( $7 == UNKNOWN ) {			; unknown
+	     @$8 := UNKNOWN
+	     enable &$8
+	}
+	else {
+	     disable &$8
+	}
+
+	return
+}
+
+;
+; NOSF  --  No Output SR Feedback
+;
+;	$1 : invert SOP
+;	$2 : S
+;	$3 : clk       -- POINTER
+;	$4 : R
+;	$5 : clear
+;	$6 : preset
+;	$7 : feedback  -- POINTER
+;
+proc NOSF( ) {
+
+	if ( ($5 == VCC) || (alpha == VCC) ) {		; clear register
+	     if ( $1 == VCC )
+	          @$7 := VCC
+	     else
+	          @$7 := GND
+	}
+	else if ( $5 == UNKNOWN ) {			; set unknown
+	     @$7 := UNKNOWN
+	}
+	else if ( $6 == VCC ) {				; set register
+	     if ( $1 == VCC )
+	          @$7 := GND
+	     else
+	          @$7 := VCC
+	}
+	else if ( $6 == UNKNOWN ) {			; set unknown
+	     @$7 := UNKNOWN
+	}
+	else {
+	     if ( $1 == VCC )
+		  $2 := !$2
+	     @$7 := rsr_fflop( &$3, $2, $4, @$7 ); execute register
+	}
+
+	return
+}
+
+; SONF  --  SR Output No Feedback
+;
+;	$1 : invert SOP
+;	$2 : S
+;	$3 : clk       -- POINTER
+;	$4 : R
+;	$5 : clear
+;	$6 : preset
+;	$7 : oe
+;	$8 : output    -- POINTER
+;
+proc SONF( ) {
+
+	if ( ($5 == VCC) || (alpha == VCC) ) {		; clear register
+	     if ( $1 == VCC )
+	          @$8 := VCC
+	     else
+	          @$8 := GND
+	}
+	else if ( $5 == UNKNOWN ) {			; set unknown
+	     @$8 := UNKNOWN
+	}
+	else if ( $6 == VCC ) {				; set register
+	     if ( $1 == VCC )
+	          @$8 := GND
+	     else
+	          @$8 := VCC
+	}
+	else if ( $6 == UNKNOWN ) {			; set unknown
+	     @$8 := UNKNOWN
+	}
+	else {
+	     if ( isdisabled( &$8 ) ) {
+		  enable &$8
+		  SONF.OS := @$8
+		  disable &$8
+	     }
+	     else {
+		  SONF.OS := @$8
+	     }
+	     if ( $1 == VCC )
+		  $2 := !$2
+	     @$8 := rsr_fflop( &$3, $2, $4, SONF.OS ); execute register
+	}
+
+	if ( $7 == VCC ) {				; check OE
+	     enable &$8
+	}
+	else if ( $7 == UNKNOWN ) {			; unknown
+	     @$8 := UNKNOWN
+	     enable &$8
+	}
+	else {
+	     disable &$8
+	}
+
+	return
+}

@@ -1,0 +1,32 @@
+module decode
+title 'Address decoder example'
+
+    !SRAM, !PORT,
+    !UART, !PROM   pin istype 'com';
+    A15..A9        pin;
+
+    H,L,X = 1,0,.x.;
+
+    Address = [A15..A9,X, X,X,X,X, X,X,X,X];
+
+equations
+
+    SRAM = (Address <^h8000);
+    PORT = (Address >= ^h8000) & (Address < ^h81FF);
+    UART = (Address >= ^h8200) & (Address < ^h83FF);
+    PROM = (Address >= ^h8400);
+
+test_vectors ([Address]->[!SRAM, !PORT, !UART, !PROM])
+              [ ^h0000]->[   L ,    H ,    H ,    H ];
+              [ ^h1000]->[   L ,    H ,    H ,    H ];
+              [ ^h4000]->[   L ,    H ,    H ,    H ];
+              [ ^h7000]->[   L ,    H ,    H ,    H ];
+              [ ^h7FFF]->[   L ,    H ,    H ,    H ];
+              [ ^h8000]->[   H ,    L ,    H ,    H ];
+              [ ^h81FF]->[   H ,    L ,    H ,    H ];
+              [ ^h8200]->[   H ,    H ,    L ,    H ];
+              [ ^h83FF]->[   H ,    H ,    L ,    H ];
+              [ ^h8400]->[   H ,    H ,    H ,    L ];
+              [ ^hC000]->[   H ,    H ,    H ,    L ];
+              [ ^hFFFF]->[   H ,    H ,    H ,    L ];
+end

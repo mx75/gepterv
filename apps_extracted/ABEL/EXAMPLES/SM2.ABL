@@ -1,0 +1,43 @@
+module SM2
+title 'State diagram example'
+////////////////////////////////////////////////////////////
+// 4-state state machine described using a state diagram. //
+////////////////////////////////////////////////////////////
+    Clk,OE          pin;              "Clock, enable inputs
+    Hold,Reset      pin;              "Control inputs
+    Q1,Q0           pin istype 'reg'; "State bits
+
+    A = 0; B = 1; C = 2; D = 3;       "State values
+
+Equations
+    [Q1,Q0].clk = Clk;
+    [Q1,Q0].oe  = !OE;
+
+State_Diagram [Q1,Q0]
+
+    State A: If !Reset Then B Else A;
+
+    State B: Case  Reset         : A;
+                  !Reset &  Hold : B;
+                  !Reset & !Hold : C;
+             Endcase;
+
+    State C: If Reset Then A
+             Else If Hold Then C
+             Else D;
+
+    State D: Goto A;
+
+Test_Vectors ([Clk,OE,Reset,Hold] -> [Q1,Q0])
+              [.C., 0,  1  ,  0 ] ->    A;
+              [.C., 0,  1  ,  1 ] ->    A;
+              [.C., 0,  0  ,  1 ] ->    B;
+              [.C., 0,  0  ,  1 ] ->    B;
+              [.C., 0,  0  ,  0 ] ->    C;
+              [.C., 0,  0  ,  1 ] ->    C;
+              [.C., 0,  0  ,  0 ] ->    D;
+              [.C., 0,  0  ,  0 ] ->    A;
+              [.C., 0,  0  ,  0 ] ->    B;
+              [.C., 0,  0  ,  0 ] ->    C;
+              [.C., 0,  1  ,  0 ] ->    A;
+End

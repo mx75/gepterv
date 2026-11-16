@@ -1,0 +1,275 @@
+101 |> WARNING B101
+101     Output intermediate filename %s is same as
+101     input intermediate filename.
+102 |> WARNING B102
+102     Output intermediate filename %s is same as
+102     log filename. Defaulting to PALASM2.LOG.
+103 |> WARNING B103
+103     Input intermediate filename %s is same as log filename.
+103     Defaulting to PALASM2.LOG.
+104 |> WARNING B104
+104     Multiple equations with different assignments are combined.
+104     %s is overriden by %s
+110     Processing equation for ====>%s.PRLD
+111     Processing equation for ====>%s.CLKF
+112     Processing equation for ====>%s.SETUP
+113     Processing equation for ====>%s.RSTF
+114     Processing equation for ====>%s.TRST
+115     Processing equation for ====>%s.SETF
+116     Processing equation for ====>%s.J
+117     Processing equation for ====>%s.K
+118     Processing equation for ====>%s.R
+119     Processing equation for ====>%s.S
+120     Processing equation for ====>%s.T1
+121     Processing equation for ====>%s.T2
+122     Processing equation for ====>%s.T
+123     Processing equation for ====>%s.D
+124     Processing equation for ====>%s
+125     Processing equation for ====>%s[%d..%d]
+126     Processing IF block.
+127     Processing CASE block.
+128     MINIMIZE_ON
+129     MINIMIZE_OFF
+130     Processing CHECK
+131     Processing CLOCKF
+132     Processing SETF
+133     Processing RSTF
+134     Processing FOR
+135     Processing IF
+136     Processing WHILE
+137     Processing PRLDF
+138     Processing PRELOAD
+139     Processing TRACE_ON
+140     Processing TRACE_OFF
+141     EQUATIONS SEGMENT
+142     SIMULATION SEGMENT
+143     STATE SEGMENT
+144     Processing equation for ====>%s.cmbf
+145     Processing equation for ====>%s.turbo
+146     Generating equation for INPUT PAIRING ====>
+147     Generating CLKF equation for OUTPUT PAIRING ====>%s.CLKF
+148     Generating RSTF equation for OUTPUT PAIRING ====>%s.RSTF
+149     Generating SETF equation for OUTPUT PAIRING ====>%s.SETF
+150     Processing CHECKQ
+151     Processing TEST
+152     ............................................................
+501 |> ERROR B501
+501     Equation vector size differs from output vector size (%d).
+502 |> ERROR B502
+502     No equation is defined for the signal %s in {}.
+503 |> ERROR B503
+503     Use of group name or vector name %s
+503     is illegal on right side of equation.
+504 |> ERROR B504
+504     The number in the numeric equation is too large to be
+504     represented by the signal label(s) on left side.
+505 |> ERROR B505
+505     Condition list cannot have more than 16 signal names.
+506 |> ERROR B506
+506     Number is too large to be represented by signal names in
+506     condition list.
+507 |> ERROR B507
+507     Numeric .SETUP equation cannot be referenced in {}.
+508 |> ERROR B508
+508     Illegal form of vector index found: index must be a constant number.
+509 |> ERROR B509
+509     Use of {} is illegal within an If_then_else or Case: 
+509     Substitute {} with equation right hand side to be duplicated.
+601 |> ERROR B601
+601     Pair pin name not defined for node %s.
+602 |> WARNING B602
+602     Incorrectly paired node %s. Check device data sheet.
+602     Output pairing of the above node has been removed.
+603 |> ERROR B603
+603     Pin %s is paired more than once.
+604 |> WARNING B604
+604     Node equation %s and paired pin equation %s are not identical.
+604     OPAIR declaration deleted.
+605 |> SYSTEM_ERROR B605
+605     Program abnormally terminated due to the failure in
+605     executing a system call - possibly not enough memory.
+606 |> ERROR B606
+606     Pin/node %s is paired more than once.
+608 |> ERROR B608
+608     REG/LAT attribute is not allowed on the dedicated input %s.
+609 |> ERROR B609
+609     Dedicated input %s is on the left hand side.
+612 |> WARNING B612
+612     For input pairing, pair signals pin %s and node %s
+612     placed in different macrocells. Hence the above input
+612     pairing is removed.
+613 |> ERROR B613
+613     Input-paired node %s has an equation not of the form:
+613     [/]node = [/]pin for the input-paired pin %s.
+614 |> WARNING B614
+614     Identical equations are required for both output-paired
+614     node %s and pin %s : equation missing.
+614     OPAIR declaration deleted.
+615 |> ERROR B615
+615     Node %s of paired pin %s does not have REG/LAT attribute
+615     and the transfer equation is not of the form
+615     [/]node := [/]pin or [/]node *= [/]pin.
+616 |> WARNING B616
+616     CLKF equations are not generated for output pairing because
+616     pin/node %s does not have REG/LAT attribute.
+617 |> WARNING B617
+617     Polarity of pin %s declared is different from that in
+617     the transfer equation for input pairing. Hence the
+617     input pair attribute for pin %s is removed.
+618 |> WARNING B618
+618     Input pairing is illegal on the MACH1XX devices.
+618     Hence the pairing is removed for paired signals pin %s and node %s.
+619 |> WARNING B619
+619     Node %s with paired pin %s does not have the same
+619     equation type attribute. The pairing is removed.
+1001 |> SYSTEM_ERROR B1001
+1001     Cannot open output file.
+1001     Call AMD, 1-800-222-9323.
+1002 |> SYSTEM_ERROR B1002
+1002     Cannot open input intermediate file (.TRE) %s.
+1003 |> SYSTEM_ERROR B1003
+1003     Cannot open listing file.
+1004 |> SYSTEM_ERROR B1002
+1004     Out of memory.
+1004     Call AMD, 1-800-222-9323.
+1005 |> INTERNAL_ERROR B1005
+1005     Call AMD, 1-800-222-9323.
+1006 |> INTERNAL_ERROR B1006
+1006     Call AMD, 1-800-222-9323.
+1007 |> INTERNAL_ERROR B1007
+1007     Call AMD, 1-800-222-9323.
+1008 |> INTERNAL_ERROR B1008
+1008     Call AMD, 1-800-222-9323.
+1009 |> INTERNAL_ERROR B1009
+1009     Call AMD, 1-800-222-9323.
+1010 |> INTERNAL_ERROR B1010
+1010     Call AMD, 1-800-222-9323.
+1011 |> INTERNAL_ERROR B1011
+1011     Call AMD, 1-800-222-9323.
+1012 |> INTERNAL_ERROR B1012
+1012     Call AMD, 1-800-222-9323.
+1013 |> INTERNAL_ERROR B1013
+1013     Call AMD, 1-800-222-9323.
+1014 |> INTERNAL_ERROR B1014
+1014     Call AMD, 1-800-222-9323.
+1015 |> INTERNAL_ERROR B1015
+1015     Call AMD, 1-800-222-9323.
+1016 |> INTERNAL_ERROR B1016
+1016     Call AMD, 1-800-222-9323.
+1017 |> INTERNAL_ERROR B1017
+1017     Call AMD, 1-800-222-9323.
+1018 |> INTERNAL_ERROR B1018
+1018     Call AMD, 1-800-222-9323.
+1019 |> INTERNAL_ERROR B1019
+1019     %s file is corrupted.
+1019     Call AMD, 1-800-222-9323.
+1020 |> SYSTEM_ERROR B1020
+1020     Cannot read group segment from intermediate file (.TRE).
+1020     Call AMD, 1-800-222-9323.
+1021 |> SYSTEM_ERROR B1021
+1021     Cannot read equations segment from intermediate (.TRE) file.
+1021     Call AMD, 1-800-222-9323.
+1022 |> INTERNAL_ERROR B1022
+1022     Call AMD, 1-800-222-9323.
+1023 |> INTERNAL_ERROR B1023
+1023     Call AMD, 1-800-222-9323.
+1024 |> INTERNAL_ERROR B1024
+1024     Call AMD, 1-800-222-9323.
+1025 |> INTERNAL_ERROR B1025
+1025     Call AMD, 1-800-222-9323.
+1026 |> INTERNAL_ERROR B1026
+1026     Call AMD, 1-800-222-9323.
+1027 |> INTERNAL_ERROR B1027
+1027     Call AMD, 1-800-222-9323.
+1028 |> INTERNAL_ERROR B1028
+1028     Call AMD, 1-800-222-9323.
+1029 |> INTERNAL_ERROR B1029
+1029     Call AMD, 1-800-222-9323.
+1030 |> INTERNAL_ERROR B1030
+1030     Call AMD, 1-800-222-9323.
+1031 |> INTERNAL_ERROR B1031
+1031     Call AMD, 1-800-222-9323.
+1032 |> INTERNAL_ERROR B1032
+1032     Call AMD, 1-800-222-9323.
+1033 |> INTERNAL_ERROR B1033
+1033     Call AMD, 1-800-222-9323.
+1034 |> INTERNAL_ERROR B1034
+1034     Call AMD, 1-800-222-9323.
+1035 |> INTERNAL_ERROR B1035
+1035     Call AMD, 1-800-222-9323.
+1036 |> INTERNAL_ERROR B1036
+1036     Call AMD, 1-800-222-9323.
+1037 |> INTERNAL_ERROR B1037
+1037     Call AMD, 1-800-222-9323.
+1038 |> INTERNAL_ERROR B1038
+1038     Call AMD, 1-800-222-9323.
+1039 |> INTERNAL_ERROR B1039
+1039     Call AMD, 1-800-222-9323.
+1040 |> INTERNAL_ERROR B1040
+1040     Call AMD, 1-800-222-9323.
+1041 |> INTERNAL_ERROR B1041
+1041     Call AMD, 1-800-222-9323.
+1042 |> INTERNAL_ERROR B1042
+1042     Call AMD, 1-800-222-9323.
+1043 |> INTERNAL_ERROR B1043
+1043     Call AMD, 1-800-222-9323.
+1044 |> INTERNAL_ERROR B1044
+1044     Call AMD, 1-800-222-9323.
+1045 |> INTERNAL_ERROR B1045
+1045     Call AMD, 1-800-222-9323.
+1046 |> INTERNAL_ERROR B1046
+1046     Call AMD, 1-800-222-9323.
+1047 |> INTERNAL_ERROR B1047
+1047     Call AMD, 1-800-222-9323.
+1048 |> INTERNAL_ERROR B1048
+1048     Call AMD, 1-800-222-9323.
+1049 |> INTERNAL_ERROR B1049
+1049     Call AMD, 1-800-222-9323.
+1050 |> INTERNAL_ERROR B1050
+1050     Call AMD, 1-800-222-9323.
+1051 |> INTERNAL_ERROR B1051
+1051     Call AMD, 1-800-222-9323.
+1052 |> ERROR B1052
+1052     Error %s file.
+1052     Please run Parse (Check Syntax).
+1053 |> SYSTEM_ERROR B1053
+1053     Cannot read preheader segment from intermediate (.TRE) file.
+1053     Call AMD, 1-800-222-9323.
+1054 |> SYSTEM_ERROR B1054
+1054     Cannot read simulation segment from intermediate (.TRE) file.
+1054     Call AMD, 1-800-222-9323.
+1055 |> SYSTEM_ERROR B1055
+1055     Cannot read state segment from intermediate (.TRE) file.
+1055     Call AMD, 1-800-222-9323.
+1060 |> ERROR B1060
+1060     Invalid parameter(s) specified.
+1061 PALASM HELP 
+1061      Command format to invoke BPP:
+1061      BPP [input_intermediatefile_spec] [OPTION ...].
+1061      OPTION: 
+1061                -log [ <logfile[.log]> ].
+1061                -help.
+1061                -1eqn.
+1061                -pair.
+1061                -dc0.
+1061      Option flag description:
+1061                -log  capture screen messages to disk file.
+1061                -help print out help screen.
+1061                -1eqn run bpp with one equation at a time.
+1061                -pair run bpp with pairing turned on.
+1061                -dc0 don't cares in an incompletely specified
+1061                      function will be treated as zeros.
+1061    Default input and output filename  PALASM2.TRE.
+1062 |> WARNING B1062
+1062     Canonical equation [/] %s (node) = [/] %s (pin)
+1062     generated from IPAIRing. Polarity chosen to achieve active high
+1062     sense.
+10001 |> ERROR B10001
+10001     Please run BPP (Expand Boolean).
+10002 |> ERROR B10002
+10002     Please run Expand (Expand State).
+10003 |> ERROR B10003
+10003     Please run Minimize (Minimize Boolean).
+10004 |> SYSTEM_ERROR B10004
+10004     Cannot access preheader information.
+10004     Call AMD, 1-800-222-9323.

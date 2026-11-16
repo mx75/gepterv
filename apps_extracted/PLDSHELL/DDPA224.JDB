@@ -1,0 +1,7 @@
+load "224_lib.jdb"
+load "plfg_lib.jdb"
+load "dpa224.jdb"
+
+
+dpa224(0)  # call disassembly procedure passing in pin map flag TRUE 
+

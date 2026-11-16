@@ -1,0 +1,15 @@
+; xor module
+
+DEFMOD 2_bit_xor  (IN1,IN2,OUT)
+
+    CHIP MOD ALTERA_ARCH
+
+    PIN in1
+    PIN in2
+    PIN out
+
+    EQUATIONS
+        OUT = in1 * /in2 + /in1 * in2
+
+ENDMOD 
+

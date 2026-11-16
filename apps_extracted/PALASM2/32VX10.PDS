@@ -1,0 +1,249 @@
+;
+;      PAL 32VX10 MACRO CELL                                                  _
+;
+;  ___________________________________________________
+;                                                    |
+;  ______________________________________            |
+;                                       |            |   Three State
+;                                       -            |   Controlled 
+;                                      | |           |\  by TRST
+;            __________________________|1|___________| >o________ O
+;S1___+-+    |                         | |           |/     |
+;     |X|    |	     +----+      _     | | Bypass Mux       |
+;S2___|O|____|_______|D  Q|_____|0|____|0| Controlled       |
+;     |R|            |   _|     | |     -  By CMBF          |
+;     +-+       CLK__|>  Q|_____|1|                         |
+;        	     +----+  |   -  Polarity                |
+;  __________/|            R |      Mux                     |
+; FB1       < |______________|                              |
+;  _________o\|	Registered Only				    |	
+;               Feedback                                    |
+;                                                           |
+;  __________/|                                             |
+; FB2       < |_____________________________________________|
+;  _________o\| Signal on Pin O (Feedback/Input)
+;
+; How to define output equations:
+;
+; #1 COMBINATORIAL EQUATIONS
+;      Combinatorial output equations are defined at the output pin,O.
+;	    eg.   O = <S2> or O = <S2 XOR S1> 
+;      By default output polarity is active low. If it is desired to have
+;      Active High polarity, then the XOR (:*:) operator can not be used in
+;      the output Boolean equations.
+;
+;      (see above diagram)
+;     
+; #2 REGISTERED EQUATIONS
+;      Registered output equations are defined at the node, R, and then equated
+;      to the output pin, O.
+;	    eg.   R := <S2> or R := <S2 XOR S1> 
+;		  O := R
+;
+;      (see above diagram)
+;
+;** NOTE **
+;----------
+;      When R is equated to an expression (ie. R := S2 or R := S2 XOR S1)
+;      the value of R is the register contents after a clock.
+;      
+;      When the output, O, is equated to the internal node, R, and the 
+;      polarities match, (ie. O := R or /O := /R), then the output pin signal
+;      is identical to the internal node signal.
+;      If the Polarity of the Output (FB2) and the internal node do not match,
+;      (ie. /O := R or O := /R) then the output signal, O, is inverse the 
+;      signal at the internal node, R.
+
+;       PINLIST AND OUTPUT EQUATION POLARITY SETTINGS FOR GIVEN 
+;       OUTPUT / FEEDBACK RESULTS
+;
+;The Polarity of the Output or Feedback signal is determined by the combination
+;of the signal definitions in the Pin/Node list and the Boolean equation.
+;
+;For Output/FB2 feedback, the polarity is determined by the relative polarity 
+;of the signal, O, in the pinlist and output Boolean equation.
+;For Register feedback (FB1), the polarity is determined by the relative 
+;polarity of the signal, R, in the pinlist and output Boolean equation.
+;
+;The following table illustrates this as a function of the relative polarity
+;settings between the Pin/Node list and the Boolean equations. It shows the
+;relationship of the polarity of an input signal, S2, at the input to the XOR
+;and the signal for registered feedback, FB1, and the output/feedback, FB2.
+;   ______________________________________________________
+;   |        |  OUTPUT/FEEDBACK   ||      POLARITY       |
+;   |________|____________________||_____________________|
+;   | INPUT  |           | OUTPUT || PIN LIST | EQUATION |
+;   | SIGNAL |    FB1    | / FB2  || POLARITY | POLARITY |
+;   |________|___________|________||__________|__________|
+;   |   S2   |    S2     |   S2   ||   O  /R  |   O  /R  |
+;   |   S2   |    S2     |  /S2   ||  /O   R  |   O   R  |
+;   |   S2   |   /S2     |   S2   ||  /O   R  |  /O  /R  |
+;   |   S2   |   /S2     |  /S2   ||   O  /R  |  /O   R  |
+;   |____________________________________________________|
+;          
+;The follow tables summarizes how the resultant polarity can be calculated.
+;
+;             PIN LIST POLARITY                     PIN LIST POLARITY         
+;             _________________                     _________________         
+;             |   | R      /R |                     |   | O      /O |         
+;   BOOLEAN   |___|___________|           BOOLEAN   |___|___________|         
+;   EQUATION  | R |HIGH   LOW |           EQUATION  | O |HIGH   LOW |         
+;   POLARITY  |/R |LOW    HIGH|           POLARITY  |/O |LOW    HIGH|         
+;             |___|___________|                     |___|___________|         
+;                                                                            
+;   POLARITY OF REGISTER FEEDBACK, FB1       POLARITY OF OUTPUT AND FB2 
+;
+;The Design below shows how to write the Boolean equations to generate the
+;different polarities of the outputs and feedbacks.
+;                                         
+;DESIGN HEADER                           
+;-------------                           
+title         32VX10 EXAMPLE             
+pattern       32VX10 EXAMPLE             
+revision      b
+author        JOHN DOE
+company       MMI, SANTA CLARA
+date          MAY 22, 1987
+          
+
+;PIN LIST / NODE LIST DECLARATION
+;--------------------------------
+CHIP XXX PAL32VX10
+     CLK  I2   I3   I4   I5   I6   I7   I8   I9   I10  I11  GND
+     I13  O14  O15 /O16 /O17  O18  O19 /O20 /O21  O22  O23  VCC
+  GLOBAL  R14  R15  R16  R17 /R18 /R19  R20  R21 /R22 /R23
+
+STRING	 S2 	 'I2'
+STRING	 xCOMB	 'I3'
+STRING	 xREG	'/I3'
+
+;EXAMPLES OF HOW TO PROGRAM THE BOOLEAN EQUATIONS
+;------------------------------------------------
+EQUATIONS 
+
+;DEFAULT SIGNAL SET-UPS
+;----------------------
+;If O.TRST is not explicitly defined for an output then it is automatically
+;set such that :-
+;	O.TRST = VCC    for PALASM 2.21,2.22 ie. DEFAULT SETTING TO OUTPUT
+;	O.TRST = GND	for PALASM 2.23...   ie. DEFAULT SETTING TO INPUT
+
+;If O.CMBF is not explicitly defined for an output then the default value
+;is automatically set depending on whether the output equation is Registered or
+;Combinatorial. ie.
+;       O.CMBF = VCC	 when the output equation is COMBINATORIAL
+;	O.CMBF = GND     when the output equation is REGISTERED
+
+
+
+;COMBINATORIAL EQUATIONS
+;-----------------------
+ O14.TRST = VCC ;set three state = Output
+ O14 = S2	;output polarity = high because pin list polarity matches
+		;		   equation polarity.
+
+
+ O15.TRST = VCC ;set three state = Output
+/O15 = S2	;output polarity = low because pin list polarity is different
+		;		   from equation polarity.
+
+
+ O16.TRST = VCC ;set three state = Output
+ O16 = S2	;output polarity = low because pin list polarity is different
+		;		   from equation polarity.
+
+
+ O17.TRST = VCC ;set three state = Output
+/O17 = S2	;output polarity = high because pin list polarity matches
+		;		   equation polarity.
+
+
+;REGISTERED EQUATIONS
+;--------------------
+;
+ O18.TRST = VCC	;set three state = Output
+/R18 :=  S2	;register FB1 polarity = high because pin list polarity matches
+		;		         equation polarity.
+ O18 := /R18	;output   FB2 polarity = high because pin list polarity matches
+		;		         equation polarity.                    
+
+
+ O19.TRST = VCC	;set three state = Output
+ R19 :=  S2	;register FB1 polarity = low because pin list polarity is 
+		;		         different from equation polarity.
+/O19 :=  R19	;output   FB2 polarity = low because pin list polarity is 
+		;		         different from equation polarity.   
+
+
+ O20.TRST = VCC	;set three state = Output
+ R20 :=  S2	;register FB1 polarity = high because pin list polarity matches
+		;		         equation polarity.
+ O20 :=  R20	;output   FB2 polarity = low because pin list polarity is 
+		;		         different from equation polarity.     
+
+
+ O21.TRST = VCC	;set three state = Output
+/R21 :=  S2	;register FB1 polarity = low because pin list polarity is 
+		;		         different from equation polarity.
+/O21 := /R21	;output   FB2 polarity = high because pin list polarity matches
+		;		         equation polarity.
+
+
+;EQUATIONS USING THE DYNAMIC BYPASS MUX
+;--------------------------------------
+;if it is desired to switch an output between combinatorial and registered
+;dynamically then the .CMBF function is used as shown below
+;
+;when the .CMBF function is HIGH output = Combinatorial
+;when the .CMBF function is LOW  output = Registered   
+;
+ O22.TRST = VCC	;set three state = Output
+ O22.CMBF = I3	;if I3 = high then O/P = Combinatorial else O/P = Registered
+/R22 :=  S2	;register FB1 polarity = high because pin list polarity matches
+                ; 		         equation polarity.                    
+ O22 := /R22	;output   FB2 polarity = high because pin list polarity matches
+                ; 		         equation polarity.                    
+ 
+ O23.TRST = VCC	;set three state = Output
+ O23.CMBF = I3	;if I3 = high then O/P = Combinatorial else O/P = Registered
+ R23 :=  S2	;register FB1 polarity = low because pin list polarity is      
+                ;		         different from equation polarity.     
+/O23 :=  R23	;output   FB2 polarity = low because pin list polarity is      
+                ;		         different from equation polarity.     
+;------------------------------------------------------------------------------
+;simulation
+;
+SIM
+;CHECK COMBINATORIAL OUTPUTS
+;---------------------------
+SETF	 I2  /I3
+CHECK	 O14 /O15  O16 /O17
+SETF    /I2
+CHECK   /O14  O15 /O16  O17
+
+;CHECK REGISTERED OUTPUTS
+;------------------------
+SETF	 I2 /I3
+CLOCKF   CLK    
+CHECK	 O18 /O19  O20 /O21 /R18  R19  R20 /R21
+SETF    /I2
+CLOCKF   CLK
+CHECK   /O18  O19 /O20  O21  R18 /R19 /R20  R21
+
+;CHECK OUTPUT USING DYNAMIC OUTPUT WITH .CMBF=HIGH
+;-------------------------------------------------
+SETF	 I2 I3    
+CHECK	 O22 /O23
+SETF    /I2
+CHECK   /O22  O23
+
+;CHECK OUTPUT USING DYNAMIC BYPASS WITH .CMBF=LOW
+;------------------------------------------------
+SETF	 I2 /I3
+CLOCKF   CLK    
+CHECK	 O22 /O23 /R18  R19
+SETF    /I2
+CLOCKF   CLK
+CHECK   /O22  O23  R18 /R19
+
+

@@ -1,0 +1,76 @@
+ğ
+.RSTF
+Overview
+This is the reserved word in a functional equation that defines when
+to assert a reset signal high on devices having flip-flops or
+registers with a reset input.
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+        Pn.RSTF       Assignment operator     Expression
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Device Support:
+PAL10H20EG8    PAL10H20EV8    PAL16RA8    PAL20RA10    PAL22IP6
+PAL22RX8       PAL22V10       PAL23S8     PAL26V12     PALCE29M16
+PALCE29MA16    PAL32VX10      PALCE610    PLS105       PLS167
+PLS168         PLS30S16       MACH 1      MACH 2
+ú
+Syntax
+You use this reserved word in a functional equation in the equations 
+segment of Boolean and state designs.
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+        Pn.RSTF       Assignment operator     Expression
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+    EQUATIONS
+        Q0                     =              /Q1 */Q2
+        Q0.RSTF                =              RST * /SET
+        ...
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+
+Pn.RSTF         Identifies the pin or node associated with the
+                flip-flop having a reset input.
+
+Assignment Operator    Include a symbol that defines a specific
+                       operation as interpreted by the software when
+                       processing design files.
+
+Expression      Defines the logic conditions that determine when to
+                assert the reset signal high.  In the syntax example,
+                when RST is true and SET is false the reset pulse is
+                initiated.
+ú
+Use
+Multiple .RSTF statements for the same pin or node are automatically
+ORed together into one statement.  This can result in an error during
+either assembly or fitting.  You can specify a global reset on devices
+with global nodes, for example, global node.RSTF.  
+
+You cannot use negative polarity on the left side of an equation.  For
+example, /Q1.RSTF is not allowed.
+
+You can use the GROUP, STRING, and VECTOR notation to define signals.
+This is an excellent way to assign a functional equation to several
+pins and nodes.
+
+Depending on the device, the reset line is synchronous or
+asynchronous.  On the PAL16RA8, if both preset and reset of a
+flip-flop are high, the flip-flop is bypassed.
+
+In the simulation history file, .RSTF is represented by the letter L, 
+SETF by the letter H and .PRLD by the letter P.
+ú
+Related Topics
+Boolean Equation
+EXPRESSION
+Functional Equation
+PRELOAD
+SETF
+ú

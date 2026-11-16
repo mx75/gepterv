@@ -1,0 +1,61 @@
+Name      Sample;
+Partno    P9000183;
+Date      03/14/85;
+Revision  02;
+Designer  Osann;
+Company   ATI;
+Assembly  PC Memory;
+Location  U106;
+Device    F155;
+
+/********************************************************/
+/* This device generates chip select signals for one    */
+/* 8Kx8 ROM and two 2Kx8 static RAMs.  It also drives   */
+/* the system READY line to insert a wait-state of at   */
+/* least one CPU clock for ROM accesses.                */
+/********************************************************/
+/** Allowable Target Device Types : PAL16R4, 82S155    **/
+/********************************************************/
+/**  Inputs  **/
+
+PIN 1        = cpu_clk   ;    /* CPU clock              */
+PIN [2..6]   = [a15..11] ;    /* CPU Address Bus        */
+PIN [7,8]    = ![memw,memr] ; /* Memory Data Strobes    */
+PIN 9        = reset     ;    /* System Reset           */
+PIN 11       = !oe       ;    /* Output Enable          */
+
+/**  Outputs  **/
+
+PIN 19       = !rom_cs   ;     /* ROM Chip Select       */
+PIN 18       = ready     ;     /* CPU ready signal      */
+PIN 15       = wait1     ;     /* Start Wait State      */
+PIN 14       = wait2     ;     /* End Wait State        */
+PIN [13,12]  = ![ram_cs1..0] ; /* RAM Chip Selects      */
+
+/** Declarations and Intermediate Variable Definitions **/
+
+Field memadr = [a15..11] ; /* Give The Address Bus      */
+                           /* the Name "memadr"         */
+
+memreq = memw # memr ; /* Create The Intermediate       */
+                       /* Variable "memreq"             */
+
+select_rom = memr & memadr:[0000..1FFF] ;   /* = rom_cs */
+
+/**  Logic Equations  **/
+
+rom_cs = select_rom ;
+
+ram_cs0 = memreq & memadr:[2000..27FF] ;
+
+ram_cs1 = memreq & memadr:[2800..2FFF] ;
+
+wait1.d = select_rom /* = rom_cs */ & !reset ;
+                                   /* Synchronous Reset */
+wait2.d = select_rom &  wait1 ;    /* wait1 delayed     */
+
+ready.oe = select_rom ; /* Turn Buffer ON */
+
+ready = wait2 ; /* End Wait */
+
+

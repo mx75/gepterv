@@ -1,0 +1,61 @@
+TITLE 'APEEL FILE: PEEL18CV8 BASIC GATES'
+Designer 'Robin Peel'
+Date '8/16/87 '
+
+Description
+
+  This PEEL18CV8 application example implements several basic logic gates.
+  The logic gates include an inverter, four-input AND, OR, NAND, and NOR
+  gates, a four-input AND-OR- INVERT gate, a two- input XOR gate and a
+  high-impedance buffer. Each gate uses one or more of the (A,B,C and D)
+  inputs. Additionally, the high-impedance buffer uses the /HZ input for
+  impedance control. The truth table for these gates can be examined in the
+  test vectors. Note, the remaining unused input pins can be used as
+  additional inputs into the gates.
+
+End_Desc;
+
+PEEL18CV8
+
+A pin 1
+B pin 2
+C pin 3
+D pin 4
+!OE pin 9
+IOC(12 'HZ_BUF' POS COM FEED_PIN)
+IOC (13 'XOR' Pos OutCom Feed_Pin)
+IOC (14 'AOI' Neg OutCom Feed_Pin)
+IOC (15 'NOR' Neg OutCom Feed_Pin)
+IOC (16 'OR' Pos OutCom Feed_Pin)
+IOC (17 'NAND' Neg OutCom Feed_Pin)
+IOC (18 'AND' Pos OutCom Feed_Pin)
+IOC (19 'NOT' Pos OutCom Feed_Pin)
+
+AC NODE 21;
+SP NODE 22;
+
+Define
+
+EQUATIONS
+
+AC = 0;
+SP = 0;
+
+NOT.COM = !A ;
+AND.COM = A & B & C & D;
+NAND.COM = (A & B & C & D) ;
+OR.COM = A # B # C # D;
+NOR.COM = (A # B # C # D) ;
+AOI.COM = (A & B # C & D) ;
+XOR.COM = A & !B # !A & B;
+HZ_BUF.COM = A;
+HZ_BUF.OE = OE ;
+
+XOR.And = 1;
+AOI.And = 1;
+NOR.And = 1;
+OR.And = 1;
+NAND.And = 1;
+AND.And = 1;
+NOT.And = 1;
+

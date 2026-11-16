@@ -1,0 +1,200 @@
+0000 Reserved.
+0010 Reserved.
+0020 Reserved.
+0150 \n %%%% EXPAND %%%% Program Successful.  File: %s
+0150  %%%% EXPAND %%%% ERROR count: %d  WARNING count: %d
+0160 \n %%%% EXPAND %%%% Program Unsuccessful.  File: %s
+0160  %%%% EXPAND %%%% ERROR count: %d  WARNING count: %d
+0200 >> ERROR    Output Message File Open Error.  File: %s
+0210 >> ERROR    Output Message File Close Error.
+0220
+1000
+1010 >> ERROR    Multiple defaults in a state transition equation.
+1020 >> ERROR    Multiple state transition equations for the same state.
+1100 >> ERROR    Mixed registered and combinatorial state output equations.
+1110 >> ERROR    Multiple defaults in a state output equation.
+1120 >> ERROR    Multiple state output equations for the same state.
+1130 
+1200 >> ERROR    Moore and Mealy directives both used.
+1210 >> ERROR    Moore machine with conditional outputs.
+1220 >> ERROR    Missing state transition equation.
+1230 >> WARNING  Missing state transition equation.  Using default.
+1240 >> ERROR    Device selected isn't supported for state machines.
+1250 >> ERROR    Overlapping state transition conditions.
+1260 >> ERROR    Overlapping state output conditions.
+1300 >> WARNING  Last next state default is next state.
+1310 >> WARNING  Missing default next state.
+1320 >> WARNING  Unreached next states.
+1330 >> WARNING  Hold directive specified on a combinatorial output.
+1350 >> WARNING  Attempting to automatically assign a state bit.
+1355 >> WARNING  Assigning default POWER_UP state bits.
+1360 >> ERROR    State bit assignment failed.
+1361 >> ERROR    Not enough states were manually assigned in PLS design.
+1370 
+1400 >> ERROR    State bit assigned to combinatorial output.
+1410 >> ERROR    Registered state output bit assigned to combinatorial output.
+1420 >> ERROR    Combinatorial state output bit assigned to registered output.
+1430 >> WARNING  Missing Power Up state. Cannot enable PLS optimization.
+1600 >> ERROR    Undefined value for state bit.
+1610 >> ERROR    State Value Equations must use exactly the same state bits.
+1620 >> ERROR    Not enough registered outputs for states.
+1630 >> ERROR    Memory allocation failed.  Out of memory.
+1640
+1800 >> ERROR    Illegal Simulation command type.
+1810 >> ERROR    Simulate Section: Conditions aren't allowed...yet.
+1820 >> ERROR    Illegal Simulation element.
+1830 >> WARNING  Simulation state not active.
+1840
+2000 >> ERROR    Input Design (TRE) File Open Error.
+2010 >> ERROR    Input Design (TRE) File Close Error.
+2030 >> ERROR    Output Design (TRE) File Copy Error.
+2100 >> ERROR    State Section:  Illegal equation type.
+2110 >> ERROR    Conditions Section:  Illegal equation type.
+2120 >> ERROR    Equations Section:  Illegal equation type.
+2130 >> ERROR    Simulate Section: Illegal equation type.
+2140 >> ERROR    Input Design (TRE) File Read Error.
+2150
+2400 >> ERROR    Output Design (TRE) File Open Error.
+2410 >> ERROR    Output Design (TRE) File Write Error.  Bad equation.
+2420 >> ERROR    Output Design (TRE) File Write Error.
+2430 >> ERROR    Output Design (TRE) File Close Error.
+2440
+2700 >> ERROR    Input Design (TRE) File Syntax Error.
+2710
+3000 >> ERROR    Device selected is not currently supported.
+3001 >> ERROR    Cannot open PALPDF.PDF file.
+3002 >> ERROR    PAL device is not supported.
+3003 >> ERROR    Format of PALPDF.PDF file is incorrect.
+3010 >> ERROR    Part Definition File (PDF) Open Error.
+3011 >> ERROR    Cannot open PLSPDF.PDF file.
+3012 >> ERROR    PLS device is not supported.
+3013 >> ERROR    Format of PLSPDF.PDF file is incorrect.
+3014 >> ERROR    Data structure for device incorrectly formed from PLSPDF.PDF.
+3020 >> ERROR    Part Definition File (PDF) Read Error.
+3030 >> ERROR    Memory allocation failed.  Out of memory.
+3040
+3060 >> ERROR    Prose device selected, no processing performed.
+3400 ** ERROR    Boolean expression processing failed.  Illegal Token.
+3410 >> ERROR    State substitution failed.  No state value.
+3420 >> ERROR    Condition substitution failed.  Recursive Definition.
+3430 >> ERROR    Condition substitution failed.  Non-boolean condition.
+3500 >> ERROR    Boolean expression processing failed.  Too many signals.
+3550 ** ERROR    Simulator boolean expression processing failed.
+3560
+3700 >> ERROR    Memory allocation failed.  Out of memory.
+3710
+4000 >> ERROR    State has more than one state value equation.
+4010 ** ERROR    State defined but no transition equation.
+4020 >> ERROR    Illegal signal in a list.
+4021 >> ERROR    Incorrect number of signal names in pin list.
+4030 >> ERROR    Signal appears more than once in a list.
+4040 >> ERROR    Condition has more than one equation.
+4050 ** ERROR    Illegal condition index.
+4100 >> ERROR    Illegal pin number.
+4110 >> ERROR    Node has more than one equation.
+4120 >> ERROR    Minimize switch different for ON and OFF cover.
+4130 >> ERROR    Assignment operator different for ON and OFF cover.
+4140
+4300 >> ERROR    Overlap between ON and OFF cover.
+4310
+4500 >> ERROR    Minimization failed.  Result incorrect.
+4501 >> ERROR    Memory allocation failed. Block requested too large.
+4502 >> ERROR    Memory allocation failed. Out of memory.
+4503 >> ERROR    Memory free failed.
+4510 ** ERROR    Esp: No solution possible (check equations).
+4511 ** ERROR    Esp: Inconsistent Frequency Table.
+4520 ** ERROR    Esp: Cube not covered in REDUCE.
+4530 ** ERROR    Esp: split_select index error.
+4531 ** ERROR    Esp: split_two_select index error.
+4532 ** ERROR    Esp: large_cube_index -- bestindex -1.
+4540 ** ERROR    Esp: cover capacity exceeded.
+4550 ** ERROR    Esp: ON and OFF sets aren't orthogonal (check equations).
+4560 >> WARNING  File: Tree file name is not unique, palasm2.tre is assumed.   
+4570 >> WARNING  File: Log file name is not unique. Log output ignored.
+4580 \n
+4580 >>  EXPAND HELP: Incorrect expand parameters. 
+4580 >>  Command to invoke expand: 
+4580     expand   [OPTIONS...] 
+4580     OPTION:          [filename[.tre]]  
+4580                 -tre [filename[.tre]]  
+4580                 -log [filename[.log]]  
+4580     Option flag description:
+4580                      [filename[.tre]] - Input tree file name. 
+4580                 -tre [filename[.tre]] - Output tree file name. 
+4580                 -log [filename[.log]] - Error log file name. 
+5061 20RA10
+5062 20RS10
+5063 32R16
+5064 64R32
+5100 10H8
+5101 12H6
+5102 14H4
+5103 16H2
+5104 16C1
+5105 10L8
+5106 12L6
+5107 14L4
+5108 16L2
+5109 16L8
+5110 16R8
+5111 16R6
+5112 16R4
+5113 16P8
+5114 16RP8
+5115 16RP6
+5116 16RP4
+5117 20R8
+5118 20R6
+5119 20R4
+5120 12L10
+5121 14L8
+5122 16L6
+5123 18L4
+5124 20L2
+5125 10WR4
+5126 12WL6
+5127 14R21
+5132 20C1
+5133 20L10
+5134 20X10
+5135 20X8
+5136 20X4
+5137 20L8
+5138 8L14
+5139 6L16
+5145 20S10
+5146 20RS8
+5147 20RS4
+5161 10H20P8
+5162 16RA8
+5163 32VX10
+5164 22RX8
+5165 10H20G8
+5166 22V10
+5167 18P8
+5168 18U8
+5169 10H20EG8
+5170 10H20EV8
+5171 10H20GR8
+5172 22IP6
+5173 16R4Z
+5174 16R6Z
+5175 16R8Z
+5176 16L8Z
+5177 22P10
+5178 23S8
+5179 26V12
+5200 PLS105
+5201 PLS167
+5202 PLS168
+5205 PLS30S28
+5206 PLS30K28
+5207 PLS2028
+5213 29M16
+5214 29MA16
+5215 16V8
+5216 20V8
+6000 >> ERROR    PLS parts may only have .R and .S equations.
+6001 >> ERROR    Non-PLS parts may not have .R or .S equations.
+10000 >> ERROR   The PAL device %s is not supported by EXPAND.
+

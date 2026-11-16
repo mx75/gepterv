@@ -1,0 +1,28 @@
+module sn74245
+title 'Octal Bidirectional Bus Transceiver'
+
+    G,DIR     pin;
+    A1..A8    pin istype 'com';
+    B1..B8    pin istype 'com';
+
+    A = [A8..A1];
+    B = [B8..B1];
+
+equations
+    A     = B;
+    B     = A;
+    A.oe  = !DIR & !G;
+    B.oe  = DIR & !G;
+
+test_vectors ([ G ,DIR,  A ,  B ] -> [  A ,  B ])
+              [ 1 , 0 ,  0 ,  0 ] -> [ .Z., .Z.];
+              [ 0 , 0 , .X.,^h00] -> [^h00, .X.];
+              [ 0 , 0 , .X.,^h55] -> [^h55, .X.];
+              [ 0 , 0 , .X.,^hAA] -> [^hAA, .X.];
+              [ 0 , 0 , .X.,^hFF] -> [^hFF, .X.];
+              [ 0 , 0 , .X.,^hF0] -> [^hF0, .X.];
+              [ 0 , 1 , .X., .X.] -> [ .Z., .X.];
+              [ 0 , 1 ,^h00, .X.] -> [ .X.,^h00];
+              [ 0 , 1 ,^h55, .X.] -> [ .X.,^h55];
+              [ 0 , 1 ,^hAA, .X.] -> [ .X.,^hAA];
+end

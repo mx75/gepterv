@@ -1,0 +1,88 @@
+ğ
+EXPRESSION
+Overview
+Expressions can be used in both Boolean and state-machine designs as
+part of a Boolean or functional equation or in a state equation or in
+equations in simulation commands.
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     Pn       Assignment Operator       Expression
+
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Device support: All PLD devices.
+ú
+Syntax
+You can include expressions in the equations, state, or simulation
+segments of any PDS file or in a separate simulation file.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     Pn       Assignment Operator       Expression
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+  EQUATIONS
+     Q1                =                Q1 * Q0                                                   + /Q1 * /Q0
+                                        + /FRM1B * SOF * SUNK
+                                        + RSTB
+  ...
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+
+Pn              Identifies the name of the output pin or node defined
+                in the corresponding statement in the declaration
+                segment of a PDS file.  Once declared, you can include
+                the name in an equation or expression.
+
+Assignment      Assigns the symbol that defines the appropriate
+Operator        operation interpreted by the software when processing
+                design files.
+
+Expression      Assigns a group of signal values or product terms on
+                the right side of an equation, represented as product,
+                *, and sum, +, lines.  The product operator is a
+                logical AND function and the sum operator is a logical
+                OR function.
+
+                All values in an expression for a PLD design are
+                signal names that must be defined in pin and node
+                statements in the declaration segment of the PDS file
+                before their use elsewhere.
+
+                Expressions in Boolean equations use Boolean-logic
+                operators to combine the values of pins and nodes.
+                State equations use Boolean expressions to define
+                states and their outputs.  Functional equations use
+                Boolean expressions to define inputs.
+ú
+Use
+When using expressions, the following conventions should be observed.
+
+ş    Place the expression on the right side of a Boolean, functional,
+     or state equation.
+
+ş    Use spaces or tab characters between pin or node names and logic
+     operators.
+
+ş    Place each part of the expression that uses the sum operator, +,
+     on a separate line.
+
+The following table lists the order of precedence for unparenthesised
+expressions.
+
+    Precedence    Operator/Definition
+
+        1              /    NOT
+        2              *    AND
+        3              +    OR
+        4             :+:   XOR
+        4             :*:   XNOR
+ú
+Related Topics
+Boolean Equation
+Functional Equation
+State Equation
+ú

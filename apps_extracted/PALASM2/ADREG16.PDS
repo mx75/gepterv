@@ -1,0 +1,180 @@
+TITLE     16-BIT ADDRESSABLE REGISTER
+PATTERN   ADREG16.PDS
+REVISION  A
+AUTHOR    John Birkner
+COMPANY   Monolithic Memories Inc. Santa Clara, CA
+DATE      2/11/85
+  
+;       The 16-bit addressable register loads one of 16 registers
+;       selected by ADDR[0..3] with data input, DATA.
+  
+  
+CHIP ADREG16 PAL32R16
+Q0 Q1 Q2 Q3 /E1 NC NC A0 A1 VCC A2 A3 DATA NC /PRLD2 CLK2
+Q4 Q5 Q6 Q7 Q8 Q9 Q10 Q11 /E2 NC NC NC NC GND NC NC NC NC /PRLD1 CLK1
+Q12 Q13 Q14 Q15
+  
+  
+EQUATIONS
+  
+Q0      :=  A0            *Q0           ;hold
+        +       A1        *Q0           ;hold
+        +           A2    *Q0           ;hold
+        +               A3*Q0           ;hold
+        +  /A0*/A1*/A2*/A3*DATA         ;load
+  
+Q1      := /A0            *Q1           ;hold
+        +       A1        *Q1           ;hold
+        +           A2    *Q1           ;hold
+        +               A3*Q1           ;hold
+        +   A0*/A1*/A2*/A3*DATA         ;load
+  
+Q2      :=  A0            *Q2           ;hold
+        +      /A1        *Q2           ;hold
+        +           A2    *Q2           ;hold
+        +               A3*Q2           ;hold
+        +  /A0* A1*/A2*/A3*DATA         ;load
+  
+Q3      := /A0            *Q3           ;hold
+        +      /A1        *Q3           ;hold
+        +           A2    *Q3           ;hold
+        +               A3*Q3           ;hold
+        +   A0* A1*/A2*/A3*DATA         ;load
+  
+Q4      :=  A0            *Q4           ;hold
+        +       A1        *Q4           ;hold
+        +          /A2    *Q4           ;hold
+        +               A3*Q4           ;hold
+        +  /A0*/A1* A2*/A3*DATA         ;load
+  
+Q5      := /A0            *Q5           ;hold
+        +       A1        *Q5           ;hold
+        +          /A2    *Q5           ;hold
+        +               A3*Q5           ;hold
+        +   A0*/A1* A2*/A3*DATA         ;load
+  
+Q6      :=  A0            *Q6           ;hold
+        +      /A1        *Q6           ;hold
+        +          /A2    *Q6           ;hold
+        +               A3*Q6           ;hold
+        +  /A0* A1* A2*/A3*DATA         ;load
+  
+Q7      := /A0            *Q7           ;hold
+        +      /A1        *Q7           ;hold
+        +          /A2    *Q7           ;hold
+        +               A3*Q7           ;hold
+        +   A0* A1* A2*/A3*DATA         ;load
+  
+Q8      :=  A0            *Q8           ;hold
+        +       A1        *Q8           ;hold
+        +           A2    *Q8           ;hold
+        +              /A3*Q8           ;hold
+        +  /A0*/A1*/A2* A3*DATA         ;load
+  
+Q9      := /A0            *Q9           ;hold
+        +       A1        *Q9           ;hold
+        +           A2    *Q9           ;hold
+        +              /A3*Q9           ;hold
+        +   A0*/A1*/A2* A3*DATA         ;load
+  
+Q10     :=  A0            *Q10          ;hold
+        +      /A1        *Q10          ;hold
+        +           A2    *Q10          ;hold
+        +              /A3*Q10          ;hold
+        +  /A0* A1*/A2* A3*DATA         ;load
+  
+Q11     := /A0            *Q11          ;hold
+        +      /A1        *Q11          ;hold
+        +           A2    *Q11          ;hold
+        +              /A3*Q11          ;hold
+        +   A0* A1*/A2* A3*DATA         ;load
+  
+Q12     :=  A0            *Q12          ;hold
+        +       A1        *Q12          ;hold
+        +          /A2    *Q12          ;hold
+        +              /A3*Q12          ;hold
+        +  /A0*/A1* A2* A3*DATA         ;load
+  
+Q13     := /A0            *Q13          ;hold
+        +       A1        *Q13          ;hold
+        +          /A2    *Q13          ;hold
+        +              /A3*Q13          ;hold
+        +   A0*/A1* A2* A3*DATA         ;load
+  
+Q14     :=  A0            *Q14          ;hold
+        +      /A1        *Q14          ;hold
+        +          /A2    *Q14          ;hold
+        +              /A3*Q14          ;hold
+        +  /A0* A1* A2* A3*DATA         ;load
+  
+Q15     := /A0            *Q15          ;hold
+        +      /A1        *Q15          ;hold
+        +          /A2    *Q15          ;hold
+        +              /A3*Q15          ;hold
+        +   A0* A1* A2* A3*DATA         ;load
+  
+SIMULATION
+  
+TRACE_ON Q0 Q1 Q2 Q3 Q4 Q5 Q6 Q7 Q8 Q9 Q10 Q11 Q12 Q13 Q14 Q15
+         A0 A1 A2 A3 DATA
+  
+  
+SETF E1 E2 /DATA /PRLD1 /PRLD2
+  
+  
+        SETF /A0 /A1 /A2 /A3
+        CLOCKF CLK1 CLK2
+  
+        SETF  A0 /A1 /A2 /A3
+        CLOCKF CLK1 CLK2
+  
+        SETF /A0  A1 /A2 /A3
+        CLOCKF CLK1 CLK2
+  
+        SETF  A0  A1 /A2 /A3
+        CLOCKF CLK1 CLK2
+  
+        SETF /A0 /A1  A2 /A3
+        CLOCKF CLK1 CLK2
+  
+        SETF  A0 /A1  A2 /A3
+        CLOCKF CLK1 CLK2
+  
+        SETF /A0  A1  A2 /A3
+        CLOCKF CLK1 CLK2
+  
+        SETF  A0  A1  A2 /A3
+        CLOCKF CLK1 CLK2
+  
+        SETF /A0 /A1 /A2  A3
+        CLOCKF CLK1 CLK2
+  
+        SETF  A0 /A1 /A2  A3
+        CLOCKF CLK1 CLK2
+  
+        SETF /A0  A1 /A2  A3
+        CLOCKF CLK1 CLK2
+  
+        SETF  A0  A1 /A2  A3
+        CLOCKF CLK1 CLK2
+  
+        SETF /A0 /A1  A2  A3
+        CLOCKF CLK1 CLK2
+  
+        SETF  A0 /A1  A2  A3
+        CLOCKF CLK1 CLK2
+  
+        SETF /A0  A1  A2  A3
+        CLOCKF CLK1 CLK2
+  
+        SETF  A0  A1  A2  A3
+        CLOCKF CLK1 CLK2
+  
+        SETF DATA
+  
+        SETF /A0 /A1 /A2 /A3
+        CLOCKF CLK1 CLK2
+        TRACE_OFF
+  
+  
+

@@ -1,0 +1,7 @@
+# execute disassembly for dip D85C508
+
+
+load "da508.jdb"
+
+de508(0)
+

@@ -1,0 +1,67 @@
+Name	  Ripple8;
+Partno	  CA0012;
+Date	  12/10/84;
+Revision  01;
+Designer  Kahl;
+Company   Assisted Technology;
+Assembly  None;
+Location  None;
+
+ORDER:	!pl,!oe,%1,carry_in,%1,load,%1,clock,%1,D,%2,
+	Q,%1,carry_out;
+
+VECTORS:
+
+10 0 1 0 '55' "55" L	/* test asynchronous load */
+10 0 1 0 'AA' "AA" L
+10 0 1 0 'FF' "FF" L
+10 1 1 0 'FF' "FF" H	/* carry_out only when carry_in */
+10 0 1 0 '00' "00" L
+
+10 0 0 c 'xx' "00" L	/* test gated clock (carry_in lo) */
+10 1 0 c 'xx' "01" L	/* test gated clock (carry_in hi) */
+
+10 0 1 0 '00' "00" L	/* load to known state */
+10 1 0 0 'xx' "00" L	/* clock must be generated as "0 1 0" */
+10 1 0 1 'xx' "01" L	/* when Q outputs used as clocks for */
+10 1 0 0 'xx' "01" L	/* next stage */
+10 1 0 1 'xx' "02" L
+10 1 0 0 'xx' "02" L
+10 1 0 1 'xx' "03" L
+10 1 0 0 'xx' "03" L
+10 1 0 1 'xx' "04" L
+10 1 0 0 'xx' "04" L
+10 1 0 1 'xx' "05" L
+10 1 0 0 'xx' "05" L
+10 1 0 1 'xx' "06" L
+10 1 0 0 'xx' "06" L
+10 1 0 1 'xx' "07" L
+10 0 1 0 '08' "08" L	/* load to known state */
+10 1 0 0 'xx' "08" L
+10 1 0 1 'xx' "09" L
+10 1 0 0 'xx' "09" L
+10 0 1 0 '10' "10" L	/* load to known state */
+10 1 0 0 'xx' "10" L
+10 1 0 1 'xx' "11" L
+10 1 0 0 'xx' "11" L
+10 0 1 0 '20' "20" L	/* load to known state */
+10 1 0 0 'xx' "20" L
+10 1 0 1 'xx' "21" L
+10 1 0 0 'xx' "21" L
+10 0 1 0 '40' "40" L	/* load to known state */
+10 1 0 0 'xx' "40" L
+10 1 0 1 'xx' "41" L
+10 1 0 0 'xx' "41" L
+10 0 1 0 '80' "80" L	/* load to known state */
+10 1 0 0 'xx' "80" L
+10 1 0 1 'xx' "81" L
+10 1 0 0 'xx' "81" L
+10 0 1 0 'FF' "FF" L	/* load to known state */
+10 1 0 0 'xx' "FF" H
+10 1 0 1 'xx' "00" L
+10 1 0 0 'xx' "00" L
+11 x x x 'xx' "ZZ" Z	/* test tri-state */
+K1 x x x 'xx' '00' Z	/* test TTL preload */
+10 0 0 0 'xx' "00" L	/* clear all registers */
+K1 x x x 'xx' 'FF' Z	/* test TTL preload */
+10 0 0 0 'xx' "FF" L	/* set all registers */

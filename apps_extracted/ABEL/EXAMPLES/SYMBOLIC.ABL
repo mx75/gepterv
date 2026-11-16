@@ -1,0 +1,47 @@
+module symbolic
+
+    Hold         pin;
+    clock,reset  pin;
+    in1,in2      pin;
+    out1,out2    pin istype 'com';
+    Qstate       state_register;
+    A,B,C,D,E    state;
+
+equations
+
+    Qstate.clk = clock;
+
+state_diagram Qstate
+
+    async_reset A: reset;    "A is reset state
+
+    state A:  out1 = 1;
+              out2 = 1;
+              if Hold then A
+              else B;
+
+    state B:  if Hold then B
+              else C;
+
+    state C:  if Hold then C
+              else D;
+
+    state D:  if Hold then D
+              else E;
+
+    state E:  out1 = in1 & in2;
+              out2 = in1 $ in2;
+              if Hold then E
+              else A;
+
+test_vectors([clock,Hold,reset,in1,in2]->[out1,out2])
+             [ .c. ,  1 ,  1  , 0 , 0 ]->[  1 ,  1 ]; "State A
+             [ .c. ,  1 ,  0  , 0 , 0 ]->[  1 ,  1 ]; "State A
+             [ .c. ,  0 ,  0  , 0 , 0 ]->[ .x., .x.]; "State B
+             [ .c. ,  0 ,  0  , 0 , 0 ]->[ .x., .x.]; "State C
+             [ .c. ,  0 ,  0  , 0 , 0 ]->[ .x., .x.]; "State D
+             [ .c. ,  0 ,  0  , 1 , 0 ]->[  0 ,  1 ]; "State E
+             [ .c. ,  1 ,  0  , 0 , 1 ]->[  0 ,  1 ]; "State E
+             [ .c. ,  1 ,  0  , 1 , 1 ]->[  1 ,  0 ]; "State E
+             [ .c. ,  1 ,  0  , 0 , 0 ]->[  0 ,  0 ]; "State E
+end

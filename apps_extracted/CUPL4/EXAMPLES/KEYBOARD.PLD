@@ -1,0 +1,173 @@
+Name      Keyboard;
+Partno    CA0023;
+Date      10/3/86;
+Revision  01;
+Designer  Kahl;
+Company   Personal CAD Systems, Inc.;
+Assembly  Keyboard Interface;
+Location  IC4;
+Device    F100;
+
+/************************************************************************/
+/*                                                                      */
+/* Keyboard Encoder                                                     */
+/*                                                                      */
+/* This chip takes as its input the rows and columns of a matrix        */
+/* keyboard and generates the corresponding ASCII code required for the */
+/* key.                                                                 */
+/************************************************************************/
+/* Allowable Target Device Types: Signetics 82S100                      */
+/************************************************************************/
+
+/** Inputs **/
+
+Pin 9 = shift_key;                      /* Shift Key Input              */
+Pin 8 = control_key;                    /* Control Key Input            */
+Pin [7..2] = [row0..5];                 /* Keyboard Row Inputs          */
+Pin [27..20] = [col0..7];               /* Keyboard Column Inputs       */
+
+/** Outputs **/
+
+Pin [18..15,13..10] = [ascii0..7];      /* ASCII Code Output            */
+
+/** Declarations and Intermediate Variable Definitions **/
+
+Field row   = [row5..0];                /* Define Field for Row Inputs  */
+Field col   = [col7..0];                /* Define Field for Col Inputs  */
+Field ascii = [ascii7..0];              /* Define Field for ASCII Inputs*/
+
+shifted =  shift_key & !control_key;
+control = !shift_key &  control_key;
+normal  = !shift_key & !control_key;
+
+/** Logic Equations **/
+
+ascii = control & row:4 & col:0 & 'h'00         /* ASCII NUL            */
+      # control & row:4 & col:1 & 'h'01         /* ASCII SOH            */
+      # control & row:4 & col:2 & 'h'02         /* ASCII STX            */
+      # control & row:4 & col:3 & 'h'03         /* ASCII ETX            */
+      # control & row:4 & col:4 & 'h'04         /* ASCII EOT            */
+      # control & row:4 & col:5 & 'h'05         /* ASCII ENG            */
+      # control & row:4 & col:6 & 'h'06         /* ASCII ACK            */
+      # control & row:4 & col:7 & 'h'07         /* ASCII BEL            */
+      # control & row:4 & col:8 & 'h'08         /* ASCII BS             */
+      # control & row:4 & col:9 & 'h'09         /* ASCII HT             */
+      # control & row:4 & col:A & 'h'0A         /* ASCII LF             */
+      # control & row:4 & col:B & 'h'0B         /* ASCII VT             */
+      # control & row:4 & col:C & 'h'0C         /* ASCII FF             */
+      # control & row:4 & col:D & 'h'0D         /* ASCII CR             */
+      # control & row:4 & col:E & 'h'0E         /* ASCII SO             */
+      # control & row:4 & col:F & 'h'0F         /* ASCII SI             */
+      # control & row:5 & col:0 & 'h'10         /* ASCII DLE            */
+      # control & row:5 & col:1 & 'h'11         /* ASCII DC1            */
+      # control & row:5 & col:2 & 'h'12         /* ASCII DC2            */
+      # control & row:5 & col:3 & 'h'13         /* ASCII DC3            */
+      # control & row:5 & col:4 & 'h'14         /* ASCII DC4            */
+      # control & row:5 & col:5 & 'h'15         /* ASCII NAK            */
+      # control & row:5 & col:6 & 'h'16         /* ASCII SYN            */
+      # control & row:5 & col:7 & 'h'17         /* ASCII ETB            */
+      # control & row:5 & col:8 & 'h'18         /* ASCII CAN            */
+      # control & row:5 & col:9 & 'h'19         /* ASCII EM             */
+      # control & row:5 & col:A & 'h'1A         /* ASCII SUB            */
+      # control & row:5 & col:B & 'h'1B         /* ASCII ESC            */
+      # control & row:5 & col:C & 'h'1C         /* ASCII FS             */
+      # control & row:5 & col:D & 'h'1D         /* ASCII GS             */
+      # control & row:5 & col:E & 'h'1E         /* ASCII RS             */
+      # control & row:5 & col:F & 'h'1F         /* ASCII VS             */
+      # normal  & row:1 & col:0 & 'h'20         /* ASCII SPACE          */
+      # shifted & row:2 & col:1 & 'h'21         /* ASCII !              */
+      # shifted & row:2 & col:2 & 'h'22         /* ASCII "              */
+      # shifted & row:2 & col:3 & 'h'23         /* ASCII #              */
+      # shifted & row:2 & col:4 & 'h'24         /* ASCII $              */
+      # shifted & row:2 & col:5 & 'h'25         /* ASCII %              */
+      # shifted & row:2 & col:6 & 'h'26         /* ASCII &              */
+      # shifted & row:2 & col:7 & 'h'27         /* ASCII '              */
+      # shifted & row:2 & col:8 & 'h'28         /* ASCII (              */
+      # shifted & row:2 & col:9 & 'h'29         /* ASCII )              */
+      # shifted & row:2 & col:A & 'h'2A         /* ASCII *              */
+      # shifted & row:2 & col:B & 'h'2B         /* ASCII +              */
+      # shifted & row:2 & col:C & 'h'2C         /* ASCII ,              */
+      # shifted & row:2 & col:D & 'h'2D         /* ASCII -              */
+      # shifted & row:2 & col:E & 'h'2E         /* ASCII .              */
+      # shifted & row:2 & col:F & 'h'2F         /* ASCII /              */
+      # normal  & row:2 & col:0 & 'h'30         /* ASCII 0              */
+      # normal  & row:2 & col:1 & 'h'31         /* ASCII 1              */
+      # normal  & row:2 & col:2 & 'h'32         /* ASCII 2              */
+      # normal  & row:2 & col:3 & 'h'33         /* ASCII 3              */
+      # normal  & row:2 & col:4 & 'h'34         /* ASCII 4              */
+      # normal  & row:2 & col:5 & 'h'35         /* ASCII 5              */
+      # normal  & row:2 & col:6 & 'h'36         /* ASCII 6              */
+      # normal  & row:2 & col:7 & 'h'37         /* ASCII 7              */
+      # normal  & row:2 & col:8 & 'h'38         /* ASCII 8              */
+      # normal  & row:2 & col:9 & 'h'39         /* ASCII 9              */
+      # normal  & row:2 & col:A & 'h'3A         /* ASCII :              */
+      # normal  & row:2 & col:B & 'h'3B         /* ASCII ;              */
+      # normal  & row:2 & col:C & 'h'3C         /* ASCII <              */
+      # normal  & row:2 & col:D & 'h'3D         /* ASCII =              */
+      # normal  & row:2 & col:E & 'h'3E         /* ASCII >              */
+      # normal  & row:2 & col:F & 'h'3F         /* ASCII ?              */
+      # shifted & row:4 & col:0 & 'h'40         /* ASCII @              */
+      # shifted & row:4 & col:1 & 'h'41         /* ASCII A              */
+      # shifted & row:4 & col:2 & 'h'42         /* ASCII B              */
+      # shifted & row:4 & col:3 & 'h'43         /* ASCII C              */
+      # shifted & row:4 & col:4 & 'h'44         /* ASCII D              */
+      # shifted & row:4 & col:5 & 'h'45         /* ASCII E              */
+      # shifted & row:4 & col:6 & 'h'46         /* ASCII F              */
+      # shifted & row:4 & col:7 & 'h'47         /* ASCII G              */
+      # shifted & row:4 & col:8 & 'h'48         /* ASCII H              */
+      # shifted & row:4 & col:9 & 'h'49         /* ASCII I              */
+      # shifted & row:4 & col:A & 'h'4A         /* ASCII J              */
+      # shifted & row:4 & col:B & 'h'4B         /* ASCII K              */
+      # shifted & row:4 & col:C & 'h'4C         /* ASCII L              */
+      # shifted & row:4 & col:D & 'h'4D         /* ASCII M              */
+      # shifted & row:4 & col:E & 'h'4E         /* ASCII N              */
+      # shifted & row:4 & col:F & 'h'4F         /* ASCII O              */
+      # shifted & row:5 & col:0 & 'h'50         /* ASCII P              */
+      # shifted & row:5 & col:1 & 'h'51         /* ASCII Q              */
+      # shifted & row:5 & col:2 & 'h'52         /* ASCII R              */
+      # shifted & row:5 & col:3 & 'h'53         /* ASCII S              */
+      # shifted & row:5 & col:4 & 'h'54         /* ASCII T              */
+      # shifted & row:5 & col:5 & 'h'55         /* ASCII U              */
+      # shifted & row:5 & col:6 & 'h'56         /* ASCII V              */
+      # shifted & row:5 & col:7 & 'h'57         /* ASCII W              */
+      # shifted & row:5 & col:8 & 'h'58         /* ASCII X              */
+      # shifted & row:5 & col:9 & 'h'59         /* ASCII Y              */
+      # shifted & row:5 & col:A & 'h'5A         /* ASCII Z              */
+      # shifted & row:5 & col:B & 'h'5B         /* ASCII [              */
+      # shifted & row:5 & col:C & 'h'5C         /* ASCII \              */
+      # shifted & row:5 & col:D & 'h'5D         /* ASCII ]              */
+      # shifted & row:5 & col:E & 'h'5E         /* ASCII ^              */
+      # shifted & row:5 & col:F & 'h'5F         /* ASCII _              */
+      # normal  & row:4 & col:0 & 'h'60         /* ASCII `              */
+      # normal  & row:4 & col:1 & 'h'61         /* ASCII a              */
+      # normal  & row:4 & col:2 & 'h'62         /* ASCII b              */
+      # normal  & row:4 & col:3 & 'h'63         /* ASCII c              */
+      # normal  & row:4 & col:4 & 'h'64         /* ASCII d              */
+      # normal  & row:4 & col:5 & 'h'65         /* ASCII e              */
+      # normal  & row:4 & col:6 & 'h'66         /* ASCII f              */
+      # normal  & row:4 & col:7 & 'h'67         /* ASCII g              */
+      # normal  & row:4 & col:8 & 'h'68         /* ASCII h              */
+      # normal  & row:4 & col:9 & 'h'69         /* ASCII i              */
+      # normal  & row:4 & col:A & 'h'6A         /* ASCII j              */
+      # normal  & row:4 & col:B & 'h'6B         /* ASCII k              */
+      # normal  & row:4 & col:C & 'h'6C         /* ASCII l              */
+      # normal  & row:4 & col:D & 'h'6D         /* ASCII m              */
+      # normal  & row:4 & col:E & 'h'6E         /* ASCII n              */
+      # normal  & row:4 & col:F & 'h'6F         /* ASCII o              */
+      # normal  & row:5 & col:0 & 'h'70         /* ASCII p              */
+      # normal  & row:5 & col:1 & 'h'71         /* ASCII q              */
+      # normal  & row:5 & col:2 & 'h'72         /* ASCII r              */
+      # normal  & row:5 & col:3 & 'h'73         /* ASCII s              */
+      # normal  & row:5 & col:4 & 'h'74         /* ASCII t              */
+      # normal  & row:5 & col:5 & 'h'75         /* ASCII u              */
+      # normal  & row:5 & col:6 & 'h'76         /* ASCII v              */
+      # normal  & row:5 & col:7 & 'h'77         /* ASCII w              */
+      # normal  & row:5 & col:8 & 'h'78         /* ASCII x              */
+      # normal  & row:5 & col:9 & 'h'79         /* ASCII y              */
+      # normal  & row:5 & col:A & 'h'7A         /* ASCII z              */
+      # normal  & row:5 & col:B & 'h'7B         /* ASCII {              */
+      # normal  & row:5 & col:C & 'h'7C         /* ASCII |              */
+      # normal  & row:5 & col:D & 'h'7D         /* ASCII }              */
+      # normal  & row:5 & col:E & 'h'7E         /* ASCII ~              */
+      # normal  & row:5 & col:F & 'h'7F         /* ASCII DELETE         */
+      ;

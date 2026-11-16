@@ -1,0 +1,59 @@
+module  cnt600  
+title   '4 bit toggle flip flop counter 
+         John Gromala  21 Sept 92,  Data I/O Corporation'
+
+        cnt600  device  'e0600';
+
+" Clk1 on pin 1 is used to clock pins 3 to 10 (unused)
+" Clk2 on pin 13 is used to clock pins 15 to 22
+
+" Inputs
+        Clk2             pin   13;
+        Dir,Ena,Clr      pin   2, 3, 11;   
+
+" Outputs
+        Q3,Q2,Q1,Q0      pin  15,16,17,18 ISTYPE 'reg_t,buffer';
+
+" Set assignment
+        Count            =  [Q3..Q0];
+
+" Special Constants
+        X, Z, H, L       = .X., .Z.,1 , 0;
+
+equations   "4 bit toggle flip flop counter
+
+" Count Up
+        Q0.t =  Dir;
+        Q1.t =  Dir &  Q0.q;
+        Q2.t =  Dir &  Q0.q &  Q1.q;
+        Q3.t =  Dir &  Q0.q &  Q1.q &  Q2.q;
+
+" Count Down
+        Q0.t = !Dir;
+        Q1.t = !Dir & !Q0.q;
+        Q2.t = !Dir & !Q0.q & !Q1.q;
+        Q3.t = !Dir & !Q0.q & !Q1.q & !Q2.q;
+
+" Asychronous reset, Clock count from Clk2, Output enable
+        Count.AR  = !Clr;
+        Count.CLK = Clk2;
+        Count.OE  = Ena;
+
+test_vectors 'Count Up'
+        ([Clk2,Ena,Dir,Clr] -> Count)
+         [ L  , 1 , H , L ] ->   0;
+@const n = 0; @repeat 16 {
+         [ L  , 1 , H , H ] ->   @expr n; ; @const n = n+1;
+         [ H  , 1 , H , H ] ->   @expr n; ;}
+
+         [ L  , 1 , H , H ] ->   @expr n; ;
+
+test_vectors 'Count Down'
+        ([Clk2,Ena,Dir,Clr] -> Count)
+@repeat 6 {
+         [ L  , 1 , L , H ] ->   @expr n; ; @const n = n-1;
+         [ H  , 1 , L , H ] ->   @expr n; ;}
+
+         [ L  , 1 , L , H ] ->   @expr n; ;
+         [ L  , 1 , L , L ] ->   0;
+end

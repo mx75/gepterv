@@ -1,0 +1,251 @@
+TITLE 'PA7024 16-Bit Programmable Clock Generator/Interrupt Timer'
+DESIGNER 'Robin Peel'
+DATE '6/26/90'
+
+Description
+
+      PA7024 16-Bit Programmable Clock Generator/Interrupt Timer
+
+  This application uses the PA7024 to implement a 16-bit programmable
+  clock-generator/interrupt-timer that can be interfaced to a 16-bit
+  microprocessor bus. The Clk input can operate over 50MHz (five 
+  times that of conventional programmable counter/timer ICs).  A buried
+  16-bit reloadable down counter is used to divide the high speed input
+  clock.
+
+  Upon power-up the counter is disabled. To program the counter, a
+  value must be written into a 16-bit count register from the D0-15
+  I/O pins and the counter must be enabled (see table for control).
+  The value in the count register will loaded into the counter which
+  will count down to 0000h.  After reaching 0000h, it will
+  automatically reload the value from the count register. This allows
+  the counter to be free running for clock generation if the value
+  in the count register is maintained.  Note that the "register-type
+  change" feature of the PA7024 global cell is used to dynamically
+  switch the T registers to D registers for loading when the counter
+  reaches 0000h.
+
+  If the count register is changed, the new count will be loaded
+  after the count reaches 0000h. One-shot operation for timer
+  controlled interrupts can be implemented by setting the count
+  register to 0000h after the count has been loaded. When this is
+  done, the counter will stop and hold at 0000h.
+
+  The OUT pin will toggle (initially low then high and so on) each
+  time the counter reaches 0000h. The counter and OUT pin can be
+  reset, disabled or enabled via a bus command (see table). The
+  count can be read "on the fly" via the D0-15 pins. When read, the
+  count is temporarily held stable until the read is complete.
+
+  Command Table
+
+  /CS /RD /WR A0
+   1   X   X   X    Not selected (Don't Care)
+   0   1   0   0    Write Count Register from D0-D15
+   0   0   1   0    Read Count Register onto D0-D15
+   0   1   0   1    Reset/Stop Counter and OUT
+   0   0   1   1    Enable and Read Counter onto D0-D15
+
+End_Desc;
+
+PA7024
+
+!CS  PIN 1
+CLK PIN 13
+
+"IOC CONFIGURATION DECLARATION
+"IOC (PIN_NO 'PIN_NAME' POLARITY IO_TYPE) <- LCC_NO
+
+IOC (2  '!RD'  POS IO ) <- 1A
+IOC ( 3 '!WR' Pos IO ) <- 1B
+IOC ( 4 'D0' Pos Reg) <- 2A
+IOC ( 5 'D1' Pos Reg) <- 3A
+IOC ( 6 'D2' Pos Reg) <- 4A
+IOC ( 7 'D3' Pos Reg) <- 5A
+IOC (8  'D4'  POS REG) <- 2B
+IOC (9  'D5'  POS REG) <- 3B
+IOC (10 'D6'  POS REG) <- 4B
+IOC (11 'D7'  POS REG) <- 5B
+IOC (14 'D8' Pos Reg) <- 2C
+IOC (15 'D9' Pos Reg) <- 3C
+IOC (16 'D10' Pos Reg) <- 4C
+IOC (17 'D11' Pos Reg) <- 5C
+IOC (18 'D12' Pos Reg) <- 2D
+IOC (19 'D13' Pos Reg) <- 3D
+IOC (20 'D14' Pos Reg) <- 4D
+IOC (21 'D15' Pos Reg) <- 5D
+IOC (22 'OUT' Pos Out) <- 1C
+IOC (23 'A0' Pos InCom) <- 1D
+
+"LCC CONFIGURATION DECLARATION
+"LCC (LCC_NO 'LCC_NAME' REG_TYPE CLK_TYPE BUR_OUT EXT_OUT)
+
+LCC (1A '' D   SumD Reg  Reg )
+LCC (2A 'Q0' TD  Pos  Reg  SumB)
+LCC (3A 'Q1' TD  Pos  Reg  SumB)
+LCC (4A 'Q2' TD  Pos  Reg  SumB)
+LCC (5A 'Q3' TD  Pos  Reg  SumB)
+LCC (1B '' D   SumD Reg  Reg )
+LCC (2B 'Q4' TD POS REG SUMB)
+LCC (3B 'Q5' TD POS REG SUMB)
+LCC (4B 'Q6' TD POS REG SUMB)
+LCC (5B 'Q7' TD POS REG SUMB)
+LCC (1C 'HOLD' T   Pos  SumC Reg )
+LCC (2C 'Q8' TD  Pos  Reg  SumB)
+LCC (3C 'Q9' TD  Pos  Reg  SumB)
+LCC (4C 'Q10' TD  Pos  Reg  SumB)
+LCC (5C 'Q11' TD  Pos  Reg  SumB)
+LCC (1D 'RES' D   Pos  Reg  Reg )
+LCC (2D 'Q12' TD  Pos  Reg  SumB)
+LCC (3D 'Q13' TD  Pos  Reg  SumB)
+LCC (4D 'Q14' TD  Pos  Reg  SumB)
+LCC (5D 'Q15' TD  Pos  Reg  SumB)
+
+"GBC CONFIGURATION DECLARATION
+"GBC (GROUP LCC_CLK IOC_CLK)
+
+GLOBAL = 1
+GBC (A Clk2 PClkA)
+GBC (B Clk2 PClkA)
+
+
+DEFINE
+QZERO = !Q0 & !Q1 & !Q2 & !Q3 & !Q4 & !Q5 & !Q6 &!Q7 &
+        !Q8 & !Q9 & !Q10 & !Q11 & !Q12 & !Q13 & !Q14 & !Q15;
+
+EQUATIONS
+
+".OE FOR OUTPUT ENABLE
+".C  FOR CLK
+".AP FOR ASYNCHRONOUS PRESET
+".AR FOR ASYNCHRONOUS RESET
+
+!RD.SumA = 0;
+!RD.SumB = 0;
+!RD.SumC = 0;
+!RD.SumD = 0;
+
+!WR.SumA = 0;
+!WR.SumB = 0;
+!WR.SumC = 0;
+!WR.SumD = 0;
+
+OUT.T =  /HOLD & Q0 & !Q1 & !Q2 & !Q3 & !Q4 & !Q5 & !Q6 &!Q7 &
+                !Q8 & !Q9 & !Q10 & !Q11 & !Q12 & !Q13 & !Q14 & !Q15;
+OUT.AP = 0;
+HOLD.COM = CS & RD & A0 & /WR # QZERO;
+HOLD.SumD = 0;
+
+RES.D = 0;
+RES.AP = WR & CS & A0 & /RD; "Async Preset - Reset/Disable counter
+RES.AR = RD & CS & A0 & /WR; "Async Reset - Enable Counter
+RES.SumD = 0;                     "Disable Output
+
+RTA = QZERO;                   "Change register type to D for load when 0000h
+PCLKA = CS & WR & !A0 & /RD;         "Clock for Input register
+PRESETA = 0;                   "Disable global preset
+RESETA = RES;                "Global reset for counter and OUT
+
+D0.COM = Q0 & A0 # D0 & !A0;   "Read Count Reg or Counter onto pin
+Q0.T = D0 & QZERO # !HOLD;     "Load Reg as D-Flop, Count as T-flop
+Q0.AR = RES;                 "Async Reset
+D0.OE = CS & RD;               "Enable Output
+
+D1.COM = Q1 & A0 # D1 & !A0;
+Q1.T = D1 & QZERO #
+       !HOLD & !Q0;
+Q1.AR = RES;
+D1.OE = CS & RD;
+
+D2.COM = Q2 & A0 # D2 & !A0;
+Q2.T = D2 & QZERO #
+       !HOLD & !Q0 & !Q1;
+Q2.AR = RES;
+D2.OE = CS & RD;
+
+D3.COM = Q3 & A0 # D3 & !A0;
+Q3.T = D3 & QZERO #
+       !HOLD & !Q0 & !Q1 & !Q2;
+Q3.AR = RES;
+D3.OE = CS & RD;
+
+D4.COM = Q4 & A0 # D4 & !A0;
+Q4.T = D4 & QZERO #
+       !HOLD & !Q0 & !Q1 & !Q2 & !Q3;
+Q4.AR = RES;
+D4.OE = CS & RD;
+
+D5.COM = Q5 & A0 # D5 & !A0;
+Q5.T = D5 & QZERO #
+       !HOLD & !Q0 & !Q1 & !Q2 & !Q3 & !Q4;
+Q5.AR = RES;
+D5.OE = CS & RD;
+
+D6.COM = Q6 & A0 # D6 & !A0;
+Q6.T = D6 & QZERO #
+       !HOLD & !Q0 & !Q1 & !Q2 & !Q3 & !Q4 & !Q5;
+Q6.AR = RES;
+D6.OE = CS & RD;
+
+D7.COM = Q7 & A0 # D7 & !A0;
+Q7.T = D7 & QZERO #
+       !HOLD & !Q0 & !Q1 & !Q2 & !Q3 & !Q4 & !Q5 & !Q6;
+Q7.AR = RES;
+D7.OE = CS & RD;
+
+D8.COM = Q8 & A0 # D8 & !A0;
+Q8.T = D8 & QZERO #
+       !HOLD & !Q0 & !Q1 & !Q2 & !Q3 & !Q4 & !Q5 & !Q6 & !Q7;
+Q8.AR = RES;
+D8.OE = CS & RD;
+
+D9.COM = Q9 & A0 # D9 & !A0;
+Q9.T = D9 & QZERO #
+       !HOLD & !Q0 & !Q1 & !Q2 & !Q3 & !Q4 & !Q5 & !Q6 & !Q7 &
+       !Q8;
+Q9.AR = RES;
+D9.OE = CS & RD;
+
+D10.COM = Q10 & A0 # D10 & !A0;
+Q10.T = D10 & QZERO #
+        !HOLD & !Q0 & !Q1 & !Q2 & !Q3 & !Q4 & !Q5 & !Q6 & !Q7 &
+        !Q8 & !Q9;
+Q10.AR = RES;
+D10.OE = CS & RD;
+
+D11.COM = Q11 & A0 # D11 & !A0;
+Q11.T = D11 & QZERO #
+        !HOLD & !Q0 & !Q1 & !Q2 & !Q3 & !Q4 & !Q5 & !Q6 & !Q7 &
+        !Q8 & !Q9 & !Q10;
+Q11.AR = RES;
+D11.OE = CS & RD;
+
+D12.COM = Q12 & A0 # D12 & !A0;
+Q12.T = D12 & QZERO #
+        !HOLD & !Q0 & !Q1 & !Q2 & !Q3 & !Q4 & !Q5 & !Q6 & !Q7 &
+        !Q8 & !Q9 & !Q10 & !Q11;
+Q12.AR = RES;
+D12.OE = CS & RD;
+
+D13.COM = Q13 & A0 # D13 & !A0;
+Q13.T = D13 & QZERO #
+        !HOLD & !Q0 & !Q1 & !Q2 & !Q3 & !Q4 & !Q5 & !Q6 & !Q7 &
+        !Q8 & !Q9 & !Q10 & !Q11 & !Q12;
+Q13.AR = RES;
+D13.OE = CS & RD;
+
+D14.COM = Q14 & A0 # D14 & !A0;
+Q14.T = D14 & QZERO #
+        !HOLD & !Q0 & !Q1 & !Q2 & !Q3 & !Q4 & !Q5 & !Q6 & !Q7 &
+        !Q8 & !Q9 & !Q10 & !Q11 & !Q12 & !Q13;
+Q14.AR = RES;
+D14.OE = CS & RD;
+
+D15.COM = Q15 & A0 # D15 & !A0;
+Q15.T = D15 & QZERO #
+        !HOLD & !Q0 & !Q1 & !Q2 & !Q3 & !Q4 & !Q5 & !Q6 & !Q7 &
+        !Q8 & !Q9 & !Q10 & !Q11 & !Q12 & !Q13 & !Q14;
+Q15.AR = RES;
+D15.OE = CS & RD;
+
+

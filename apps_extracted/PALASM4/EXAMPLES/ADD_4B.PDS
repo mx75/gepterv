@@ -1,0 +1,98 @@
+;PALASM Design Description
+
+;---------------------------------- Declaration Segment ------------
+TITLE    4 Bit Full Adder
+PATTERN  EXADD10.PDS
+REVISION A
+AUTHOR   George Landers
+COMPANY  Advanced Micro Devices, Inc.
+DATE     05/03/90
+
+CHIP  EXADD10  MACH110
+
+;---------------------------------- PIN Declarations ---------------
+PIN  ?          VCC                             ;
+PIN  ?          GND                             ;
+PIN  ?          C0                              ;
+PIN  ?          A1                              ;
+PIN  ?          A2                              ;
+PIN  ?          A3                              ;
+PIN  ?          A4                              ;
+PIN  ?          B1                              ;
+PIN  ?          B2                              ;
+PIN  ?          B3                              ;
+PIN  ?          B4                              ;
+PIN  ?          S1                   COMBINATORIAL ;
+PIN  ?          S2                   COMBINATORIAL ;
+PIN  ?          S3                   COMBINATORIAL ;
+PIN  ?          S4                   COMBINATORIAL ;
+NODE ?          C2                   COMBINATORIAL ;
+PIN  ?          C4                   COMBINATORIAL ;
+
+STRING C1 '((A1 * B1) + (A1 * C0) + (B1 * C0))'
+STRING C3 '((A3 * B3) + (A3 * C2) + (B3 * C2))'
+
+;----------------------------------- Boolean Equation Segment ------
+EQUATIONS
+
+S1 = A1 :+: B1 :+: C0
+S2 = A2 :+: B2 :+: C1
+S3 = A3 :+: B3 :+: C2
+S4 = A4 :+: B4 :+: C3
+
+C2 = A2 * B2
+   + A2 * C1
+   + B2 * C1
+
+C4 = A4 * B4
+   + A4 * C3
+   + B4 * C3
+
+;----------------------------------- Simulation Segment ------------
+SIMULATION
+TRACE_ON  C0 B4 B3 A4 A3 B2 B1 A2 A1 C4 S4 S3 S2 S1
+
+SETF /C0 /A1 /A2 /B1 /B2 /A3 /A4 /B3 /B4 CHECK /S1 /S2 /S3 /S4 /C4;00000 00 00
+SETF /C0  A1 /A2 /B1 /B2  A3 /A4 /B3 /B4 CHECK  S1 /S2  S3 /S4 /C4;01010 10 10
+SETF /C0 /A1  A2 /B1 /B2 /A3  A4 /B3 /B4 CHECK /S1  S2 /S3  S4 /C4;02020 20 20
+SETF /C0  A1  A2 /B1 /B2  A3  A4 /B3 /B4 CHECK  S1  S2  S3  S4 /C4;03030 30 30
+
+SETF /C0 /A1 /A2  B1 /B2 /A3 /A4  B3 /B4 CHECK  S1 /S2  S3 /S4 /C4;00101 10 10
+SETF /C0  A1 /A2  B1 /B2  A3 /A4  B3 /B4 CHECK /S1  S2 /S3  S4 /C4;01111 20 20
+SETF /C0 /A1  A2  B1 /B2 /A3  A4  B3 /B4 CHECK  S1  S2  S3  S4 /C4;02121 30 30
+SETF /C0  A1  A2  B1 /B2 /A3 /A4 /B3 /B4 CHECK /S1 /S2  S3 /S4 /C4;03100 01 10
+
+SETF /C0 /A1 /A2 /B1  B2  A3  A4  B3 /B4 CHECK /S1  S2 /S3 /S4  C4;00231 20 01
+SETF /C0  A1 /A2 /B1  B2 /A3 /A4 /B3  B4 CHECK  S1  S2 /S3  S4 /C4;01202 30 20
+SETF /C0 /A1  A2 /B1  B2  A3 /A4 /B3 /B4 CHECK /S1 /S2 /S3  S4 /C4;02210 01 20
+SETF /C0  A1  A2 /B1  B2 /A3  A4 /B3 /B4 CHECK  S1 /S2  S3  S4 /C4;03220 11 30
+
+SETF /C0 /A1 /A2  B1  B2  A3 /A4 /B3  B4 CHECK  S1  S2  S3  S4 /C4;00312 30 30
+SETF /C0  A1 /A2  B1  B2  A3  A4 /B3 /B4 CHECK /S1 /S2 /S3 /S4  C4;01330 01 01
+SETF /C0 /A1  A2  B1  B2 /A3 /A4  B3 /B4 CHECK  S1 /S2 /S3  S4 /C4;02301 11 20
+SETF /C0  A1  A2  B1  B2  A3 /A4  B3 /B4 CHECK /S1  S2  S3  S4 /C4;03311 21 30
+
+SETF  C0 /A1 /A2 /B1 /B2 /A3  A4 /B3  B4 CHECK  S1 /S2 /S3 /S4  C4;10022 10 01
+SETF  C0  A1 /A2 /B1 /B2  A3  A4 /B3  B4 CHECK /S1  S2  S3 /S4  C4;11032 20 11
+SETF  C0 /A1  A2 /B1 /B2 /A3 /A4  B3  B4 CHECK  S1  S2  S3  S4 /C4;12003 30 30
+SETF  C0  A1  A2 /B1 /B2 /A3  A4  B3 /B4 CHECK /S1 /S2 /S3 /S4  C4;13021 01 01
+
+SETF  C0 /A1 /A2  B1 /B2  A3 /A4  B3  B4 CHECK /S1  S2 /S3 /S4  C4;10113 20 01
+SETF  C0  A1 /A2  B1 /B2 /A3  A4  B3  B4 CHECK  S1  S2  S3 /S4  C4;11123 30 11
+SETF  C0 /A1  A2  B1 /B2  A3  A4  B3 /B4 CHECK /S1 /S2  S3 /S4  C4;12131 01 11
+SETF  C0  A1  A2  B1 /B2 /A3 /A4 /B3  B4 CHECK  S1 /S2  S3  S4 /C4;13102 11 30
+
+SETF  C0 /A1 /A2 /B1  B2  A3  A4  B3  B4 CHECK  S1  S2 /S3  S4  C4;10233 30 21
+SETF  C0  A1 /A2 /B1  B2  A3 /A4 /B3  B4 CHECK /S1 /S2 /S3 /S4  C4;11212 01 01
+SETF  C0 /A1  A2 /B1  B2 /A3  A4 /B3  B4 CHECK  S1 /S2  S3 /S4  C4;12222 11 11
+SETF  C0  A1  A2 /B1  B2  A3  A4 /B3  B4 CHECK /S1  S2 /S3  S4  C4;13232 21 11
+
+SETF  C0 /A1 /A2  B1  B2 /A3 /A4  B3  B4 CHECK /S1 /S2 /S3 /S4  C4;10303 01 01
+SETF  C0  A1 /A2  B1  B2  A3 /A4  B3  B4 CHECK  S1 /S2  S3 /S4  C4;11313 11 11
+SETF  C0 /A1  A2  B1  B2 /A3  A4  B3  B4 CHECK /S1  S2 /S3  S4  C4;12323 21 21
+SETF  C0  A1  A2  B1  B2  A3  A4  B3  B4 CHECK  S1  S2  S3  S4  C4;13333 31 31
+
+TRACE_OFF
+
+;-------------------------------------------------------------------
+

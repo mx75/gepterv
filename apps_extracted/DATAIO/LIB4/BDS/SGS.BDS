@@ -1,0 +1,163 @@
+# $Header: /home/maunakea/bstrong/abel/src/devsel2/newdata/RCS/sgs.chp,v 1.7 1992/10/08 18:19:21 bstrong Exp $
+# chip report file   Released 5.1 
+#
+$MANUFACTURER SGS SGS-Thompson Microelectronics
+$CONTACT (602)867-6259 
+$ADDRESS1 1000 East Bell Road 
+$ADDRESS2 Phoenix, AZ 85022 
+$ADDRESS3 ---------- 
+#
+# 132 column 1-line format no user info (default)
+#
+# format is:
+#$C2 mfg part type tech package devname pins spc eraseable preload family pinout did speed setup hold power price
+#
+#
+
+#   mfg       part             type  tech  pack  devname     pins    spc  era preld fam  pin    DID#  speed set  hold pwr prc 
+$C2 SGS       GAL6001S-25HB1   GAL   CMOS  DIP   F6001        24     COM  EE   YES  14   4A    4847   25   20    0  500    0
+$C2 SGS       GAL6001S-25HC1   GAL   CMOS  PLCC  F6001C       28     COM  EE   YES  --   --       0   25   20    0  500    0
+$C2 SGS       GAL6001S-30HB1   GAL   CMOS  DIP   F6001        24     COM  EE   YES  14   4A    4847   30   25    0  500    0
+$C2 SGS       GAL6001S-30HB3   GAL   CMOS  DIP   F6001        24     IND  EE   YES  14   4A    4847   30   25    0  500    0
+$C2 SGS       GAL6001S-30HC1   GAL   CMOS  PLCC  F6001C       28     COM  EE   YES  --   --       0   30   25    0  500    0
+$C2 SGS       GAL6001S-30HC3   GAL   CMOS  PLCC  F6001C       28     IND  EE   YES  --   --       0   30   25    0  500    0
+$C2 SGS       GAL6001S-35HB1   GAL   CMOS  DIP   F6001        24     COM  EE   YES  14   4A    4847   35   30    0  500    0
+$C2 SGS       GAL6001S-35HB3   GAL   CMOS  DIP   F6001        24     IND  EE   YES  14   4A    4847   35   30    0  500    0
+$C2 SGS       GAL6001S-35HC1   GAL   CMOS  PLCC  F6001C       28     COM  EE   YES  --   --       0   35   30    0  500    0
+$C2 SGS       GAL6001S-35HC3   GAL   CMOS  PLCC  F6001C       28     IND  EE   YES  --   --       0   35   30    0  500    0
+$C2 SGS       GAL22V10+15HB1   GAL   CMOS  DIP   NO_ABEL      24     COM  EE   YES  --   --       0   15   13    0  500    0
+$C2 SGS       GAL22V10+15HC1   GAL   CMOS  PLCC  NO_ABEL      28     COM  EE   YES  --   --       0   15   13    0  500    0
+$C2 SGS       GAL22V10+20HB1   GAL   CMOS  DIP   NO_ABEL      24     COM  EE   YES  --   --       0   20   15    0  500    0
+$C2 SGS       GAL22V10+20HB3   GAL   CMOS  DIP   NO_ABEL      24     IND  EE   YES  --   --       0   20   15    0  500    0
+$C2 SGS       GAL22V10+20HC1   GAL   CMOS  PLCC  NO_ABEL      28     COM  EE   YES  --   --       0   20   15    0  500    0
+$C2 SGS       GAL22V10+20HC3   GAL   CMOS  PLCC  NO_ABEL      28     IND  EE   YES  --   --       0   20   15    0  500    0
+$C2 SGS       GAL22V10+25HB1   GAL   CMOS  DIP   NO_ABEL      24     COM  EE   YES  --   --       0   25   20    0  500    0
+$C2 SGS       GAL22V10+25HB3   GAL   CMOS  DIP   NO_ABEL      24     IND  EE   YES  --   --       0   25   20    0  500    0
+$C2 SGS       GAL22V10+25HC1   GAL   CMOS  PLCC  NO_ABEL      28     COM  EE   YES  --   --       0   25   20    0  500    0
+$C2 SGS       GAL22V10+25HC3   GAL   CMOS  PLCC  NO_ABEL      28     IND  EE   YES  --   --       0   25   20    0  500    0
+$C2 SGS       GAL22V10+30HB3   GAL   CMOS  DIP   NO_ABEL      24     IND  EE   YES  --   --       0   30   25    0  500    0
+$C2 SGS       GAL22V10+30HC3   GAL   CMOS  PLCC  NO_ABEL      28     IND  EE   YES  --   --       0   30   25    0  500    0
+$C2 SGS       GAL16V8-20HB1    GAL   CMOS  DIP   P16V8        20     COM  EE   YES  14   55    1249   20   15    0  400    0
+$C2 SGS       GAL16V8-20HB3    GAL   CMOS  DIP   P16V8        20     IND  EE   YES  14   55    1249   20   15    0  400    0
+$C2 SGS       GAL16V8-20HC1    GAL   CMOS  PLCC  P16V8        20     COM  EE   YES  014  755   3145   20   15    0  400    0
+$C2 SGS       GAL16V8-20HC3    GAL   CMOS  PLCC  P16V8        20     IND  EE   YES  014  755   3145   20   15    0  400    0
+$C2 SGS       GAL16V8-20QB1    GAL   CMOS  DIP   P16V8        20     COM  EE   YES  14   55    1249   20   15    0  200    0
+$C2 SGS       GAL16V8-20QC1    GAL   CMOS  PLCC  P16V8        20     COM  EE   YES  014  755   3145   20   15    0  200    0
+$C2 SGS       GAL16V8-25HB1    GAL   CMOS  DIP   P16V8        20     COM  EE   YES  14   55    1249   25   20    0  400    0
+$C2 SGS       GAL16V8-25HB3    GAL   CMOS  DIP   P16V8        20     IND  EE   YES  14   55    1249   25   20    0  400    0
+$C2 SGS       GAL16V8-25HC1    GAL   CMOS  PLCC  P16V8        20     COM  EE   YES  014  755   3145   25   20    0  400    0
+$C2 SGS       GAL16V8-25HC3    GAL   CMOS  PLCC  P16V8        20     IND  EE   YES  014  755   3145   25   20    0  400    0
+$C2 SGS       GAL16V8-25QB1    GAL   CMOS  DIP   P16V8        20     COM  EE   YES  14   55    1249   25   20    0  200    0
+$C2 SGS       GAL16V8-25QB3    GAL   CMOS  DIP   P16V8        20     IND  EE   YES  14   55    1249   25   20    0  200    0
+$C2 SGS       GAL16V8-25QC1    GAL   CMOS  PLCC  P16V8        20     COM  EE   YES  014  755   3145   25   20    0  200    0
+$C2 SGS       GAL16V8-25QC3    GAL   CMOS  PLCC  P16V8        20     IND  EE   YES  014  755   3145   25   20    0  200    0
+$C2 SGS       GAL16V8-30HB3    GAL   CMOS  DIP   P16V8        20     IND  EE   YES  14   55    1249   30   25    0  400    0
+$C2 SGS       GAL16V8-30HC3    GAL   CMOS  PLCC  P16V8        20     IND  EE   YES  014  755   3145   30   25    0  400    0
+$C2 SGS       GAL16V8-30QB3    GAL   CMOS  DIP   P16V8        20     IND  EE   YES  14   55    1249   30   25    0  200    0
+$C2 SGS       GAL16V8-30QC3    GAL   CMOS  PLCC  P16V8        20     IND  EE   YES  014  755   3145   30   25    0  200    0
+$C2 SGS       GAL16V8AS-10HB1  GAL   CMOS  DIP   P16V8        20     COM  EE   YES  14   55    1249   10   10    0  400    0
+$C2 SGS       GAL16V8AS-10HC1  GAL   CMOS  PLCC  P16V8        20     COM  EE   YES  014  755   3145   10   10    0  400    0
+$C2 SGS       GAL16V8AS-12HB1  GAL   CMOS  DIP   P16V8        20     COM  EE   YES  14   55    1249   12   10    0  400    0
+$C2 SGS       GAL16V8AS-12HB3  GAL   CMOS  DIP   P16V8        20     IND  EE   YES  14   55    1249   12   10    0  400    0
+$C2 SGS       GAL16V8AS-12HC1  GAL   CMOS  PLCC  P16V8        20     COM  EE   YES  014  755   3145   12   10    0  400    0
+$C2 SGS       GAL16V8AS-12HC3  GAL   CMOS  PLCC  P16V8        20     IND  EE   YES  014  755   3145   12   10    0  400    0
+$C2 SGS       GAL16V8AS-12QB1  GAL   CMOS  DIP   P16V8        20     COM  EE   YES  14   55    1249   12   10    0  200    0
+$C2 SGS       GAL16V8AS-12QC1  GAL   CMOS  PLCC  P16V8        20     COM  EE   YES  014  755   3145   12   10    0  200    0
+$C2 SGS       GAL16V8AS-15HB1  GAL   CMOS  DIP   P16V8        20     COM  EE   YES  14   55    1249   15   12    0  400    0
+$C2 SGS       GAL16V8AS-15HB3  GAL   CMOS  DIP   P16V8        20     IND  EE   YES  14   55    1249   15   12    0  400    0
+$C2 SGS       GAL16V8AS-15HC1  GAL   CMOS  PLCC  P16V8        20     COM  EE   YES  014  755   3145   15   12    0  400    0
+
+#   mfg       part             type  tech  pack  devname     pins    spc  era preld fam  pin    DID#  speed set  hold pwr prc 
+$C2 SGS       GAL16V8AS-15QB1  GAL   CMOS  DIP   P16V8        20     COM  EE   YES  14   55    1249   15   12    0  200    0
+$C2 SGS       GAL16V8AS-15QC1  GAL   CMOS  PLCC  P16V8        20     COM  EE   YES  014  755   3145   15   12    0  200    0
+$C2 SGS       GAL16V8AS-20HB3  GAL   CMOS  DIP   P16V8        20     IND  EE   YES  14   55    1249   20   15    0  400    0
+$C2 SGS       GAL16V8AS-20HC3  GAL   CMOS  PLCC  P16V8        20     IND  EE   YES  014  755   3145   20   15    0  400    0
+$C2 SGS       GAL16V8AS-20QB3  GAL   CMOS  DIP   P16V8        20     IND  EE   YES  14   55    1249   20   15    0  200    0
+$C2 SGS       GAL16V8AS-20QC3  GAL   CMOS  PLCC  P16V8        20     IND  EE   YES  014  755   3145   20   15    0  200    0
+$C2 SGS       GAL16V8S-20EB1   GAL   CMOS  DIP   P16V8        20     COM  EE   YES  14   55    1249   20   15    0  100    0
+$C2 SGS       GAL16V8S-20EB3   GAL   CMOS  DIP   P16V8        20     COM  EE   YES  14   55    1249   20   15    0  100    0
+$C2 SGS       GAL16V8S-20HB1   GAL   CMOS  DIP   P16V8        20     COM  EE   YES  14   55    1249   20   15    0  400    0
+$C2 SGS       GAL16V8S-20HC1   GAL   CMOS  PLCC  P16V8        20     COM  EE   YES  14   55    1249   20   15    0  400    0
+$C2 SGS       GAL16V8S-20QB1   GAL   CMOS  DIP   P16V8        20     COM  EE   YES  14   55    1249   20   15    0  200    0
+$C2 SGS       GAL16V8S-25EB1   GAL   CMOS  DIP   P16V8        20     COM  EE   YES  14   55    1249   25   20    0  100    0
+$C2 SGS       GAL16V8S-25HB1   GAL   CMOS  DIP   P16V8        20     COM  EE   YES  14   55    1249   25   20    0  400    0
+$C2 SGS       GAL16V8S-25HC1   GAL   CMOS  PLCC  P16V8        20     COM  EE   YES  14   55    1249   25   20    0  400    0
+$C2 SGS       GAL16V8S-25EC3   GAL   CMOS  DIP   P16V8        20     IND  EE   YES  14   55    1249   25   20    0  400    0
+$C2 SGS       GAL16V8S-25HB3   GAL   CMOS  DIP   P16V8        20     IND  EE   YES  14   55    1249   25   20    0  400    0
+$C2 SGS       GAL16V8S-25EB3   GAL   CMOS  DIP   P16V8        20     IND  EE   YES  14   55    1249   25   20    0  400    0
+$C2 SGS       GAL16V8S-25HC3   GAL   CMOS  PLCC  P16V8        20     IND  EE   YES  ??   ??       0   25   20    0  400    0
+$C2 SGS       GAL16V8S-25QC3   GAL   CMOS  PLCC  P16V8        20     IND  EE   YES  ??   ??       0   25   20    0  400    0
+$C2 SGS       GAL16V8S-25QB1   GAL   CMOS  DIP   P16V8        20     COM  EE   YES  14   55    1249   25   20    0  200    0
+$C2 SGS       GAL16V8S-30EB3   GAL   CMOS  DIP   P16V8        20     IND  EE   YES  14   55    1249   30   25    0  100    0
+$C2 SGS       GAL16V8S-30HB3   GAL   CMOS  DIP   P16V8        24     IND  EE   YES  14   55    1249   30   25    0  400    0
+$C2 SGS       GAL16V8S-30QB3   GAL   CMOS  DIP   P16V8        24     IND  EE   YES  14   55    1249   30   25    0  200    0
+$C2 SGS       GAL16V8S-20EC1   GAL   CMOS  PLCC  P16V8        20     COM  EE   YES  --   --       0   20   15    0  141    0
+$C2 SGS       GAL16V8S-20QC1   GAL   CMOS  PLCC  P16V8        20     COM  EE   YES  --   --       0   20   15    0  236    0
+$C2 SGS       GAL16V8S-25EC1   GAL   CMOS  PLCC  P16V8        20     COM  EE   YES  --   --       0   25   20    0  141    0
+$C2 SGS       GAL16V8S-25QC1   GAL   CMOS  PLCC  P16V8        20     COM  EE   YES  --   --       0   25   20    0  236    0
+$C2 SGS       GAL20V8-20HB1    GAL   CMOS  DIP   P20V8        24     COM  EE   YES  14   57    1250   20   15    0  400    0
+$C2 SGS       GAL20V8-20HB3    GAL   CMOS  DIP   P20V8        24     IND  EE   YES  14   57    1250   20   15    0  400    0
+$C2 SGS       GAL20V8-20HC1    GAL   CMOS  PLCC  P20V8LCC     28     COM  EE   YES  14   57    3161   20   15    0  400    0
+$C2 SGS       GAL20V8-20HC1J   GAL   CMOS  PLCC  P20V8LCC     28     COM  EE   YES  14   57    3161   20   15    0  400    0
+$C2 SGS       GAL20V8-20HC3    GAL   CMOS  PLCC  P20V8LCC     28     IND  EE   YES  14   57    3161   20   15    0  400    0
+$C2 SGS       GAL20V8-20HC3J   GAL   CMOS  PLCC  P20V8LCC     28     IND  EE   YES  14   57    3161   20   15    0  400    0
+$C2 SGS       GAL20V8-20QB1    GAL   CMOS  DIP   P20V8        24     COM  EE   YES  14   57    1250   20   15    0  200    0
+$C2 SGS       GAL20V8-20QC1    GAL   CMOS  PLCC  P20V8LCC     28     COM  EE   YES  14   57    3161   20   15    0  200    0
+$C2 SGS       GAL20V8-25HB1    GAL   CMOS  DIP   P20V8        24     COM  EE   YES  14   57    1250   25   20    0  400    0
+$C2 SGS       GAL20V8-25HB3    GAL   CMOS  DIP   P20V8        24     IND  EE   YES  14   57    1250   25   20    0  400    0
+$C2 SGS       GAL20V8-25HC1    GAL   CMOS  PLCC  P20V8LCC     28     COM  EE   YES  14   57    3161   25   20    0  400    0
+$C2 SGS       GAL20V8-25HC1J   GAL   CMOS  PLCC  P20V8LCC     28     COM  EE   YES  14   57    3161   25   20    0  400    0
+$C2 SGS       GAL20V8-25HC3    GAL   CMOS  PLCC  P20V8LCC     28     IND  EE   YES  14   57    3161   25   20    0  400    0
+$C2 SGS       GAL20V8-25HC3J   GAL   CMOS  PLCC  P20V8LCC     28     IND  EE   YES  14   57    3161   25   20    0  400    0
+$C2 SGS       GAL20V8-25QB1    GAL   CMOS  DIP   P20V8        24     COM  EE   YES  14   57    1250   25   20    0  200    0
+$C2 SGS       GAL20V8-25QB3    GAL   CMOS  DIP   P20V8        24     IND  EE   YES  14   57    1250   25   20    0  200    0
+$C2 SGS       GAL20V8-25QC1    GAL   CMOS  PLCC  P20V8LCC     28     COM  EE   YES  14   57    3161   25   20    0  200    0
+$C2 SGS       GAL20V8-25QC1J   GAL   CMOS  PLCC  P20V8LCC     28     COM  EE   YES  14   57    3161   25   20    0  200    0
+$C2 SGS       GAL20V8-25QC3    GAL   CMOS  PLCC  P20V8LCC     28     IND  EE   YES  14   57    3161   25   20    0  200    0
+$C2 SGS       GAL20V8-25QC3J   GAL   CMOS  PLCC  P20V8LCC     28     IND  EE   YES  14   57    3161   25   20    0  200    0
+$C2 SGS       GAL20V8-30HB3    GAL   CMOS  DIP   P20V8        24     IND  EE   YES  14   57    1250   30   25    0  400    0
+$C2 SGS       GAL20V8-30HC3    GAL   CMOS  PLCC  P20V8LCC     28     IND  EE   YES  14   57    3161   30   25    0  400    0
+$C2 SGS       GAL20V8-30HC3J   GAL   CMOS  PLCC  P20V8LCC     28     IND  EE   YES  14   57    3161   30   25    0  400    0
+$C2 SGS       GAL20V8-30QB3    GAL   CMOS  DIP   P20V8        24     IND  EE   YES  14   57    1250   30   25    0  200    0
+$C2 SGS       GAL20V8-30QC3    GAL   CMOS  PLCC  P20V8LCC     28     IND  EE   YES  14   57    3161   30   25    0  200    0
+$C2 SGS       GAL20V8-30QC3J   GAL   CMOS  PLCC  P20V8LCC     28     IND  EE   YES  14   57    3161   30   25    0  200    0
+$C2 SGS       GAL20V8AS-10HB1  GAL   CMOS  DIP   P20V8        24     COM  EE   YES  14   57    1250   10   10    0  400    0
+$C2 SGS       GAL20V8AS-10HC1  GAL   CMOS  PLCC  P20V8LCC     28     COM  EE   YES  14   57    3161   10   10    0  400    0
+$C2 SGS       GAL20V8AS-10HC1J GAL   CMOS  PLCC  P20V8LCC     28     COM  EE   YES  14   57    3161   10   10    0  400    0
+
+#   mfg       part             type  tech  pack  devname     pins    spc  era preld fam  pin    DID#  speed set  hold pwr prc 
+$C2 SGS       GAL20V8AS-12HB1  GAL   CMOS  DIP   P20V8        24     COM  EE   YES  14   57    1250   12   10    0  400    0
+$C2 SGS       GAL20V8AS-12HB3  GAL   CMOS  DIP   P20V8        24     IND  EE   YES  14   57    1250   12   10    0  400    0
+$C2 SGS       GAL20V8AS-12HC1  GAL   CMOS  PLCC  P20V8LCC     28     COM  EE   YES  14   57    3161   12   10    0  400    0
+$C2 SGS       GAL20V8AS-12HC1J GAL   CMOS  PLCC  P20V8LCC     28     COM  EE   YES  14   57    3161   12   10    0  400    0
+$C2 SGS       GAL20V8AS-12HC3  GAL   CMOS  PLCC  P20V8LCC     28     IND  EE   YES  14   57    3161   12   10    0  400    0
+$C2 SGS       GAL20V8AS-12HC3J GAL   CMOS  PLCC  P20V8LCC     28     IND  EE   YES  14   57    3161   12   10    0  400    0
+$C2 SGS       GAL20V8AS-12QB1  GAL   CMOS  DIP   P20V8        24     COM  EE   YES  14   57    1250   12   10    0  200    0
+$C2 SGS       GAL20V8AS-12QC1  GAL   CMOS  PLCC  P20V8LCC     28     COM  EE   YES  14   57    3161   12   10    0  200    0
+$C2 SGS       GAL20V8AS-12QC1J GAL   CMOS  PLCC  P20V8LCC     28     COM  EE   YES  14   57    3161   12   10    0  200    0
+$C2 SGS       GAL20V8AS-15HB1  GAL   CMOS  DIP   P20V8        24     COM  EE   YES  14   57    1250   15   12    0  400    0
+$C2 SGS       GAL20V8AS-15HC1  GAL   CMOS  PLCC  P20V8LCC     28     COM  EE   YES  14   57    3161   15   12    0  400    0
+$C2 SGS       GAL20V8AS-15HC1J GAL   CMOS  PLCC  P20V8LCC     28     COM  EE   YES  14   57    3161   15   12    0  400    0
+$C2 SGS       GAL20V8AS-15QB1  GAL   CMOS  DIP   P20V8        24     COM  EE   YES  14   57    1250   15   12    0  200    0
+$C2 SGS       GAL20V8AS-15QB3  GAL   CMOS  DIP   P20V8        24     IND  EE   YES  14   57    1250   15   12    0  200    0
+$C2 SGS       GAL20V8AS-15QC1  GAL   CMOS  PLCC  P20V8LCC     28     COM  EE   YES  14   57    3161   15   12    0  200    0
+$C2 SGS       GAL20V8AS-15QC1J GAL   CMOS  PLCC  P20V8LCC     28     COM  EE   YES  14   57    3161   15   12    0  200    0
+$C2 SGS       GAL20V8AS-20HB3  GAL   CMOS  DIP   P20V8        24     IND  EE   YES  14   57    1250   20   15    0  400    0
+$C2 SGS       GAL20V8AS-20HC3  GAL   CMOS  PLCC  P20V8LCC     28     IND  EE   YES  14   57    3161   20   15    0  400    0
+$C2 SGS       GAL20V8AS-20HC3J GAL   CMOS  PLCC  P20V8LCC     28     IND  EE   YES  14   57    3161   20   15    0  400    0
+$C2 SGS       GAL20V8AS-20QB3  GAL   CMOS  DIP   P20V8        24     IND  EE   YES  14   57    1250   20   15    0  200    0
+$C2 SGS       GAL20V8AS-20QC3  GAL   CMOS  PLCC  P20V8LCC     28     IND  EE   YES  14   57    3161   20   15    0  200    0
+$C2 SGS       GAL20V8AS-20QC3J GAL   CMOS  PLCC  P20V8LCC     28     IND  EE   YES  14   57    3161   20   15    0  200    0
+$C2 SGS       GAL20V8S-20HB3   GAL   CMOS  DIP   P20V8        24     IND  EE   YES  14   57    1250   20   15    0  400    0
+$C2 SGS       GAL20V8S-20HB1   GAL   CMOS  DIP   P20V8        24     COM  EE   YES  14   57    1250   20   15    0  400    0
+$C2 SGS       GAL20V8S-20HC1   GAL   CMOS  PLCC  P20V8LCC     28     COM  EE   YES  14   57    3161   20   15    0  400    0
+$C2 SGS       GAL20V8S-25EB1   GAL   CMOS  DIP   P20V8        24     COM  EE   YES  14   57    1250   25   20    0  100    0
+$C2 SGS       GAL20V8S-25HC1   GAL   CMOS  PLCC  P20V8LCC     28     COM  EE   YES  14   57    3161   25   20    0  400    0
+$C2 SGS       GAL20V8S-30EB3   GAL   CMOS  DIP   P20V8        24     IND  EE   YES  14   57    1250   30   25    0  100    0
+$C2 SGS       GAL20V8S-30EC3   GAL   CMOS  PLCC  P20V8LCC     28     IND  EE   YES  14   57    3161   30   25    0  100    0
+$C2 SGS       GAL20V8S-30HB3   GAL   CMOS  DIP   P20V8        24     IND  EE   YES  14   57    1250   30   25    0  400    0
+$C2 SGS       GAL20V8S-30HC3   GAL   CMOS  PLCC  P20V8LCC     28     IND  EE   YES  14   57    3161   30   25    0  400    0
+$C2 SGS       GAL20V8S-30QB3   GAL   CMOS  DIP   P20V8        24     IND  EE   YES  14   57    1250   30   25    0  200    0
+$C2 SGS       GAL20V8S-30QC3   GAL   CMOS  PLCC  P20V8LCC     28     IND  EE   YES  14   57    3161   30   25    0  200    0
+#
+$END

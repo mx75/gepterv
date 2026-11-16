@@ -1,0 +1,23 @@
+Module sn74374
+Title 'Octal Edge-Triggered Flip-Flop'
+    OC,Clk   pin;
+    D8..D1   pin;
+    Q8..Q1   pin istype 'reg,buffer';
+    Input  = [D8..D1];
+    Output = [Q8..Q1];
+
+Equations
+    Output    := Input;
+    Output.clk = Clk;
+    Output.oe  = !OC;
+
+Test_Vectors ([OC ,Clk,Input] -> Output)
+              [ 1 ,.X., .X. ] -> .Z.;
+              [ 0 ,.C.,^h00 ] -> ^h00;
+              [ 0 ,.C.,^h55 ] -> ^h55;
+              [ 0 ,.C.,^hAA ] -> ^hAA;
+              [ 0 ,.C.,^hFF ] -> ^hFF;
+              [ 0 ,.C.,^hA5 ] -> ^hA5;
+              [ 0 , 0 ,^h00 ] -> ^hA5;
+              [ 0 ,.C.,^h22 ] -> ^h22;
+End

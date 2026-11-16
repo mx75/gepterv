@@ -1,0 +1,48 @@
+Name            Flops;
+Partno          CA0002;
+Revision        03;
+Date            9/12/83;
+Designer        G. Woolhiser;
+Company         Assisted Technology, Inc.;
+Location        None;
+Assembly        None;
+
+/****************************************************************/
+/*                                                              */
+/*      This example demonstrates the use of D-type flip-flops, */
+/*      and flexibilty of expression with CUPL.  The following  */
+/*      are four implementations of a two bit counter, which    */
+/*      use the following timing diagram.                       */
+/*                ______    ______    ______    _____     ___   */
+/*   clock      __|    |____|    |____|    |____|    |____|     */
+/*              ___         ___________         ___________     */
+/*      q0        |_________|         |_________|         |__   */
+/*              ___                   _____________________     */
+/*      q1        |___________________|                   |__   */
+/*                                                              */
+/****************************************************************/
+/*      Taget Devices:  PAL16R8, PAL16RP8, EP300                */
+/****************************************************************/
+
+
+Order:  clock, %8, !enable, %8, reset, %6, qa0, %3, qa1, %6, qb0,
+        %3, qb1, %6, qc0, %3, qc1, %6, qd0, %3, qd1;
+
+Vectors:
+
+$msg "";
+$msg "                             counterA   counterB   counterC   counterD";
+$msg "    clock   !enable   reset   q0  q1     q0  q1     q0  q1     q0  q1 ";
+$msg "    -----   -------   -----  --------   --------   --------   --------";
+$msg "";
+
+$msg "Reset to Zero";
+c01 LLLLLLLL
+$repeat 4;
+c00 ********
+$msg "";
+$msg "Register PRELOAD";
+p0x 11100100
+000 ********
+$repeat 4;
+c00 ********

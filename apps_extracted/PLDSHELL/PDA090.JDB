@@ -1,0 +1,7 @@
+# execute disassembly for plcc P5C090
+
+
+load "da090.jdb"
+
+de090(1)
+

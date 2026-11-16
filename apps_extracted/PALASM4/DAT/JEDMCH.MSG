@@ -1,0 +1,76 @@
+110 |> ERROR J110  Cannot open input JEDEC file %s
+120 |> SYSTEM ERROR J120  Cannot open PDF file (JEDMCH.PDF).
+120    Call AMD, 1-800-222-9323.
+121 |> SYSTEM ERROR J121 Invalid MACH PDF file (JEDMCH.PDF).
+121    Call AMD, 1-800-222-9323.
+130 |> ERROR J130  Device %s not supported in JEDEC disassemble.
+131 |> ERROR J131  Part name %s is not compatible with JEDEC file.
+140 |> ERROR J140  Input file %s is not a valid JEDEC file.
+150 |> ERROR J150  Input file %s terminated prematurely.
+160 |> ERROR J160  Cannot create error file %s
+170 |> ERROR J170  Cannot create output JEDEC file %s
+180 |> ERROR J180  Cannot create output PALASM file %s
+190 |> ERROR J190  Illegal data %s in fuse field.
+195 |> ERROR J195  All the JEDEC fuse data must appear in one block.
+200 |> ERROR J200  No fuses specified in the input file.
+205 |> ERROR J205  Fuse number %d has been defined twice.
+215 |> ERROR J215  Fuse number %d exceeds the permitted fuse count.
+220 |> ERROR J220  Exceeded data array fuse buffer size %d
+230 |> ERROR J230  Cannot find PALASM enviroment variable.
+240 %%%%  JEDMCH   %%%% File processing terminated.  File  %s
+250 |> WARNING J250  Invalid field identifier %s
+251 |> WARNING J251  Cannot open input PLC file %s
+260 |> WARNING J260  Invalid field %s in this context.
+265 |> WARNING J265  Integer expected in the current %s field.
+270 |> WARNING J270  Illegal specification of %s field.
+280 |> WARNING J280  Incorrect number of fuses in the QF field.
+280                  Found %d
+280                  Expected %d
+290 |> WARNING J290  Incorrect number of pins in the QP field.
+290                  Found %d
+290                  Expected %d
+310 |> WARNING J310  Incorrect fuse checksum in the input file.
+310                  Found %s
+310                  Expected %s
+320 |> WARNING J320  Invalid data %s in vector field.
+330 |> WARNING J330  Replacing super-voltage with PRLDF.
+340 |> WARNING J340  Incorrect number of logic values in vector.
+340                  Found %d entries.
+340                  Expected %d entries.
+350 |> WARNING J350  Simulation vector %s limit exceeded.
+360 |> WARNING J360  Incorrect transmission checksum.
+360                  Found %s
+360                  Expected %s
+370 |> WARNING J370  Invalid transmission checksum in the input file.
+380 |> WARNING J380  Ignore unused %s %d in simulation vector.
+450 No Boolean equation design file is created.
+451 No recalculated JEDEC output file is created.
+500 The Boolean equation design file is stored in ==> %s
+501 The recalculated JEDEC output file is stored in ==> %s
+600 %%%%  JEDMCH   %%%% Program successful.  File  %s
+850 %%%%  JEDMCH   %%%% ERROR count  %d  WARNING count  %d
+1400 \n|> INTERNAL ERROR J1400 Unexpected null pointer is detected.
+1400    Call AMD, 1-800-222-9323.
+1401 \n|> INTERNAL ERROR J1401 Unexpected null pointer is detected.
+1401    Call AMD, 1-800-222-9323.
+1402 \n|> INTERNAL ERROR J1402 Unexpected null pointer is detected.
+1402    Call AMD, 1-800-222-9323.
+1403 \n|> INTERNAL ERROR J1403 Unexpected null pointer is detected.
+1403    Call AMD, 1-800-222-9323.
+1500 JEDMCH HELP  Input file is not specified.
+1500    Command format to invoke JEDMCH:
+1500       JEDMCH <filename[.jed]> [OPTION...].
+1500    OPTION   -dev [devicename].
+1500             -log [<filename[.log]>].
+1500             -jdm [<filename[.jdm]>].
+1500             -pl2 [<filename[.pl2]>].
+1500             -plc [<filename[.plc]>].
+1500             -stg 
+1500    option flag description:
+1500       -dev  specify the device part number.
+1500       -log  capture screen message to disk file.
+1500       -jdm  recalculate the JEDEC fuse.
+1500       -pl2  disassemble the JEDEC fuse.
+1500       -plc  retrieve pin name from PLC file.
+1500       -stg  print setf signals if changed from previous value.
+

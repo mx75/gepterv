@@ -1,0 +1,88 @@
+Title    5-Bit Up Counter
+Pattern  UpCount.pds
+Revision B
+Author   Bill Karkula
+Company  Monolithic Memories Inc., Santa Clara, CA
+Date     8/1/86
+  
+CHIP UpCounter PAL20RA10
+  
+/PL D4 D3 D2 D1 D0 CK NC /LD /LR /RST GND
+/OE R0 R1 R2 R3 R4 Q0 Q1 Q2 Q3 Q4 VCC
+  
+EQUATIONS
+  
+/Q4             := Q4                   ;Toggle if lower MSB
+Q4.CLKF          = /Q3                  ;becomes a zero
+Q4.RSTF          = RST                  ;Rollover/master RST
+Q4.SETF          = D4*LD                ;Load initial Count
+  
+/Q3             := Q3                   ;Toggle when Q2
+Q3.CLKF         = /Q2                   ;becomes a zero
+Q3.RSTF         = RST                   ;Rollover/master RST
+Q3.SETF         = D3*LD                 ;Load initial count
+  
+/Q2             := Q2                   ;Toggle when Q1
+Q2.CLKF         = /Q1                   ;becomes a zero
+Q2.RSTF         = RST                   ;Rollover/master RST
+Q2.SETF         = D2*LD                 ;Load initial count
+  
+/Q1             := Q1                   ;Toggle when Q0
+Q1.CLKF         = /Q0                   ;becomes a zero
+Q1.RSTF         = RST                   ;Rollover/master RST
+Q1.SETF         = D1*LD                 ;Load initial count
+  
+/Q0             := Q0                   ;Toggle LSB
+Q0.CLKF         = CK                    ;External CLKF input
+Q0.RSTF         = RST                   ;Rollover/master RST
+Q0.SETF         = D0*LD                 ;Load initial count
+  
+/R4             := /D4                  ;Load rollover point
+R4.CLKF          = LR                   ;if /LR is low
+/R3             := /D3                  ;Load rollover bit 3
+R3.CLKF          = LR                   ;if /LR is asserted
+/R2             := /D2                  ;Load rollover bit 2
+R2.CLKF          = LR                   ;if /LR is asserted
+/R1             := /D1                  ;Load rollover bit 1
+R1.CLKF          = LR                   ;if /LR is asserted
+/R0             := /D0                  ;Load rollover bit 0
+R0.CLKF          = LR                   ;if /LR is asserted
+  
+SIMULATION
+  
+TRACE_ON PL OE CK Q0 Q1 Q2 Q3 Q4
+  
+SETF OE /PL /LR /RST /LD /CK            ;INITIALIZE OE AND PL
+SETF CK LD LR D0 D1 D2 D3 D4
+  
+SETF RST /LD                            ;Test SET function
+                                        ;of registers
+CHECK  Q0  Q1  Q2  Q3  Q4               ;Check for high
+                                        ;on reg. outputs
+SETF /RST                               ;Deassert SET funct
+  
+SETF D0 D1 D2 D3 D4 LD                  ;Test RESET function
+CHECK /Q0 /Q1 /Q2 /Q3 /Q4
+  
+SETF /OE Q4 Q3 Q2 Q1 /Q0 /LD            ;Disable RESET(LD=0)
+                                        ;load registers w/
+                                        ;HHHHL (Q4..Q0),
+                                        ;tristate registers
+SETF PL                                 ;Load reg.'s w/ data
+                                        ;on output bus.
+SETF OE /PL                             ;Disable PRELOAD &
+                                        ;TRISTATE funct.
+SETF CK
+SETF /CK
+  
+SETF CK
+SETF /CK
+  
+SETF CK
+SETF /CK
+  
+SETF CK
+SETF /CK
+TRACE_OFF
+  
+

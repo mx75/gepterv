@@ -1,0 +1,62 @@
+| File: example.sdl     -- Simple prototype board, Hex file
+{
+|	Port_Num	Port_Type
+STRING	3		HEX_FILE
+|
+
+| 	Loc.	Ref	Device		JEDEC File
+DEVICE	0	U3	EPX780QC132	right.jed
+DEVICE	1	U4	EPX780LC84  	left.jed
+DEVICE	2	U1	PENTIUM
+
+}  | NOTE: the braces are important!   Do not forget them!
+
+|--------------------------------------------------------
+| Other Commands to Control JED2JTAG Operations
+|
+| To create an example.HEX file, which can be programmed
+| into a FLASH EPROM:
+|	STRING 3  HEX_FILE
+
+| To create only an example.BIN file:
+|	STRING 3  BIN_FILE
+|
+
+| These commands are used when the chain is similar to that
+| used by the FLEXlogic Prototyping Cable Kit, and can be hooked
+| up to the computer's parallel port.
+|
+| To reconfigure a chain for different LPTx: ports:
+|	STRING 1  PARALLEL_PORT  LPT1:
+|	STRING 2  PARALLEL_PORT  LPT2:
+|	STRING 2  PARALLEL_PORT  LPT3:
+|	STRING 1  PARALLEL_PORT  LPT2:
+
+| This version of PENGN and JED2JTAG talks directly to the 
+| parallel port addresses.  It uses the BIOS Printer Port table 
+| to determine the memory address of LPT1:, LPT2:, and LPT3:.
+|
+|----------------------------------------------------------
+| For machines where the BIOS Printer Ports addresses
+| are not stored in Address 0:408, the PORT command may be 
+| inserted after the STRING command. This will configure
+| the absolute Hexadecimal memory address of the LPT port.
+
+| Example: For a machine where the BIOS Printer Port table 
+| is not located at Address 0:408:
+|
+| 	STRING  1	PARALLEL_PORT   LPT1:
+| 	PORT 03BC
+
+| Normal LPT1:      PORT 0378
+| Normal LPT2:      PORT 0278
+| Compaq ProLinea:  PORT 03BC
+
+| ------- Reference ----------------------------------------
+| According to the Peter Norton PC Programmers Bible, 
+| 3rd Edition, 1993 Microsoft Press.  Page 160.
+
+| I/O Address (Hex)      Parallel Port
+| -----------            -------------
+| 3BC - 3BF              Port on MDA (Mono Display Adaptor)
+| 378 - 37F              Second Parallel Port (378-37B on IBM

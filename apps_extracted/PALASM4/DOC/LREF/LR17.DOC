@@ -1,0 +1,124 @@
+ğ
+DECLARATION SEGMENT
+Overview
+This is the first segment of any PDS file.  It identifies basic design
+information, the chip name and device type, pin and node statements
+required to process the design, and special definitions.  A form
+automates entry of this information when you begin a design.
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+        ;------------Declaration Segment-----------------
+        design information
+        ;------------Pin Declarations--------------------
+        Pin / Node statements(s)
+        ;Special definitions
+
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Device Support:  All PLD devices.
+ú
+Syntax
+This segment is required for all designs and must be the first segment
+in the PDS file.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+        ;------------Declaration Segment-----------------
+        design information
+        ;------------Pin Declarations--------------------
+        Pin / Node statements(s)
+        ;Special definitions
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+        ;------------Declaration Segment-----------------
+        TITLE  16 Bit Counter (up/down); preplaced w/standard settings
+        PATTERN   XS.PDS
+        REVISION  2
+        AUTHOR    Gail Tiberi
+        COMPANY   Mystique, Inc.
+        DATE      8/09/90
+        CHIP      Counter   PAL16R6
+        ;------------Pin Declarations -------------------
+        PIN 2 INP1 REG
+        NODE ? INP2 COMB
+        :
+        SIGNATURE = V2_5/90
+        STRING IN1 'A1 + /A2 + A3'
+        GROUP BANK1 OUT1, OUT2
+        ...
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+
+Design          Identifies statements that document basic information
+Information     about the design.  The following statements must
+                appear in the order shown below.
+
+                ş  Title
+
+                ş  Pattern
+
+                ş  Revision
+
+                ş  Author
+
+                ş  Company
+
+                ş  Date
+
+                ş  Chip
+
+Device          These statements can be useful in describing the
+                function of the design.
+
+Pin             Identifies pin and node statements that are required
+Declarations    to process the design must follow the device type.
+                Each statement defines the name, location number, and
+                optional storage type assigned to each device pin in
+                the design.
+
+Special         These are optional statements that you can include
+Definitions     after pin and node statements in the declaration
+                segment.
+
+                ş  String statements can be used with any device.
+
+                ş  Group statements can be used with any device.
+
+                ş  Signature statements are device specific.
+
+                Though not required, it is a good idea to place each
+                statement on a separate line.  These statements can
+                appear in any order.
+ú
+Use
+The following error conditions can occur.
+
+ş    If design information is incomplete, a warning is issued during
+     processing.
+
+ş    If multiple information statements appear, processing is halted.
+
+ş    If pin and node statements are incomplete or incorrect,
+     processing is halted.
+
+For PAL and PLS devices, the signal list maps into a DIP package, and
+for MACH devices, it maps into a PLCC package
+ú
+Related Topics
+AUTHOR
+CHIP
+COMPANY
+DATE
+FLOATING PINS AND NODES
+GROUP
+MACH_SEG_A, MACH_SEG_B, MACH_SEG_C, MACH_SEG_D
+NODE
+PATTERN
+PIN
+REVISION
+SIGNATURE
+STRING
+TITLE
+ú

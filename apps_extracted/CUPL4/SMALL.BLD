@@ -1,0 +1,24 @@
+/*
+ *  Build small.dl from p22v10, f105, and
+ *  p16rp8 in cupl.dl
+ */
+
+/*
+ *  Target library -- what is to be built
+ */
+
+target smallib.dl
+
+/*
+ *  Source libraries -- input libraries
+ *  and devices to build the target from
+ */
+
+source  cupl.dl
+        p22v10
+        f105
+        p16rp8
+
+source  biglib.dl
+        *
+

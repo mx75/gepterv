@@ -1,0 +1,30 @@
+
+TITLE ACTLOW
+
+CHIP   ACTLOW   LCA;
+
+;Pins (not in pin number order)
+      CLOCK IN1 IN2 OUT1 OUT2 OUT3 OUT4 
+;Nodes
+      
+
+;Functional example of active low output signals, 22 July 1992
+;         John Gromala, Data I/O Corporation.
+
+EQUATIONS
+
+OUT1 := /(IN1 * IN2);
+
+OUT1.CLKF = (CLOCK);
+
+OUT2 := (IN1 * IN2);
+
+OUT2.CLKF = (CLOCK);
+
+OUT3 := /(IN1 * IN2);
+
+OUT3.CLKF = (CLOCK);
+
+OUT4 := (IN1 * IN2);
+
+OUT4.CLKF = (CLOCK);

@@ -1,0 +1,1309 @@
+#
+# 5AC312 JEDEC File Disassembler
+# 
+# Created:  10-06-89
+#
+#
+
+#
+# Return the Jedec address of a Macrocell
+#
+func 
+mc_addr()
+{
+    
+    return ((1088 * ($1 - 1)))
+}
+
+#
+# Return the Jedec address of the input's control term
+#
+# inputs number 0 thru 7
+#
+func 
+inp_addr()
+{
+    
+    return ((13056 + (68 * $1)))
+}
+
+#
+# Return the address of a macrocell's architecture bits
+#
+func 
+mc_arch()
+{
+    
+    return ((13600 + (($1 - 1) * 8)))
+}
+
+#
+# Return the address of the inputs architecture bits
+#
+func 
+inp_arch()
+{
+    
+    return (13696)
+}
+
+#
+# Return the pin number of a macrocell
+#
+func 
+mc_pin_number()
+{
+    if ($1 == 1) {
+        return (11)
+    } else if ($1 == 2) {
+        return (14)
+    } else if ($1 == 3) {
+        return (15)
+    } else if ($1 == 4) {
+        return (16)
+    } else if ($1 == 5) {
+        return (17)
+    } else if ($1 == 6) {
+        return (18)
+    } else if ($1 == 7) {
+        return (20)
+    } else if ($1 == 8) {
+        return (19)
+    } else if ($1 == 9) {
+        return (22)
+    } else if ($1 == 10) {
+        return (21)
+    } else if ($1 == 11) {
+        return (2)
+    } else if ($1 == 12) {
+        return (23)
+    }
+    return (0)
+}
+
+#  map_pin ( ) - return the plcc pin number corresponding to the
+#  passed dip pin number
+#  NOTE: if part is dip, the dip number is returned
+#
+
+func            map_pin()
+{
+    if (JDBV_pinmap) {
+        if ($1 == 1) {
+            return (2)
+        } else if ($1 == 2) {
+            return (3)
+        } else if ($1 == 3) {
+            return (4)
+        } else if ($1 == 4) {
+            return (5)
+        } else if ($1 == 5) {
+            return (6)
+        } else if ($1 == 6) {
+            return (7)
+        } else if ($1 == 7) {
+            return (8)
+        } else if ($1 == 8) {
+            return (9)
+        } else if ($1 == 9) {
+            return (10)
+        } else if ($1 == 10) {
+            return (12)
+        } else if ($1 == 11) {
+            return (13)
+        } else if ($1 == 12) {
+            return (14)
+        } else if ($1 == 13) {
+            return (16)
+        } else if ($1 == 14) {
+            return (17)
+        } else if ($1 == 15) {
+            return (18)
+        } else if ($1 == 16) {
+            return (20)
+        } else if ($1 == 17) {
+            return (21)
+        } else if ($1 == 18) {
+            return (22)
+        } else if ($1 == 19) {
+            return (23)
+        } else if ($1 == 20) {
+            return (24)
+        } else if ($1 == 21) {
+            return (25)
+        } else if ($1 == 22) {
+            return (26)
+        } else if ($1 == 23) {
+            return (27)
+        } else if ($1 == 24) {
+            return (28)
+        }
+    }
+    if (($1 < 0) || ($1 > 24))
+        return (0)
+    else
+        return ($1)
+        }
+        
+#
+# Return the macrocells secondary feedback's column index
+#
+    func            mc_sfb_idx() {
+        if ($1 == 1) {
+            return (46)
+        } else if ($1 == 2) {
+            return (48)
+        } else if       ($1 == 3) {
+            return (50)
+        } else if ($1 == 4) {
+            return (52)
+        } else if ($1 == 5) {
+            return (54)
+        } else if ($1 == 6) {
+            return (56)
+        } else if ($1 == 7) {
+            return (60)
+        } else if ($1 == 8) {
+            return (58)
+        } else if ($1 == 9) {
+            return (64)
+        } else if ($1 == 10) {
+            return (62)
+        } else if ($1 == 11) {
+            return (44)
+        } else if ($1 == 12) {
+            return (66)
+        }
+        return (-1)
+    }
+    
+#
+# Return the input number for the  array index
+#
+    func            array_inp() {
+        if ($1 == 0) {
+            return (0)
+        } else if ($1 == 2) {
+            return (3)
+        } else if       ($1 == 4) {
+            return (4)
+        } else if ($1 == 6) {
+            return (5)
+        } else if ($1 == 8) {
+            return (6)
+        } else if ($1 == 10) {
+            return (7)
+        } else if ($1 == 12) {
+            return (8)
+        } else if ($1 == 14) {
+            return (9)
+        } else if ($1 == 16) {
+            return (1)
+        } else if ($1 == 18) {
+            return (2)
+        }
+        return (-1)
+    }
+    
+#
+# Return the next or previous macrocell number
+#
+# $2 == 0 solve for previous
+# $2 == 1 solve for next
+#
+    func            mc_pre_next() {
+        if ($1 == 1) {
+            if ($2 == 0) {
+                return (6)
+            } else if ($2 == 1) {
+                return (2)
+            }
+        } else if       ($1 == 2) {
+            if ($2 == 0) {
+                return (1)
+            } else if ($2 == 1) {
+                return (3)
+            }
+        } else if ($1 == 3) {
+            if ($2 == 0) {
+                return (2)
+            } else if ($2 == 1) {
+                return (4)
+            }
+        } else if ($1 == 4) {
+            if ($2 == 0) {
+                return (3)
+            } else if ($2 == 1) {
+                return (5)
+            }
+        } else if ($1 == 5) {
+            if ($2 == 0) {
+                return (4)
+            } else if ($2 == 1) {
+                return (6)
+            }
+        } else if ($1 == 6) {
+            if ($2 == 0) {
+                return (5)
+            } else if ($2 == 1) {
+                return (1)
+            }
+        } else if ($1 == 7) {
+            if ($2 == 0) {
+                return (12)
+            } else if ($2 == 1) {
+                return (8)
+            }
+        } else if ($1 == 8) {
+            if ($2 == 0) {
+                return (7)
+            } else if ($2 == 1) {
+                return (9)
+            }
+        } else if ($1 == 9) {
+            if ($2 == 0) {
+                return (8)
+            } else if ($2 == 1) {
+                return (10)
+            }
+        } else if ($1 == 10) {
+            if ($2 == 0) {
+                return (9)
+            } else if ($2 == 1) {
+                return (11)
+            }
+        } else if ($1 == 11) {
+            if ($2 == 0) {
+                return (10)
+            } else if ($2 == 1) {
+                return (12)
+            }
+        } else if ($1 == 12) {
+            if ($2 == 0) {
+                return (11)
+            } else if ($2 == 1) {
+                return (7)
+            }
+        }
+        return (-1)
+    }
+    
+#
+# Return 1 if the macrocell's term is used otherwise 0
+#
+    func            mc_term_used() {
+        mta = mc_addr($1) + ($2 * 68)
+        mta_i =.
+        .= mta
+        while (.< (mta + 68)) {
+            if (@.== 0) {
+                .=.+ 1
+                if (@.== 1) {
+                    .= mta_i
+                    return (1)
+                } else {
+                    .= mta_i
+                    return (0)
+                }
+            } else if (@.== 1) {
+                .=.+ 1
+                if (@.== 0) {
+                    .= mta_i
+                    return (1)
+                }
+            }
+            .=.+ 1
+        }
+        if (. == (mta + 68)) { #  whole term was 1's - VCC 
+            .= mta_i
+            return (2)
+        }
+        .= mta_i
+        return (0)
+    }
+    
+#
+# Return one if the jedec fuse is programed
+#
+    func            mc_term_inp() {
+        mta_i =.
+        .= mc_addr($1) + (($2 * 68) + $3)
+        if (@.== 0) {
+            .= mta_i
+            return (1)
+        }
+        .=              mta_i
+        return (0)
+    }
+    
+#
+# Return one if the jedec fuse is programed
+#
+    func            inp_term_inp() {
+        ita_i =.
+        .= (inp_addr($1) + $2)
+        if (@.== 0) {
+            .= ita_i
+            return (1)
+        }
+        .=              ita_i
+        return (0)
+    }
+    
+#
+# Return an integer representing the macrocell's architecture bits
+#
+# MSB           LSB
+#  x x x x x x x x
+#  | | | | | | | |
+#  | | | | | | | +-- D/T Flip/Flop slect 
+#  | | | | | | +---- Lower pterm connect
+#  | | | | | +------ Borrowed upper pterm connect
+#  | | | | +-------- Upper pterm connect 
+#  | | | +---------- Borrowed lower pterm connect
+#  | | +------------ Inverted/Non-Inverted SOP
+#  | +-------------- Synchronous/Asynchronous Clock
+#  +---------------- Combinatorial/Registered
+#
+    func            mc_arch_bits() {
+        mat_i =.
+        .= mc_arch($1)
+        bitmap = 0
+        
+        bitmap = @.
+        .=.+ 1
+        bitmap = bitmap | (@.<< 1)
+        .=.+ 1
+        bitmap = bitmap | (@.<< 2)
+        .=.+ 1
+        bitmap = bitmap | (@.<< 3)
+        .=.+ 1
+        bitmap = bitmap | (@.<< 4)
+        .=.+ 1
+        bitmap = bitmap | (@.<< 5)
+        .=.+ 1
+        bitmap = bitmap | (@.<< 6)
+        .=.+ 1
+        bitmap = bitmap | (@.<< 7)
+        .= mat_i
+        
+        return (bitmap)
+    }
+                   
+#
+# Return an integer representing the input's architecture bits
+#
+# MSB                           LSB
+#  x x x x x x x x x x x x x x x x
+#  | | | | | | | | | | | | | | | |
+#  | | | | | | | | | | | | | | | +-- Inp 8 Asynchronous/Synchronous Clock 
+#  | | | | | | | | | | | | | | +---- Inp 7 Asynchronous/Synchronous Clock 
+#  | | | | | | | | | | | | | +------ Inp 6 Asynchronous/Synchronous Clock 
+#  | | | | | | | | | | | | +-------- Inp 5 Asynchronous/Synchronous Clock 
+#  | | | | | | | | | | | +---------- Inp 4 Asynchronous/Synchronous Clock 
+#  | | | | | | | | | | +------------ Inp 3 Asynchronous/Synchronous Clock 
+#  | | | | | | | | | +-------------- Inp 2 Asynchronous/Synchronous Clock 
+#  | | | | | | | | +---------------- Inp 1 Asynchronous/Synchronous Clock 
+#  | | | | | | | +------------------ Inp 8 Registered/Latched
+#  | | | | | | +-------------------- Inp 7 Registered/Latched
+#  | | | | | +---------------------- Inp 6 Registered/Latched
+#  | | | | +------------------------ Inp 5 Registered/Latched
+#  | | | +-------------------------- Inp 4 Registered/Latched
+#  | | +---------------------------- Inp 3 Registered/Latched
+#  | +------------------------------ Inp 2 Registered/Latched
+#  +-------------------------------- Inp 1 Registered/Latched
+#
+    func            inp_arch_bits() {
+        iab =.
+        .= inp_arch()
+        bitmap = 0
+        
+        bitmap = @.
+        .=.+ 1
+        bitmap = bitmap | (@.<< 1)
+        .=.+ 1
+        bitmap = bitmap | (@.<< 2)
+        .=.+ 1
+        bitmap = bitmap | (@.<< 3)
+        .=.+ 1
+        bitmap = bitmap | (@.<< 4)
+        .=.+ 1
+        bitmap = bitmap | (@.<< 5)
+        .=.+ 1
+        bitmap = bitmap | (@.<< 6)
+        .=.+ 1
+        bitmap = bitmap | (@.<< 7)
+        .=.+ 1
+        bitmap = bitmap | (@.<< 8)
+        .=.+ 1
+        bitmap = bitmap | (@.<< 9)
+        .=.+ 1
+        bitmap = bitmap | (@.<< 10)
+        .=.+ 1
+        bitmap = bitmap | (@.<< 11)
+        .=.+ 1
+        bitmap = bitmap | (@.<< 12)
+        .=.+ 1
+        bitmap = bitmap | (@.<< 13)
+        .=.+ 1
+        bitmap = bitmap | (@.<< 14)
+        .=.+ 1
+        bitmap = bitmap | (@.<< 15)
+        .= iab
+        
+        return (bitmap)
+    }
+                   
+#
+# Return 1 if the macrocell is used otherwise 0
+#
+    func            mc_used() {
+        bits = mc_arch_bits($1)
+        if ((bits & 0x1e) == 0x1e) {
+# No Pterms allocated to macrocell, but check controls, too! 
+			mcterm = 8
+			while (mcterm < 16) {
+				if (mc_term_used($1,mcterm))
+					return (1)
+					mcterm = mcterm + 1
+			}
+            return (0)
+        }
+                        the_cell = $1
+        if ((bits & 0x02) == 0) {
+# Pterms 1-4 of current macrocell
+            ma_term_a = 0
+            while (ma_term_a < 4) {
+                if (mc_term_used(the_cell, ma_term_a) >= 1) {
+                    return (1)
+                }
+                ma_term_a = ma_term_a + 1
+            }
+        }
+        if ((bits & 0x08) == 0) {
+# Pterms 5-8 of current macrocell
+            ma_term_a = 4
+            while (ma_term_a < 8) {
+                if (mc_term_used(the_cell, ma_term_a) >= 1) {
+                    return (1)
+                }
+                ma_term_a = ma_term_a + 1
+            }
+        }
+        if ((bits & 0x10) == 0) {
+# Pterms 1-4 of previous macrocell
+            ma_term_a = 0
+            while (ma_term_a < 4) {
+                action = 0
+                mcp = mc_pre_next(the_cell, action)
+                if (mc_term_used(mcp, ma_term_a) >= 1) {
+                    return (1)
+                }
+                ma_term_a = ma_term_a + 1
+            }
+        }
+        if ((bits & 0x04) == 0) {
+# Pterms 5-8 of next macrocell
+            ma_term_a = 4
+            while (ma_term_a < 8) {
+                action = 1
+                mcn = mc_pre_next(the_cell, action)
+                if (mc_term_used(mcn, ma_term_a) >= 1) {
+                    return (1)
+                }
+                ma_term_a = ma_term_a + 1
+            }
+        }
+#
+# Check OE
+#
+        ma_term_a = 8
+        while (ma_term_a < 10) {
+            if (mc_term_used(the_cell, ma_term_a) >= 1) {
+                return (1)
+            }
+            ma_term_a = ma_term_a + 1
+        }
+#
+# Check Preset
+#
+        while (ma_term_a < 12) {
+            if (mc_term_used(the_cell, ma_term_a) >= 1) {
+                return (1)
+            }
+            ma_term_a = ma_term_a + 1
+        }
+#
+# Check Clock
+#
+        while (ma_term_a < 14) {
+            if (mc_term_used(the_cell, ma_term_a) >= 1) {
+                return (1)
+            }
+            ma_term_a = ma_term_a + 1
+        }
+#
+# Check Clear
+#
+        while (ma_term_a < 16) {
+            if (mc_term_used(the_cell, ma_term_a) >= 1) {
+                return (1)
+            }
+            ma_term_a = ma_term_a + 1
+        }
+        
+#
+# Not Used!
+#
+        return (0)
+    }
+    
+#
+# Return macrocell's number if $1 is the primary macrocells feedback
+#
+    func            ismacrocell() {
+        if (($1 > 19) && ($1 < 44)) {
+            if ($1 == 20) {
+                return (11)
+            } else if ($1 == 22) {
+                return (1)
+            } else if ($1 == 24) {
+                return (2)
+            } else if       ($1 == 26) {
+                return (3)
+            } else if ($1 == 28) {
+                return (4)
+            } else if ($1 == 30) {
+                return (5)
+            } else if ($1 == 32) {
+                return (6)
+            } else if ($1 == 34) {
+                return (8)
+            } else if ($1 == 36) {
+                return (7)
+            } else if ($1 == 38) {
+                return (10)
+            } else if ($1 == 40) {
+                return (9)
+            } else if ($1 == 42) {
+                return (12)
+            }
+        }
+        return (0)
+    }
+    
+#
+# Return the macrocell number if the array index is a macro cell
+#
+    func            is_mc_fb() {
+        if ($1 < 20) {
+            return (0)
+        }
+        if (($1 == 20) || ($1 == 44)) {
+            return (11)
+        } else if       (($1 == 22) || ($1 == 46)) {
+            return (1)
+        } else if (($1 == 24) || ($1 == 48)) {
+            return (2)
+        } else if (($1 == 26) || ($1 == 50)) {
+            return (3)
+        } else if (($1 == 28) || ($1 == 52)) {
+            return (4)
+        } else if (($1 == 30) || ($1 == 54)) {
+            return (5)
+        } else if (($1 == 32) || ($1 == 56)) {
+            return (6)
+        } else if (($1 == 34) || ($1 == 58)) {
+            return (8)
+        } else if (($1 == 36) || ($1 == 60)) {
+            return (7)
+        } else if (($1 == 38) || ($1 == 62)) {
+            return (10)
+        } else if (($1 == 40) || ($1 == 64)) {
+            return (9)
+        } else if (($1 == 42) || ($1 == 66)) {
+            return (12)
+        }
+        return (-1)
+    }
+    
+#
+# Return 1 if the macrocell's feedback is used
+#
+    func            mc_secondary_fb_used() {
+        mcfb_i =.
+        .= 0
+        .=.+ mc_sfb_idx($1)
+        while (.< (13056 + 544)) {
+# all fuses macrocells and inputs
+            if (@.== 0) {
+                return (1)
+# factor compliment used
+            } else {
+                .=.+ 1
+                if (@.== 0) {
+                    return (1)
+# factor used
+                }
+            }
+            .=.+ 67
+        }
+        .= mcfb_i
+        return (0)
+    }
+    
+#
+# Return 1 if the macrocell's output is inverted
+#
+    func            mc_arch_invert() {
+        bits = mc_arch_bits($1)
+        if ((bits & 0x20) == 0x00) {
+            return (1)
+        }
+                        return (0)
+    }
+    
+#
+# Return true if an input's pterm is used else false
+#
+    func            input_term_used() {
+        itu_i = 0
+        while (itu_i < 68) {
+            if (inp_term_inp($1, itu_i) == 1) {
+                return (1)
+            }
+                            itu_i = itu_i + 1
+        }
+        return (0)
+    }
+    
+#
+# Dump an input's pterm's factor's 
+#
+    func            dump_input_term() {
+        
+        di_i = 0
+        need_and = 0
+        found = 0
+        while (di_i < 68) {
+            if (inp_term_inp($1, di_i) == 1) {
+                if (need_and == 1) {
+                    print "*"
+                    need_and = 0
+                }
+                                io_i = is_mc_fb(di_i)
+                if (io_i != 0) {
+                    if (ismacrocell(di_i) >= 1) {
+                        print " io%d' ", io_i
+                    } else {
+                        print " io%df' ", io_i
+                    }
+                } else {
+                    print " in%d' ", array_inp(di_i)
+                }
+                need_and = 1
+                found = 1
+            }
+            if (inp_term_inp($1, (di_i + 1)) == 1) {
+                if (need_and == 1) {
+                    print "*"
+                    need_and = 0
+                }
+                io_i = is_mc_fb(di_i)
+                if (io_i != 0) {
+                    if (ismacrocell(di_i) >= 1) {
+                        print " io%d ", io_i
+                    } else {
+                        print " io%df ", io_i
+                    }
+                } else {
+                    print " in%d ", array_inp(di_i)
+                }
+                need_and = 1
+                found = 1
+            }
+            di_i = di_i + 2
+        }
+        
+        return (found)
+    }
+    
+#
+# Dump a pterms factor's 
+#
+    func            dump_term() {
+        
+        dt_i = 0
+        need_and = 0
+        dt_nor = 0
+        while (dt_i < 68) {
+            if (mc_term_inp($1, $2, dt_i) == 1) {
+                if (need_and == 1) {
+                    print "*"
+                    need_and = 0
+                }
+                io_i = is_mc_fb(dt_i)
+                if (io_i != 0) {
+                    if (ismacrocell(dt_i) >= 1) {
+                        print " io%d' ", io_i
+                    } else {
+                        print " io%df' ", io_i
+                    }
+                } else {
+                    print " in%d' ", array_inp(dt_i)
+                }
+                need_and = 1
+                dt_nor = 1
+            }
+            if (mc_term_inp($1, $2, (dt_i + 1)) == 1) {
+                if (need_and == 1) {
+                    print "*"
+                    need_and = 0
+                }
+                io_i = is_mc_fb(dt_i)
+                if (io_i != 0) {
+                    if (ismacrocell(dt_i) >= 1) {
+                        print " io%d ", io_i
+                    } else {
+                        print " io%df ", io_i
+                    }
+                } else {
+                    print " in%d ", array_inp(dt_i)
+                }
+                need_and = 1
+                dt_nor = 1
+            }
+            dt_i = dt_i + 2
+        }
+        if (!dt_nor)
+            print " VCC "
+        
+        return (dt_nor)
+    }
+    
+#
+# Output the turbo bit field
+#
+    proc            turbo_bit() {
+        tb_i =.
+        .= 13712
+        if (@.== 1) {
+            print "OPTIONS: TURBO=ON\n"
+        } else {
+            print "OPTIONS: TURBO=OFF\n"
+        }
+        .= tb_i
+    }
+    
+#
+# Return the input pin number of the logical index
+#
+    func            inp_idx_pin() {
+        if ($1 == 1) {
+            return (3)
+        } else if ($1 == 2) {
+            return (4)
+        } else if       ($1 == 3) {
+            return (5)
+        } else if ($1 == 4) {
+            return (6)
+        } else if ($1 == 5) {
+            return (7)
+        } else if ($1 == 6) {
+            return (8)
+        } else if ($1 == 7) {
+            return (9)
+        } else if ($1 == 8) {
+            return (10)
+        }
+        return (-1)
+    }
+    
+    
+#
+# Return the architecture array index fromt he passed pin number
+#
+    func            pin_arch_idx() {
+        if ($1 == 3) {
+            return (7)
+        } else if ($1 == 4) {
+            return (6)
+        } else if       ($1 == 5) {
+            return (5)
+        } else if ($1 == 6) {
+            return (4)
+        } else if ($1 == 7) {
+            return (3)
+        } else if ($1 == 8) {
+            return (2)
+        } else if ($1 == 9) {
+            return (1)
+        } else if ($1 == 10) {
+            return (0)
+        }
+        return (-1)
+    }
+    
+#
+# Output the inputs network section
+#
+#  if inp is asynchrounous and latched and term is all ones then use INP( )
+#  if inp is async and registered use term for clock RINP( )
+#  if inp is sync and registered use pin 13 as clock ignore term RINP( )
+#  if inp is async and latched use term for latch LINP( )
+#  if inp is sync and latched use pin 13 as latch ignore term LINP( )
+#
+#
+    proc            innetwork() {
+        ibits = inp_arch_bits()
+        hibits = ((ibits & 0xff00) >> 8)
+        libits = (ibits & 0x00ff)
+        inp_i = 0
+        while (inp_i < 10) {
+            if ((inp_i == 0) || (inp_i == 9)) {
+                print "       in%d = INP( ", inp_i
+                print "in%d )\n", inp_i
+            } else {
+                inp_pin = inp_idx_pin(inp_i)
+                aidx = pin_arch_idx(inp_pin)
+                if ((libits & (2 ** aidx)) == 0) {
+# Synchronous
+                    if ((hibits & (2 ** aidx)) == 0) {
+# Registered
+                        print "       in%d = RINP( ", inp_i
+                        print "in%d, in9, , )\n", inp_i
+                    } else {
+# Latched
+                        print "       in%d = LINP( ", inp_i
+                        print "in%d, in9 )\n", inp_i
+                    }
+                } else {
+# Asynchronous
+                    if ((hibits & (2 ** aidx)) == 0) {
+# Registered
+                        print "       in%d = RINP( ", inp_i
+                        print "in%d, in%d.clk, , )\n", inp_i, inp_i
+                        print "       in%d.clk = CLKB( ", inp_i
+                        print "in%d.clkb )\n", inp_i
+                    } else {
+# Latched
+                        if (input_term_used((inp_i - 1)) == 1) {
+                            print "       in%d = LINP( ", inp_i
+                            print "in%d, in%d.le )\n", inp_i, inp_i
+                            print "       in%d.le = LINB( ", inp_i
+                            print "in%d.linb )\n", inp_i
+                        } else {
+                            print "       in%d = INP( ", inp_i
+                            print "in%d )\n", inp_i
+                        }
+                    }
+                }
+            }
+            print "\n"
+            inp_i = inp_i + 1
+        }
+        print "\n\n"
+    }
+   
+#
+# Output the macrocells network section
+#
+    proc            ionetwork() {
+        io_i = 1
+        done = 0
+        while (io_i < 13) {
+# foreach macrocell
+            if (mc_used(io_i) == 1) {
+                bits = mc_arch_bits(io_i)
+                if ((bits & 0x40) == 0) {
+# Synchronous Clock
+                    clock = 1
+                } else {
+# Asynchronous Clock
+                    clock = 0
+                }
+                if (((bits & 0x80) == 0x80) && ((bits & 0x01) == 0x01)) {
+                    print "       io%d,", io_i
+                    print "io%d = TOTF( ", io_i
+                    print "eq%d, ", io_i
+                    if (clock == 1) {
+# sync
+                        print "in0, "
+                    } else {
+# async
+                        print "eq%d.clk, ", io_i
+                    }
+                    print "eq%d.clr, ", io_i
+                    print "eq%d.set, ", io_i
+                    print "eq%d.oe )\n", io_i
+                    if (clock == 0) {
+                        print "       eq%d.clk = CLKB( ", io_i
+                        print "eq%d.clkb )\n", io_i
+                    }
+                } else if (((bits & 0x80) == 0x80) && ((bits & 0x01) == 0x00)) {
+                    print "       io%d,", io_i
+                    print "io%d = RORF( ", io_i
+                    print "eq%d, ", io_i
+                    if (clock == 1) {
+# sync
+                        print "in0, "
+                    } else {
+# async
+                        print "eq%d.clk, ", io_i
+                    }
+                    print "eq%d.clr, ", io_i
+                    print "eq%d.set, ", io_i
+                    print "eq%d.oe )\n", io_i
+                    if (clock == 0) {
+                        print "       eq%d.clk = CLKB( ", io_i
+                        print "eq%d.clkb )\n", io_i
+                    }
+                } else {
+# Combinatorial cell
+                    print "       io%d,", io_i
+                    print "io%d = COCF( ", io_i
+                    print "eq%d, ", io_i
+                    print "eq%d.oe )\n", io_i
+                }
+                done = 1
+            }
+            if (mc_secondary_fb_used(io_i) == 1) {
+                print "       io%df = INP( ", io_i
+                print "io%df ) \n", io_i
+                done = 1
+            }
+            if (done == 1) {
+                done = 0
+                print "\n"
+            }
+            io_i = io_i + 1
+        }
+        print "\n"
+    }
+    
+#
+# Output all the input architecture equations
+#
+    proc            ineqs() {
+        ibits = inp_arch_bits()
+        hibits = ((ibits & 0xff00) >> 8)
+        libits = (ibits & 0x00ff)
+        inp_i = 0
+        while (inp_i < 10) {
+            if ((inp_i != 0) && (inp_i != 9)) {
+                inp_pin = inp_idx_pin(inp_i)
+                aidx = pin_arch_idx(inp_pin)
+                if ((libits & (2 ** aidx)) != 0) {
+# Asynchronous clock
+                    if ((hibits & (2 ** aidx)) == 0) { # REGISTERED
+                        if (input_term_used((inp_i - 1)) == 1) { print "       in%d.clkb =", inp_i
+                            factor_found = dump_input_term((inp_i - 1))
+                            if (factor_found == 0) {
+                                print " VCC "
+                            }
+                            print ";\n\n"
+                        }
+                    }
+					else { # LATCHED
+                        if (input_term_used((inp_i - 1)) == 1) { print "       in%d.linb =", inp_i
+                            factor_found = dump_input_term((inp_i - 1))
+                            if (factor_found == 0) {
+                                print " VCC "
+                            }
+                            print ";\n\n"
+                        }
+					}
+                }
+            }
+            inp_i = inp_i + 1
+        }
+        print "\n"
+    }
+    
+#
+# Output all the equations that drive macrocell's and input architectures
+#
+    proc            equations()
+    {
+        eq_i = 1
+        while (eq_i < 13) {
+# foreach macrocell
+            message "Processing Macrocell [ %d ] \n", eq_i
+            if (mc_used(eq_i) == 1) {
+                print "       eq%d", eq_i
+                if (mc_arch_invert(eq_i) == 1) {
+                    print "'"
+                }
+                print " ="
+                need_or = 0
+                factor_found = 0
+                bits = mc_arch_bits(eq_i)
+                if ((bits & 0x02) == 0) {
+# Pterms 1-4 of current macrocell
+                    eq_term_i = 0
+                    while (eq_term_i < 4) {
+                       if ((factor_found = mc_term_used(eq_i, eq_term_i)) > 0){
+                            if (need_or) {
+                                print "\n           + "
+                            }
+                            dump_term(eq_i, eq_term_i)
+                            if (factor_found) need_or = 1
+                        }
+                        eq_term_i = eq_term_i + 1
+                    }
+                }
+                if ((bits & 0x08) == 0) {
+# Pterms 5-8 of current macrocell
+                    eq_term_i = 4 
+                    while (eq_term_i < 8) {
+                       if ((factor_found = mc_term_used(eq_i, eq_term_i)) > 0){
+                            if (need_or) {
+                                print "\n           + "
+                            }
+                            dump_term(eq_i, eq_term_i)
+                            if (factor_found) need_or = 1
+                        }
+                        eq_term_i = eq_term_i + 1
+                    }
+                }
+                if ((bits & 0x10) == 0) {
+# Pterms 1-4 of previous macrocell
+                    eq_term_i = 0
+                    while (eq_term_i < 4) {
+                        mcp = mc_pre_next(eq_i, 0)
+                       if ((factor_found = mc_term_used(mcp, eq_term_i)) > 0){
+                            if (need_or) {
+                                print "\n           + "
+                            }
+                            dump_term(mcp, eq_term_i)
+                            if (factor_found) need_or = 1
+                        }
+                        eq_term_i = eq_term_i + 1
+                    }
+                }
+                if ((bits & 0x04) == 0) {
+# Pterms 5-8 of next macrocell
+                    eq_term_i = 4
+                    while (eq_term_i < 8) {
+                        mcn = mc_pre_next(eq_i, 1)
+                       if ((factor_found = mc_term_used(mcn, eq_term_i)) > 0){
+                            if (need_or) {
+                                print "\n           + "
+                            }
+                            dump_term(mcn, eq_term_i)
+                            if (factor_found) need_or = 1
+                        }
+                        eq_term_i = eq_term_i + 1
+                    }
+                }
+                if ((factor_found == 0) && (!need_or)) {
+                    print " GND "
+                }
+                print ";\n\n"
+                
+#
+# Oe Control
+#
+                print "       eq%d.oe =", eq_i
+                need_or = 0
+                
+                eq_term_i = 8
+                while (eq_term_i < 10) {
+                   if ((factor_found = mc_term_used(eq_i, eq_term_i)) > 0){
+                        if (need_or) {
+                            print "\n           + "
+                        }
+                        dump_term(eq_i, eq_term_i)
+                        if (factor_found) need_or = 1
+                    }
+                    eq_term_i = eq_term_i + 1
+                }
+                if ((factor_found == 0) && (!need_or)) {
+                    print " GND "
+                }
+                print ";\n\n"
+                if ((bits & 0x80) != 0) {
+# Registered Macrocell
+#
+# Preset Control
+#
+                    print "       eq%d.set =", eq_i
+                    need_or = 0
+                    
+                    eq_term_i = 10
+                    while (eq_term_i < 12) {
+                       if ((factor_found = mc_term_used(eq_i, eq_term_i)) > 0){
+                            if (need_or) {
+                                print "\n           + "
+                            }
+                            dump_term(eq_i, eq_term_i)
+                            if (factor_found) need_or = 1
+                        }
+                        eq_term_i = eq_term_i + 1
+                    }
+                    if ((factor_found == 0) && (!need_or)) {
+                        print " GND "
+                    }
+                    print ";\n\n"
+                    if ((bits & 0x40) != 0) {
+# Async Clock
+#
+# Clock Control
+#
+                        print "       eq%d.clkb =", eq_i
+                        need_or = 0
+                            
+                        eq_term_i = 12
+                        while (eq_term_i < 14) {
+                           if ((factor_found = 
+                               mc_term_used(eq_i, eq_term_i)) > 0){
+                                if (need_or) {
+                                    print "\n           + "
+                                }
+                                dump_term(eq_i, eq_term_i)
+                                if (factor_found) need_or = 1
+                            }
+                            eq_term_i = eq_term_i + 1
+                        }
+                        if ((factor_found == 0) && (!need_or)) {
+                            print " GND "
+                        }
+                        print ";\n\n"
+                    }
+#
+# Clear Control
+#
+                    print "       eq%d.clr =", eq_i
+                    need_or = 0
+                    
+                    eq_term_i = 14
+                    while (eq_term_i < 16) {
+                       if ((factor_found = mc_term_used(eq_i, eq_term_i)) > 0){
+                            if (need_or) {
+                                print "\n           + "
+                            }
+                            dump_term(eq_i, eq_term_i)
+                            if (factor_found) need_or = 1
+                        }
+                        eq_term_i = eq_term_i + 1
+                    }
+                    if ((factor_found == 0) && (!need_or)) {
+                        print " GND "
+                    }
+                    print ";\n\n"
+                }
+            }
+            eq_i = eq_i + 1
+        }
+    }
+#
+# Output all the used outputs in the OUTPUTS section of the ADF
+#
+    proc            fetch_outpins() {
+        mcell_i = 1
+        need_comma = 0
+        while (mcell_i < 13) {
+            if (mc_used(mcell_i) == 1) {
+                if (need_comma == 1) {
+                    print ",\n"
+                }
+                                print "       io%d", mcell_i
+                print "@%d", map_pin(mc_pin_number(mcell_i))
+                need_comma = 1
+            }
+            mcell_i = mcell_i + 1
+        }
+    }
+    
+#
+# Output all the used inputs in the INPUTS section of the ADF
+#
+    proc            fetch_inpins() {
+        mcell_i = 1
+        need_comma = 1
+        
+        print "INPUTS:\n"
+        print "       in0@%d, in1@%d, in2@%d, in3@%d, in4@%d,\n", map_pin(1), map_pin(3), map_pin(4), map_pin(5), map_pin(6)
+        print "       in5@%d, in6@%d, in7@%d, in8@%d, in9@%d", map_pin(7), map_pin(8), map_pin(9), map_pin(10), map_pin(13)
+        
+        while (mcell_i < 13) {
+            if (mc_secondary_fb_used(mcell_i) == 1) {
+                if (need_comma == 1) {
+                    print ",\n"
+                }
+                                print "       io%df", mcell_i
+                print "@%d", map_pin(mc_pin_number(mcell_i))
+                need_comma = 1
+            }
+            mcell_i = mcell_i + 1
+        }
+    }
+    
+    proc            errmsg()
+    {
+        if ($1 == 1)
+            message "ERROR JDBMAC: "
+        if ($1 == 2)
+            message "JEDEC Disassembly Errors Occurred.\n"
+    }
+    
+    proc            infomsg()
+    {
+        if ($1 == 1)
+            message "INFO JDBMAC: "
+        if ($1 == 2)
+            message "JEDEC Disassembly in progress...\n"
+        if ($1 == 3)
+            message "JEDEC Disassembly Successfully Completed\n"
+    }
+    
+#
+# Disassemble a 5AC312 JEDEC file into ADF source code
+#
+    proc            de312() {
+        turbo_bit()
+        print "\n"
+        if ($1) {
+            JDBV_pinmap = 1
+            print "PART: N5AC312\n"
+            infomsg(1)
+            message "N5AC312 "
+            infomsg(2)
+        } else {
+            JDBV_pinmap = 0
+            print "PART: D5AC312\n"
+            infomsg(1)
+            message "D5AC312 "
+            infomsg(2)
+        }
+        if (jedec_fuses() != 13713) {
+            errmsg(1)
+            message "The source JEDEC file is incompatible with the 5AC312 device.\n"
+            errmsg(1)
+            errmsg(2)
+            exit 1
+        }
+        print "\n"
+        fetch_inpins()
+        
+        print "\n\n"
+        print "OUTPUTS:\n"
+        
+        fetch_outpins()
+        
+        print "\n\n"
+        print "NETWORK:\n"
+        
+        innetwork()
+        
+        ionetwork()
+        
+        print "EQUATIONS:\n"
+        
+        ineqs()
+        
+        equations()
+        
+        print "END$\n"
+        infomsg(3)
+    }

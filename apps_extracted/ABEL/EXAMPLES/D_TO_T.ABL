@@ -1,0 +1,42 @@
+module DtoT
+title 'Octal counter with load and clear'
+
+    D0..D7       pin;
+    Q7..Q0       pin istype 'reg_T';
+    CLK, I0, I1  pin;
+
+    Data  = [D7..D0];
+    Count = [Q7..Q0];
+    Mode  = [I1,I0];
+    Clear = [ 0, 0];
+    Hold  = [ 0, 1];
+    Load  = [ 1, 0];
+    Inc   = [ 1, 1];
+
+    X,C = .x.,.c.;
+
+equations
+    Count.T = ((Count.q + 1) & (Mode == Inc)
+             # (Count.q ) & (Mode == Hold)
+             # (Data ) & (Mode == Load)
+             # (0 ) & (Mode == Clear))
+            $ Count.q;
+
+    Count.C = CLK;
+
+test_vectors ([CLK,Mode ,Data] -> Count)
+              [ C ,Load ,  1 ] ->   1;
+              [ C ,Inc  ,  X ] ->   2;
+              [ C ,Inc  ,  X ] ->   3;
+              [ C ,Inc  ,  X ] ->   4;
+              [ C ,Inc  ,  X ] ->   5;
+              [ C ,Load ,  3 ] ->   3;
+              [ C ,Inc  ,  X ] ->   4;
+              [ C ,Load ,  7 ] ->   7;
+              [ C ,Inc  ,  X ] ->   8;
+              [ C ,Hold ,  X ] ->   8;
+              [ C ,Clear,  X ] ->   0;
+              [ C ,Load ,^hFE] -> ^hFE;
+              [ C ,Inc  ,  X ] -> ^hFF;
+              [ C ,Inc  ,  X ] -> ^h00;
+end

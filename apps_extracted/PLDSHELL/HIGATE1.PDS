@@ -1,0 +1,14 @@
+; higher level design that calls 2-bit module
+
+    CHIP MYDESIGN EP220
+
+    PIN ADDR1
+    PIN ADDR2
+    PIN BADDR1
+    PIN BADDR2
+    PIN WE1
+    PIN WE2
+
+    MODULE 2_bit_compare FILE 2bcmpr (a1=ADDR1, a2=ADDR2, b1=BADDR1, b2=BADDR2, 
+                                cmp1=WE1, cmp2=WE2)
+

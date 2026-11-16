@@ -1,0 +1,116 @@
+Name      Busarb;
+Partno	  CA0019;
+Date      3/19/85;
+Revision  01;
+Designer  Kahl;
+Company   Assisted Technology;
+Assembly  None;
+Location  None;
+Device    f105;
+
+/****************************************************************/
+/*								*/
+/* Multiprocessor Bus Arbiter					*/
+/*								*/
+/* This is an implementation of a single chip multiprocsssor	*/ 
+/* bus arbiter (as originally described by Signetics Corp.) 	*/
+/* Priority A Processors (R0..4) are granted the bus (G0A..G4A)	*/
+/* on a "Last Granted Lowest Priorty" basis.  Priority b 	*/
+/* Processors (r0..2) are granted the bus (g0b..g2b) on a fixed */
+/* priority basis, and only when Priority A Processors are not	*/
+/* requesting the bus.						*/
+/****************************************************************/
+/* Allowable Target Device Types :  82S105                     	*/
+/****************************************************************/
+
+/**  Inputs  **/
+
+pin 1	= sys_clk; 		/* System Clock 		*/
+pin [9..5] = ![R0..4];		/* Priority A Processor Request */
+pin [4..2] = ![r0..2];		/* Priority b Processor Request */
+pin 19	= sys_reset;		/* System Reset 		*/
+
+/**  Outputs  **/
+
+pin [18..15,13] = [G0A,G1A,G2A,G3A,G4A];/* Priority A Processor Grant	*/
+pin [12..10] = [g0b,g1b,g2b];		/* Priority b Processor Grant	*/
+
+/**  Internal Node Declarations  **/
+
+node [A,B,C,D,E,F];		/* Internal State Bits		*/
+
+/** Declarations and Intermediate Variable Definitions **/
+
+field mach_A = [A,B,C,D,E,F];	/* Priority A Processor Field	*/
+field mach_b = [A,B,C];		/* Priority b Processor Field	*/
+
+not_A = !R0 & !R1 & !R2 & !R3 & !R4;	/* No A Processors Requesting	*/
+
+$define WAIT0  'b'111111	/* Wait State 0 - reset state	*/
+$define WAIT1  'b'111110	/* Wait State 1			*/
+$define WAIT2  'b'111101	/* Wait State 2			*/
+$define WAIT3  'b'111100	/* Wait State 3			*/
+$define WAIT4  'b'111011	/* Wait State 4			*/
+$define GRANT0 'b'000110	/* Grant Priority A Processor 0	*/
+$define GRANT1 'b'000111	/* Grant Priority A Processor 1	*/
+$define GRANT2 'b'001110	/* Grant Priority A Processor 2	*/
+$define GRANT3 'b'001111	/* Grant Priority A Processor 3	*/
+$define GRANT4 'b'010110	/* Grant Priority A Processor 4	*/
+$define waitx  'b'111		/* Any wait state for machine A	*/
+$define grant0 'b'101		/* Grant Priority b Processor 0	*/
+$define grant1 'b'110		/* Grant Priority b Processor 1	*/
+$define grant2 'b'100		/* Grant Priority b Processor 2	*/
+
+/** Logic Equations **/
+
+sequence mach_A {
+
+present WAIT0	if R0				next GRANT0	out !G0A;
+		if R1 & !R0			next GRANT1	out !G1A;
+		if R2 & !R1 & !R0		next GRANT2	out !G2A;
+		if R3 & !R2 & !R1 & !R0		next GRANT3	out !G3A;
+		if R4 & !R3 & !R2 & !R1 & !R0	next GRANT4	out !G4A;
+present WAIT1	if R1				next GRANT1	out !G1A;
+		if R2 & !R1			next GRANT2	out !G2A;
+		if R3 & !R2 & !R1		next GRANT3	out !G3A;
+		if R4 & !R3 & !R2 & !R1		next GRANT4	out !G4A;
+		if R0 & !R4 & !R3 & !R2 & !R1	next GRANT0	out !G0A;
+present WAIT2	if R2				next GRANT2	out !G2A;
+		if R3 & !R2			next GRANT3	out !G3A;
+		if R4 & !R3 & !R2		next GRANT4	out !G4A;
+		if R0 & !R4 & !R3 & !R2		next GRANT0	out !G0A;
+		if R1 & !R0 & !R4 & !R3 & !R2	next GRANT1	out !G1A;
+present WAIT3	if R3				next GRANT3	out !G3A;
+		if R4 & !R3			next GRANT4	out !G4A;
+		if R0 & !R4 & !R3		next GRANT0	out !G0A;
+		if R1 & !R0 & !R4 & !R3		next GRANT1	out !G1A;
+		if R2 & !R1 & !R0 & !R4 & !R3	next GRANT2	out !G2A;
+present WAIT4	if R4				next GRANT4	out !G4A;
+		if R0 & !R4			next GRANT0	out !G0A;
+		if R1 & !R0 & !R4		next GRANT1	out !G1A;
+		if R2 & !R1 & !R0 & !R4		next GRANT2	out !G2A;
+		if R3 & !R2 & !R1 & !R0 & !R4	next GRANT3	out !G3A;
+present GRANT0	if !R0				next WAIT1	out  G0A;
+present GRANT1	if !R1				next WAIT2	out  G1A;
+present GRANT2	if !R2				next WAIT3	out  G2A;
+present GRANT3	if !R3				next WAIT4	out  G3A;
+present GRANT4  if !R4				next WAIT0	out  G4A;
+}
+
+/* A subset of the state bits is created as a second machine so that	*/
+/* after a Priority b Processor is granted the bus, the Bus Arbiter	*/
+/* returns to the same WAIT state from which it was interrupted before	*/
+/* the bus request.							*/
+
+sequence mach_b {
+
+present waitx 	if r0 & not_A 			next grant0	out !g0b;
+		if r1 & !r0 & not_A		next grant1	out !g1b;
+		if r2 & !r1 & !r0 & not_A	next grant2	out !g2b;
+present grant0	if !r0				next waitx	out  g0b;
+present grant1	if !r1				next waitx	out  g1b;
+present grant2	if !r2				next waitx	out  g2b;
+}
+
+						/* all registers preset	*/
+[A,B,C,D,E,F,G0A,G1A,G2A,G3A,G4A,g0b,g1b,g2b].ap = sys_reset;

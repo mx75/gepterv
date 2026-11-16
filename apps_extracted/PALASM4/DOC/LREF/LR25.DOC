@@ -1,0 +1,52 @@
+ğ
+GND
+Overview
+You can include this reserved word in an equation to hold a pin, node,
+or functional equation unconditionally low.  GND is always treated as
+logical zero.
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+            Pn or
+            Functional
+            Equation    Assignment Operator    GND
+
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Device Support:  All PLD devices.
+ú
+Syntax
+You use the reserved word, GND, in the equations segment of Boolean
+and state-machine designs.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+            Pn or
+            Functional
+            Equation    Assignment Operator    GND
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+            OUT4               =               GND
+            OE1.TRST           =               GND
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+
+Pn or           Defines the element to be held low.
+Function
+Equation        ş  The pin or node name defined in the pin or node
+                   statement of the declaration segment
+
+                ş  The Pn.function defined in an earlier functional
+                   equation
+ú
+Use
+GND is normally used in functional equations.  You can enter 0 instead
+of GND anywhere you want an unconditional low value.
+
+Important: You must define the GND pin in the pin statements.
+ú
+Related Topics
+Functional Equation
+NODE
+PIN
+VCC
+ú

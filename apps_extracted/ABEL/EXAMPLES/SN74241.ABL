@@ -1,0 +1,30 @@
+module sn74241
+title 'Octal buffer and line driver with 3-state output'
+
+    A1,A2,A3,A4    pin;
+    B1,B2,B3,B4    pin;
+    GA,GB          pin;
+    Y1,Y2,Y3,Y4    pin istype 'com';
+    X1,X2,X3,X4    pin istype 'com';
+
+    A = [A4..A1];
+    B = [B4..B1];
+    X = [X4..X1];
+    Y = [Y4..Y1];
+
+equations
+    X     = A;
+    X.oe  = !GA;     "Active Low Enable
+    Y     = B;
+    Y.oe  = GB;      "Active High Enable
+
+test_vectors ([GA, A , GB, B ] -> [ X , Y ])
+              [ 1, 0 , 0 , 0 ] -> [.Z.,.Z.];
+              [ 0, 0 , 0 , 0 ] -> [ 0 ,.Z.];
+              [ 0, 5 , 0 , 0 ] -> [ 5 ,.Z.];
+              [ 0,10 , 1 , 0 ] -> [10 , 0 ];
+              [ 0,15 , 1 , 5 ] -> [15 , 5 ];
+              [ 1,15 , 1 ,10 ] -> [.Z.,10 ];
+              [ 1, 0 , 1 ,15 ] -> [.Z.,15 ];
+
+end

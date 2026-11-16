@@ -1,0 +1,95 @@
+Name       Iodecode;
+Partno     CA0010;
+Revision   02;
+Date       9/22/84;
+Designer   Osann/Kahl;
+Company    Assisted Technology, Inc.;
+Assembly   PC Multi-Function;
+Location   U12;
+Device     F153;
+
+/************************************************************************/
+/* This device generates the chip select signals for the I/O functions. */
+/* It also enables the data bus transceiver for both memory and I/O     */
+/* write cycles.                                                        */
+/************************************************************************/
+/* Allowable Target Device Types:       PAL12L6   82S153                */
+/************************************************************************/
+
+ORDER:  a9, %1, a8, %1, a7, %1, a6, %1, a5, %1, a4, %1, a3, %1, a2, %2,
+        !memw, %1, !iow, %1, !ioacc_in, %1, !memacc, %2,
+
+        !parport, %1, !rtclk, %1, !serport1, %1,
+        !serport2, %1, !ioacc, %1, !wrbuff;
+
+VECTORS:
+
+$msg "                           !        ! !";
+$msg "                           i    !   s s";
+$msg "                           o !  p   e e   !";
+$msg "                           a m  a ! r r ! w";
+$msg "                       !   c e  r r p p i r";
+$msg "                       m ! c m  p t o o o b";
+$msg "                       e i | a  o c r r a u";
+$msg "      a a a a a a a a  m o i c  r l t t c f";
+$msg "      9 8 7 6 5 4 3 2  w w n c  t k 1 2 c f";
+$msg "     ---------------------------------------";
+0 1 0 0 0 0 0 0  1 0 0 1  H L H H L L   /* real-time clock wr 100-103   */
+0 1 0 0 0 0 0 1  1 0 0 1  H L H H L L   /* real-time clock wr 104-107   */
+0 1 0 0 0 0 1 0  1 0 0 1  H L H H L L   /* real-time clock wr 108-10B   */
+0 1 0 0 0 0 1 1  1 0 0 1  H L H H L L   /* real-time clock wr 10C-10F   */
+0 1 0 0 0 1 0 0  1 0 0 1  H L H H L L   /* real-time clock wr 110-113   */
+0 1 0 0 0 1 0 1  1 0 0 1  H L H H L L   /* real-time clock wr 114-117   */
+0 1 0 0 0 1 1 0  1 0 0 1  H L H H L L   /* real-time clock wr 118-11B   */
+0 1 0 0 0 1 1 1  1 0 0 1  H L H H L L   /* real-time clock wr 11C-11F   */
+0 1 0 0 0 0 0 0  1 1 0 1  H L H H L H   /* real-time clock rd 100-103   */
+0 1 0 0 0 0 0 1  1 1 0 1  H L H H L H   /* real-time clock rd 104-107   */
+0 1 0 0 0 0 1 0  1 1 0 1  H L H H L H   /* real-time clock rd 108-10B   */
+0 1 0 0 0 0 1 1  1 1 0 1  H L H H L H   /* real-time clock rd 10C-10F   */
+0 1 0 0 0 1 0 0  1 1 0 1  H L H H L H   /* real-time clock rd 110-113   */
+0 1 0 0 0 1 0 1  1 1 0 1  H L H H L H   /* real-time clock rd 114-117   */
+0 1 0 0 0 1 1 0  1 1 0 1  H L H H L H   /* real-time clock rd 118-11B   */
+0 1 0 0 0 1 1 1  1 1 0 1  H L H H L H   /* real-time clock rd 11C-11F   */
+0 1 1 1 1 1 0 1  1 0 0 1  L H H H L L   /* parallel port   wr 1F4-1F7   */
+0 1 1 1 1 1 0 1  1 1 0 1  L H H H L H   /* parallel port   rd 1F4-1F7   */
+1 0 1 1 1 1 1 0  1 0 0 1  H H L H L L   /* serial port #1  wr 2F8-2FB   */
+1 0 1 1 1 1 1 1  1 0 0 1  H H L H L L   /* serial port #1  wr 2FC-2FF   */
+1 0 1 1 1 1 1 0  1 1 0 1  H H L H L H   /* serial port #1  rd 2F8-2FB   */
+1 0 1 1 1 1 1 1  1 1 0 1  H H L H L H   /* serial port #1  rd 2FC-2FF   */
+1 1 1 1 1 1 1 0  1 0 0 1  H H H L L L   /* serial port #2  wr 3F8-3FB   */
+1 1 1 1 1 1 1 1  1 0 0 1  H H H L L L   /* serial port #2  wr 3FC-3FF   */
+1 1 1 1 1 1 1 0  1 1 0 1  H H H L L H   /* serial port #2  rd 3F8-3FB   */
+1 1 1 1 1 1 1 1  1 1 0 1  H H H L L H   /* serial port #2  rd 3FC-3FF   */
+0 0 0 0 0 0 0 1  0 1 1 0  H H H H H L   /* memory access   wr 004-007   */
+0 0 0 0 0 0 1 0  0 1 1 0  H H H H H L   /* memory access   wr 008-00B   */
+0 0 0 0 0 1 0 0  0 1 1 0  H H H H H L   /* memory access   wr 010-013   */
+0 0 0 0 1 0 0 0  0 1 1 0  H H H H H L   /* memory access   wr 020-023   */
+0 0 0 1 0 0 0 0  0 1 1 0  H H H H H L   /* memory access   wr 040-043   */
+0 0 1 0 0 0 0 0  0 1 1 0  H H H H H L   /* memory access   wr 080-083   */
+0 1 0 0 0 0 0 0  0 1 1 0  H L H H L L   /* memory access   wr 100-103   */
+1 0 0 0 0 0 0 0  0 1 1 0  H H H H H L   /* memory access   wr 200-203   */
+1 1 1 1 1 1 1 0  0 1 1 0  H H H L L L   /* memory access   wr 3F8-3FB   */
+1 1 1 1 1 1 0 1  0 1 1 0  H H H H H L   /* memory access   wr 3F4-3F7   */
+1 1 1 1 1 0 1 1  0 1 1 0  H H H H H L   /* memory access   wr 3EC-3EF   */
+1 1 1 1 0 1 1 1  0 1 1 0  H H H H H L   /* memory access   wr 3DC-3DF   */
+1 1 1 0 1 1 1 1  0 1 1 0  H H H H H L   /* memory access   wr 3BC-3BF   */
+1 1 0 1 1 1 1 1  0 1 1 0  H H H H H L   /* memory access   wr 37C-37F   */
+1 0 1 1 1 1 1 1  0 1 1 0  H H L H L L   /* memory access   wr 2FC-2FF   */
+0 1 1 1 1 1 1 1  0 1 1 0  H H H H H L   /* memory access   wr 1FC-1FF   */
+0 0 0 0 0 0 0 1  1 1 1 0  H H H H H H   /* memory access   rd 004-007   */
+0 0 0 0 0 0 1 0  1 1 1 0  H H H H H H   /* memory access   rd 008-00B   */
+0 0 0 0 0 1 0 0  1 1 1 0  H H H H H H   /* memory access   rd 010-013   */
+0 0 0 0 1 0 0 0  1 1 1 0  H H H H H H   /* memory access   rd 020-023   */
+0 0 0 1 0 0 0 0  1 1 1 0  H H H H H H   /* memory access   rd 040-043   */
+0 0 1 0 0 0 0 0  1 1 1 0  H H H H H H   /* memory access   rd 080-083   */
+0 1 0 0 0 0 0 0  1 1 1 0  H L H H L H   /* memory access   rd 100-103   */
+1 0 0 0 0 0 0 0  1 1 1 0  H H H H H H   /* memory access   rd 200-203   */
+1 1 1 1 1 1 1 0  1 1 1 0  H H H L L H   /* memory access   rd 3F8-3FB   */
+1 1 1 1 1 1 0 1  1 1 1 0  H H H H H H   /* memory access   rd 3F4-3F7   */
+1 1 1 1 1 0 1 1  1 1 1 0  H H H H H H   /* memory access   rd 3EC-3EF   */
+1 1 1 1 0 1 1 1  1 1 1 0  H H H H H H   /* memory access   rd 3DC-3DF   */
+1 1 1 0 1 1 1 1  1 1 1 0  H H H H H H   /* memory access   rd 3BC-3BF   */
+1 1 0 1 1 1 1 1  1 1 1 0  H H H H H H   /* memory access   rd 37C-37F   */
+1 0 1 1 1 1 1 1  1 1 1 0  H H L H L H   /* memory access   rd 2FC-2FF   */
+0 1 1 1 1 1 1 1  1 1 1 0  H H H H H H   /* memory access   rd 1FC-1FF   */
+

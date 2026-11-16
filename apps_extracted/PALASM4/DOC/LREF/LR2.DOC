@@ -1,0 +1,65 @@
+ğ
+AUTHOR
+Overview
+This is the keyword of a statement that defines the name of the
+design's author.  This statement is useful for documenting the design.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                     AUTHOR        Designer
+
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Device support: All PLD devices.
+ú
+Syntax
+You can use the Author statement only in the declaration segment, as
+shown below.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                     AUTHOR        Designer
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                     TITLE
+                     PATTERN
+                     REVISION
+                     AUTHOR        Karen Olsen
+                     COMPANY
+                     DATE
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+
+Designer        Defines the name of the individual who created the
+                design.  Observe the guidelines below.
+
+                ş  Include the Author statement and designer name in
+                   either Boolean or state-machine files or in the
+                   schematic-control file form.
+
+                ş  Place the statement and name in the order specified
+                   in the syntax example, following Revision and
+                   preceding Company.
+
+                ş  Use any combination of up to 59 alphanumeric
+                   characters and the period character.
+
+                Reserved words are allowed within this statement;
+                however, do not use any punctuation or symbols other
+                than the period.
+ú
+Use
+The following error conditions pertain to the Author statement.
+
+ş    Without the Author statement, the software issues a warning and
+     continues processing the file.
+
+ş    With multiple Author statements, the software issues an error and
+     stops processing the file.
+ú
+Related Topics
+COMPANY
+DATE
+Declaration Segment
+PATTERN
+REVISION
+TITLE
+ú

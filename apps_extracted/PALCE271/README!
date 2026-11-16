@@ -1,0 +1,246 @@
+********  Welcome to the PLACE Advanced Development Software from ICT  ********
+
+This README.DOC file provides the following information regarding the PLACE
+software.
+
+  1. New Versions of PLACE
+  2. System Requirements.
+  3. Installation.
+  4. Notes for Non-Logitech and Non-Microsoft mouse users.
+  5. Notes for PEEL Array Applications Designer
+  6. Notes for MS DOS 5.0 (or greater) users.
+  7. Notes for Logitech mouse with Version 6.0 or higher driver.
+  8. Notes for Dr. DOS 6.0 users.
+  9. Notes for PDS-3 programmer users.
+  10.PLACE Glossary.
+  11.Install Errors.
+  12.COUNTF() Macro Function.
+  13.Examples of Basic AUTOEXEC.BAT and CONFIG.SYS recommended for PLACE.
+
+Welcome to the PLACE Advanced Development Software Version 2.70 from ICT Inc.. 
+PLACE (PEEL Logic Architectural Compiler and Editor) is an enhanced 
+development package that offers complete support for ICT's family of PEEL 
+(Programmable Electrically Erasable Logic) Arrays and Devices.
+
+*** New Versions of PLACE ***
+The differences between Version 2.71 and Version 2.70 include:
+(1) Added the new device option for PEEL22V10AZ.
+(2) Added the PA7140 Jedec option for PLCC or DIP format.
+(3) Remoted the obsolete device options from the menu.
+(4) Consistent Pinout display between DESIGN and COMIPLE modules.
+(5) Changed Optimization default level 5 to "Auto level 1-5" for PA7140.
+(6) Revised the 85C220 and 85C224 translation algorithms.
+(7) Revised the compilation algorithms for PEEL22CV8
+
+*** System Requirements ***
+
+- IBM PC,XT,AT, 386, 486 or compatible
+- Minimum 540K RAM memory for most designs. Large designs may require
+  up to 560K of free RAM.
+- EGA, VGA, SVGA or Hercules Graphics
+- At least 4.0 MB of hard disk free space
+- Microsoft mouse or compatible with driver
+- DOS version 3.0 or greater
+- (Optional) Expanded Memory with LIM Specification Version 3.2 or greater.
+- One additional communication port for PDS-2 and PDS-3 programmers.
+
+*** Installation ***
+
+-- Software Installation to Hard Disk --
+
+1.  Turn the computer on.
+2.  Boot-up DOS 3.0 or greater.
+3.  Install your mouse driver first. PLACE will not boot-up without it.
+4.  Insert the PLACE Install Disk into drive A. 
+     Note: Do not write-protect this disk.
+5.  At the prompt "A>", type "INSTAL" followed by the ENTER key. This
+    copies all files from the diskette into the user-specified directory
+    (directory defaults to "C:\ICTPLACE").
+6.  After installation is completed, type "INIT" followed by the ENTER
+    key.
+
+
+Notes:
+a.  For re-initialization, type "INIT" followed by the ENTER key.
+b.  (Optional) Assuming the target hard disk drive is C, include the
+    directory "C:\ICTPLACE" into your DOS Path and insert the statement
+    "SET ICTPLACE=C:\ICTPLACE" into your AUTOEXEC.BAT file.
+    This allows you to call up PLACE from any directory.
+c.  If you are going to use the ICT PDS-3 programmer, please install the PDS-3
+    software followed by the completion of the PLACE installation.
+
+
+*** Notes for Non-Logitech and Non-Microsoft mouse users ***
+
+In order to have the PLACE software running successfully on your computer, ICT 
+strongly recommends using the Logitech or Microsoft mouse and driver to run 
+the software. 
+
+
+*** Notes for PEEL Array Applications Designer ***
+
+In order to have PLACE DESIGN software running properly, please label the LCCs
+and IOs prior to configuring the LCCs and IOs.
+
+*** Notes for MS DOS 5.0 (or greater) users ***
+
+- Minimize the usage of the TSR programs (e.g., PC pop-up calculator program), 
+  so that the computer can have more free memory to run the software.
+- Because DOS will not tell you if the procedure is successful or not, 
+  be sure that your computer has enough upper memory available before 
+  you load any TSR programs,e.g.,
+            
+            LOADHIGH(LH) PC-CALC.EXE (Load PC-CALC.EXE into upper memory)
+
+  
+  If not, the program will occupy the conventional memory instead. The easy 
+  way to find out if the program is loaded into upper memory area or not is
+  to enter the command
+        MEM /C
+  and note the program's location in memory.
+
+
+*** Notes for Dr. DOS 6.0 users ***
+
+If you have the Dr. DOS 6.0 operating system, please read the file DRDOS6.DOC
+before installing the PLACE software.
+
+*** Notes for PDS-3 programmer users ***
+
+In order to interface with PLACE properly, please use PDS-3 Version 1.18 or 
+greater. For upgrade information, please contact ICT technical support.
+
+*** Notes for Logitech mouse driver Version 6.0 or higher ***
+
+If you have a Logitech mouse with driver Version 6.0 or higher, please turn off
+the " Video Overlay" switch by appending "NOVCI" to the mouse command in the
+AUTOEXEC.BAT file. for example
+     OLD                  NEW
+ -----------         -----------------------------   
+ ...                 ...
+ mouse               mouse novci
+ ...                 ...
+
+and re-boot the computer.
+
+*** PLACE Glossary ***
+
+Listed below are common terms the PLACE manual uses:
+
+Click    - press left button of mouse and release immediately.
+           This mouse action is mostly used to select a feature or mode. It is
+           sometimes used to emulate the ENTER key (for instance, after
+           entering a label in the "Label" mode).
+Click-R  - press right button of mouse and release immediately.
+           Usually used to abort or quit a function or mode. A special function
+           for this mouse action is to toggle between two modes, such as 
+           between "Edit Arch" and "Edit Eqn" modes in the Design operation, 
+           and between normal and "Edit" mode in the Simulate operation.
+Click-LH - press left button and hold it down while moving the mouse cursor
+           to a desired location. Release mouse button when destination is
+           reached. Used in the scrolling from a LCC (or IOC) to another LCC,
+           or in selecting a "Zoom" window in the Simulate operation.
+LCC      - Logic Control Cell (PEEL Arrays only).
+IOC      - I/O Cell.
+INC      - Input Cell (PA7140 and PA7128 devices only)
+GBC      - Global Cell (PEEL Arrays only).
+RT       - (Register Type) Dynamic Register Control (PEEL Arrays only).
+Reset    - Global Reset for the LCC flip-flop (PEEL Arrays only).
+Preset   - Global Preset for the LCC flip-flop (PEEL Arrays only).
+PCLKA,
+PCLKB    - Global product term clocks for the IOC flip-flop (PEEL Arrays only).
+
+
+*** Install Errors ***
+
+Please contact ICT Technical & Applications Support at: 
+
+             TEL: (408) 434-0678
+             FAX: (408) 432-0815
+             BBS: (408) 434-0130 (9600bps, N, 8, 1)
+
+
+*** COUNTERF() Macro Function *** 
+
+    a) Must be specified in the DEFINE section.
+
+    b) Syntax is:
+
+         COUNTERF(load, updown, cBits, type, iBits);
+
+         load: 0 = No load function
+               Pin_Name, Node_Name (Cell_Names),
+               Macro_defined_label  = load control
+
+         updown: 0 = Up Ccount
+                 1 = Down Count
+                 Pin_Name, Node_Name (Cell_Names),
+                 Macro_defined_label = updown control
+                 (TRUE logic for Up Count)
+
+         cBits: A Macro-Set-Variable (page 5-22) with at least 2 elements.
+                This set contains the counting bits which include Pin_Names
+                or Node_Names (Cell_Names).
+
+         type: D = D-type counter
+               T = T-type counter
+               (The pins or cells assigned to the macro label in the "cBits"
+                parameter must have the same register type)
+
+         iBits: 0 = Non-loadable counter
+                Macro-Set-Variable = Data bits for loading the counter. This
+                set must have the same number of elements as the cBits. The
+                elements include Pin_Names or Node_Names (Cell_Names).
+                If load=0, then iBits=0.
+
+    c) An Example is:
+
+         DEFINE
+
+         UPDN_BITS = [Q4 Q3 Q2 Q1 Q0]; "Counting Bits. Q[4-0] can be pin or
+                                       "cell labels.
+
+         LOAD_EN = A & B;              "Load Control Equation. Loads when
+                                       "A=TRUE and B=TRUE.
+         LOAD_BITS = [L4 L3 L2 L1 L0]  "Load Inputs, either pin or cell
+                                       "labels.
+
+         UPDN_CON = C & !D;            "Updown Control.
+                                       "If C=TRUE, D=FALSE, it is Up Counter
+                                       "Else, it is Down Counter.
+
+         COUNTERF(LOAD_EN, UPDN_CON, UPDN_BITS, T, LOAD_BITS);
+         .
+         .
+         .
+
+         EQUATIONS
+
+
+*** Examples of Basic AUTOEXEC.BAT and CONFIG.SYS recommended for PLACE ***
+
+Basic AUTOEXEC.BAT Example
+
+       @ECHO OFF
+       C:\DOS\SMARTDRV.EXE
+       PROMPT $p $g
+       PATH C:\DOS; C:\MOUSE
+       REM *** If you are using Logitech Version 6.0 or higher, append "NOVCI"
+       REM switch to "MOUSE" command ***
+       MOUSE
+       SET TEMP=C:\DOS
+       C:\DOS\SHARE.EXE
+
+Basic CONFIG.SYS Example
+   
+       DEVICE=HIMEM.SYS
+       DEVICE=C:\DOS\EMM386.EXE RAM
+       BUFFERS=15,0
+       FILES=30
+       DOS=UMB
+       LASTDRIVE=E
+       FCBS=16,8
+       DEVICEHIGH /L:1,2048=C:\DOS\SETVER.EXE
+       DOS=HIGH
+       STACK=9,256
+       

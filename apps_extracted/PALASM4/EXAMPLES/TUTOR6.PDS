@@ -1,0 +1,80 @@
+;PALASM Design Description
+
+;---------------------------------- Declaration Segment ------------
+TITLE    TUTOR6.PDS
+PATTERN  A
+REVISION 1.0
+AUTHOR   J.ENGINEER
+COMPANY  ADVANCED MICRO DEVICES, INC.
+DATE     01/01/90
+
+CHIP  TEMP  PALCE26V12
+
+;---------------------------------- PIN Declarations ---------------
+PIN  1          CLOCK                COMBINATORIAL             ; INPUT
+PIN  2          POWER                COMBINATORIAL             ; INPUT
+PIN  3          TEMP[1]              COMBINATORIAL             ; INPUT
+PIN  4          TEMP[2]              COMBINATORIAL             ; INPUT
+PIN  5          TEMP[3]              COMBINATORIAL             ; INPUT
+PIN  6          TEMP[4]              COMBINATORIAL             ; INPUT
+PIN  7          VCC                                            ; INPUT
+PIN  15         OFF                  REGISTERED                ; OUTPUT
+PIN  16         NORMAL               REGISTERED                ; OUTPUT
+PIN  17         ALARM                REGISTERED                ; OUTPUT
+PIN  21         GND                                            ; INPUT
+
+;----------------------------------- Boolean Equation Segment ------
+EQUATIONS
+
+IF POWER = 0 THEN
+  BEGIN
+    OFF =      1
+    NORMAL =   0 ;This line is a change from the tutorial. See release notes.
+    ALARM =    0 ;This line is a change from the tutorial. See release notes.
+  END
+ELSE
+  BEGIN
+    OFF =      0 ;This line is a change from the tutorial. See release notes.
+    NORMAL =  /TEMP[1] *  TEMP[2] * /TEMP[3] * /TEMP[4] +
+              /TEMP[1] *  TEMP[2] * /TEMP[3] *  TEMP[4] +
+              /TEMP[1] *  TEMP[2] *  TEMP[3] * /TEMP[4] +
+              /TEMP[1] *  TEMP[2] *  TEMP[3] *  TEMP[4] +
+               TEMP[1] * /TEMP[2] * /TEMP[3] * /TEMP[4]
+    ALARM =   /TEMP[1] * /TEMP[2] * /TEMP[3] * /TEMP[4] +
+              /TEMP[1] * /TEMP[2] * /TEMP[3] *  TEMP[4] +
+              /TEMP[1] * /TEMP[2] *  TEMP[3] * /TEMP[4] +
+              /TEMP[1] * /TEMP[2] *  TEMP[3] *  TEMP[4] +
+               TEMP[1] * /TEMP[2] * /TEMP[3] *  TEMP[4] +
+               TEMP[1] * /TEMP[2] *  TEMP[3] * /TEMP[4] +
+               TEMP[1] * /TEMP[2] *  TEMP[3] *  TEMP[4] +
+               TEMP[1] *  TEMP[2] * /TEMP[3] * /TEMP[4] +
+               TEMP[1] *  TEMP[2] * /TEMP[3] *  TEMP[4] +
+               TEMP[1] *  TEMP[2] *  TEMP[3] * /TEMP[4] +
+               TEMP[1] *  TEMP[2] *  TEMP[3] *  TEMP[4]
+  END
+
+;----------------------------------- Simulation Segment ------------
+SIMULATION
+
+TRACE_ON   POWER  TEMP[1]  TEMP[2]  TEMP[3]  TEMP[4]  OFF  NORMAL  ALARM
+
+SETF      /POWER /TEMP[1] /TEMP[2] /TEMP[3] /TEMP[4]
+                ; significance of settings:
+                ; freezer power is off
+                ; temperature reading is 0000
+                ; temperature is immaterial if power is off
+CLOCKF   CLOCK
+CHECK   /ALARM   OFF  /NORMAL
+SETF     POWER     ; freezer power is back on -- look for alarm ON next clk
+CLOCKF   CLOCK
+CHECK    ALARM  /OFF  /NORMAL
+SETF     TEMP[2]    ; temperature = four -- look for alarm OFF next clk
+CLOCKF   CLOCK
+CHECK   /ALARM  /OFF   NORMAL
+SETF     TEMP[1]    ; temperature = 12 -- look for alarm ON next clock
+CLOCKF   CLOCK
+CHECK    ALARM  /OFF  /NORMAL
+
+TRACE_OFF
+;-------------------------------------------------------------------
+

@@ -1,0 +1,7 @@
+# execute disassembly for plcc P5AC324
+
+
+load "da324.jdb"
+
+de324(1)
+

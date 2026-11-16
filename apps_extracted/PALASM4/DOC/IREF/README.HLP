@@ -1,0 +1,124 @@
+
+
+README file for PALASM 4 version 1.5
+----------------------------------------------------------------
+
+1. Simulation modeling problems:
+    -- It is recommended that users bring all registered
+       or latched outputs to a known state with a vector
+       at the beginning of simulation that
+       initializes set/reset/clocks/OE.
+    -- In-circuit loading of MACH internal registers and observa-
+       tion of stored values is not supported at this time.
+
+2. DOS 5.0 & EXTENDED memory PALASM
+
+   To run the extended memory version of PALASM 4 version 1.4
+   under DOS 5.0 a memory manager is required:
+        - PALASM 4 is not a WINDOWS program ( a separate memory
+          manager is required ) and should be run as a
+          standalone program.
+        - HIMEM.SYS is not sufficient by itself; another memory
+          manager is still required. When no other memory manager
+          used, BIOS errors are issued by HIMEM's DOS extender
+          routines.
+
+   After installation is complete the CONFIG.SYS file should be
+   changed to configure the system properly. The following two
+   sample configurations provide MS-DOS compatibility when
+   used with the Microsoft EMM386  and Quarterdeck Office Systems
+   QEMM memory managers.  They have been tested on a system
+   configured with most utilities and device drivers in \sys
+   directory and the mouse driver in a \syslib directory.  Users
+   will probably have to specify different directories for their
+   own systems and they should not use the /2 parameter when
+   loading their mouse driver unless their mouse is attached to
+   communication port 2.
+
+    I. CONFIG.SYS File Using Microsoft EMM386 & HIMEM.SYS:
+
+      DEVICE = C:\SYS\SETVER.EXE
+      DEVICE= C:\SYS\HIMEM.SYS
+      DOS=high,umb
+      device=c:\sys\emm386.exe 2048 m9
+      break = on
+      buffers = 10
+      files =35
+      device=c:\sys\smartdrv.sys 2048 1024
+      devicehigh=c:\sys\ansi.sys
+      devicehigh=syslib\msmouse.sys /2
+      shellc:\command.com /e:1512 /p
+
+    II. CONFIG.SYS File Using Quarterdeck QEMM
+        ( version 5.13 or higher ) & Microsoft HIMEM.SYS:
+
+      DEVICE = C:\SYS\SETVER.EXE
+      DEVICE= C:\QEMM386.SYS RAM MAPS=12 HANDLES=96 NS
+      break = on
+      buffers = 10
+      files =35
+      device=c:\loadhi.sys /r:2 c:\sys\smartdrv.sys 2048 1024
+      device=c:\loadhi.sys /r:1 c:\sys\ansi.sys
+      device=c:\loadhi.sys /r:1 c:\syslib\msmouse.sys /2
+      shellc:\command.com /e:1512 /p
+
+
+3. MINIMIZE may run out of memory in two ways:
+      ---  64K segment problem. In the new MINIMIZE program
+           furnished with this release, the 64 segment problem
+           does not typically happen unless the number of
+           variables in an equation is very high -- say 25 to 30.
+           If the 64K segment problem is encountered due to a
+           high variable count for an equation, the workaround
+           is to manually "gate split" the offending equation;
+      ---  out of memory message.  The workaround is to use
+           extended memory or the MINIMIZE executable from PALASM
+           version 1.2. If the extended memory MINIMIZE
+           executable also runs out of memory, then the user
+           should select the "FAST MINIMIZATION" option in the
+           PALASM 4 "LOGIC SYNTHESIS" menu. Note, that an
+           "extended" out of memory usually happens only when
+           options DT, gate splitting, and "Best For Device"
+           ( polarity ) are all set simultaneously. Therefore,
+           an alternate  strategy to the Fast Minimization option
+           is to reduce the number of MINIMIZATION options
+           selected. Typically, "Best For Device" is the most
+           memory intensive of the options.
+
+4. Backannotation of truncated names ( > 14 characters ) does
+   not work.  Backannotation of unused pins and nodes can lead
+   to duplicate pin numbers in the design file -- which causes
+   a failure in PARSE.
+
+5. Group names cannot be used within the Simulation section to
+   specify values for a collection of signals.
+
+6.  PARSE may run out of memory on rare occasions even in
+    extended memory.  Two designs of this type involved very
+    complex CASE statements and many STRINGS. The only work-
+    around when this occurs in extended memory is to simplify
+    the logic or use another way ( probably boolean equations )
+    to represent the desired functionality.
+
+7.  GP errors, ZMALLOC and runtime errors produced by PALASM 4
+    programs should be forwarded with your name, phone number
+    and .PDS file to AMD Corporate Applications ( 800-222-9323 ).
+    Many previously reported errors of this type have been fixed
+    in this release.
+
+8.  For a 16V8 device, the REG attribute when specified in the
+    PIN statement for pin number 16 causes PALXPT to give an
+    error ( X3670 ).  Workaround: For pin number 16, remove REG
+    from the PIN statement and use := in the equation for the
+    pin.
+
+9.  If a file is too large to view under the VIEW option of the
+    menu, then it may be viewed using the editor by selecting
+    the "other file" option under EDITOR and supplying the
+    appropriate file name. Alternatively, the user may use any
+    other ascii editor to view the desired file. Since MACH230
+    report files are larger than for other MACH parts, the "too
+    large to view" problem is more likely to occur now.
+
+
+

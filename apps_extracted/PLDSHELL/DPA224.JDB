@@ -1,0 +1,225 @@
+#/*
+# * **************************  ALTERA PROPRIETARY  ***************************
+# *
+# *       --------------------  DO NOT REPRODUCE  ----------------------
+# *
+# *   Copyright (C) 1994 by Altera Corporation.
+# *   All rights reserved. No part of this program or publication may be 
+# *   reproduced, transmitted, transcribed, stored in a retrieval system, or
+# *   translated into any language or computer language, in any form or by any
+# *   means, electronic, mechanical, magnetic, optical,  chemical,  manual, or
+# *   otherwise,  without the prior written permission of  Altera Corporation,
+# *   2610 Orchard Parkway,  San Jose,  California 95134-2020.
+# *
+# * ***************************************************************************
+# */
+#
+#
+
+#
+#
+#
+#
+#load "224_lib.jdb"     load device database 
+#load "plfg_lib.jdb"  load disassembly library
+
+
+#    func mc_arch_type( )
+#    description: determine architecture programming
+#    arguments: $1 - macrocell #
+#    returns: 1 if registered, 2 if combinatorial
+#
+func mc_arch_type( ) {
+    mat_i = .
+    mat = mc_archadr( $1 )
+    . = mat + 2
+    if ( bit_set(.) ) {
+       . = . + 1
+        if ( bit_set(.) ) {
+          . = mat_i
+          return( 1 )
+       }
+    }
+    return( 2 )
+}
+
+
+#
+#
+proc turbo_bit( ) {
+     tb_i = .
+     . = 3200
+     if ( @. == 1 ) {
+          print ";    OPTIONS TURBO=ON\n"
+     }
+     else {
+          print ";    OPTIONS TURBO=OFF\n"
+     }
+     . = tb_i
+}
+
+#
+#    func equations( )
+#    description: determine if an equation needs to be generated and output to
+#                 equation section of adf
+#    arguments
+#    returns: status
+#    algorithm:  determine if any controls/sops used, call term_output as
+#                needed
+#
+func equations( ) {
+     eq_i = 1  # macrocell equation counter
+     ptg = 1
+     while ( eq_i <= JDBV_mcnum ) { # eight macrocells 
+       message "Processing Macrocell [ %d ] \n", eq_i
+       # create pin number component of node name
+       pin_num_i = map_pin(((NUM_PINS - eq_i) - 1)) 
+       if ( mc_used( eq_i ) == 1 ) { # check to see if any equations
+           ptg_cnt = 0 # pterm group counter - 2 per macrocell
+           pt_num = SPPTNUM
+           while ( ptg_cnt < IOMCPTGNUM )
+           {
+               if (ptg_cnt == 1){
+                   pt_num = OEPTNUM
+               }
+                
+               ptermadr = pterm_gaddr(ptg) # pterm address
+               pt_cnt = 1
+               if (( ptg_cnt == 0) && ( mc_invert( eq_i,0,2,0 ) == 1 )) {
+                   print "/"
+               }
+               print "io%d", pin_num_i
+               if (ptg_cnt == 1) # oe equation
+                   print ".TRST"
+               if (( ptg_cnt == 0) && ( mc_arch_type( eq_i ) == 1 )) {
+                   print " := "
+               }
+               else
+                   print " = "
+               need_or = 0
+               if (pterm_gstate(ptermadr,pt_num) == 1) # equation used
+               {
+                   while (pt_cnt <= pt_num)
+                   {
+                       if (pterm_state(ptermadr) == 1)
+                       {
+                           if (need_or)
+                              print "\n+ "
+                           need_or = 1
+                           if (term_output(ptermadr,JDBV_wlnum) <= 0) {
+                              message "JDB disassembly error, processing equation %d\n" ,eq_i
+                              return 1
+                           }
+                       }
+                       ptermadr = ptermadr + JDBV_wlnum
+                       pt_cnt = pt_cnt + 1
+                   }
+               }
+               else  
+               if (pterm_gstate(ptermadr,pt_num) == 0) # VCC
+                   print "VCC"
+               else
+               if (pterm_gstate(ptermadr,pt_num) == -1) # GND
+                   print "GND"
+    
+               print "\n\n"
+               ptg_cnt = ptg_cnt + 1
+               ptg = ptg + 1
+    
+           }
+       }
+       else { # mc not used
+            ptg = ptg + 2
+       }
+       eq_i = eq_i + 1
+     }
+     return 0
+}
+#    proc pinlst( )
+#    Description: list input and output pins, including no-connects
+#    Argument/returns: none
+#
+proc pinlst( )
+{
+     pin_num = 1
+     end = NUM_PINS
+     while (pin_num <= end)
+     {
+        if (((pin_num == 1) || (pin_num == 8) || (pin_num == 15) || (pin_num == 22)) && (pinmap_224)){ # plcc pkgs only
+            print "PIN    "
+            if (pin_num < 9)
+                print " "
+            print "%d    NC\n", pin_num
+        }
+
+        print "PIN    "
+        if ((pin_num < 8) || ((pin_num < 10) && (!pinmap_224)))
+            print " "
+        print "%d", map_pin(pin_num)
+
+        if (pin_num == 12) 
+            print "    GND"
+        else if (pin_num == 24)
+            print "    VCC"
+        else if ((pin_num <= 14) || (pin_num == 23)) {
+            if (pin_num == 1) {
+                print "    in%d ; pin %d is synchronous clock for any registers.",map_pin(pin_num),map_pin(pin_num)
+            }
+            else if (pin2array(pin_num,JDBV_lptadr)) {
+                print "    in%d", map_pin(pin_num)
+            }
+            else {
+                print "    NC"
+            }
+        }
+        else if (pin_num > 14) {
+            if (io_used(pin_num,JDBV_lptadr)) {
+                print "    io%d", map_pin(pin_num)
+            }
+            else {
+                print "    NC"
+            }
+        }
+        print "\n"
+        pin_num = pin_num + 1
+    }
+}
+                
+proc dpa224( ) {
+     pldlib_init()
+     program_state(1)
+     lang(1)    # PEP output
+     pinmap_224 = $1
+     if (jedec_fuses() != 3204) {
+        errmsg(1)
+        message "The source JEDEC file is incompatible with the 85C224 device.\n"
+        exit 1
+     }
+     turbo_bit( )
+     infomsg(1)
+     if (pinmap_224)
+        message "N85C224 "
+     else
+        message "85C224 "
+     infomsg(2)
+     print "\n"
+     print "CHIP U1 "
+     if (pinmap_224)
+         print "N"
+     print "85C224\n"
+     print "\n"
+     pinlst( ) # list the pins
+     print "\n\n"
+     print "EQUATIONS\n"
+     print "\n"
+
+     if (equations( )) {
+        errmsg(1)
+        errmsg(2)
+     }
+     else {
+        infomsg(1)
+        infomsg(3)
+     }
+     print "\n"
+}

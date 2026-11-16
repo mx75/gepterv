@@ -1,0 +1,55 @@
+Module RAMCON
+title 'RAM Chip Enable Control    Location U004
+Michael Holley and Dave Pellerin    14 Sep 1993'
+
+        ramcon                  device 'P18CV8';
+        Osc,AdrClr,Inc          pin 1,2,3;
+        CarryB                  pin 9;
+        A14,A13,ATC             pin 18,13,12 istype 'reg';
+        !CE3,!CE2,!CE1,!CE0     pin 17,16,15,14 istype 'reg';
+
+        CE      = [CE3,CE2,CE1,CE0];
+        CEshift = [CE2,CE1,CE0,CE3];
+
+        CountC  = [A14,A13];
+
+        CarryC   = (CountC.fb == 3) & CarryB;
+
+Equations
+        CountC := (CountC.fb + 1) &  AdrClr &  Inc &  CarryB      " Count
+                #  CountC.fb      &  AdrClr &  Inc & !CarryB      " Hold
+                #  CountC.fb      &  AdrClr & !Inc                " Hold
+                #  0              & !AdrClr;                      " Clear
+
+        CE     := CEshift.fb      &  AdrClr &  Inc &  CarryC      " Shift
+                # CE.fb           &  AdrClr &  Inc & !CarryC      " Hold
+                # CE.fb           &  AdrClr & !Inc                " Hold
+                # [0,0,0,1]       & !AdrClr;                      " Clear
+
+        ATC := (CE.fb == ^b1000) & (CountC.fb == 3) & Inc & AdrClr & CarryB;
+
+        [CountC,CE,ATC].clk = Osc;
+
+test_vectors
+([Osc,AdrClr,Inc,CarryB] -> [CountC,CE3,CE2,CE1,CE0,ATC])
+ [.C.,  0   , 1 ,   1  ] -> [   0  , 0 , 0 , 0 , 1 , 0 ];
+ [.C.,  1   , 1 ,   1  ] -> [   1  , 0 , 0 , 0 , 1 , 0 ];
+ [.C.,  1   , 1 ,   1  ] -> [   2  , 0 , 0 , 0 , 1 , 0 ];
+ [.C.,  1   , 1 ,   1  ] -> [   3  , 0 , 0 , 0 , 1 , 0 ];
+ [.C.,  1   , 1 ,   1  ] -> [   0  , 0 , 0 , 1 , 0 , 0 ];
+ [.C.,  1   , 1 ,   1  ] -> [   1  , 0 , 0 , 1 , 0 , 0 ];
+ [.C.,  1   , 1 ,   1  ] -> [   2  , 0 , 0 , 1 , 0 , 0 ];
+ [.C.,  1   , 1 ,   1  ] -> [   3  , 0 , 0 , 1 , 0 , 0 ];
+ [.C.,  1   , 1 ,   1  ] -> [   0  , 0 , 1 , 0 , 0 , 0 ];
+ [.C.,  1   , 1 ,   1  ] -> [   1  , 0 , 1 , 0 , 0 , 0 ];
+ [.C.,  1   , 0 ,   1  ] -> [   1  , 0 , 1 , 0 , 0 , 0 ];
+ [.C.,  1   , 1 ,   1  ] -> [   2  , 0 , 1 , 0 , 0 , 0 ];
+ [.C.,  1   , 1 ,   1  ] -> [   3  , 0 , 1 , 0 , 0 , 0 ];
+ [.C.,  1   , 1 ,   1  ] -> [   0  , 1 , 0 , 0 , 0 , 0 ];
+ [.C.,  1   , 1 ,   0  ] -> [   0  , 1 , 0 , 0 , 0 , 0 ];
+ [.C.,  1   , 1 ,   1  ] -> [   1  , 1 , 0 , 0 , 0 , 0 ];
+ [.C.,  1   , 1 ,   1  ] -> [   2  , 1 , 0 , 0 , 0 , 0 ];
+ [.C.,  1   , 1 ,   1  ] -> [   3  , 1 , 0 , 0 , 0 , 0 ];
+ [.C.,  1   , 1 ,   1  ] -> [   0  , 0 , 0 , 0 , 1 , 1 ];
+ [.C.,  1   , 1 ,   1  ] -> [   1  , 0 , 0 , 0 , 1 , 0 ];
+End

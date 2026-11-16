@@ -1,0 +1,65 @@
+module WAVE
+title 'Waveform Generator'
+
+//  wave              device 'F105';
+
+    Clk,Start,PR      pin  1, 8,19;
+    A,B               pin  10,11          istype 'reg_SR,buffer';
+    Q3,Q2,Q1,Q0       node 40,39,38,37    istype 'reg_SR,buffer';
+    COMP              node 49;
+
+    Q = [Q3,Q2,Q1,Q0];  "Counter Registers
+
+equations
+    [Q,A,B].R  = !COMP; "Clear Illegal states
+    [Q,A,B].C  = Clk;
+    [Q,A,B].AP = PR;
+
+   "Counter Equations
+    [COMP,               Q0.S]  = (Q ==  0) & Start; " 0 to  1
+    [COMP,          Q1.S,Q0.R]  = (Q ==  1) & Start; " 1 to  2
+    [COMP,               Q0.S]  = (Q ==  2) & Start; " 2 to  3
+    [COMP,     Q2.S,Q1.R,Q0.R]  = (Q ==  3) & Start; " 3 to  4
+    [COMP,               Q0.S]  = (Q ==  4) & Start; " 4 to  5
+    [COMP,          Q1.S,Q0.R]  = (Q ==  5) & Start; " 5 to  6
+    [COMP,               Q0.S]  = (Q ==  6) & Start; " 6 to  7
+    [COMP,Q3.S,Q2.R,Q1.R,Q0.R]  = (Q ==  7) & Start; " 7 to  8
+    [COMP,               Q0.S]  = (Q ==  8) & Start; " 8 to  9
+    [COMP,          Q1.S,Q0.R]  = (Q ==  9) & Start; " 9 to 10
+    [COMP,               Q0.S]  = (Q == 10) & Start; "10 to 11 
+    [COMP,Q3.R,Q2.R,Q1.R,Q0.R]  = (Q == 11) & Start; "11 to  0 (redundant)
+
+    "Output Waveform equations
+    A.S  = (Q==1) & Start;
+    A.R  = (Q==3) & Start;
+    B.S  = (Q==2) & Start;
+    B.R  = (Q==5) & Start;
+    B.S  = (Q==8) & Start;
+    B.R  = (Q==9) & Start;
+
+test_vectors   ([Clk,PR,Start] -> [ Q,A,B])
+                [ 0 , 0,  0  ] -> [.X.,.X.,.X.]; 
+                [ 1 , 1,  0  ] -> [15,1,1]; " Preset high
+                [ 1 , 0,  0  ] -> [15,1,1]; " Preset low
+                [.C., 0,  0  ] -> [ 0,0,0]; 
+                [.C., 0,  0  ] -> [ 0,0,0]; 
+                [.C., 0,  0  ] -> [ 0,0,0]; 
+                [.C., 0,  1  ] -> [ 1,0,0];
+                [.C., 0,  1  ] -> [ 2,1,0];
+                [.C., 0,  1  ] -> [ 3,1,1];
+                [.C., 0,  1  ] -> [ 4,0,1];
+                [.C., 0,  1  ] -> [ 5,0,1];
+                [.C., 0,  1  ] -> [ 6,0,0];
+                [.C., 0,  1  ] -> [ 7,0,0];
+                [.C., 0,  1  ] -> [ 8,0,0];
+                [.C., 0,  1  ] -> [ 9,0,1];
+                [.C., 0,  1  ] -> [10,0,0];
+                [.C., 0,  1  ] -> [11,0,0];
+                [.C., 0,  1  ] -> [ 0,0,0];
+                [.C., 0,  1  ] -> [ 1,0,0];
+                [.C., 0,  1  ] -> [ 2,1,0];
+                [.C., 0,  1  ] -> [ 3,1,1];
+                [.C., 0,  0  ] -> [ 0,0,0];
+                [.C., 0,  0  ] -> [ 0,0,0];
+end
+

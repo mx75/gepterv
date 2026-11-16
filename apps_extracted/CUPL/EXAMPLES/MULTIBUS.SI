@@ -1,0 +1,47 @@
+Name      Multibus;
+Partno	  CA0025;
+Date      04/01/87;
+Revision  02;
+Designer  Kahl;
+Company   Personal CAD Systems, Inc.;
+Assembly  Multibus CPU Card;
+Location  IC43;
+Device    p23s8;
+
+/****************************************************************/
+/*								*/
+/* Multibus Arbiter and Controller				*/
+/*								*/
+/* This chip implements a serial or parallel priority MULTIBUS	*/
+/* arbiter.  The bus logic decides when to issue a bus request	*/
+/* using !BUSADR along with a qualified read or write request	*/
+/* (!RD or !WR).  This signal is then fed thru a double		*/
+/* synchronizer (NOP and NOBPRO) states.  This creates an	*/
+/* internally stable bus request signal for the arbiter state	*/
+/* machine.  After the request is made, bus status lines	*/
+/* determine whether to acquire the bus, give it up after the 	*/
+/* current cycle is complete, or hold the bus.  After acquiring	*/
+/* the bus, the appropriate control signals (!MRDC, !MWTC, 	*/
+/* !IORC, !IOWC) are asserted after generating the address 	*/
+/* buffer enable (!AEN) and output buffer enable (!OEN) 	*/
+/* signals.							*/
+/****************************************************************/
+/* Allowable Target Device Types :  AmPAL23S8                  	*/
+/****************************************************************/
+
+ORDER:
+
+BUS_CLK,!BUSADR,!RESET,!RD,!WR,!MREQ,!IORQ,!BPRN,!BUSYIN,
+!BPRO,!CBRQ,!BREQ,!BUSY,!MWTC,!MRDC,!IOWC,!IORC,
+AEN,OEN,A,B,C;
+
+VECTORS:
+
+0 x 0 x x x x x x   H Z H Z Z Z Z Z  L L L L L	/* System Reset	- IDLE	*/
+c 1 1 0 1 0 1 0 1   H Z H Z Z Z Z Z  L L L L L	/* Stay in IDLE state	*/
+c 0 1 0 1 0 1 0 1   H Z H Z Z Z Z Z  L L L L H	/* Go to NOP state	*/
+c 0 1 0 1 0 1 0 1   L Z H Z Z Z Z Z  L L L H H	/* Go to REQBUS state	*/
+c 0 1 0 1 0 1 0 1   L H L L H H H H  H L L H L	/* Go to GETBUS state	*/
+c 0 1 0 1 0 1 0 1   L L L L H L H H  H H H H L  /* Go to HLDBUS state	*/
+c 0 1 0 1 0 1 0 1   L L L L H L H H  H H H H L	/* Stay in HLDBUS state */
+c 0 1 1 1 1 1 0 1   H Z H Z Z Z Z Z  L L L L L	/* Return to IDLE state	*/

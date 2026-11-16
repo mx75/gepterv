@@ -1,0 +1,8 @@
+# loads disassembly libraries, 060 database, invokes disassembly for dip
+#
+
+load "060_lib.jdb"
+load "plfg_lib.jdb"
+load "dpa060.jdb"
+
+dpa060( 5 )

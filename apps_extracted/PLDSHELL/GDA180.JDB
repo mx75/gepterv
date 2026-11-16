@@ -1,0 +1,7 @@
+# execute disassembly for G5C180
+
+
+load "da180.jdb"
+
+deg180(2)
+

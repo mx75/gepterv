@@ -1,0 +1,26 @@
+PALASM4  PLDSIM   - MARKET RELEASE 1.5 (7-10-92)
+ (C) - COPYRIGHT ADVANCED MICRO DEVICES INC., 1992
+
+PALASM SIMULATION HISTORY LISTING
+
+Title     : TUTOR1.PDS               Author   : J.ENGINEER       
+Pattern   : A                        Company  : ADVANCED MICRO DE
+Revision  : 1.0                      Date     : 01/01/90         
+
+PAL16L8        
+Page : 1 
+      gggggggg                                                    
+ X    LLLLHHHH                                                    
+ Y    LLHHLLHH                                                    
+ Z    LHLHLHLH                                                    
+ GND  LLLLLLLL                                                    
+ A    LHHHHHHH                                                    
+ B    HLHHHHHH                                                    
+ C    HHLHHHHH                                                    
+ D    HHHLHHHH                                                    
+ E    HHHHLHHH                                                    
+ F    HHHHHLHH                                                    
+ G    HHHHHHLH                                                    
+ H    HHHHHHHL                                                    
+ VCC  HHHHHHHH                                                    
+

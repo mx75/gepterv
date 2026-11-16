@@ -1,0 +1,8 @@
+# execute disassembly for plcc n85c220
+
+load "220_lib.jdb"
+load "plfg_lib.jdb"
+load "dpa220.jdb"
+
+dpa220(1) # call disassembly procedure passing in pin map flag TRUE 
+

@@ -1,0 +1,88 @@
+Title     CRT Controller Logic
+Pattern   CRT.pds
+Revision  B
+Author    Harry Hughes
+Company   Monolithic Memories Inc., Santa Clara, CA
+Date      8/1/86
+  
+CHIP CRT PAL20RA10
+  
+PL CK1 HRTC VRTC LTEN VSP QH /INIT NC NC NC GND
+/E QA QB QC QD Q0 /Q1 /Q2 /Q3 VIDEO CK2 VCC
+  
+EQUATIONS
+  
+QA              := QD*/QC*/QA + QD*QC*/QB
+QA.CLKF          = CK1
+QA.RSTF          = INIT
+  
+QB              := QD*/QC*QB*/QA + QD*/QB*QA
+QB.CLKF          = CK1
+QB.RSTF          = INIT
+  
+QC              := QD*QC*/QB + QD*/QC*QB*QA
+QC.CLKF          = CK1
+QC.RSTF          = INIT
+  
+QD              := QD*/QC + QD*/QB*/QA + /QD*QC*QB*QA
+QD.CLKF          = CK1
+QD.SETF          = INIT
+  
+CK2             := GND
+CK2.CLKF         = CK1
+CK2.RSTF         = /QD
+CK2.SETF         = INIT
+  
+Q0              := HRTC
+Q0.CLKF          = CK2
+  
+Q1              := VRTC
+Q1.CLKF          = CK2
+  
+Q2              := LTEN
+Q2.CLKF          = CK2
+  
+Q3              := VSP
+Q3.CLKF          = CK2
+  
+VIDEO            = Q2 + QH*/Q3
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+SIMULATION
+  
+TRACE_ON CK1 QD QC QB QA CK2 VIDEO Q0 Q1 Q2 Q3
+SETF E PL /INIT /CK1 INIT
+SETF HRTC VRTC /LTEN VSP QH INIT        ;Initialize QA..QD
+                                        ;Set ext. signals
+SETF /INIT                              ;At start LTEN is
+                                        ;LOW
+FOR I:=1 TO 8 DO                        ;System loops for
+ BEGIN                                  ;8 clocks
+  SETF CK1                              ;CK1 is set HIGH
+  
+  SETF /CK1                             ;CK1 is set LOW
+                                        ;This is a clk pulse
+  IF I=5 THEN                           ;On fifth clk pulse
+   BEGIN                                ;set LTEN HIGH
+    SETF LTEN
+   END
+  IF I=7 THEN                           ;On the 7th clk
+   BEGIN                                ;pulse, VIDEO
+    CHECK VIDEO                         ;goes from LOW
+   END                                  ;to HIGH
+ END
+TRACE_OFF
+  
+  
+

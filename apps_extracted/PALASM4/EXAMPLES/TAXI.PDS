@@ -1,0 +1,181 @@
+TITLE	Taxi to 32 Bit Interface
+Pattern	TAXI32.PDS
+REVISION	0
+AUTHOR	Rudy Sterner
+COMPANY	AMD
+DATE  6/19/89
+CHIP	TAXI_32_BIT	PAL29M16
+;PIN LIST
+NODE 1 GLOBAL		; ASYNC RESET
+PIN 1 RDSTRB		;Receiver STROBE
+PIN 2 RRST		;Receiver State Machine Reset Command
+PIN 3..4,9..10 XCMD[0..3]	;Command Data Input
+PIN 8..5 /RW[3..0]  REG  ;Receiver FIFO WRITE Enables
+NODE 3..4 RSTATE[0..1] ;Receiver State Machne
+NODE 12..11 /XSTATE[1..0] ;Transmitter State Machine
+PIN 13 XCLK		;Transmitter Clock
+PIN 14 ARST		;Assynchronous Reset Input
+PIN 15 XEF 		;Transmitter FIFO Empty Flag
+PIN 21 XMIT		;Transmit Command from the System
+NODE 17 IXMIT	REG 	;Sycnhronizer for XMIT
+PIN 20..17 /XR[3..0] REG  ;Transmitter FIFO READ Enables
+PIN 22 STRB COMB 	;Strobe Output to Am7968
+PIN 12 GND
+PIN 24 VCC
+;The Taxi to 32 bit converter uses 2 state machines.
+;However, because PALASM2 cannot incorporate 2 state
+;machines, only 1 state machine will be defined.
+;This will be the transmitter state machine, because it
+;is the more complicated of the two.
+;
+;
+EQUATIONS
+;
+;Preset All Registers
+GLOBAL.RSTF = /ARST
+;Setup of Fuses and the like
+;
+;Clock settings
+;
+RSTATE[0..1].CLKF = RDSTRB	;Receiver State Machine Clock
+RW[3..0].CLKF = RDSTRB
+/XSTATE[1..0].CLKF = XCLK		;Transmit State Machine Clock
+/XR[3..0].CLKF = XCLK		;Transmit FIFO Read Enable Clock
+IXMIT.CLKF = XCLK
+;
+;Tri_states
+;
+RW[3..0].TRST = VCC	;Always On
+XCMD[3..0].TRST = GND	;Always off.  XCMD used as an input.
+XMIT.TRST = GND	        ;Input
+XEF.TRST = GND		;Input
+;
+;
+;Taxi Receiver Operation
+;
+;State Machine Operation
+;
+/RSTATE[0] := RRST*/RSTATE[0]*/RSTATE[1] +
+	      RRST*RSTATE[0]*/RSTATE[1] 
+;	      
+/RSTATE[1] := RRST*RSTATE[0]*RSTATE[1] +
+	       RRST*RSTATE[0]*/RSTATE[1]
+;
+;
+;The Write Enable Operations.  They are state dependent.
+;
+
+;
+RW[0] = RRST*/RSTATE[1]*/RSTATE[0]
+
+RW[1] = RRST*RSTATE[1]*/RSTATE[0]
+	  
+RW[2] = RRST*RSTATE[1]*RSTATE[0]
+
+RW[3] = RRST*/RSTATE[1]*RSTATE[0]
+;
+;
+;Transmit Equations
+;
+
+;IXMIT := XMIT	; IXMIT defined as an input
+
+STRB = XCLK * XR[0] 
+     + XCLK * XR[1] 
+     + XCLK * XR[2] 
+     + XCLK * XR[3]
+
+;
+;Transmit State Machine Definitions.
+;
+STATE
+;
+TRAN0 = /XSTATE[0]*/XSTATE[1]	;State[1]
+TRAN1 = XSTATE[0]*/XSTATE[1]	;State[0]
+TRAN2 = /XSTATE[0]*XSTATE[1]	;State[2]
+TRAN3 = XSTATE[0]*XSTATE[1]	;State[3]
+;
+;State Transitions
+;
+Start_UP := Power_UP -> TRAN0
+TRAN0 := CMD_CNT -> TRAN1 +-> TRAN0
+TRAN1 := XCNT -> TRAN2 +-> TRAN1
+TRAN2 := XCNT -> TRAN3 +-> TRAN2
+TRAN3 := XCNT ->TRAN0 +-> TRAN3
+;
+;State Output Equations
+;
+Start_UP.OUTF := Power_Up -> /XR[0]*/XR[1]*/XR[2]*/XR[3]
+TRAN0.OUTF := read0 -> XR[0]*/XR[1]*/XR[2]*/XR[3] +
+	      readh -> /XR[0]*/XR[1]*/XR[2]*XR[3]
+                   +-> /XR[0]*/XR[1]*/XR[2]*/XR[3] 
+TRAN1.OUTF := read123 -> /XR[0]*XR[1]*/XR[2]*/XR[3] 
+	           +-> XR[0]*/XR[1]*/XR[2]*/XR[3]
+TRAN2.OUTF := read123 -> /XR[0]*/XR[1]*XR[2]*/XR[3]
+	           +-> /XR[0]*XR[1]*/XR[2]*/XR[3]
+TRAN3.OUTF := read123 -> /XR[0]*/XR[1]*/XR[2]*XR[3]
+	           +-> /XR[0]*/XR[1]*XR[2]*/XR[3]
+;
+;
+CONDITIONS
+
+CMD_CNT = /IXMIT*/XCMD[0]*/XCMD[1]*/XCMD[2]*/XCMD[3]
+XCNT = /XCMD[0]*/XCMD[1]*/XCMD[2]*/XCMD[3]
+read0 = /IXMIT*/XCMD[0]*/XCMD[1]*/XCMD[2]*/XCMD[3]
+readh = /IXMIT*/(/XCMD[0]*/XCMD[1]*/XCMD[2]*/XCMD[3])
+read123 = /XCMD[0]*/XCMD[1]*/XCMD[2]*/XCMD[3]
+
+
+Simulation
+
+TRACE_ON XCLK ARST XSTATE[1] XSTATE[0] 
+XR[0] XR[1] XR[2] XR[3] STRB XMIT IXMIT
+XCMD[0] XCMD[1] XCMD[2] XCMD[3] 
+SETF /XCLK
+     /ARST /RRST
+     /XCMD[0] /XCMD[1] /XCMD[2] /XCMD[3]
+     XEF /XMIT /RDSTRB
+SETF XCLK
+SETF XCLK
+SETF /XCLK
+SETF /XCLK
+SETF ARST
+SETF XCLK
+SETF XCLK
+SETF /XCLK XMIT
+SETF /XCLK
+SETF ARST RRST
+FOR I := 1 TO 10 DO
+BEGIN
+SETF XCLK
+SETF RDSTRB
+SETF /XCLK
+SETF /RDSTRB 
+END
+SETF XCLK
+SETF RDSTRB
+SETF /XCLK
+SETF /RDSTRB
+SETF XCLK
+SETF RDSTRB
+SETF /XCLK
+SETF /RDSTRB
+FOR I := 1 TO 5 DO
+BEGIN
+SETF XCLK
+SETF RDSTRB
+SETF /XCLK
+SETF /RDSTRB
+END
+
+FOR I := 1 TO 5 DO
+BEGIN
+SETF XCLK
+SETF RDSTRB
+SETF /XCLK
+SETF /RDSTRB
+END
+
+
+TRACE_OFF
+

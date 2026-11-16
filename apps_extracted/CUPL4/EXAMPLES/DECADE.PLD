@@ -1,0 +1,84 @@
+Name      decade;
+Partno    CA0015;
+Date      12/19/84;
+Revision  01;
+Designer  Kahl;
+Company   Assisted Technology;
+Assembly  None;
+Location  None;
+Device    f157;
+
+/****************************************************************/
+/*                                                              */
+/* Decade Counter                                               */
+/*                                                              */
+/* This 4-bit synchronous free-running decade counter uses the  */
+/* complement-array to force invalid states to reset the        */
+/* counter registers.  A square wave output is also provided.   */
+/****************************************************************/
+/* Allowable Target Device Types :  82S157                      */
+/****************************************************************/
+
+/**  Inputs  **/
+
+pin 1        = clk;             /* Register clock               */
+pin 2        = preset;          /* Register preset input        */
+pin 3        = reset;           /* Register reset input         */
+pin 11       = !en;             /* Register output enable       */
+
+/**  Outputs  **/
+
+pin [13..16] = ![Q3,Q2,Q1,Q0];  /* Register outputs             */
+pin 18       = !wave;           /* Square wave output           */
+
+/**  Internal Nodes  **/
+
+node           !valid_states;   /* complement array node declaration */
+                                /* active (LO) for valid counter states */
+
+/** Declarations and Intermediate Variable Definitions **/
+
+field count = [Q3,Q2,Q1,Q0];
+$define S0 'b'0000
+$define S1 'b'0001
+$define S2 'b'0010
+$define S3 'b'0011
+$define S4 'b'0100
+$define S5 'b'0101
+$define S6 'b'0110
+$define S7 'b'0111
+$define S8 'b'1000
+$define S9 'b'1001
+
+/** Logic Equations **/
+
+count.ap = preset;                      /* preset term forces state 15 */
+                                        /* lets us observe effect of */
+                                        /* complement array */
+
+append [count,wave].k = valid_states;   /* when any invalid states are seen */
+                                        /* this term forces all the k inputs */
+                                        /* of the registers active, thereby */
+                                        /* generating a reset to state 0 */
+wave.ap = preset;
+
+valid_states.ca = count:S0 # count:S1   /* include all valid states */
+                # count:S2 # count:S3   /* any state not included here */
+                # count:S4 # count:S5   /* will force counter to state 0 */
+                # count:S6 # count:S7
+                # count:S8 # count:S9;
+
+sequence count {                        /* free running counter */
+
+present S0      next S1         out wave;       /* set output */
+present S1      next S2;                        /* output stays set */
+present S2      next S3;                        /* since its a JK flip-flop */
+present S3      next S4;
+present S4      next S5;
+present S5      next S6         out !wave;      /* reset output */
+present S6      next S7;                        /* output stays reset */
+present S7      next S8;                        /* since its a JK flip-flop */
+present S8      next S9;
+present S9      next S0;
+}
+

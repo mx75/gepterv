@@ -1,0 +1,30 @@
+MODULE decoder;
+TITLE 'Memory decoder - Data I/O Corp, Redmond WA';
+
+DECLARATIONS
+        a15,a14,a13,a12,a11,a10 PIN;
+        rom1,io,rom2,dram       PIN;
+
+        h,l,x   = 1,0,.X.;
+        address = [a15,a14,a13,a12, a11,a10,x,x, x,x,x,x, x,x,x,x];
+
+EQUATIONS
+        !dram   = (address <= ^hdfff);
+
+        !io     = (address >= ^he000) & (address <= ^he7ff);
+
+        !rom2   = (address >= ^hf000) & (address <= ^hf7ff);
+
+        !rom1   = (address >= ^hf800);
+
+TEST_VECTORS 
+             (address -> [rom1,rom2,io,dram]);
+              ^h0000  -> [  h,  h,  h,   l ];
+              ^h4000  -> [  h,  h,  h,   l ];
+              ^h8000  -> [  h,  h,  h,   l ];
+              ^hC000  -> [  h,  h,  h,   l ];
+              ^hE000  -> [  h,  h,  l,   h ];
+              ^hE800  -> [  h,  h,  h,   h ];
+              ^hF000  -> [  h,  l,  h,   h ];
+              ^hF800  -> [  l,  h,  h,   h ];
+END decoder;

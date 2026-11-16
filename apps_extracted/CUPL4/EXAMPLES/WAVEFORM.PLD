@@ -1,0 +1,55 @@
+Name      Waveform;
+Partno    CA0026;
+Date      02/17/87;
+Rev       02;
+Designer  Breuniger;
+Company   Texas Instruments;
+Assembly  NONE;
+Location  NONE;
+Device    F507;
+
+/****************************************************************/
+/*                                                              */
+/* Waveform Generator                                           */
+/*                                                              */
+/* This is the first example from "A Designer's Guide to the    */
+/* PSG507", by R. Breuniger. In this example waveform generator */
+/* for three clocks, running at 15, 5, and 2.5MHZ, is imple-    */
+/* mented for the TI PSG507 using CUPL.  In this implementation */
+/* the built-in counter feature of the PSG507 is utilized to    */
+/* divide a 30MHZ master clock to generate the three output     */
+/* waveforms.  The built-in counter is accessed by defining the */
+/* variable list [C0..5] as BINNODE's (built-in nodes) and then */
+/* using the list where ever the counter values are needed.     */
+/****************************************************************/
+/* Allowable Target Device Types :  TI PSG507                   */
+/****************************************************************/
+
+/**  Inputs  **/
+
+pin 1            = PSG_CLK;     /* 30MHZ  MASTER CLOCK          */
+
+/**  Outputs  **/
+
+pin 8            = REF_CLK;     /* 15MHZ  REFERENCE CLOCK       */
+pin 9            = SYS_CLK;     /* 5MHZ   SYSTEM CLOCK          */
+pin 10           = PCLK;        /* 2.5MHZ PERIPHERAL CLOCK      */
+
+pinnode [33..36] = [C0..3];     /* BUILT-IN COUNTER             */
+pinnode 39       = SCLR0;       /* COUNTER SYHNCRONOUS CLEAR    */
+
+/** Declarations and Intermediate Variable Definitions **/
+
+field COUNTER    = [C0..3].CNT;
+
+/*[SYS_CLK,PCLK,C0..3].CKMUX = !PSG_CLK;*/
+
+REF_CLK = !C0.CNT;
+
+SYS_CLK.R = COUNTER:'d'1 # COUNTER:'d'7;
+SYS_CLK.S = COUNTER:'d'5 # COUNTER:'d'11;
+
+PCLK.R = COUNTER:'d'5;
+PCLK.S = COUNTER:'d'11;
+
+SCLR0 = COUNTER:'d'11;

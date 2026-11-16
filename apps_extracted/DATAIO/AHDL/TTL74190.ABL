@@ -1,0 +1,52 @@
+MODULE ttl74190 
+TITLE 'Synchronous 4-bit up/down counter - Data I/O Corp'
+
+DECLARATIONS
+
+        Clk,Load,EnaG,Down              PIN;
+        DataA,DataB,DataC,DataD         PIN;
+
+        Qa,Qb,Qc,Qd                     PIN ISTYPE 'REG_D,BUFFER';
+        Rc,MaxMin                       PIN ISTYPE 'COM';
+
+        Count    = [Qd   ,Qc   ,Qb   ,Qa   ];
+        Data     = [DataD,DataC,DataB,DataA];
+
+EQUATIONS
+
+      Count.d = (Count.q + 1) &  Load &  EnaG & !Down & (Count.q  < 9)
+              # (Count.q - 1) &  Load &  EnaG &  Down & (Count.q != 0)
+              # ([1,0,0,1])   &  Load &  EnaG &  Down & (Count.q == 0)
+              # (Count.q)     &  Load & !EnaG
+              #  Data         & !Load;
+
+      Count.clk = Clk;
+
+      MaxMin  = (Count.q == 9) & !Down
+              # (Count.q == 0) &  Down;
+
+      Rc      = !(MaxMin & !Clk & !EnaG);
+
+TEST_VECTORS
+       ([Clk,Load,EnaG,Down,Data] -> [Count,MaxMin,Rc])
+        [.C., 0  ,  0 ,  0 ,  7 ] -> [  7  ,  0   , 1];
+        [.C., 1  ,  1 ,  0 ,  0 ] -> [  8  ,  0   , 1];
+        [ 0 , 1  ,  1 ,  0 ,  0 ] -> [  8  ,  0   , 1];
+        [ 1 , 1  ,  1 ,  0 ,  0 ] -> [  9  ,  1   , 1];
+        [ 0 , 1  ,  1 ,  0 ,  0 ] -> [  9  ,  1   , 1];
+        [.C., 1  ,  1 ,  0 ,  0 ] -> [  0  ,  0   , 1];
+        [.C., 1  ,  1 ,  0 ,  0 ] -> [  1  ,  0   , 1];
+        [.C., 1  ,  1 ,  0 ,  0 ] -> [  2  ,  0   , 1];
+        [.C., 1  ,  0 ,  0 ,  0 ] -> [  2  ,  0   , 1];
+        [.C., 1  ,  1 ,  0 ,  0 ] -> [  3  ,  0   , 1];
+        [.C., 1  ,  1 ,  0 ,  0 ] -> [  4  ,  0   , 1];
+        [.C., 1  ,  1 ,  1 ,  0 ] -> [  3  ,  0   , 1];
+        [.C., 1  ,  1 ,  1 ,  0 ] -> [  2  ,  0   , 1];
+        [.C., 1  ,  1 ,  1 ,  0 ] -> [  1  ,  0   , 1];
+        [.C., 1  ,  1 ,  1 ,  0 ] -> [  0  ,  1   , 1];
+        [.C., 1  ,  1 ,  1 ,  0 ] -> [  9  ,  0   , 1];
+        [.C., 1  ,  1 ,  1 ,  0 ] -> [  8  ,  0   , 1];
+        [.C., 1  ,  1 ,  1 ,  0 ] -> [  7  ,  0   , 1];
+
+END ttl74190; 
+

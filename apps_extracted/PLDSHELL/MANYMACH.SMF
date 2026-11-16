@@ -1,0 +1,71 @@
+Your Name
+Your Company
+12/1/94
+Multiple machines example for ISTATE
+PACKAGE: EP312DC
+OPTIONS: TURBO=ON
+PART: EP312
+
+% ******************* MACHINE 1 ***************************** %
+%     Sample four state counter.                              %
+INPUTS: CLK
+MACHINE: FOUR_STATE
+	CLOCK: CLK
+ 	STATES:  [  O1    O2 ]
+ 	S1       [  0     0  ]
+ 	S2       [  0     1  ]
+ 	S3       [  1     0  ]
+ 	S4       [  1     1  ]
+
+ S1:  S2
+
+ S2:  S3
+
+ S3:  S4
+
+ S4:  S1    % go back to start state %
+
+% ******************* MACHINE 2 ***************************** %
+%
+  Error condition checker.  On STATUS1 signal, change to next state.
+  If STATUS2 goes high in ST2 or ST4, then assert the ERRORFLAG signal for 1
+  cycle, then reset to the first state.
+%
+
+INPUTS: STATUS1, STATUS2, CLK2p, RESET, OE
+OUTPUTS: ERRORFLAG, M1, M2, M3
+NETWORK:
+		 ERRORFLAG = CONF(ERRORFLAGc, VCC)
+		 CLK2 = CLKB(CLK2p)
+
+MACHINE: STATUS_CHECKER
+	CLOCK: CLK2
+	CLEAR: RESET
+	OE:    OE
+ 	STATES:  [  M1    M2    M3 ]
+ 	ST1      [  0     0     0  ]   % reset state %
+ 	ST2      [  0     0     1  ]
+ 	ST3      [  0     1     0  ]
+ 	ST4      [  1     1     0  ]
+ 	ST5      [  1     1     1  ]
+ 	STERROR  [  0     1     1  ]
+
+   ST1:  IF STATUS1 THEN ST2
+
+   ST2:  IF STATUS1 THEN ST2
+		 IF STATUS2 THEN STERROR     % illegal condition %
+		 ASSERT:
+		 IF STATUS2 THEN ERRORFLAGc  % raise the error signal %
+
+   ST3:  IF STATUS1 THEN ST2
+
+   ST4:  IF STATUS1 THEN ST2
+		 IF STATUS2 THEN STERROR     % illegal condition %
+		 ASSERT:
+		 IF STATUS2 THEN ERRORFLAGc  % raise the error signal %
+
+   ST5:  IF STATUS1 THEN ST2
+
+   STERROR: ST1                       % lower ERRORFLAG for one cycle %
+
+ END$

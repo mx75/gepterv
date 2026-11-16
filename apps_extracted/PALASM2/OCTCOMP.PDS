@@ -1,0 +1,91 @@
+Title    Octal_Comparator
+Pattern  OctComp.pds
+Revision A
+Author   Mehrnaz Hada
+Company  Monolithic Memories Inc., Santa Clara,CA
+Date     1/29/85
+  
+;The octal comparator establishes when two 8-bit data
+;strings (A7-A0) and (B7-B0) are equivalent (EQ=H) or
+;equivalent (NE=H).
+  
+CHIP OctalComparato PAL16C1
+  
+A7 A0 B0 A1 B1 A2 B2 A3 B3 GND
+A4 B4 A5 B5 EQ NE A6 B6 B7 VCC
+  
+EQUATIONS
+  
+NE =  A0*/B0  +  /A0* B0                ;A0 :+: B0
+   +  A1*/B1  +  /A1* B1                ;A1 :+: B1
+   +  A2*/B2  +  /A2* B2                ;A2 :+: B2
+   +  A3*/B3  +  /A3* B3                ;A3 :+: B3
+   +  A4*/B4  +  /A4* B4                ;A4 :+: B4
+   +  A5*/B5  +  /A5* B5                ;A5 :+: B5
+   +  A6*/B6  +  /A6* B6                ;A6 :+: B6
+   +  A7*/B7  +  /A7* B7                ;A7 :+: B7
+  
+  
+SIMULATION
+  
+TRACE_ON A7 A6 A5 A4 A3 A2 A1 A0 NE
+         B7 B6 B5 B4 B3 B2 B1 B0
+  
+SETF  A7 /A6 /A5 /A4 /A3 /A2 /A1 /A0    ;A7=H, B7=L
+     /B7 /B6 /B5 /B4 /B3 /B2 /B1 /B0
+SETF /A7 A6                             ;A6=H, B6=L
+SETF /A6 A5                             ;A5=H, B5=L
+SETF /A5 A4                             ;A4=H, B4=L
+SETF /A4 A3                             ;A3=H, B3=L
+SETF /A3 A2                             ;A2=H, B2=L
+SETF /A2 A1                             ;A1=H, B1=L
+SETF /A1 A0                             ;A0=H, B0=L
+SETF /A7 /A6 /A5 /A4 /A3 /A2 /A1 /A0    ;A7=L, B7=H
+      B7
+SETF /B7 B6                             ;A6=L, B6=H
+SETF /B6 B5                             ;A5=L, B5=L
+SETF /B5 B4                             ;A4=L, B4=H
+SETF /B4 B3                             ;A3=L, B3=H
+SETF /B3 B2                             ;A2=L, B2=H
+SETF /B2 B1                             ;A1=L, B1=H
+SETF /B1 B0                             ;A0=L, B0=H
+SETF /B0                                ;Test all L's
+SETF A7 A6 A5 A4 A3 A2 A1 A0            ;Test all H's
+     B7 B6 B5 B4 B3 B2 B1 B0
+SETF /A7 A6 /A5 A4 /A3 A2 /A1 A0        ;Test even ones
+     /B7 B6 /B5 B4 /B3 B2 /B1 B0
+SETF A7 /A6 A5 /A4 A3 /A2 A1 /A0        ;Test odd ones
+     B7 /B6 B5 /B4 B3 /B2 B1 /B0
+  
+TRACE_OFF
+  
+;Function Table for PALASM1
+  
+;A7 A6 A5 A4 A3 A2 A1 A0 B7 B6 B5 B4 B3 B2 B1 B0 NE EQ
+  
+; Input  A  Input  B  Outputs
+; 76543210  76543210   NE EQ    Comments
+;--------------------------------------------------
+; HLLLLLLL  LLLLLLLL   H   L    A7=H, B7=L
+; LHLLLLLL  LLLLLLLL   H   L    A6=H, B6=L
+; LLHLLLLL  LLLLLLLL   H   L    A5=H, B5=L
+; LLLHLLLL  LLLLLLLL   H   L    A4=H, A5=L
+; LLLLHLLL  LLLLLLLL   H   L    A3=H, B3=L
+; LLLLLHLL  LLLLLLLL   H   L    A2=H, B2=L
+; LLLLLLHL  LLLLLLLL   H   L    A1=H, B1=L
+; LLLLLLLH  LLLLLLLL   H   L    A0=H, B0=L
+; LLLLLLLL  HLLLLLLL   H   L    A7=L, B7=H
+; LLLLLLLL  LHLLLLLL   H   L    A6=L, B6=H
+; LLLLLLLL  LLHLLLLL   H   L    A5=L, B5=H
+; LLLLLLLL  LLLHLLLL   H   L    A4=L, B4=H
+; LLLLLLLL  LLLLHLLL   H   L    A3=L, B3=H
+; LLLLLLLL  LLLLLHLL   H   L    A2=L, B2=H
+; LLLLLLLL  LLLLLLHL   H   L    A1=L, B1=H
+; LLLLLLLL  LLLLLLLH   H   L    A0=L, B0=H
+; LLLLLLLL  LLLLLLLL   L   H    Test all L'S
+; HHHHHHHH  HHHHHHHH   L   H    Test all H'S
+; HLHLHLHL  HLHLHLHL   L   H    Test even checkerboard
+; LHLHLHLH  LHLHLHLH   L   H    Test odd  checkerboard
+;-----------------------------------------------------
+  
+

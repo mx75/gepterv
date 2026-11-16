@@ -1,0 +1,97 @@
+                     Logical Devices Product Information
+                     -----------------------------------
+
+
+         CUPL-386 - Protected Mode Version
+
+         CUPL-386  will  take  full  advantage  of  the 80386's 32-bit
+         registers, 4-gigabyte  physical address  space, and  enhanced
+         instruction set.  It executes in the familiar DOS environment
+         without  the  need  of  memory  managers  or  other   special
+         operating system enhancements.  This means that designs  will
+         compile faster and be able to access up to 4 gigabytes of RAM
+         instead of just 640K.  In addition, partitioning and multiple
+         PLD software is provided as a standard built-in feature.  The
+         large PLDs  and FPGAs  are going  to be  supported with  this
+         system only  (examples: Altera  Max, AMD  MACH, Xilinx,  Plus
+         Logic, Plessey,  Actel, etc.).   Manufacturer specific  place
+         and route software and device fitters are not included.
+
+
+         PLPartition - Multiple PLD Design
+
+         One of the major tasks facing PLD designers is the  selection
+         of specific devices to implement a design.  PLPartition takes
+         the drudgery out of this process.  This product will  provide
+         you with  powerful features  that help  synthesize your logic
+         design into one or several PLDs.  Automatic Device  selection
+         and design fitting is  accomplished by using a  friendly user
+         interface and  extremely fast  fitter technology.   This will
+         decrease the time it takes to implement your final design.
+
+
+         ONCUPL - Schematic Interface
+
+         ONCUPL will interface CUPL to your favorite schematic capture
+         software.   You  can  draw  your  schematic from the supplied
+         macros and create  a PLD file  directly from your  schematic.
+         You can mix graphical and  text entry since ONCUPL creates  a
+         PLD source file in CUPL HDL.
+
+
+         TESTPLA - Automatic Test Vector Generator
+
+         This Automatic Test Vector Generator, designed for 20 and  24
+         pin  PLDs,  can  analyze  existing  JEDEC  files, create test
+         vectors for maximum coverage  and disassemble them into  CUPL
+         source files.
+
+
+         HOST Platforms of CUPL
+
+         CUPL is available on workstation platforms such as the SUN 3,
+         SPARCstation, VAX/VMS,  DEC 3100,  HP9000, and  Apollo DN3500
+         and DN4500.   It is also  available on the  various Macintosh
+         systems.   CUPL can  integrate into  Mentor Graphics,  Valid,
+         Viewlogic,  Racal-Redac,  and  any  other  CAD/CAE UNIX-based
+         software environment. An upgrade path is available for  those
+         who already own a DOS version of CUPL. 
+
+
+         ALLPRO-88 - Universal Device Programmer
+
+         The  universal  "DAC-PER-PIN"   programmer,  ALLPRO-88,   can
+         integrate with CUPL as a full PLD development workstation. It
+         is fully  qualified by  the semiconductor  manufacturers.  It
+         can be expanded from  24 to 88 "DAC-PER-PIN"  programming pin
+         drivers, or a 200 pin driver combination of "DAC-PER-PIN" and
+         "Shared DAC" technology.
+
+
+         UV-Eraser
+
+         To safely erase  your UV erasable  EPLDs use UV  Eraser Model
+         QUV-T8/N.  It can hold up to 15 EPLDs at one time.
+
+
+         Application Notes
+
+         Logical Devices, Inc.  will accept application  notes, design
+         examples and useful design  tips for designing with  CUPL PLD
+         design software.  All forwarded material will be reviewed and
+         become  the  property  of   the  CUPL  User's  Group.    This
+         information  will  be  available  for  all CUPL users free of
+         charge.  One out of every 10 application notes received  will
+         be selected as the best and most useful and the author of the
+         application note will be awarded a one-year CUPL  maintenance
+         program.
+
+         Forward material to:
+
+                    CUPL Marketing Dept.
+                    Logical Devices, Inc.
+                    1201 NW 65th Place
+                    Ft. Lauderdale Fl. 33309
+                    FAX: (305) 974-8531
+
+

@@ -1,0 +1,28 @@
+CUPL: Universal Compiler for Programmable Logic
+Version 4.0a   Serial# MD-40A-8249
+Copyright (C)  1983,1990 Logical Devices, Inc.
+Licensed to HOBBY                                             
+
+usage: cupl [-flags] [library] [device] source
+flags:
+          -j       jedec download format
+          -h       ascii-hex download format
+          -i       hl download format
+          -n       use source file name for download file
+          -a       create absolute file
+          -l       create listing file
+          -e       create expanded macro definition file
+          -x       create expanded product terms in documentation file
+          -f       create fuse plot/chip diagram in documentation file
+          -p       create PDIF database interchange format file
+          -b       create Berkeley PLA format file
+          -c       create PALASM format file
+          -d       deactivate unused OR terms
+          -r       disable product term merging
+          -g       program security fuse
+          -u       use specified library for compilation
+          -s       perform logic simulation after compile
+          -w       display simulation results in waveform
+          -m0      no minimization
+          -m1      quick minimization (default)
+          -m2..m4  other minimization levels

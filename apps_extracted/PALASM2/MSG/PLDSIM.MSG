@@ -1,0 +1,176 @@
+0000 Reserved.
+0010 Reserved.
+0020 Reserved.
+0075 >> ERROR  Invalid flag %s being checked for existence. INTERNAL ERROR.
+0150 \n %%%% PLDSIM %%%% Program Successful.  File: %s
+0150  %%%% PLDSIM %%%% ERROR count: %d  WARNING count: %d
+0160 \n %%%% PLDSIM %%%% Program Unsuccessful.  File: %s
+0160  %%%% PLDSIM %%%% ERROR count: %d  WARNING count: %d
+1010 Title : %s\n
+1020 File  : %s
+1030 %4d - SETF
+1040 %4d - TRACE_ON
+1050 %4d - TRACE_OFF
+1060 %4d - CLOCKF
+1070 %4d - CHECK
+1080 %4d - IF
+1090 %4d - WHILE
+1100 %4d - FOR
+1110 %4d - PRLDF
+1120 %4d - PRELOAD
+1200    \n  END OF SIMULATION 
+1210   Simulation results (History) is in ===> %s
+1220   Simulation results (Trace) is in   ===> %s
+1230   Merged results (JEDEC) is in       ===> %s 
+1240   Total memory used ===> %ld bytes\n
+1300 >> WARNING  Total number of check clashes   ====>>> %d
+1300             Clash detected at vector number ====>>> %d
+2010 >> WARNING  Invalid flag on the command line has been ignored.
+2020 >> WARNING  The TRACE_ON command must precede the TRACE_OFF command. 
+2030 >> WARNING  Equation %s.%s is inalid for combinatorial 
+2030             output %s. The functional equation will be ignored.
+2040 >> WARNING  The %s command should have parameters. 
+2050 >> WARNING  Maximum number (%d) of JEDEC test vectors exceeded.
+2050             No more test vectors will be written to the JEDEC file.
+2060 >> WARNING  There is no TRACE_OFF command after the TRACE_ON 
+2060             command.  The TRACE_OFF command is assumed. 
+2070 >> WARNING  The %s JEDEC fuse map file was not found. 
+2070             The simulation test vectors are not merged. 
+2080 >> WARNING  Cannot open the %s fuse map file.
+2080             The simulation test vectors are not merged. 
+2090 >> WARNING  The %s JEDEC fuse map file is corrupt. 
+2090             The simulation test vectors are not merged. 
+2100 >> WARNING  %s of pin %s does not affect any equations.
+2110 >> WARNING  JEDEC Preload not supported for this device.
+2110             The preload is in software only.
+2120 >> WARNING  Test vector generation is turned off.
+2130 >> WARNING  Equation %s.%s will always be low.
+2140 >> WARNING  Equation %s.%s will always be high.
+2150 >> WARNING  Tristate not initialized for pin %s.  This may 
+2150             affect simulation results.
+2160 >> WARNING  Possible timing conflict.  The input and clock signals 
+2160             for pin %s changed.  May cause simulation errors.
+3010 >> ERROR    Run the EXPAND and MINIMIZE programs.
+3020 >> ERROR    Run the MINIMIZE program after EXPAND.
+3030 >> ERROR    Device %s is not supported.
+3040 >> ERROR    No input delimeter. 
+3050 >> ERROR    No output delimeter. 
+3060 >> ERROR    Out of memory. 
+3070 >> ERROR    Invalid token in tree file. 
+3080 >> ERROR    Invalid device.  Cannot simulate.
+3090 >> ERROR    One of the output file names is not UNIQUE.
+3100 >> ERROR    Could not open file %s.
+3110 >> ERROR    No SIMULATION section present in %s.
+3120 >> ERROR    Unrecognized simulation command. 
+3130 >> ERROR    Unknown token: %d.
+3140 >> ERROR    Symbol table overflow.
+3150 >> ERROR    Cannot %s combinatorial output %s. 
+3160 >> ERROR    Cannot %s registered output %s. 
+3165 >> ERROR    Cannot %s %s pin %s. 
+3170 >> ERROR    Cannot %s a %s pin. 
+3180 >> ERROR    Cannot %s pin %s.
+3180             %s allowed only on output pins. 
+3190 >> ERROR    Can only %s registered pins. 
+3190             Pin %s is not registered.
+3200 >> ERROR    The number of vectors on the command line 
+3200             must be an integer. 
+3210 >> ERROR    The maximum number of vectors supported is %d. 
+3220 >> ERROR    Command %s is not supported by the simulator. 
+3230 >> ERROR    The %s pin is high when the %s command 
+3230             is asserted. 
+3240 >> ERROR    The clock pin %s in the pin list must not contain
+3240             a slash.
+3250 >> ERROR    Equation %s.%s is not supported by the simulator. 
+3260 >> ERROR    %s equation is not suppored by the simulator. 
+3270 >> ERROR    Cannot %s input output pin %s unless
+3270             it is floating.
+3280 >> ERROR    System oscillation. 
+3290 >> ERROR    Cannot CLOCKF pin %s.  The pin is not a clock pin. 
+3300 >> ERROR    Can only %s output pins. 
+3300             Pin %s is not an output pin.
+3310 >> ERROR    Can only %s floating pins.
+3310             Pin %s is not floating.
+3320 >> ERROR    RS register %s is clocked with both 
+3320             set and reset high.
+3330 >> ERROR    Both set and reset are high for register %s.
+3340 >> ERROR    Cannot %s pin %s.
+3350 >> ERROR    Both set and reset are high for latch %s.
+3360 >> ERROR    Pin %s duplicated for this command.
+3360             Cannot have duplicate arguments for the same command.
+3370 >> ERROR    Cannot clock %s %s while preload product term
+3370             is active.
+3380 >> ERROR    Cannot preset %s %s while preload product term
+3380             is active.
+3390 >> ERROR    Cannot reset %s %s while preload product term
+3390             is active.
+3400 >> ERROR    Cannot load %s %s while preload product term 
+3400             is active and latch is not enabled.
+4010 ** INTERNAL Offset position in pdf file for device %s is wrong.
+4020 ** INTERNAL Please call AMD. 
+4030 ** INTERNAL Pin list creation error.  Call AMD. 
+4040 ** INTERNAL Internal Tree Error. Call AMD. 
+4050 ** INTERNAL Cannot open debug file %s. 
+4060 ** INTERNAL Primitive too small to fit equation.
+4070 ** INTERNAL Feature not implemented: %s.
+4080 ** INTERNAL Primitive not implemented, Primitive %d.
+4090 ** INTERNAL Symbol table overflow. 
+4100 ** INTERNAL Error during interpretation. 
+4110 ** INTERNAL PDF Module internal error. 
+5001 >> ERROR    Given section is not found. Please run PARSE. %s %d 
+5002 >> ERROR    Cannot find tree file %s. Please run PARSE.
+5003 >> ERROR    Out of memory.   
+5004 >> ERROR    Illegal section.   
+5005 >> ERROR    TITLE is not found.  
+5006 >> ERROR    PATTERN is not found.  
+5007 >> ERROR    REVISION is not found.  
+5008 >> ERROR    AUTHOR is not found.   
+5009 >> ERROR    COMPANY is not found.  
+5010 >> ERROR    DATE is not found.  
+5011 >> ERROR    User library not found. 
+5012 >> ERROR    Macro heading not found. 
+5013 >> ERROR    Wire not found. 
+5014 >> ERROR    Device is not found. 
+5015 >> ERROR    Pin list is not found. 
+5016 >> ERROR    Group assignment is not found. 
+5017 >> ERROR    Boolean equation section not found in pds file. 
+5018 >> ERROR    State start up information not found. 
+5019 >> ERROR    State equation is not found. 
+5020 >> ERROR    State output is not found. 
+5021 >> ERROR    State condition is not found. 
+5022 >> ERROR    Simulation construct is not found. 
+5028 >> ERROR    Tree file name is too long.
+5029 >> ERROR    Missing or bad PALASM2.TRE, cannot assemble file. 
+5029             Run PARSE to generate PALASM2.TRE. 
+6001 >> ERROR    Cannot open file %s. 
+6002 >> ERROR    Cannot open file %s. 
+6003 >> ERROR    Out of memory. 
+6004 >> ERROR    Cannot set name after end of name. 
+6005 >> ERROR    Problem making simulation output. 
+6006 >> ERROR    Too many simulation values. 
+6007 >> ERROR    Not enough simulation values. 
+6008 >> ERROR    Illegal output. 
+6009 >> ERROR    No exsiting file %s. 
+7000 >> PLDSIM HELP : help option. 
+7000 >> Command parmaters for simulator. 
+7000 
+7000       pldsim [OPTION ...] 
+7000 
+7000     OPTION  : -help  
+7000               -log [ <logifle[.log]> ] 
+7000               -jdc [ <jdcfile[.jdc]> ] 
+7000               -hst [ <hstfile[.hst]> ] 
+7000               -trf [ <trffile[.trf]> ] 
+7000               -vectors [digit ...] 
+7010 
+7010     Option flag description : 
+7010        -help        : prints out help screen. 
+7010        -log         : capture screen messages to disk file. 
+7010        -jdc         : rename fuse map and test vector file. 
+7010        -hst         : rename history output file. 
+7010        -trf         : rename trace output file. 
+7010        -vectors     : maximum number of test vectors. 
+7010
+8000        -fullhistory 
+8000        -fullhistory : prints history for each feedback event. 
+8000
+

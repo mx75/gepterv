@@ -1,0 +1,286 @@
+Title        Arbitration/Bus control logic
+Pattern      
+Revision     1
+Date         Current Date
+
+;THIS IS A SAMPLE FILE ONLY.  THIS CIRCUIT HAS NOT BEEN BUILT AND TESTED, IT
+;PROVIDES A GENERAL SOLUTION !!!
+
+
+CHIP arblogic EP610
+
+
+;inputs
+pin 1		clk1		;33 MHz clock input
+pin 13		clk2		;33 MHz clock input
+pin 2		procreq		;microprocessor local bus request
+pin 23		commreq		;comm controller local bus request
+pin 11		eisareq		;on-board eisa controller local bus req.
+pin 14		addr1		;address input - used for chip select dec.
+
+pin 3		addr2		;address input - used for chip select dec.
+pin 5		ale_		;ale (or ads/) - represents valid addr.
+pin 22		reset		;board reset - used to set initial state
+
+;outputs
+pin 6		procgrant	;processor local bus grant
+pin 7		commgrant	;communications controller local bus grant
+pin 8		eisagrant	;on-board eisa controller local bus grant
+pin 9		ready_		;indicates end of current bus cycle
+pin 20		commcs		;comm controller chip select
+pin 15		eisacs		;local eisa bus controller chip select
+pin 21		sramcs		;sram chip select
+
+;buried functions
+pin 16		burst0	REGFBK	;part of burst counter logic
+pin 17		burst1	REGFBK	;part of burst counter logic
+pin 18		burst2	REGFBK	;part of burst counter logic
+pin 19		burstdone	;active at end of current burst count
+pin 10		wait0	REGFBK	;lower bit of wait state count logic,
+				;ready represents output of this logic
+pin 4		wait1	REGFBK	;upper bit of wait state count logic
+
+
+STATE
+MOORE_MACHINE
+DEFAULT_BRANCH s0
+
+;busarb state machine uses a rotating (last grant, lowest priority) scheme
+;which allows bus accesses to be balanced.  If no request then returns to 
+;state 000 which allows microprocessor to be #1 priority (this is due to
+;requirement to quickly service interrupts. 
+
+;busarb valid states
+s0 = /eisagrant * /commgrant * /procgrant  ;no grant active
+s1 = /eisagrant * /commgrant *  procgrant  ;microprocessor grant active
+s2 = /eisagrant *  commgrant * /procgrant  ;comm controller grant active
+s3 =  eisagrant * /commgrant * /procgrant  ;eisa bus controller grant active
+
+;state transitions
+
+;reset state
+s0 :=  goproc -> s1		;do proc 1st
+	+ gocomm -> s2		;if not proc, do comm 2nd
+	+ goeisa -> s3		;if not proc and not comm, do eisa
+
+;processor gets bus
+s1 :=  docomm -> s2		;do comm
+	+ eisalast -> s3	;if not comm, do eisa
+	+ procnext -> s1	;if not comm and not eisa, do proc
+	+ notdone ->s1		;if not done, hold state
+
+;comm controller gets bus
+s2 :=  doeisa -> s3		;do eisa
+	+ proclast -> s1	;if not eisa, do proc
+	+ commnext -> s2	;if not eisa and not proc, do comm
+	+ notdone ->s2		;if not done, hold state
+
+;eisa controller gets bus
+s3 :=  doproc -> s1		;do proc
+	+ commlast -> s2	;if not proc, do comm
+	+ eisanext -> s3	;if not proc and not comm, do eisa
+	+ notdone ->s3		;if not done, hold state
+
+;transition conditions
+
+CONDITIONS
+
+goproc =  procreq
+gocomm = /procreq *  commreq
+goeisa = /procreq * /commreq * eisareq
+
+notdone = /burstdone
+doproc = burstdone * procreq
+docomm = burstdone * commreq
+doeisa = burstdone * eisareq
+
+proclast = burstdone * /eisareq * procreq
+commlast = burstdone * /procreq * commreq
+eisalast = burstdone * /commreq * eisareq
+
+procnext = burstdone *  procreq * /commreq * /eisareq
+commnext = burstdone * /procreq *  commreq * /eisareq 
+eisanext = burstdone * /procreq * /commreq *  eisareq
+
+
+
+STATE
+MOORE_MACHINE
+DEFAULT_BRANCH ws0
+
+;This wait state generator can provide up to four wait states.  It is assumed
+;the EISA controller and the comm controller each take four wait states and 
+;the SRAM takes two wait states.
+
+
+;wait state generator valid states
+ws0 = /ready_ * /wait1 * /wait0		;no wait states	
+ws1 = /ready_ *  wait1 * /wait0		;2 wait states	
+ws2 =  ready_ * /wait1 * /wait0		;Not ready	
+ws3 =  ready_ *  wait1 *  wait0		;Not ready
+
+
+ws0 :=	sramcs -> ws3
+	+ ((commcs + eisacs) * /sramcs) -> ws1
+
+ws1 :=	VCC -> ws2
+
+ws2 :=	VCC -> ws3
+
+ws3 :=	VCC -> ws0
+
+
+
+STATE
+MOORE_MACHINE
+DEFAULT_BRANCH bs0
+
+;the burst logic state machine has a programmed burst length for each bus
+;grant.  These are 8 transfers for the comm controller (fifo) and EISA bus
+;controller and one transfer for the microprocessor.  When terminal count
+;is reached BURSTDONE will go active, indicating to the bus arbitration logic
+;that it should re-arbitrate the bus.  At each state the bus grant is checked
+;to make sure it is still active (i.e. that a full FIFO transfer is necessary).
+
+
+;burst state machine
+bs0 = /burst2 * /burst1 * /burst0
+bs1 = /burst2 * /burst1 *  burst0
+bs2 = /burst2 *  burst1 * /burst0
+bs3 = /burst2 *  burst1 *  burst0
+bs4 =  burst2 * /burst1 * /burst0
+bs5 =  burst2 * /burst1 *  burst0
+bs6 =  burst2 *  burst1 * /burst0
+bs7 =  burst2 *  burst1 *  burst0
+
+	
+bs0 := procgrant -> bs7
+	+ (/procgrant * (commgrant + eisagrant)) -> bs1
+	+-> bs0
+
+bs1 := (/commgrant * /eisagrant) -> bs7
+	+-> bs2
+
+bs2 := (/commgrant * /eisagrant) -> bs7
+	+-> bs3
+
+bs3 := (/commgrant * /eisagrant) -> bs7
+	+-> bs4
+
+bs4 := (/commgrant * /eisagrant) -> bs7
+	+-> bs5
+
+bs5 := (/commgrant * /eisagrant) -> bs7
+	+-> bs6
+
+bs6 := VCC -> bs7;
+
+bs7 := VCC -> bs0;		;burstdone should go active here
+
+
+
+;equations
+
+EQUATIONS
+
+commcs := /addr1 * /addr2		;address mapping will vary
+commcs.clkf = /ale_			;ale is async clock
+
+eisacs := /addr1 * addr2
+eisacs.clkf = /ale_
+
+sramcs := addr1 * /addr2
+sramcs.clkf = /ale_
+
+burstdone = burst0 * burst1 * burst2	;terminal count completed
+
+burst0.clkf = ready_			;burst counter async clocked w/ ready
+burst1.clkf = ready_
+burst2.clkf = ready_
+
+burst0.rstf = reset
+burst1.rstf = reset
+burst2.rstf = reset
+
+procgrant.rstf = reset
+commgrant.rstf = reset
+eisagrant.rstf = reset
+
+ready_.rstf = reset
+wait0.rstf = reset
+wait1.rstf = reset
+
+
+
+;simulate the Bus Arbitration state machine
+
+SIMULATION
+
+
+;create vectors for some signals
+	VECTOR busarb := [eisagrant, commgrant, procgrant]
+	VECTOR burst  := [burst2, burst1, burst0]
+	VECTOR wait   := [ready_, wait1, wait0]
+
+	TRACE_ON clk1 burstdone procreq commreq eisareq busarb burst
+
+;set inputs and clocks to known states
+	SETF /clk1 /clk2 addr1 /addr2 /ale_ reset procreq /commreq /eisareq
+
+;clock sramcs register
+	SETF ale_
+	SETF /ale_
+
+;clock state registers and remove reset
+	CLOCKF clk1
+	CLOCKF clk2
+	SETF /reset
+	CLOCKF clk1
+	CLOCKF clk2
+
+;check for s1 (processor grant)
+	CHECK s1 bs7 burstdone
+
+;generate 50 cycles, sequencing processor, communications
+;controller and eisa controller requests. each cycle is made
+;up of one clk1 pulse and one clk2 pulse.
+
+	FOR i := 0 to 50 DO
+	BEGIN
+
+                ;communications controller request
+                
+		IF i = 2 THEN
+		BEGIN
+			SETF /procreq  commreq /eisareq
+		END
+
+                ;eisa controller request
+                
+		IF i = 15 THEN
+		BEGIN
+			SETF /procreq /commreq  eisareq
+		END
+
+                ;processor request
+                
+		IF i = 30 THEN
+		BEGIN
+			SETF  procreq /commreq /eisareq
+		END
+
+                ;no request
+                
+		IF i = 40 THEN
+		BEGIN
+			SETF  /procreq /commreq /eisareq
+		END
+
+		CLOCKF clk1
+		CLOCKF clk2
+	END
+
+	TRACE_OFF
+
+;end of simulation for the Bus Arbitration state machine
+

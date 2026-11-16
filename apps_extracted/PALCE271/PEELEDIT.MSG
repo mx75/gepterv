@@ -1,0 +1,67 @@
+***  These error messages are defined
+***  by Editor Toolbox
+
+020  Undefined file error
+021  Typeahead buffer overflow
+022  Window size too small
+023  Cannot delete the only window
+024  Cannot link a window to itself
+025  Word too long for current margins
+026  No block is defined
+027  Block is not in a viewable window
+028  Invalid marker number
+029  Marker has not been set
+030  Marker is not in a viewable window
+031  Invalid margin specification
+035  No more memory available
+036  Invalid integer
+037  Command aborted
+038  Not found
+039  Disk full
+040  File too big! Partial file read
+041  Line too long
+
+***  These error messages are copied
+***  from the Turbo Pascal Reference
+***  Manual's list of I/O errors
+
+001  File does not exist
+002  File is not open for input
+003  File is not open for output
+004  File is not open
+005  Read error or directory not found
+006  Write error
+016  Invalid numeric format
+032  Not allowed on logical device
+033  Not allowed in direct mode
+034  Cannot assign to standard files
+144  Record length mismatch
+145  Cannot seek beyond end of file
+153  Unexpected end of file
+240  Disk write error occurred
+241  Directory is full
+242  File size overflow
+255  File has disappeared
+ 
+***  More MicroStar error messages
+
+101  File creation error
+102  Unable to close target file
+103  Unable to close source file
+104  Unable to create ".BAK" file
+106  Program file not found
+107  Error saving defaults
+108  Printing error
+111  Error reading print file
+113  Error closing print file
+114  Print file not found
+120  Maximum of two windows allowed
+121  Second window not open
+122  Invalid directory path
+123  Turbo Lightning not resident
+
+***  You can define additional
+***  error messages
+ 
+ 
+

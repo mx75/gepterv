@@ -1,0 +1,155 @@
+# $Header: /swpg/develop/abel/src/devsel2/newdata/RCS/plu.chp,v 1.4 92/04/07 14:07:21 aez Exp $
+# chip report file   Released 5.1 
+#
+$MANUFACTURER PLU Plus Logic
+$CONTACT (408)293-7578 
+$ADDRESS1 1255 Parkmoor Ave 
+$ADDRESS2 San Jose, CA 95126 
+$ADDRESS3 ------------- 
+#
+# 132 column 1-line format no user info (default)
+#
+# format is:
+#$C2 mfg part type tech package devname pins spc eraseable preload family pinout did speed setup hold power price
+#
+#
+
+#   mfg       part             type  tech  pack  devname     pins    spc  era preld fam  pin    DID#  speed set  hold pwr prc 
+
+$C2 PLU       XC7236-40C-PJ40C FPGA CMOS  DIP   NO_ABEL      40     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       XC7236-40C-PP40C FPGA CMOS  DIP   NO_ABEL      40     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       XC7236-40C-PG40C FPGA CMOS  DIP   NO_ABEL      40     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       XC7236-40C-WJ40C FPGA CMOS  CDIP  NO_ABEL      40     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       XC7236-40C-WP40C FPGA CMOS  CDIP  NO_ABEL      40     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       XC7236-40C-WG40C FPGA CMOS  CDIP  NO_ABEL      40     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       XC7236-33C-PJ40C FPGA CMOS  DIP   NO_ABEL      40     COM  UV   NO   --   --       0    0   14    3    0    0
+$C2 PLU       XC7236-33C-PP40C FPGA CMOS  DIP   NO_ABEL      40     COM  UV   NO   --   --       0    0   14    3    0    0
+$C2 PLU       XC7236-33C-PG40C FPGA CMOS  DIP   NO_ABEL      40     COM  UV   NO   --   --       0    0   14    3    0    0
+$C2 PLU       XC7236-33C-WJ40C FPGA CMOS  CDIP  NO_ABEL      40     COM  UV   NO   --   --       0    0   14    3    0    0
+$C2 PLU       XC7236-33C-WP40C FPGA CMOS  CDIP  NO_ABEL      40     COM  UV   NO   --   --       0    0   14    3    0    0
+$C2 PLU       XC7236-33C-WG40C FPGA CMOS  CDIP  NO_ABEL      40     COM  UV   NO   --   --       0    0   14    3    0    0
+$C2 PLU       XC7236-40C-PJ44C FPGA CMOS  PLCC  XC723644     44     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       XC7236-40C-PP44C FPGA CMOS  PLCC  XC723644     44     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       XC7236-40C-PG44C FPGA CMOS  PLCC  XC723644     44     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       XC7236-40C-PQ44C FPGA CMOS  FPAK  XC723644     44     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       XC7236-40C-WJ44C FPGA CMOS  LCC   XC723644     44     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       XC7236-40C-WP44C FPGA CMOS  LCC   XC723644     44     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       XC7236-40C-WG44C FPGA CMOS  LCC   XC723644     44     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       XC7236-40C-WQ44C FPGA CMOS  FPAK  XC723644     44     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       XC7236-33C-PJ44C FPGA CMOS  PLCC  XC723644     44     COM  UV   NO   --   --       0    0   14    3    0    0
+$C2 PLU       XC7236-33C-PP44C FPGA CMOS  PLCC  XC723644     44     COM  UV   NO   --   --       0    0   14    3    0    0
+$C2 PLU       XC7236-33C-PG44C FPGA CMOS  PLCC  XC723644     44     COM  UV   NO   --   --       0    0   14    3    0    0
+$C2 PLU       XC7236-33C-PQ44C FPGA CMOS  FPAK  XC723644     44     COM  UV   NO   --   --       0    0   14    3    0    0
+$C2 PLU       XC7236-33C-WJ44C FPGA CMOS  LCC   XC723644     44     COM  UV   NO   --   --       0    0   14    3    0    0
+$C2 PLU       XC7236-33C-WP44C FPGA CMOS  LCC   XC723644     44     COM  UV   NO   --   --       0    0   14    3    0    0
+$C2 PLU       XC7236-33C-WG44C FPGA CMOS  LCC   XC723644     44     COM  UV   NO   --   --       0    0   14    3    0    0
+$C2 PLU       XC7236-33C-WQ44C FPGA CMOS  FPAK  XC723644     44     COM  UV   NO   --   --       0    0   14    3    0    0
+$C2 PLU       H2010-33C-44PJ   FPGA  CMOS  PLCC  XC723644     44     COM  UV   NO   --   --    6807   43   10    0  393    0
+$C2 PLU       H2010-33C-44WJ   FPGA  CMOS  LCC   XC723644     44     COM  UV   NO   --   --       0   43   10    0  393    0
+$C2 PLU       H2010-40C-44PJ   FPGA  CMOS  PLCC  XC723644     44     COM  UV   NO   --   --    6807   34    8    0  393    0
+$C2 PLU       H2010-40C-44WJ   FPGA  CMOS  LCC   XC723644     44     COM  UV   NO   --   --       0   34    8    0  393    0
+$C2 PLU       XC7272-40C-PP84C FPGA CMOS  PLCC  XC727284     84     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       XC7272-40C-PG84C FPGA CMOS  PLCC  XC727284     84     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       XC7272-40C-PQ84C FPGA CMOS  FPAK  XC727284     84     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       XC7272-40C-WJ84C FPGA CMOS  LCC   XC727284     84     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       XC7272-40C-WP84C FPGA CMOS  LCC   XC727284     84     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       XC7272-40C-WG84C FPGA CMOS  LCC   XC727284     84     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       XC7272-40C-WQ84C FPGA CMOS  FPAK  XC727284     84     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       XC7272-33C-PP84C FPGA CMOS  PLCC  XC727284     84     COM  UV   NO   --   --       0    0   14    3    0    0
+$C2 PLU       XC7272-33C-PG84C FPGA CMOS  PLCC  XC727284     84     COM  UV   NO   --   --       0    0   14    3    0    0
+$C2 PLU       XC7272-33C-PQ84C FPGA CMOS  FPAK  XC727284     84     COM  UV   NO   --   --       0    0   14    3    0    0
+$C2 PLU       XC7272-33C-WP84C FPGA CMOS  LCC   XC727284     84     COM  UV   NO   --   --       0    0   14    3    0    0
+$C2 PLU       XC7272-33C-WG84C FPGA CMOS  LCC   XC727284     84     COM  UV   NO   --   --       0    0   14    3    0    0
+
+#   mfg       part             type  tech  pack  devname     pins    spc  era preld fam  pin    DID#  speed set  hold pwr prc 
+$C2 PLU       XC7272-33C-WQ84C FPGA CMOS  FPAK  XC727284     84     COM  UV   NO   --   --       0    0   14    3    0    0
+$C2 PLU       XC7272-33C-PJ84C FPGA CMOS  PLCC  XC727284     84     COM  UV   NO   18F  084   5851   51    0    7  840    0
+$C2 PLU       XC7272-33C-WJ84C FPGA CMOS  LCC   XC727284     84     COM  UV   NO   --   --    6207   51    0    7  840    0
+$C2 PLU       XC7272-40C-PJ84C FPGA CMOS  PLCC  XC727284     84     COM  UV   NO   18F  084   5851   42    0    6  840    0
+$C2 PLU       FPGA2040-33C-84PJ FPGA  CMOS  PLCC  NO_ABEL      84     COM  UV   NO   --   --       0    0   14    3    0    0
+$C2 PLU       FPGA2040-33C-84PP FPGA  CMOS  PLCC  NO_ABEL      84     COM  UV   NO   --   --       0    0   14    3    0    0
+$C2 PLU       FPGA2040-33C-84PG FPGA  CMOS  PLCC  NO_ABEL      84     COM  UV   NO   --   --       0    0   14    3    0    0
+$C2 PLU       FPGA2040-33C-84PQ FPGA  CMOS  FPAK  NO_ABEL      84     COM  UV   NO   --   --       0    0   14    3    0    0
+$C2 PLU       FPGA2040-33C-84WJ FPGA  CMOS  LCC   NO_ABEL      84     COM  UV   NO   --   --       0    0   14    3    0    0
+$C2 PLU       FPGA2040-33C-84WP FPGA  CMOS  LCC   NO_ABEL      84     COM  UV   NO   --   --       0    0   14    3    0    0
+$C2 PLU       FPGA2040-33C-84WG FPGA  CMOS  LCC   NO_ABEL      84     COM  UV   NO   --   --       0    0   14    3    0    0
+$C2 PLU       FPGA2040-33C-84WQ FPGA  CMOS  FPAK  NO_ABEL      84     COM  UV   NO   --   --       0    0   14    3    0    0
+$C2 PLU       FPGA2040-33C-100PJ FPGA  CMOS  PLCC  NO_ABEL     100     COM  UV   NO   --   --       0    0   14    3    0    0
+$C2 PLU       FPGA2040-33C-100PP FPGA  CMOS  PLCC  NO_ABEL     100     COM  UV   NO   --   --       0    0   14    3    0    0
+$C2 PLU       FPGA2040-33C-100PG FPGA  CMOS  PLCC  NO_ABEL     100     COM  UV   NO   --   --       0    0   14    3    0    0
+$C2 PLU       FPGA2040-33C-100PQ FPGA  CMOS  FPAK  NO_ABEL     100     COM  UV   NO   --   --       0    0   14    3    0    0
+$C2 PLU       FPGA2040-33C-100WJ FPGA  CMOS  LCC   NO_ABEL     100     COM  UV   NO   --   --       0    0   14    3    0    0
+$C2 PLU       FPGA2040-33C-100WP FPGA  CMOS  LCC   NO_ABEL     100     COM  UV   NO   --   --       0    0   14    3    0    0
+$C2 PLU       FPGA2040-33C-100WG FPGA  CMOS  LCC   NO_ABEL     100     COM  UV   NO   --   --       0    0   14    3    0    0
+$C2 PLU       FPGA2040-33C-100WQ FPGA  CMOS  FPAK  NO_ABEL     100     COM  UV   NO   --   --       0    0   14    3    0    0
+$C2 PLU       FPGA2040-33C-132PJ FPGA  CMOS  PLCC  NO_ABEL     132     COM  UV   NO   --   --       0    0   14    3    0    0
+$C2 PLU       FPGA2040-33C-132PP FPGA  CMOS  PLCC  NO_ABEL     132     COM  UV   NO   --   --       0    0   14    3    0    0
+$C2 PLU       FPGA2040-33C-132PG FPGA  CMOS  PLCC  NO_ABEL     132     COM  UV   NO   --   --       0    0   14    3    0    0
+$C2 PLU       FPGA2040-33C-132PQ FPGA  CMOS  FPAK  NO_ABEL     132     COM  UV   NO   --   --       0    0   14    3    0    0
+$C2 PLU       FPGA2040-40C-84PJ FPGA  CMOS  PLCC  NO_ABEL      84     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       FPGA2040-40C-84PP FPGA  CMOS  PLCC  NO_ABEL      84     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       FPGA2040-40C-84PG FPGA  CMOS  PLCC  NO_ABEL      84     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       FPGA2040-40C-84PQ FPGA  CMOS  FPAK  NO_ABEL      84     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       FPGA2040-40C-84WJ FPGA  CMOS  LCC   NO_ABEL      84     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       FPGA2040-40C-84WP FPGA  CMOS  LCC   NO_ABEL      84     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       FPGA2040-40C-84WG FPGA  CMOS  LCC   NO_ABEL      84     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       FPGA2040-40C-84WQ FPGA  CMOS  FPAK  NO_ABEL      84     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       FPGA2040-40C-100PJ FPGA  CMOS  PLCC  NO_ABEL     100     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       FPGA2040-40C-100PP FPGA  CMOS  PLCC  NO_ABEL     100     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       FPGA2040-40C-100PG FPGA  CMOS  PLCC  NO_ABEL     100     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       FPGA2040-40C-100PQ FPGA  CMOS  FPAK  NO_ABEL     100     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       FPGA2040-40C-100WJ FPGA  CMOS  LCC   NO_ABEL     100     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       FPGA2040-40C-100WP FPGA  CMOS  LCC   NO_ABEL     100     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       FPGA2040-40C-100WG FPGA  CMOS  LCC   NO_ABEL     100     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       FPGA2040-40C-100WQ FPGA  CMOS  FPAK  NO_ABEL     100     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       FPGA2040-40C-132PJ FPGA  CMOS  PLCC  NO_ABEL     132     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       FPGA2040-40C-132PP FPGA  CMOS  PLCC  NO_ABEL     132     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       FPGA2040-40C-132PG FPGA  CMOS  PLCC  NO_ABEL     132     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       FPGA2040-40C-132PQ FPGA  CMOS  FPAK  NO_ABEL     132     COM  UV   NO   --   --       0    0   12    3    0    0
+#
+# These are old part names before Xilinx bought PLus out aez 4/2/92
+$C2 PLU       FPGA2010-40C-40PJ FPGA  CMOS  DIP   NO_ABEL      40     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       FPGA2010-40C-40PP FPGA  CMOS  DIP   NO_ABEL      40     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       FPGA2010-40C-40PG FPGA  CMOS  DIP   NO_ABEL      40     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       FPGA2010-40C-40WJ FPGA  CMOS  CDIP  NO_ABEL      40     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       FPGA2010-40C-40WP FPGA  CMOS  CDIP  NO_ABEL      40     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       FPGA2010-40C-40WG FPGA  CMOS  CDIP  NO_ABEL      40     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       FPGA2010-33C-40PJ FPGA  CMOS  DIP   NO_ABEL      40     COM  UV   NO   --   --       0    0   14    3    0    0
+$C2 PLU       FPGA2010-33C-40PP FPGA  CMOS  DIP   NO_ABEL      40     COM  UV   NO   --   --       0    0   14    3    0    0
+$C2 PLU       FPGA2010-33C-40PG FPGA  CMOS  DIP   NO_ABEL      40     COM  UV   NO   --   --       0    0   14    3    0    0
+$C2 PLU       FPGA2010-33C-40WJ FPGA  CMOS  CDIP  NO_ABEL      40     COM  UV   NO   --   --       0    0   14    3    0    0
+$C2 PLU       FPGA2010-33C-40WP FPGA  CMOS  CDIP  NO_ABEL      40     COM  UV   NO   --   --       0    0   14    3    0    0
+$C2 PLU       FPGA2010-33C-40WG FPGA  CMOS  CDIP  NO_ABEL      40     COM  UV   NO   --   --       0    0   14    3    0    0
+$C2 PLU       FPGA2010-40C-44PJ FPGA  CMOS  PLCC  XC723644     44     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       FPGA2010-40C-44PP FPGA  CMOS  PLCC  XC723644     44     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       FPGA2010-40C-44PG FPGA  CMOS  PLCC  XC723644     44     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       FPGA2010-40C-44PQ FPGA  CMOS  FPAK  XC723644     44     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       FPGA2010-40C-44WJ FPGA  CMOS  LCC   XC723644     44     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       FPGA2010-40C-44WP FPGA  CMOS  LCC   XC723644     44     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       FPGA2010-40C-44WG FPGA  CMOS  LCC   XC723644     44     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       FPGA2010-40C-44WQ FPGA  CMOS  FPAK  XC723644     44     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       FPGA2010-33C-44PJ FPGA  CMOS  PLCC  XC723644     44     COM  UV   NO   --   --       0    0   14    3    0    0
+$C2 PLU       FPGA2010-33C-44PP FPGA  CMOS  PLCC  XC723644     44     COM  UV   NO   --   --       0    0   14    3    0    0
+$C2 PLU       FPGA2010-33C-44PG FPGA  CMOS  PLCC  XC723644     44     COM  UV   NO   --   --       0    0   14    3    0    0
+$C2 PLU       FPGA2010-33C-44PQ FPGA  CMOS  FPAK  XC723644     44     COM  UV   NO   --   --       0    0   14    3    0    0
+$C2 PLU       FPGA2010-33C-44WJ FPGA  CMOS  LCC   XC723644     44     COM  UV   NO   --   --       0    0   14    3    0    0
+$C2 PLU       FPGA2010-33C-44WP FPGA  CMOS  LCC   XC723644     44     COM  UV   NO   --   --       0    0   14    3    0    0
+$C2 PLU       FPGA2010-33C-44WG FPGA  CMOS  LCC   XC723644     44     COM  UV   NO   --   --       0    0   14    3    0    0
+$C2 PLU       FPGA2010-33C-44WQ FPGA  CMOS  FPAK  XC723644     44     COM  UV   NO   --   --       0    0   14    3    0    0
+$C2 PLU       FPGA2020-40C-84PP FPGA  CMOS  PLCC  XC727284     84     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       FPGA2020-40C-84PG FPGA  CMOS  PLCC  XC727284     84     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       FPGA2020-40C-84PJ FPGA  CMOS  LCC   XC727284     84     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       FPGA2020-40C-84PQ FPGA  CMOS  FPAK  XC727284     84     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       FPGA2020-40C-84WJ FPGA  CMOS  LCC   XC727284     84     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       FPGA2020-40C-84WP FPGA  CMOS  LCC   XC727284     84     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       FPGA2020-40C-84WG FPGA  CMOS  LCC   XC727284     84     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       FPGA2020-40C-84WQ FPGA  CMOS  FPAK  XC727284     84     COM  UV   NO   --   --       0    0   12    3    0    0
+$C2 PLU       FPGA2020-33C-84PP FPGA  CMOS  PLCC  XC727284     84     COM  UV   NO   --   --       0    0   14    3    0    0
+$C2 PLU       FPGA2020-33C-84PG FPGA  CMOS  PLCC  XC727284     84     COM  UV   NO   --   --       0    0   14    3    0    0
+$C2 PLU       FPGA2020-33C-84PQ FPGA  CMOS  FPAK  XC727284     84     COM  UV   NO   --   --       0    0   14    3    0    0
+$C2 PLU       FPGA2020-33C-84PJ FPGA  CMOS  LCC   XC727284     84     COM  UV   NO   --   --       0    0   14    3    0    0
+$C2 PLU       FPGA2020-33C-84WP FPGA  CMOS  LCC   XC727284     84     COM  UV   NO   --   --       0    0   14    3    0    0
+$C2 PLU       FPGA2020-33C-84WG FPGA  CMOS  LCC   XC727284     84     COM  UV   NO   --   --       0    0   14    3    0    0
+$C2 PLU       FPGA2020-33C-84WJ FPGA  CMOS  LCC   XC727284     84     COM  UV   NO   --   --       0    0   14    3    0    0
+
+$END

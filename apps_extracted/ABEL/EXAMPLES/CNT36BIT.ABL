@@ -1,0 +1,39 @@
+module cnt36bit
+title '36-bit counter described using @CARRY'
+
+    Reset,Clock     pin;
+    Hold,Load       pin;
+    D35..D0         pin;
+    Q35..Q0         pin istype 'reg,buffer';
+
+    Data  = [D35..D0];
+    Count = [Q35..Q0];
+
+equations
+@CARRY 2;
+
+    Count.CLK = Clock;
+    Count.CLR = Reset;
+
+    Count := (Count.FB + 1) & !Hold & !Load
+           #  Count.FB & Hold & !Load
+           #  Data & Load;
+
+test_vectors ([Clock,Reset,Hold,Load,    Data   ]->Count)
+              [ .c. ,   1 ,  0 ,  0 ,     .x.   ]->^h000000000;
+@const i = 1;
+@repeat 100 { [ .c. ,   0 ,  0 ,  0 ,     .x.   ]->  @expr i;;
+@const i = i+1;
+}
+              [ .c. ,   0 ,  0 ,  1 ,^hFFFFFFFF9]->^hFFFFFFFF9;
+              [ .c. ,   0 ,  0 ,  0 ,     .x.   ]->^hFFFFFFFFA;
+              [ .c. ,   0 ,  0 ,  0 ,     .x.   ]->^hFFFFFFFFB;
+              [ .c. ,   0 ,  0 ,  0 ,     .x.   ]->^hFFFFFFFFC;
+              [ .c. ,   0 ,  0 ,  0 ,     .x.   ]->^hFFFFFFFFD;
+              [ .c. ,   0 ,  0 ,  0 ,     .x.   ]->^hFFFFFFFFE;
+              [ .c. ,   0 ,  0 ,  0 ,     .x.   ]->^hFFFFFFFFF;
+              [ .c. ,   0 ,  0 ,  0 ,     .x.   ]->^h000000000;
+              [ .c. ,   0 ,  0 ,  0 ,     .x.   ]->^h000000001;
+              [ .c. ,   0 ,  1 ,  0 ,     .x.   ]->^h000000001;
+
+end

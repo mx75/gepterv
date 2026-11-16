@@ -1,0 +1,49 @@
+Module Count128 
+Title '7-bit counter with registered carry out   Location U006
+Michael Holley and Dave Pellerin    14 Sep 1993'
+
+        Count128             device 'P18CV8';
+        Osc,Inc,AdrClr       pin 1,3,2;
+        A6..A0               pin 18..12 istype 'reg';
+        CarryA               pin 19 istype 'reg';
+
+        H,L,Z,X,C       = 1, 0, .Z., .X., .C.;
+
+        CountA  = [A6..A0];
+
+Equations 
+
+        CountA := (CountA.fb + 1)    &  AdrClr &  Inc      " Inc
+                #  CountA.fb         &  AdrClr & !Inc      " Hold
+                #  0                 & !AdrClr;            " Clear
+
+        CarryA := (CountA.fb == 126) &  AdrClr &  Inc      " Carry
+                #  CarryA.fb         &  AdrClr & !Inc      " Hold
+                #  0                 & !AdrClr;            " Clear
+
+        [CountA,CarryA].clk = Osc;
+
+test_vectors
+       ([Osc,AdrClr,Inc] -> [CarryA,CountA])
+        [ C ,  0   , 1 ] -> [  0   ,   0  ];
+        [ C ,  1   , 1 ] -> [  0   ,   1  ];
+        [ C ,  1   , 1 ] -> [  0   ,   2  ];
+        [ C ,  1   , 1 ] -> [  0   ,   3  ];
+        [ C ,  1   , 1 ] -> [  0   ,   4  ];
+        [ C ,  1   , 1 ] -> [  0   ,   5  ];
+        [ C ,  1   , 0 ] -> [  0   ,   5  ];
+        [ C ,  1   , 1 ] -> [  0   ,   6  ];
+        [ C ,  0   , 1 ] -> [  0   ,   0  ];
+
+@const i=1; @repeat 123 {
+        [ C ,  1   , 1 ] -> [  0   , @expr i; ]; @const i=i+1;}
+
+        [ C ,  1   , 1 ] -> [  0   , 124  ];
+        [ C ,  1   , 1 ] -> [  0   , 125  ];
+        [ C ,  1   , 1 ] -> [  0   , 126  ];
+        [ C ,  1   , 0 ] -> [  0   , 126  ];
+        [ C ,  1   , 1 ] -> [  1   , 127  ];
+        [ C ,  1   , 0 ] -> [  1   , 127  ];
+        [ C ,  1   , 1 ] -> [  0   ,   0  ];
+        [ C ,  1   , 1 ] -> [  0   ,   1  ];
+end

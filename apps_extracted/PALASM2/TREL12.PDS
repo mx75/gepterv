@@ -1,0 +1,152 @@
+
+;V.32 trellis encoder PAL#2, 20RS8.
+;This PAL performs the signal  mapping onto the 32 
+;state constellation according to  CCITT V.32, 9600 bps
+;specification.
+
+TITLE    TREL#2
+PATTERN  01
+REVISION 01
+AUTHOR   RAJ PARIPATYADAR
+COMPANY  MMI, SANTA CLARA
+DATE     FEB. 5 '87
+
+CHIP  TREL2 PAL20RS8
+
+;PINS 	1    2   3   4    5   6    7   8   9   10  11    12
+	CLK  X3a X2a Y2   Y1  Y0   NC  NC  NC  NC  SCKIN  GND
+;PINS   13   14     15  16  17   18   19  20  21  22  23  24
+	/OE INVSCK  I0  I1  I2   I3   Q0  Q1  Q2  Q3  SCK  VCC
+
+
+EQUATIONS
+
+I3	:= /Y1*/Y2*X3a				;IN-PHASE OUTPUT
+	+  /Y0*/Y1*X2a*/X3a			;(I0--I3)
+	+  /Y0*Y2*/X2a
+	+  Y1*/Y2*X2a
+	+  Y0*Y1*/Y2*/X3a
+	+  Y0*Y1*Y2*/X2a*X3a
+	+  Y0*/Y1*Y2*/X3a
+
+I2	:= /Y0*/Y1*/X2a*/X3a
+	+  /Y0*/Y1*X2a*X3a
+	+  /Y0*Y1*Y2*X2a
+	+  /Y0*Y1*/Y2*/X2a
+	+  Y1*/Y2*/X2a*X3a
+	+  Y0*Y1*Y2*/X3a
+	+  Y0*Y2*X2a*X3a
+	+  Y0*/Y1*Y2*X3a
+	+  Y0*/Y1*/Y2*/X3a
+
+
+I1	:= /Y0*Y1
+	+  Y0*Y2
+
+I0	:= Y0
+
+
+Q3	:= /Y0*/Y1*/Y2*/X3a			;QUADRATURE OUTPUT
+	+  /Y1*/Y2*X2a				;(Q0-Q3)
+	+  /Y0*Y2*/X2a*X3a
+	+  /Y0*Y1*Y2*X3a
+	+  Y1*/Y2*/X3a
+	+  Y0*Y1*/X2a*X3a
+	+  Y0*Y1*Y2*X2a
+	+  Y0*/Y1*Y2*/X2a
+
+Q2	:= /Y1*/Y2*/X2a*X3a
+	+  /Y0*Y2*/X2a*/X3a
+	+  /Y0*Y2*X2a*/X3a
+	+  /Y1*Y2*X2a
+	+  /Y0*Y1*/Y2*X3a
+	+  Y0*Y1*/X2a*/X3a
+	+  Y0*Y1*X2a*X3a
+	+  Y0*/Y1*/Y2*/X2a
+
+
+Q1	:= /Y0*/Y1*Y2
+	+  /Y0*Y1*/Y2
+	+  Y0*/Y1
+
+Q0	:= /Y0
+
+
+INVSCK	=  /SCKIN			;GENERATE /SYMBOL CLOCK
+
+SCK	=  SCKIN			;GENERATE SYMBOL CLOCK
+
+SIMULATION 
+
+TRACE_ON  Y0  Y1  Y2  X2a  X3a  CLK
+          I0  I1  I2  I3   Q0   Q1  Q2  Q3
+
+SETF  OE  /CLK  
+
+
+SETF    /Y0  /Y1  /Y2  /X2A  /X3A
+CLOCKF
+SETF	/Y0  /Y1  /Y2  /X2A   X3A
+CLOCKF
+SETF	/Y0  /Y1  /Y2   X2A   /X3A
+CLOCKF
+SETF    /Y0  /Y1  /Y2   X2A   X3A
+CLOCKF
+SETF    /Y0  /Y1   Y2  /X2A  /X3A
+CLOCKF
+SETF    /Y0  /Y1   Y2  /X2A   X3A
+CLOCKF
+SETF    /Y0  /Y1   Y2   X2A  /X3A
+CLOCKF
+SETF    /Y0  /Y1   Y2   X2A   X3A
+CLOCKF
+SETF    /Y0   Y1  /Y2  /X2A  /X3A
+CLOCKF
+SETF    /Y0   Y1  /Y2  /X2A   X3A
+CLOCKF
+SETF    /Y0   Y1  /Y2   X2A  /X3A
+CLOCKF
+SETF    /Y0   Y1  /Y2   X2A   X3A
+CLOCKF
+SETF    /Y0   Y1   Y2  /X2A  /X3A
+CLOCKF
+SETF    /Y0   Y1   Y2  /X2A   X3A
+CLOCKF
+SETF    /Y0   Y1   Y2   X2A  /X3A
+CLOCKF
+SETF    /Y0   Y1   Y2   X2A   X3A
+CLOCKF
+SETF     Y0  /Y1  /Y2  /X2A  /X3A
+CLOCKF
+SETF     Y0  /Y1  /Y2  /X2A   X3A
+CLOCKF
+SETF     Y0  /Y1  /Y2   X2A  /X3A
+CLOCKF
+SETF     Y0  /Y1  /Y2   X2A   X3A
+CLOCKF
+SETF     Y0  /Y1   Y2  /X2A  /X3A
+CLOCKF
+SETF     Y0  /Y1   Y2  /X2A   X3A
+CLOCKF
+SETF     Y0  /Y1   Y2   X2A  /X3A
+CLOCKF
+SETF     Y0  /Y1   Y2   X2A   X3A
+CLOCKF
+SETF     Y0   Y1  /Y2  /X2A  /X3A
+CLOCKF
+SETF     Y0   Y1  /Y2  /X2A   X3A
+CLOCKF
+SETF     Y0   Y1  /Y2   X2A  /X3A
+CLOCKF
+SETF     Y0   Y1  /Y2   X2A   X3A
+CLOCKF
+SETF     Y0   Y1   Y2  /X2A  /X3A
+CLOCKF
+SETF     Y0   Y1   Y2  /X2A   X3A
+CLOCKF
+SETF     Y0   Y1   Y2   X2A  /X3A
+CLOCKF
+SETF     Y0   Y1   Y2   X2A   X3A
+CLOCKF
+TRACE_OFF
+

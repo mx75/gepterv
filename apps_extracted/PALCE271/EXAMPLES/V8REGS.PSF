@@ -1,0 +1,146 @@
+TITLE 'APEEL FILE:18CV8 BASIC REGISTERS AND LATCHES'
+Designer 'Ed Peel'
+Date '8/16/87'
+
+Description
+
+  This application examples demonstrates the implementation of several basic
+  registers and latches within a PEEL18CV8. Four register types are included,
+  D, T, JK, and SR, all of which are clocked by the CLK input. All registers
+  can be synchronously reset, set,and asynchronously reset using the SRES,
+  SSET and ARES inputs respectively. Besides the registers, an SR latch and
+  a Gated Latch circuit show how independent asynchronous storage elements
+  can be implemented. Only the Q outputs of these registers and latches are
+  provided at the output pins. The /Q outputs could easily be accessed by
+  inverting the macro cell output polarity. Truth table operation can be
+  referenced via the test vectors.
+
+End_Desc;
+
+PEEL18CV8
+
+CLK pin 1;
+D pin 2;
+T pin 3;
+J pin 4;
+K pin 5;
+R pin 6;
+S pin 7;
+LAT pin 8;
+LEN pin 9;
+SRES pin 11;
+IOC (12 'SSET' Pos In Feed_Pin)
+IOC (13 'ARES' Pos In Feed_Pin)
+IOC (14 'Q_GL' Pos OutCom Feed_Or)
+IOC (15 'Q_SL' Neg OutCom Feed_Pin)
+IOC (16 'Q_SR' Pos OutReg Feed_Reg)
+IOC (17 'Q_JK' Pos OutReg Feed_Reg)
+IOC (18 'Q_T' Pos OutReg Feed_Reg)
+IOC (19 'Q_D' Pos OutReg Feed_Reg)
+
+AC NODE 21
+SP NODE 22
+
+Define
+
+EQUATIONS
+
+SP = SSET ;
+AC = ARES ;
+Q_D.D := !SRES & D ;
+Q_T.D := !SRES & T & !Q_T #
+         !SRES & !T & Q_T ;
+Q_JK.D := !SRES & J & !K #
+          !SRES & !J & !K & Q_JK #
+          !SRES & J & K & !Q_JK;
+Q_SR.D := !SRES & S & !R #
+          !SRES & !S & !R & Q_SR;
+Q_SL.COM = (R # !S & !Q_SL) ;
+Q_GL.COM = LEN & LAT #
+          !LEN & Q_GL #
+           LAT & Q_GL ;
+
+SSET.SumB = 0;
+SSET.And = 0;
+ARES.SumB = 0;
+ARES.And = 0;
+Q_GL.And = 1;
+Q_SL.And = 1;
+Q_SR.And = 1;
+Q_JK.And = 1;
+Q_T.And = 1;
+Q_D.And = 1;
+
+TEST_VECTORS 
+( CLK D SRES SSET ARES -> Q_D )
+ 0 0 0 0 1 -> X
+ 0 0 0 0 1 -> L
+ C 0 0 1 0 -> H
+ C 0 1 0 0 -> L
+ C 0 1 1 0 -> H
+ C 0 0 0 0 -> L
+ C 1 0 0 0 -> H
+ C 0 0 0 0 -> L
+ C 1 0 0 0 -> H
+
+
+TEST_VECTORS 
+( CLK T SRES SSET ARES -> Q_T )
+ 0 0 0 0 1 -> L
+ C 0 0 1 0 -> H
+ C 0 1 0 0 -> L
+ C 0 1 1 0 -> H
+ C 0 1 1 0 -> H
+ C 1 0 0 1 -> L
+ C 0 0 0 0 -> L
+ C 1 0 0 0 -> H
+
+
+TEST_VECTORS 
+( CLK J K SRES SSET ARES -> Q_JK )
+ 0 0 0 0 0 1 -> L
+ C 0 0 0 1 0 -> H
+ C 0 0 1 0 0 -> L
+ C 0 0 1 1 0 -> H
+ C 0 0 0 0 0 -> H
+ C 0 1 0 0 0 -> L
+ C 1 0 0 0 0 -> H
+ C 1 1 0 0 0 -> L
+ C 0 0 0 0 0 -> L
+ C 1 0 0 0 0 -> H
+ C 0 1 0 0 0 -> L
+ C 1 1 0 0 0 -> H
+
+
+TEST_VECTORS 
+( CLK SRES S R SSET ARES -> Q_SR )
+ C 0 0 0 0 0 -> X
+ C 0 1 0 0 0 -> H
+ C 0 0 0 0 0 -> H
+ C 0 0 1 0 0 -> L
+ C 0 0 0 0 0 -> L
+ C 0 1 1 0 0 -> L
+
+
+TEST_VECTORS 
+( S R -> Q_SL )
+ 0 0 -> X
+ 1 0 -> H
+ 0 0 -> H
+ 0 1 -> L
+ 0 0 -> L
+ 1 1 -> L
+
+
+TEST_VECTORS 
+( LAT LEN -> Q_GL )
+ 0 0 -> X
+ 0 1 -> L
+ 0 0 -> L
+ 1 0 -> L
+ 0 1 -> L
+ 1 1 -> H
+ 1 0 -> H
+ 0 0 -> H
+ 0 1 -> L
+ 0 0 -> L 

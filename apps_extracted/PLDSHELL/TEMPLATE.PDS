@@ -1,0 +1,125 @@
+Title       PLDasm Example Template (template.pds)
+Pattern     <pattern label>
+Revision    <rev. number>
+Author      <your name>
+Company     <your company>
+Date        <current date>
+
+OPTIONS
+    TURBO    =  ON             ; default is ON
+    SECURITY =  OFF            ; default is OFF
+
+CHIP   template        EP224
+
+    ; PINLIST
+
+PIN     1   CLK
+PIN     2   I1           ; Direct Inputs
+PIN     3   I2
+PIN         UPDOWN       ; Unassigned pin assignment
+
+PIN         Q[0:1]  REG   ; Unassigned outputs for a state machine
+NODE        Q[2:3]  REG   ; Unassigned burieds for a state machine
+
+NODE IO27   QSTATUS REG   ; Assigned buried, to Macrocell 27
+
+    ; String substitutions throughout file
+    
+STRING   QADS    ' (ADS * PCLK * /RESET) '
+
+    ; State machine section
+    
+STATE  MOORE_MACHINE
+
+    ; Defaults
+
+    OUTPUT_HOLD      OUT1 /OUT2
+    DEFAULT_BRANCH S0
+
+    ; State assignments
+
+    S0 = /Q2 * /Q1 * /Q0    ; power-up state of Altera PLD Registers
+    S1 = /Q2 * /Q1 *  Q0 
+    S2 = /Q2 *  Q1 *  Q0
+   
+    ; State transitions
+
+    S0 := ACTIVE         -> S1
+        + QADS           -> S2
+
+    S1 := ADS * /PCLK    -> Sx   ; go to other states
+        + RESET          -> Sx
+
+    ; Output transitions
+
+    S1.OUTF :=  VCC      -> LOCAL * /MEMORY * /INTACK
+    S2.OUTF :=  VCC      -> ASTRB                     
+
+    ; Input conditions that determine state and output transitions
+
+CONDITIONS
+    ACTIVE = /EN + RDY
+
+    ; Boolean equation section
+    
+EQUATIONS
+
+    O1.D := I1 * I2 * I3
+          + I1 * /I3 * /I4 * QADS
+    O1.CLKF = CLK
+    O1.RSTF = RESET * ENABLE
+    O1.TRST = OEN + /RESET
+
+    ; Truth table section
+
+T_TAB 
+    ( I1 I2 I3 I4  >> C1 C2 C3 C4 )
+       1  0  0  0  :   1  0  0  0
+       0  1  0  0  :   0  1  0  0
+       0  0  1  0  :   0  0  1  0
+       0  0  0  1  :   0  0  0  1
+
+    ; Simulation section (optional)
+    
+SIMULATION
+
+    ; Build vectors of outputs to use as tests for IF's and WHILE's
+
+    VECTOR INS  := [ IN8,IN7,IN6,IN5,IN4,IN3,IN2,IN1,IN0 ]
+
+    ; Set all inputs to known values
+ 
+    SETF /CLKPIN /ILE  I1 /I2 /I3  INS:=#o377
+
+    ; Set all registers to known values (power-up state)
+ 
+    PRLDF /Q0 /Q1 /Q2 /Q3
+
+    ; Clock the design, CLK pin goes 0-->1-->0
+
+    CLOCKF CLK
+
+    ; CHECK output values, report any mismatches
+
+    CHECK O1 /O2 /O3 /O4 O5 O6 
+
+    ; FOR loop to count up 6 clocks
+
+    FOR j := 0 TO 5 DO
+    BEGIN
+        SETF INS := j
+        CLOCKF CLK
+        IF ( NUM == 4 )     ; when in state 4
+        BEGIN
+            SETF /OE        ; disable OE
+        END
+    END
+
+    ; loop until OUTA and OUTB are both low
+
+    WHILE ( OUTA + OUTB ) DO
+    BEGIN
+        CLOCKF ACLK1
+    END
+
+    ; end of template file

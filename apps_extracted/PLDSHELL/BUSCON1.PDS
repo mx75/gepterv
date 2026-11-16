@@ -1,0 +1,160 @@
+Title		Local Bus Controller Example
+Pattern		pds
+Revision	1	
+Author		Your Name
+Company		Your Company
+Date		Date
+
+CHIP   BUS_CON1   EP224
+
+; inputs
+
+PIN     1       CLK
+PIN     2       M_IO
+PIN     3       INT_CYC
+PIN     4       A20
+PIN     5       READY
+
+; outputs
+
+PIN     15      LOCAL
+PIN     16      MEMORY
+PIN     17      INTACK
+PIN     18      Q3
+PIN     19      Q2
+PIN     20      Q1
+PIN     21      Q0
+
+; simple bus controller
+; inputs are M_IO, INT_CYC, A20, and READY
+; outputs are LOCAL, MEMORY, and INTACK
+
+STATE
+MOORE_MACHINE
+
+; define defaults
+
+OUTPUT_HOLD  LOCAL  MEMORY  INTACK
+
+DEFAULT_BRANCH  S0
+
+; state assignments
+
+        S0 = /Q3 * /Q2 * /Q1 * /Q0
+        S1 = /Q3 * /Q2 * /Q1 *  Q0
+        S2 = /Q3 * /Q2 *  Q1 * /Q0
+        S3 = /Q3 * /Q2 *  Q1 *  Q0
+        S4 = /Q3 *  Q2 * /Q1 * /Q0
+        S5 = /Q3 *  Q2 * /Q1 *  Q0
+        S6 = /Q3 *  Q2 *  Q1 * /Q0
+        S7 = /Q3 *  Q2 *  Q1 *  Q0
+        S8 =  Q3 * /Q2 * /Q1 * /Q0
+
+; state transitions
+
+S0  :=  MEM_REQ       -> S1	; S1 on local memory request
+     +  INT_REQ       -> S3     ; S3 on interrupt request
+				; no-op (S0) if no request
+
+	; memory cycles
+	
+S1  :=  VCC           -> S2	; one fixed wait cycle
+
+S2  :=  BUS_CONT      -> S7	; S7 if ready
+     +  BUS_WAIT      -> S2	; stay if not ready
+
+	; interrupt cycles
+
+S3  :=  BUS_CONT      -> S4	; S4 if ready
+     +  BUS_WAIT      -> S3     ; stay if not ready
+     
+S4  :=  VCC           -> S5	; jump to S5 - fixed wait
+S5  :=  VCC           -> S6	; jump to S6 - fixed wait
+
+S6  :=  BUS_CONT      -> S7	; jump to S7 if interrupt done
+     +  BUS_WAIT      -> S6	; stay if not done
+
+	; cleanup and idle cycles
+	
+S7  :=  VCC           -> S8	; cleanup, then jump to S8
+S8  :=  VCC           -> S0	; jump to S0, ready to start
+
+
+; transition outputs
+
+S0.OUTF  :=   LOCAL * /MEMORY * /INTACK
+
+S1.OUTF  :=  /LOCAL *  MEMORY * /INTACK
+S2.OUTF  :=  /LOCAL *  MEMORY * /INTACK
+S3.OUTF  :=  /LOCAL * /MEMORY *  INTACK
+
+S4.OUTF  :=  /LOCAL * /MEMORY * /INTACK
+S5.OUTF  :=  /LOCAL * /MEMORY * /INTACK
+S6.OUTF  :=  /LOCAL * /MEMORY *  INTACK
+
+S7.OUTF  :=  /LOCAL * /MEMORY * /INTACK
+S8.OUTF  :=   LOCAL * /MEMORY * /INTACK
+
+
+CONDITIONS
+
+    MEM_REQ = M_IO * /INT_CYC * /A20
+    INT_REQ = /M_IO * INT_CYC * /A20
+
+    BUS_CONT = /READY
+    BUS_WAIT = READY
+
+SIMULATION
+
+    VECTOR CUR_ST := [ Q3 Q2 Q1 Q0 ]
+    SETF  /CLK  /M_IO  /A20  /INT_CYC  READY
+    PRLDF  /Q0  /Q1  /Q2  /Q3  /LOCAL  /MEMORY  /INTACK
+    SETF  /M_IO
+
+	; test memory cycle first
+	 
+    CLOCKF CLK  ; no-op
+    CLOCKF CLK  ; no-op
+    CLOCKF CLK  ; no-op
+
+    SETF  M_IO  ; start a memory request
+    CLOCKF CLK  ; go to S1 - not ready
+    CLOCKF CLK  ; stay in S1 - not ready
+    CLOCKF CLK  ; stay in S1 - not ready
+
+    SETF /READY ; ready
+    CLOCKF CLK  ; go to S2
+
+    SETF  /M_IO ; remove start condition
+    CLOCKF CLK  ; go to S7
+    SETF  READY ; remove ready
+    CLOCKF CLK  ; go to S8 - unconditional transition
+    CLOCKF CLK  ; go to S0 - ready for next transition
+    CLOCKF CLK  ; no-op
+    CLOCKF CLK  ; no-op
+
+	; test interrupt cycles
+	
+    SETF  INT_CYC   ; start a interrupt request
+    CLOCKF CLK  ; go to S3 - not ready
+    CLOCKF CLK  ; stay in S3 - not ready
+
+    SETF /READY ; first ready
+    CLOCKF CLK  ; go to S4
+    SETF  /INT_CYC READY ; remove start condition and ready
+    CLOCKF CLK  ; go to S5 - unconditional transition
+
+    CLOCKF CLK  ; go to S6 - unconditional transition
+    CLOCKF CLK  ; stay in S6 - not ready
+    CLOCKF CLK  ; stay in S6 - not ready
+
+    SETF /READY ; second ready
+    CLOCKF CLK  ; go to S7
+    SETF  READY ; remove ready
+    CLOCKF CLK  ; go to S8 - unconditional transition
+    CLOCKF CLK  ; go to S0 - ready for next transition
+    CLOCKF CLK  ; no-op
+    CLOCKF CLK  ; no-op
+
+; end of simulation
+

@@ -1,0 +1,25 @@
+module comp36
+title 'Very large (36-bit) comparator'
+
+    a35..a0  pin;
+    b35..b0  pin;
+    A = [a35..a0];
+    B = [b35..b0];
+
+    A_EQ_B   pin istype 'com';
+
+equations
+@CARRY 2;
+
+    A_EQ_B = A == B;
+
+test_vectors([      A    ,      B    ]->[A_EQ_B])
+             [^h000000001,^h000000001]->[   1  ];
+             [^hFFFFFFFFF,^hFFFFFFFFF]->[   1  ];
+             [^hE045C231D,^h358B98AF9]->[   0  ];
+             [^h1F76BA8F9,^h98FB5CA23]->[   0  ];
+             [^h03B45CA11,^h03B45CA11]->[   1  ];
+             [^hEEEEEEEE1,^hEEEEEEEE2]->[   0  ];
+             [^hC3C3C3C3C,^hC3C3C3C3C]->[   1  ];
+             [^h555555555,^hAAAAAAAAA]->[   0  ];
+end

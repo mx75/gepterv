@@ -1,0 +1,191 @@
+# $Header: /swpg/develop/abel/src/devsel2/newdata/RCS/lat.chp,v 1.8 92/09/30 17:20:05 aez Exp $
+# chip report file   Released 5.1 
+#
+$MANUFACTURER LAT Lattice Corp.
+$CONTACT (503)681-0118 
+$ADDRESS1 5555 NE Moore Court 
+$ADDRESS2 Hillsboro, OR 97124 
+$ADDRESS3 ----------- 
+#
+# 132 column 1-line format no user info (default)
+#
+# format is:
+#$C2 mfg part type tech package devname pins spc eraseable preload family pinout did speed setup hold power price
+#
+#
+
+
+#   mfg       part             type  tech  pack  devname     pins    spc  era preld fam  pin    DID#  speed set  hold pwr prc 
+$C2 LAT       GAL6001-30P      GAL   CMOS  DIP   F6001        24     COM  EE   NO   36   4A    4050   30   25   10  788    0
+$C2 LAT       GAL6001-30J      GAL   CMOS  PLCC  F6001        28     COM  EE   NO   036  74A   4051   30   25   10  788    0
+$C2 LAT       GAL6001-35P      GAL   CMOS  DIP   F6001        24     COM  EE   NO   36   4A    4050   35   30   13  788    0
+$C2 LAT       GAL6001-35J      GAL   CMOS  PLCC  F6001        28     COM  EE   NO   036  74A   4051   35   30   13  788    0
+$C2 LAT       GAL20XV10B-10LJ  GAL   CMOS  PLCC  P20XV10      28     COM  EE   YES  --   --    6544   10    6    0  473    0
+$C2 LAT       GAL20XV10B-15LJ  GAL   CMOS  PLCC  P20XV10      28     COM  EE   YES  --   --    6544   15    8    0  473    0
+$C2 LAT       GAL16V8A-10LP    GAL   CMOS  DIP   P16V8        20     COM  EE   YES  36   55    3655   10   10    0  604    0
+$C2 LAT       GAL16V8A-10LJ    GAL   CMOS  PLCC  P16V8        20     COM  EE   YES  036  755   4149   10   10    0  604    0
+$C2 LAT       GAL16V8A-15LP    GAL   CMOS  DIP   P16V8        20     COM  EE   YES  36   55    3655   15   12    0  604    0
+$C2 LAT       GAL16V8A-15LJ    GAL   CMOS  PLCC  P16V8        20     COM  EE   YES  036  755   4149   15   12    0  604    0
+$C2 LAT       GAL16V8A-15LPI   GAL   CMOS  DIP   P16V8        20     IND  EE   YES  36   55    3655   15   12    0  715    0
+$C2 LAT       GAL16V8A-15LJI   GAL   CMOS  PLCC  P16V8        20     IND  EE   YES  036  755   4149   15   12    0  715    0
+$C2 LAT       GAL16V8A-15QP    GAL   CMOS  DIP   P16V8        20     COM  EE   YES  36   55    3655   15   12    0  289    0
+$C2 LAT       GAL16V8A-15QJ    GAL   CMOS  PLCC  P16V8        20     COM  EE   YES  036  755   4149   15   12    0  289    0
+$C2 LAT       GAL16V8A-20QPI   GAL   CMOS  DIP   P16V8        20     IND  EE   YES  36   55    3655   20   15    0  358    0
+$C2 LAT       GAL16V8A-20QJI   GAL   CMOS  PLCC  P16V8        20     IND  EE   YES  036  755   4149   20   15    0  358    0
+$C2 LAT       GAL16V8A-20LPI   GAL   CMOS  DIP   P16V8        20     IND  EE   YES  036  755   4149   20   15    0  358    0
+$C2 LAT       GAL16V8A-20LJI   GAL   CMOS  PLCC  P16V8        20     IND  EE   YES  036  755   4149   20   15    0  358    0
+$C2 LAT       GAL16V8A-25LP    GAL   CMOS  DIP   P16V8        20     COM  EE   YES  36   55    3655   25   15    0  473    0
+$C2 LAT       GAL16V8A-25LJ    GAL   CMOS  PLCC  P16V8        20     COM  EE   YES  036  755   4149   25   15    0  473    0
+$C2 LAT       GAL16V8A-25LPI   GAL   CMOS  DIP   P16V8        20     IND  EE   YES  36   55    3655   25   20    0  715    0
+$C2 LAT       GAL16V8A-25LJI   GAL   CMOS  PLCC  P16V8        20     IND  EE   YES  036  755   4149   25   20    0  715    0
+$C2 LAT       GAL16V8A-25QP    GAL   CMOS  DIP   P16V8        20     COM  EE   YES  36   55    3655   25   15    0  289    0
+$C2 LAT       GAL16V8A-25QJ    GAL   CMOS  PLCC  P16V8        20     COM  EE   YES  036  755   4149   25   15    0  289    0
+$C2 LAT       GAL16V8A-25QPI   GAL   CMOS  DIP   P16V8        20     IND  EE   YES  36   55    3655   25   15    0  358    0
+$C2 LAT       GAL16V8A-25QJI   GAL   CMOS  PLCC  P16V8        20     IND  EE   YES  036  755   4149   25   15    0  358    0
+$C2 LAT       GAL16V8A-15LD/883C GAL   CMOS  CDIP  P16V8        20     MIL  EE   YES  36   55    3655   15   12    0  715    0
+$C2 LAT       GAL16V8A-15LR/883C GAL   CMOS  LCC   P16V8        20     MIL  EE   YES  --   --       0   15   12    0  715    0
+$C2 LAT       GAL16V8A-20LD/883C GAL   CMOS  CDIP  P16V8        20     MIL  EE   YES  36   55    3655   20   15    0  715    0
+$C2 LAT       GAL16V8A-20LR/883C GAL   CMOS  LCC   P16V8        20     MIL  EE   YES  --   --       0   20   15    0  715    0
+$C2 LAT       GAL16V8A-20QD/883C GAL   CMOS  CDIP  P16V8        20     MIL  EE   YES  36   55    3655   20   15    0  358    0
+$C2 LAT       GAL16V8A-20QR/883C GAL   CMOS  LCC   P16V8        20     MIL  EE   YES  --   --       0   20   15    0  358    0
+$C2 LAT       GAL16V8A-25QD/883C GAL   CMOS  CDIP  P16V8        20     MIL  EE   YES  36   55    3655   25   20    0  358    0
+$C2 LAT       GAL16V8A-25QR/883C GAL   CMOS  LCC   P16V8        20     MIL  EE   YES  --   --       0   25   20    0  358    0
+$C2 LAT       GAL16V8A-30LD/883C GAL   CMOS  CDIP  P16V8        20     MIL  EE   YES  36   55    3655   30   25    0  715    0
+$C2 LAT       GAL16V8A-30LR/883C GAL   CMOS  LCC   P16V8        20     MIL  EE   YES  --   --       0   30   25    0  715    0
+$C2 LAT       GAL16V8B-7LP     GAL   CMOS  DIP   P16V8        20     COM  EE   YES  36   55    4353    8    7    0  604    0
+$C2 LAT       GAL16V8B-7LJ     GAL   CMOS  PLCC  P16V8        20     COM  EE   YES  36   55    6303    8    7    0  604    0
+$C2 LAT       GAL16V8B-10LP    GAL   CMOS  DIP   P16V8        20     COM  EE   YES  36   55    4353   10   10    0  604    0
+$C2 LAT       GAL16V8B-10LJ    GAL   CMOS  PLCC  P16V8        20     COM  EE   YES  36   55    6303   10   10    0  604    0
+$C2 LAT       GAL16V8B-10LPI   GAL   CMOS  DIP   P16V8        20     IND  EE   YES  36   55    4353   10   10    0  715    0
+$C2 LAT       GAL16V8B-10LJI   GAL   CMOS  PLCC  P16V8        20     IND  EE   YES  36   55    6303   10   10    0  715    0
+$C2 LAT       GAL16V8B-15LPI   GAL   CMOS  DIP   P16V8        20     IND  EE   YES  36   55    4353   15   12    0  715    0
+$C2 LAT       GAL16V8B-15LJI   GAL   CMOS  PLCC  P16V8        20     IND  EE   YES  36   55    6303   15   12    0  715    0
+$C2 LAT       GAL16V8B-10LD/883C GAL   CMOS  CDIP  P16V8        20     MIL  EE   YES  36   55    4353   10   10    0  715    0
+$C2 LAT       GAL16V8B-10LR/883C GAL   CMOS  LCC   P16V8        20     MIL  EE   YES  --   --       0   10   10    0  715    0
+$C2 LAT       ispGAL16Z8-20LP  GAL   CMOS  DIP   P16Z8        24     COM  EE   YES  36   47    2215   20   15    0  473    0
+$C2 LAT       ispGAL16Z8-20LJ  GAL   CMOS  PLCC  P16Z8        28     COM  EE   YES  036  747   4060   20   15    0  473    0
+$C2 LAT       ispGAL16Z8-25LP  GAL   CMOS  DIP   P16Z8        24     COM  EE   YES  36   47    2215   25   20    0  473    0
+$C2 LAT       ispGAL16Z8-25LJ  GAL   CMOS  PLCC  P16Z8        28     COM  EE   YES  036  747   4060   25   20    0  473    0
+$C2 LAT       GAL18V10-15LDM   GAL   CMOS  DIP   P18V10G      20     MIL  EE   YES  36   5F    4391   15   10    0  604    0
+$C2 LAT       GAL18V10-15LP    GAL   CMOS  DIP   P18V10G      20     COM  EE   YES  36   5F    4391   15   10    0  604    0
+$C2 LAT       GAL18V10-15LPI   GAL   CMOS  DIP   P18V10G      20     IND  EE   YES  36   5F    4391   15   10    0  604    0
+$C2 LAT       GAL18V10-15LJ    GAL   CMOS  PLCC  P18V10G      20     COM  EE   YES  036  75F   4392   15   10    0  604    0
+$C2 LAT       GAL18V10-15LJI   GAL   CMOS  PLCC  P18V10G      20     IND  EE   YES  036  75F   4392   15   10    0  604    0
+$C2 LAT       GAL18V10-20LP    GAL   CMOS  DIP   P18V10G      20     COM  EE   YES  36   5F    4391   20   12    0  604    0
+
+
+#   mfg       part             type  tech  pack  devname     pins    spc  era preld fam  pin    DID#  speed set  hold pwr prc 
+$C2 LAT       GAL18V10-20LJ    GAL   CMOS  PLCC  P18V10G      20     COM  EE   YES  036  75F   4392   20   12    0  604    0
+$C2 LAT       GAL18V10-20LDM   GAL   CMOS  CDIP  P18V10G      20     MIL  EE   YES  36   5F    4391   20   12    0  688    0
+$C2 LAT       GAL18V10-20LDM/883C GAL   CMOS  CDIP  P18V10G      20     MIL  EE   YES  36   5F    4391   20   12    0  688    0
+$C2 LAT       GAL18V10-20LPI   GAL   CMOS  DIP   P18V10G      20     IND  EE   YES  36   5F    4391   20   12    0  688    0
+$C2 LAT       GAL18V10-20LJI   GAL   CMOS  PLCC  P18V10G      20     IND  EE   YES  036  75F   4392   20   12    0  688    0
+$C2 LAT       GAL20RA10-12LP   GAL   CMOS  DIP   P20RA10      24     COM  EE   YES  36   45    5161   12    4    3  525    0
+$C2 LAT       GAL20RA10-15LP   GAL   CMOS  DIP   P20RA10      24     COM  EE   YES  36   45    5161   15    7    3  525    0
+$C2 LAT       GAL20RA10-20LP   GAL   CMOS  DIP   P20RA10      24     COM  EE   YES  36   45    5161   20   10    3  525    0
+$C2 LAT       GAL20RA10-20LPI  GAL   CMOS  DIP   P20RA10      24     IND  EE   YES  36   45    5161   20   10    3  660    0
+$C2 LAT       GAL20RA10-30LP   GAL   CMOS  DIP   P20RA10      24     COM  EE   YES  36   45    5161   30   20   10  525    0
+$C2 LAT       GAL20RA10-20LD/883C GAL CMOS CDIP  P20RA10      24     MIL  EE   YES  36   45    5161   20   10    3  660    0
+$C2 LAT       GAL20RA10-20LR/883C GAL CMOS LCC   P20RA10C     28     MIL  EE   YES  --   --       0   20   10    3  660    0
+$C2 LAT       GAL20RA10-25LD/883C GAL CMOS CDIP  P20RA10      24     MIL  EE   YES  36   45    5161   25   15    5  660    0
+$C2 LAT       GAL20RA10-25LR/883C GAL CMOS LCC   P20RA10C     28     MIL  EE   YES  --   --       0   25   15    5  660    0
+$C2 LAT       GAL20RA10-12LJ   GAL   CMOS  PLCC  P20RA10C     28     COM  EE   YES  036  745   5788   12    4    3  525    0
+$C2 LAT       GAL20RA10-15LJ   GAL   CMOS  PLCC  P20RA10C     28     COM  EE   YES  036  745   5788   15    7    3  525    0
+$C2 LAT       GAL20RA10-20LJ   GAL   CMOS  PLCC  P20RA10C     28     COM  EE   YES  036  745   5788   20   10    3  525    0
+$C2 LAT       GAL20RA10-20LJI  GAL   CMOS  PLCC  P20RA10C     28     IND  EE   YES  036  745   5788   20   10    3  660    0
+$C2 LAT       GAL20RA10-30LJ   GAL   CMOS  PLCC  P20RA10C     28     COM  EE   YES  036  745   5788   30   20   10  525    0
+$C2 LAT       GAL20V8A-10LJ    GAL   CMOS  PLCC  P20V8LCC     28     COM  EE   YES  036  757   4150   10   10    0  604    0
+$C2 LAT       GAL20V8A-10LP    GAL   CMOS  DIP   P20V8        24     COM  EE   YES  36   57    3613   10   10    0  604    0
+$C2 LAT       GAL20V8A-15QP    GAL   CMOS  DIP   P20V8        24     COM  EE   YES  36   57    3613   15   12    0  289    0
+$C2 LAT       GAL20V8A-15QJ    GAL   CMOS  PLCC  P20V8LCC     28     COM  EE   YES  036  757   4150   15   12    0  289    0
+$C2 LAT       GAL20V8A-15LP    GAL   CMOS  DIP   P20V8        24     COM  EE   YES  36   57    3613   15   12    0  604    0
+$C2 LAT       GAL20V8A-15LJ    GAL   CMOS  PLCC  P20V8LCC     28     COM  EE   YES  036  757   4150   15   12    0  604    0
+$C2 LAT       GAL20V8A-15LPI   GAL   CMOS  DIP   P20V8        24     IND  EE   YES  36   57    3613   15   12    0  715    0
+$C2 LAT       GAL20V8A-15LJI   GAL   CMOS  PLCC  P20V8LCC     28     IND  EE   YES  036  757   4150   15   12    0  715    0
+$C2 LAT       GAL20V8A-20QJI   GAL   CMOS  PLCC  P20V8LCC     28     IND  EE   YES  036  757   4150   20   13    0  358    0
+$C2 LAT       GAL20V8A-20QPI   GAL   CMOS  DIP   P20V8        24     IND  EE   YES  36   57    3613   20   13    0  358    0
+$C2 LAT       GAL20V8A-20LJI   GAL   CMOS  PLCC  P20V8LCC     28     IND  EE   YES  036  757   4150   20   13    0  358    0
+$C2 LAT       GAL20V8A-20LPI   GAL   CMOS  DIP   P20V8        24     IND  EE   YES  36   57    3613   20   13    0  358    0
+$C2 LAT       GAL20V8A-25QP    GAL   CMOS  DIP   P20V8        24     COM  EE   YES  36   57    3613   25   15    0  289    0
+$C2 LAT       GAL20V8A-25QJ    GAL   CMOS  PLCC  P20V8LCC     28     COM  EE   YES  036  757   4150   25   15    0  289    0
+$C2 LAT       GAL20V8A-25LP    GAL   CMOS  DIP   P20V8        24     COM  EE   YES  36   57    3613   25   15    0  473    0
+$C2 LAT       GAL20V8A-25LJ    GAL   CMOS  PLCC  P20V8LCC     28     COM  EE   YES  036  757   4150   25   15    0  473    0
+$C2 LAT       GAL20V8A-25QPI   GAL   CMOS  DIP   P20V8        24     IND  EE   YES  36   57    3613   25   15    0  358    0
+$C2 LAT       GAL20V8A-25QJI   GAL   CMOS  PLCC  P20V8LCC     28     IND  EE   YES  036  757   4150   25   15    0  358    0
+$C2 LAT       GAL20V8A-25LPI   GAL   CMOS  DIP   P20V8        24     IND  EE   YES  36   57    3613   25   15    0  715    0
+$C2 LAT       GAL20V8A-25LJI   GAL   CMOS  PLCC  P20V8LCC     28     IND  EE   YES  036  757   4150   25   15    0  715    0
+$C2 LAT       GAL20V8A-15LD/883C GAL   CMOS  CDIP  P20V8        24     MIL  EE   YES  36   57    3613   15   12    0  715    0
+$C2 LAT       GAL20V8A-15LR/883C GAL   CMOS  LCC   P20V8LCC     28     MIL  EE   YES  --   --       0   15   12    0  715    0
+$C2 LAT       GAL20V8A-20LD/883C GAL   CMOS  CDIP  P20V8        24     MIL  EE   YES  36   57    3613   20   15    0  715    0
+$C2 LAT       GAL20V8A-20LR/883C GAL   CMOS  LCC   P20V8LCC     28     MIL  EE   YES  --   --       0   20   15    0  715    0
+$C2 LAT       GAL20V8A-20QD/883C GAL   CMOS  CDIP  P20V8        24     MIL  EE   YES  36   57    3613   20   15    0  358    0
+$C2 LAT       GAL20V8A-20QR/883C GAL   CMOS  LCC   P20V8LCC     28     MIL  EE   YES  --   --       0   20   15    0  358    0
+$C2 LAT       GAL20V8A-25QD/883C GAL   CMOS  CDIP  P20V8        24     MIL  EE   YES  36   57    3613   25   20    0  358    0
+$C2 LAT       GAL20V8A-25QR/883C GAL   CMOS  LCC   P20V8LCC     28     MIL  EE   YES  --   --       0   25   20    0  358    0
+$C2 LAT       GAL20V8A-30LD/883C GAL   CMOS  CDIP  P20V8        24     MIL  EE   YES  36   57    3613   30   25    0  715    0
+$C2 LAT       GAL20V8A-30LR/883C GAL   CMOS  LCC   P20V8LCC     28     MIL  EE   YES  --   --       0   30   25    0  715    0
+$C2 LAT       GAL20V8B-7LJ     GAL   CMOS  PLCC  P20V8LCC     28     COM  EE   YES  036  757   6376    8    7    0  604    0
+$C2 LAT       GAL20V8B-10LJ    GAL   CMOS  PLCC  P20V8LCC     28     COM  EE   YES  036  757   6376   10   10    0  604    0
+$C2 LAT       GAL22V10-15LDM   GAL   CMOS  DIP   P22V10       24     MIL  EE   YES  36   28    4151   15   12    0  683    0
+$C2 LAT       GAL22V10-15LP    GAL   CMOS  DIP   P22V10       24     COM  EE   YES  36   28    4151   15   12    0  683    0
+$C2 LAT       GAL22V10-15LPI   GAL   CMOS  DIP   P22V10       24     IND  EE   YES  36   28    4151   15   12    0  683    0
+$C2 LAT       GAL22V10-15LJI   GAL   CMOS  PLCC  P22V10C      28     IND  EE   YES  036  728   6376   15   12    0  683    0
+$C2 LAT       GAL22V10-20LJ    GAL   CMOS  PLCC  P22V10C      28     COM  EE   YES  036  728   6376   20   14    0  825    0
+$C2 LAT       GAL22V10-20LP    GAL   CMOS  DIP   P22V10       24     COM  EE   YES  36   28    4151   20   14    0  825    0
+$C2 LAT       GAL22V10-20LPI   GAL   CMOS  DIP   P22V10       24     IND  EE   YES  36   28    4151   20   14    0  825    0
+$C2 LAT       GAL22V10-20LDM   GAL   CMOS  DIP   P22V10       24     MIL  EE   YES  36   28    4151   20   14    0  825    0
+$C2 LAT       GAL22V10-25LP    GAL   CMOS  DIP   P22V10       24     COM  EE   YES  36   28    4151   25   15    0  683    0
+$C2 LAT       GAL22V10-25LPI   GAL   CMOS  DIP   P22V10       24     IND  EE   YES  36   28    4151   25   15    0  825    0
+
+
+#   mfg       part             type  tech  pack  devname     pins    spc  era preld fam  pin    DID#  speed set  hold pwr prc 
+$C2 LAT       GAL22V10-20LD/883C GAL   CMOS  CDIP  P22V10       24     MIL  EE   YES  36   28    4151   20   17    0  825    0
+$C2 LAT       GAL22V10-20LR/883C GAL   CMOS  LCC   P22V10C      28     MIL  EE   YES  --   --       0   20   17    0  825    0
+$C2 LAT       GAL22V10-25LD/883C GAL   CMOS  CDIP  P22V10       24     MIL  EE   YES  36   28    4151   25   20    0  825    0
+$C2 LAT       GAL22V10-25LR/883C GAL   CMOS  LCC   P22V10C      28     MIL  EE   YES  --   --       0   25   20    0  825    0
+$C2 LAT       GAL22V10-30LD/883C GAL   CMOS  CDIP  P22V10       24     MIL  EE   YES  36   28    4151   30   25    0  825    0
+$C2 LAT       GAL22V10-30LR/883C GAL   CMOS  LCC   P22V10C      28     MIL  EE   YES  --   --       0   30   25    0  825    0
+$C2 LAT       GAL22V10B-10LP   GAL   CMOS  DIP   P22V10       24     COM  EE   YES  36   28    6219   10    7    0  683    0
+$C2 LAT       GAL22V10B-15LP   GAL   CMOS  DIP   P22V10       24     COM  EE   YES  36   28    6219   15   10    0  683    0
+$C2 LAT       GAL22V10B-15LPI  GAL   CMOS  DIP   P22V10       24     IND  EE   YES  36   28    6219   15   10    0  825    0
+$C2 LAT       GAL22V10B-15LD/883C GAL   CMOS  CDIP  P22V10       24     MIL  EE   YES  36   28    6219   15   12    0  825    0
+$C2 LAT       GAL22V10B-15LR/883C GAL   CMOS  LCC   P22V10C      28     MIL  EE   YES  --   --       0   15   12    0  825    0
+$C2 LAT       GAL22V10-15LJ    GAL   CMOS  PLCC  P22V10C      28     COM  EE   YES  036  728   4792   15   12    0  683    0
+$C2 LAT       GAL22V10-20LJI   GAL   CMOS  PLCC  P22V10C      28     IND  EE   YES  036  728   4792   20   14    0  825    0
+$C2 LAT       GAL22V10-25LJ    GAL   CMOS  PLCC  P22V10C      28     COM  EE   YES  036  728   4792   25   15    0  683    0
+$C2 LAT       GAL22V10-25LJI   GAL   CMOS  PLCC  P22V10C      28     IND  EE   YES  036  728   4792   25   15    0  825    0
+$C2 LAT       GAL22V10B-10LJ   GAL   CMOS  PLCC  P22V10C      28     COM  EE   YES  036  728   6220   10    7    0  683    0
+$C2 LAT       GAL22V10B-15LJ   GAL   CMOS  PLCC  P22V10C      28     COM  EE   YES  036  728   6220   15   10    0  683    0
+$C2 LAT       GAL22V10B-15LJI  GAL   CMOS  PLCC  P22V10C      28     IND  EE   YES  036  728   6220   15   10    0  825    0
+$C2 LAT       GAL26CV12-15LPI  GAL   CMOS  DIP   P26CV12      24     IND  EE   YES  36   4E    4389   15   10    0  683    0
+$C2 LAT       GAL26CV12-15LJI  GAL   CMOS  PLCC  P26CV12      28     IND  EE   YES  036  74E   4390   15   10    0  683    0
+$C2 LAT       GAL26CV12-15LP   GAL   CMOS  DIP   P26CV12      24     COM  EE   YES  36   4E    4389   15   10    0  683    0
+$C2 LAT       GAL26CV12-15LDM  GAL   CMOS  DIP   P26CV12      24     MIL  EE   YES  36   4E    4389   15   10    0  683    0
+$C2 LAT       GAL26CV12-15LJ   GAL   CMOS  PLCC  P26CV12      28     COM  EE   YES  036  74E   4390   15   10    0  683    0
+$C2 LAT       GAL26CV12-20LP   GAL   CMOS  DIP   P26CV12      24     COM  EE   YES  36   4E    4389   20   12    0  683    0
+$C2 LAT       GAL26CV12-20LJ   GAL   CMOS  PLCC  P26CV12      28     COM  EE   YES  036  74E   4390   20   12    0  683    0
+$C2 LAT       GAL26CV12-20LPI  GAL   CMOS  DIP   P26CV12      24     IND  EE   YES  36   4E    4389   20   12    0  825    0
+$C2 LAT       GAL26CV12-20LDM  GAL   CMOS  DIP   P26CV12      24     MIL  EE   YES  36   4E    4389   20   12    0  825    0
+$C2 LAT       GAL26CV12-20LJI  GAL   CMOS  PLCC  P26CV12      28     IND  EE   YES  036  74E   4390   20   12    0  825    0
+$C2 LAT       GAL6002B-15P     GAL   CMOS  DIP   F6002        24     COM  EE   YES  --   --    6221   15   12    0  750    0
+$C2 LAT       GAL6002B-20P     GAL   CMOS  DIP   F6002        24     COM  EE   YES  --   --    6221   20   15    0  750    0
+$C2 LAT       GAL6002B-15J     GAL   CMOS  PLCC  F6002C       28     COM  EE   YES  --   --    6222   15   12    0  750    0
+$C2 LAT       GAL6002B-20J     GAL   CMOS  PLCC  F6002C       28     COM  EE   YES  --   --    6222   20   15    0  750    0
+$C2 LAT       GAL16VP8-15L     GAL   CMOS  DIP   P16VP8       20     COM  EE   YES  --   --    6096   15   8     0  650    0
+$C2 LAT       GAL20VP8-15L     GAL   CMOS  DIP   P20VP8       24     COM  EE   YES  --   --    6097   15   8     0  650    0
+$C2 LAT       pLSI1016-80LJ    FPGA  CMOS  PLCC  PLSI1016     44     COM  EE   NO   22A  257   7131   15  12     8  650    0
+$C2 LAT       pLSI1016-50LJ    FPGA  CMOS  PLCC  PLSI1016     44     COM  EE   NO   22A  257   7131   20  17    11  650    0
+$C2 LAT       pLSI1024-80LJ    FPGA  CMOS  PLCC  PLSI1024     68     COM  EE   NO   22C  258   7132   15  12     8  650    0
+$C2 LAT       pLSI1024-50LJ    FPGA  CMOS  PLCC  PLSI1024     68     COM  EE   NO   22C  258   7132   20  17    11  650    0
+$C2 LAT       pLSI1032-80LJ    FPGA  CMOS  PLCC  PLSI1032     84     COM  EE   NO   1E0  0FB   6369   15  12     8  650    0
+$C2 LAT       pLSI1032-50LJ    FPGA  CMOS  PLCC  PLSI1032     84     COM  EE   NO   1E0  0FB   6369   20  17    11  650    0
+$C2 LAT       pLSI1048-70LQ    FPGA  CMOS  FPAK  PLSI1048    120     COM  EE   NO   22F  259   7133   20  9999 9999 9999   0
+$C2 LAT       ispLSI1016-80LJ  FPGA  CMOS  PLCC  PLSI1016     44     COM  EE   NO   229  257   7134   15  12     8  650    0
+$C2 LAT       ispLSI1016-50LJ  FPGA  CMOS  PLCC  PLSI1016     44     COM  EE   NO   229  257   7134   20  17    11  650    0
+$C2 LAT       ispLSI1024-80LJ  FPGA  CMOS  PLCC  PLSI1024     68     COM  EE   NO   22B  258   7135   15  12     8  650    0
+$C2 LAT       ispLSI1024-50LJ  FPGA  CMOS  PLCC  PLSI1024     68     COM  EE   NO   22B  258   7135   20  17    11  650    0
+$C2 LAT       ispLSI1032-80LJ  FPGA  CMOS  PLCC  PLSI1032     84     COM  EE   NO   1E1  0FB   6971   15  12     8  650    0
+$C2 LAT       ispLSI1032-50LJ  FPGA  CMOS  PLCC  PLSI1032     84     COM  EE   NO   1E1  0FB   6971   20  17    11  650    0
+$C2 LAT       ispLSI1048-70LQ  FPGA  CMOS  FPAK  PLSI1048    120     COM  EE   NO   22E  259   7273   20  9999 9999 9999   0
+$END
+

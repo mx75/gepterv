@@ -1,0 +1,45 @@
+YOUR NAME
+YOUR COMPANY
+DATE
+1
+A
+EP610
+Four state example feeding a macro
+PACKAGE: EP610LC
+OPTIONS: TURBO=ON
+PART: EP610
+
+INPUTS: CLK, ENABLE
+OUTPUTS: Y0, Y1, Y2, Y3, OUT1, OUT2
+
+NETWORK:
+	CLK = INP(CLK)
+	ENABLE = INP(ENABLE)
+	OUT1 = CONF(O1,VCC)
+	OUT2 = CONF(O2,VCC)
+	OUTPUT(Y0,Y0)
+	OUTPUT(Y1,Y1)
+	OUTPUT(Y2,Y2)
+	OUTPUT(Y3,Y3)
+
+	74139(ENABLE, O2, O1, Y0, Y1, Y2, Y3, GND, VCC)
+	
+MACHINE: FOUR_STATE_WITH_DECODER
+	CLOCK: CLK
+ 	STATES:  [  O1    O2 ]
+ 	S1       [  0     0  ]
+ 	S2       [  0     1  ]
+ 	S3       [  1     0  ]
+ 	S4       [  1     1  ]
+
+ S1:  S2
+
+ S2:  S3
+
+ S3:  S4
+
+ S4:  S1    % go back to start state %
+
+ END$
+ 
+ 	

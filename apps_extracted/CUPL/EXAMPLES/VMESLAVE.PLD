@@ -1,0 +1,73 @@
+Name      Vmeslave;
+Partno    CA0028;
+Date      08/12/87;
+Revision  03;
+Designer  Guzy;
+Company   PLX Technology;
+Assembly  VMEbus I/O Card;
+Location  IC99;
+Device    plx448;
+
+/****************************************************************/
+/*                                                              */
+/* VMEbus Slave Module Selector Version 1                       */
+/*                                                              */
+/* Refer to the PLX Technology "Preliminary Application Note"   */
+/* for an explanation of this device.                           */
+/*                                                              */
+/* Copyright (C) PLX Technology Corporation, 1987               */
+/****************************************************************/
+/* Allowable Target Device Types :  PLX448                      */
+/****************************************************************/
+
+/**  Inputs  **/
+
+pin 2  = !as;                   /* Address Strobe               */
+pin 3  = !ds0;                  /* Data Strobe 0                */
+pin 4  = !ds1;                  /* Data Strobe 1                */
+pin 5  = !iack;                 /* Interrupt Acknowledge        */
+pin 6  = !ack;                  /* I/O Cycle Request            */
+pin 7  = !err;                  /* Local Error Condition        */
+pin [8..11,13,15] = [am0..5];   /* Address Modifiers            */
+pin 19 = !aden;                 /* Address Decode Enable        */
+pin 14 = vmeclk;                /* VMEbus clock                 */
+
+/**  Outputs  **/
+
+pin 17 = !modsel;               /* Module Select to Local Slave */
+pin [16,21] = ![dsel1..0];      /* Local Data Selects           */
+pin 22 = !berr;                 /* Bus Error Output             */
+pin 23 = !dtack;                /* DTACK Output                 */
+
+/** Buried Pin Nodes **/
+
+pinnode 29 = as_dly;            /* Address Strobe Delay         */
+                                /* Buried Pin 19                */
+
+/** Declarations and Intermediate Variable Definitions **/
+
+Field modifiers = [am5..0];
+am_match = modifiers:[09,0A,0D,0E,29,2D,39,3A,3D,3E];
+strobes = ds0 # ds1;
+
+/** Logic Equations **/
+
+modsel = as_dly & !iack & !dtack.io & !berr.io & am_match & aden & !ack & !err
+       # modsel & (dtack # berr) & strobes;
+
+dtack = ack;
+dtack.oe = ack;
+dtack.tec = 'b'1;               /* any expression for .tec will set */
+                                /* output macrocell to open collector */
+berr = err;
+berr.oe = err;
+berr.tec = 'b'1;
+
+dsel0 = ds0 & modsel;
+
+dsel1 = ds1 & modsel;
+
+as_dly.ar = !as;
+as_dly.sp =  as;
+as_dly.d = 'b'0;
+

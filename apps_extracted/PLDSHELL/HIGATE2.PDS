@@ -1,0 +1,57 @@
+;------------------------------------------------
+; xor module
+;------------------------------------------------
+
+DEFMOD myxor2 (IN1,IN2,OUT)
+
+    CHIP MOD ALTERA_ARCH
+
+    PIN in1
+    PIN in2
+    PIN out
+
+    EQUATIONS
+        OUT = in1 * /in2 + /in1 * in2
+ENDMOD 
+
+
+;------------------------------------------------
+; compare module - calls xor module twice
+;------------------------------------------------
+
+DEFMOD mycmp2 (a1,a2,b1,b2,cmp1,cmp2)
+
+    CHIP MOD ALTERA_ARCH
+
+    PIN a1
+    PIN a2
+    PIN b1
+    PIN b2
+    PIN cmp1
+    PIN cmp2
+
+    MODULE myxor2 file higate2 (in1=A1, in2=B1, out=CMP1)
+    MODULE myxor2 file higate2 (in1=A2, in2=B2, out=CMP2)
+
+ENDMOD
+
+
+;------------------------------------------------
+; high level design - calls 2-bit compare module
+;------------------------------------------------
+
+    CHIP MYDESIGN2 EP22V10
+
+    PIN ADDR1
+    PIN ADDR2
+    PIN BADDR1
+    PIN BADDR2
+    PIN WE1
+    PIN WE2
+
+    ; filename is a self-reference
+    
+    MODULE MYCMP2 FILE HIGATE2 (a1=ADDR1, a2=ADDR2, b1=BADDR1, b2=BADDR2, 
+                            cmp1=WE1, cmp2=WE2)
+
+

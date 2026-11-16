@@ -1,0 +1,127 @@
+;************************ MODIFICATION *****************************
+;* Corrected out[8]. On the right-hand side of the equation,
+;* replaced out[8] with /out[7].
+;*******************************************************************
+ 
+;PALASM Design Description
+;---------------------------------- Declaration Segment ------------
+TITLE    Counter.PDS
+PATTERN  Counter
+REVISION 0
+AUTHOR   RUDOLPH J. STERNER
+COMPANY  AMD INC.
+DATE     03/17/90
+
+CHIP  Counter MACH110
+
+PIN 35 clock ; clock INPUT
+PIN 32, 33, 36, 30, 17, 39, 40, 41, 42, 37, 38, 43 in[0..11] ; INPUT
+PIN 26, 27, 28, 2, 3, 7, 19, 20, 21, 29, 24, 25 out[0..11] REGISTERED      ; OUTPUT
+PIN 11 LD ; INPUT
+PIN 10 cnt ; INPUT
+PIN 13 updn ; Input, High is up.
+NODE 14 carry REGISTERED      ; Internal Carry Signal
+NODE 1 global 
+
+EQUATIONS
+
+global.rstf = gnd
+
+out[0..11].CLKF = clock
+carry.CLKF = clock
+
+out[0].T = /out[0]*in[0]*/LD*cnt
+         + out[0]*/in[0]*/LD*cnt
+         + /cnt
+
+out[1].T = /out[1]*in[1]*/LD*cnt
+         + out[1]*/in[1]*/LD*cnt
+         + updn*out[0]*/cnt
+         + /updn*/out[0]*/cnt
+
+
+out[2].T = /out[2]*in[2]*/LD*cnt
+         + out[2]*/in[2]*/LD*cnt
+         + updn*out[0]*out[1]*/cnt
+         + /updn*/out[0]*/out[1]*/cnt
+
+out[3].T = /out[3]*in[3]*/LD*cnt
+         + out[3]*/in[3]*/LD*cnt
+         + updn*out[0]*out[1]*out[2]*/cnt
+         + /updn*/out[0]*/out[1]*/out[2]*/cnt
+
+out[4].T = /out[4]*in[4]*/LD*cnt
+         + out[4]*/in[4]*/LD*cnt
+         + updn*out[0]*out[1]*out[2]*out[3]*/cnt
+         + /updn*/out[0]*/out[1]*/out[2]*/out[3]*/cnt
+
+out[5].T = /out[5]*in[5]*/LD*cnt
+         + out[5]*/in[5]*/LD*cnt
+         + updn*out[0]*out[1]*out[2]*out[3]*out[4]*/cnt
+         + /updn*/out[0]*/out[1]*/out[2]*/out[3]*/out[4]*/cnt
+
+out[6].T = /out[6]*in[6]*/LD*cnt
+         + out[6]*/in[6]*/LD*cnt
+         + updn*out[0]*out[1]*out[2]*out[3]*out[4]*out[5]*/cnt
+         + /updn*/out[0]*/out[1]*/out[2]*/out[3]*/out[4]*/out[5]*/cnt
+
+out[7].T = /out[7]*in[7]*/LD*cnt
+         + out[7]*/in[7]*/LD*cnt
+         + updn*out[0]*out[1]*out[2]*out[3]*out[4]
+         * out[5]*out[6]*/cnt
+         + /updn*/out[0]*/out[1]*/out[2]*/out[3]*/out[4]
+         * /out[5]*/out[6]*/cnt
+
+out[8].T = /out[8]*in[8]*/LD*cnt
+         + out[8]*/in[8]*/LD*cnt
+         + updn*out[0]*out[1]*out[2]*out[3]*out[4]
+         * out[5]*out[6]*out[7]*/cnt
+         + /updn*/out[0]*/out[1]*/out[2]*/out[3]*/out[4]
+         * /out[5]*/out[6]*/out[7]*/cnt       ;modified 1/27/92
+
+carry = updn*/out[0]*out[1]*out[2]*out[3]*out[4]*out[5]
+      * out[6]*out[7]*out[8]
+      + /updn*out[0]*/out[1]*/out[2]*/out[3]*/out[4]*/out[5]
+      * /out[6]*/out[7]*/out[8]
+
+out[9].T = /out[9]*in[9]*/LD*cnt
+         + out[9]*/in[9]*/LD*cnt
+         + updn*carry*/cnt
+         + /updn*carry*/cnt
+
+out[10].T = /out[10]*in[10]*/LD*cnt
+         + out[10]*/in[10]*/LD*cnt
+         + updn*carry*out[9]*/cnt
+         + /updn*carry*/out[9]*/cnt
+
+out[11].T = /out[11]*in[11]*/LD*cnt
+         + out[11]*/in[11]*/LD*cnt
+         + updn*carry*out[9]*out[10]*/cnt
+         + /updn*carry*/out[9]*/out[10]*/cnt
+
+SIMULATION
+Trace_On out[0] out[1] out[2] out[3] out[4] out[5] out[6]
+         out[7] out[8] out[9] out[10] out[11] carry
+
+SETF /clock ld updn cnt
+SETF /ld /in[0] /in[1] /in[2] /in[3] /in[4] /in[5]
+     /in[6] /in[7] /in[8] /in[9] /in[10] /in[11]
+
+SETF clock
+setf /clock
+setf ld /cnt
+for i := 1 to 10 do
+begin
+setf clock
+setf /clock
+end
+setf /updn
+for i := 1 to 10 do
+begin
+setf clock
+setf /clock
+end
+TRACE_OFF
+
+
+

@@ -1,0 +1,24 @@
+/*
+ *  Build new CUPL.DL using CUPL.DL created by BUILD.BAT
+ *  (now renamed to OLDCUPL.DL) and the SMT libraries
+ *  pld28smt.dl and pld44smt.dl
+ */
+
+/*
+ *  Target library -- what is to be built
+ */
+
+target cupl.dl
+
+/*
+ *  Source libraries -- input libraries
+ *  and devices to build the target from
+ */
+
+source  oldcupl.dl
+        *
+source  pld28smt.dl
+        *
+source  pld44smt.dl
+        *
+

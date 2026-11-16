@@ -1,0 +1,61 @@
+ğ
+CHIP
+Overview
+This keyword introduces the statement defining the chip name and
+the type of PLD or MACH device for which the design is being produced.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+            CHIP    Name      Device
+
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Device Support: All PLD devices.
+ú
+Syntax
+You use the Chip statement in the declaration segment of either
+Boolean or state-machine designs
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+            CHIP    Name      Device
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+            TITLE
+            PATTERN
+            REVISION
+            AUTHOR
+            COMPANY
+            DATE
+            CHIP    Counter   PALCE22V10H-25
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+The Chip statement must follow the Date statement and precede pin and
+node statements.
+
+Name            Assign a name to the chip that conforms to the rules
+                below.
+
+                ş  Use up to 14 alphanumeric characters in the PDS
+                   file.  The first character cannot be numeric.
+
+                Do not use operators, reserved words, carriage
+                returns, tabs, or spaces.
+
+Device          Assign a valid AMD device name, such as PAL16R8.
+
+                ş  The name must conform to the basic device number.
+                   Power, speed, package, and operating range
+                   designators are optional.
+
+                Refer to the appropriate device data sheet to find the
+                correct device name.
+ú
+Use
+The software cannot process a design file that does not contain the
+Chip statement.  Errors can cause the software to misinterpret the
+Chip statement and, often, the pin and node statements.
+ú
+Related Topics
+PIN
+NODE
+ú

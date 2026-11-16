@@ -1,0 +1,74 @@
+ğ
+TRACE_ON
+Overview
+TRACE_ON defines which signal values to record in the trace file
+during simulation.  Tracing allows you to reorder and group signals
+however you wish.  Tracing also resolves reverse polarity problems
+since you can define polarity in the trace statement.
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+    TRACE_ON Pn
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Device Support:  All PLD devices.
+ú
+Syntax
+Use the keyword in an auxiliary simulation file or the simulation 
+segment of Boolean and state-machine designs.
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+    TRACE_ON Pn
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+    SIMULATION
+    TRACE_ON O1 O2 /IN2 /IN3
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+
+Pin, node       Identifies the list of pin or node names, as defined
+                in the pin and node statements of the declaration
+                segment.
+ú
+Use
+Observe the following usage conventions when using TRACE_ON.
+
+ş    You can repeat TRACE_ON statements.
+
+ş    You cannot nest TRACE_ON statements.  If the software finds a new
+     TRACE_ON statement, it abandons the previous statement and
+     continues with the new statement.
+
+ş    You can list multiple pins or nodes with TRACE_ON.  Separate pins
+     and nodes with only a space.
+
+ş    You can reverse pin or node polarity by placing or removing a
+     slash, /, in front of the pin or node name.  You cannot use
+     polarity with states.
+
+ş    You can use strings and groups with TRACE_ON.
+
+ş    Conclude a trace section with a TRACE_OFF command.  If you do not
+     conclude a trace with TRACE_OFF, the software terminates the
+     trace at the end of the file and displays a warning.
+
+During simulation, the software generates a simulation history file.  
+You view this file as either an ASCII table or as a history waveform.
+
+Tracing causes the software to create an additional file, the trace
+file, containing the simulation results of the pins and nodes selected
+by TRACE_ON.  The signals are listed in the same order and with the
+same  polarity as listed in the TRACE_ON statement.  If TRACE_ON is
+not used, then no trace file is created.
+
+The software converts state names to state bits and appends them to
+the TRACE_ON statement for simulation.
+ú
+Related Topics
+SIMULATION
+TRACE_OFF
+ú

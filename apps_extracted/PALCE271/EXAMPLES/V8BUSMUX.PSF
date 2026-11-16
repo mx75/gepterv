@@ -1,0 +1,80 @@
+TITLE ' PEEL18CV8 BUS PROGRAMMBLE 8 TO 1 MUX'
+DESIGNER 'ROBIN PEEL'
+DATE '9/13/87'
+
+Description
+
+  This application implements an 8 to 1 multiplexor that can be interfaced to
+  a uP bus. Any one of the 8 inputs (I0-7) can be selectively routed to the
+  output (OUT) by writing (/WR and /CS =0) a 3-bit binary value to the data
+  inputs (DI0-2). The value is stored into a 3-bit latch that controls the
+  multiplexer selection. Because the latch utilizes internal asynchronous
+  feedback (macro configuration #8), the value can also be enabled onto the
+  data outputs (DO0-2). The DI and DO (0-2) pins should be tied together for
+  write/read bus operation. The truth table for the mux is depicted via the
+  test vectors.
+
+End_Desc;
+
+PEEL18CV8
+
+I0 pin 1;
+I1 pin 2;
+I2 pin 3;
+I3 pin 4;
+I4 pin 5;
+DI0 pin 6;
+DI1 pin 7;
+DI2 pin 8;
+!WR pin 9;
+!CS pin 11;
+IOC (12 '!RD' Pos In Feed_Pin)
+IOC(13 'DO2' POS COM FEED_OR);
+IOC(14 'DO1' POS COM FEED_OR);
+IOC(15 'DO0' POS COM FEED_OR);
+IOC (16 'MOUT' Pos OutCom Feed_Pin)
+IOC (17 'I7' Pos In Feed_Pin)
+IOC (18 'I6' Pos In Feed_Pin)
+IOC (19 'I5' Pos In Feed_Pin)
+
+AC NODE 21;
+SP NODE 22;
+
+Define
+
+EQUATIONS
+
+DO0.COM = DI0 & WR & CS #
+          DO0 & !WR #
+          DO0 & !CS #
+          DI0 & DO0 ;
+DO0.OE = RD & CS ;
+DO1.COM = DI1 & WR & CS #
+          DO1 & !WR #
+          DO1 & !CS #
+          DI1 & DO1 ;
+DO1.OE = RD & CS ;
+DO2.COM = DI2 & WR & CS #
+          DO2 & !WR #
+          DO2 & !CS #
+          DI2 & DO2 ;
+DO2.OE = RD & CS ;
+MOUT.COM = I0 & !DO2 & !DO1 & !DO0 #
+           I1 & !DO2 & !DO1 & DO0 #
+           I2 & !DO2 & DO1 & !DO0 #
+           I3 & !DO2 & DO1 & DO0 #
+           I4 & DO2 & !DO1 & !DO0 #
+           I5 & DO2 & !DO1 & DO0 #
+           I6 & DO2 & DO1 & !DO0 #
+           I7 & DO2 & DO1 & DO0 ;
+
+!RD.SumB = 0;
+!RD.And = 0;
+MOUT.And = 1;
+I7.SumB = 0;
+I7.And = 0;
+I6.SumB = 0;
+I6.And = 0;
+I5.SumB = 0;
+I5.And = 0;
+

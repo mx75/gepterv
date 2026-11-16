@@ -1,0 +1,46 @@
+Name      Priority;
+Partno    CA0021;
+Date      10/09/86;
+Rev       01;
+Designer  Woolhiser;
+Company   Personal CAD Systems, Inc.;
+Assembly  None;
+Location  None;
+Device    p19l8r;
+
+/****************************************************************/
+/*                                                              */
+/* Priority Interrupt Encoder for the Motorola M68000           */
+/*                                                              */
+/* Implemented using both "equations method" and "conditional	*/
+/* syntax".							*/
+/****************************************************************/
+/* Allowable Target Device Types :  PAL19L8R                    */
+/****************************************************************/
+
+ORDER:	CPUCLK,%1,!AS,%1,FC2..0,%1,!IREQ7..1,%2,!IPL2..0,%1,!VPA;
+
+VECTORS:
+
+$msg"      C       !!!!!!!       ";
+$msg"      P       IIIIIII  !!!  ";
+$msg"      U       RRRRRRR  III !";
+$msg"      C ! FFF EEEEEEE  PPP V";
+$msg"      L A CCC QQQQQQQ  LLL P";
+$msg"      K S 210 7654321  210 A";
+$msg"      ----------------------";
+           C 1 xxx 1111111  HHH Z	/* No interrupt requests */
+           0 1 xxx 0xxxxxx  HHH Z	/* Request levels may change */
+					/* Output held until after clock */
+           C 1 xxx 0xxxxxx  LLL Z	/* Level 7 Interrupt */
+           C 1 xxx 10xxxxx  LLH Z	/* Level 6 Interrupt */
+           C 1 xxx 110xxxx  LHL Z	/* Level 5 Interrupt */
+           C 1 xxx 1110xxx  LHH Z	/* Level 4 Interrupt */
+           C 1 xxx 11110xx  HLL Z	/* Level 3 Interrupt */
+           C 1 xxx 111110x  HLH Z	/* Level 2 Interrupt */
+           C 1 xxx 1111110  HHL Z	/* Level 1 Interrupt */
+           0 1 001 xxxxxxx  HHL Z	/* Wait for valid function code */
+           0 1 010 xxxxxxx  HHL Z
+           0 1 100 xxxxxxx  HHL Z
+           0 1 111 xxxxxxx  HHL Z
+           0 0 111 xxxxxxx  HHL L	/* Valid function code and AS */

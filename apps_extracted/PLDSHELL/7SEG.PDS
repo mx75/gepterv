@@ -1,0 +1,84 @@
+Title		PLDasm Test File
+Pattern		pds
+Revision        1
+Author		Your Name
+Company		Your Company
+Date		Current Date
+
+; OPTIONS: TURBO=ON
+
+CHIP  7seg_decoder  EP220
+
+PIN	1	LT	; LED test
+PIN	2	LB	; LED blank
+PIN	6	D	; BCD inputs D-A
+PIN	5	C
+PIN	4	B
+PIN	3	A
+PIN	12	OA	; segment outputs Oa-Og
+PIN	13	OB
+PIN	14	OC
+PIN	15	OD
+PIN     16	OE
+PIN	17	OF
+PIN	18	OG
+
+; truth table
+
+T_TAB
+
+( LT  LB   D  C  B  A  >>  OA  OB  OC  OD  OE  OF  OG )
+
+; all combinations of BCD inputs
+
+   1   1   0  0  0  0   :   1   1   1   1   1   1   0  ; 0
+   1   1   0  0  0  1   :   0   1   1   0   0   0   0  ; 1
+   1   1   0  0  1  0   :   1   1   0   1   1   0   1  ; 2
+   1   1   0  0  1  1   :   1   1   1   1   0   0   1  ; 3
+
+   1   1   0  1  0  0   :   0   1   1   0   0   1   1  ; 4
+   1   1   0  1  0  1   :   1   0   1   1   0   1   1  ; 5
+   1   1   0  1  1  0   :   0   0   1   1   1   1   1  ; 6
+   1   1   0  1  1  1   :   1   1   1   0   0   0   0  ; 7
+
+   1   1   1  0  0  0   :   1   1   1   1   1   1   1  ; 8
+   1   1   1  0  0  1   :   1   1   1   0   0   1   1  ; 9
+   
+; 7447a non-numeric patterns not supported
+
+; LED Test (all on), LED Blank (all off)
+; Blank takes precendence
+
+   1   0   x  x  x  x   :   0   0   0   0   0   0   0  ; all off
+   0   0   x  x  x  x   :   0   0   0   0   0   0   0  ; all off
+   0   1   x  x  x  x   :   1   1   1   1   1   1   1  ; all on
+
+SIMULATION
+
+	TRACE_ON  OA  OB  OC  OD  OE  OF  OG
+
+; test all BCD combinations
+
+	SETF   LT   LB  /D  /C  /B  /A
+	SETF   LT   LB  /D  /C  /B   A
+	SETF   LT   LB  /D  /C   B  /A
+	SETF   LT   LB  /D  /C   B   A
+
+	SETF   LT   LB  /D   C  /B  /A
+	SETF   LT   LB  /D   C  /B   A
+	SETF   LT   LB  /D   C   B  /A
+	SETF   LT   LB  /D   C   B   A
+
+	SETF   LT   LB   D  /C  /B  /A
+	SETF   LT   LB   D  /C  /B   A
+
+; test control signals, BCD inputs set at 5
+
+	SETF   LT  /LB   D   C  /B   A
+	SETF  /LT  /LB   D   C   B  /A
+	SETF  /LT   LB  /D   C  /B   A
+
+	TRACE_OFF
+
+; end of simulation
+

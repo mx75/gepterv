@@ -1,0 +1,110 @@
+ğ
+.TRST
+Overview
+This is the reserved word in a functional equation that defines when
+to enable three-state outputs on devices with programmable enable.
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+        Pn.TRST      Assignment Operator     Expression
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+
+Device Support:
+PAL10H20EG8  PAL10H20EV8    PAL16L8    PAL16P8    PAL16R4    PAL16R6
+PAL16R8      PAL16RA8       PAL16RP4   PAL16RP6   PALCE16V8  PAL18P8
+PALC18U8     PAL20L10       PAL20L8    PAL20R4    PAL20R6    PAL20RA10
+PAL20RS4     PAL20RS8       PAL20S10   PAL20X4    PAL20X8    PALCE20V8
+PAL22IP6     PAL22RX8       PAL22V10   PAL23S8    PALCE29M16
+PALCE29MA16  PAL32VX10      PALCE610   PLS105     PLS167     PLS168
+PLS30S16     MACH 1         MACH 2
+ú
+Syntax
+You use this reserved word in a functional equation in the equations 
+segment of Boolean and state-machine designs.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+        Pn.TRST      Assignment Operator     Expression
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+    EQUATIONS
+        Q0                    =                 /Q0
+        Q1.TRST               =                  I1 * /I2
+        ...
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+
+Pin             Identifies the pin associated with the three-state
+                buffer.  The name must be defined in an earlier pin or
+                node statement in the declaration segment.
+
+Assignment Operator    Include a symbol that defines a specific
+                       operation as interpreted by the software when
+                       processing design files.
+
+Expression      Defines the logic conditions that determine when to
+                enable three-state outputs on devices with
+                programmable enable.
+ú
+Use
+Multiple .TRST statements for the same pin or node are automatically
+ORed together into one statement.  This can result in an error during
+either assembly or fitting.
+
+You can use more than one product term for a three-state buffer
+depending on the device.  Some devices using product terms also have a
+pin for controlling the buffer which overrides the logic.
+
+You cannot complement the pin name.  For example, if a signal is
+defined  as Q1 in the pin statement, /Q1.TRST is not permitted.  You
+can complement the Boolean expression, if supported by the device, as
+follows.
+
+     Q1.TRST = I1 * I2 * I3        for active high
+     Q1.TRST = /(/I1 * I2 * I3)    for active low
+
+On some devices, such as the PALCE29M16, .TRST provides several
+logical  means of enabling the outputs:
+
+ş    Dedicated output, for example,
+
+     Q[1..4].TRST = VCC
+
+ş    Dedicated input, for example,
+
+     O[5..8].TRST = GND
+
+ş    Product term enable, XOR, for example,
+
+     O[9..12].TRST = I1 * I2 :*: I3
+
+ş    OE pin enable, where there is a choice between a product term and
+     a dedicated output enable pin, for example,
+
+     O[1..4].TRST = IOE
+
+If an output equation exists for a pin and no .TRST equation exists,
+the default is unconditional high, for example,
+
+     Q.TRST = VCC
+
+Otherwise, if no output equations or .TRST equation is defined, the
+default is unconditional low, for example,
+
+     Q.TRST = GND
+
+Many PAL devices have dedicated enable pins to control some or all
+three-state outputs.  For these outputs, no .TRST equation is needed.
+
+ú
+Related Topics
+Boolean Equation
+Expression
+Functional Equation
+GROUP
+STRING
+VECTOR
+ú

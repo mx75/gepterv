@@ -1,0 +1,118 @@
+MODULE control 
+TITLE 'Traffic Signal Controller - Data I/O Corp.'
+
+        Clk,SenA,SenB   PIN;
+        Pr              PIN;        "Preset control
+        Ga,Ya,Ra        PIN ISTYPE 'BUFFER';
+        Gb,Yb,Rb        PIN ISTYPE 'BUFFER'; 
+
+        s3,s2,s1,s0     NODE; 
+        s3,s2,s1,s0     ISTYPE 'BUFFER,REG_RS'; 
+
+        H,L,Ck,X        = 1, 0, .C., .X.;
+
+        Count           = [s3,s2,s1,s0];
+
+"Define Set and Reset inputs to traffic light flip flops
+        GreenA  = [Ga.S,Ga.R];
+        YellowA = [Ya.S,Ya.R];
+        RedA    = [Ra.S,Ra.R];
+        GreenB  = [Gb.S,Gb.R];
+        YellowB = [Yb.S,Yb.R];
+        RedB    = [Rb.S,Rb.R];
+        On      = [ 1  ,  0 ];
+        Off     = [ 0  ,  1 ];
+
+TEST_VECTORS    
+       ([Clk,Pr,SenA,SenB] -> [Count,Ga,Ya,Ra,Gb,Yb,Rb])
+        [ 0 , 0, 0  , 0  ] -> [  X  , X, X, X, X, X, X];
+        [ 1 , 1, 1  , 1  ] -> [ 15  , X, X, X, X, X, X];
+        [ 1 , 0, 1  , 1  ] -> [ 15  , X, X, X, X, X, X];
+        [ Ck, 0, 1  , 0  ] -> [  0  , H, L, L, L, L, H];
+
+TEST_VECTORS            
+       ([Clk,Pr,SenA,SenB] -> [Count,Ga,Ya,Ra,Gb,Yb,Rb])
+        [ Ck, 0, 1  , 0  ] -> [  0  , H, L, L, L, L, H];
+        [ Ck, 0, 1  , 0  ] -> [  0  , H, L, L, L, L, H];
+        [ Ck, 0, 1  , 1  ] -> [  1  , H, L, L, L, L, H];
+        [ Ck, 0, 1  , 1  ] -> [  2  , H, L, L, L, L, H];
+        [ Ck, 0, 1  , 1  ] -> [  3  , H, L, L, L, L, H];
+        [ Ck, 0, 1  , 1  ] -> [  4  , H, L, L, L, L, H];
+        [ Ck, 0, 1  , 1  ] -> [  5  , L, H, L, L, L, H];
+        [ Ck, 0, 1  , 0  ] -> [  8  , L, L, H, H, L, L];
+        [ Ck, 0, 1  , 0  ] -> [ 12  , L, L, H, H, L, L];
+        [ Ck, 0, 1  , 0  ] -> [ 13  , L, L, H, L, H, L];
+        [ Ck, 0, 1  , 0  ] -> [  0  , H, L, L, L, L, H];
+        [ Ck, 0, 1  , 0  ] -> [  0  , H, L, L, L, L, H];
+        [ Ck, 0, 1  , 1  ] -> [  1  , H, L, L, L, L, H];
+        [ Ck, 0, 1  , 1  ] -> [  2  , H, L, L, L, L, H];
+        [ Ck, 0, 1  , 1  ] -> [  3  , H, L, L, L, L, H];
+        [ 1 , 1, 1  , 1  ] -> [ 15  , X, X, X, X, X, X];
+        [ 1 , 0, 1  , 1  ] -> [ 15  , X, X, X, X, X, X];
+        [ Ck, 0, 1  , 0  ] -> [  0  , H, L, L, L, L, H];
+
+@PAGE 
+EQUATIONS
+        [Gb,Yb,Rb].AP = Pr;
+        [Ga,Ya,Ra].AP = Pr;
+
+        [Gb,Yb,Rb].CLK = Clk;
+        [Ga,Ya,Ra].CLK = Clk;
+
+        [s3,s2,s1,s0].AP = Pr;
+        [s3,s2,s1,s0].CLK = Clk;
+@DCSET
+STATE_DIAGRAM Count
+
+        STATE 0:        IF ( SenA & !SenB ) THEN 0;
+                        IF (!SenA &  SenB ) THEN 4;
+                        IF ( SenA == SenB ) THEN 1;
+
+        STATE 1:        GOTO  2;
+        STATE 2:        GOTO  3;
+        STATE 3:        GOTO  4;
+
+        STATE 4:        GreenA  = Off;
+                        YellowA = On ;
+                        GOTO  5;
+
+        STATE 5:        YellowA = Off;
+                        RedA    = On ;
+                        RedB    = Off;
+                        GreenB  = On ;
+                        GOTO  8;
+
+        STATE 8:        IF (!SenA &  SenB ) THEN  8;
+                        IF ( SenA & !SenB ) THEN 12;
+                        IF ( SenA == SenB ) THEN  9;
+
+        STATE 9:        GOTO  10;
+        STATE 10:       GOTO  11;
+        STATE 11:       GOTO  12;
+
+        STATE 12:       GreenB  = Off;
+                        YellowB = On ;
+                        GOTO  13;
+
+        STATE 13:       YellowB = Off;
+                        RedB    = On ;
+                        RedA    = Off;
+                        GreenA  = On ;
+                        GOTO  0;
+
+        STATE 15:       "Power up and preset state
+                        RedA    = Off;
+                        YellowA = Off;
+                        GreenA  = On ;
+                        RedB    = On ;
+                        YellowB = Off;
+                        GreenB  = Off;
+                        GOTO  0;
+
+"Unused states
+"       STATE 6:         GOTO 0;
+"       STATE 7:         GOTO 0;
+"       STATE 14:        GOTO 0;
+
+END control 
+

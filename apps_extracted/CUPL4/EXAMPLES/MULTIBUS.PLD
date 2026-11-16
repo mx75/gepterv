@@ -1,0 +1,112 @@
+Name      Multibus;
+Partno    CA0025;
+Date      04/01/87;
+Revision  02;
+Designer  Kahl;
+Company   Personal CAD Systems, Inc.;
+Assembly  Multibus CPU Card;
+Location  IC43;
+Device    p23s8;
+
+/****************************************************************/
+/*                                                              */
+/* Multibus Arbiter and Controller                              */
+/*                                                              */
+/* This chip implements a serial or parallel priority MULTIBUS  */
+/* arbiter.  The bus logic decides when to issue a bus request  */
+/* using !BUSADR along with a qualified read or write request   */
+/* (!RD or !WR).  This signal is then fed thru a double         */
+/* synchronizer (NOP and REQBUS) states.  This creates an       */
+/* internally stable bus request signal for the arbiter state   */
+/* machine.  After the request is made, bus status lines        */
+/* determine whether to acquire the bus, give it up after the   */
+/* current cycle is complete, or hold the bus.  After acquiring */
+/* the bus, the appropriate control signals (!MRDC, !MWTC,      */
+/* !IORC, !IOWC) are asserted after generating the address      */
+/* buffer enable (!AEN) and output buffer enable (!OEN)         */
+/* signals.                                                     */
+/****************************************************************/
+/* Allowable Target Device Types :  AmPAL23S8                   */
+/****************************************************************/
+
+/**  Inputs  **/
+
+pin 1  = BUS_CLK;               /* Multibus Clock               */
+pin 2  = !BUSADR;               /* External Multibus Address    */
+pin 3  = !RESET;                /* System Reset Line            */
+pin 4  = !RD;                   /* Read Cycle Request           */
+pin 5  = !WR;                   /* Write Cycle Request          */
+pin 6  = !MREQ;                 /* Memory Cycle Request         */
+pin 7  = !IORQ;                 /* I/O Cycle Request            */
+pin 8  = !BPRN;                 /* Bus Priority In Input        */
+pin 9  = !BUSYIN;               /* Bus Busy Input               */
+
+/**  Outputs  **/
+
+pin 15 = !BPRO;                 /* MULTIBUS Bus Priority Out    */
+pin 14 = !CBRQ;                 /* MULTIBUS Common Bus Request  */
+pin 17 = !BREQ;                 /* MULTIBUS Parallel Bus Request*/
+pin 16 = !BUSY;                 /* MULTIBUS Bus Busy Status Bit */
+pin 19 = !MWTC;                 /* Memory Write Command         */
+pin 18 = !MRDC;                 /* Memory Read Command          */
+pin 13 = !IOWC;                 /* I/O Write Command            */
+pin 12 = !IORC;                 /* I/O Read Command             */
+
+/**  Internal Node Declarations  **/
+
+pinnode 24 = AEN;               /* Address Buffer Enable        */
+pinnode 25 = OEN;               /* Output Buffer Enable         */
+pinnode [21..23] = [A,B,C];     /* Internal State Bit Nodes     */
+
+/** Declarations and Intermediate Variable Definitions **/
+
+Field bus_state = [A,B,C];      /* State Machine Field for BUS  */
+bus_cycle = BUSADR & RD & BPRN & !BUSYIN
+          # BUSADR & WR & BPRN & !BUSYIN;
+
+$define IDLE   'b'000           /* IDLE   - reset state         */
+$define NOP    'b'001           /* NOP    - BUSADR detected     */
+$define REQBUS 'b'011           /* REQBUS - assert BPRO output  */
+$define GETBUS 'b'010           /* GETBUS - get control of bus  */
+$define HLDBUS 'b'110           /* HLDBUS - hold MULTIBUS       */
+
+/** Logic Equations **/
+
+sequence bus_state {
+
+present IDLE    if BUSADR & RD  next NOP;
+                if BUSADR & WR  next NOP;
+                default         next IDLE;
+
+present NOP     if BUSADR & RD  next REQBUS     out BPRO;
+                if BUSADR & WR  next REQBUS     out BPRO;
+                default         next IDLE;
+
+present REQBUS  if !BUSADR      next NOP        out BPRO;
+                if bus_cycle    next GETBUS     out [AEN,BUSY,BREQ,BPRO];
+                default         next REQBUS     out [BREQ,BPRO];
+
+present GETBUS  if !BUSADR      next IDLE;
+                if bus_cycle    next HLDBUS     out [AEN,BUSY,OEN,BREQ,CBRQ,BPRO];
+                default         next REQBUS     out BPRO;
+
+present HLDBUS  if bus_cycle    next HLDBUS     out [AEN,BUSY,OEN,BREQ,CBRQ,BPRO];
+                default         next IDLE;
+                if MREQ & RD                    out MRDC;
+                if MREQ & WR                    out MWTC;
+                if IORQ & RD                    out IORC;
+                if IORQ & WR                    out IOWC;
+
+}
+
+[MRDC,MWTC,IORC,IOWC].oe = AEN & BUSADR;
+CBRQ.oe = AEN & BPRO;
+BUSY.oe = AEN;
+[BREQ,BPRO].oe = 'b'11;
+
+/* Features without polarity control do not require pin polarity
+   adjustments */
+
+[BUSY,BREQ,CBRQ,AEN,BPRO,OEN,A,B,C].ar = RESET;
+[BUSY,BREQ,CBRQ,AEN,BPRO,OEN,A,B,C].sp = 'h'00;
+

@@ -1,0 +1,144 @@
+ð
+STATE
+Overview
+Use the STATE keyword to identify the state segment of state-machine 
+designs.  The state segment contains setups, defaults, and state 
+equations.
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+    STATE
+
+    State Setup and Defaults
+    State Equations
+        Transition Equations
+        Output Equations
+        State Assignment Equations
+        Condition Equations
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Device Support:
+PAL10H20EV8    PAL16R4    PAL16R6    PAL16R8     PAL16RP4    PAL16RP6
+PAL16RP8       PALCE16V8  PAL18U8    PAL20R4     PAL20R6     PAL20R10
+PAL20RS4       PAL20RS8   PAL20RS10  PALCE20V    PAL20X4     PAL20X8
+PAL20X10       PAL22RX8   PAL22V10   PAL23S8     PAL24R10    PAL24R4
+PAL24R8        PAL26V12   PALCE29M16 PALCE29MA16 PAL32R16    PAL32VX10
+PALCE610       PLS105     PLS167     PLS168      PLS30S16    MACH 1
+MACH 2
+ú
+Syntax
+Use this state keyword in the PDS file after the declaration segment.
+If  your design contains a mix of state machine and Boolean equations,
+it can appear before or after the Boolean segment.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+    STATE
+
+    State Setup and Defaults
+    State Equations
+        Transition Equations
+        Output Equations
+        State Assignment Equations
+        Condition Equations
+
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+    STATE
+
+        ;State Setup and Defaults
+        MOORE MACHINE
+        START_UP := POWER_UP -> S1
+        DEFAULT_BRANCH HOLD_STATE
+        ;State  Transition Equations
+        S1 := COND1-> S3 
+              + COND2 -> S7
+        ...
+        ;State  Output Equations
+        S1.OUTF = OUT1*/OUT2
+        ...
+        ;State Assignment Equations
+        S1 = /STATEBIT1 * /STATEBIT2
+        ...
+        ;State Condition Equations
+        CONDITIONS
+        COND1 = IN1 * /IN2 * IN3
+        ...
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+
+Setup and       Statements at the beginning of the state segment
+Defaults        identify the state machine.  CLKF, MASTER_RESET,
+                MEALY_MACHINE, MOORE_MACHINE, START_UP, and
+                START_UP.OUTF appear in this section.
+
+                State-machine designs can have global and local
+                defaults.  Global defaults are defined by
+                DEFAULT_BRANCH, DEFAULT_OUTPUT, and OUTPUT_HOLD. Local
+                defaults are defined in the state equations with the
+                local default operator, +->.
+
+State           There are four types of state-machine equations.
+Equations       They have the following functions.
+
+                þ    Transition Equations (required)
+
+
+                For each state, these conditions specify what the next
+                state will be under various conditions. See Condition
+                Equations below.
+
+                þ    Output Equations (optional)
+
+                These equations specify the outputs of the state
+                machine. No output equations are required in cases
+                where the state bits themselves are the outputs.
+
+                þ    State Assignment Equations (optional)
+
+                These equations specify the bit code to be assigned to
+                each state name used in the design.  If these
+                equations are omitted, the software assigns the bit
+                codes automatically.
+
+                þ    Condition Equations (normally required)
+
+                These equations specify a condition name for each set
+                of input values used to determine a transition. You
+                can use input names directly only if a single input
+                controls the transition; otherwise, you must use
+                condition names.
+ú
+Use
+The state segment follows the declaration segment of the PDS file.  If 
+the design has an equations segment, the state segment can precede or 
+follow it.
+
+Important:  The state segment typically replaces the equations
+            segment. It is possible to modify state equations with
+            Boolean equations by including both equation and state
+            segments, in any order. In this case, you must select the
+            Merge Mixed Mode option from the Compile Setup menu.
+
+
+The STATE segment supports the following 
+reserved words:  CLKF, CONDITIONS, DEFAULT_BRANCH, DEFAULT_OUTPUT, 
+HOLD_STATE, MASTER_RESET, MEALY_MACHINE, MOORE_MACHINE, NEXT_STATE, 
+.OUTF, OUTPUT_ENABLE, OUTPUT_HOLD, START_UP, STATE. 
+ú
+Related Topics
+.CLKF
+CONDITIONS
+DEFAULT_BRANCH
+DEFAULT_OUTPUT
+Local Default
+MASTER_RESET
+MEALY_MACHINE
+MOORE_MACHINE
+OUTPUT_HOLD
+START_UP
+State Assignment Equation
+State Equation
+State Transition Equation
+ú

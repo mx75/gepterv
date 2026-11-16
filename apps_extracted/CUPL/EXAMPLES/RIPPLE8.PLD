@@ -1,0 +1,84 @@
+Name	  Ripple8;
+Partno	  CA0012;
+Date	  12/10/84;
+Revision  01;
+Designer  Kahl;
+Company   Assisted Technology;
+Assembly  None;
+Location  None;
+
+/****************************************************************/
+/*								*/
+/* Octal Ripple Counter 					*/
+/*								*/
+/* Octal ripple counter with parallel load.  The LOAD operation */
+/* asynchronously loads the inputs (D7-D0) into the output	*/
+/* register (Q7-Q0).  The COUNT function adds one to the output */
+/* register when the CARRY-IN input is true.  The CARRY-OUT	*/
+/* is true when the output register (Q7-Q0) is all ONES.	*/
+/****************************************************************/
+/** Allowable Target Device Types :  PAL20RA10			*/
+/****************************************************************/
+
+/**  Inputs  **/
+
+pin 1	     = !pl;		/* Register Preload Pin 	*/
+pin 13	     = !oe;		/* Register Output Enable	*/
+pin 2	     = clock;		/* Register Clock		*/
+pin [3..10]  = [D0..7]; 	/* Data Inputs			*/
+pin 11	     = load;		/* Count/Load Mode Control	*/
+pin 23	     = carry_in;	/* Register Clear Input 	*/
+
+/**  Outputs  **/
+
+pin 14	     = carry_out;	/* Carry-Out Output		*/
+pin [15..22] = [Q7..0]; 	/* Register Outputs		*/
+
+/** Declarations and Intermediate Variable Definitions **/
+
+field D = [D7..0];
+field Q = [Q7..0];
+
+/** Logic Equations **/
+
+carry_out = carry_in & [Q0..7]:& ;
+
+Q0.ck = clock & carry_in;
+Q0.ar = load  &  D0;
+Q0.ap = load  & !D0;
+Q0.d  = !Q0;
+
+Q1.ck = !Q0;
+Q1.ar = load  &  D1;
+Q1.ap = load  & !D1;
+Q1.d  = !Q1;
+
+Q2.ck = !Q1;
+Q2.ar = load  &  D2;
+Q2.ap = load  & !D2;
+Q2.d  = !Q2;
+
+Q3.ck = !Q2;
+Q3.ar = load  &  D3;
+Q3.ap = load  & !D3;
+Q3.d  = !Q3;
+
+Q4.ck = !Q3;
+Q4.ar = load  &  D4;
+Q4.ap = load  & !D4;
+Q4.d  = !Q4;
+
+Q5.ck = !Q4;
+Q5.ar = load  &  D5;
+Q5.ap = load  & !D5;
+Q5.d  = !Q5;
+
+Q6.ck = !Q5;
+Q6.ar = load  &  D6;
+Q6.ap = load  & !D6;
+Q6.d  = !Q6;
+
+Q7.ck = !Q6;
+Q7.ar = load  &  D7;
+Q7.ap = load  & !D7;
+Q7.d  = !Q7;

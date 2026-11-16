@@ -1,0 +1,78 @@
+Title    Octal_Comparator
+Pattern  26V12.G20
+Revision A
+Author   Mehrnaz Hada;D. SCOTT
+Company  AMD, Santa Clara,CA
+Date     9/27/88
+
+;The octal comparator establishes when two 8-bit data
+;strings (A7-A0) and (B7-B0) are equivalent (EQ=H) or
+;not equivalent (NE=H).
+
+CHIP OctalComparato PAL26V12
+
+A7 A0 B0 A1 B1 A2 VCC B2 A3 B3 A4 B4 A5 B5 A6 B6 B7 NC NC NC GND
+NE EQ NC NC NC NC NC
+;global and buried nodes are omitted from chip statement
+
+EQUATIONS
+
+NE =  A0*/B0  +  /A0* B0                ;A0 :+: B0
+   +  A1*/B1  +  /A1* B1                ;A1 :+: B1
+   +  A2*/B2  +  /A2* B2                ;A2 :+: B2
+   +  A3*/B3  +  /A3* B3                ;A3 :+: B3
+   +  A4*/B4  +  /A4* B4                ;A4 :+: B4
+   +  A5*/B5  +  /A5* B5                ;A5 :+: B5
+   +  A6*/B6  +  /A6* B6                ;A6 :+: B6
+   +  A7*/B7  +  /A7* B7                ;A7 :+: B7
+
+EQ = /NE
+
+SIMULATION
+
+TRACE_ON A7 A6 A5 A4 A3 A2 A1 A0 NE EQ
+         B7 B6 B5 B4 B3 B2 B1 B0
+
+SETF  A7 /A6 /A5 /A4 /A3 /A2 /A1 /A0    ;A7=H, B7=L
+     /B7 /B6 /B5 /B4 /B3 /B2 /B1 /B0
+CHECK NE /EQ
+SETF /A7 A6                             ;A6=H, B6=L
+CHECK NE /EQ
+SETF /A6 A5                             ;A5=H, B5=L
+CHECK NE /EQ
+SETF /A5 A4                             ;A4=H, B4=L
+CHECK NE /EQ
+SETF /A4 A3                             ;A3=H, B3=L
+CHECK NE /EQ
+SETF /A3 A2                             ;A2=H, B2=L
+CHECK NE /EQ
+SETF /A2 A1                             ;A1=H, B1=L
+CHECK NE /EQ
+SETF /A1 A0                             ;A0=H, B0=L
+CHECK NE /EQ
+SETF /A7 /A6 /A5 /A4 /A3 /A2 /A1 /A0    ;A7=L, B7=H
+      B7
+CHECK NE /EQ
+SETF /B7 B6                             ;A6=L, B6=H
+SETF /B6 B5                             ;A5=L, B5=H
+SETF /B5 B4                             ;A4=L, B4=H
+SETF /B4 B3                             ;A3=L, B3=H
+SETF /B3 B2                             ;A2=L, B2=H
+SETF /B2 B1                             ;A1=L, B1=H
+SETF /B1 B0                             ;A0=L, B0=H
+CHECK NE /EQ
+
+SETF /B0                                ;Test all L's
+CHECK /NE EQ
+SETF A7 A6 A5 A4 A3 A2 A1 A0            ;Test all H's
+     B7 B6 B5 B4 B3 B2 B1 B0
+CHECK /NE EQ
+SETF /A7 A6 /A5 A4 /A3 A2 /A1 A0        ;Test even ones
+     /B7 B6 /B5 B4 /B3 B2 /B1 B0
+CHECK /NE EQ
+SETF A7 /A6 A5 /A4 A3 /A2 A1 /A0        ;Test odd ones
+     B7 /B6 B5 /B4 B3 /B2 B1 /B0
+CHECK /NE EQ
+
+TRACE_OFF
+

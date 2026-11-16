@@ -1,0 +1,6 @@
+#$ SOURCEFILE actlow.abl
+#$ LISTFILE actlow.lst
+#$ MODULE actlow
+#$ DEVICE 'p22v10' ASSIGNED
+#$ PLAFILE actlow.tt1
+#$ JEDECFILE actlow

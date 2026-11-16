@@ -1,0 +1,41 @@
+module Mux12T4 
+title '12 to 4 multiplexer
+Michael Holley and David Pellerin'
+
+declarations
+
+        a0..a3     pin;
+        b0..b3     pin;
+        c0..c3     pin;
+        s1,s0      pin;
+        y0..y3     pin istype 'com';
+
+        H       =  [1,1,1,1];
+        L       =  [0,0,0,0];
+        select  =  [s1, s0];
+        Y       =  [y3..y0];
+        A       =  [a3..a0];
+        B       =  [b3..b0];
+        C       =  [c3..c0];
+        X       =  .x.;
+        
+equations
+        when (select == 1) then Y = A;
+        when (select == 2) then Y = B;
+        when (select == 3) then Y = C;
+        
+test_vectors ([select, A, B, C] ->  Y)
+              [  1   , 1, X, X] ->  1; "select = 0, A
+              [  1   ,10, X, X] -> 10;
+              [  1   , 5, X, X] ->  5;
+
+              [  2   , X, 3, X] ->  3; "select = 1, B
+              [  2   , X, 7, X] ->  7;
+              [  2   , X,15, X] -> 15;
+                
+              [  3   , X, X, 8] ->  8; "select = 2, C
+              [  3   , X, X, 9] ->  9;
+              [  3   , X, X, 1] ->  1;
+
+
+end 

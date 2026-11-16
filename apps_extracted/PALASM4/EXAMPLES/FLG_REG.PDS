@@ -1,0 +1,91 @@
+   TITLE Demo 215 Features Test
+ PATTERN Flg_Reg.PDS
+REVISION 1.1
+  AUTHOR Nick Schmitz
+ COMPANY ADVANCED MICRO DEVICES, INC.
+    DATE 6/16/1992
+
+CHIP  Flg_Reg  MACH215
+
+   PIN  ?  P1 IPAIR B2
+   NODE ?  B1 OPAIR P1
+   NODE ?  B2
+
+   PIN ?  CLK1     PIN ? /CLK2     PIN ?  CLKS  ; Clocks
+   PIN ?  R        PIN ?  P        PIN ?  ENA   ; Control Signals
+   PIN ?  X                                     ; Display output for testing
+
+   PIN ?  I1 IPAIR BI1      NODE ?  BI1
+   PIN ?  I2 IPAIR BI2      NODE ?  BI2
+   PIN ?  I3 IPAIR BI3      NODE ?  BI3
+   PIN ?   Y IPAIR BI4      NODE ?  BI4
+
+   GROUP MACH_SEG_A BI1 BI2 BI3 BI4 P1 B2 X Y
+   GROUP MACH_PTS_8  P1            ; Reserve Space for PT Growth
+
+EQUATIONS
+
+   P1.T := /B1 * (B2 :+: P1)
+   B1.T := {P1.T}                  ; Node equation identical to pin eq
+     B2 *= P1                      ; Transfer function Input Latch
+     X = B2                        ; Display output for testing
+
+   P1.TRST = ENA
+   P1.RSTF = R
+   B1.RSTF = R
+
+   P1.CLKF = CLK1                  ; Must minimize to 1 PT for MACH215
+   B1.CLKF = {P1.CLKF}             ; Must be same as CLK for pin function
+   B2.CLKF = CLK2
+
+
+   Y:= BI1 + BI2 + BI3 + BI4
+   Y.TRST = ENA
+   Y.CLKF = /CLK1
+
+   BI1 := I1     BI1.CLKF = /CLK2    BI1.SETF=P   ; 215 Macrocell Subtleties
+   BI2 := I2    /BI2.CLKF = /CLK2    BI2.RSTF=R   ; Set/Rest on IPAIR
+   BI3 := I3     BI3.CLKF = /CLK1 + /CLK2         ; CLK PT Usage
+   BI4 := Y     /BI4.CLKF = CLKS                  ; Excess of CLK Resources
+
+
+SIMULATION
+   Trace_on  R P ENA    Y X    B1 P1 B2   CLK1 /CLK2  CLKS
+        BI1 BI2 BI3 BI4      I1 I2 I3
+
+   Setf /CLK1  CLK2 /ENA /CLKS /I1 /I2 /I3  ;Initialize inputs
+   Setf CLKS /CLK2  R           ; Rest state for Active-Low Clocks
+
+   Setf P1 /R                   ; Test out Flag Register
+        Clockf CLK2
+   Setf /P1   Y   I2
+   Setf  CLK2                   ; Make Latch B2 Transparent
+
+   Setf  P1                     ; See Data Change on X
+   Setf /P1      Setf  P1 I3
+        ClockF CLK1             ; Load BI3 = 1
+
+   Setf /CLK2                   ; Close Latch
+        Clockf /CLKS            ; Falling Edge Clock of BI4
+   Setf  /P1 /Y   /I2
+        Clockf /CLKS
+
+        ClockF CLK1
+        ClockF CLK1             ; No More Changes
+   Setf ENA  I3                 ; Enable outputs P1 & Y
+
+   Setf R P    Setf /R /P /I3   ; Set/Reset Secondary Regs
+        ClockF CLK2             ; Edge Detect = 0
+
+   Setf I1 /I2  /I3
+        ClockF CLK2             ; Load BI1 BI2 (Different edges)
+   Setf /I1 I2 /I3              ; CLK to BI3 Disabled
+        ClockF CLK2
+   Setf   CLK2
+   Setf   CLK1                  ; Enabled
+        ClockF /CLK2            ; Load BI3 = 0
+
+   Setf /ENA
+   Trace_off
+
+

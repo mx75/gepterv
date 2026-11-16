@@ -1,0 +1,56 @@
+Name      Multibus;
+Partno    CA0025;
+Date      04/01/87;
+Revision  02;
+Designer  Kahl;
+Company   Personal CAD Systems, Inc.;
+Assembly  Multibus CPU Card;
+Location  IC43;
+Device    p23s8;
+
+/****************************************************************/
+/*                                                              */
+/* Multibus Arbiter and Controller                              */
+/*                                                              */
+/* This chip implements a serial or parallel priority MULTIBUS  */
+/* arbiter.  The bus logic decides when to issue a bus request  */
+/* using !BUSADR along with a qualified read or write request   */
+/* (!RD or !WR).  This signal is then fed thru a double         */
+/* synchronizer (NOP and NOBPRO) states.  This creates an       */
+/* internally stable bus request signal for the arbiter state   */
+/* machine.  After the request is made, bus status lines        */
+/* determine whether to acquire the bus, give it up after the   */
+/* current cycle is complete, or hold the bus.  After acquiring */
+/* the bus, the appropriate control signals (!MRDC, !MWTC,      */
+/* !IORC, !IOWC) are asserted after generating the address      */
+/* buffer enable (!AEN) and output buffer enable (!OEN)         */
+/* signals.                                                     */
+/****************************************************************/
+/* Allowable Target Device Types :  AmPAL23S8                   */
+/****************************************************************/
+
+ORDER:
+
+BUS_CLK,%2,!BUSADR,!RESET,!RD,!WR,!MREQ,!IORQ,!BPRN,!BUSYIN,%4,
+!BPRO,!CBRQ,!BREQ,!BUSY,!MWTC,!MRDC,!IOWC,!IORC,%2,
+AEN,OEN,%1,A,B,C;
+
+VECTORS:
+
+$MSG"         !      !                    ";
+$MSG"      B  B!     B                    ";
+$MSG"      U  UR  !!!U    !!!!!!!!        ";
+$MSG"      S  SE  MIBS    BCBBMMII        ";
+$MSG"      C  AS!!ROPY    PBRUWROO  AO    ";
+$MSG"      L  DERWERRI    RRESTDWR  EE    ";
+$MSG"      K  RTDRQQNN    OQQYCCCC  NN ABC";
+$MSG"      -  --------    --------  -- ---";
+           0  X0XXXXXX    HZHZZZZZ  LL LLL  /* System Reset - IDLE  */
+           C  11010101    HZHZZZZZ  LL LLL  /* Stay in IDLE state   */
+           C  01010101    HZHZZZZZ  LL LLH  /* Go to NOP state      */
+           C  01010101    LZHZZZZZ  LL LHH  /* Go to REQBUS state   */
+           C  01010101    LHLLHHHH  HL LHL  /* Go to GETBUS state   */
+           C  01010101    LLLLHLHH  HH HHL  /* Go to HLDBUS state   */
+           C  01010101    LLLLHLHH  HH HHL  /* Stay in HLDBUS state */
+           C  01111101    HZHZZZZZ  LL LLL  /* Return to IDLE state */
+

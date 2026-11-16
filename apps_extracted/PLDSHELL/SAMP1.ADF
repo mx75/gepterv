@@ -1,0 +1,43 @@
+YOUR NAME
+YOUR COMPANY
+DATA
+U1
+001
+EP312
+Read 4 Bits, Increment, Store
+PACKAGE:  EP312DC
+OPTIONS: TURBO=ON
+PART: EP312
+
+INPUTS:  OE, CLOCK, CLR, RESET
+
+OUTPUTS: IO0, IO1, IO2, IO3
+
+NETWORK:
+	OE  = INP(OE)
+	CLOCK = INP(CLOCK)
+	CLR = INP(CLR)
+	RESET = INP(RESET)
+        IO0, IO0f = ROIF(D0d,CLOCK,CLEARe,GND,OENe)
+        IO1, IO1f = ROIF(D1d,CLOCK,CLEARe,GND,OENe)
+        IO2, IO2f = ROIF(D2d,CLOCK,CLEARe,GND,OENe)
+        IO3, IO3f = ROIF(D3d,CLOCK,CLEARe,GND,OENe)
+
+EQUATIONS:
+
+	D0d = !IO0f;
+
+	D1d = !IO1f * IO0f
+	    + IO1f * !IO0f;
+
+	D2d = !IO2f * IO1f * IO0f
+	    + IO2f * !(IO1f * IO0f);
+
+	D3d = !IO3f * IO2f * IO1f * IO0f
+	    + IO3f * !(IO2f * IO1f * IO0f);
+
+	OENe = OE * !RESET;
+
+	CLEARe = CLR + RESET;
+
+END$

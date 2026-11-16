@@ -1,0 +1,53 @@
+Name      Refresh;
+Partno    CA0027;
+Date      02/17/87;
+Rev       02;
+Designer  Breuniger;
+Company   Texas Instruments;
+Assembly  NONE;
+Location  NONE;
+Device    F507;
+
+/****************************************************************/
+/*                                                              */
+/* Refresh Timer                                                */
+/*                                                              */
+/* This is the second example from "A Designer's Guide to the   */
+/* PSG507", by R. Breuniger.  In this example a dynamic memory  */
+/* refresh timer, which generates a refresh request every       */
+/* 15.4 uS, is implemented for the TI PSG507 using CUPL.  In    */
+/* this implementation the built-in 6-bit counter is extended   */
+/* by using one of the buried state registers as the 7th bit.   */
+/*                                                              */
+/* This example demonstrates how to use the built-in counter    */
+/* synchronous clear and count hold functions along with the    */
+/* buried state registers.  The counter clear and hold func-    */
+/* tions must be declared as NODE's in the order in which they  */
+/* exist in the device (SCLR0, SCLR1, CNTHOLD0, CNTHOLD1), as   */
+/* buried nodes are assigned according to order of declaration. */
+/* Since these are the first buried nodes in the device they    */
+/* must be declared before any of the buried state registers.   */
+/****************************************************************/
+/* Allowable Target Device Types :  TI PSG507                   */
+/****************************************************************/
+
+Order:	PSG_CLK, %2, RESET, %1, RFC, %2, !REFREQ;
+
+Vectors:
+
+	C  1 0  H	/* 0 */
+	C  1 0  H	/* 0 */
+	0  0 0  H
+	C  0 0  H	/* 1 */
+	C  0 0  H	/* 2 */
+$repeat 73;
+	C  0 0  *	/* 3 through 75 */
+$msg "end repeat";
+	C  0 0  H	/* 76 */
+	C  0 0  L	/* 77 */
+	C  0 0  L	/* 0 */
+	C  0 0  L	/* 1 */
+	C  0 0  L	/* 2 */
+	0  0 1  L
+	C  0 1  H	/* 3 */
+	C  0 0  H	/* 4 */

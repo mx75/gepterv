@@ -1,0 +1,166 @@
+Title       FIFO Mux and Compare - 7 bits wide
+Pattern     1
+Revision    1
+Date        12/6/94
+
+CHIP    muxcomp    EPX780QC132
+
+; Inputs
+
+PIN     RP[6:0]         ; Read Pointer
+PIN     WP[6:0]         ; Write Pointer
+PIN     CLK
+PIN     RD_ 
+PIN     WR_ 
+
+; Buried
+
+NODE    REQW    ;Buried Node (Read EQuals Write)
+NODE    Q[2:0]  ;FIFO Status State Machine Bits
+
+; Outputs
+
+PIN     A[6:0]
+PIN     /EMPTY_ 
+PIN     /FULL_ 
+
+
+EQUATIONS
+
+;# # # # # # # # # # # # # # # # # # # # # # # # #
+;
+; REQW is the magnitude comparison of the read and
+; write vectors. This shows how to take advantage
+; of the FLASH FPGA hardware compare function. 
+;
+;# # # # # # # # # # # # # # # # # # # # # # # # # 
+
+
+REQW.CMP = [RP[6:0]] == [WP[6:0]];
+
+REQW = GND;
+
+
+;# # # # # # # # # # # # # # # # # # # # # # # # # 
+;
+; A0-A6 is the mux'd read and write pointer directed
+; by /RD_ AND /WR_.
+;
+;# # # # # # # # # # # # # # # # # # # # # # # # #
+
+
+A[6:0] =  (RP[6:0] * /RD_ *  WR_)
+	+ (WP[6:0] *  RD_ * /WR_); 
+
+
+;# # # # # # # # # # # # # # # # # # # # # # # # # #
+; 
+; FIFO Status statemachine
+;
+;# # # # # # # # # # # # # # # # # # # # # # # # # #
+
+; Assign clocks
+
+FULL_.CLKF = CLK;
+EMPTY_.CLKF = CLK;
+Q2.CLKF = CLK;
+Q1.CLKF = CLK;
+Q0.CLKF = CLK;
+
+
+STATE
+MEALY_MACHINE
+
+;State Assignments
+
+  IDLE        = /EMPTY_ * /FULL_ * /Q2 * /Q1 * /Q0
+  WATCH_WR    = /EMPTY_ * /FULL_ *  Q2 * /Q1 *  Q0
+  FIFO_FULL   = /EMPTY_ *  FULL_ *  Q2 *  Q1 *  Q0
+  ONE_WR_AWAY = /EMPTY_ * /FULL_ *  Q2 * /Q0 * /Q1
+  WATCH_RD    = /EMPTY_ * /FULL_ *  Q2 *  Q1 * /Q0
+  FIFO_EMPTY  =  EMPTY_ * /FULL_ *  Q2 *  Q1 *  Q0
+  ONE_RD_AWAY = /EMPTY_ * /FULL_ *  Q2 *  Q1 *  Q0
+
+		
+;State Transitions
+  
+  IDLE     := (/WR_ *  RD_ * /REQW)     -> WATCH_WR
+	    + (/RD_ *  WR_ * /REQW)     -> WATCH_RD
+	    + REQW                      -> FIFO_EMPTY                      
+
+  WATCH_WR := (/RD_ *  WR_ * /REQW)     -> IDLE
+	    + REQW                      -> FIFO_FULL
+
+  FIFO_FULL:= (/RD_ *  WR_)             -> ONE_WR_AWAY
+	   
+  ONE_WR_AWAY := (/RD_ *  WR_)          -> IDLE
+	       + (/WR_ *  RD_)          -> FIFO_FULL
+
+  WATCH_RD := (/WR_ *  RD_ * /REQW)     -> IDLE
+	    + REQW                      -> FIFO_EMPTY
+
+  FIFO_EMPTY := (/WR_ *  RD_)           -> ONE_RD_AWAY
+
+  ONE_RD_AWAY := (/WR_ *  RD_)          -> IDLE
+	       + (/RD_ *  WR_)          -> FIFO_EMPTY
+
+
+SIMULATION
+
+; Define Vectors
+
+VECTOR SM   := [ Q2 Q1 Q0 ]
+VECTOR READ := [ RP6 RP5 RP4 RP3 RP2 RP1 RP0 ]
+VECTOR WRITE := [ WP6 WP5 WP4 WP3 WP2 WP1 WP0 ]
+VECTOR AOUT  := [  A6  A5  A4  A3  A2  A1  A0 ]
+
+SETF  READ := 00  WRITE := 00 /CLK  RD_  WR_
+PRLDF /EMPTY_ /FULL_ /Q2 /Q1 /Q0
+CLOCKF CLK
+CLOCKF CLK
+
+; Write 10 times
+
+FOR i := 1 TO 10 DO
+  BEGIN
+    SETF /WR_
+    CLOCKF CLK
+    SETF WRITE := i  WR_
+    CLOCKF CLK
+  END
+
+; Read 10 times
+ 
+FOR j := 1 TO 10 DO
+  BEGIN
+    SETF /RD_
+    CLOCKF CLK
+    SETF READ := j  RD_
+    CLOCKF CLK
+  END
+
+; Preload write/read pointers to test FIFO Full
+ 
+SETF WRITE := 01  WR_
+SETF READ := 04  RD_
+FOR k := 1 TO 4 DO
+  BEGIN
+    SETF /WR_
+    CLOCKF CLK
+    SETF WRITE := k  WR_
+    CLOCKF CLK
+  END
+
+; Read 7 times
+ 
+SETF READ := 01  RD_
+FOR j := 1 TO 7 DO
+  BEGIN
+    SETF /RD_
+    CLOCKF CLK
+    SETF READ := j  RD_
+    CLOCKF CLK
+  END
+
+; end of simulation
+

@@ -1,0 +1,28 @@
+
+module parity1
+title '8-bit parity generator';
+
+    D7..D0   pin;   "Data
+    Odd      pin istype 'com,xor';
+    X1..X6   node istype 'com,xor';
+
+equations
+
+    X1 = D0 $ D1;
+    X2 = D2 $ D3;
+    X3 = D4 $ D5;
+    X4 = D6 $ D7;
+    X5 = X1 $ X2;
+    X6 = X3 $ X4;
+    Odd = X5 $ X6;
+
+test_vectors([D7,D6,D5,D4,D3,D2,D1,D0]->[Odd])
+             [ 0, 1, 0, 1, 0, 0, 1, 1]->[ 0 ];
+             [ 1, 1, 0, 0, 1, 0, 1, 1]->[ 1 ];
+             [ 0, 1, 1, 0, 1, 1, 0, 0]->[ 0 ];
+             [ 1, 1, 1, 0, 1, 1, 0, 0]->[ 1 ];
+             [ 0, 1, 1, 1, 1, 1, 1, 1]->[ 1 ];
+             [ 1, 1, 1, 1, 1, 1, 1, 1]->[ 0 ];
+             [ 0, 0, 0, 0, 0, 0, 0, 0]->[ 0 ];
+end
+

@@ -1,0 +1,104 @@
+ğ
+TEST
+Overview
+This is the keyword of a simulation command that verifies that values
+at the Q outputs of registers are equal to expected values and
+creates "T" test vectors per the JEDEC 3B standard.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+    TEST     Prefix_Rns
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+
+Device Support:  MACH-device designs only.
+
+                If you use the TEST command with non-MACH PLD's, it is
+                converted to a CHECKQ command automatically.
+ú
+Syntax
+You use the TEST command in either the simulation segment of a PDS
+file or in an auxiliary simulation file for Boolean, state-machine,
+or schematic-based designs.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+    TEST     Prefix_Rns
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+    SIMULATION
+    TEST     /Q1 Q2
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+Because the TEST command verifies signal values at the Q output of
+registers, you do not need to account for active-low pin declarations.  
+This makes TEST especially useful for verifying states.
+
+Prefix          The prefix indicates the logic state of the
+                corresponding register, node, or state.  Do not leave
+                a space between Prefix and Pns.  There are two
+                prefixes:  null and forward slash.
+
+                ş    The null prefix indicates that the register or
+                     node should be a logical 1.  In the syntax
+                     example, Q0 has a null prefix.
+
+                When used in conjunction with a state name, a null
+                prefix indicates that the specified state should be
+                checked.  In the syntax example, PLAYING has a null
+                prefix.
+
+                ş    The forward slash, /, indicates that the signal
+                     should be a logical 0.   In the syntax example,
+                     Q1 has a forward slash prefix.
+
+                Note:  If the simulated value does not match the
+                expected value, the TEST command forces the expected
+                value.  The expected value appears in the test
+                vectors, and a clash is indicated in the simulation
+                results.
+
+Rns             Define the names of the output registers, nodes, or
+                states to be verified. Each value represents both the
+                signal name or state and the expected output value.
+
+                ş    Each signal name can be up to 14 characters in
+                     length.
+
+                ş    Include up to 76 characters per line and use as
+                     many lines as you need.
+
+                The screen displays up to 76 characters per line;
+                however, all information is processed properly even if
+                it extends beyond the 76th character.
+
+                ş    Include a space between the keyword and the first
+                     register, node, or state in the list.
+
+                You can include multiple register and node names.  You
+                can use strings or vector notation to define the
+                signal list.
+
+                ş    Separate multiple prefixed register and node
+                     names with a space.
+ú
+Use
+The TEST command verifies that signal values at the register outputs
+are equal to the expected values.  The TEST command also changes the
+simulation results to match the specified signal values, and generates
+corresponding test vectors in the JEDEC file.   
+
+Because the TEST command verifies signal values at the Q output of
+registers, you do not need to account for active-low pin declarations.
+This makes TEST especially useful for verifying states.
+
+A conflict occurs when the value of the output register does not match
+the value defined in the TEST command.  Each conflict is identified
+with  a question mark, ?, in the simulation output files; a warning is
+issued and the expected value is reported in the execution-log file.
+ú
+Related Topics
+CHECK
+CHECKQ
+ú

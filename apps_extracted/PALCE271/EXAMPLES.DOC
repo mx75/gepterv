@@ -1,0 +1,56 @@
+
+*** PLACE Application Examples (Version 2.20) ***
+
+File Name (.PSF)  Device   Description
+================  ======   =================================================
+
+ ------------
+| PEEL Array |
+ ------------
+DEMO1A            PA7024   Demonstration design for PA7024 which includes
+                           Basic Gates and Registers, 8-bit Down Counter,
+                           2-bit State Machine, 4-bit Shift Register and
+                           8-bit Bidirecional I/O Port.
+BI_PORT           PA7024   8-bit Bidirecional I/O Port (part of DEMO1A.PSF).
+COUNTER1          PA7024   8-bit Down Counter with Preset, Reset and Hold
+                           (part of DEMO1A.PSF).
+GATES1            PA7024   Basic Gates (part of DEMO1A.PSF).
+REG1              PA7024   Basic Registers, 8-bit Down Counter, 2-bit State
+                           Machine and 4-bit Shift Register (all are part of
+                           the DEMO1A.PSF)
+TIMER             PA7024   16-Bit Programmable Clock Generator/Interrupt Timer
+JACK7024          PA7024   Blackjack Machine Example
+
+TC7140            PA7140   Programmable Clock Generator and Timer/Interrupt
+                           Counter
+ST7128            PA7128   8-bit Loadable Counter and 4-bit State Machine
+
+ --------------
+| PEEL Devices |
+ --------------
+V8GATES           18CV8    Basic Logic Gates.
+V8REGS            18CV8    Basic Registers and Latches.
+V8CLKADD          18CV8    Clock Divider Address Decoder.
+V8BUSMUX          18CV8    Bus Programmable 8 to 1 Multiplexer.
+V8FCNTR           18CV8    8-bit Counter with Function Controls.
+V8CPORT           18CV8    Change-of-State Input Port with Interrupt.
+V8SYNC            18CV8    Synchronization Circuits.
+V10CNT8           22CV10   8-bit Up/Down Loadable Counter with Carry-out or
+                           Borrow-in.
+PARV10A           22CV10A  9-bit Even/Odd Parity Generator/Checker.
+V10ZPORT          22CV10Z  Change-of-State Input Port with Interrupt.
+
+
+
+*** PLACE Template files ***
+File Name (.PSF)     Device
+=================    ======
+ANEW7024             PA7024
+ANEW7140             PA7140
+ANEWV8               18CV8
+ANEWG10              20CG10
+ANEWG10A             20CG10A
+ANEWV10              22CV10
+ANEWV10A             22CV10A
+ANEWV10P             22CV10A+
+ANEWV10Z             22CV10Z

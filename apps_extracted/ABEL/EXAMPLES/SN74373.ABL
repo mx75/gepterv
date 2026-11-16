@@ -1,0 +1,26 @@
+Module sn74373
+Title 'Octal D-type Transparent Latch'
+
+    OC,LE   pin;
+    D8..D1  pin;
+    Q8..Q1  pin istype 'reg,buffer';
+
+    Input  = [D8..D1];
+    Output = [Q8..Q1];
+
+Equations
+    Output := Input;
+    Output.le = !LE;
+    Output.oe = !OC;
+
+Test_Vectors ([OC ,LE ,Input] -> Output)
+              [ 1 ,.X., .X. ] ->  .Z.;
+              [ 0 , 1 ,^h00 ] -> ^h00;
+              [ 0 , 1 ,^h55 ] -> ^h55;
+              [ 0 , 1 ,^hAA ] -> ^hAA;
+              [ 0 , 1 ,^hFF ] -> ^hFF;
+              [ 0 , 1 ,^hA5 ] -> ^hA5;
+              [ 0 , 0 ,^hA5 ] -> ^hA5;
+              [ 0 , 0 ,^h00 ] -> ^hA5;
+              [ 0 , 1 ,^h22 ] -> ^h22;
+End

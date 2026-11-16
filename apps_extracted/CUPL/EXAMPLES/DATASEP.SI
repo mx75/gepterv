@@ -1,0 +1,48 @@
+Name	  Datasep;
+Partno    CA0022;
+Date      10/1/86;
+Revision  01;
+Designer  Kahl;
+Company   Personal CAD Systems, Inc.;
+Assembly  Floppy Disk Interface;
+Location  U32;
+Device	  EP600;
+
+/************************************************************************/
+/*                                                                      */
+/* Single Density Floppy Disk Data Separator                            */
+/*                                                                      */
+/* This is a single chip inplementation of the data separator circuit   */
+/* which first appeared on the Tarbell S-100 Floppy Disk Interface.     */
+/* It receives raw FM data from the (single density) 8" disk drive and  */
+/* derives the floppy disk controller (Western Digital 1771B-01) clock  */
+/* and data.  The device also generates a 2 MHz square clock for the    */
+/* FDC timing.  A reset signal was added to improve initialization.     */
+/************************************************************************/
+/* Allowable Target Device Types: Altera EP600                          */
+/************************************************************************/
+
+ORDER:
+
+4MHz1,4MHz2,%1,raw_data,%1,!reset,%2,
+2MHz,%1,q6..0,%1,fdclk,%1,fddata;
+
+/* Outputs not simulated: load_lower,load_upper,
+                          data_sync_4,data_sync_8,
+                          data_sync_16,data_div_2
+*/
+
+VECTORS:
+
+$msg"           r               ";
+$msg"           a               ";
+$msg"         ! w              f";
+$msg"      44 r -            f d";
+$msg"      MM e d  2         d d";
+$msg"      HH s a  M         c a";
+$msg"      zz e t  H qqqqqqq l t";
+$msg"      12 t a  z 6543210 k a";
+$msg"      ---------------------";
+           00 0 x  L LLLLLLL N N		/* Master Reset		*/
+           C0 1 x  H NNNNNNN N N		/* Verify 2 MHz Clock	*/
+           C0 1 x  L NNNNNNN N N

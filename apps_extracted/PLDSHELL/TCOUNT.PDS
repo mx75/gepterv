@@ -1,0 +1,110 @@
+Title           5-Bit Counter Using T-Type Flip-Flops
+Pattern		pds
+Revision        1	
+Author		Your Name
+Company		Your Company
+Date		Date
+
+CHIP  5BIT_TCNT  EP610
+
+
+; pin assignments
+
+PIN	13	CLK
+PIN	2	ENA
+PIN	3	CLR
+PIN	15	QA
+PIN	16	QB
+PIN	17	QC
+PIN	18	QD
+PIN	19	QE
+
+EQUATIONS
+
+; Clear equations
+
+QA.RSTF = CLR
+QB.RSTF = CLR            
+QC.RSTF = CLR
+QD.RSTF = CLR
+QE.RSTF = CLR
+     
+; See Truth Table for counter (TFF registers)
+
+T_TAB ( ENA  QE  QD  QC  QB  QA  :>>  QE.T  QD.T  QC.T  QB.T  QA.T )
+         0    X   X   X   X   X   :    0     0     0     0     0
+         1    0   0   0   0   0   :    0     0     0     0     1
+         1    0   0   0   0   1   :    0     0     0     1     1
+         1    0   0   0   1   0   :    0     0     0     0     1
+         1    0   0   0   1   1   :    0     0     1     1     1
+         1    0   0   1   0   0   :    0     0     0     0     1
+         1    0   0   1   0   1   :    0     0     0     1     1
+         1    0   0   1   1   0   :    0     0     0     0     1
+         1    0   0   1   1   1   :    0     1     1     1     1
+         1    0   1   0   0   0   :    0     0     0     0     1
+         1    0   1   0   0   1   :    0     0     0     1     1
+         1    0   1   0   1   0   :    0     0     0     0     1
+         1    0   1   0   1   1   :    0     0     1     1     1
+         1    0   1   1   0   0   :    0     0     0     0     1
+         1    0   1   1   0   1   :    0     0     0     1     1
+         1    0   1   1   1   0   :    0     0     0     0     1
+         1    0   1   1   1   1   :    1     1     1     1     1
+
+         1    1   0   0   0   0   :    0     0     0     0     1
+         1    1   0   0   0   1   :    0     0     0     1     1
+         1    1   0   0   1   0   :    0     0     0     0     1
+         1    1   0   0   1   1   :    0     0     1     1     1
+         1    1   0   1   0   0   :    0     0     0     0     1
+         1    1   0   1   0   1   :    0     0     0     1     1
+         1    1   0   1   1   0   :    0     0     0     0     1
+         1    1   0   1   1   1   :    0     1     1     1     1
+         1    1   1   0   0   0   :    0     0     0     0     1
+         1    1   1   0   0   1   :    0     0     0     1     1
+         1    1   1   0   1   0   :    0     0     0     0     1
+         1    1   1   0   1   1   :    0     0     1     1     1
+         1    1   1   1   0   0   :    0     0     0     0     1
+         1    1   1   1   0   1   :    0     0     0     1     1
+         1    1   1   1   1   0   :    0     0     0     0     1
+         1    1   1   1   1   1   :    1     1     1     1     1
+
+
+SIMULATION
+
+; define a vector
+
+VECTOR COUNT := [ QE QD QC QB QA ]
+
+; set design to a known state
+
+SETF   /CLK  /ENA  /CLR
+PRLDF  /QA  /QB  /QC  /QD  /QE
+
+; 2 clocks with counter disabled
+
+CLOCKF CLK
+CLOCKF CLK
+
+; enable counter - clock 24 times
+
+SETF ENA
+FOR k := 1 TO 24  DO
+    BEGIN
+        CLOCKF CLK
+    END
+
+; clear counter - clock 2 times
+
+SETF CLR
+CLOCKF CLK
+CLOCKF CLK
+
+; remove clear - clock 33 times
+
+SETF /CLR
+FOR k := 1 TO 33  DO
+    BEGIN
+        CLOCKF CLK
+    END
+
+; end simulation
+

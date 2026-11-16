@@ -1,0 +1,126 @@
+Title           3-Bit Counter Sample File
+Pattern		pds
+Revision        1	
+Author		Your Name
+Company		Your Company
+Date		Date
+
+CHIP    3_bit_count    EPX780LC84
+
+; pins
+
+PIN		CLK
+PIN		UPDOWN
+PIN		CLEAR
+
+PIN		Q2
+PIN     	Q1
+PIN     	Q0
+
+; Simple 3-Bit State Machine
+
+STATE
+
+MOORE_MACHINE
+DEFAULT_BRANCH  S1
+      
+; state assignments
+
+	S1 = /Q2 * /Q1 * /Q0
+	S2 = /Q2 * /Q1 *  Q0 
+	S3 = /Q2 *  Q1 * /Q0
+	S4 = /Q2 *  Q1 *  Q0
+	S5 =  Q2 * /Q1 * /Q0
+	S6 =  Q2 * /Q1 *  Q0 
+	S7 =  Q2 *  Q1 * /Q0
+	S8 =  Q2 *  Q1 *  Q0
+	
+; state transitions
+
+	S1 := UP	-> S2
+	    + DOWN	-> S8
+
+	S2 := UP	-> S3
+	    + DOWN	-> S1
+
+	S3 := UP	-> S4
+	    + DOWN	-> S2
+
+	S4 := UP	-> S5
+	    + DOWN	-> S3
+
+	S5 := UP	-> S6
+	    + DOWN	-> S4
+
+	S6 := UP	-> S7
+	    + DOWN	-> S5
+
+	S7 := UP	-> S8
+	    + DOWN	-> S6
+
+	S8 := UP	-> S1
+	    + DOWN	-> S7
+
+; state machine transitions
+
+CONDITIONS
+
+	UP = UPDOWN * /CLEAR
+	DOWN = /UPDOWN * /CLEAR
+
+EQUATIONS
+
+	Q2.CLKF = CLK
+	Q1.CLKF = CLK
+	Q0.CLKF = CLK
+
+; end of design
+
+SIMULATION
+
+; trace on and initialize counter values
+
+VECTOR  COUNT := [ Q2  Q1  Q0 ]
+SETF  UPDOWN  /CLEAR  /CLK
+PRLDF  /Q2  /Q1  /Q0
+
+SETF  UPDOWN  /CLEAR
+SETF  UPDOWN  /CLEAR
+
+; count up 9 clocks
+
+	FOR j := 0 TO 8 DO
+	    BEGIN
+	        CLOCKF CLK
+	    END
+
+; clear the counter
+
+	SETF CLEAR
+	SETF CLEAR
+	SETF CLEAR
+	CLOCKF CLK
+	SETF /CLEAR
+	SETF /CLEAR
+	SETF /CLEAR
+
+; count down 9 clocks
+
+	SETF /UPDOWN
+	FOR j := 0 TO 8 DO
+	    BEGIN
+	        CLOCKF CLK
+	    END     
+     
+; clear the counter
+
+	SETF CLEAR
+	SETF CLEAR
+	SETF CLEAR
+	CLOCKF CLK
+	SETF /CLEAR
+	SETF /CLEAR
+	SETF /CLEAR
+
+; end of simulation
+

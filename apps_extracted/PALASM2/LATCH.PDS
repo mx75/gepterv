@@ -1,0 +1,82 @@
+Title    Octal_Latch
+Pattern  8latch.pds
+Revision A
+Author   Mehrnaz Hada
+Company  Monolithic Memories Inc. Santa Clara, CA
+Date     1/15/85
+  
+CHIP OctalLatch PAL10H20P8
+  
+/LATCH0 D1 D0 Q0 Q1 VCC1 Q2 Q3 D3 D2 CLR0 GND
+/LATCH1 D6 D7 D4 Q7 Q6 VCC2 Q5 Q4 D5 CLR1 VCC3
+  
+EQUATIONS
+  
+Q0 = D0 * /CLR0 * LATCH0               ;Load
+   + D0 * /CLR0 * Q0                   ;Transition
+   + Q0 * /CLR0 * /LATCH0              ;Hold
+  
+Q1 = D1 * /CLR0 * LATCH0               ;Load
+   + D1 * /CLR0 * Q1                   ;Transition
+   + Q1 * /CLR0 * /LATCH0              ;Hold
+  
+Q2 = D2 * /CLR0 * LATCH0               ;Load
+   + D2 * /CLR0 * Q2                   ;Transition
+   + Q2 * /CLR0 * /LATCH0              ;Hold
+  
+Q3 = D3 * /CLR0 * LATCH0               ;Load
+   + D3 * /CLR0 * Q3                   ;Transition
+   + Q3 * /CLR0 * /LATCH0              ;Hold
+  
+Q4 = D4 * /CLR1 * LATCH1               ;Load
+   + D4 * /CLR1 * Q4                   ;Transition
+   + Q4 * /CLR1 * /LATCH1              ;Hold
+  
+Q5 = D5 * /CLR1 * LATCH1               ;Load
+   + D5 * /CLR1 * Q5                   ;Transition
+   + Q5 * /CLR1 * /LATCH1              ;Hold
+  
+Q6 = D6 * /CLR1 * LATCH1               ;Load
+   + D6 * /CLR1 * Q6                   ;Transtion
+   + Q6 * /CLR1 * /LATCH1              ;Hold
+  
+Q7 = D7 * /CLR1 * LATCH1               ;Load
+   + D7 * /CLR1 * Q7                   ;Transition
+   + Q7 * /CLR1 * /LATCH1              ;Hold
+  
+SIMULATION
+  
+TRACE_ON CLR0 LATCH0 Q0 Q1 Q2 Q3 CLR1 LATCH1 Q4 Q5 Q6 Q7
+  
+SETF CLR0 LATCH0 D0 D1 D2 D3 D4 D5 D6 D7 VCC1 VCC2 VCC3
+  
+SETF CLR1 LATCH1                       ;Clear Latch
+  
+SETF /CLR0 /CLR1                       ;Clear Latches
+  
+SETF LATCH0 LATCH1
+  
+CHECK Q0 Q1 Q2 Q3 Q4 Q5 Q6 Q7
+  
+SETF /LATCH1 D0 /D1 /D2 D3
+  
+SETF /LATCH0 LATCH1 /D4 /D5 /D6 D7
+  
+SETF CLR0 CLR1                          ;Clear Latches
+  
+SETF /CLR0 /CLR1 /LATCH0 /LATCH1        ;Hold values
+  
+SETF CLR0                               ;Clear Q0,Q1,Q2,Q3
+  
+SETF CLR1                               ;Clear Q4,Q5,Q6,Q7
+  
+TRACE_OFF
+  
+;The octal latch is an 8-bit latch with load, hold and clear
+;capability. Clear sets all outputs to low and overrides
+;hold. Load operation loads inputs (D0-D7) into the latch.
+;The hold operation holds the previous values of (Q0-Q7).
+  
+  
+  
+

@@ -1,0 +1,45 @@
+Name      Waveform;
+Partno    CA0026;
+Date      02/17/87;
+Rev       02;
+Designer  Breuniger;
+Company   Texas Instruments;
+Assembly  NONE;
+Location  NONE;
+Device    F507;
+
+/****************************************************************/
+/*                                                              */
+/* Waveform Generator                                           */
+/*                                                              */
+/* This is the first example from "A Designer's Guide to the    */
+/* PSG507", by R. Breuniger. In this example waveform generator */
+/* for three clocks, running at 15, 5, and 2.5MHZ, is imple-    */
+/* mented for the TI PSG507 using CUPL.  In this implementation */
+/* the built-in counter feature of the PSG507 is utilized to    */
+/* divide a 30MHZ master clock to generate the three output     */
+/* waveforms.  The built-in counter is accessed by defining the */
+/* variable list [C0..5] as BINNODE's (built-in nodes) and then */
+/* using the list where ever the counter values are needed.     */
+/****************************************************************/
+/* Allowable Target Device Types :  TI PSG507                   */
+/****************************************************************/
+
+Order:	PSG_CLK, %2, REF_CLK, %1, SYS_CLK, %1, PCLK;
+
+Vectors:
+
+	P  X 0 0
+	0  H H H	/* 0 */
+	C  L H H	/* 1 */
+	C  H L H	/* 2 */
+	C  L L H	/* 3 */
+	C  H L H	/* 4 */
+	C  L L H	/* 5 */
+	C  H H L	/* 6 */
+	C  L H L	/* 7 */
+	C  H L L	/* 8 */
+	C  L L L	/* 9 */
+	C  H L L	/* 10 */
+	C  L L L	/* 11 */
+	C  H H H	/* 0 */

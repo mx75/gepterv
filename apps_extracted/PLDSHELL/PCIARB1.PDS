@@ -1,0 +1,725 @@
+; Fixed Priority PCI Arbiter for 10 Masters
+; Also includes Powerup Reset and Arbiter Holdoff
+; Fitted to an EPX780_84
+
+Title       PCI Fixed Priority Arbiter
+Pattern     1
+Revision    2.0
+Date       12/6/94
+
+CHIP    U3      EPX780LC84
+
+    ; PINLIST
+PIN		CLK        ; PCI Control Inputs
+PIN		FRAME_     ;
+
+PIN		REQ_[1:10] ; PCI Master Request Inputs
+
+PIN		GNT_[1:10] ; PCI Master Grant Outputs
+	
+PIN		PWRGOOD    ; Power Good Input
+
+PIN		RST	   ; System PCI RST
+
+PIN		ARBIDLE    ; Arbiter Idle Output
+PIN		A[1:5]     ; ARBIDLE Counter
+
+;******************************************************************
+; decode strings for higher priority requests
+;******************************************************************
+STRING    NOHIGH2    '(REQ_1)'
+STRING    NOHIGH3    '(REQ_1 * REQ_2)'
+STRING    NOHIGH4    '(REQ_1 * REQ_2 * REQ_3)'
+STRING    NOHIGH5    '(REQ_1 * REQ_2 * REQ_3 * REQ_4)'
+STRING    NOHIGH6    '(REQ_1 * REQ_2 * REQ_3 * REQ_4 * REQ_5)'
+STRING    NOHIGH7    '(REQ_1 * REQ_2 * REQ_3 * REQ_4 * REQ_5 * REQ_6)'
+STRING    NOHIGH8    '(REQ_1 * REQ_2 * REQ_3 * REQ_4 * REQ_5 * REQ_6 * REQ_7)'
+STRING    NOHIGH9    '(REQ_1 * REQ_2 * REQ_3 * REQ_4 * REQ_5 * REQ_6
+                             * REQ_7 * REQ_8)'
+STRING    NOHIGH10   '(REQ_1 * REQ_2 * REQ_3 * REQ_4 * REQ_5 * REQ_6 
+                             * REQ_7 * REQ_8 * REQ_9)'
+
+;******************************************************************
+; decode strings for active grants
+;******************************************************************
+
+STRING    NOGRNT1    '(GNT_2 * GNT_3 * GNT_4 * GNT_5 * GNT_6 * GNT_7
+                             * GNT_8 * GNT_9 * GNT_10)' 
+STRING    NOGRNT2    '(GNT_1 * GNT_3 * GNT_4 * GNT_5 * GNT_6 * GNT_7 
+                             * GNT_8 * GNT_9 * GNT_10)' 
+STRING    NOGRNT3    '(GNT_1 * GNT_2 * GNT_4 * GNT_5 * GNT_6 * GNT_7 
+                             * GNT_8 * GNT_9 * GNT_10)' 
+STRING    NOGRNT4    '(GNT_1 * GNT_2 * GNT_3 * GNT_5 * GNT_6 * GNT_7 
+                             * GNT_8 * GNT_9 * GNT_10)' 
+STRING    NOGRNT5    '(GNT_1 * GNT_2 * GNT_3 * GNT_4 * GNT_6 * GNT_7 
+                             * GNT_8 * GNT_9 * GNT_10)' 
+STRING    NOGRNT6    '(GNT_1 * GNT_2 * GNT_3 * GNT_4 * GNT_5 * GNT_7 
+                             * GNT_8 * GNT_9 * GNT_10)' 
+STRING    NOGRNT7    '(GNT_1 * GNT_2 * GNT_3 * GNT_4 * GNT_5 * GNT_6 
+                             * GNT_8 * GNT_9 * GNT_10)' 
+STRING    NOGRNT8    '(GNT_1 * GNT_2 * GNT_3 * GNT_4 * GNT_5 * GNT_6 
+                             * GNT_7 * GNT_9 * GNT_10)' 
+STRING    NOGRNT9    '(GNT_1 * GNT_2 * GNT_3 * GNT_4 * GNT_5 * GNT_6 
+                             * GNT_7 * GNT_8 * GNT_10)' 
+STRING    NOGRNT10   '(GNT_1 * GNT_2 * GNT_3 * GNT_4 * GNT_5 * GNT_6 
+                             * GNT_7 * GNT_8 * GNT_9)'
+
+
+;******************************************************************
+; decode strings for relinquishing to higher priority REQ_uest
+;******************************************************************
+
+STRING    ORHIGH2    '(REQ_1)'
+STRING    ORHIGH3    '(REQ_1 + REQ_2)'
+STRING    ORHIGH4    '(REQ_1 + REQ_2 + REQ_3)'
+STRING    ORHIGH5    '(REQ_1 + REQ_2 + REQ_3 + REQ_4)'
+STRING    ORHIGH6    '(REQ_1 + REQ_2 + REQ_3 + REQ_4 + REQ_5)'
+STRING    ORHIGH7    '(REQ_1 + REQ_2 + REQ_3 + REQ_4 + REQ_5 + REQ_6)'
+STRING    ORHIGH8    '(REQ_1 + REQ_2 + REQ_3 + REQ_4 + REQ_5 + REQ_6 + REQ_7)'
+STRING    ORHIGH9    '(REQ_1 + REQ_2 + REQ_3 + REQ_4 + REQ_5 + REQ_6
+                             + REQ_7 + REQ_8)'
+STRING    ORHIGH10   '(REQ_1 + REQ_2 + REQ_3 + REQ_4 + REQ_5 + REQ_6 
+                             + REQ_7 + REQ_8 + REQ_9)'
+
+
+;******************************************************************
+; PCI bus arbiter for 10 master system. Uses a fixed priority
+; arbitration scheme with REQ_1 highest priority and REQ_10 lowest
+; priority. This arbiter asserts a GNT_x during the same clock as it
+; deasserts a second GNT_x. Each master has its own machine.
+;******************************************************************
+
+;*************************************************************
+; State machine section for master 1
+;*************************************************************
+    
+STATE
+MOORE_MACHINE
+DEFAULT_BRANCH  HOLD_STATE
+
+    ; State assignments
+
+    S1A =  GNT_1
+    S1B = /GNT_1
+   
+    ; State transitions
+
+    S1A := MREQ_1        -> S1B
+    S1B := MREL1        -> S1A
+	+ RESET1        -> S1A
+
+    ; Input conditions
+
+CONDITIONS
+
+    RESET1 = ARBIDLE
+    MREQ_1 = /REQ_1 * /ARBIDLE * NOGRNT1
+    MREL1 = REQ_1 * /GNT_1 * /ARBIDLE * /FRAME_
+
+;*************************************************************
+; State machine section for master 2
+;*************************************************************
+    
+STATE
+MOORE_MACHINE
+DEFAULT_BRANCH  HOLD_STATE
+
+    ; State assignments
+
+    S2A =   GNT_2
+    S2B =  /GNT_2
+   
+    ; State transitions
+
+    S2A := MREQ_2        -> S2B
+    S2B := MREL2        -> S2A
+	+ RESET2        -> S2A
+
+    ; Input conditions
+
+CONDITIONS
+
+    RESET2 = ARBIDLE
+    MREQ_2 = /REQ_2 * NOHIGH2 * /ARBIDLE * NOGRNT3
+    MREL2 = REQ_2   * /GNT_2 * /ARBIDLE * /FRAME_
+	  + ORHIGH2 * /GNT_2 * /ARBIDLE * /FRAME_
+
+;*************************************************************
+; State machine section for master 3
+;*************************************************************
+    
+STATE
+MOORE_MACHINE
+DEFAULT_BRANCH  HOLD_STATE
+
+    ; State assignments
+
+    S3A =   GNT_3
+    S3B =  /GNT_3
+   
+    ; State transitions
+
+    S3A := MREQ_3        -> S3B
+    S3B := MREL3        -> S3A
+	+ RESET3        -> S3A
+
+    ; Input conditions
+
+CONDITIONS
+
+    RESET3 = ARBIDLE
+    MREQ_3 = /REQ_3 * NOHIGH3 * /ARBIDLE * NOGRNT3
+    MREL3 = REQ_3   * /GNT_3 * /ARBIDLE * /FRAME_
+	  + ORHIGH3 * /GNT_3 * /ARBIDLE * /FRAME_
+
+;*************************************************************
+; State machine section for master 4
+;*************************************************************
+    
+STATE
+MOORE_MACHINE
+DEFAULT_BRANCH  HOLD_STATE
+
+    ; State assignments
+
+    S4A =   GNT_4
+    S4B =  /GNT_4
+   
+    ; State transitions
+
+    S4A := MREQ_4        -> S4B
+    S4B := MREL4        -> S4A
+	+ RESET4        -> S4A
+
+    ; Input conditions
+
+CONDITIONS
+
+    RESET4 = ARBIDLE
+    MREQ_4 = /REQ_4 * NOHIGH4 * /ARBIDLE * NOGRNT4
+    MREL4 = REQ_4   * /GNT_4 * /ARBIDLE * /FRAME_
+	  + ORHIGH4 * /GNT_4 * /ARBIDLE * /FRAME_
+
+;*************************************************************
+; State machine section for master 5
+;*************************************************************
+    
+STATE
+MOORE_MACHINE
+DEFAULT_BRANCH  HOLD_STATE
+
+    ; State assignments
+
+    S5A =   GNT_5
+    S5B =  /GNT_5
+   
+    ; State transitions
+
+    S5A := MREQ_5        -> S5B
+    S5B := MREL5        -> S5A
+	+ RESET5        -> S5A
+
+    ; Input conditions that determine state and output transitions
+
+CONDITIONS
+
+    RESET5 = ARBIDLE
+    MREQ_5 = /REQ_5 * NOHIGH5 * /ARBIDLE * NOGRNT5
+    MREL5 = REQ_5   * /GNT_5 * /ARBIDLE * /FRAME_
+	  + ORHIGH5 * /GNT_5 * /ARBIDLE * /FRAME_
+
+;*************************************************************
+; State machine section for master 6
+;*************************************************************
+    
+STATE
+MOORE_MACHINE
+DEFAULT_BRANCH  HOLD_STATE
+
+    ; State assignments
+
+    S6A =   GNT_6
+    S6B =  /GNT_6
+   
+    ; State transitions
+
+    S6A := MREQ_6        -> S6B
+    S6B := MREL6        -> S6A
+	+ RESET6        -> S6A
+
+    ; Input conditions that determine state and output transitions
+
+CONDITIONS
+
+    RESET6 = ARBIDLE
+    MREQ_6 = /REQ_6 * NOHIGH6 * /ARBIDLE * NOGRNT6
+    MREL6 = REQ_6   * /GNT_6 * /ARBIDLE * /FRAME_
+	  + ORHIGH6 * /GNT_6 * /ARBIDLE * /FRAME_
+
+;*************************************************************
+; State machine section for master 7
+;*************************************************************
+    
+STATE
+MOORE_MACHINE
+DEFAULT_BRANCH  HOLD_STATE
+
+    ; State assignments
+
+    S7A =   GNT_7
+    S7B =  /GNT_7
+   
+    ; State transitions
+
+    S7A := MREQ_7        -> S7B
+    S7B := MREL7        -> S7A
+	+ RESET7        -> S7A
+
+    ; Input conditions that determine state and output transitions
+
+CONDITIONS
+
+    RESET7 = ARBIDLE
+    MREQ_7 = /REQ_7 * NOHIGH7 * /ARBIDLE * NOGRNT7
+    MREL7 = REQ_7   * /GNT_7 * /ARBIDLE * /FRAME_
+	  + ORHIGH7 * /GNT_7 * /ARBIDLE * /FRAME_
+
+;*************************************************************
+; State machine section for master 8
+;*************************************************************
+    
+STATE
+MOORE_MACHINE
+DEFAULT_BRANCH  HOLD_STATE
+
+    ; State assignments
+
+    S8A =   GNT_8
+    S8B =  /GNT_8
+   
+    ; State transitions
+
+    S8A := MREQ_8        -> S8B
+    S8B := MREL8        -> S8A
+	+ RESET8        -> S8A
+
+    ; Input conditions that determine state and output transitions
+
+CONDITIONS
+
+    RESET8 = ARBIDLE
+    MREQ_8 = /REQ_8 * NOHIGH8 * /ARBIDLE * NOGRNT8
+    MREL8 = REQ_8   * /GNT_8 * /ARBIDLE * /FRAME_
+	  + ORHIGH8 * /GNT_8 * /ARBIDLE * /FRAME_
+
+;*************************************************************
+; State machine section for master 9
+;*************************************************************
+    
+STATE
+MOORE_MACHINE
+DEFAULT_BRANCH  HOLD_STATE
+
+    ; State assignments
+
+    S9A =   GNT_9
+    S9B =  /GNT_9
+   
+    ; State transitions
+
+    S9A := MREQ_9        -> S9B
+    S9B := MREL9        -> S9A
+	+ RESET9        -> S9A
+
+    ; Input conditions that determine state and output transitions
+
+CONDITIONS
+
+    RESET9 = ARBIDLE
+    MREQ_9 = /REQ_9 * NOHIGH9 * /ARBIDLE * NOGRNT9
+    MREL9 = REQ_9   * /GNT_9 * /ARBIDLE * /FRAME_
+	  + ORHIGH9 * /GNT_9 * /ARBIDLE * /FRAME_
+
+;*************************************************************
+; State machine section for master 10
+;*************************************************************
+    
+STATE
+MOORE_MACHINE
+DEFAULT_BRANCH  HOLD_STATE
+
+    ; State assignments
+
+    S10A =   GNT_10
+    S10B =  /GNT_10
+   
+    ; State transitions
+
+    S10A := MREQ_10        -> S10B
+    S10B := MREL10        -> S10A
+	+ RESET10        -> S10A
+
+    ; Input conditions that determine state and output transitions
+
+CONDITIONS
+
+    RESET10 = ARBIDLE
+    MREQ_10 = /REQ_10 * NOHIGH10 * /ARBIDLE * NOGRNT10
+    MREL10 = REQ_10  * /GNT_10 * /ARBIDLE * /FRAME_
+	  + ORHIGH10 * /GNT_10 * /ARBIDLE * /FRAME_
+
+;*************************************************************
+; ARBIDLE state machine
+;*************************************************************
+    
+STATE
+MOORE_MACHINE
+DEFAULT_BRANCH  HOLD_STATE
+
+	; State assignments
+
+	PWRUP	=  /ARBIDLE * /A5 * /A4 * /A3 * /A2 * /A1
+	IDLE1	=  /ARBIDLE * /A5 * /A4 * /A3 * /A2 *  A1
+	IDLE2	=   ARBIDLE * /A5 * /A4 * /A3 *  A2 * /A1
+	IDLE3	=   ARBIDLE * /A5 * /A4 * /A3 *  A2 *  A1
+	IDLE4	=   ARBIDLE * /A5 * /A4 *  A3 * /A2 * /A1
+	IDLE5	=   ARBIDLE * /A5 * /A4 *  A3 * /A2 *  A1
+	IDLE6	=   ARBIDLE * /A5 * /A4 *  A3 *  A2 * /A1
+	IDLE7	=   ARBIDLE * /A5 * /A4 *  A3 *  A2 *  A1
+	IDLE8	=   ARBIDLE * /A5 *  A4 * /A3 * /A2 * /A1
+	IDLE9	=   ARBIDLE * /A5 *  A4 * /A3 * /A2 *  A1
+	IDLE10	=   ARBIDLE * /A5 *  A4 * /A3 *  A2 * /A1
+	IDLE11	=   ARBIDLE * /A5 *  A4 * /A3 *  A2 *  A1
+	IDLE12	=   ARBIDLE * /A5 *  A4 *  A3 * /A2 * /A1
+	IDLE13	=   ARBIDLE * /A5 *  A4 *  A3 * /A2 *  A1
+	IDLE14	=   ARBIDLE * /A5 *  A4 *  A3 *  A2 * /A1
+	IDLE15	=   ARBIDLE * /A5 *  A4 *  A3 *  A2 *  A1
+	IDLE16	=   ARBIDLE *  A5 * /A4 * /A3 * /A2 * /A1
+	IDLE17	=   ARBIDLE *  A5 * /A4 * /A3 * /A2 *  A1
+	IDLE18	=   ARBIDLE *  A5 * /A4 * /A3 *  A2 * /A1
+	IDLE19	=   ARBIDLE *  A5 * /A4 * /A3 *  A2 *  A1
+	IDLE20	=   ARBIDLE *  A5 * /A4 *  A3 * /A2 * /A1
+	IDLE21	=   ARBIDLE *  A5 * /A4 *  A3 * /A2 *  A1
+	IDLE22	=   ARBIDLE *  A5 * /A4 *  A3 *  A2 * /A1
+	IDLE23	=   ARBIDLE *  A5 * /A4 *  A3 *  A2 *  A1
+	IDLE24	=   ARBIDLE *  A5 *  A4 * /A3 * /A2 * /A1
+	IDLE25	=   ARBIDLE *  A5 *  A4 * /A3 * /A2 *  A1
+	IDLE26	=   ARBIDLE *  A5 *  A4 * /A3 *  A2 * /A1
+	IDLE27	=   ARBIDLE *  A5 *  A4 * /A3 *  A2 *  A1
+	IDLE28	=   ARBIDLE *  A5 *  A4 *  A3 * /A2 * /A1
+	IDLE29	=   ARBIDLE *  A5 *  A4 *  A3 * /A2 *  A1
+	IDLE30	=  /ARBIDLE *  A5 *  A4 *  A3 *  A2 * /A1
+	IDLE31	=  /ARBIDLE *  A5 *  A4 *  A3 *  A2 *  A1
+
+	; State transitions
+
+	PWRUP := VCC		-> IDLE1
+	IDLE1 := /PWRGOOD	-> IDLE2
+	IDLE2 := PWRGOOD	-> IDLE3
+	IDLE3 := VCC		-> IDLE4
+	IDLE4 := VCC		-> IDLE5
+	IDLE5 := VCC		-> IDLE6
+	IDLE6 := VCC		-> IDLE7
+	IDLE7 := VCC		-> IDLE8
+	IDLE8 := VCC		-> IDLE9
+	IDLE9 := VCC		-> IDLE10
+	IDLE10 := VCC		-> IDLE11
+	IDLE11 := VCC		-> IDLE12
+	IDLE12 := VCC		-> IDLE13
+	IDLE13 := VCC		-> IDLE14
+	IDLE14 := VCC		-> IDLE15
+	IDLE15 := VCC		-> IDLE16
+	IDLE16 := VCC		-> IDLE17
+	IDLE17 := VCC		-> IDLE18
+	IDLE18 := VCC		-> IDLE19
+	IDLE19 := VCC		-> IDLE20
+	IDLE20 := VCC		-> IDLE21
+	IDLE21 := VCC		-> IDLE22
+	IDLE22 := VCC		-> IDLE23
+	IDLE23 := VCC		-> IDLE24
+	IDLE24 := VCC		-> IDLE25
+	IDLE25 := VCC		-> IDLE26
+	IDLE26 := VCC		-> IDLE27
+	IDLE27 := VCC		-> IDLE28
+	IDLE28 := VCC		-> IDLE29
+	IDLE29 := VCC		-> IDLE30
+	IDLE30 := VCC		-> IDLE31
+	IDLE31 := VCC		-> IDLE31
+
+;*************************************************************
+; Boolean equations
+;*************************************************************
+
+EQUATIONS
+
+    GNT_1.CLKF  = CLK
+    GNT_2.CLKF  = CLK
+    GNT_3.CLKF  = CLK
+    GNT_4.CLKF  = CLK
+    GNT_5.CLKF  = CLK
+    GNT_6.CLKF  = CLK
+    GNT_7.CLKF  = CLK
+    GNT_8.CLKF  = CLK
+    GNT_9.CLKF  = CLK
+    GNT_10.CLKF = CLK
+    
+    RST     := /PWRGOOD
+    
+    RST.CLKF  = CLK
+    A1.CLKF  = CLK
+    A2.CLKF  = CLK
+    A3.CLKF  = CLK
+    A4.CLKF  = CLK
+    A5.CLKF  = CLK
+    ARBIDLE.CLKF  = CLK
+
+;*************************************************************
+; Simulation section for arbiter
+;*************************************************************
+    
+SIMULATION
+
+    ; initialize inputs and preset outputs
+    
+    SETF  CLK  REQ_1  REQ_2  REQ_3  REQ_4  REQ_5  REQ_6  REQ_7
+          REQ_8  REQ_9  REQ_10  FRAME_  PWRGOOD
+    PRLDF  /GNT_1  /GNT_2  /GNT_3  /GNT_4  /GNT_5  /GNT_6  /GNT_7
+          /GNT_8  /GNT_9  /GNT_10  /A1  /A2  /A3  /A4  /A5  /RST  /ARBIDLE
+
+    ; idle for 3 clocks
+
+    CLOCKF CLK
+    CLOCKF CLK
+    CLOCKF CLK
+    
+    ; reset state machine
+
+    SETF /PWRGOOD
+	FOR RCTR := 1 TO 20 DO
+	    BEGIN
+		CLOCKF CLK
+	    END
+    SETF PWRGOOD
+	FOR RCTR := 1 TO 30 DO
+	    BEGIN
+		CLOCKF CLK
+	    END
+
+    ; idle for 3 clocks
+
+    CLOCKF CLK
+    CLOCKF CLK
+    CLOCKF CLK
+    
+    ; REQ_uest for master 1, basic cycle unimpeded
+
+    SETF /REQ_1
+    CLOCKF CLK
+    CLOCKF CLK
+    CLOCKF CLK
+    CLOCKF CLK
+    
+    ; delayed REQ_uest for 2
+
+    SETF /REQ_2
+    CLOCKF CLK
+    CLOCKF CLK
+    CLOCKF CLK
+    
+    ; end of transfer for 1, should grant 2
+    ; reset in middle of cycle
+
+    SETF REQ_1 /FRAME_
+    CLOCKF CLK
+    SETF FRAME_
+    CLOCKF CLK
+    CLOCKF CLK
+    CLOCKF CLK
+    CLOCKF CLK
+    CLOCKF CLK
+    SETF REQ_2 /FRAME_
+    CLOCKF CLK
+    SETF FRAME_
+    CLOCKF CLK
+    
+    ; idle for 3 clocks
+
+    CLOCKF CLK
+    CLOCKF CLK
+    CLOCKF CLK
+    
+    ; simultaneous REQ_uests for 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+
+    SETF /REQ_1 /REQ_2 /REQ_3 /REQ_4 /REQ_5 /REQ_6 /REQ_7 /REQ_8 /REQ_9 /REQ_10
+    CLOCKF CLK
+    
+    ; should grant 1 
+
+    CLOCKF CLK
+    CLOCKF CLK
+    CLOCKF CLK
+    CLOCKF CLK
+    CLOCKF CLK
+
+    ; end of 1, should grant 2
+	
+    SETF REQ_1 /FRAME_
+    CLOCKF CLK
+    SETF FRAME_
+    CLOCKF CLK
+    CLOCKF CLK
+    CLOCKF CLK
+    CLOCKF CLK
+    CLOCKF CLK
+
+    ; end of 2, should grant 3
+	
+    SETF REQ_2 /FRAME_
+    CLOCKF CLK
+    SETF FRAME_
+    CLOCKF CLK
+    CLOCKF CLK
+    CLOCKF CLK
+    CLOCKF CLK
+    CLOCKF CLK
+
+    ; end of 3, should grant 4
+	
+    SETF REQ_3 /FRAME_
+    CLOCKF CLK
+    SETF FRAME_
+    CLOCKF CLK
+    CLOCKF CLK
+    CLOCKF CLK
+    CLOCKF CLK
+    CLOCKF CLK
+
+    ; end of 4, should grant 5
+	
+    SETF REQ_4 /FRAME_
+    CLOCKF CLK
+    SETF FRAME_
+    CLOCKF CLK
+    CLOCKF CLK
+    CLOCKF CLK
+    CLOCKF CLK
+    CLOCKF CLK
+
+    ; end of 5, should grant 6
+	
+    SETF REQ_5 /FRAME_
+    CLOCKF CLK
+    SETF FRAME_
+    CLOCKF CLK
+    CLOCKF CLK
+    CLOCKF CLK
+    CLOCKF CLK
+    CLOCKF CLK
+
+    ; end of 6, idle for 3 clocks
+	
+    SETF REQ_6 /FRAME_
+    CLOCKF CLK
+    SETF FRAME_
+    CLOCKF CLK
+    CLOCKF CLK
+    CLOCKF CLK
+
+    ; REQ_uest for master 6, REQ_uest for
+    ; master 3 comes late
+
+    SETF /REQ_6
+    CLOCKF CLK
+    CLOCKF CLK
+    CLOCKF CLK
+    CLOCKF CLK
+    CLOCKF CLK
+    
+    ; delayed REQ_uest for 3
+
+    SETF /REQ_3
+    CLOCKF CLK
+    CLOCKF CLK
+    CLOCKF CLK
+    CLOCKF CLK
+    
+    ; end of first transfer for 6, should grant 3
+    ; then return to 6
+
+    SETF /FRAME_
+    CLOCKF CLK
+    SETF FRAME_
+    CLOCKF CLK
+    CLOCKF CLK
+    CLOCKF CLK
+    CLOCKF CLK
+    CLOCKF CLK
+    SETF REQ_3 /FRAME_
+    CLOCKF CLK
+    SETF FRAME_
+    CLOCKF CLK
+    CLOCKF CLK
+    CLOCKF CLK
+    CLOCKF CLK
+    CLOCKF CLK
+    
+    ; end of 6, should grant 7
+	
+    SETF REQ_6 /FRAME_
+    CLOCKF CLK
+    SETF FRAME_
+    CLOCKF CLK
+    CLOCKF CLK
+    CLOCKF CLK
+    CLOCKF CLK
+    CLOCKF CLK
+    CLOCKF CLK
+    
+    ; end of 7, should grant 8
+	
+    SETF REQ_7 /FRAME_
+    CLOCKF CLK
+    SETF FRAME_
+    CLOCKF CLK
+    CLOCKF CLK
+    CLOCKF CLK
+    CLOCKF CLK
+    CLOCKF CLK
+    CLOCKF CLK
+    
+    ; end of 8, should grant 9
+	
+    SETF REQ_8 /FRAME_
+    CLOCKF CLK
+    SETF FRAME_
+    CLOCKF CLK
+    CLOCKF CLK
+    CLOCKF CLK
+    CLOCKF CLK
+    CLOCKF CLK
+    CLOCKF CLK
+    
+    ; end of 9, should grant 10
+	
+    SETF REQ_9 /FRAME_
+    CLOCKF CLK
+    SETF FRAME_
+    CLOCKF CLK
+    CLOCKF CLK
+    CLOCKF CLK
+    CLOCKF CLK
+    CLOCKF CLK
+    CLOCKF CLK
+    SETF REQ_10 /FRAME_
+    CLOCKF CLK
+    SETF FRAME_
+    
+    ; idle for 3 clocks
+
+    CLOCKF CLK
+    CLOCKF CLK
+    CLOCKF CLK
+    
+    ; end of simulation
+	
+

@@ -1,0 +1,6 @@
+# execute disassembly for dip D5C090
+
+load "da090.jdb"
+
+de090(0)
+

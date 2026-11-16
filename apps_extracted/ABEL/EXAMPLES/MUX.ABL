@@ -1,0 +1,21 @@
+module mux
+
+    a3..a0 PIN;
+    b3..b0 PIN;
+    c3..c0 PIN;
+    s1,s0  PIN;
+    y3..y0 PIN ISTYPE 'com';
+
+    A      = [a3..a0];
+    B      = [b3..b0];
+    C      = [c3..c0];
+    Y      = [y3..y0];
+    Select = [s1,s0];
+
+equations
+
+    Y = (Select == 1) & A
+      # (Select == 2) & B
+      # (Select == 3) & C;
+
+end

@@ -1,0 +1,77 @@
+Name      Count8;
+Partno    CA0008;
+Date      7/19/84 ;
+Revision  01;
+Designer  Kahl;
+Company   Assisted Technology;
+Assembly  None;
+Location  None;
+Device    P20X8;
+
+/****************************************************************/
+/*                                                              */
+/* Octal Counter (74LS461)                                      */
+/*                                                              */
+/* 8-bit synchronous counter with parallel load, clear, and     */
+/* hold capability.  The LOAD operation loads the inputs        */
+/* (D7-D0) into the output register (Q7-Q0).  The CLEAR         */
+/* operation resets the output register to all LOWs.  The HOLD  */
+/* operation holds the previous value regardless of clock       */
+/* transitions.  The increment function adds one to the output  */
+/* register when the CARRY-IN is true (!ci=LO), otherwise the   */
+/* operation is a hold.  The CARRY-OUT is true (!co=LO) when    */
+/* the output register (Q7-Q0) is all HIGHs, otherwise false    */
+/* (!co=HI).                                                    */
+/****************************************************************/
+/** Allowable Target Device Types :  PAL20X8                    */
+/****************************************************************/
+
+/**  Inputs  **/
+
+PIN 1        = clock ;          /* Register Clock               */
+PIN [2,11]   = [instr0..1] ;    /* Instruction Type Inputs      */
+PIN [3..10]  = [D0..7] ;        /* Data Inputs                  */
+PIN 13       = !out_enable ;    /* Register Output Enable       */
+PIN 23       = !carry_in ;      /* Carry-In Input               */
+
+/**  Outputs  **/
+
+PIN 14       = !carry_out ;     /* Carry-Out Output             */
+PIN [15..22] = [Q7..0] ;        /* Register Outputs             */
+
+/** Declarations and Intermediate Variable Definitions **/
+
+field instruction = [instr1..0];/* Instruction Field            */
+clear = instruction:0 ;         /* Operation Types              */
+hold  = instruction:1 ;
+load  = instruction:2 ;
+count = instruction:3 ;
+
+/** Logic Equations **/
+
+carry_out = carry_in & [Q0..7]:& ;
+
+!Q0.d = clear # (count # hold) & !Q0
+      $ load & !D0 # count & carry_in ;
+
+!Q1.d = clear # (count # hold) & !Q1
+      $ load & !D1 # count & carry_in & Q0 ;
+
+!Q2.d = clear # (count # hold) & !Q2
+      $ load & !D2 # count & carry_in & [Q0..1]:& ;
+
+!Q3.d = clear # (count # hold) & !Q3
+      $ load & !D3 # count & carry_in & [Q0..2]:& ;
+
+!Q4.d = clear # (count # hold) & !Q4
+      $ load & !D4 # count & carry_in & [Q0..3]:& ;
+
+!Q5.d = clear # (count # hold) & !Q5
+      $ load & !D5 # count & carry_in & [Q0..4]:& ;
+
+!Q6.d = clear # (count # hold) & !Q6
+      $ load & !D6 # count & carry_in & [Q0..5]:& ;
+
+!Q7.d = clear # (count # hold) & !Q7
+      $ load & !D7 # count & carry_in & [Q0..6]:& ;
+

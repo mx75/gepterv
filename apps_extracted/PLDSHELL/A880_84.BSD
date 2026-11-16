@@ -1,0 +1,447 @@
+--
+-- Altera EPX880 84 Pin FPGA BSDL description
+--
+-- ---------------------------------------------------------------------------
+-- For help with this file, call or write to
+--
+--    Altera Applications Hotline.
+--    2610 Orchard Parkway
+--    San Jose, CA 95134-200
+--      800-800-3753   (USA/Canada)
+--      408-894-7000   (USA direct)
+--      408-954-0348   (FAX)
+--
+-- For help outside of N. America, please contact your local Altera Sales Office.
+--****************************************************************************
+-- Copyright 1994  Altera Corporation
+-- All rights reserved. No part of this program or publication may be
+-- reproduced, transmitted, transcribed, stored in a retrieval system, or
+-- translated into any language or computer language, in any form or by any
+-- means, electronic, mechanical, magnetic, optical,  chemical,  manual, or
+-- otherwise, without this notice appearing within.
+--****************************************************************************
+-- Altera Corporation makes no warranty for the use of its products
+-- and assumes no responsibility for any errors which may appear in
+-- this document nor does it make a commitment to update the information
+-- contained herein.
+--****************************************************************************
+-- Boundary-Scan Description Language (BSDL Version 0.0) is a de-facto
+-- standard means of describing essential features of ANSI/IEEE 1149.1-1990
+-- compliant devices.  
+--****************************************************************************
+--
+
+-- This file has been partially verified.
+--    [X] Teradyne VICTORY 2.00
+--        [x] Syntax check
+--        [x] Test Vector generation
+--        [ ] Test Vectors verified against silicon
+--    [X] Hewlett-Packard Boundary-Scan Software
+--        [x] Syntax check
+--        [x] Test Vector generation
+--        [x] Test Vectors verified against silicon
+
+
+entity AlteraEPX880_84 is
+
+   generic(PHYSICAL_PIN_MAP : string := "PLCC_84pin");
+
+   port (
+         CLK1     : in    bit;
+         CLK2     : in    bit;
+
+         INP      : in    bit_vector(0 to 21);   -- inputs
+
+         IO       : inout bit_vector(0 to 79);   -- I/O pins
+
+         TCK, TMS, TDI      : in   bit;          -- Scan Port inputs
+         TDO      : out  bit;                    -- Scan Port output
+
+         VCC      : linkage bit_vector(1 to 2); -- VCC
+         VCCO     : linkage bit_vector(0 to 7); -- VCC
+         VSS      : linkage bit_vector(1 to 9); -- GND pins
+         VPP      : linkage bit                 -- VPP pin
+
+         );  -- end of ports
+
+   use STD_1149_1_1990.all;
+
+   attribute PIN_MAP of AlteraEPX880_84 : entity is PHYSICAL_PIN_MAP;
+
+   constant PLCC_84pin : PIN_MAP_STRING :=      -- Define Pin Out of PLCC
+        -- NOTE: lots of the I/O pins in the 84 pin package are buried
+        -- and do not have an external pin.  These are represented as being
+        -- above pin 90.
+    -- I/O pins
+        --   0   1   2   3   4   5   6   7   8   9
+        "IO:(5, 90, 91,  6, 92,  7, 93,  8, 94,  9," & -- 00-09
+        "    1, 84, 83, 82, 81, 79, 78, 77, 76, 75," & -- 10-19
+        "   22, 21, 20, 19, 18, 16, 15, 14, 13, 12," & -- 20-29
+        "   69, 95, 96, 70, 97, 72, 98, 73, 99, 74," & -- 30-39
+        "   27,100,101, 28,102, 30,103, 31,104, 32," & -- 40-49
+        "   64, 63, 62, 61, 60, 58, 57, 56, 55, 54," & -- 50-59
+        "   43, 42, 41, 40, 39, 37, 36, 35, 34, 33," & -- 60-69
+        "   47,105,106, 48,107, 49,108, 50,109, 51),"& -- 70-79
+
+        -- Dedicated Clocks
+        "CLK1:3, CLK2:45," &
+
+        -- Power Pins
+        "VSS:(17,23,29,38,46,59,65,71,80)," & --GND
+        "VCC:(26,68), VPP:4," &
+        "VCCO:(25,2,24,67,88,66,44,89), " &
+
+        --TAP controller pins
+        "TCK:53, TMS:52, TDI:11, TDO:10," &
+
+        -- Dedicated Inputs
+        -- NOTE: 84 pin device does not have dedicated inputs
+        "INP:(110,111,112,113,114,115,116,117,118,119,120,121,122,123,124," &
+        "125,126,127,128,129,130,131)";
+
+
+   attribute Tap_Scan_In of    TDI      : signal is true;
+   attribute Tap_Scan_Mode of  TMS      : signal is true;
+   attribute Tap_Scan_Out of   TDO      : signal is true;
+   attribute Tap_Scan_Clock of TCK      : signal is (8.0e6, BOTH);
+
+   attribute Instruction_Length of AlteraEPX880_84: entity is 5;
+
+   attribute Instruction_Opcode of AlteraEPX880_84: entity is
+      "BYPASS  (11111),"    &
+      "EXTEST  (00000),"    &
+      "SAMPLE  (00001),"    &
+      "IDCODE  (00010),"    &
+      "LDVECT  (00101),"    &
+      "FREAD   (00110),"    &
+      "SWRITE  (01111),"    &
+      "SREAD   (10000),"    &
+      "FPGM    (10101),"    &
+      "UESCODE (10110),"    &
+      "RADLOAD (11000),"    &
+      "ISCAN   (11110),"    &
+      "TRIBYP  (11101),"    &   -- Boundary Hi-Z
+      "PRIVATE (00011,00100,00111,01000,01001,01010,01011,01100,01101), " &
+      "PRIVATE (01110,10001,10010,10011,10100,10111,11001,11010,11011,11100)";
+
+   attribute Instruction_Capture of AlteraEPX880_84: entity is "00001";
+   -- there is no Instruction_Disable attribute for AlteraEPX880_84
+
+   attribute Instruction_Private of AlteraEPX880_84: entity is "private";
+
+   attribute Instruction_Usage of AlteraEPX880_84: entity is
+      "FPGM (registers VERIFY; "   &
+      "result 1;"                   &
+      "clock CLK in Run_Test_Idle;" &
+      "length 25.0e9 )";
+
+   attribute Idcode_Register of AlteraEPX880_84: entity is
+      "0001"                  &  --version
+      "0000011000100001"      &  --part number
+      "00000001001"           &  --manufacturers identity, 9h for Altera
+      "1";                       --required by the standard
+
+   attribute Register_Access of AlteraEPX880_84: entity is
+      "BYPASS (BYPASS, TRIBYP)," &                -- 1149.1 bypass
+                                                  -- High-Z Bypass
+      "BOUNDARY (EXTEST, SAMPLE)," &              -- 1149.1 extest & sample
+      "IDCODE (IDCODE)," &                        -- 1149.1 device id code
+      "EPROM_VECTOR[43] (LDVECT)," &              -- semi-private eprom prog.
+      "ROW_VECTOR[606] (FREAD, SWRITE, SREAD)," & -- semi-private eprom read
+                                                  -- semi-private sram write
+                                                  -- semi-private sram read
+      "VERIFY[1](FPGM)," &                        -- semi-private eprom verify
+      "UES_CODE[600] (UESCODE)," &                -- semi-private user code
+      "ADDR[6] (RADLOAD)," &                      -- semi-private address load
+      "REGISTER_SCAN[80] (ISCAN)";                -- semi-private all mcells
+
+--{*******************************************************************}
+-- ISCAN CHAIN - The ISCAN chain scans out the device macrocell registers
+-- in the order given below.  It goes from Macrocell 9 to 0 in each CFB,
+-- and from CFB 0 to CFB 7.  See the appropriate application notes and
+-- datasheet restrictions on how to use this instruction. 
+ 
+ -- TDI -> IO9,IO8,IO7,IO6,IO5,IO4,IO3,IO2,IO1,IO0, IO19,IO18,IO17,...IO70 -> TDO
+  
+--{*******************************************************************}
+--{  The first cell is closest to TDO                              }
+--{*******************************************************************}
+
+   attribute Boundary_Length of AlteraEPX880_84: entity is 264;
+   attribute Boundary_Cells  of AlteraEPX880_84: entity is "BC_1, BC_4";
+
+   attribute Boundary_Register of AlteraEPX880_84: entity is
+        --
+        -- NOTE 1: The order for each IO is -> ( OE cell, OUT cell, IN cell )
+        --
+        -- NOTE 2: To disable an output, a 0 is needed in the OE cell.
+        --         This is specified here for safety, so that the
+        --         output drivers will be 3-stated between actions.
+        --
+        --num  cell   port     function safe ccell dsval rslt
+        "  0 (BC_1,     *, CONTROLR, 0)," &                 -- IO09.OE
+        "  1 (BC_1,  IO(9), output3, X,   0, 0, Z)," &      -- IO09.OUT
+        "  2 (BC_1,  IO(9), input, X)," &                   -- IO09.IN
+        "  3 (BC_1,     *, CONTROLR, 0)," &                 -- IO08
+        "  4 (BC_1,  IO(8), output3, X,   3, 0, Z)," &
+        "  5 (BC_1,  IO(8), input, X)," &
+        "  6 (BC_1,     *, CONTROLR, 0)," &                 -- IO07
+        "  7 (BC_1,  IO(7), output3, X,   6, 0, Z)," &
+        "  8 (BC_1,  IO(7), input, X)," &
+        "  9 (BC_1,     *, CONTROLR, 0)," &                 -- IO06
+        " 10 (BC_1,  IO(6), output3, X,   9, 0, Z)," &
+        " 11 (BC_1,  IO(6), input, X)," &
+        " 12 (BC_1,     *, CONTROLR, 0)," &                 -- IO05
+        " 13 (BC_1,  IO(5), output3, X,  12, 0, Z)," &
+        " 14 (BC_1,  IO(5), input, X)," &
+        " 15 (BC_1,     *, CONTROLR, 0)," &                 -- IO04
+        " 16 (BC_1,  IO(4), output3, X,  15, 0, Z)," &
+        " 17 (BC_1,  IO(4), input, X)," &
+        " 18 (BC_1,     *, CONTROLR, 0)," &                 -- IO03
+        " 19 (BC_1,  IO(3), output3, X,  18, 0, Z)," &
+        " 20 (BC_1,  IO(3), input, X)," &
+        " 21 (BC_1,     *, CONTROLR, 0)," &                 -- IO02
+        " 22 (BC_1,  IO(2), output3, X,  21, 0, Z)," &
+        " 23 (BC_1,  IO(2), input, X)," &
+        " 24 (BC_1,     *, CONTROLR, 0)," &                 -- IO01
+        " 25 (BC_1,  IO(1), output3, X,  24, 0, Z)," &
+        " 26 (BC_1,  IO(1), input, X)," &
+        " 27 (BC_1,     *, CONTROLR, 0)," &                 -- IO00
+        " 28 (BC_1,  IO(0), output3, X,  27, 0, Z)," &
+        " 29 (BC_1,  IO(0), input, X)," &
+        " 30 (BC_4,  CLK1,    INPUT, X)," &                 -- CLK1
+        " 31 (BC_1,     *, CONTROLR, 0)," &                 -- IO10
+        " 32 (BC_1,  IO(10), output3, X,  31, 0, Z)," &
+        " 33 (BC_1,  IO(10), input, X)," &
+        " 34 (BC_1,     *, CONTROLR, 0)," &                 -- IO11
+        " 35 (BC_1,  IO(11), output3, X,  34, 0, Z)," &
+        " 36 (BC_1,  IO(11), input, X)," &
+        " 37 (BC_1,     *, CONTROLR, 0)," &                 -- IO12
+        " 38 (BC_1,  IO(12), output3, X,  37, 0, Z)," &
+        " 39 (BC_1,  IO(12), input, X)," &
+        " 40 (BC_1,     *, CONTROLR, 0)," &                 -- IO13
+        " 41 (BC_1,  IO(13), output3, X,  40, 0, Z)," &
+        " 42 (BC_1,  IO(13), input, X)," &
+        " 43 (BC_1,     *, CONTROLR, 0)," &                 -- IO14
+        " 44 (BC_1,  IO(14), output3, X,  43, 0, Z)," &
+        " 45 (BC_1,  IO(14), input, X)," &
+        " 46 (BC_1,     *, CONTROLR, 0)," &                 -- IO15
+        " 47 (BC_1,  IO(15), output3, X,  46, 0, Z)," &
+        " 48 (BC_1,  IO(15), input, X)," &
+        " 49 (BC_1,     *, CONTROLR, 0)," &                 -- IO16
+        " 50 (BC_1,  IO(16), output3, X,  49, 0, Z)," &
+        " 51 (BC_1,  IO(16), input, X)," &
+        " 52 (BC_1,     *, CONTROLR, 0)," &                 -- IO17
+        " 53 (BC_1,  IO(17), output3, X,  52, 0, Z)," &
+        " 54 (BC_1,  IO(17), input, X)," &
+        " 55 (BC_1,     *, CONTROLR, 0)," &                 -- IO18
+        " 56 (BC_1,  IO(18), output3, X,  55, 0, Z)," &
+        " 57 (BC_1,  IO(18), input, X)," &
+        " 58 (BC_1,     *, CONTROLR, 0)," &                 -- IO19
+        " 59 (BC_1,  IO(19), output3, X,  58, 0, Z)," &
+        " 60 (BC_1,  IO(19), input, X)," &
+        " 61 (BC_4,  INP(0),  INPUT, X)," &                 -- IN0
+        " 62 (BC_4,  INP(1),  INPUT, X)," &                 -- IN1
+        " 63 (BC_4,  INP(2),  INPUT, X)," &                 -- IN2
+        " 64 (BC_4,  INP(3),  INPUT, X)," &                 -- IN3
+        " 65 (BC_4,  INP(4),  INPUT, X)," &                 -- IN4
+        " 66 (BC_4,  INP(5),  INPUT, X)," &                 -- IN5
+        " 67 (BC_1,     *, CONTROLR, 0)," &                 -- IO39
+        " 68 (BC_1,  IO(39), output3, X,  67, 0, Z)," &
+        " 69 (BC_1,  IO(39), input, X)," &
+        " 70 (BC_1,     *, CONTROLR, 0)," &                 -- IO38
+        " 71 (BC_1,  IO(38), output3, X,  70, 0, Z)," &
+        " 72 (BC_1,  IO(38), input, X)," &
+        " 73 (BC_1,     *, CONTROLR, 0)," &                 -- IO37
+        " 74 (BC_1,  IO(37), output3, X,  73, 0, Z)," &
+        " 75 (BC_1,  IO(37), input, X)," &
+        " 76 (BC_1,     *, CONTROLR, 0)," &                 -- IO36
+        " 77 (BC_1,  IO(36), output3, X,  76, 0, Z)," &
+        " 78 (BC_1,  IO(36), input, X)," &
+        " 79 (BC_1,     *, CONTROLR, 0)," &                 -- IO35
+        " 80 (BC_1,  IO(35), output3, X,  79, 0, Z)," &
+        " 81 (BC_1,  IO(35), input, X)," &
+        " 82 (BC_1,     *, CONTROLR, 0)," &                 -- IO34
+        " 83 (BC_1,  IO(34), output3, X,  82, 0, Z)," &
+        " 84 (BC_1,  IO(34), input, X)," &
+        " 85 (BC_1,     *, CONTROLR, 0)," &                 -- IO33
+        " 86 (BC_1,  IO(33), output3, X,  85, 0, Z)," &
+        " 87 (BC_1,  IO(33), input, X)," &
+        " 88 (BC_1,     *, CONTROLR, 0)," &                 -- IO32
+        " 89 (BC_1,  IO(32), output3, X,  88, 0, Z)," &
+        " 90 (BC_1,  IO(32), input, X)," &
+        " 91 (BC_1,     *, CONTROLR, 0)," &                 -- IO31
+        " 92 (BC_1,  IO(31), output3, X,  91, 0, Z)," &
+        " 93 (BC_1,  IO(31), input, X)," &
+        " 94 (BC_1,     *, CONTROLR, 0)," &                 -- IO30
+        " 95 (BC_1,  IO(30), output3, X,  94, 0, Z)," &
+        " 96 (BC_1,  IO(30), input, X)," &
+        " 97 (BC_1,     *, CONTROLR, 0)," &                 -- IO50
+        " 98 (BC_1,  IO(50), output3, X,  97, 0, Z)," &
+        " 99 (BC_1,  IO(50), input, X)," &
+        "100 (BC_1,     *, CONTROLR, 0)," &                 -- IO51
+        "101 (BC_1,  IO(51), output3, X, 100, 0, Z)," &
+        "102 (BC_1,  IO(51), input, X)," &
+        "103 (BC_1,     *, CONTROLR, 0)," &                 -- IO52
+        "104 (BC_1,  IO(52), output3, X, 103, 0, Z)," &
+        "105 (BC_1,  IO(52), input, X)," &
+        "106 (BC_1,     *, CONTROLR, 0)," &                 -- IO53
+        "107 (BC_1,  IO(53), output3, X, 106, 0, Z)," &
+        "108 (BC_1,  IO(53), input, X)," &
+        "109 (BC_1,     *, CONTROLR, 0)," &                 -- IO54
+        "110 (BC_1,  IO(54), output3, X, 109, 0, Z)," &
+        "111 (BC_1,  IO(54), input, X)," &
+        "112 (BC_1,     *, CONTROLR, 0)," &                 -- IO55
+        "113 (BC_1,  IO(55), output3, X, 112, 0, Z)," &
+        "114 (BC_1,  IO(55), input, X)," &
+        "115 (BC_1,     *, CONTROLR, 0)," &                 -- IO56
+        "116 (BC_1,  IO(56), output3, X, 115, 0, Z)," &
+        "117 (BC_1,  IO(56), input, X)," &
+        "118 (BC_1,     *, CONTROLR, 0)," &                 -- IO57
+        "119 (BC_1,  IO(57), output3, X, 118, 0, Z)," &
+        "120 (BC_1,  IO(57), input, X)," &
+        "121 (BC_1,     *, CONTROLR, 0)," &                 -- IO58
+        "122 (BC_1,  IO(58), output3, X, 121, 0, Z)," &
+        "123 (BC_1,  IO(58), input, X)," &
+        "124 (BC_1,     *, CONTROLR, 0)," &                 -- IO59
+        "125 (BC_1,  IO(59), output3, X, 124, 0, Z)," &
+        "126 (BC_1,  IO(59), input, X)," &
+        "127 (BC_4,  INP(6),  INPUT, X)," &                 -- IN6
+        "128 (BC_4,  INP(7),  INPUT, X)," &                 -- IN7
+        "129 (BC_4,  INP(8),  INPUT, X)," &                 -- IN8
+        "130 (BC_4,  INP(9),  INPUT, X)," &                 -- IN9
+        "131 (BC_4, INP(10),  INPUT, X)," &                 -- IN10
+        "132 (BC_1,     *, CONTROLR, 0)," &                 -- IO79
+        "133 (BC_1,  IO(79), output3, X, 132, 0, Z)," &
+        "134 (BC_1,  IO(79), input, X)," &
+        "135 (BC_1,     *, CONTROLR, 0)," &                 -- IO78
+        "136 (BC_1,  IO(78), output3, X, 135, 0, Z)," &
+        "137 (BC_1,  IO(78), input, X)," &
+        "138 (BC_1,     *, CONTROLR, 0)," &                 -- IO77
+        "139 (BC_1,  IO(77), output3, X, 138, 0, Z)," &
+        "140 (BC_1,  IO(77), input, X)," &
+        "141 (BC_1,     *, CONTROLR, 0)," &                 -- IO76
+        "142 (BC_1,  IO(76), output3, X, 141, 0, Z)," &
+        "143 (BC_1,  IO(76), input, X)," &
+        "144 (BC_1,     *, CONTROLR, 0)," &                 -- IO75
+        "145 (BC_1,  IO(75), output3, X, 144, 0, Z)," &
+        "146 (BC_1,  IO(75), input, X)," &
+        "147 (BC_1,     *, CONTROLR, 0)," &                 -- IO74
+        "148 (BC_1,  IO(74), output3, X, 147, 0, Z)," &
+        "149 (BC_1,  IO(74), input, X)," &
+        "150 (BC_1,     *, CONTROLR, 0)," &                 -- IO73
+        "151 (BC_1,  IO(73), output3, X, 150, 0, Z)," &
+        "152 (BC_1,  IO(73), input, X)," &
+        "153 (BC_1,     *, CONTROLR, 0)," &                 -- IO72
+        "154 (BC_1,  IO(72), output3, X, 153, 0, Z)," &
+        "155 (BC_1,  IO(72), input, X)," &
+        "156 (BC_1,     *, CONTROLR, 0)," &                 -- IO71
+        "157 (BC_1,  IO(71), output3, X, 156, 0, Z)," &
+        "158 (BC_1,  IO(71), input, X)," &
+        "159 (BC_1,     *, CONTROLR, 0)," &                 -- IO70
+        "160 (BC_1,  IO(70), output3, X, 159, 0, Z)," &
+        "161 (BC_1,  IO(70), input, X)," &
+        "162 (BC_4,  CLK2,    INPUT, X)," &                 -- CLK2
+        "163 (BC_1,     *, CONTROLR, 0)," &                 -- IO60
+        "164 (BC_1,  IO(60), output3, X, 163, 0, Z)," &
+        "165 (BC_1,  IO(60), input, X)," &
+        "166 (BC_1,     *, CONTROLR, 0)," &                 -- IO61
+        "167 (BC_1,  IO(61), output3, X, 166, 0, Z)," &
+        "168 (BC_1,  IO(61), input, X)," &
+        "169 (BC_1,     *, CONTROLR, 0)," &                 -- IO62
+        "170 (BC_1,  IO(62), output3, X, 169, 0, Z)," &
+        "171 (BC_1,  IO(62), input, X)," &
+        "172 (BC_1,     *, CONTROLR, 0)," &                 -- IO63
+        "173 (BC_1,  IO(63), output3, X, 172, 0, Z)," &
+        "174 (BC_1,  IO(63), input, X)," &
+        "175 (BC_1,     *, CONTROLR, 0)," &                 -- IO64
+        "176 (BC_1,  IO(64), output3, X, 175, 0, Z)," &
+        "177 (BC_1,  IO(64), input, X)," &
+        "178 (BC_1,     *, CONTROLR, 0)," &                 -- IO65
+        "179 (BC_1,  IO(65), output3, X, 178, 0, Z)," &
+        "180 (BC_1,  IO(65), input, X)," &
+        "181 (BC_1,     *, CONTROLR, 0)," &                 -- IO66
+        "182 (BC_1,  IO(66), output3, X, 181, 0, Z)," &
+        "183 (BC_1,  IO(66), input, X)," &
+        "184 (BC_1,     *, CONTROLR, 0)," &                 -- IO67
+        "185 (BC_1,  IO(67), output3, X, 184, 0, Z)," &
+        "186 (BC_1,  IO(67), input, X)," &
+        "187 (BC_1,     *, CONTROLR, 0)," &                 -- IO68
+        "188 (BC_1,  IO(68), output3, X, 187, 0, Z)," &
+        "189 (BC_1,  IO(68), input, X)," &
+        "190 (BC_1,     *, CONTROLR, 0)," &                 -- IO69
+        "191 (BC_1,  IO(69), output3, X, 190, 0, Z)," &
+        "192 (BC_1,  IO(69), input, X)," &
+        "193 (BC_4,  INP(11),  INPUT, X)," &                -- IN11
+        "194 (BC_4,  INP(12),  INPUT, X)," &                -- IN12
+        "195 (BC_4,  INP(13),  INPUT, X)," &                -- IN13
+        "196 (BC_4,  INP(14),  INPUT, X)," &                -- IN14
+        "197 (BC_4,  INP(15),  INPUT, X)," &                -- IN15
+        "198 (BC_4,  INP(16),  INPUT, X)," &                -- IN16
+        "199 (BC_1,     *, CONTROLR, 0)," &                 -- IO49
+        "200 (BC_1,  IO(49), output3, X, 199, 0, Z)," &
+        "201 (BC_1,  IO(49), input, X)," &
+        "202 (BC_1,     *, CONTROLR, 0)," &                 -- IO48
+        "203 (BC_1,  IO(48), output3, X, 202, 0, Z)," &
+        "204 (BC_1,  IO(48), input, X)," &
+        "205 (BC_1,     *, CONTROLR, 0)," &                 -- IO47
+        "206 (BC_1,  IO(47), output3, X, 205, 0, Z)," &
+        "207 (BC_1,  IO(47), input, X)," &
+        "208 (BC_1,     *, CONTROLR, 0)," &                 -- IO46
+        "209 (BC_1,  IO(46), output3, X, 208, 0, Z)," &
+        "210 (BC_1,  IO(46), input, X)," &
+        "211 (BC_1,     *, CONTROLR, 0)," &                 -- IO45
+        "212 (BC_1,  IO(45), output3, X, 211, 0, Z)," &
+        "213 (BC_1,  IO(45), input, X)," &
+        "214 (BC_1,     *, CONTROLR, 0)," &                 -- IO44
+        "215 (BC_1,  IO(44), output3, X, 214, 0, Z)," &
+        "216 (BC_1,  IO(44), input, X)," &
+        "217 (BC_1,     *, CONTROLR, 0)," &                 -- IO43
+        "218 (BC_1,  IO(43), output3, X, 217, 0, Z)," &
+        "219 (BC_1,  IO(43), input, X)," &
+        "220 (BC_1,     *, CONTROLR, 0)," &                 -- IO42
+        "221 (BC_1,  IO(42), output3, X, 220, 0, Z)," &
+        "222 (BC_1,  IO(42), input, X)," &
+        "223 (BC_1,     *, CONTROLR, 0)," &                 -- IO41
+        "224 (BC_1,  IO(41), output3, X, 223, 0, Z)," &
+        "225 (BC_1,  IO(41), input, X)," &
+        "226 (BC_1,     *, CONTROLR, 0)," &                 -- IO40
+        "227 (BC_1,  IO(40), output3, X, 226, 0, Z)," &
+        "228 (BC_1,  IO(40), input, X)," &
+        "229 (BC_1,     *, CONTROLR, 0)," &                 -- IO20
+        "230 (BC_1,  IO(20), output3, X, 229, 0, Z)," &
+        "231 (BC_1,  IO(20), input, X)," &
+        "232 (BC_1,     *, CONTROLR, 0)," &                 -- IO21
+        "233 (BC_1,  IO(21), output3, X, 232, 0, Z)," &
+        "234 (BC_1,  IO(21), input, X)," &
+        "235 (BC_1,     *, CONTROLR, 0)," &                 -- IO22
+        "236 (BC_1,  IO(22), output3, X, 235, 0, Z)," &
+        "237 (BC_1,  IO(22), input, X)," &
+        "238 (BC_1,     *, CONTROLR, 0)," &                 -- IO23
+        "239 (BC_1,  IO(23), output3, X, 238, 0, Z)," &
+        "240 (BC_1,  IO(23), input, X)," &
+        "241 (BC_1,     *, CONTROLR, 0)," &                 -- IO24
+        "242 (BC_1,  IO(24), output3, X, 241, 0, Z)," &
+        "243 (BC_1,  IO(24), input, X)," &
+        "244 (BC_1,     *, CONTROLR, 0)," &                 -- IO25
+        "245 (BC_1,  IO(25), output3, X, 244, 0, Z)," &
+        "246 (BC_1,  IO(25), input, X)," &
+        "247 (BC_1,     *, CONTROLR, 0)," &                 -- IO26
+        "248 (BC_1,  IO(26), output3, X, 247, 0, Z)," &
+        "249 (BC_1,  IO(26), input, X)," &
+        "250 (BC_1,     *, CONTROLR, 0)," &                 -- IO27
+        "251 (BC_1,  IO(27), output3, X, 250, 0, Z)," &
+        "252 (BC_1,  IO(27), input, X)," &
+        "253 (BC_1,     *, CONTROLR, 0)," &                 -- IO28
+        "254 (BC_1,  IO(28), output3, X, 253, 0, Z)," &
+        "255 (BC_1,  IO(28), input, X)," &
+        "256 (BC_1,     *, CONTROLR, 0)," &                 -- IO29
+        "257 (BC_1,  IO(29), output3, X, 256, 0, Z)," &
+        "258 (BC_1,  IO(29), input, X)," &
+        "259 (BC_4,  INP(17),  INPUT, X)," &                -- IN17
+        "260 (BC_4,  INP(18),  INPUT, X)," &                -- IN18
+        "261 (BC_4,  INP(19),  INPUT, X)," &                -- IN19
+        "262 (BC_4,  INP(20),  INPUT, X)," &                -- IN29
+        "263 (BC_4,  INP(21),  INPUT, X)";                  -- IN21
+
+end AlteraEPX880_84;

@@ -1,0 +1,195 @@
+0000 Reserved.
+0010 Reserved.
+0020 Reserved.
+0150 \n %%%% MINIMIZE %%%% Program Successful.  File: %s
+0150  %%%% MINIMIZE %%%% ERROR count: %d  WARNING count: %d
+0160 \n %%%% MINIMIZE %%%% Program Unsuccessful.  File: %s
+0160  %%%% MINIMIZE %%%% ERROR count: %d  WARNING count: %d
+0200 >> ERROR    Output Message File Open Error.  File: %s
+0210 >> ERROR    Output Message File Close Error.
+1000 Reserved for main.
+1010 >> ERROR    Please run EXPAND.  You have a state machine design file.
+2000 >> ERROR    Input Design (TRE) File Open Error.
+2010 >> ERROR    Input Design (TRE) File Close Error.
+2030 >> ERROR    Output Design (TRE) File Close Error.
+2100 >> ERROR    State Section:  Illegal equation type.
+2110 >> ERROR    Conditions Section:  Illegal equation type.
+2120 >> ERROR    Equations Section:  Illegal equation type.
+2130 >> ERROR    Simulate Section: Illegal equation type.
+2140 >> ERROR    Input Design (TRE) File Read Error.
+2400 >> ERROR    Output Design (TRE) File Open Error.
+2410 >> ERROR    Output Design (TRE) File Write Error.  Bad equation.
+2420 >> ERROR    Output Design (TRE) File Write Error.
+2500 >> WARNING  Output pin %s could have check clash errors in simulation. 
+2700 >>
+2800 >> ERROR    Output branch memory retrieve failed.
+2810 >> ERROR    Output branch additional memory retrieve failed.
+2820 >> ERROR    State output memory retrieve failed.
+2830 ** ERROR    Internal error TOKEN not processed in bool_eq. Phone MMI.
+2840 >> ERROR    Condition memory retrieve failed.
+2850 >> ERROR    Condition additional memory retrieve failed.
+2860 >> ERROR    Part element memory retrieve failed.
+2870 >> ERROR    Part name memory retrieve failed.
+2880 >> ERROR    Sop equation memory retrieve failed.
+2890 >> ERROR    Pin memory retrieve failed.
+3000 >> ERROR    Unknown device token number.
+3001 >> ERROR    Cannot open PALPDF.PDF file.
+3002 >> ERROR    PAL device is not supported.
+3003 >> ERROR    Format of PALPDF.PDF file is incorrect.
+3010 >> ERROR    Can't initialize design input file.
+3011 >> ERROR    Cannot open PLSPDF.PDF file.
+3012 >> ERROR    PLS device is not supported.
+3013 >> ERROR    Format of PLSPDF.PDF file is incorrect.
+3014 >> ERROR    Data structure for device incorrectly formed from PLSPDF.PDF.
+3030 >> ERROR    Design input file equation read error.
+3040 >> ERROR    Can't rename design output file.
+3050 >> WARNING  Part not supported.
+3060 >> ERROR    Prose device selected, no processing performed.
+3070 >> ERROR    Can't rename prose design file.
+3080 >> ERROR    Can't delete temporary file.
+3090 >> WARNING  Device: Minimize will remove XOR from equation for 'X' part.
+3210 >> ERROR    Illegal boolean equation.
+3220 >> ERROR    More signals than products count.
+3230 >> ERROR    Conditions: Circular condition encountered.
+3240 >> ERROR    Illegal condition encountered.
+3250 >> ERROR    Equation: Illegal state.
+3260 >> ERROR    Equation: Illegal state.  State is unreached.
+3270 >> ERROR    Equation: Can't process simulate boolean equation.
+3410 >> ERROR    Current minimization algorithm constraints exceeded.
+3510 >> WARNING  File: Read Error.  Part definition file (PDF).
+3520 >> WARNING  File: Open Error.  Part definition file (PDF).
+3610 >> ERROR    Equations: Illegal equation in equations section.
+3620 >> ERROR    Equations: Illegal equation suffix.
+3630 >> ERROR    Equations: Multiple equations for a node.
+3640 >> ERROR    Equations: Illegal registered equation.
+3810 >> ERROR    File: Open Error.  Output message file.
+4010 >> ERROR    State: Illegal equation in state section.
+4020 >> WARNING  State Transition: Last equation has a default of next state.
+4021 >> ERROR    Incorrect number of signal names in pin list.
+4030 >> WARNING  State: Both mealy and moore specified (default: mealy).
+4040 >> ERROR    State: Moore machine with output conditions.
+4050 >> ERROR    State Value: Multiple equations for a state.
+4060 >> ERROR    State Transition: Multiple equations for a state.
+4070 >> ERROR    State Transition: Multiple defaults for a state.
+4080 >> ERROR    State Output: Multiple equations for a state.
+4090 >> ERROR    State Output: Multiple defaults for a state.
+4100 >> ERROR    Conditions: Illegal equation in conditions section.
+4110 >> ERROR    Conditions: Multiple equations for a condition.
+4120 >> ERROR    State List: Illegal entry.  (Entry must be a pin.)
+4130 >> ERROR    State List: Multiple occurances of a pin.
+4140 >> WARNING  State: Unreached state(s).
+4150 >> WARNING  State: Need to automatically assign a new state bit.
+4160 >> WARNING  State Transition: Default Branch is the only transition.
+4170 >> ERROR    State: Unspecified state transition equation.
+4180 >> ERROR    State: Unable to automatically assign a new state bit.
+4190 >> ERROR    State: Device selected isn't supported for state machines.
+4200 >> WARNING  State Transition: Undefined default next state.
+4210 >> WARNING  State Output: Registered and combinatorial equations are mixed.
+4220 >> WARNING  State Output: Hold specified for a combinatorial equation.
+4230 >> WARNING  State: Moore Machine with combinatorial outputs.
+4240 >> WARNING  State Transition: Conditions overlap.
+4250 >> WARNING  State Output: Conditions overlap.
+4300 ** ERROR    Overlap of on/off covers.
+4310 >> ERROR    Repeated equation for a pin not processed.
+4500 >> ERROR    Current minimization algorithm constraints exceeded.
+4501 >> ERROR    Minimizer: Memory allocation failed. Block requested too large.
+4502 >> ERROR    Minimizer: Memory allocation failed. Out of memory.
+4503 >> ERROR    Minimizer: Memory free failed.
+4510 >> ERROR    Minimizer: No solution possible (check equations).
+4511 ** ERROR    Minimizer: Inconsistent Frequency Table.
+4520 ** ERROR    Minimizer: Cube not covered in REDUCE.
+4530 ** ERROR    Minimizer: split_select index error.
+4531 ** ERROR    Minimizer: split_two_select index error.
+4532 ** ERROR    Minimizer: large_cube_index -- bestindex -1.
+4540 ** ERROR    Minimizer: cover capacity exceeded.
+4550 >> ERROR    Minimizer: ON and OFF sets aren't orthogonal (check equations).
+4560 >> WARNING  File: Tree file name is not unique, palasm2.tre is assumed. 
+4570 >> WARNING  File: Log file name is not unique. Log output ignored.
+4580 \n
+4580 >>  MINIMIZE HELP: Incorrect minimize parameters. 
+4580 >>  Command to invoke minimize: 
+4580     minimize   [OPTIONS...] 
+4580     OPTION:          [filename[.tre]] : Input tree file name.
+4580                 -tre [filename[.tre]] : Output tree file name.
+4580                 -log [filename[.log]] : Error log file name. 
+4580                 -big                  : Optimize memory usage.
+4580                [-fast]                : No memory usage optimization.
+5061 20RA10
+5062 20RS10
+5063 32R16
+5064 64R32
+5100 10H8
+5101 12H6
+5102 14H4
+5103 16H2
+5104 16C1
+5105 10L8
+5106 12L6
+5107 14L4
+5108 16L2
+5109 16L8
+5110 16R8
+5111 16R6
+5112 16R4
+5113 16P8
+5114 16RP8
+5115 16RP6
+5116 16RP4
+5117 20R8
+5118 20R6
+5119 20R4
+5120 12L10
+5121 14L8
+5122 16L6
+5123 18L4
+5124 20L2
+5125 10WR4
+5126 12WL6
+5127 14R21
+5132 20C1
+5133 20L10
+5134 20X10
+5135 20X8
+5136 20X4
+5137 20L8
+5138 8L14
+5139 6L16
+5145 20S10
+5146 20RS8
+5147 20RS4
+5161 10H20P8
+5162 16RA8
+5163 32VX10
+5164 22RX8
+5165 10H20G8
+5166 22V10
+5167 18P8
+5168 18U8
+5169 10H20EG8
+5170 10H20EV8
+5171 10H20GR8
+5172 22IP6
+5173 16R4Z
+5174 16R6Z
+5175 16R8Z
+5176 16L8Z
+5177 22P10
+5178 23S8
+5179 26V12
+5200 PLS105
+5201 PLS167
+5202 PLS168
+5205 PLS30S28
+5206 PLS30K28
+5207 PLS2028
+5213 29M16
+5214 29MA16
+5215 16V8
+5216 20V8
+12010 >> ERROR    General output error.
+12020 >> ERROR    Output file write error occured.
+12030 >> ERROR    Output file not open.
+12040 >> ERROR    Output file already open.
+12050 >> ERROR    Output file cannot be opened.
+12210 >> ERROR    Illegal Simulation element.
+

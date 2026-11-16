@@ -1,0 +1,209 @@
+; Pattern generator. Generates 1280 bits of serial data
+; then rolls over and does it again.
+
+Title       Pattern Generator
+Pattern     1
+Revision    1
+Date        Current Date
+
+CHIP    patgen1    EPX780LC84
+
+    ; PINLIST
+
+PIN		CLK		; clock
+PIN		ENABLE		; enable
+PIN		RESET_		; reset
+
+PIN 		PATRAM[9:0]	RAM	; static RAM to hold pattern
+PIN		A[6:0]			; SRAM address counter
+
+PIN		C[0:3]		; bit counter
+PIN		SER_OUT		; serial output
+
+PIN		CYCLE		; pattern cycle flag
+
+; bit counter state machine
+	
+STATE
+MOORE_MACHINE
+DEFAULT_BRANCH  HOLD_STATE
+
+; state assignments
+
+	BIT0  = /C3 * /C2 * /C1 * /C0
+	BIT1  = /C3 * /C2 * /C1 *  C0
+	BIT2  = /C3 * /C2 *  C1 * /C0
+	BIT3  = /C3 * /C2 *  C1 *  C0
+	BIT4  = /C3 *  C2 * /C1 * /C0
+	BIT5  = /C3 *  C2 * /C1 *  C0
+	BIT6  = /C3 *  C2 *  C1 * /C0
+	BIT7  = /C3 *  C2 *  C1 *  C0
+	BIT8  =  C3 * /C2 * /C1 * /C0
+	BIT9  =  C3 * /C2 * /C1 *  C0
+	BIT10 =  C3 * /C2 *  C1 * /C0
+	BIT11 =  C3 * /C2 *  C1 *  C0
+	BIT12 =  C3 *  C2 * /C1 * /C0
+	BIT13 =  C3 *  C2 * /C1 *  C0
+	BIT14 =  C3 *  C2 *  C1 * /C0
+	BIT15 =  C3 *  C2 *  C1 *  C0
+
+; state transitions
+
+	BIT0  := PATEN	-> BIT1
+	BIT1  := PATEN	-> BIT2	
+	BIT2  := PATEN	-> BIT3	
+	BIT3  := PATEN	-> BIT4	
+	BIT4  := PATEN	-> BIT5	
+	BIT5  := PATEN	-> BIT6	
+	BIT6  := PATEN	-> BIT7	
+	BIT7  := PATEN	-> BIT8	
+	BIT8  := PATEN	-> BIT9	
+	BIT9  := PATEN	-> BIT0	
+	BIT10 := VCC	-> BIT0	
+	BIT11 := VCC	-> BIT0	
+	BIT12 := VCC	-> BIT0	
+	BIT13 := VCC	-> BIT0	
+	BIT14 := VCC	-> BIT0	
+	BIT15 := VCC	-> BIT0
+
+CONDITIONS
+
+	PATEN = ENABLE * RESET_ * /CLK
+
+EQUATIONS
+
+	; serial output macrocell - the bit count is
+	; provided by the bit counter state machine
+	
+	SER_OUT.TRST =  RESET_ * ENABLE
+	SER_OUT :=  BIT0 * PATRAM0
+	         +  BIT1 * PATRAM1
+	         +  BIT2 * PATRAM2
+	         +  BIT3 * PATRAM3
+	         +  BIT4 * PATRAM4
+	         +  BIT5 * PATRAM5
+	         +  BIT6 * PATRAM6
+	         +  BIT7 * PATRAM7
+	         +  BIT8 * PATRAM8
+	         +  BIT9 * PATRAM9
+
+	; completed one cycle of pattern
+
+	CYCLE := A0 * A1 * A2 * A3 * A4 * A5 * A6 * BIT9 * ENABLE
+	       + /RESET_
+
+	; specify clocks
+	
+	SER_OUT.CLKF = CLK
+	CYCLE.CLKF   = CLK
+	C[0:3].CLKF  = /CLK
+        A[0:6].ACLK  = ENABLE * BIT9 * RESET_ * CLK
+
+; address counter equations
+
+	A0 := /A0
+
+	A1 :=  A1 * /A0
+	    + /A1 *  A0
+
+	A2 :=  A2 * /A0
+  	    +  A2 * /A1
+	    + /A2 *  A1 * A0
+
+	A3 :=  A3 * /A0
+	    +  A3 * /A1
+	    +  A3 * /A2
+	    + /A3 *  A2 * A1 * A0
+
+	A4 :=  A4 * /A0
+	    +  A4 * /A1
+	    +  A4 * /A2
+	    +  A4 * /A3
+	    + /A4 *  A3 * A2 * A1 * A0
+
+	A5 :=  A5 * /A0
+	    +  A5 * /A1
+	    +  A5 * /A2
+	    +  A5 * /A3
+	    +  A5 * /A4
+	    + /A5 *  A4 * A3 * A2 * A1 * A0
+
+	A6 :=  A6 * /A0
+	    +  A6 * /A1
+	    +  A6 * /A2
+	    +  A6 * /A3
+	    +  A6 * /A4
+	    +  A6 * /A5
+	    + /A6 *  A5 * A4 * A3 * A2 * A1 * A0
+
+	; define SRAM to hold pattern - the address is
+	; provided by the address counter state machine
+	
+	PATRAM[6:0].ADDR =  A[6:0]
+	PATRAM.BE   =  GND
+	PATRAM.WE   =  VCC
+	PATRAM.TRST =  /RESET_
+
+	; default RAM values
+	; Note: data values match signal order in pin assignments.
+	; Note: address values match signal order in pin assignments.
+
+	RAM_DEFAULTS PATRAM
+
+		[0x00:0x0F]	:	0x3AA
+		[0x10:0x1F]	:	0x155
+		[0x20:0x2F]	:	0x2AA
+		[0x30:0x3F]	:	0x125
+		[0x40:0x4F]	:	0x000
+		[0x50:0x5F]	:	0x30F
+		[0x60:0x6F]	:	0x3FF
+		[0x70:0x7F]	:	0x10F
+
+SIMULATION
+
+; setup and initialization
+
+VECTOR  TENWIDE := [ PATRAM[9:0] ]
+VECTOR  COUNT   := [  C[3:0] ]
+VECTOR  ADDRS   := [  A[6:0] ]
+TRACE_ON  CLK  ENABLE  RESET_  ADDRS  COUNT  TENWIDE  SER_OUT  CYCLE
+
+SETF  /CLK  /ENABLE  RESET_
+PRLDF /C[3:0] /A[6:0] /CYCLE
+
+; reset
+
+SETF /RESET_
+CLOCKF CLK
+CLOCKF CLK
+SETF  RESET_
+CLOCKF CLK
+
+; enable and count 12 times
+
+SETF  ENABLE
+FOR shortime := 1 TO 10 DO
+    BEGIN
+        CLOCKF CLK
+    END
+
+; idle for 4 clocks    
+
+SETF /ENABLE
+FOR shortime := 1 TO 4 DO
+    BEGIN
+        CLOCKF CLK
+    END
+
+; enable and count 256 times
+
+SETF  ENABLE
+FOR longtime := 1 TO 256 DO
+    BEGIN
+        CLOCKF CLK
+    END
+
+TRACE_OFF
+
+; end of simulation
+

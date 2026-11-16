@@ -1,0 +1,18 @@
+; 2-bit compare module - calls xor module twice
+
+DEFMOD 2_bit_compare (a1,a2,b1,b2,cmp1,cmp2)
+
+    CHIP MOD ALTERA_ARCH
+
+    PIN a1
+    PIN a2
+    PIN b1
+    PIN b2
+    PIN cmp1
+    PIN cmp2
+
+    MODULE 2_bit_xor FILE 2bxor (in1=A1, in2=B1, out=CMP1)
+    MODULE 2_bit_xor FILE 2bxor (in1=A2, in2=B2, out=CMP2)
+
+ENDMOD
+

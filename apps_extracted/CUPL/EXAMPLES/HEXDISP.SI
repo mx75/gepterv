@@ -1,0 +1,37 @@
+Name            Hexdisp;
+Partno          CA0007;
+Date            6/5/84;
+Revision        01;
+Designer        T. Kahl;
+Company         Assisted Technology, Inc.;
+Assembly        None;
+Location        None;
+
+/****************************************************************/
+/* Allowable Target Device Types: 32 X 8 PROM (82S123 or equiv) */
+/****************************************************************/
+
+ORDER: !rbi,%2,D3..0,%2,!a,!b,!c,!d,!e,!f,!g,%3,!rbo;
+
+VECTORS:
+
+$msg"         DDDD  !!!!!!!     ";
+$msg"    !rbi 3210  abcdefg !rbo";
+$msg"";
+           0  0000  HHHHHHH   L     /* ripple blanking input, no segments lit */
+           1  0000  LLLLLLH   H     /* display "0" */
+           X  0001  HLLHHHH   H     /* display "1" */
+           X  0010  LLHLLHL   H     /* display "2" */
+           X  0011  LLLLHHL   H     /* display "3" */
+           X  0100  HLLHHLL   H     /* display "4" */
+           X  0101  LHLLHLH   H     /* display "5" */
+           X  0110  LHLLLLH   H     /* display "6" */
+           X  0111  LLLHHHH   H     /* display "7" */
+           X  1000  LLLLLLL   H     /* display "8" */
+           X  1001  LLLHHLL   H     /* display "9" */
+           X  1010  LLLHLLL   H     /* display "A" */
+           X  1011  HHLLLLL   H     /* display "B" */
+           X  1100  LHHLLLH   H     /* display "C" */
+           X  1101  HLLLLHL   H     /* display "D" */
+           X  1110  LHHLLLL   H     /* display "E" */
+           X  1111  LHHHLLL   H     /* display "F" */

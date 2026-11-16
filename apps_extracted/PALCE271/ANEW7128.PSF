@@ -1,0 +1,111 @@
+TITLE ' '
+Designer ' '
+Date ' '
+ 
+Description
+  Enter description here ...
+End_Desc;
+ 
+PA7128 "Only in PLCC package
+ 
+CLK1 PIN 1
+CLK2 PIN 28
+ 
+"Input Cell Declaration
+"INC (Pin_no 'pin_name' Input_type)
+ 
+INC ( 2 '' COM)  "Options are:
+INC ( 3 '' COM)  "COM, REG, LAT
+INC ( 4 '' COM)
+INC ( 5 '' COM)
+INC ( 6 '' COM)
+INC ( 8 '' COM)
+INC ( 9 '' COM)
+INC (10 '' COM)
+INC (11 '' COM)
+INC (12 '' COM)
+INC (13 '' COM)
+INC (14 '' COM)
+ 
+"IOC Declaration
+"IOC (Pin_no 'pin_name' Polarity IO_TYPE) <- LCC_NO
+IOC (15 '' POS IO ) <- 1A  "POS = pos or neg 
+IOC (16 '' POS IO ) <- 2A  "IO = IO REG LAT INREG INLAT OUTREG OUTLAT DCOM DLAT DREG
+IOC (17 '' POS IO ) <- 3A  "     IO => IO with COM Feedback
+IOC (18 '' POS IO ) <- 1B  "     REG => IO with REG feedback
+IOC (19 '' POS IO ) <- 2B  "     LAT => IO with LAT feedback
+                           "     INCOM => Combinatorial Input
+IOC (20 '' POS IO ) <- 3B  "     INREG => Registered Input
+IOC (22 '' POS IO ) <- 1C  "     INLAT => Latched Input
+IOC (23 '' POS IO ) <- 2C  "     OUTREG => Output only with REG feedback
+IOC (24 '' POS IO ) <- 3C  "     OUTLAT => Input only with LAT feedback
+IOC (25 '' POS IO ) <- 1D  "     DCOM => Sum-D COM feedback
+IOC (26 '' POS IO ) <- 2D  "     DLAT => Sum-D LAT feedback
+IOC (27 '' POS IO ) <- 3D  "     DREG => Sum-D REG feedback
+                           "     OUT => dedicate output with COM feedback
+ 
+"LCC CONFIGURATION DECLARATION
+"LCC (LCC_NO 'LCC_NAME' REG_TYPE CLK_TYPE BUR_OUT EXT_OUT)
+"      1A                  D       POS     reg     reg
+"      2A                  T       NEG     SumA    SumA
+"      3A                  JK      SUMC    SumB    SumB
+"      1B                  DT      SUMD    SumC    SumC
+"      2B                  TD
+"      3B                  JKD
+"      1C
+"      2C
+"      3C
+"      1D
+"      2D
+"      3D
+ 
+LCC (1A '' D   POS  REG  REG ) "Same as PA7024
+LCC (2A '' D   POS  REG  REG )
+LCC (3A '' D   POS  REG  REG )
+LCC (1B '' D   POS  REG  REG )
+LCC (2B '' D   POS  REG  REG )
+LCC (3B '' D   POS  REG  REG )
+LCC (1C '' D   POS  REG  REG )
+LCC (2C '' D   POS  REG  REG )
+LCC (3C '' D   POS  REG  REG )
+LCC (1D '' D   POS  REG  REG )
+LCC (2D '' D   POS  REG  REG )
+LCC (3D '' D   POS  REG  REG )
+ 
+"GBC CONFIGURATION DECLARATION
+"GBC (GROUP   LCC_CLK    IOC_CLK)
+"       A     Clk1,Clk2  Clk1,CLk2,PCLKA
+"       B                Clk1,CLk2,PCLKB
+ 
+Global = 1
+GBC (A Clk1 Clk1)
+GBC (B __   Clk1)
+ 
+ 
+DEFINE
+ 
+ 
+EQUATIONS
+
+"Global output names specified in the equations below are reserved words.
+RT = 0;        "Reg-Type Product Term
+PCLKA = 0;      "I/O Clock Product Term
+PRESET = 0;    "Preset Sum Term
+RESET = 0;     "Reset Sum Term
+ 
+PCLKB = 0;      "Input Cell Product Term Clock
+ 
+ 
+"Internal or External output names appended with extensions:
+"  1) .COM for Combinatorial Internal or External Output (Sum A, B, or C)
+"  2) .OE for External Output Enable (Sum D only)
+"  3) .CLK for Asynchronous Logic Control Clock (Sum C or D)
+"  4) .AP for Asynchronous Preset for LCC Register (Sum B only)
+"  5) .AR for Asynchronous Reset for LCC Register (Sum C only)
+ 
+"If Sum D is fed back internally, the output name of equation will be
+"                                 pin_name.FB
+
+
+
+

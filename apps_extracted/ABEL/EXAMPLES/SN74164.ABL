@@ -1,0 +1,29 @@
+Module sn74164
+Title '8-bit Parallel-Out Serial Shift Register'
+
+    A,B                      pin;
+    Clear,Clock              pin;
+    QA,QB,QC,QD,QE,QF,QG,QH  pin istype 'reg,buffer';
+
+Equations
+
+    QA := A & B;
+    [QH,QG,QF,QE,QD,QC,QB] := [QG,QF,QE,QD,QC,QB,QA];
+
+    [QH,QG,QF,QE,QD,QC,QB,QA].clk = Clock;
+    [QH,QG,QF,QE,QD,QC,QB,QA].ar  = !Clear;
+
+Test_Vectors ([Clock,Clear, A, B] -> [QA,QB,QC,QD,QE,QF,QG,QH])
+              [  0  ,  0  , 1, 0] -> [ 0, 0, 0, 0, 0, 0, 0, 0];
+              [ .C. ,  1  , 1, 0] -> [ 0, 0, 0, 0, 0, 0, 0, 0];
+              [ .C. ,  1  , 0, 1] -> [ 0, 0, 0, 0, 0, 0, 0, 0];
+              [ .C. ,  1  , 1, 1] -> [ 1, 0, 0, 0, 0, 0, 0, 0];
+              [ .C. ,  1  , 1, 1] -> [ 1, 1, 0, 0, 0, 0, 0, 0];
+              [ .C. ,  1  , 0, 1] -> [ 0, 1, 1, 0, 0, 0, 0, 0];
+              [ .C. ,  1  , 1, 1] -> [ 1, 0, 1, 1, 0, 0, 0, 0];
+              [ .C. ,  1  , 0, 1] -> [ 0, 1, 0, 1, 1, 0, 0, 0];
+              [ .C. ,  1  , 0, 1] -> [ 0, 0, 1, 0, 1, 1, 0, 0];
+              [ .C. ,  1  , 0, 1] -> [ 0, 0, 0, 1, 0, 1, 1, 0];
+              [ .C. ,  1  , 0, 1] -> [ 0, 0, 0, 0, 1, 0, 1, 1];
+              [ .C. ,  0  , 0, 1] -> [ 0, 0, 0, 0, 0, 0, 0, 0];
+End

@@ -1,0 +1,193 @@
+101 PALASM HELP  
+101     Command line format to invoke MINIMIZE:
+101	  
+101     MINIMIZE [OPTION ...]
+101	  
+101     OPTIONs: 
+101       -log [<logfile[.log]>]  capture screen messages to disk file.
+101       -help print out help screen.
+101       -?    print out help screen.
+101       -1eqn read one equation at a time from tre file.
+101       -tre [trefile[.ext]] input and output tre file
+101       -xor  xor processing.
+101       -p <number>  or-gate splitting.
+101       -a  conforming to device polarity (non-programmable polarity device)
+101       -ao best polarity selection (programmable polarity device). 
+101       -ah active high polarity selection (programmable polarity device).
+101       -al active low polarity selection (programmable polarity device).
+101       -dt optimization of d & t register logic.
+101       -d  conversion to d register logic.
+101       -t  conversion to t register logic.
+101       -efast  fast minimization (faster but not optimal).
+101    
+101      
+102
+102     DEFAULTS:
+102       log file extention: .LOG.
+102       log file name: TRE_PLA.LOG.
+102       input-output file extentions: .TRE
+102       input output filenames: PALASM2.TRE
+103 |> WARNING L102 Log filename %s is same as input or output filename.
+103              Defaulting log filename to PALASM2.LOG.
+104 |> ERROR L103 Input filename %s is same as output filename.
+105 |> ERROR L104 Output filename %s is same as input filename.
+106 |> ERROR L105 Auxiliary input filename %s is same as input filename.
+107 |> ERROR L106 Auxiliary output filename %s is same as output filename.
+108 |> ERROR L107 -p parameter argument %s is not a number.
+109 |> ERROR L108 tre to tre translation is not supported.
+110 |> ERROR L109 pla to pla translation is not supported.
+111 |> ERROR L110 blif translation is not supported.
+112 |> ERROR L111 -auxi flag is not supported for tre to pla translation.
+113 |> ERROR L112 -auxo flag is not supported for pla to tre translation.
+114 |> ERROR L113 insufficient number of parameters (%s) specified.
+115 |> ERROR L114 illegal use of optional parameter %s.
+116 |> ERROR L115 unknown command line option %s found.
+117 |> ERROR L116 invalid input format parameter %s found.
+118 |> ERROR L117 invalid output format parameter %s found.
+119 |> ERROR L118 Minimize specific processing options may not be used
+119               with any pla file translation options.
+200
+300
+400
+401 |> INTERNAL_ERROR L401 Input tre file Equations section is corrupted.
+402 |> ERROR L402 Number of signals in equation exceeds max limit (64).
+500
+501 |> SYSTEM_ERROR L501 Input file %s cannot be opened.
+501	Call AMD, 1-800-222-9323.
+502 |> SYSTEM_ERROR L502 Output file %s cannot be opened.
+502	Call AMD, 1-800-222-9323.
+503 |> SYSTEM_ERROR L503 Input file %s cannot be closed.
+503	Call AMD, 1-800-222-9323.
+504 |> SYSTEM_ERROR L504 Output file %s cannot be closed.
+504	Call AMD, 1-800-222-9323.
+505 |> SYSTEM_ERROR L605 Program abnormally terminated due to the
+505			 failure in executing a system call.
+505     Possibly not enough memory.
+506 |> SYSTEM_WARNING L506 Input file %s cannot be opened.
+600 
+700 
+800 
+801  \nTranslation input was read from input file %s.
+802  Auxiliary input was read from auxiliary input file %s.
+803  Translated output is stored in output file %s.
+804  Auxiliary output is stored in auxiliary output file %s.
+810 |> ERROR L810 Input file %s is corrupted.
+820 |> INTERNAL ERROR M820
+820    Duplicate equation %s found in the design.
+900
+1000
+1001 |> SYSTEM_ERROR L1001 Error in reading .i directive from  PLA file.
+1002 |> ERROR L1002 .i directive must appear before .o directive.
+1003 |> SYSTEM_ERROR L1003 Error in reading .o directive from PLA file.
+1004 |> ERROR L1004 Invalid .o outputs (%d): use -mo for multi-output PLA.
+1005 |> ERROR L1005 illegal type found in .type directive.
+1006 |> ERROR L1006 .i & .o directives must appear before .ilb & .ob directives.
+1007 |> SYSTEM_ERROR L1007 Error in reading labels from PLA file.
+1008 |> ERROR L1008 .i & .o directives must appear before .phase directive.
+1009 |> ERROR L1009 illegal phase found in .phase directive.
+1010 |> WARNING L1010 product term spans more than one line.
+1011 |> ERROR L1011 illegal variable size (%d) found.
+1012 |> WARNING L1012 bad character found: line no %d ignored.
+1013 |> WARNING L1013 extra .i directive found: ignored.
+1014 |> WARNING L1014 extra .o directive found: ignored.
+1015 |> WARNING L1015 extra .phase directive found: ignored.
+1016 |> ERROR L1016 DEVICE must be specified before PIN declaration.
+1017 |> ERROR L1017 PIN declaration cannot succeed NODE declaration.
+1018 |> ERROR L1018 PIN declaration must precede NODE declaration.
+1019 |> ERROR L1019 Missing #AMD DEVICE declaration in PLA file.
+1020 |> ERROR L1020 Missing #AMD PIN declaration in PLA file.
+1021 |> ERROR L1021 Invalid #AMD NODE declaration for this device.
+1022 |> ERROR L1022 Too many input variables specified: may not exceed 64.
+1023 |> ERROR L1023 Too many output variables specified: may not exceed
+1023               pin+node count for this device.                
+1024 |> ERROR L1024 Undefined input label %s found in .ilb directive.
+1025 |> ERROR L1025 Undefined output label %s found in .ob directive.
+1100
+1101 |> INTERNAL_ERROR L1101 Tre file read error.
+1101	 Call AMD, 1-800-222-9323.
+1200
+1201 \nProcessing equation for ====>%s
+1210 Processing equation ====> %s  MINIMIZE_ON  (%d pt ---> %d pt)
+1220 Processing equation ====> %s  MINIMIZE_OFF (%d pt)
+1300
+1400
+1401 |> ERROR L1401  Error in TRE  file.
+1401    Please run Parse (Check Syntax).
+1500
+1600
+1601 |> INTERNAL_ERROR L1601 set size mismatch error.
+1601	 Call AMD, 1-800-222-9323.
+1700 |> ERROR L1700  Cannot support this device.
+1701 |> SYSTEM_ERROR L1701  Cannot open PALEXMIN.PDF file.
+1701    Call AMD, 1-800-222-9323.
+1702 |> INTERNAL_ERROR L1702  PAL device not supported in PALEXMIN.PDF.
+1702     Call AMD, 1-800-222-9323.
+1703 |> SYSTEM_ERROR L1703  Incorrect PALEXMIN.PDF file format.
+1703     Call AMD, 1-800-222-9323.
+1711 |> SYSTEM_ERROR L1711  Cannot open PLSPDF.PDF file.
+1711     Call AMD, 1-800-222-9323.
+1712 |> INTERNAL ERROR L1712 PLS device not supported in PLSPDF.PDF.
+1712     Call AMD, 1-800-222-9323.
+1713 |> SYSTEM_ERROR L1713  Incorrect PLSPDF.PDF file format.
+1713     Call AMD, 1-800-222-9323.
+1714 |> INTERNAL_ERROR L1714  Incorrect device data structure from
+1714                          PLSPDF.PDF.  Call AMD, 1-800-222-9323.
+1721 |> SYSTEM_ERROR L1721  Cannot open MACHPDF.PDF file.
+1721     Call AMD, 1-800-222-9323.
+1722 |> INTERNAL ERROR L1722  MACH device is not supported in MACHPDF.PDF.
+1722     Call AMD, 1-800-222-9323.
+1723 |> SYSTEM_ERROR L1723  Incorrect MACHPDF.PDF file format.
+1723     Call AMD, 1-800-222-9323.
+1730 |> SYSTEM_ERROR L1730  Memory allocation failed.  Out of memory.
+1730     Call AMD, 1-800-222-9323.
+1740 |> SYSTEM_ERROR L1740  Cannot rename design output file.
+1740     Call AMD, 1-800-222-9323.
+1760 |> INTERNAL_ERROR L1760  Cannot support PROSE device.
+1760     Call AMD, 1-800-222-9323.
+1780 |> SYSTEM_ERROR L1780  Cannot delete temporary file.
+1780     Call AMD, 1-800-222-9323.
+1785 |> INTERNAL_ERROR L1785 Cannot support PROSE device.
+1790 |> SYSTEM_ERROR L1790 Cannot open PARSE.MSG file for device information.
+1790	Call AMD, 1-800-222-9323.
+1795 |> ERROR L1795 Cannot support this device
+
+1800 Gate Splitting %s %s to ? node %s.
+1810 |> WARNING L1810  Gate splitting not supported for device %s.
+1810                    Ignoring  -p option.
+1820 |> ERROR L1820 Device %s can only support a maximum of  %d product terms
+1820                per pin. Gate splitting (-p) option specifies %d
+1820                product terms.
+1850 Created Paired Node eqn for NODE %s.
+1851 |> INTERNAL_ERROR L1801 PN_TABLE_SIZE() is %d, greater than 2.
+1851     Call AMD, 1-800-222-9323.
+1852 |> INTERNAL_ERROR L1802 PN_TABLE_SIZE = 2 and first entry is PIN.
+1852     Call AMD, 1-800-222-9323.
+1855 |> ERROR L1805  ERROR pin %s and paired-node %s: Different type of eqn.
+1860 Created Paired Pin equation for PIN %s.
+1901 |> ERROR L1901  Incorrect %s equation polarity.
+1902 |> WARNING L1902 Device polarity is Non-programmable. Flipping equation
+1902                  polarity of pin %s to match device polarity.
+2000 |> ERROR L2000  Error %s: More than one primary equation exist or
+2000              different type of primary eqns for pin and paired node.
+2002 |> INTERNAL ERROR L2005  Null initial state.
+2005 |> INTERNAL ERROR L2005  Unknown initial state %d.
+2010 |> INTERNAL ERROR L2010  Not both XORL and XORR exist.
+2010     Call AMD, 1-800-222-9323.
+2015 |> INTERNAL ERROR L2015  ERROR %s; 
+2015                   Polarity of XORL and XORR are different.
+2015     Call AMD, 1-800-222-9323.
+2020                   Pin Number of XORL and XORR are different.
+2020     Call AMD, 1-800-222-9323.
+2040 |> WARNING L2040  %s option ignored.
+2040                   Device %s does not have %s registers.
+2050 |> WARNING L2050  Equation converted to %s register logic.
+2100 |> WARNING L2100  XOR equation %s expanded.  Both ON and OFF cover exist.
+2110 |> WARNING L2110  Multiple-XOR is not supported.
+2110                      Equation %s expanded to single-XOR form.
+2120 |> ERROR L2120  Error %s equation polarity.
+2120                   Active-low J, K, R, and S equations are not allowed.
+10000
+10001 |> ERROR L10001  Please run BPP (Expand Boolean).
+10002 |> ERROR L10002  Please run Expand (Expand State).
+10003 |> ERROR L10003  Please run Minimize (Minimize Boolean).
+

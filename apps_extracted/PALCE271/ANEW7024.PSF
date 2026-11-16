@@ -1,0 +1,95 @@
+TITLE ' '
+Designer ' '
+Date ' '
+
+Description
+  Enter description here ...
+End_Desc;
+
+PA7024
+
+CLK1 PIN 1
+CLK2 PIN 13
+
+"IOC CONFIGURATION DECLARATION
+"IOC (PIN_NO 'PIN_NAME' POLARITY IO_TYPE) <- LCC_NO
+
+IOC ( 2 '' POS IO ) <- 1A
+IOC ( 3 '' POS IO ) <- 2A
+IOC ( 4 '' POS IO ) <- 3A
+IOC ( 5 '' POS IO ) <- 4A
+IOC ( 6 '' POS IO ) <- 5A
+IOC ( 7 '' POS IO ) <- 1B
+IOC ( 8 '' POS IO ) <- 2B
+IOC ( 9 '' POS IO ) <- 3B
+IOC (10 '' POS IO ) <- 4B
+IOC (11 '' POS IO ) <- 5B
+IOC (14 '' POS IO ) <- 1C
+IOC (15 '' POS IO ) <- 2C
+IOC (16 '' POS IO ) <- 3C
+IOC (17 '' POS IO ) <- 4C
+IOC (18 '' POS IO ) <- 5C
+IOC (19 '' POS IO ) <- 1D
+IOC (20 '' POS IO ) <- 2D
+IOC (21 '' POS IO ) <- 3D
+IOC (22 '' POS IO ) <- 4D
+IOC (23 '' POS IO ) <- 5D
+
+"LCC CONFIGURATION DECLARATION
+"LCC (LCC_NO 'LCC_NAME' REG_TYPE CLK_TYPE BUR_OUT EXT_OUT)
+
+LCC (1A '' D   POS  REG  REG )
+LCC (2A '' D   POS  REG  REG )
+LCC (3A '' D   POS  REG  REG )
+LCC (4A '' D   POS  REG  REG )
+LCC (5A '' D   POS  REG  REG )
+LCC (1B '' D   POS  REG  REG )
+LCC (2B '' D   POS  REG  REG )
+LCC (3B '' D   POS  REG  REG )
+LCC (4B '' D   POS  REG  REG )
+LCC (5B '' D   POS  REG  REG )
+LCC (1C '' D   POS  REG  REG )
+LCC (2C '' D   POS  REG  REG )
+LCC (3C '' D   POS  REG  REG )
+LCC (4C '' D   POS  REG  REG )
+LCC (5C '' D   POS  REG  REG )
+LCC (1D '' D   POS  REG  REG )
+LCC (2D '' D   POS  REG  REG )
+LCC (3D '' D   POS  REG  REG )
+LCC (4D '' D   POS  REG  REG )
+LCC (5D '' D   POS  REG  REG )
+
+"GBC CONFIGURATION FDECLARATION
+"GBC (GROUP LCC_CLK IOC_CLK)
+
+Global = 1
+GBC (A Clk1 Clk1)
+GBC (B Clk1 Clk1)
+
+
+DEFINE
+
+
+EQUATIONS
+
+"Global output names specified in the equations below are reserved words.
+RTA = 0;        "Reg-Type Product Term
+PCLKA = 0;      "I/O Clock Product Term
+PRESETA = 0;    "Preset Sum Term
+RESETA = 0;     "Reset Sum Term
+
+RTB = 0;        "Reg-Type Product Term
+PCLKB = 0;      "I/O Clock Product Term
+PRESETB = 0;    "Preset Sum Term
+RESETB = 0;     "Reset Sum Term
+
+
+"Internal or External output names appended with extensions:
+"  1) .COM for Combinatorial Internal or External Output (Sum A, B, or C)
+"  2) .OE for External Output Enable (Sum D only)
+"  3) .CLK for Asynchronous Logic Control Clock (Sum C or D)
+"  4) .AP for Asynchronous Preset for LCC Register (Sum B only)
+"  5) .AR for Asynchronous Reset for LCC Register (Sum C only)
+
+
+

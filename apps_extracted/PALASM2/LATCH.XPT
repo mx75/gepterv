@@ -1,0 +1,56 @@
+PALASM XPLOT, V2.23D - MARKET RELEASE (2-14-89)
+(C) - COPYRIGHT ADVANCED MICRO DEVICES INC., 1989
+
+Title    : Octal_Latch              Author  : Mehrnaz Hada            
+Pattern  : 8latch.pds              	Company : Monolithic Memories Inc.
+Revision : A                       	Date    : 1/15/85                 
+
+PAL10H20P8     
+OCTALLATCH                    
+
+                11 1111 1111 2222 2222 2233 3333 3333 
+    0123 4567 8901 2345 6789 0123 4567 8901 2345 6789 
+
+  0 --X- --X- ---- ---- -X-- ---- ---- ---- ---- ---- X-
+  1 ---X X--- ---- ---- -X-- ---- ---- ---- ---- ---- X-
+  2 XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XX
+  3 XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XX
+  4 XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XX
+  5 XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XX
+  6 X--X ---- ---- ---- -X-- ---- ---- ---- ---- ---- -X
+  7 --X- ---- --X- ---- -X-- ---- ---- ---- ---- ---- -X 
+
+  8 --X- ---- ---- --X- -X-- ---- ---- ---- ---- ---- X-
+  9 ---X ---- ---- X--- -X-- ---- ---- ---- ---- ---- X-
+ 10 XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XX
+ 11 XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XX
+ 12 XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XX
+ 13 XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XX
+ 14 ---X ---- X--- ---- -X-- ---- ---- ---- ---- ---- -X
+ 15 --X- ---- ---- ---- -XX- ---- ---- ---- ---- ---- -X 
+
+ 16 ---- ---- ---- ---- ---- X-X- ---- ---- ---- ---X X-
+ 17 ---- ---- ---- ---- ---- -X-- ---- X--- ---- ---X X-
+ 18 XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XX
+ 19 XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XX
+ 20 XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XX
+ 21 XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XX
+ 22 ---- ---- ---- ---- ---- -X-- X--- ---- ---- ---X -X
+ 23 ---- ---- ---- ---- ---- X--- --X- ---- ---- ---X -X 
+
+ 24 ---- ---- ---- ---- ---- X--- ---- --X- ---- ---X X-
+ 25 ---- ---- ---- ---- ---- -X-- ---- ---- ---- X--X X-
+ 26 XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XX
+ 27 XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XX
+ 28 XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XX
+ 29 XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XX
+ 30 ---- ---- ---- ---- ---- -X-- ---- ---- X--- ---X -X
+ 31 ---- ---- ---- ---- ---- X--- ---- ---- --X- ---X -X 
+
+
+
+      OUTPUT PINS: 00001122
+                   45787801
+    POLARITY FUSE: XXXXXXXX
+
+TOTAL FUSES BLOWN:   608

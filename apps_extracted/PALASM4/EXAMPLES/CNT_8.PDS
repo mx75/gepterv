@@ -1,0 +1,87 @@
+; NET2PDS - vers 4.05.21 (12/06/1990) - (c)1990 Advanced Micro Devices, Inc.
+; PDS file created    2/24/1991   5:59p
+; Sourcefile: "CNT_8.jnf"
+
+TITLE            ?
+REVISION         ?
+PATTERN          ?
+AUTHOR           ?
+COMPANY          ?
+DATE            2/24/1991
+
+CHIP     _CNT_8    MACH210
+
+  PIN     ?       CLR                                 
+  PIN     ?       Q1                   REGISTERED     
+  PIN     ?       D1                                  
+  PIN     ?       LDB                                 
+  PIN     ?       CLK                                 
+  PIN     ?       CNT                                 
+  PIN     ?       Q2                   REGISTERED     
+  PIN     ?       D2                                  
+  PIN     ?       Q3                   REGISTERED     
+  PIN     ?       D3                                  
+  PIN     ?       Q4                   REGISTERED     
+  PIN     ?       D4                                  
+  PIN     ?       CRRY                 COMBINATORIAL  
+  PIN     ?       Q8                   REGISTERED     
+  PIN     ?       Q7                   REGISTERED     
+  PIN     ?       Q6                   REGISTERED     
+  PIN     ?       Q5                   REGISTERED     
+  PIN     ?       D5                                  
+  PIN     ?       D6                                  
+  PIN     ?       D7                                  
+  PIN     ?       D8                                  
+
+EQUATIONS
+
+ Q1.T = (/CLR * Q1) + (CLR * /LDB * /D1 * Q1) + (CLR * /LDB * /Q1 * D1) + 
+        (CLR * VCC * LDB * CNT)
+ Q1.clkf = CLK
+ Q1.setf = GND
+ Q1.rstf = GND
+
+ Q2.T = (/CLR * Q2) + (CLR * /LDB * /D2 * Q2) + (CLR * /LDB * /Q2 * D2) + 
+        (CLR * Q1 * (CLR * VCC * LDB * CNT))
+ Q2.clkf = CLK
+ Q2.setf = GND
+ Q2.rstf = GND
+
+ Q3.T = (/CLR * Q3) + (CLR * /LDB * /D3 * Q3) + (CLR * /LDB * /Q3 * D3) + 
+        (CLR * Q2 * Q1 * (CLR * VCC * LDB * CNT))
+ Q3.clkf = CLK
+ Q3.setf = GND
+ Q3.rstf = GND
+
+ Q4.T = (/CLR * Q4) + (CLR * /LDB * /D4 * Q4) + (CLR * /LDB * /Q4 * D4) + 
+        (CLR * Q3 * Q2 * Q1 * (CLR * VCC * LDB * CNT))
+ Q4.clkf = CLK
+ Q4.setf = GND
+ Q4.rstf = GND
+
+ CRRY = Q2 * Q3 * Q4 * (Q8 * Q7 * Q6 * Q5)
+
+ Q5.T = (/CLR * Q5) + (CLR * /LDB * /D5 * Q5) + (CLR * /LDB * /Q5 * D5) + 
+        (CLR * (Q4 * Q3 * Q2 * Q1 * CNT) * LDB * CNT)
+ Q5.clkf = CLK
+ Q5.setf = GND
+ Q5.rstf = GND
+
+ Q6.T = (/CLR * Q6) + (CLR * /LDB * /D6 * Q6) + (CLR * /LDB * /Q6 * D6) + 
+        (CLR * Q5 * (CLR * (Q4 * Q3 * Q2 * Q1 * CNT) * LDB * CNT))
+ Q6.clkf = CLK
+ Q6.setf = GND
+ Q6.rstf = GND
+
+ Q7.T = (/CLR * Q7) + (CLR * /LDB * /D7 * Q7) + (CLR * /LDB * /Q7 * D7) + 
+        (CLR * Q6 * Q5 * (CLR * (Q4 * Q3 * Q2 * Q1 * CNT) * LDB * CNT))
+ Q7.clkf = CLK
+ Q7.setf = GND
+ Q7.rstf = GND
+
+ Q8.T = (/CLR * Q8) + (CLR * /LDB * /D8 * Q8) + (CLR * /LDB * /Q8 * D8) + 
+        (CLR * Q7 * Q6 * Q5 * (CLR * (Q4 * Q3 * Q2 * Q1 * CNT) * LDB * CNT))
+ Q8.clkf = CLK
+ Q8.setf = GND
+ Q8.rstf = GND
+

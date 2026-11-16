@@ -1,0 +1,327 @@
+#/*
+# * **************************  ALTERA PROPRIETARY  ***************************
+# *
+# *       --------------------  DO NOT REPRODUCE  ----------------------
+# *
+# *   Copyright (C) 1994 by Altera Corporation.
+# *   All rights reserved. No part of this program or publication may be 
+# *   reproduced, transmitted, transcribed, stored in a retrieval system, or
+# *   translated into any language or computer language, in any form or by any
+# *   means, electronic, mechanical, magnetic, optical,  chemical,  manual, or
+# *   otherwise,  without the prior written permission of  Altera Corporation,
+# *   2610 Orchard Parkway,  San Jose,  California 95134-2020.
+# *
+# * ***************************************************************************
+# */
+#
+#
+
+#
+#
+#
+#
+#   load "060_lib.jdb" (device database) & "plfg_lib.jdb" (disassembly library)
+#   FIRST!!
+
+
+#    func mc_arch_type( )
+#    description: determine architecture programming
+#    arguments: $1 - macrocell #
+#    returns: 1 if D registered, 2 if T registered, 3 if combinatorial
+#
+func mc_arch_type( ) {
+    mat = mc_archadr( $1 )
+    if (bit_set(mat + 4)) { # registered output
+        if ( ! (bit_set(mat + 2)) )  # D register
+            return 1
+        else
+            return 2 # T register
+    }
+    else { # combinatorial output
+          return( 3 )
+    }
+}
+
+
+#    func mc_clkoe( )
+#    description: determine whether clock or oe 
+#    arguments: $1 - macrocell #
+#    returns: 0 if async clk. , 1 if oe pterm.
+#
+func mc_clkoe( ) {
+    mat = mc_archadr( $1 )
+    if (!(bit_set(mat + 1)))  # oe pterm/sync. clk
+        return 1
+    else
+        return 0 # asyn clk pterm
+}
+
+
+#    func mc_fb( )
+#    description: determine whether pin or macrocell feedback
+#    arguments: $1 - pin #
+#    returns: 0 if pin feedback, 1 if macrocell feedback.
+#
+func mc_fb( ) {
+    mat = mc_archadr( pin2mc($1) )
+    if (!(bit_set(mat + 3)))  # pin feedback
+        return 0
+    else
+        return 1 # macrocell feedback
+}
+#
+#
+proc turbo_bit( ) {
+     if ( bit_set( 6480 )) { # turbo bit 1 location
+         if ( bit_set( 6481 )) { # turbo bit 2 location
+              print ";    OPTIONS TURBO=ON\n"
+          }
+     }
+     else {
+          print ";    OPTIONS TURBO=OFF\n"
+     }
+}
+
+#
+#    proc equations( )
+#    description: determine if an equation needs to be generated and output to
+#                 equation section of adf
+#    arguments
+#    returns: status of equation processing
+#    algorithm:  determine if any controls/sops used, call term_output as
+#                needed
+#
+func equations( ) {
+     eq_i = 1  # macrocell equation counter
+     ptg = 1
+     while ( eq_i <= JDBV_mcnum ) { # process equations for each macrocell
+       message "Processing Macrocell [ %d ]\n", eq_i
+            # determine pin number component of node name
+       if (eq_i < 9) {
+           pin_num_i = ((map_pin(NUM_PINS) - eq_i) - 1)  # mc 1 - 8
+           if ((pin_num_i == 19) && (pinmap_060)) # nc on plcc pkg
+               pin_num_i = 18
+       }
+       else {
+           if (!pinmap_060)
+               pin_num_i = (eq_i - 6) # mc 9 - 16
+           else {
+               pin_num_i = (eq_i - 5) # mc 9 - 16 plcc
+               if ((pin_num_i == 11) && (pinmap_060)) # nc on plcc pkg
+                   pin_num_i = 12
+           }
+       }
+       if ( mc_used( eq_i ) == 1 ) { # check to see if any equations
+           ptg_cnt = 0 # pterm group counter 
+           pt_num = SPPTNUM  # start with sop pterms
+           arch = mc_arch_type( eq_i)
+           while ( ptg_cnt < IOMCPTGNUM ) #  3 ptgs per macrocell
+           {
+               if (ptg_cnt == 2){
+                   pt_num = OECLKPTNUM
+               }
+               if (ptg_cnt == 1){
+                   pt_num = CLRPTNUM
+               }
+                
+               ptermadr = pterm_gaddr(ptg) # pterm address
+               pt_cnt = 1
+               if (( ptg_cnt == 0) && ( mc_invert( eq_i,0,1,0 ) == 1 )) {
+                   print "/"
+               }
+               print "io%d", pin_num_i
+
+               if ((ptg_cnt == 2) && (mc_clkoe(eq_i))) # oe equation
+                   print ".TRST"
+               else 
+               if ((ptg_cnt == 2) && (!mc_clkoe(eq_i)) && (arch != 3)) # clk equation
+                   print ".CLKF"
+               else if ((ptg_cnt == 1) && (arch != 3))
+                   print ".RSTF"
+
+
+               if ( ptg_cnt == 0) { 
+                   if ( arch == 1 ) 
+                       print ".D := "
+                   else if ( arch == 2 )
+                       print ".T := "
+                   else
+                       print " = "
+               }
+               else
+                   print " = "
+
+               need_or = 0
+               if (pterm_gstate(ptermadr,pt_num) == 1) # equation used
+               {
+                   while (pt_cnt <= pt_num)
+                   {
+                       if (pterm_state(ptermadr) == 1)
+                       {
+                           if (need_or)
+                              print "\n+ "
+                           need_or = 1
+                           if (term_output(ptermadr,JDBV_wlnum) <= 0) {
+                 message "JDB disassembly error, processing equation %d\n" ,eq_i
+                               return (1)
+                           }
+                       }
+                       ptermadr = ptermadr + JDBV_wlnum
+                       pt_cnt = pt_cnt + 1
+                   }
+               }
+               else  
+               if (pterm_gstate(ptermadr,pt_num) == 0) # VCC
+                   print "VCC"
+               else
+               if (pterm_gstate(ptermadr,pt_num) == -1) # GND
+                   print "GND"
+    
+               print "\n\n"
+               if ((arch == 3) && (ptg_cnt == 0)){
+                   ptg_cnt = ptg_cnt + 2
+                   ptg = ptg + 2
+               }
+               else { # skip clr pterm
+                   ptg_cnt = ptg_cnt + 1
+                   ptg = ptg + 1
+               }
+    
+           }
+       }
+       else { # mc not used
+            ptg = ptg + IOMCPTGNUM
+       }
+       eq_i = eq_i + 1
+     }
+     return (0)
+}
+
+#    proc pinlst( )
+#    Description: list input and output pins, including no-connects
+#    Argument/returns: none
+#
+proc pinlst( )
+{
+     pin_num = 1
+     # list input pins
+     while (pin_num <= NUM_PINS)
+     {
+        if (pinmap_060) { # plcc only - generate xtra VCC, GND & NC
+            if (pin_num == 1)
+                print "PIN     1    VCC\n"
+            if (pin_num == 15)
+                print "PIN    15    GND\n"
+            if ((pin_num == 11) || (pin_num == 19))
+                print "PIN    %d    NC\n", pin_num
+        }
+
+        if (pin_num == 12)
+            print "PIN    %d    GND\n", map_pin(pin_num)
+        else if (pin_num == 24)
+            print "PIN    %d    VCC\n", map_pin(pin_num)
+        else if (pin_num == 1)
+            print "PIN     %d    clk1\n", map_pin(pin_num)
+        else if (pin_num == 13)
+            print "PIN    %d    clk2\n", map_pin(pin_num)
+
+        else if ((pin_num == 2) || (pin_num == 11) || (pin_num == 14) || (pin_num == 23)) {
+            if (pin2array(pin_num,JDBV_lptadr)) {
+                print "PIN    "
+                if (map_pin(pin_num) < 10)
+                    print " "
+                print "%d", map_pin(pin_num)
+                print "    in%d\n", map_pin(pin_num)
+            }
+        }
+        else {
+            if (io_used(pin_num,JDBV_lptadr)) {
+                print "PIN    "
+                if (map_pin(pin_num) < 10)
+                    print " "
+                print "%d", map_pin(pin_num)
+                print "    io%d ", map_pin(pin_num) 
+                if (!mc_fb(pin_num))
+                    print "PINFBK"
+                print "\n"
+            }
+        }
+        pin_num = pin_num + 1
+    }
+}
+                
+proc dpa060( ) {
+     pldlib_init()
+     program_state(1)
+     lang(1)    # PEP output
+     pinmap_060 = $1
+     if (jedec_fuses() != 6482 ) {
+      errmsg(1)
+            message "The source JEDEC file is incompatible with the 85C060 device.\n"
+    exit 1
+      }
+     turbo_bit( )
+     if (pinmap_060 == 0 ) 
+     {
+        infomsg(1) 
+        message "D85C060 "
+        infomsg(2)
+     }
+     else if (pinmap_060 == 1 ) 
+     {
+        infomsg(1) 
+        message "N85C060 "
+        infomsg(2)
+     }
+
+     else if (pinmap_060 == 2 ) 
+     {
+        infomsg(1) 
+        message "D5C060 "
+        infomsg(2)
+        pinmap_060 = 0
+     }
+     else if (pinmap_060 == 3 ) 
+     {
+        infomsg(1) 
+        message "N5C060 "
+        infomsg(2)
+     }
+     else if (pinmap_060 == 4 ) 
+     {
+        infomsg(1) 
+        message "IPLD610D "
+        infomsg(2)
+        pinmap_060 = 0
+     }
+     else if (pinmap_060 == 5 ) 
+     {
+        infomsg(1) 
+        message "IPLD610N "
+        infomsg(2)
+     }
+     print "\n"
+     print "CHIP U1"
+	 if ($1 == 0) print " 85C060\n"
+	 else if ($1 == 1) print " N85C060\n"
+	 else if ($1 == 2) print " 5C060\n"
+	 else if ($1 == 3) print " N5C060\n"
+	 else if ($1 == 4) print " IPLD610D\n"
+	 else if ($1 == 5) print " IPLD610N\n"
+     print "\n"
+     pinlst( ) # list the pins
+     print "\n\n"
+     print "EQUATIONS\n"
+     print "\n"
+
+     if (!equations( )) {
+        infomsg(1) 
+        infomsg(3) 
+     }
+     else {
+        errmsg(1) 
+        errmsg(2) 
+     }
+
+     print "\n"
+}

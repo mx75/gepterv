@@ -1,0 +1,160 @@
+Title 'PA7024 8-Bit Down Counter'
+Designer 'Ali Peel'
+Date '6-26-90'
+
+Description
+
+    PA7024 8-Bit Down Counter with Preset, Reset and Hold
+
+ This design is one of four main applications that were
+integrated into a single PA7024 in the DEMO1A application
+example. The 8-bit down counter includes preset (A), reset (D)
+hold (B) and an output enable (Control). The original counter
+design in DEMO1A is fully buried from I/O pins. In this application
+both the buried and direct output paths have been provided.
+Please note that this applications uses only a portion of the PA7024.
+In fact up to a 20-bit buried counter can be implemented.
+
+End_Desc;
+
+PA7024
+
+SYS_CLK PIN 1
+CONTROL PIN 13
+
+"IOC CONFIGURATION DECLARATION
+"IOC (PIN_NO 'PIN_NAME' POLARITY IO_TYPE) <- LCC_NO
+
+IOC ( 2 '' Pos IO ) <- 3A
+IOC ( 3 '' Pos IO ) <- 3B
+IOC ( 4 'PRESET_A' Pos IO ) <- 1A
+IOC ( 5 'HOLD_B' Pos IO ) <- 2A
+IOC ( 6 '' Pos IO ) <- 4A
+IOC ( 7 'RESET_D' Pos IO ) <- 2B
+IOC ( 8 '' Pos IO ) <- 5A
+IOC ( 9 '' Pos IO ) <- 5B
+IOC (10 '' Pos IO ) <- 5C
+IOC (11 '' Pos IO ) <- 5D
+IOC (14 'Q7_P' Pos IO ) <- 4D
+IOC (15 'Q6_O' Pos IO ) <- 3D
+IOC (16 'Q5_N' Pos IO ) <- 2D
+IOC (17 'Q4_M' Pos IO ) <- 1D
+IOC (18 'Q3_L' Pos IO ) <- 4C
+IOC (19 'Q2_K' Pos IO ) <- 3C
+IOC (20 'Q1_J' Pos IO ) <- 2C
+IOC (21 'Q0_I' Pos IO ) <- 1C
+IOC (22 '' Pos IO ) <- 4B
+IOC (23 'HALF_CLK' Pos Out) <- 1B
+
+"LCC CONFIGURATION DECLARATION
+"LCC (LCC_NO 'LCC_NAME' REG_TYPE CLK_TYPE BUR_OUT EXT_OUT)
+
+LCC (1A '' D   SumD Reg  Reg )
+LCC (2A '' D   SumD Reg  Reg )
+LCC (3A '' D   Neg  Reg  Reg )
+LCC (4A '' D   SumD Reg  Reg )
+LCC (5A '' D   SumD Reg  Reg )
+LCC (1B '' T   Pos  SumC Reg )
+LCC (2B '' D   SumD Reg  Reg )
+LCC (3B '' D   Neg  Reg  Reg )
+LCC (4B '' D   Neg  Reg  Reg )
+LCC (5B '' D   SumD Reg  Reg )
+LCC (1C 'Q0' T   Pos  Reg  Reg )
+LCC (2C 'Q1' T   Pos  Reg  Reg )
+LCC (3C 'Q2' T   Pos  Reg  Reg )
+LCC (4C 'Q3' T   Pos  Reg  Reg )
+LCC (5C '' D   SumD Reg  Reg )
+LCC (1D 'Q4' T   Pos  Reg  Reg )
+LCC (2D 'Q5' T   Pos  Reg  Reg )
+LCC (3D 'Q6' T   Pos  Reg  Reg )
+LCC (4D 'Q7' T   Pos  Reg  Reg )
+LCC (5D '' D   SumD Reg  Reg )
+
+"GBC CONFIGURATION FDECLARATION
+"GBC (GROUP LCC_CLK IOC_CLK)
+
+Global = 1
+GBC (A Clk1 Clk1)
+GBC (B Clk1 Clk1)
+
+
+DEFINE
+
+
+EQUATIONS
+
+"Global output names specified in the equations below are reserved words.
+RTA = 0;        "unused
+PCLKA = 0;      "unused
+PRESETA = 0;    "unused
+RESETA = 0;     "unused
+
+RTB = 0;        "unused
+PCLKB = 0;      "unused
+PRESETB = 0;    "unused
+RESETB = 0;     "unused
+
+
+HALF_CLK.T = control + /control;  "Toggle on Sys_Clk rising edge
+HALF_CLK.AP = 0;   "preset set inactive
+HALF_CLK.SumC = 0;
+HALF_CLK.SumD = 0; "output enable not used
+
+Q0.T = !HOLD_B;     "Bit 0 of Counter, B=hold
+Q0.AP = PRESET_A;   "A=preset
+Q0_I.AR = RESET_D;  "D=reset
+Q0_I.OE =  Control; "Control is used to enable outputs
+
+Q1.T = !HOLD_B * !Q0; "Bit 1 of Counter, B=hold
+Q1.AP = PRESET_A;     "A=preset
+Q1_J.AR =  RESET_D;   "D=reset
+Q1_J.OE =  Control;   "Control is used to enable outputs
+
+Q2.T = !HOLD_B * !Q0 * !Q1;   "Bit 2 of Counter, B=hold
+Q2.AP = PRESET_A;   "A=preset
+Q2_K.AR = RESET_D;  "D=reset
+Q2_K.OE = Control;  "Control is used to enable outputs
+
+Q3.T = !HOLD_B * !Q0 * !Q1 * !Q2;   "Bit 3 of Counter, B=hold
+Q3.AP = PRESET_A;   "A=preset
+Q3_L.AR = RESET_D;  "D=reset
+Q3_L.OE =  Control; "Control enables outputs
+
+Q4.T = !HOLD_B * !Q0 * !Q1 * !Q2 * !Q3;  "Bit 4 of Counter, B=hold
+Q4.AP = PRESET_A;   "A=preset
+Q4_M.AR = RESET_D;  "D=reset
+Q4_M.OE = Control;  "Control enables outputs
+
+Q5.T = !HOLD_B * !Q0 * !Q1 * !Q2 * !Q3 * !Q4;  "Bit 5 of Counter, B=hold
+Q5.AP = PRESET_A;   "A=preset
+Q5_N.AR = RESET_D;  "D=reset
+Q5_N.OE = Control;  "Control enables outputs
+
+Q6.T = !HOLD_B * !Q0 * !Q1 * !Q2 * !Q3 * !Q4 * !Q5; "Bit 6 of Counter, B=hold
+Q6.AP = PRESET_A;   "A=preset
+Q6_O.AR = RESET_D;  "D=reset
+Q6_O.OE = Control;  "Control enables outputs
+
+Q7.T = !HOLD_B * !Q0 * !Q1 * !Q2 * !Q3 * !Q4 * !Q5 * !Q6; "Bit 7, B=hold
+Q7.AP = PRESET_A;   "A=preset
+Q7_P.AR = RESET_D;  "D=reset
+Q7_P.OE = Control;  "Control enable outputs I-P
+
+
+HOLD_B.SumA = 0;
+HOLD_B.SumB = 0;
+HOLD_B.SumC = 0;
+HOLD_B.SumD = 0;
+
+PRESET_A.SumA = 0;
+PRESET_A.SumB = 0;
+PRESET_A.SumC = 0;
+PRESET_A.SumD = 0;
+
+RESET_D.SumA = 0;
+RESET_D.SumB = 0;
+RESET_D.SumC = 0;
+RESET_D.SumD = 0;
+
+
+

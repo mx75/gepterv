@@ -1,0 +1,120 @@
+ğ
+.CLKF
+Overview
+This is the reserved word in a functional equation that defines a
+clock signal for a pin or node.  The operation differs depending upon
+the device you've chosen.  For example, for devices with programmable
+clocks, you can use .CLKF to assert the clock on a flip-flop.
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+        Pn.CLKF       Assignment Operator    Expression
+
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+
+Device Support:
+
+    PAL16RA8    PAL20RA10  PAL26V12    PALCE29M16  PALCE29MA16
+    PAL32VX10   PALCE610   PLS30S16    MACH 1      MACH 2
+ú
+Syntax
+You use this reserved word in a functional equation in the equations
+segment of Boolean and state designs or in any registered-latched
+design.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+        Pn.CLKF       Assignment Operator    Expression
+
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+        Q0.CLKF                =             EXT
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+
+Pn.CLKF         Assign a pin or node name followed by the reserved
+                word, .CLKF.  The name must be defined in an earlier
+                pin or node statement in the declaration segment.  A
+                slash, /, in front the pin or node name defines a
+                falling edge clock.  No slash defines a rising edge
+                clock.
+
+Assignment      Include a symbol that defines a specific operation
+Operator        as interpreted by the software when processing design
+                files.
+
+Expression      Include the signal name or expression that defines the
+                clock source.
+
+                Important: In PLDs with multiple clocks, you must
+                specify the clock pin, don't use an expression.
+
+                All values in an expression for a PLD design are
+                signal names that must be defined in earlier pin and
+                node statements.  In the syntax example, when EXT is
+                true, the clock associated with Q0 is asserted.
+ú
+Use
+Multiple .CLKF statements for the same pin or node are automatically
+ORed together into one statement.  This can result in an error during
+either assembly or fitting.
+
+If no clock pin is defined using the .CLKF instruction, registered
+outputs default to the nominated default pin for the specified device.
+
+Note: For devices that do not have a default clock pin, you must
+      define a clock pin.  For example, PAL20RA10.
+
+You can use a GROUP, STRING, or VECTOR notation to define signals,
+which is an excellent way to assign a functional equation to several
+pins.
+
+The following example shows how to use vector notation.
+
+
+    ;DECLARATION SEGMENT
+        PIN         14..16           Q[0..2]
+        PIN         8..10            CLK[0..2]
+
+    ;EQUATIONS
+        Q[0..2].CLKF   =             CLK[0..2]
+
+This generates the following equations.
+
+        Q[0.CLKF       =             CLK[0]
+        Q1[1].CLKF     =             CLK[1]
+        Q[2].CLKF      =             CLK[2]
+
+The following example shows how to use a string statement.
+
+    ;DECLARATION SEGMENT
+        STRING     IN1        'A1 * A2'
+
+    ;EQUATIONS
+        Q0.CLKF        =      IN1
+
+This generates the following equation.
+
+        Q0.CLKF        =       A1 * A2
+
+The following example shows how to use a group statement.
+
+    ;DECLARATION SEGMENT
+        GROUP      CLOCKS     A  B  C
+
+    ;EQUATIONS
+        CLOCKS.CLKF    =        D*E
+
+This generates the following equations.
+
+        A.CLKF         =        D*E
+        B.CLKF         =        D*E
+        C.C.KF         =        D*E
+ú
+Related Topics
+Functional Equation
+GROUP
+ú

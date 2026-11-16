@@ -1,0 +1,56 @@
+Name      Vmeslave;
+Partno    CA0028;
+Date      08/12/87;
+Revision  03;
+Designer  Guzy;
+Company   PLX Technology;
+Assembly  VMEbus I/O Card;
+Location  IC99;
+Device    plx448;
+
+/****************************************************************/
+/*                                                              */
+/* VMEbus Slave Module Selector Version 1                       */
+/*                                                              */
+/* Refer to the PLX Technology "Preliminary Application Note"   */
+/* for an explanation of this device.                           */
+/*                                                              */
+/* Copyright (C) PLX Technology Corporation, 1987               */
+/****************************************************************/
+/* Allowable Target Device Types :  PLX448                      */
+/****************************************************************/
+
+Order:  vmeclk,%1,!as,%1,!ds1,%1,!ds0,%1,am5..0,%1,!aden,%1,
+        !iack,%1,!ack,%1,!err,%2,
+        as_dly,%1,!modsel,%1,!dsel1,%1,!dsel0,%1,!dtack,%1,!berr;
+
+Vectors:
+
+$msg"                                !        ";
+$msg"      v                       a m ! ! !  ";
+$msg"      m              ! !      s o d d d !";
+$msg"      e   ! !        a i ! !  - d s s t b";
+$msg"      c ! d d aaaaaa d a a e  d s e e a e";
+$msg"      l a s s mmmmmm e c c r  l e l l c r";
+$msg"      k s 1 0 543210 n k k r  y l 1 0 k r";
+$msg"      -----------------------------------";
+
+           0 1 1 1 XXXXXX 0 1 1 1  L H H H 1 1  /* No bus activity      */
+           C 0 1 1 001001 0 1 1 1  H H H H 1 1  /* delayed AS generated */
+           0 0 1 1 001001 1 1 1 1  H L H H 1 1  /* MODSEL asserted      */
+
+           0 0 0 0 001001 1 1 1 1  H L L L 1 1  /* CPU data strobes rec'd */
+           0 0 0 0 001001 1 1 0 1  H L L L L 1  /* slave sends acknowledge */
+           0 0 1 1 001001 1 1 0 1  H H H H L 1  /* CPU data strobes removed */
+           0 1 1 1 XXXXXX 0 1 1 1  L H H H 1 1  /* cycle complete       */
+
+           C 0 1 1 111101 0 1 1 1  H H H H 1 1  /* new CPU AS           */
+           0 0 1 1 111101 1 1 1 1  H L H H 1 1  /* modsel again asserted */
+           0 0 0 1 XXXXXX 1 1 1 0  H L L H 1 L  /* slave resonds w/ err  */
+           0 1 0 1 XXXXXX 0 1 1 0  L L L H 1 L  /* busserr latched until */
+                                                /* ds removed           */
+           0 1 1 1 XXXXXX 0 1 1 1  L H H H 1 1  /* cycle is terminated  */
+
+           C 0 1 1 001010 0 1 1 1  H H H H 1 1  /* new CPU AS           */
+           0 0 1 1 001010 1 0 1 1  H H H H 1 1  /* interrupt cycle no modsel*/
+

@@ -1,0 +1,212 @@
+Name            COUNTER.PLD;
+Partno          CY7C330;
+Revision        01;
+Date            02-25-90;
+Designer        Joe Designer;
+Company         Cypress Semiconductor;
+Location        U1;
+Assembly        COUNTER;
+Device          P7C330;
+
+/*
+   This design is an up/down counter with preloadable limits.  The Lower limits
+   are loaded into the dedicated input registers on the rising edge of LLC and
+   the upper limits are loaded into the input registers found in the I/O
+   macrocells on the rising edge of ULC.  The counter begins counting upwards,
+   when preloading is done, until the upper limit is reached, and then, begins
+   counting downward.  This design, because the equations are already
+   minimized and in sum of products form, should be compiled with the -M0 flag
+   (no minimization).
+*/
+
+PIN     1       =       CLK;           /* Clock used for counting */
+PIN     2       =       LLC;           /* Clock for preloading lower limit */
+PIN     3       =       ULC;           /* Clock for preloading upper limit */
+
+PIN     [4..7]  =       [LL0..3];      /* Lower limit hold registers */
+PIN     [9..12] =       [LL4..7];
+PIN     13      =       LPL;           /* Lower limit preload indications */
+
+
+/*
+   Counter output registers.  Pin assignments are based on the number of
+   product terms are available on that pin.
+*/
+
+PIN     28      =      CNT0;           /* Also used for Upper limit loading */
+PIN     15      =      CNT1;           /* Also used for Upper limit loading */
+PIN     26      =      CNT2;           /* Also used for Upper limit loading */
+PIN     17      =      CNT3;           /* Also used for Upper limit loading */
+PIN     19      =      CNT4;           /* Also used for Upper limit loading */
+PIN     24      =      CNT5;           /* Also used for Upper limit loading */
+PIN     20      =      CNT6;
+PIN     23      =      CNT7;
+PIN     18      =       UL6;           /* Used for Upper limit loading */
+PIN     25      =       UL7;           /* Used for Upper limit loading */
+PIN     27      =       UPL;
+
+
+
+PINNODE 29      =        UEQUAL;       /* Upper limit has been reached */
+PINNODE 30      =        PLDONE;       /* Preloading has finished */
+PINNODE 31      =        LEQUAL;       /* Lower limit has been reached */
+PINNODE 32      =        UP;           /* Count direction */
+
+PIN     16      =       !RESET;        /* Reset signal clears all registers */
+PIN     14      =       !CNTOE;        /* I/O pin OE used for loading upper limit */
+
+PINNODE  45     =       UL0;           /* Shared input MUX definition */
+PINNODE  46     =       UL2;           /* Shared input MUX definition */
+PINNODE  47     =       UL5;           /* Shared input MUX definition */
+PINNODE  48     =       UL4;           /* Shared input MUX definition */
+PINNODE  49     =       UL3;           /* Shared input MUX definition */
+PINNODE  50     =       UL1;           /* Shared input MUX definition */
+
+UL0.IMUX       =      CNT0.IOD;        /* These definitions are used to */
+UL2.IMUX       =      CNT2.IOD;        /* indicate which pin will be fed */
+UL5.IMUX       =      CNT5.IOD;        /* through the share feedback MUX.*/
+UL4.IMUX       =      CNT4.IOD;
+UL3.IMUX       =      CNT3.IOD;
+UL1.IMUX       =      CNT1.IOD;
+
+UL0            =      CNT0.IOD;
+UL2            =      CNT2.IOD;
+UL5            =      CNT5.IOD;
+UL4            =      CNT4.IOD;
+UL3            =      CNT3.IOD;
+UL1            =      CNT1.IOD;
+
+UPL.CKMUX       =       ULC;
+LPL.CKMUX       =       LLC;
+RESET.CKMUX     =       LLC;
+[CNT0..5].CKMUX =       ULC;           /* Pin 3 will be used for upper preload */
+[UL6..7].CKMUX  =       ULC;           /* Pin 3 will be used for upper preload */
+[LL0..7].CKMUX  =       LLC;           /* Pin 2 will be used for lower preload */
+
+[CNT0..7].SR    =       RESET.DQ;     /* Count register will be reset with pin 16 */
+
+[CNT0..7].OEMUX  =       CNTOE;        /* Output enable will be controlled by pin 14 */
+
+/*
+   Count equations.  Note how the use of the XOR terms significantly reduces the
+   number of product terms that are needed.  This allows this complex design to
+   fit into the device.
+*/
+
+
+!CNT0.D =  !CNT0
+     $     PLDONE
+     #     !LL0.DQ  & LPL.DQ  & CNT0
+     #     !CNT0 & UL0 & UPL.DQ
+     #     LL0.DQ  & LPL.DQ  & !CNT0
+     #     CNT0 & !UL0 & UPL.DQ ;
+
+
+!CNT1.D =  !CNT1
+     $     !LL1.DQ & LPL.DQ & !PLDONE & CNT1
+     #     LL1.DQ & LPL.DQ & !PLDONE & !CNT1
+     #     UPL.DQ & !PLDONE & !UL1 & CNT1
+     #     UPL.DQ & !PLDONE & UL1 & !CNT1
+     #     CNT0 & PLDONE & !UP
+     #     !CNT0 & PLDONE & UP ;
+
+!CNT2.D =  !CNT2
+     $     !LL2.DQ  & LPL.DQ  & CNT2 & !PLDONE
+     #     LL2.DQ  & LPL.DQ  & !CNT2 & !PLDONE
+     #     UPL.DQ & CNT2 & !UL2 & !PLDONE
+     #     UPL.DQ & !CNT2 & UL2 & !PLDONE
+     #     CNT0 & PLDONE & !UP & CNT1
+     #     !CNT0 & PLDONE & UP & !CNT1;
+
+!CNT3.D =  !CNT3
+     $     !LL3.DQ & LPL.DQ & !PLDONE & CNT3
+     #     LL3.DQ & LPL.DQ & !PLDONE & !CNT3
+     #     UPL.DQ & !PLDONE & !UL3 & CNT3
+     #     UPL.DQ & !PLDONE & UL3 & !CNT3
+     #     CNT0 & CNT2 & PLDONE & !UP & CNT1
+     #     !CNT0 & !CNT2 & PLDONE & UP & !CNT1;
+
+!CNT4.D =  !CNT4
+     $     !LL4.DQ & LPL.DQ & !PLDONE & CNT4
+     #     LL4.DQ & LPL.DQ & !PLDONE & !CNT4
+     #     UPL.DQ & !PLDONE & !UL4 & CNT4
+     #     UPL.DQ & !PLDONE & UL4 & !CNT4
+     #     CNT0 & CNT2 & PLDONE & !UP & CNT3 & CNT1
+     #     !CNT0 & !CNT2 & PLDONE & UP & !CNT3 & !CNT1;
+
+!CNT5.D =  !CNT5
+     $     !LL5.DQ  & LPL.DQ  & CNT5 & !PLDONE
+     #     LL5.DQ  & LPL.DQ  & !CNT5 & !PLDONE
+     #     UPL.DQ & CNT5 & !UL5 & !PLDONE
+     #     UPL.DQ & !CNT5 & UL5 & !PLDONE
+     #     CNT0 & CNT2 & PLDONE & CNT4 & !UP & CNT3 & CNT1
+     #     !CNT0 & !CNT2 & PLDONE & !CNT4 & UP & !CNT3 & !CNT1;
+
+!CNT6.D =  !CNT6
+     $     !LL6.DQ  & LPL.DQ  & !PLDONE & CNT6
+     #     LL6.DQ  & LPL.DQ  & !PLDONE & !CNT6
+     #     UPL.DQ & !PLDONE & CNT6 & !UL6.DQ
+     #     UPL.DQ & !PLDONE & !CNT6 & UL6.DQ
+     #     CNT0 & CNT2 & CNT5 & PLDONE & CNT4 & !UP & CNT3 & CNT1
+     #     !CNT0 & !CNT2 & !CNT5 & PLDONE & !CNT4 & UP & !CNT3 & !CNT1;
+
+!CNT7.D =  !CNT7
+     $     !LL7.DQ  & LPL.DQ  & CNT7 & !PLDONE
+     #     LL7.DQ  & LPL.DQ  & !CNT7 & !PLDONE
+     #     UPL.DQ & !UL7.DQ & CNT7 & !PLDONE
+     #     UPL.DQ & UL7.DQ & !CNT7 & !PLDONE
+     #     CNT0 & CNT2 & CNT5 & PLDONE & CNT6 & CNT4 & !UP & CNT3 & CNT1
+     #     !CNT0 & !CNT2 & !CNT5 & PLDONE & !CNT6 & !CNT4 & UP & !CNT3 & !CNT1;
+
+/* Direction of count */
+
+
+UP.D  =   UP
+     $     !UEQUAL & !UP & PLDONE
+     #     !LEQUAL & UP & PLDONE
+     #     UPL.DQ & !PLDONE & !UP
+     #     LPL.DQ & !PLDONE & UP;
+
+/* Has the lower limit been reached */
+
+LEQUAL.D =  LL6.DQ & !CNT6
+         # !LL7.DQ &  CNT7
+         #  LL7.DQ & !CNT7
+         #  LL3.DQ & !CNT3
+         # !LL5.DQ &  CNT5
+         #  LL5.DQ & !CNT5
+         # !LL1.DQ &  CNT1
+         #  LL0.DQ & !CNT0
+         # !LL2.DQ &  CNT2
+         # !LL4.DQ &  CNT4
+         #  LL4.DQ & !CNT4
+         # !LL0.DQ &  CNT0
+         #  LL1.DQ & !CNT1
+         # !LL6.DQ &  CNT6
+         # !LL3.DQ &  CNT3
+         #  LL2.DQ & !CNT2;
+
+/* Has preloading finished */
+
+PLDONE.D = !LPL.DQ  & !UPL.DQ ;
+
+/* Has the upper limit been reached */
+
+UEQUAL.D = !CNT6   &  UL6.DQ
+         # !UL7.DQ & CNT7
+         # UL7.DQ  & !CNT7
+         # UL3     & !CNT3
+         # CNT5    & !UL5
+         # !CNT5   & UL5
+         # !UL1    & CNT1
+         # !CNT0   & UL0
+         # CNT2    & !UL2
+         # !UL4    & CNT4
+         # UL4     & !CNT4
+         # CNT0    & !UL0
+         #  UL1    & !CNT1
+         # CNT6    & !UL6.DQ
+         # !UL3    & CNT3
+         # !CNT2   & UL2;
+
+

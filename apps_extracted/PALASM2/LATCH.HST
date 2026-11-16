@@ -1,0 +1,36 @@
+PALASM SIMULATION, V2.23D - MARKET RELEASE (2-14-89)
+(C) - COPYRIGHT ADVANCED MICRO DEVICES INC., 1989
+PALASM SIMULATION HISTORY LISTING
+
+Title    : Octal_Latch             Author   : Mehrnaz Hada            
+Pattern  : 8latch.pds              Company  : Monolithic Memories Inc.
+Revision : A                       Date     : 1/15/85                 
+
+PAL10H20P8     
+OCTALLATCH                    
+Page :  1
+        gggggggggg 
+/LATCH0 LLLLLHHHHH 
+ D1     HHHHLLLLLL 
+ D0     HHHHHHHHHH 
+ Q0     LLHHHHLLLL 
+ Q1     LLHHLLLLLL 
+ VCC1   HHHHHHHHHH 
+ Q2     LLHHLLLLLL 
+ Q3     LLHHHHLLLL 
+ D3     HHHHHHHHHH 
+ D2     HHHHLLLLLL 
+ CLR0   HHLLLLHLHH 
+ GND    LLLLLLLLLL 
+/LATCH1 XLLLHLLHHH 
+ D6     HHHHHLLLLL 
+ D7     HHHHHHHHHH 
+ D4     HHHHHLLLLL 
+ Q7     XLHHHHLLLL 
+ Q6     XLHHHLLLLL 
+ VCC2   HHHHHHHHHH 
+ Q5     XLHHHLLLLL 
+ Q4     XLHHHLLLLL 
+ D5     HHHHHLLLLL 
+ CLR1   XHLLLLHLLH 
+ VCC3   HHHHHHHHHH 

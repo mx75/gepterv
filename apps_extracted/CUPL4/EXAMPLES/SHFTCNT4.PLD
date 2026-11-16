@@ -1,0 +1,76 @@
+Name            Shftcnt4;
+Partno          CA0004;
+Date            6/18/84;
+Revision        01;
+Designer        T. Kahl;
+Company         Assisted Technology, Inc.;
+Assembly        None;
+Location        None;
+Device          F159;
+
+/****************************************************************/
+/*                                                              */
+/* This is a four-bit UP/DOWN counter with shifting capability  */
+/*                                                              */
+/****************************************************************/
+/* Allowable Target Device Types: 82S159                        */
+/****************************************************************/
+
+/** Input Group **/
+
+pin 1 = clk;            /* Clock input for device               */
+pin [2..5] = [I0..3];   /* Mode control inputs                  */
+pin 11  = !oe;          /* Output enable for registers          */
+
+/** Output Group **/
+
+pin [12..15] = ![F0..3]; /* Function outputs                    */
+
+/** Declarations and Intermediate Variable Definitions **/
+
+field mode  = [I3..0];  /* Count/Shift Mode control field       */
+field count = [F3..0];  /* Output bit field                     */
+
+right = mode:2;         /* Define Counter/Shift Modes           */
+up    = mode:3;
+left  = mode:4;
+down  = mode:5;
+clear = mode:[8..F];
+
+/** Logic Equations **/
+
+count.ar  = clear;
+
+F0.j = down
+     # up
+     # left  &  F3
+     # right &              F1;
+F0.k = down
+     # up
+     # left  & !F3
+     # right &             !F1;
+F1.j = down  &                   !F0
+     # up    &                    F0
+     # left  &                    F0
+     # right &        F2;
+F1.k = down  &                   !F0
+     # up    &                    F0
+     # left  &                   !F0
+     # right &       !F2;
+F2.j = down  &             !F1 & !F0
+     # up    &              F1 &  F0
+     # left  &              F1
+     # right &  F3;
+F2.k = down  &             !F1 & !F0
+     # up    &              F1 &  F0
+     # left  &             !F1
+     # right & !F3;
+F3.j = down  &       !F2 & !F1 & !F0
+     # up    &        F2 &  F1 &  F0
+     # left  &        F2
+     # right &                    F0;
+F3.k = down  &       !F2 & !F1 & !F0
+     # up    &        F2 &  F1 &  F0
+     # left  &       !F2
+     # right &                   !F0;
+

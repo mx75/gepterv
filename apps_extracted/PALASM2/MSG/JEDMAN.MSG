@@ -1,0 +1,138 @@
+5 >>>>>>>>>> MMI JED(EC) MAN(ipulator) <<<<<<<<<<
+10
+10 >>ERROR : Input JEDEC file - %S% - cannot be opened.
+10
+20
+20 >>ERROR : PDF file PALPDF.PDF cannot be opened.
+20
+30
+30 >>ERROR : Part name - %S% - is incorrect.
+30
+40
+40 >>ERROR : Input file - %S% - is not a valid JEDEC file.
+40
+50
+50 >>ERROR : Input file - %S% - terminated prematurely.
+50
+60
+60 >>ERROR : Error file - %S% - cannot be created.
+60
+70
+70 >>ERROR : Output JEDEC file - %S% - cannot be created.
+70
+80
+80 >>ERROR : Output PALASM2 file - %S% - cannot be created.
+80
+90
+90 >>ERROR : Illegal data - %S% - in fuse field.
+90
+95
+95 >>ERROR : All the JEDEC fuse data must appear in one block.
+95
+100
+100 >>ERROR : No fuses specified in the input file.
+100
+105
+105 >>ERROR : Fuse number - %I% - has been defined twice.
+105
+110
+110 >>ERROR : Product term SHARING is not allowed in - %S% -.
+110
+115
+115 >>ERROR : Fuse number - %I% - exceeds the fuse count permitted.
+115
+120
+120
+120 >>ERROR : Data array fuse buffer size - %I% - exceeded.
+120
+130
+130
+130 >>ERROR : The input file is not a valid 22V10 JEDEC file.
+130
+135
+135 >>ERROR : Device name entered should be 22V10 for the option chosen.
+135
+140 %G% Non-recoverable errors detected. Program terminated.
+140
+150
+150 >>WARNING : Invalid field identifier - %S% -.
+150
+160
+160 >>WARNING : Field - %S% - not valid in this context.
+160
+165
+165 >>WARNING : Integer expected in the current - %S% - field.
+165
+170
+170 >>WARNING : Illegal specification of - %S% - field.
+170
+180
+180 >>WARNING : Incorrect number of fuses in the QF field.
+180             Found - %I% -.
+181             Expected - %I% -.
+181
+190
+190 >>WARNING : Incorrect number of pins in the QP field.
+190             Found - %I% -.
+191             Expected - %I% -.
+191
+210
+210 >>WARNING : Incorrect fuse checksum in the input file.
+210             Found - %S% -.
+211             Expected - %S% -.
+211
+220
+220 >>WARNING : Invalid data - %S% - in vector field.
+220
+225
+225 >>WARNING : Simulation code generation not currently supported.
+225
+230
+230 >>WARNING : Super-voltage will be replaced by "PRLDF".
+230
+240
+240 >>WARNING : Incorrect number of logic values in vector.
+240             Found - %I% - entries.
+241             Expected - %I% - entries.
+241
+250
+250 >>WARNING : Vector limit - %I% - exceeded.
+250
+260
+260 >>WARNING : Incorrect transmission checksum.
+260             Found - %S% -.
+261             Expected - %S% -.
+261
+270
+270 >>WARNING : Invalid transmission checksum in the input file.
+270
+350 %G% Warnings issued. Check the input JEDEC file.
+350
+500 %G% Program successfully completed. Check output files.
+500
+750
+750 %G% Input file : %S%, Warnings : %I% ,
+760  Errors : %I%.
+800
+800 Program terminated by [Q] ...
+800
+1000
+1000 Starting PAL data file traversal ...
+1010 Extracting data for PAL
+1020
+1020 Releasing data structure to free list ...
+1030  DONE !
+1040 Generating the pin list ...
+1050 Generating the PALASM2 Boolean equations ...
+1060
+1060 Parsing the input JEDEC file ...
+1060
+1070
+1070
+1070 ... parse phase completed.
+1070
+1080 Writing the output JEDEC file ...
+1090
+1090 Checking the input 22V10 JEDEC file ...
+1100 Creating the output PAL32VX10 JEDEC file ...
+

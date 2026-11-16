@@ -1,0 +1,136 @@
+MODULE bus215
+TITLE 'Bus-loadable 8-bit up/down counter   Data I/O Corp  9 Jan 1991'
+
+DECLARATIONS
+        bus215 DEVICE  'mach215a';
+
+"Inputs
+        Clk,M1,M0                       PIN;
+        Reset1,Reset2,Preset1,Preset2   PIN;
+"Outputs
+        Carry0,Cnt7Reg                  PIN  ISTYPE 'REG,BUFFER';
+        Cnt7,Cnt15up,Cnt15dn,Ld0        PIN  ISTYPE 'COM';
+        Pulse16,Div32                   PIN  ISTYPE 'COM';
+        Q7,Q6,Q5,Q4,Q3,Q2,Q1,Q0         PIN  ISTYPE 'REG_T,BUFFER';
+
+"Sets and Constants
+        Z,X,C = .Z.,.X.,.C.;
+        Count   = [Q7..Q0];
+        Mode    = [M1,M0];
+        Up      = [ 0, 0];
+        Down    = [ 0, 1];
+        Load    = [ 1, X];
+        Reset   = [Reset2 ,Reset1 ];
+        Preset  = [Preset2,Preset1];
+
+AMDMACH property 'GROUP A Q7 Q6 Q5 Q4 Q3 Q2 Q1 Q0';
+AMDMACH property 'GROUP B Carry0 Cnt7 Cnt15up';
+AMDMACH property 'GROUP B Cnt15dn Cnt7Reg Pulse16 Div32';
+
+EQUATIONS
+      Count.t   = ((Count.q + 1) & (Mode == Up)
+                #  (Count.q - 1) & (Mode == Down)
+                #   Count        & (Mode == Load)) $ Count.q;
+
+      Count.oe  = (Mode == Up) # (Mode == Down);
+      Count.clk = Clk;
+      Count.ar  = Reset1  & Reset2;
+      Count.ap  = Preset1 & Preset2;
+
+      Carry0   := (Count.q == 254) & (Mode == Up)
+                # (Count.q == 1)   & (Mode == Down);
+
+      Cnt7Reg  := (Count.q == 7);
+
+      [Carry0,Cnt7Reg].clk = Clk;
+      [Carry0,Cnt7Reg].AR = 0;
+      [Carry0,Cnt7Reg].AP = 0;
+
+      Cnt7      = (Count.q == 7);
+      Cnt15up   = (Count.q == 15) & (Mode == Up);
+      Cnt15dn   = (Count.q == 15) & (Mode == Down);
+      Ld0       = (Count.q == 0)  & (Mode == Load);
+
+      Pulse16   = (Count.q == [X,X,X,X,1,1,1,1]);
+      Div32     = (Count.q == [X,X,X,1,X,X,X,X]);
+
+DECLARATIONS
+      XOR,TMP   PIN  ISTYPE 'COM';
+
+EQUATIONS
+      XOR       = (TMP $ Q6.q) !$ Q7.q;
+      TMP       = Q0.q & Q1.q & Q2.q & Q3.q & Q4.q & Q5.q;
+
+TEST_VECTORS
+       ([Clk,Mode,Reset,Preset,Count] -> [Count,Carry0])
+        [ 0 , Up , !0  ,   0  ,  X  ] -> [  0  ,  0   ];
+        [ 0 ,Load,  0  ,   0  ,  X  ] -> [ .Z. ,  0   ];
+        [ C ,Load,  0  ,   0  , 125 ] -> [  X  ,  0   ];
+        [ 0 , Up ,  0  ,   0  ,  X  ] -> [ 125 ,  0   ];
+        [ C , Up ,  0  ,   0  ,  X  ] -> [ 126 ,  0   ];
+        [ C , Up ,  0  ,   0  ,  X  ] -> [ 127 ,  0   ];
+        [ C , Up ,  0  ,   0  ,  X  ] -> [ 128 ,  0   ];
+        [ C , Up ,  0  ,   0  ,  X  ] -> [ 129 ,  0   ];
+        [ 0 , Up , !0  ,   0  ,  X  ] -> [  0  ,  0   ];
+        [ 0 , Up ,  0  ,  !0  ,  X  ] -> [ 255 ,  0   ];
+        [ C , Up ,  0  ,   0  ,  X  ] -> [  0  ,  0   ];
+        [ C , Up ,  0  ,   0  ,  X  ] -> [  1  ,  0   ];
+        [ C , Up ,  0  ,   0  ,  X  ] -> [  2  ,  0   ];
+        [ C , Up ,  0  ,   0  ,  X  ] -> [  3  ,  0   ];
+        [ C ,Down,  0  ,   0  ,  X  ] -> [  2  ,  0   ];
+        [ C ,Down,  0  ,   0  ,  X  ] -> [  1  ,  0   ];
+        [ C ,Down,  0  ,   0  ,  X  ] -> [  0  ,  1   ];
+        [ C ,Down,  0  ,   0  ,  X  ] -> [ 255 ,  0   ];
+        [ C ,Down,  0  ,   0  ,  X  ] -> [ 254 ,  0   ];
+        [ C ,Down,  0  ,   0  ,  X  ] -> [ 253 ,  0   ];
+        [ C , Up ,  0  ,   0  ,  X  ] -> [ 254 ,  0   ];
+        [ C , Up ,  0  ,   0  ,  X  ] -> [ 255 ,  1   ];
+        [ C , Up ,  0  ,   0  ,  X  ] -> [  0  ,  0   ];
+        [ C , Up ,  0  ,   0  ,  X  ] -> [  1  ,  0   ];
+        [ C , Up ,  0  ,   0  ,  X  ] -> [  2  ,  0   ];
+
+TEST_VECTORS
+     ([Clk,Mode,Reset,Preset,Count] -> [Count,Cnt7Reg,Cnt7,Cnt15up,Cnt15dn])
+      [ C ,Load,  0  ,   0  ,  6  ] -> [  X  ,  0    ,  0 ,    0  ,    0  ];
+      [ 0 , Up ,  0  ,   0  ,  X  ] -> [  6  ,  0    ,  0 ,    0  ,    0  ];
+      [ C , Up ,  0  ,   0  ,  X  ] -> [  7  ,  0    ,  1 ,    0  ,    0  ];
+      [ C , Up ,  0  ,   0  ,  X  ] -> [  8  ,  1    ,  0 ,    0  ,    0  ];
+      [ C , Up ,  0  ,   0  ,  X  ] -> [  9  ,  0    ,  0 ,    0  ,    0  ];
+      [ C , Up ,  0  ,   0  ,  X  ] -> [  10 ,  0    ,  0 ,    0  ,    0  ];
+      [ C , Up ,  0  ,   0  ,  X  ] -> [  11 ,  0    ,  0 ,    0  ,    0  ];
+      [ C , Up ,  0  ,   0  ,  X  ] -> [  12 ,  0    ,  0 ,    0  ,    0  ];
+      [ C , Up ,  0  ,   0  ,  X  ] -> [  13 ,  0    ,  0 ,    0  ,    0  ];
+      [ C , Up ,  0  ,   0  ,  X  ] -> [  14 ,  0    ,  0 ,    0  ,    0  ];
+      [ C , Up ,  0  ,   0  ,  X  ] -> [  15 ,  0    ,  0 ,    1  ,    0  ];
+      [ C , Up ,  0  ,   0  ,  X  ] -> [  16 ,  0    ,  0 ,    0  ,    0  ];
+      [ C ,Down,  0  ,   0  ,  X  ] -> [  15 ,  0    ,  0 ,    0  ,    1  ];
+      [ C ,Down,  0  ,   0  ,  X  ] -> [  14 ,  0    ,  0 ,    0  ,    0  ];
+
+
+TEST_VECTORS
+     ([Clk,Mode,Reset,Preset] -> [Count,Pulse16,Div32])
+      [ 0 , Up , !0  ,   0  ] -> [   0 ,    0  ,  0  ];
+      [ C , Up ,  0  ,   0  ] -> [   1 ,    0  ,  0  ];
+
+@const i=2; @repeat 12 {
+      [ C , Up ,  0   ,  0  ] -> [@expr i;, 0  ,  0  ]; @const i=i+1;}
+
+      [ C , Up ,  0  ,   0  ] -> [  14 ,    0  ,  0  ];
+      [ C , Up ,  0  ,   0  ] -> [  15 ,    1  ,  0  ];
+      [ C , Up ,  0  ,   0  ] -> [  16 ,    0  ,  1  ];
+
+@const i=17; @repeat 13 {
+      [ C , Up ,  0   ,  0  ] -> [@expr i;, 0  ,  1  ]; @const i=i+1;}
+
+      [ C , Up ,  0  ,   0  ] -> [  30 ,    0  ,  1  ];
+      [ C , Up ,  0  ,   0  ] -> [  31 ,    1  ,  1  ];
+      [ C , Up ,  0  ,   0  ] -> [  32 ,    0  ,  0  ];
+
+@const i=33; @repeat 13 {
+      [ C , Up ,  0   ,  0  ] -> [@expr i;, 0  ,  0  ]; @const i=i+1;}
+
+      [ C , Up ,  0  ,   0  ] -> [  46 ,    0  ,  0  ];
+      [ C , Up ,  0  ,   0  ] -> [  47 ,    1  ,  0  ];
+      [ C , Up ,  0  ,   0  ] -> [  48 ,    0  ,  1  ];
+END
+

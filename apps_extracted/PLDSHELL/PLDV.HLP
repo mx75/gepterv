@@ -1,0 +1,133 @@
+     PLDV (logic viewer) Help File             ESC Exits Help
+
+
+          The Viewer Shows the Following States
+
+          3 Logic Levels -- 1,0 and Unknown (three lines)
+
+          Each Logic Level can be one of the Following
+
+          Inputs    - GREEN
+          Outputs   - LIGHT BLUE
+          Tri-State - RED
+          Pre-load  - DARK BLUE
+
+          Buses are Shown in Red with the Hex Value Centered
+          between the Transitions.
+
+
+                                                       <CR> <more>
+Mouse Functions 
+----------------
+Move Mouse Up       Move cursor up one position
+                    If at top, move signals down
+Move Mouse Down     Move cursor up down position
+                    If at bottom, move signals up
+Move Mouse Left     Move cursor left one position
+                    If at side, move signals right
+Move Mouse Right    Move cursor right one position
+                    If at side, move signals left
+
+Left Button         If highlighted and held drag signal
+Left Button         If not highlighted, zoom in
+Middle Button       If highlighted copy signal
+Middle Button       If not highlighted, toggle reference marker
+Right Button        If highlighted delete signal
+Right Button        If not highlighted, zoom out
+
+                                                       <CR> <more>
+Key Pad functions 
+------------------
+Up arrow             Move cursor up one position
+                     If at top, move signals down
+Down arrow           Move cursor down one position
+                     If at bottom, move signals up
+Left arrow           Move cursor left one position
+                     If at side, move signals right
+Right arrow          Move cursor right one position
+                     If at side, move signals left
+^ Left arrow         Move cursor left half screen
+                     If at side, move signals right
+^ Right arrow        Move cursor right half screen
+                     If at side, move signals left
+Shift Left arrow     Move screen left one position
+Shift Right arrow    Move screen right one position
+
+
+                                                       <CR> <more>
+Home           Move cursor to left side of screen
+End            Move cursor to right side of screen
+^ Home         Move cursor to begining of file
+^ End          Move cursor to end of file
+PgUp           Drag signal up one position, if highlighted
+PgUp           Move cursor up ten positions, if not highlighted
+               If at top, move signals down
+PgDn           Drag signal down one position, if highlighted
+PgDn           Move cursor down ten positions, if not highlighted
+               If at bottom, move signals up
+ +             Zoom in
+ -             Zoom out
+ *             Toggle reference marker
+ r             Reset program to starting conditions
+ ?             Display this file
+INS            Copy signal, if highlighted
+DEL            Delete signal, if highlighted
+ESC or ^C      Exit program
+                                                       <CR> <more>
+Save Current File:   Shift F9
+
+After editing the waveforms, you can save the current state by 
+pressing Shift <F9>. The waveforms are saved in their current
+arrangement using the first five characters of the original
+filename with a new suffix of "-nn.HST". The value "nn" will 
+be a number from 00 through 99 for any file already exists 
+with the same name. The name of the saved file will be 
+displayed in a small window for 3 seconds.
+
+
+Undo Command:        F10
+
+The undo command allows signal editing commands such as delete 
+signal, move signal, and copy signal to be undone. The last 5 
+edits can be undone. If the undo buffer is empty, a warning 
+beep will sound if you press <F10>.
+
+                                                       <CR> <more>
+File Browser:        Shift F10
+
+Pressing Shift <F10> opens a window and displays a file with the
+same name (but different extension) as the file being viewed.  Up
+to 8 files can be viewed sequentially.  Pressing <F10> again
+moves to the next file until all files have been displayed.
+Pressing Shift <F10> moves back to the previous file in the list.
+Pressing the <TAB> key toggles between the waveforms and the
+current file.  Pressing the <ESC> key exits to the waveform
+viewer.
+
+NOTES:
+
+The current cursor position is at the top left of the screen.
+The top right of the screen is for the delta readout, 
+(i.e., the cursor position minus the reference marker position).
+
+
+                                                       <CR> <more>
+The reference marker is toggled on/off by the middle mouse button.
+Both of these readouts change to red when zoomed out past one bit
+of information per pixel.
+
+The help screen can be exited at any time by pressing the ESC key
+instead of paging through the whole file.
+
+Page Up and Page Down can move though the help file.
+
+
+
+
+
+
+
+
+
+
+                                                       <CR> <end>

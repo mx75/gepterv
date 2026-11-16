@@ -1,0 +1,98 @@
+Title ' 9-BIT EVEN/ODD PARITY GENERATOR/CHECKER'
+Designer ' SCOTT LIEN'
+Date ' 5-29-91'
+
+Description
+
+  This application uses the PEEL22CV10A as a 9-bit even/odd parity
+  generator/checker. The table below describes the operation:
+
+  ---------------------------------------------------
+  | Number of high | Parity_I | Even_Odd | Parity_O |
+  | inputs A - H   |          |          |          |
+  ---------------------------------------------------
+  |    Even        |     1    |    0     |     H    |
+  ---------------------------------------------------
+  |    Odd         |     1    |    0     |     L    |
+  ---------------------------------------------------
+  |    Even        |     0    |    0     |     L    |
+  ---------------------------------------------------
+  |    Odd         |     0    |    0     |     H    |
+  ---------------------------------------------------
+  |    Even        |     1    |    1     |     L    |
+  ---------------------------------------------------
+  |    Odd         |     1    |    1     |     H    |
+  ---------------------------------------------------
+  |    Even        |     0    |    1     |     H    |
+  ---------------------------------------------------
+  |    Odd         |     0    |    1     |     L    |
+  ---------------------------------------------------
+
+  It is very easy to use the exclusive-OR operations to implement a parity
+  function. To build a N-bit parity generator/checker, (N-1) 2-input
+  exclusive-OR gates are required. The same function can be implemented by
+  the AND-OR logic but it requires 2 to the (N-1)th power product terms. For
+  a 9-bit parity function, 256 product terms are needed. Even though the
+  PEEL22CV10A device does not have this many product terms, this function can
+  still be implemented in the device. The solution is to use two macro cells
+  to implement the two 4-bit parity generators. Then, both the outputs are
+  fed back and XORed with the 9th bit (Parity_In). The penalty with this
+  method is the added delay caused by the feedback of the 4-bit parity
+  generator outputs. However, if this function is implemented in the
+  PEEL22CV10A device, the delay would be 2 to 3 ns less than if it was
+  implemented in the industry standard 22V10 device. This is because the
+  outputs in the 22V10 device is fed back from the pin, whereas in the
+  PEEL22CV10A the outputs can be configured to feedback directly from the
+  OR gate.
+
+End_Desc;
+
+PEEL22CV10A+
+
+A PIN 1
+
+"I/O CONFIGURATION DECLARATION
+"IOC (PIN_NO 'PIN_NAME' OUTPUT_POLARITY OUTPUT_TYPE FEEDBACK_TYPE)
+B pin 2
+C pin 3
+D pin 4
+E pin 5
+F pin 6 
+G pin 7 
+H pin 8
+PARITY_I PIN 9
+EVEN_ODD PIN 10
+IOC (14 '' POS COM FEED_PIN)
+IOC (15 '' POS COM FEED_PIN)
+IOC (16 '' Pos Com Feed_Pin)
+IOC (17 '' Pos Com Feed_Pin)
+IOC (18 '' Pos Com Feed_Pin)
+IOC (19 '' Pos Com Feed_Pin)
+IOC (20 '' POS COM FEED_PIN)
+IOC (21 'E_H' Pos In Feed_Or)
+IOC (22 'A_D' Pos In Feed_Or)
+IOC (23 'PARITY_O' Pos OutCom Feed_Pin)
+
+AR NODE 25  "Global Asynchronous Reset
+SP NODE 26  "Global Synchronous Preset
+
+
+DEFINE
+
+
+EQUATIONS
+
+AR = 0;
+
+SP = 0;
+
+PARITY_O.And = 0;
+PARITY_O.Com = (A_D $ E_H $ PARITY_I) & !EVEN_ODD #
+               !(A_D $ E_H $ PARITY_I) & EVEN_ODD;
+
+A_D.And = 0;
+A_D.Com = A $ B $ C $ D;
+
+E_H.And = 0;
+E_H.Com = E $ F $ G $ H;
+

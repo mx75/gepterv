@@ -1,0 +1,154 @@
+Title    9BitCounter
+Pattern  9BitCnt.pds
+Revision A
+Author   Mehrnaz Hada
+Company  Monolithic Memories Inc., Santa Clara, CA
+Date     1/28/85
+  
+  
+;The 9-bit synchronous counter has parallel load, increment,
+;and hold capabilities. The carry out pin (/CO) shows how to
+;implement a carry out using a register by anticipated one
+;count before the terminal count if counting and the terminal
+;count if loading.
+  
+;Operations Table
+  
+;     /OC   CLK   /LD   D8-D0   Q8-Q0     Operation
+;     ----------------------------------------------
+;      H     X     X      X       Z       HI-Z
+;      L     L     X      X       Q       Hold
+;      L     C     L      D       D       Load
+;      L     C     H      X    Q PLUS 1   Increment
+;     ----------------------------------------------
+  
+CHIP 9BitCounter PAL20X10
+  
+CLK  D0 D1 D2 D3 D4 D5 D6 D7 D8 /LD GND
+/OC /CO Q8 Q7 Q6 Q5 Q4 Q3 Q2 Q1  Q0 VCC
+  
+EQUATIONS
+  
+/Q0 :=  /LD*/Q0                                   ;Hold Q0
+     +   LD*/D0                                   ;Load D0 (LSB)
+    :+: /LD                                       ;Count
+  
+/Q1 :=  /LD*/Q1                                   ;Hold Q1
+     +   LD*/D1                                   ;Load D1
+    :+: /LD* Q0                                   ;Count
+  
+/Q2 :=  /LD*/Q2                                   ;Hold Q2
+     +   LD*/D2                                   ;Load D2
+    :+: /LD* Q0* Q1                               ;Count
+  
+/Q3 :=  /LD*/Q3                                   ;Hold Q3
+     +   LD*/D3                                   ;Load D3
+    :+: /LD* Q0* Q1* Q2                           ;Count
+  
+/Q4 :=  /LD*/Q4                                   ;Hold Q4
+     +   LD*/D4                                   ;Load D4
+    :+: /LD* Q0* Q1* Q2* Q3                       ;Count
+  
+/Q5 :=  /LD*/Q5                                   ;Hold Q5
+     +   LD*/D5                                   ;Load D5
+    :+: /LD* Q0* Q1* Q2* Q3* Q4                   ;Count
+  
+/Q6 :=  /LD*/Q6                                   ;Hold Q6
+     +   LD*/D6                                   ;Load D6
+    :+: /LD* Q0* Q1* Q2* Q3* Q4* Q5               ;Count
+  
+/Q7 :=  /LD*/Q7                                   ;Hold Q7
+     +   LD*/D7                                   ;Load D7
+    :+: /LD* Q0* Q1* Q2* Q3* Q4* Q5* Q6           ;Count
+  
+/Q8 :=  /LD*/Q8                                   ;Hold Q8
+     +   LD*/D8                                   ;Load D8 (MSB)
+    :+: /LD* Q0* Q1* Q2* Q3* Q4* Q5* Q6* Q7       ;Count
+  
+ CO :=  /LD*/Q0* Q1* Q2* Q3* Q4* Q5* Q6* Q7* Q8   ;Carry out (Anticipate Count)
+     +   LD* D0* D1* D2* D3* D4* D5* D6* D7* D8   ;Carry out (Anticipate Load)
+  
+SIMULATION
+  
+TRACE_ON /OC /LD D8 D7 D6 D5 D4 D3 D2 D1 D0
+         /CO Q8 Q7 Q6 Q5 Q4 Q3 Q2 Q1 Q0
+  
+SETF OC LD /D8 /D7 /D6 /D5 /D4 /D3 /D2 /D1 /D0    ;Load
+CLOCKF CLK
+  
+SETF /LD                                          ;Increment
+CLOCKF CLK
+  
+SETF LD /D8 /D7 /D6 /D5 /D4 /D3 /D2 /D1 D0        ;Load
+CLOCKF CLK
+  
+SETF /LD                                          ;Increment
+CLOCKF CLK
+  
+SETF LD /D8 /D7 /D6 /D5 /D4 /D3 D2 D1 D0          ;Load
+CLOCKF CLK
+  
+SETF /LD                                          ;Increment
+CLOCKF CLK
+  
+SETF LD /D8 /D7 /D6 /D5 /D4 D3 D2 D1 D0           ;Load
+CLOCKF CLK
+  
+SETF /LD                                          ;Increment
+CLOCKF CLK
+  
+SETF LD /D8 /D7 /D6 /D5 D4 D3 D2 D1 D0            ;Load
+CLOCKF CLK
+  
+SETF /LD                                          ;Increment
+CLOCKF CLK
+  
+SETF LD /D8  D7  D6  D5 D4 D3 D2 D1 D0            ;Load
+CLOCKF CLK
+  
+SETF /LD                                          ;Increment
+CLOCKF CLK
+  
+TRACE_OFF
+  
+;Function Table
+  
+;CLK /OC /LD D8 D7 D6 D5 D4 D3 D2 D1 D0 /CO
+;            Q8 Q7 Q6 Q5 Q4 Q3 Q2 Q1 Q0
+  
+;             Data In        Data  Out
+;  Control   DDDDDDDDD       QQQQQQQQQ
+;CLK /OC /LD 876543210  /CO  876543210  Comment
+;-----------------------------------------------------
+; C   L   L  LLLLLLLLL   H   LLLLLLLLL  Load
+; C   L   H  XXXXXXXXX   H   LLLLLLLLH  Increment
+; C   L   L  LLLLLLLLH   H   LLLLLLLLH  Load
+; C   L   H  XXXXXXXXX   H   LLLLLLLHL  Increment
+; C   L   L  LLLLLLLHH   H   LLLLLLLHH  Load
+; C   L   H  XXXXXXXXX   H   LLLLLLHLL  Increment
+; C   L   L  LLLLLLHHH   H   LLLLLLHHH  Load
+; C   L   H  XXXXXXXXX   H   LLLLLHLLL  Increment
+; C   L   L  LLLLLHHHH   H   LLLLLHHHH  Load
+; C   L   H  XXXXXXXXX   H   LLLLHLLLL  Increment
+; C   L   L  LLLLHHHHH   H   LLLLHHHHH  Load
+; C   L   H  XXXXXXXXX   H   LLLHLLLLL  Increment
+; C   L   L  LLLHHHHHH   H   LLLHHHHHH  Load
+; C   L   H  XXXXXXXXX   H   LLHLLLLLL  Increment
+; C   L   L  LLHHHHHHH   H   LLHHHHHHH  Load
+; C   L   H  XXXXXXXXX   H   LHLLLLLLL  Increment
+; C   L   L  LHHHHHHHH   H   LHHHHHHHH  Load
+; C   L   H  XXXXXXXXX   H   HLLLLLLLL  Increment
+; C   L   L  HHHHHHHHH   L   HHHHHHHHH  Load(Carry out)
+; C   L   H  XXXXXXXXX   H   LLLLLLLLL  Increment(Roll over)
+; C   L   L  HHHHHHHLL   H   HHHHHHHLL  Load
+; C   L   H  XXXXXXXXX   H   HHHHHHHLH  Increment
+; L   L   H  XXXXXXXXX   H   HHHHHHHLH  Hold
+; C   L   H  XXXXXXXXX   H   HHHHHHHHL  Increment
+; C   L   H  XXXXXXXXX   L   HHHHHHHHH  Increment(Carry out)
+; C   L   H  XXXXXXXXX   H   LLLLLLLLL  Increment(Roll over)
+; X   H   X  XXXXXXXXX   Z   ZZZZZZZZZ  Test HI-Z
+;-----------------------------------------------------------
+  
+  
+  
+

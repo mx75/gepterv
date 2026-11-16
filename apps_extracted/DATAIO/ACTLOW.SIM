@@ -1,0 +1,21 @@
+Simulate EZ-ABEL 4.30  Date: Fri Dec 20 16:36:59 19<4
+Fuse file: 'actlow.jed'  Vector file: 'actlow.tmv'  Part: 'P22V10'
+EZ-ABEL 4.32 Data I/O Corp. JEDEC file for: P22V10 V9.0
+Created on: Fri Dec 20 16:31:53 19<4
+
+Functional example of active low output signals, 22 July 1992
+         John Gromala, Data I/O Corporation.
+
+
+       c              
+       l       o o o o
+       o i i   u u u u
+       c n n   t t t t
+       k 1 2   1 2 3 4
+                      
+V0001  0 0 0   L L H H
+V0002  C 0 0   H L H L
+V0003  C 1 1   L H L H
+V0004  C 0 1   H L H L
+
+4 out of 4 vectors passed.

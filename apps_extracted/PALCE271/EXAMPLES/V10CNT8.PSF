@@ -1,0 +1,150 @@
+TITLE 'PEEL22CV10 8-BIT UP/DOWN LOADABLE COUNTER WITH CARRY-OUT OR BORROW-IN'
+DESIGNER 'Ed Peel'
+Date '6/9/88'
+
+Description
+  This application uses the PEEL22CV10 as an 8-bit Up/Down Loadable counter.
+
+  OPERATION TABLE
+    CLK   CLR   UP   LOAD   !OE   D7 - D0    Q7 - Q0    CO_BI
+    ---   ---   --   ----   ---   -------    -------    -----
+     C     1     X     X     0       X         LOW        0
+     C     0     1     0     0       X       COUNT UP     0
+     C     0     1     0     0       X       255 -> 0     1 Carry-Out
+     C     0     0     0     0       X      COUNT DOWN    0
+     C     0     0     0     0       X       0 -> 255     1 Borrow-In
+     C     0     X     1     0    DATA IN    DATA IN      0
+     X     X     X     X     1       X       3-STATE      0
+
+End_Desc;
+
+PEEL22CV10A
+
+
+CLK pin 1
+CLR pin 2
+D0 pin 3
+D1 pin 4
+D2 pin 5
+D3 pin 6
+D4 pin 7
+D5 pin 8
+D6 pin 9
+D7 pin 10
+UP pin 11
+OE pin 13
+IOC(14 'Q0' POS REG FEED_REG)
+IOC(15 'Q1' POS REG FEED_REG)
+IOC(16 'Q2' POS REG FEED_REG)
+IOC(17 'Q3' POS REG FEED_REG)
+IOC(18 'Q7' POS REG FEED_REG)
+IOC(19 'Q6' POS REG FEED_REG)
+IOC(20 'Q5' POS REG FEED_REG)
+IOC(21 'Q4' POS REG FEED_REG)
+IOC(22 'CO_BI' POS REG FEED_REG)
+IOC(23 'LOAD' POS COM FEED_PIN)
+
+AC NODE 25
+SP NODE 26
+
+Define
+
+EQUATIONS
+
+AC = 0;
+
+Q7.OE = !OE;
+Q6.OE = !OE;
+Q5.OE = !OE;
+Q4.OE = !OE;
+Q3.OE = !OE;
+Q2.OE = !OE;
+Q1.OE = !OE;
+Q0.OE = !OE;
+CO_BI.OE = !OE;
+LOAD.OE = 0 ;
+SP = !CLR & !Q0 & !Q1 & !Q2 & !Q3 & !Q4 & !Q5 & !Q6 & !Q7 & !UP & !LOAD;
+Q7.D = !CLR & Q0 & Q7 & !UP & !LOAD #
+ !CLR & Q1 & Q7 & !UP & !LOAD #
+ !CLR & Q2 & Q7 & !UP & !LOAD #
+ !CLR & Q3 & Q7 & !UP & !LOAD #
+ !CLR & Q4 & Q7 & !UP & !LOAD #
+ !CLR & Q5 & Q7 & !UP & !LOAD #
+ !CLR & Q6 & Q7 & !UP & !LOAD #
+ !CLR & !Q0 & Q7 & UP & !LOAD #
+ !CLR & !Q1 & Q7 & UP & !LOAD #
+ !CLR & !Q2 & Q7 & UP & !LOAD #
+ !CLR & !Q3 & Q7 & UP & !LOAD #
+ !CLR & !Q4 & Q7 & UP & !LOAD #
+ !CLR & !Q5 & Q7 & UP & !LOAD #
+ !CLR & !Q6 & Q7 & UP & !LOAD #
+ !CLR & Q0 & Q1 & Q2 & Q3 & Q4 & Q5 & Q6 & !Q7 & UP & !LOAD #
+ !CLR & D7 & LOAD ;
+Q6.D = !CLR & !Q0 & !Q1 & !Q2 & !Q3 & !Q4 & !Q5 & !Q6 & !UP & !LOAD #
+ !CLR & Q0 & Q6 & !UP & !LOAD #
+ !CLR & Q1 & Q6 & !UP & !LOAD #
+ !CLR & Q2 & Q6 & !UP & !LOAD #
+ !CLR & Q3 & Q6 & !UP & !LOAD #
+ !CLR & Q4 & Q6 & !UP & !LOAD #
+ !CLR & Q5 & Q6 & !UP & !LOAD #
+ !CLR & !Q0 & Q6 & UP & !LOAD #
+ !CLR & !Q1 & Q6 & UP & !LOAD #
+ !CLR & !Q2 & Q6 & UP & !LOAD #
+ !CLR & !Q3 & Q6 & UP & !LOAD #
+ !CLR & !Q4 & Q6 & UP & !LOAD #
+ !CLR & !Q5 & Q6 & UP & !LOAD #
+ !CLR & Q0 & Q1 & Q2 & Q3 & Q4 & Q5 & !Q6 & UP & !LOAD #
+ !CLR & D6 & LOAD;
+Q5.D = !CLR & !Q0 & !Q1 & !Q2 & !Q3 & !Q4 & !Q5 & !UP & !LOAD #
+ !CLR & Q0 & Q5 & !UP & !LOAD #
+ !CLR & Q1 & Q5 & !UP & !LOAD #
+ !CLR & Q2 & Q5 & !UP & !LOAD #
+ !CLR & Q3 & Q5 & !UP & !LOAD #
+ !CLR & Q4 & Q5 & !UP & !LOAD #
+ !CLR & !Q0 & Q5 & UP & !LOAD #
+ !CLR & !Q1 & Q5 & UP & !LOAD #
+ !CLR & !Q2 & Q5 & UP & !LOAD #
+ !CLR & !Q3 & Q5 & UP & !LOAD #
+ !CLR & !Q4 & Q5 & UP & !LOAD #
+ !CLR & Q0 & Q1 & Q2 & Q3 & Q4 & !Q5 & UP & !LOAD #
+ !CLR & D5 & LOAD;
+Q4.D = !CLR & !Q0 & !Q1 & !Q2 & !Q3 & !Q4 & !UP & !LOAD #
+ !CLR & Q0 & Q4 & !UP & !LOAD #
+ !CLR & Q1 & Q4 & !UP & !LOAD #
+ !CLR & Q2 & Q4 & !UP & !LOAD #
+ !CLR & Q3 & Q4 & !UP & !LOAD #
+ !CLR & !Q0 & Q4 & UP & !LOAD #
+ !CLR & !Q1 & Q4 & UP & !LOAD #
+ !CLR & !Q2 & Q4 & UP & !LOAD #
+ !CLR & !Q3 & Q4 & UP & !LOAD #
+ !CLR & Q0 & Q1 & Q2 & Q3 & !Q4 & UP & !LOAD #
+ !CLR & D4 & LOAD;
+Q3.D = !CLR & !Q0 & !Q1 & !Q2 & !Q3 & !UP & !LOAD #
+ !CLR & Q0 & Q3 & !UP & !LOAD #
+ !CLR & Q1 & Q3 & !UP & !LOAD #
+ !CLR & Q2 & Q3 & !UP & !LOAD #
+ !CLR & !Q0 & Q3 & UP & !LOAD #
+ !CLR & !Q1 & Q3 & UP & !LOAD #
+ !CLR & !Q2 & Q3 & UP & !LOAD #
+ !CLR & Q0 & Q1 & Q2 & !Q3 & UP & !LOAD #
+ !CLR & D3 & LOAD;
+Q2.D = !CLR & !Q0 & !Q1 & !Q2 & !UP & !LOAD #
+ !CLR & Q0 & Q2 & !UP & !LOAD #
+ !CLR & Q1 & Q2 & !UP & !LOAD #
+ !CLR & !Q0 & Q2 & UP & !LOAD #
+ !CLR & !Q1 & Q2 & UP & !LOAD #
+ !CLR & Q0 & Q1 & !Q2 & UP & !LOAD #
+ !CLR & D2 & LOAD;
+Q1.D = !CLR & !Q0 & !Q1 & !UP & !LOAD #
+ !CLR & Q0 & Q1 & !UP & !LOAD #
+ !CLR & !Q0 & Q1 & UP & !LOAD #
+ !CLR & Q0 & !Q1 & UP & !LOAD #
+ !CLR & D1 & LOAD;
+Q0.D = !CLR & !Q0 & !LOAD #
+ !CLR & D0 & LOAD;
+CO_BI.D = !CLR & !Q0 & !Q1 & !Q2 & !Q3 & !Q4 & !Q5 & !Q6 & !Q7 & !UP & !LOAD #
+ !CLR & Q0 & Q1 & Q2 & Q3 & Q4 & Q5 & Q6 & Q7 & UP & !LOAD #
+ !CLR & CO_BI & !LOAD ;
+
+LOAD.SumB = 0;
+

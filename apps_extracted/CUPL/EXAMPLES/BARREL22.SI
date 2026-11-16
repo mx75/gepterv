@@ -1,0 +1,40 @@
+Name	  Barrel22;
+Partno	  CA0006;
+Date	  5/11/84;
+Revision  01;
+Designer  Kahl;
+Company   Assisted Technology;
+Assembly  None;
+Location  None;
+
+ORDER:	clock, %3, !out_enable, %3, SET, %2, shift, %1, input, %2, output;
+
+VECTORS:
+
+$msg"                 SSS DDDDDDDD  QQQQQQQQ";
+$msg"     CLK !OE SET 210 76543210  76543210";
+
+	   0   0   X  'X' XXXXXXXX  LLLLLLLL	/* power-on reset state */
+
+	   C   0   0  '0' 10000000  HLLLLLLL	/* shift 0		*/
+	   C   0   0  '1' 10000000  LHLLLLLL	/* shift 1		*/
+	   C   0   0  '2' 10000000  LLHLLLLL	/* shift 2		*/
+	   C   0   0  '3' 10000000  LLLHLLLL	/* shift 3		*/
+	   C   0   0  '4' 10000000  LLLLHLLL	/* shift 4		*/
+	   C   0   0  '5' 10000000  LLLLLHLL	/* shift 5		*/
+	   C   0   0  '6' 10000000  LLLLLLHL	/* shift 6		*/
+	   C   0   0  '7' 10000000  LLLLLLLH	/* shift 7		*/
+
+	   C   0   0  '0' 01111111  LHHHHHHH	/* shift 0		*/
+	   C   0   0  '1' 01111111  HLHHHHHH	/* shift 1		*/
+	   C   0   0  '2' 01111111  HHLHHHHH	/* shift 2		*/
+	   C   0   0  '3' 01111111  HHHLHHHH	/* shift 3		*/
+	   C   0   0  '4' 01111111  HHHHLHHH	/* shift 4		*/
+	   C   0   0  '5' 01111111  HHHHHLHH	/* shift 5		*/
+	   C   0   0  '6' 01111111  HHHHHHLH	/* shift 6		*/
+	   C   0   0  '7' 01111111  HHHHHHHL	/* shift 7		*/
+
+	   C   0   0  '1' 00000001  HLLLLLLL	/* shift 1 with wrap	*/
+	   C   0   0  '1' 11111110  LHHHHHHH	/* shift 1 with wrap	*/
+	   C   0   1  'X' XXXXXXXX  HHHHHHHH	/* preset to ones	*/
+	   C   1   X  'X' XXXXXXXX  ZZZZZZZZ	/* test hi impedance	*/

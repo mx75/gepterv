@@ -1,0 +1,267 @@
+MODULE FDBACK2
+
+        TITLE   'ABEL V4.10/4.20 EXAMPLE FILE DEMONSTRATING (1) REGISTER
+                 FEEDBACK AND (2) COMBINATORIAL FEEDBACK and INPUT/OUTPUT
+                 by ALEX KINE of DATA I/O CORPORATION, 10/4/91'
+
+@MESSAGE        
+                '1.  Updated the version number in the TITLE to 4.10/4.20
+                 2.  Simplified the discussion of the High-Z test for
+                     combinatorial I/O pins
+                     AK  3/16/92'
+
+@IF (0)
+
+         {PURPOSE:  To demonstrate the ABEL-HDL syntax used to
+                    access (1) feedback from registered outputs and
+                    (2) feedback from combinatorial outputs and
+                    input from a combinatorial I/O pin.
+
+          STRUCTURE:This example file is divided into two main
+                    sections:
+                         
+                         I.   PIN-TO-PIN and DETAILED REGISTER
+                              FEEDBACK
+                         II.  COMBINATORIAL FEEDBACK and BIDIRECTIONAL
+                              I/O
+                         
+                         Both sections use application-independent
+                    equations to demonstrate feedback syntax, within
+                    the architectural constraints of the P22V10
+                    device.  Feedback syntax in this example file will
+                    be equally applicable to truth table and state
+                    diagram designs, in various device architectures.
+                         Before we begin, we need to explain a few
+                    concepts relating to feedback.  First, a
+                    "normalized" register feedback signal is an
+                    internal feedback signal that has been matched to
+                    the signal level measured at the corresponding
+                    output pin.  ABEL-HDL uses dot-extension .FB to access
+                    "normalized" internal register feedback, in
+                    conjunction with pin-to-pin register syntax.
+                         Second, the alternative to using a
+                    "normalized" internal register feedback signal is
+                    to use "Q-feedback", which has the same signal
+                    level as the Q-output of the register.  ABEL-HDL uses
+                    the .Q dot-extension to access "Q-feedback", in
+                    conjunction with detailed register syntax.  When
+                    using ISTYPE 'REG_D,BUFFER', the Q-output of the
+                    register and the corresponding pin will be at the
+                    same signal level.  On the other hand, when using
+                    ISTYPE 'REG_D,INVERT', the Q-output of the
+                    register will be the complement of the pin.}
+
+        FDBACK2     device 'P22V10';
+
+"***************************************************************************
+"  I.  PIN-TO-PIN and DETAILED REGISTER FEEDBACK 
+"***************************************************************************
+
+@IF (0)
+
+              {Let's begin by looking at the input signals to the
+          registered outputs.  As shown under DECLARATIONS, this
+          section uses only two inputs: CLOCK and INPUT.  CLOCK will
+          be used to synchronously clock each register.  INPUT is a
+          simple combinatorial input, which will be common to each
+          registered output.
+               The registered-output declarations fall into two
+          categories: pin-to-pin and detailed syntax.  Outputs REG,
+          REG_BUF and REG_INV are examples of pin-to-pin register
+          declaration syntax.  Output REG is declared as ISTYPE 'REG'
+          and will have the same input pin to output pin behavior,
+          regardless of how its output polarity mux is configured.
+          Outputs REG_BUF and REG_INV are subsets of output REG, in
+          that their output mux's have been explicitly configured as
+          BUFFER and INVERT, respectively.  As we will see, all three
+          outputs will have the same pin-to-pin response to identical
+          inputs.
+               Outputs D_BUF and D_INV are examples of detailed
+          register declaration syntax.  In contrast with the three
+          previous outputs, which have identical pin-to-pin behavior,
+          outputs D_BUF and D_INV will respond oppositely to identical
+          inputs.  While this is true for their "pin-to-pin" behavior,
+          we will see that their internal feedback signals are
+          identical.}
+          
+DECLARATIONS
+
+"Inputs
+
+        CLOCK           pin 1;
+        INPUT           pin 2;
+
+"Outputs
+
+        REG             pin 23 istype 'REG';
+        REG_BUF         pin 22 istype 'REG,BUFFER';
+        REG_INV         pin 21 istype 'REG,INVERT';
+
+        D_BUF           pin 20 istype 'REG_D,BUFFER'; 
+        D_INV           pin 19 istype 'REG_D,INVERT'; 
+        
+        OUTPUT0         pin 18 istype 'COM'; 
+
+"Constants
+
+        C,X,Z,H,L       = .C.,.X.,.Z.,1,0;
+
+@IF (0)
+
+              {Under EQUATIONS, we see two groups of equations, with
+          identical inputs; the first group of outputs corresponds to
+          the pin-to-pin registers and the second group corresponds to
+          the detailed registers.
+               Internal feedback from each register is then used as an
+          input in the equation for combinatorial output OUTPUT0.
+          Please take note of the difference in feedback syntax.
+          Feedback from outputs REG, REG_BUF and REG_INV is accessed
+          by adding a .FB dot-extension to each signal name, while
+          feedback from outputs D_BUF and D_INV is accessed by adding
+          a .Q dot-extension to each signal name.}
+
+EQUATIONS
+
+        [REG,REG_BUF,REG_INV]            := INPUT;
+        [REG,REG_BUF,REG_INV].CLK         = CLOCK;
+
+        [D_BUF,D_INV].D                   = INPUT;
+        [D_BUF,D_INV].CLK                 = CLOCK;
+
+        OUTPUT0         =   REG.FB  & REG_BUF.FB & REG_INV.FB
+                          & D_BUF.Q & D_INV.Q;
+
+@IF (0)
+
+              {Next, we use test vectors to verify the behavior of our
+          example.  Looking at the left side of the test vector
+          header, we see the CLOCK and INPUT inputs only ; ABEL does
+          not directly support use of the register feedback signals as
+          test vector inputs.
+               Looking at the right side of the test vector header, we
+          see the signal name for each output.  Using the default
+          simulation trace option, we will only see the signals
+          measured at the output pins and not the register feedback
+          signals.  One way to view the Q-output of each register is
+          to select the "Macrocell" trace option in the simulation
+          trace option menu.  This will show the signal level at the
+          Q-output of each register and at the corresponding output
+          pin.
+               Dot-extensions are not allowed in the test vector
+          header; adding a .Q or .FB dot-extension to the signal name
+          in the test vector header will result in a test vector
+          failure, accompanied by one of the following messages:
+          
+               '.' found, 'H' expected
+                                             or
+               '.' found, 'L' expected
+                                             or
+               '.' found, 'Z' expected
+          
+          Once again, dot-extensions are not allowed in the test
+          vector header; you must use the "Macrocell" trace option to
+          view the internal register feedback.
+               Looking at the test vectors, we confirm that outputs of
+          REG, REG_BUF and REG_INV respond identically to inputs CLOCK
+          and INPUT.  In addition, we see that while their "pin-to-
+          pin" responses are exact opposites, feedback from signal
+          D_BUF is identical to feedback from D_INV.}
+
+TEST_VECTORS 'Example of Pin-to-Pin and Detailed Register Feedback'
+
+([CLOCK,INPUT] -> [REG,REG_BUF,REG_INV,D_BUF,D_INV,OUTPUT0])
+ [  0  ,  0  ] -> [ X ,   X   ,   X   ,  X  ,  X  ,   X   ]; "Power-up
+ [  C  ,  0  ] -> [ L ,   L   ,   L   ,  L  ,  H  ,   L   ]; "Begin Clocking
+ [  C  ,  1  ] -> [ H ,   H   ,   H   ,  H  ,  L  ,   H   ]; "
+ [  0  ,  1  ] -> [ H ,   H   ,   H   ,  H  ,  L  ,   H   ]; "Stop Clocking
+ [  0  ,  0  ] -> [ H ,   H   ,   H   ,  H  ,  L  ,   H   ]; "
+ [  C  ,  0  ] -> [ L ,   L   ,   L   ,  L  ,  H  ,   L   ]; "Resume Clocking
+
+"***************************************************************************
+"  II.  COMBINATORIAL FEEDBACK and BIDIRECTIONAL I/O
+"***************************************************************************
+
+@IF (0)
+
+              {Under DECLARATIONS, we see two new inputs: OE and
+          INPUT_IO.  Signal OE will be used to control the output
+          buffer of the bidirectional I/O signal, while INPUT_IO is
+          an example of an I/O pin being used as a dedicated input.
+               We also see three new outputs:  COM_OUT, COM_IO and
+          OUTPUT1.  Signal COM_OUT is a dedicated combinatorial
+          output, while COM_IO is both a combinatorial output and an
+          input, dependent upon the level of input signal OE.  When OE
+          is high, COM_IO is an output; when OE is low, COM_IO is
+          an input.  Finally, OUTPUT1 is a dedicated combinatorial
+          output that will use feedback from COM_OUT and COM_IO as
+          its inputs.
+               Please note that all three outputs are declared as
+          ISTYPE 'COM' only.  This is all the information that is
+          generally required to describe a combinatorial output.  Like
+          output REG above, the pin-to-pin behavior of outputs
+          COM_OUT, COM_IO and OUTPUT1 will be the same, regardless of
+          how their output polarity mux's are configured.}
+
+DECLARATIONS
+
+"Inputs
+
+        OE              pin  3; "Output Enable
+        INPUT_IO        pin 17; "I/O pin used as dedicated input
+
+"Outputs
+
+        COM_OUT         pin 16 istype 'COM'; "Will provide .PIN feedback
+        COM_IO          pin 15 istype 'COM'; "Will function as I/O pin
+
+        OUTPUT1         pin 14 istype 'COM';
+
+@IF (0)
+
+              {Under EQUATIONS, we see that outputs COM_OUT and COM_IO
+          have different output enable equations.  COM_OUT.OE is set
+          to one(1) in order to permanently enable its corresponding
+          output buffer; COM_IO.OE uses input OE in order to configure
+          it as either an input or an output.
+               In the equation for OUTPUT1, we see the two most common
+          ways of accessing combinatorial feedback.  In the first
+          case, we add a .PIN dot-extension to access feedback from
+          output COM_OUT.  In the second case, we use the default
+          feedback path(pin feedback) for output COM_IO.  By omitting
+          an output enable equation for OUTPUT1, we allow the output
+          buffer to default to the permanently enabled state.}
+
+EQUATIONS
+
+        COM_OUT         = INPUT_IO; "COM_OUT functions as a dedicated output.
+        COM_OUT.OE      = 1;        "Optional output enable equation;
+                                    "Default OE value is one(1)
+
+        COM_IO          = INPUT_IO; "COM_IO  functions as an output when
+        COM_IO .OE      = OE;       "OE is high and as an input when
+                                    "OE is low.
+
+        OUTPUT1         = COM_OUT.PIN & COM_IO ;
+
+@IF (0)
+
+              {Finally, we use test vectors to verify the behavior of
+          our example.  Looking at the test vector header, we see that
+          signal COM_IO is listed both as an input and as an output.
+          When OE is high, vector input COM_IO is a don't care(X).
+          When OE is low, vector output COM_IO is either a don't care or
+          high-impedance(Z).}
+
+TEST_VECTORS 'Example of Combinatorial Feedback and Input-Output'
+
+ ([INPUT_IO, OE ,COM_IO] -> [COM_OUT,COM_IO,OUTPUT1])
+  [   0    , 1  ,   X  ] -> [   L   ,   L  ,   L   ]; "Output from COM_IO
+  [   1    , 1  ,   X  ] -> [   H   ,   H  ,   H   ]; "
+  [   1    , 0  ,   X  ] -> [   H   ,   Z  ,   X   ]; "Tri-state COM_IO
+  [   1    , 0  ,   0  ] -> [   H   ,   X  ,   L   ]; "Read Input from COM_IO
+  [   1    , 0  ,   1  ] -> [   H   ,   X  ,   H   ]; "
+  [   1    , 1  ,   X  ] -> [   H   ,   H  ,   H   ]; "Output from COM_IO
+  [   0    , 1  ,   X  ] -> [   L   ,   L  ,   L   ]; "
+
+END FDBACK2
+

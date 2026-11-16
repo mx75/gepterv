@@ -1,0 +1,62 @@
+Name	  Count8A;
+Partno	  CA0009;
+Date	  7/19/84;
+Revision  01;
+Designer  Kahl;
+Company   Assisted Technology;
+Assembly  None;
+Location  None;
+
+/****************************************************************/
+/** Allowable Target Device Types :  PAL20X8			*/
+/****************************************************************/
+
+ORDER:
+
+clock,%3,!out_enable,%4,instr1,%2,instr0,%2,D,%3,!carry_in,%3,
+!carry_out,%3,Q;
+
+VECTORS:
+
+$msg"                     -INPUT-            -OUTPUT-";
+$msg"     CONTROL  INSTR  DDDDDDDD  CARRY    QQQQQQQQ";
+$msg"     CLK !OC  I1 I0  76543210  !CI !CO  76543210";
+$msg"     -------------------------------------------";
+
+	   C   0   1  0     '01'     X	 H     "01"
+	   C   0   1  1     'XX'     0	 H     "02"
+	   C   0   1  0     '03'     X	 H     "03"
+	   C   0   1  1     'XX'     0	 H     "04"
+	   C   0   1  0     '07'     X	 H     "07"
+	   C   0   1  1     'XX'     0	 H     "08"
+	   C   0   1  0     '0F'     X	 H     "0F"
+	   C   0   1  1     'XX'     0	 H     "10"
+	   C   0   1  0     '1F'     X	 H     "1F"
+	   C   0   1  1     'XX'     0	 H     "20"
+	   C   0   1  0     '3F'     X	 H     "3F"
+	   C   0   1  1     'XX'     0	 H     "40"
+	   C   0   1  0     '7F'     X	 H     "7F"
+	   C   0   1  1     'XX'     0	 H     "80"
+	   C   0   1  0     'FF'     0	 L     "FF"
+	   C   0   1  1     'XX'     0	 H     "00"
+	   C   0   1  0     'FF'     0	 L     "FF"
+	   C   0   1  0     'FE'     X	 H     "FE"
+	   C   0   1  0     'FD'     X	 H     "FD"
+	   C   0   1  0     'FB'     X	 H     "FB"
+	   C   0   1  0     'F7'     X	 H     "F7"
+	   C   0   1  0     'EF'     X	 H     "EF"
+	   C   0   1  0     'DF'     X	 H     "DF"
+	   C   0   1  0     'BF'     X	 H     "BF"
+	   C   0   1  0     '7F'     X	 H     "7F"
+	   C   0   1  0     'FF'     0	 L     "FF"
+	   C   0   0  0     'XX'     X	 H     "00"
+	   C   0   1  1     'XX'     0	 H     "01"
+	   C   0   1  1     'XX'     0	 H     "02"
+	   C   0   1  1     'XX'     0	 H     "03"
+	   C   0   1  1     'XX'     0	 H     "04"
+	   C   0   1  0     'FE'     X	 H     "FE"
+	   C   0   1  1     'XX'     0	 L     "FF"
+	   C   0   1  1     'XX'     1	 H     "FF"
+	   C   0   0  1     '00'     0	 L     "FF"
+	   C   0   1  1     'FF'     0	 H     "00"
+	   X   1   X  X     'XX'     X	 H     "ZZ"

@@ -1,0 +1,29 @@
+module ex215g 
+
+title 'Transparent Latch MACH'
+
+        ex215g device  'MACH215A';
+
+        A,B             pin;
+        LE,Clr,Set      pin;
+        F1              pin istype 'reg_D,buffer';
+
+equations
+        F1.D    = A & B;
+        F1.LE   = LE;
+        F1.AR   = Clr;
+        F1.AP   = Set;
+
+test_vectors
+       ([A,B,LE ,Clr,Set] -> F1 )
+        [0,0, 1 , 0 , 1 ] ->  1 ;
+        [0,0, 1 , 1 , 0 ] ->  0 ;
+
+        [1,1, 1 , 0 , 0 ] ->  0 ; "Latched
+        [1,1, 0 , 0 , 0 ] ->  1 ; "Flow Through
+        [0,0, 0 , 0 , 0 ] ->  0 ;
+        [1,1, 0 , 0 , 0 ] ->  1 ;
+        [1,1, 1 , 0 , 0 ] ->  1 ; "Latched
+        [0,0, 1 , 0 , 0 ] ->  1 ;
+end
+

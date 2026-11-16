@@ -1,0 +1,51 @@
+=====================================================================
+Problems running the Extended Memory PALASM Software
+---------------------------------------------------------------------
+PALASM 4 uses the DOS Extended Technology software from ERGO Computing Inc.
+
+Only 6 programs have been linked with the ERGO software to allow extended
+memory execution. These executables are : TREPL2.EXE, PARSE.EXE, BPP.EXE,
+EXPAND.EXE, MINIMIZE.EXE, PLDSIM.EXE. All other programs do not required the
+additional memory for large design processing.
+
+During the software QA of PALASM 4 a number of problems related to system
+compatibility were uncovered. All of these point to a problem with old (and
+in some cases new) PC BIOS on the 386. Specifically with how the interchange
+between protected memory and standard memory is managed at cpu speeds >
+20MHz. ERGO has assured us that it is because the various BIOS that show the
+problem do not follow exactly the standard defined by IBM.
+
+The symptom of the problem is an erratic hung system in which the only
+recovery method is to POWER DOWN and then POWER UP. A software reboot is not
+effective. The problem is NOT design related. If you have this problem you
+will find compiling the same design several times will be OK, then during a
+subsequent compile phases your system will suddenly go into a hung state.
+
+There is no guarantee that your PC system will have this problem. At AMD we
+have tested a number of PC's that have never demonstrated this problem. If
+your PC does demonstrate the above problem during a PALASM 4 compilation,
+check the list of possible work-around's below.
+
+It is not possible to fully categorize the nature of all problems related to
+extended memory software usage and which PC system's are compatible.
+
+work-arounds
+-------------
+
+There are 4 known work-around's. All potentially should work, but option 3
+is the easiest to try first.
+
+        1. Install an alternative Extended Memory Manager such as QEMM
+           (Quarterdeck Extended Memory Manager) or 386MAX EMM.
+
+        2. Update the BIOS on your PC386 to the latest version.
+
+        3. Step the 386 processor speed down to less than 20MHz.
+
+        4. A hard reboot (Power down, Power up) may temporarily clear the
+           problem.
+
+Note,
+        There is no guarantee that any of these solutions is 100% assured.
+        We recommend trying solution 1 before solution 2.
+

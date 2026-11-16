@@ -1,0 +1,185 @@
+Title 'PA7024 Basic Gates'
+Designer 'James Peel'
+Date '6-26-90'
+
+Description
+
+             PA7024 Basic Gates Design Example
+
+  This design is one of four main applications that were
+integrated into a single PA7024 in the DEMO1A application
+example. As a single application, the basic combinatorial
+gate functions can be easily reviewed. Included are:
+
+* AND, OR, NOR, NAND gates with 8 inputs (inputs A through H)
+* Exclusive-Or gate (inputs A and B)
+* 4 to 1 Multiplexor (inputs A,B,C or D selected by E and F)
+* 4-bit Comparitor (inputs ABCD are compared to EFGH for equal)
+* Inverter (input A)
+
+Outputs are labled with the gate names. The CONTROL pin enables
+and disables the outputs. Note that very little of the PA7024
+is utilized with this example. In fact all 20 buried nodes
+(with registers), 4 I/0 pins, and 1 input/clock pin, are
+still available for use.
+
+End_Desc;
+
+PA7024
+
+CONTROL PIN 13
+
+"IOC CONFIGURATION DECLARATION
+"IOC (PIN_NO 'PIN_NAME' POLARITY IO_TYPE) <- LCC_NO
+
+IOC ( 2 '' Pos IO ) <- 1A
+IOC ( 3 '' Pos IO ) <- 2A
+IOC ( 4 'A' Pos IO ) <- 3A
+IOC ( 5 'B' Pos IO ) <- 3B
+IOC ( 6 'C' Pos IO ) <- 4A
+IOC ( 7 'D' Pos IO ) <- 4B
+IOC ( 8 'E' Pos IO ) <- 5A
+IOC ( 9 'F' Pos IO ) <- 5B
+IOC (10 'G' Pos IO ) <- 5C
+IOC (11 'H' Pos IO ) <- 5D
+IOC (14 'INVERT' Pos IO ) <- 4D
+IOC (15 'EQUAL' Pos IO ) <- 3D
+IOC (16 'MUX' Pos IO ) <- 2D
+IOC (17 'EXOR' Pos IO ) <- 1D
+IOC (18 'NOR' Pos IO ) <- 4C
+IOC (19 'NAND' Pos IO ) <- 3C
+IOC (20 'OR' Pos IO ) <- 2C
+IOC (21 'AND' Pos IO ) <- 1C
+IOC (22 '' Pos IO ) <- 2B
+IOC (23 '' Pos IO ) <- 1B
+
+"LCC CONFIGURATION DECLARATION
+"LCC (LCC_NO 'LCC_NAME' REG_TYPE CLK_TYPE BUR_OUT EXT_OUT)
+
+LCC (1A '' D   Neg  Reg  Reg )
+LCC (2A '' D   Neg  Reg  Reg )
+LCC (3A '' D   SumD Reg  Reg )
+LCC (4A '' D   SumD Reg  Reg )
+LCC (5A '' D   SumD Reg  Reg )
+LCC (1B '' D   Neg  Reg  Reg )
+LCC (2B '' D   SumD Reg  Reg )
+LCC (3B '' D   SumD Reg  Reg )
+LCC (4B '' D   SumD Reg  Reg )
+LCC (5B '' D   SumD Reg  Reg )
+LCC (1C '' D   Neg  Reg  SumC)
+LCC (2C '' D   Neg  Reg  SumC)
+LCC (3C '' D   Neg  Reg  SumC)
+LCC (4C '' D   Neg  Reg  SumC)
+LCC (5C '' D   SumD Reg  Reg )
+LCC (1D '' D   Neg  Reg  SumC)
+LCC (2D '' D   Neg  Reg  SumC)
+LCC (3D '' D   Neg  Reg  SumC)
+LCC (4D '' D   Neg  Reg  SumC)
+LCC (5D '' D   SumD Reg  Reg )
+
+"GBC CONFIGURATION FDECLARATION
+"GBC (GROUP LCC_CLK IOC_CLK)
+
+Global = 1
+GBC (A Clk1 Clk1)
+GBC (B Clk1 Clk1)
+
+DEFINE
+
+
+EQUATIONS
+
+"Global output names specified in the equations below are reserved words.
+
+RTB = 0;
+PCLKB = 0;
+PRESETA = 0;
+RESETA = 0;
+
+
+RTB = 0;
+PCLKB = 0;
+PRESETB = 0;
+RESETB = 0;
+
+
+A.SumA = 0;
+A.sumB = 0;
+A.SumC = 0;
+A.sumD = 0;
+
+B.SumA = 0;
+B.sumB = 0;
+B.SumC = 0;
+B.sumD = 0;
+
+C.SumA = 0;
+C.sumB = 0;
+C.SumC = 0;
+C.sumD = 0;
+
+D.SumA = 0;
+D.sumB = 0;
+D.SumC = 0;
+D.sumD = 0;
+
+E.SumA = 0;
+E.sumB = 0;
+E.SumC = 0;
+E.sumD = 0;
+
+F.SumA = 0;
+F.sumB = 0;
+F.SumC = 0;
+F.sumD = 0;
+
+G.SumA = 0;
+G.sumB = 0;
+G.SumC = 0;
+G.sumD = 0;
+
+H.SumA = 0;
+H.sumB = 0;
+H.SumC = 0;
+H.sumD = 0;
+
+AND.SumA = 0;
+AND.SumB = 0;
+AND.COM = A * B * C * D * E * F * G * H;   "8 input AND gate;
+AND.OE =  CONTROL;
+
+OR.SumA = 0;
+OR.SumB = 0;
+OR.COM =  (A + B + C + D + E + F + G + H);   "8 input OR gate
+OR.OE =   CONTROL;
+
+NAND.SumA = 0;
+NAND.SumB = 0;
+NAND.COM = /(A * B * C * D * E * F * G * H); "8 input NAND gate
+NAND.OE = CONTROL;
+
+NOR.SumA = 0;
+NOR.SumB = 0;
+NOR.COM = /(A + B + C + D + E + F + G + H);  "8 input NOR gate
+NOR.OE =  CONTROL;
+
+EXOR.SumA = 0;
+EXOR.SumB = 0;
+EXOR.COM = (A $ B); "Exclusive-OR gate
+EXOR.OE = CONTROL;
+
+MUX.SumA = 0;
+MUX.SumB = 0;
+MUX.COM = (A * /E * /F + B * /E * F + C * E * /F + D * E * F);
+MUX.OE = CONTROL;
+
+EQUAL.SumA = 0;
+EQUAL.SumB = 0;
+EQUAL.COM = /((A $ E) + (B $ F) + (C $ G) + (D $ H));
+EQUAL.OE = CONTROL;
+
+INVERT.SumA = 0;
+INVERT.SumB = 0;
+INVERT.COM = /A;    "INVERTER, A INPUT
+INVERT.OE = CONTROL;
+

@@ -1,0 +1,48 @@
+; simulation section for WIGGLE.PDS (3BIT.PDS + 1OF8.PDS).
+; simple 3-bit up/down counter feeding a 1-of-8 decoder.
+
+SIMULATION
+
+; trace on and initialize counter values
+
+VECTOR  COUNT := [ Q2  Q1  Q0 ]
+SETF  UPDOWN  /CLEAR  /CLK  /EN
+PRLDF  /Q2  /Q1  /Q0
+
+SETF  UPDOWN  /CLEAR
+SETF  UPDOWN  /CLEAR
+SETF  EN
+
+; count up 9 clocks
+
+	FOR j := 0 TO 8 DO
+	    BEGIN
+	        CLOCKF CLK
+	    END
+
+; clear the counter
+
+	SETF CLEAR
+	SETF CLEAR
+	CLOCKF CLK
+	SETF /CLEAR
+	SETF /CLEAR
+
+; count down 9 clocks
+
+	SETF /UPDOWN
+	FOR j := 0 TO 8 DO
+	    BEGIN
+	        CLOCKF CLK
+	    END     
+     
+; clear the counter
+
+	SETF CLEAR
+	SETF CLEAR
+	CLOCKF CLK
+	SETF /CLEAR
+	SETF /CLEAR
+
+; end of simulation
+

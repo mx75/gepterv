@@ -1,0 +1,7 @@
+# execute disassembly for dip D85C22v10
+
+
+load "dav10.jdb"
+
+da22v10(0)
+

@@ -1,0 +1,76 @@
+Name      Tcounter;
+Partno	  CA0020;
+Date      6/9/86;
+Revision  01;
+Designer  Kahl;
+Company   Personal CAD Systems, Inc.;
+Assembly  None;
+Location  None;
+Device    ep600;
+
+/****************************************************************/
+/*								*/
+/* 16 Bit Synchronous Up/Down Counter				*/
+/*								*/
+/* This is a 16-bit up/down counter with built-in shift         */ 
+/* register using toggle flip-flops.  The various modes are 	*/
+/* controlled by the signals CNTUP (1 = count up)              	*/
+/*                           SHIFT (1 = shift)           	*/
+/*                           SHLFT (1 = shift left)             */
+/****************************************************************/
+/* Allowable Target Device Types :  EP600                      	*/
+/****************************************************************/
+
+ORDER:	clock1, clock2, %2, data_in, %2, 
+        cntup, %1, shift, %1, shlft, %2, counter;
+
+VECTORS:
+
+$msg"          d                         ";
+$msg"      cc  a                         ";
+$msg"      ll  t  c s s                  ";
+$msg"      oo  a  n h h                  ";
+$msg"      cc  -  t i l  qqqqqqqqqqqqqqqq";
+$msg"      kk  i  u f f  111111          ";
+$msg"      12  n  p t t  5432109876543210";
+$msg"      ------------------------------";
+           00  x  1 1 1  LLLLLLLLLLLLLLLL    /* reset registers         */
+	   cc  1  0 1 1  LLLLLLLLLLLLLLLH    /* shift (left) data_in=1	*/
+	   cc  1  0 1 1  LLLLLLLLLLLLLLHH    /* shift (left) data_in=1	*/
+	   cc  1  0 1 1  LLLLLLLLLLLLLHHH    /* shift (left) data_in=1	*/
+	   cc  1  0 1 1  LLLLLLLLLLLLHHHH    /* shift (left) data_in=1	*/
+	   cc  1  0 1 1  LLLLLLLLLLLHHHHH    /* shift (left) data_in=1	*/
+	   cc  1  0 1 1  LLLLLLLLLLHHHHHH    /* shift (left) data_in=1	*/
+	   cc  1  0 1 1  LLLLLLLLLHHHHHHH    /* shift (left) data_in=1	*/
+	   cc  1  0 1 1  LLLLLLLLHHHHHHHH    /* shift (left) data_in=1	*/
+	   cc  1  0 1 1  LLLLLLLHHHHHHHHH    /* shift (left) data_in=1	*/
+	   cc  1  0 1 1  LLLLLLHHHHHHHHHH    /* shift (left) data_in=1	*/
+	   cc  1  0 1 1  LLLLLHHHHHHHHHHH    /* shift (left) data_in=1	*/
+	   cc  1  0 1 1  LLLLHHHHHHHHHHHH    /* shift (left) data_in=1	*/
+	   cc  1  0 1 1  LLLHHHHHHHHHHHHH    /* shift (left) data_in=1	*/
+	   cc  1  0 1 1  LLHHHHHHHHHHHHHH    /* shift (left) data_in=1	*/
+	   cc  1  0 1 1  LHHHHHHHHHHHHHHH    /* shift (left) data_in=1	*/
+	   cc  1  0 1 1  HHHHHHHHHHHHHHHH    /* shift (left) data_in=1	*/
+           00  x  0 0 0  HHHHHHHHHHHHHHHH    /* change modes to count   */
+           cc  x  1 0 0  LLLLLLLLLLLLLLLL    /* count (up) to 0000	*/
+           cc  x  0 0 0  HHHHHHHHHHHHHHHH    /* count (down) to FFFF	*/
+           cc  0  0 1 0  LHHHHHHHHHHHHHHH    /* shift (right) data_in=0	*/
+           cc  0  0 1 0  LLHHHHHHHHHHHHHH    /* shift (right) data_in=0	*/
+           cc  0  0 1 0  LLLHHHHHHHHHHHHH    /* shift (right) data_in=0	*/
+           cc  0  0 1 0  LLLLHHHHHHHHHHHH    /* shift (right) data_in=0	*/
+           cc  0  0 1 0  LLLLLHHHHHHHHHHH    /* shift (right) data_in=0	*/
+           cc  0  0 1 0  LLLLLLHHHHHHHHHH    /* shift (right) data_in=0	*/
+           cc  0  0 1 0  LLLLLLLHHHHHHHHH    /* shift (right) data_in=0	*/
+           cc  0  0 1 0  LLLLLLLLHHHHHHHH    /* shift (right) data_in=0	*/
+           cc  0  0 1 0  LLLLLLLLLHHHHHHH    /* shift (right) data_in=0	*/
+           cc  0  0 1 0  LLLLLLLLLLHHHHHH    /* shift (right) data_in=0	*/
+           cc  0  0 1 0  LLLLLLLLLLLHHHHH    /* shift (right) data_in=0	*/
+           cc  0  0 1 0  LLLLLLLLLLLLHHHH    /* shift (right) data_in=0	*/
+           cc  0  0 1 0  LLLLLLLLLLLLLHHH    /* shift (right) data_in=0	*/
+           cc  0  0 1 0  LLLLLLLLLLLLLLHH    /* shift (right) data_in=0	*/
+           cc  0  0 1 0  LLLLLLLLLLLLLLLH    /* shift (right) data_in=0	*/
+           cc  0  0 1 0  LLLLLLLLLLLLLLLL    /* shift (right) data_in=0	*/
+$repeat 63;
+	   cc  x  1 0 0  ****************    /* count (up) to 00FF	*/
+           00  x  1 1 1  LLLLLLLLLLLLLLLL    /* reset registers         */
+

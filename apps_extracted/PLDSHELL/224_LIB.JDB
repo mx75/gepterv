@@ -1,0 +1,407 @@
+#/*
+# * **************************  ALTERA PROPRIETARY  ***************************
+# *
+# *       --------------------  DO NOT REPRODUCE  ----------------------
+# *
+# *   Copyright (C) 1994 by Altera Corporation.
+# *   All rights reserved. No part of this program or publication may be 
+# *   reproduced, transmitted, transcribed, stored in a retrieval system, or
+# *   translated into any language or computer language, in any form or by any
+# *   means, electronic, mechanical, magnetic, optical,  chemical,  manual, or
+# *   otherwise,  without the prior written permission of  Altera Corporation,
+# *   2610 Orchard Parkway,  San Jose,  California 95134-2020.
+# *
+# * ***************************************************************************
+# */
+#
+#
+
+#  85c220 device database for JDB
+#
+#
+
+#    func map_pin( ) - map dip pin number to plcc
+#     arguments: $1 - dip pin number 
+#    returns: plcc pin number if global flag pinmap_224 != 0, else dip pin #
+
+func map_pin( ) {
+    if (pinmap_224)
+    {
+        if ($1 < 7){
+            return ($1 + 1)
+            }
+        if (($1 >=7) && ($1 < 13)){
+            return ($1 + 2)
+            }
+        if (($1 >= 13) && ($1 < 19)){
+            return ($1 + 3)
+            }
+        if ($1 >= 19) {
+            return ($1 + 4)
+            }
+    }
+    else 
+        return $1
+}
+
+#        func pterm_gaddr( )
+#        Description: return the jedec address of pterm group
+#                    Call AFTER load_ptermg ( )
+#        Arguments: $1 - pterm group number of interest
+#        Return: Jedec address of first pterm of group
+#         -1 if error
+#
+
+func pterm_gaddr( )
+{
+
+    if ($1 > JDBV_ptgnum) {
+        message "JDB library error, arg 1 to pterm_gaddr() > %d\n",JDBV_ptgnum
+        return -1
+    }
+
+
+    if ($1 == 1 ) {
+        return 0
+    }
+    if ($1 == 2 ) {
+        return 352
+    }
+    if ($1 == 3 ) {
+        return 396
+    }
+    if ($1 == 4 ) {
+        return 748
+    }
+    if ($1 == 5 ) {
+        return 792
+    }
+    if ($1 == 6 ) {
+        return 1144
+    }
+    if ($1 == 7 ) {
+        return 1188
+    }
+    if ($1 == 8 ) {
+        return 1540
+    }
+    if ($1 == 9 ) {
+        return 1584
+    }
+    if ($1 == 10 ) {
+        return 1936
+    }
+    if ($1 == 11 ) {
+        return 1980
+    }
+    if ($1 == 12 ) {
+        return 2332
+    }
+    if ($1 == 13 ) {
+        return 2376
+    }
+    if ($1 == 14 ) {
+        return 2728
+    }
+    if ($1 == 15 ) {
+        return 2772
+    }
+    if ($1 == 16 ) {
+        return 3124
+    }
+}
+
+
+#        func mc_archadr( )
+#        Description: return the jedec address of first architecture bit of
+#        macrocell. 
+#        Arguments: $1 - macrocell number
+#        Return: Jedec address of first arch bit of macrocell
+#         -1 if error
+
+func mc_archadr( )
+{
+
+    if ($1 > JDBV_mcnum)
+    {
+        message "JDB library database error, arg 1 to mc_archadr > %d\n", JDBV_mcnum
+        return -1
+    }
+
+
+    if ($1 == 1 ) {
+        return 3168
+    }
+    if ($1 == 2 ) {
+        return 3172
+    }
+    if ($1 == 3 ) {
+        return 3176
+    }
+    if ($1 == 4 ) {
+        return 3180
+    }
+    if ($1 == 5 ) {
+        return 3184
+    }
+    if ($1 == 6 ) {
+        return 3188
+    }
+    if ($1 == 7 ) {
+        return 3192
+    }
+    if ($1 == 8 ) {
+        return 3196
+    }
+}
+
+#        func inp_gos( )
+#        Description: return the offset of the input to the array
+#        Arguments:  $1 - feedback pin or virtual pin number
+#            note: MUST BE DIP PIN!
+#        Returns:  see description
+
+func inp_gos( )
+{
+    if ($1 > NUM_PINS)
+    {
+        message "JDB database error, arg1 to fb_gos() > %d\n", NUM_PINS
+        return -1
+    }
+
+    if ($1 == 1 )
+        return 0
+    if ($1 == 2 )
+        return 2
+    if ($1 == 3 )
+        return 4
+    if ($1 == 4 )
+        return 6
+    if ($1 == 5 )
+        return 8
+    if ($1 == 6 )
+        return 10
+    if ($1 == 7 )
+        return 12
+    if ($1 == 8 )
+        return 14
+    if ($1 == 9 )
+        return 16
+    if ($1 == 10 )
+        return 18
+    if ($1 == 11 )
+        return 20
+    if ($1 == 13 )
+        return 22
+    if ($1 == 14 )
+        return 24
+    if ($1 == 23 )
+        return 42
+    return -1
+}
+
+#        func inp_gpin( )
+#        Description: return the pin corresponding to the passed offset
+#         NOTE: PIN RETURNED IS DIP PIN !!
+#        Arguments: $1 - the wordline offset of interest
+#        Returns: see description , -1 returned for invalid offset, 0 for 
+#                 no pin corresponding to offset
+
+func inp_gpin( )
+{
+    if ($1 == 0)
+        return 1
+    if ($1 == 2)
+        return 2
+    if ($1 == 4)
+        return 3
+    if ($1 == 6)
+        return 4
+    if ($1 == 8)
+        return 5
+    if ($1 == 10)
+        return 6
+    if ($1 == 12)
+        return 7
+    if ($1 == 14)
+        return 8
+    if ($1 == 16)
+        return 9
+    if ($1 == 18)
+        return 10
+    if ($1 == 20)
+        return 11
+    if ($1 == 22)
+        return 13
+    if ($1 == 24)
+        return 14
+    if ($1 == 42)
+        return 23
+    return 0
+}
+
+#        func io_gpin( )
+#        Description: return the pin corresponding to the passed offset
+#         NOTE: PIN RETURNED IS DIP PIN !!
+#        Arguments: $1 - the wordline offset of interest
+#        Returns: see description , -1 returned for invalid offset, 0 for 
+#                 no pin corresponding to offset
+func io_gpin( )
+{
+    if ($1 > JDBV_wlnum){
+        message "JDB database error - arg. to io_gpin() > %d\n", JDBV_wlnum
+        return -1
+    }
+    if ($1 == 26)
+        return 15
+    if ($1 == 28)
+        return 16
+    if ($1 == 30)
+        return 17
+    if ($1 == 32)
+        return 18
+    if ($1 == 34)
+        return 19
+    if ($1 == 36)
+        return 20
+    if ($1 == 38)
+        return 21
+    if ($1 == 40)
+        return 22
+    return 0
+}
+
+#        func io_gos( )
+#        Description: return the offset corresponding to the passed pin
+#         NOTE: PIN PASSED MUST BE DIP PIN !!
+#        Arguments: $1 - the pin of interest
+#        Returns: see description , -1 returned for invalid input
+
+func io_gos( )
+{
+    if ($1 > NUM_PINS){
+        message "JDB database error - arg. to io_gos() > %d\n", NUM_PINS
+        return -1
+    }
+    if ($1 == 15)
+        return 26
+    if ($1 == 16)
+        return 28
+    if ($1 == 17)
+        return 30
+    if ($1 == 18)
+        return 32
+    if ($1 == 19)
+        return 34
+    if ($1 == 20)
+        return 36
+    if ($1 == 21)
+        return 38
+    if ($1 == 22)
+        return 40
+    return -1
+}
+#        func fb_gpin( )
+#        Description: return the pin corresponding to the passed offset
+#        NOTE: pin returned is dip pin !!!
+#        Arguments: $1 - the wordline offset of interest
+#        Returns: see description , -1 returned for invalid offset, 0 for 
+#                 no pin corresponding to offset
+#            note: only needed for adf disassembly
+func fb_gpin( )
+{
+    return 0
+}
+
+#    func get_ptg( )
+#     description: return starting ptg number for passed mc number
+#     arguments/returns: see description
+#
+func get_ptg( )
+{
+    if ($1 > JDBV_mcnum)
+    {
+        message "JDB disassembly error, invalid argument get_ptg(), %d\n",$1
+        return -1
+    }
+    return (($1 * 2) -1)
+}
+
+#        func get_ptgpt( )
+#        decription: return number of pterms in a given ptg
+#        arguments: $1 - the ptg number to check
+#        returns: see description
+#
+func get_ptgpt( )
+{
+    if (($1 % 2) == 0)
+        return OEPTNUM
+    return SPPTNUM
+}
+
+#    func get_numptg( )
+#     description: return number of ptgs in macrocell of interest
+#     arguments: $1 - macrocell of interest
+#      returns: see description
+#
+func get_numptg( )
+{
+    if (($1 > JDBV_mcnum) || ($1 < 1 ))
+    {
+        message "JDB disassembly error, invalid argument get_numptg(), %d\n",$1
+        return -1
+    }
+    return 2
+
+}
+
+# no dual feedbacks this device, dummy function, should never get called but
+# must be defined.
+
+func fb_gos()
+{
+    return -1
+}
+
+# func pin2mc()
+# decription: return the macrocell number for the passed pin
+#
+
+func pin2mc()
+{
+    if (($1 > NUM_PINS) || ($1 < 1))
+        return -1
+    return ((NUM_PINS - $1) - 1)
+}
+
+
+# proc dev_data( )
+# description: store special device architectural data 
+# arguments/returns: none
+#
+proc dev_data( )
+{
+        JDBV_ptgnum = 16         # number of pterm groups
+        JDBV_mcnum =  8             # number of macrocells
+        JDBV_inpnum =  14        # number of inputs
+    JDBV_wlnum = (JDBV_mcnum + JDBV_inpnum) * 2 # number of wordlines
+    SPPTNUM = 8   # number of pterms in sop pterm group
+    OEPTNUM = 1  # number of pterms in oe pterm group
+    IOMCPTGNUM = 2  # number of pterm groups in i/o macrocell
+    NUM_PINS = 24   # number of pins
+    JDBV_lptadr = pterm_gaddr(JDBV_ptgnum) + (JDBV_wlnum * OEPTNUM) #address of last pterm.
+    JDBV_invwl1 = 1 # the inverted wordline is connects at a lower address than the true wordline
+}
+
+
+# proc load_devdata( )        
+# Description:  load device database by calling dev_data( )
+# no arguments or returns
+#
+proc load_devdata( )        
+{
+    dev_data( )
+}
+
+
+

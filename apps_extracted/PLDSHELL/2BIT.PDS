@@ -1,0 +1,93 @@
+Title           2-Bit Counter Sample File
+Pattern		pds
+Revision        1	
+Author		Your Name
+Company		Your Company
+Date		Date
+
+CHIP  2_bit_count  EP220
+
+; pins
+
+PIN	1	CLK
+PIN	2	UPDOWN
+PIN	3	CLEAR
+PIN	12	Q1
+PIN     13	Q0
+
+; Simple 2-Bit State Machine
+
+STATE
+
+MOORE_MACHINE
+DEFAULT_BRANCH S1
+      
+; state assignments
+
+	S1 = /Q1 * /Q0
+	S2 = /Q1 *  Q0 
+	S3 =  Q1 * /Q0
+	S4 =  Q1 *  Q0
+	
+; state transitions
+
+	S1 := UP	-> S2
+	    + DOWN	-> S4
+
+	S2 := UP	-> S3
+	    + DOWN	-> S1
+
+	S3 := UP	-> S4
+	    + DOWN	-> S2
+
+	S4 := UP	-> S1
+	    + DOWN	-> S3
+
+; input conditions transitions
+
+CONDITIONS
+
+	UP = UPDOWN * /CLEAR
+	DOWN = /UPDOWN * /CLEAR
+
+; end of design
+
+SIMULATION
+
+; trace on and initialize counter values
+
+TRACE_ON  UPDOWN  CLEAR  CLK  Q1  Q0
+SETF  UPDOWN  /CLEAR  /CLK
+PRLDF  /Q1  /Q0
+
+; count up 6 clocks
+
+	FOR j := 0 TO 5 DO
+	    BEGIN
+	        CLOCKF CLK
+	    END
+
+; clear the counter
+
+	SETF CLEAR
+	CLOCKF CLK
+	SETF /CLEAR
+
+; count down 6 clocks
+
+	SETF /UPDOWN
+	FOR j := 0 TO 5 DO
+	    BEGIN
+	        CLOCKF CLK
+	    END     
+     
+; clear the counter
+
+	SETF CLEAR
+	CLOCKF CLK
+	SETF /CLEAR
+
+TRACE_OFF
+
+; end of simulation
+

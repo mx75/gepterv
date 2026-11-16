@@ -1,0 +1,112 @@
+module actlow
+
+TITLE   'Functional example of active low output signals, 22 July 1992
+         John Gromala, Data I/O Corporation.'
+
+" Generic example file demonstrating how active low signals are treated
+" in simulation (PLASIM).
+
+actlow DEVICE 'p22v10';
+
+"inputs
+
+      clock  pin 1;
+      in1    pin 2;
+      in2    pin 3;
+
+"outputs
+
+      !out1   pin 23 ISTYPE 'reg,buffer'; "active low signal
+       out2   pin 22 ISTYPE 'reg,buffer'; "active high signal
+
+      !out3   pin 21 ISTYPE 'reg,invert'; "active low signal
+       out4   pin 20 ISTYPE 'reg,invert'; "active high signal
+
+" Constant assignments
+
+      x, c, H, L  =  .x., .c., 1, 0 ;
+
+" Set Declaration
+
+      outputs  =  [ out1, out2, out3, out4 ];
+
+equations
+
+      out1   :=   in1  &  in2 ;
+      out2   :=   in1  &  in2 ;
+
+      out3   :=   in1  &  in2 ;
+      out4   :=   in1  &  in2 ;
+
+      outputs.clk  =  clock ;
+
+test_vectors
+
+      ([ clock, in1, in2 ] -> [ out1, out2, out3, out4 ])
+
+"The first vector is for the power up state.  The registers all 
+"power up LOW but the values at the pins are based on whether there
+"is an inverter or buffer from the register to the pin.  Since out3
+"and out4 have inverters they will be HIGH at their pins as 
+"demonstrated by the test vectors (look at simulator results).
+
+       [   0  ,  x ,  x  ] -> [  x  ,  x  ,  x  ,  x   ]; 
+ 
+"The second vector is written for the equations in the equation section.  
+"These are all active high equations and the test vectors should be written
+"to test the logic for these equations.  However, when you view the simulator 
+"results, signals one and three will be HIGH for their values even though 
+"the vector is written with LOWS.  The reason being these are actually
+"active low signals and when the logic is not true their values should be HIGH.
+
+       [   c  ,  0 ,  0  ] -> [  L  ,  L  ,  L  ,  L   ];
+
+" This vector demonstrates the same as the previous vector except for
+"now the logic is true and the signals, one and three, have LOWS as
+"their values in the simulator results.  However, you write the vector
+"for active high logic and thus the highs in the actual vector written.
+
+       [   c  ,  1 ,  1  ] -> [  H  ,  H  ,  H  ,  H   ];
+       [   c  ,  0 ,  1  ] -> [  L  ,  L  ,  L  ,  L   ];
+
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

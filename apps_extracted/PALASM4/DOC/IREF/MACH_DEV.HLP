@@ -1,0 +1,220 @@
+======================================================================
+MACH Device Features
+----------------------------------------------------------------------
+
+Value Proposition
+       MACH is a significant milestone in the evolution of PLD type
+       architectures -- it provides high logic density with no compromise in
+       performance. The device features and flexibility provided are
+       "balanced" and optimized for efficient software allocation.
+       
+       Further, the advanced EE-CMOS technology provides a very
+       manufacturable, easily testable "canvas" for expressing new system
+       architectures and getting designs quickly and economically to market.
+       MACH will be an important vehicle for developing the customized logic
+       for systems of the '90's.
+
+MACH110 -- Core Features:
+       
+         - Multiple PAL-block structure -- Programmable AND/OR logic
+         - Architecture rich in macros -- Combinatorial, D and T-type
+              FF Equations
+         - Variable Product Term Allocation - up to 12-in OR
+         - Global signal routing resource for inputs, logic feedbacks
+         - Selection of two clock sources at each register
+         - Banks of three-state enables, FF Set and Reset
+         - Independent feedback from internal buried node and pin sources
+         - Push-button Fitting Software, fully supporting all resources
+
+
+
+Additional MACH 210 features
+         - Increased PT capability (up to 16-in OR)
+         - Additional signal routing resources
+         - Additional logic equation type -- Transparent Latch
+         - Input Storage modes -- Register and latch
+         - More banks - independent set and reset
+
+Value to User
+       The multiple PAL-block structure is popular and easily  learned. Its
+       AND/OR logic implementation is efficient and fast when its size is
+       22-inputs and 70 product terms. The variable PT allocation resource
+       makes it possible to develop large logic functions on pins of your
+       choice, without the overhead (die size and speed) of dedicated fixed
+       OR terms.
+
+
+MACH 110 Block Diagram
+      I   ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+      ÄÄÄÄ´            Switch Matrix                  ³
+      ÄÄÂÄ´             70 x 22 x 2                   ³
+      CI³ ÀÄÄÄÄÄÄÄÄÄÄÄÂÂÄÄÄÄÄÄÄÄÄÄÂÄÂÄÄÄÄÄÄÂÂÄÄÄÄÄÂÄÂÄÙ
+        ³ ÚÄÄÄÄÄÄÄÄÄÄÄÅÅÄÄÄÄÄÄÄÄÄÄÅÄÅ¿ ÚÄÄÄÁÁÄÄÄÄÄÁÄÁ¿
+        ³ ³ÚÄÄÄÄÄÄÄÄÄÄÁÁÄÄÄÄÄÄÄÄ¿ ³ ³³ ³             ³
+        ³ ³³      44 x 70       ³ ³ ³³ ³             ³
+        ³ ³³   AND Logic Array  ³ ³ ³³ ³     PAL     ³
+        ³ ³³  and Logic Allocator ³ ³ ³³ ³             ³
+        ³ ³ÀÄÄÄÄÄÄÄÄÄÄÂÂÄÄÄÄÄÄÄÄÙ ³ ³³ ³    Block    ³
+        ³ ³ÚÄÄÄÄÄÄÄÄÄÄÁÁÄÄÄÄÄÄÄÄ¿ ³ ³³ ³             ³
+        ÀÄÅ´   16  Macrocells   ÃÄÅÄÅÅÄ´     "B"     ³
+          ³³   16  I/O Cells    ÃÄÁÄÙ³ ³             ³
+          ³ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ    ³ ³             ³
+          ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+Macrocells
+       An architecture rich in programmable I/O macrocells allows
+       integration of a wide range of logic functions. Users can flexibly
+       choose the balance of how many inputs and outputs are needed for the
+       design. The two MACH subfamilies allow users to choose a device based
+       on logic to pin ratios suited to the users needs, but not pay for
+       resources that aren't used.
+       
+       The macrocell has logic resources for implementing 2 types of
+       flip-flops, plus combinatorial transfer. All types of registers (SR,
+       JK, etc.) can be modeled efficiently via software-generated logic
+       emulation. Counters, state machines, and data-path logic can be
+       easily integrated.
+
+
+
+                 Adjacent Cell                    To Switch  Matrix
+                       ³ ³                         ³    ÚÄ¿     ³
+                       ³ ³                         ³  ÄÄ´O³S7/6 ³
+                       ³ ³                   ÚÄÄÄ¿ ³  ÄÄ´EÃÄ¿   ³
+       ÚÄÄÄÄÄ¿ ÚÄÄÄ¿   ³ ³         ÚÄÄÄÄÄÄÄÄÄ´ M ³ ³    ÀÄÙ ³   ³
+     ÄÄ´  4  ³ ³PT.Ã   ³ ³ ÚÄÄÄÄ¿  ³ ÚÄÄÄÄÄ¿ ³ U ³ ³ ÚÄÄ¿ ÚÄÁÄ¿ ³ ÚÄÄÄ¿
+     ÄÄ´ PT. ÃÄ´ A ÃÄÄÄÙ ÀÄ´    ³  ³ ³ D/T ÃÄ´ X ÃÄÅÄ´ MÃÄ´BufÃÄÁÄ´I/O³
+     ÄÄ´ And ³ ³ l ÃÄÄÄÄÄÄÄ´ Or ÃÄÄÁÄ´  FF ³ ÀÄÄÄÙ ³ ³ U³ ÀÄÄÄÙ   ÀÄÄÄÙ
+     ÄÄ´  Or ³ ³ l ÃÄ¿ ÚÄÄÄ´    ³    ³     ³  S1   ÀÄo X³
+       ÀÄÄÄÄÄÙ ÀÄÄÄÙ ³ ³   ´    ³   Ú´Clk  ³         ÀÄÄÙ
+               S5/4  ³ ³   ÀÄÄÄÄÙ   ³ÀÄÄÄÄÄÙ          S3
+                     ³ ³    clk1 ÚÄ¿³  S0
+      MACH           ³ ³       ÄÄ´M³³
+      110         Adjacent  clk2 ³UÃÙ
+     I/O Cell      Cell        ÄÄ´X³ S3
+                                 ÀÄÙ
+Signal Routing
+       A single global routing resource for all signal sources  communicates
+       all signals equally well to where they are needed. The routing
+       software is thus simplified because all paths have equivalent access
+       and identical delays. No fancy decision strategies have to account
+       for these complications present on other PLD's.
+       
+       Independent access to both internal logic nodes and pin  sources
+       provide additional logic configurations (registered logic with pin
+       feedback), plus simultaneous use of a cell as both a buried node and
+       device input.
+
+
+
+
+
+                      6  5  4  3  2  1  44 43 42 42 40
+                    ÚÄÁÄÄÁÄÄÁÄÄÁÄÄÁÄÄÁÄÄÁÄÄÁÄÄÁÄÄÁÄÄÁÄ¿
+               7 ÄÄÄ´ .  .  .  . A0  g  p B15 .  .  . ÃÄÄÄ 39
+               8 ÄÄÄ´ .              n  w           . ÃÄÄÄ 38
+               9 ÄÄÄ´ A7             d  r           . ÃÄÄÄ 37
+              10 ÄÄÄ´ I0                           B8 ÃÄÄÄ 36
+              11 ÄÄÄ´ I1         M A C H         C/I5 ÃÄÄÄ 35
+              12 ÄÄÄ´ gnd         1 1 0           gnd ÃÄÄÄ 34
+              13 ÄÄÄ´ C/I2       Outline           I4 ÃÄÄÄ 33
+              14 ÄÄÄ´ A8                           I3 ÃÄÄÄ 32
+              15 ÄÄÄ´ .           p  g             B7 ÃÄÄÄ 31
+              16 ÄÄÄ´ .           w  n              . ÃÄÄÄ 30
+              17 ÄÄÄ´ .  .  . A15 r  d  B0 .  .  .  . ÃÄÄÄ 29
+                    ÀÄÂÄÄÂÄÄÂÄÄÂÄÄÂÄÄÂÄÄÂÄÄÂÄÄÂÄÄÂÄÄÂÄÙ
+                     18 19 20 21 22 23 24 25 26 27 28
+Clocking and S/R
+       Selection of clock sources and banking of Set / Reset / Output
+       Enable resources are configured to support synchronous design
+       methodologies. The additional overhead of independent FF controls is
+       not justified for a general purpose logic family. Such specialization
+       will come in later devices.
+
+MACH 2 Family
+       Besides the choice of differing logic to pin ratios, the MACH 2
+       family multiplies the options for upward migration as designs evolve.
+       Up to 16-in OR's can be handled by a larger PT allocator. Additional
+       signal routing paths exist to cover high complexity designs which may
+       fail in a MACH 1 family device. Each smaller device will be
+       "shadowed" by a big brother in the same pinout.
+
+MACH 210 Block Dagram
+     I   ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+     ÄÄÄÄ´                        Switch Matrix                       ³
+     ÄÄÂÄ´                        102 x 22 x 4                        ³
+     CI³ ÀÄÄÄÄÄÄÄÄÄÄÄÂÂÄÄÄÄÄÄÄÄÄÄÂÄÂÄÄÄÄÂÂÄÄÄÂÄÂÄÄÄÄÂÂÄÄÂÄÂÄÄÄÄÂÂÄÂÄÂÄÙ
+       ³ ÚÄÄÄÄÄÄÄÄÄÄÄÅÅÄÄÄÄÄÄÄÄÄÄÅÄÅ¿ ÚÄÁÁÄÄÄÁÄÁ¿ ÚÄÁÁÄÄÁÄÁ¿ ÚÄÁÁÄÁÄÁ¿
+       ³ ³ÚÄÄÄÄÄÄÄÄÄÄÁÁÄÄÄÄÄÄÄÄ¿ ³ ³³ ³         ³ ³        ³ ³       ³
+       ³ ³³      44 x 68       ³ ³ ³³ ³         ³ ³        ³ ³       ³
+       ³ ³³   AND Logic Array  ³ ³ ³³ ³         ³ ³        ³ ³       ³
+       ³ ³³  and Logic Allocator ³ ³ ³³ ³         ³ ³        ³ ³       ³
+       ³ ³ÀÄÄÄÄÄÄÄÄÄÄÂÂÄÄÄÄÄÄÄÄÙ ³ ³³ ³  PAL    ³ ³  PAL   ³ ³  PAL  ³
+       ³ ³ÚÄÄÄÄÄÄÄÄÄÄÁÁÄÄÄÄÄÄÄÄ¿ ³ ³³ ³         ³ ³        ³ ³       ³
+       ÀÄÅ´8 Out and 8 Bur MacrosÃÄÅÄÅÅÄ´ Block   ³ ³ Block  ³ ³ Block ³
+         ³³    8  I/O Cells    ÃÄÁÄÙ³ ³         ³ ³        ³ ³       ³
+         ³ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ    ³ ³  "B"    ³ ³  "C"   ³ ³  "D"  ³
+         ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ ÀÄÄÄÄÄÄÄÄÄÙ ÀÄÄÄÄÄÄÄÄÙ ÀÄÄÄÄÄÄÄÙ
+
+                      6  5  4  3  2  1  44 43 42 42 40
+                    ÚÄÁÄÄÁÄÄÁÄÄÁÄÄÁÄÄÁÄÄÁÄÄÁÄÄÁÄÄÁÄÄÁÄ¿
+               7 ÄÄÄ´ .  .  .  . A0  g  p  D0 .  .  . ÃÄÄÄ 39
+               8 ÄÄÄ´ .              n  w           . ÃÄÄÄ 38
+               9 ÄÄÄ´ A14            d  r           . ÃÄÄÄ 37
+              10 ÄÄÄ´ I0                          D14 ÃÄÄÄ 36
+              11 ÄÄÄ´ I1         M A C H         C/I5 ÃÄÄÄ 35
+              12 ÄÄÄ´ gnd         2 1 0           gnd ÃÄÄÄ 34
+              13 ÄÄÄ´ C/I2       Outline           I4 ÃÄÄÄ 33
+              14 ÄÄÄ´ B14                          I3 ÃÄÄÄ 32
+              15 ÄÄÄ´ .           p  g            C14 ÃÄÄÄ 31
+              16 ÄÄÄ´ .           w  n              . ÃÄÄÄ 30
+              17 ÄÄÄ´ .  .  . B0  r  d  C0 .  .  .  . ÃÄÄÄ 29
+                    ÀÄÂÄÄÂÄÄÂÄÄÂÄÄÂÄÄÂÄÄÂÄÄÂÄÄÂÄÄÂÄÄÂÄÙ
+                      18 19 20 21 22 23 24 25 26 27 28
+Additional Banks
+       The additional logic banks of the MACH 2 family allow more options on
+       which registers are affected by initialization conditions. Each bank
+       has a separate term, independent of the ones driving other registers.
+       The user can easily have a group of registered logic which is never
+       reset or operates on different control signals from the rest of his
+       logic.
+
+Input Storage
+       The improved setup time for the input storage functions (register and
+       latch) allows the system designer to alter the basic interval the
+       logic has for resolving its decisions. Additional time is "shifted"
+       from before, to after the register. Choice of clock source allows
+       special usage, such as retaining input data for later logic
+       decisions.
+
+
+                Adjacent Cells                    To Switch  Matrix
+                     ³ ³ ³                         ³    ÚÄ¿     ³
+                     ³ ³ ³                         ³  ÄÄ´O³S7/6 ³
+                     ³ ³ ³                   ÚÄÄÄ¿ ³  ÄÄ´EÃÄ¿   ³
+       ÚÄÄÄÄÄ¿ ÚÄÄÄ¿ ³ ³ ³         ÚÄÄÄÄÄÄÄÄÄ´ M ³ ³    ÀÄÙ ³   ³
+     ÄÄ´  4  ³ ³PT.ÃÄÙ ³ ³ ÚÄÄÄÄ¿  ³ ÚÄÄÄÄÄ¿ ³ U ³ ³ ÚÄÄ¿ ÚÄÁÄ¿ ³ ÚÄÄÄ¿
+     ÄÄ´ PT. ÃÄ´ A ÃÄÄÄÙ ÀÄ´    ³  ³ ³ D/T ÃÄ´ X ÃÄÅÄ´ MÃÄ´BufÃÄÅÄ´I/O³
+     ÄÄ´ And ³ ³ l ÃÄÄÄÄÄÄÄ´ Or ÃÄÄÁÄ´Latch³ ÀÄÄÄÙ ³ ³ U³ ÀÄÄÄÙ ³ ÀÄÄÄÙ
+     ÄÄ´  Or ³ ³ l ÃÄ¿ ÚÄÄÄ´    ³    ³  FF ³  S1   ÀÄo X³       ³
+       ÀÄÄÄÄÄÙ ÀÄÄÄÙ ³ ³ ÚÄ´    ³   Ú´Clk  ³         ÀÄÄÙ       ³
+               S5/4  ³ ³ ³ ÀÄÄÄÄÙ   ³ÀÄÄÄÄÄÙ          S3        ³
+                     ³ ³ ³  clk1 ÚÄ¿³  S0                       ³
+      MACH           ³ ³ ³     ÄÄ´M³³                       Adjacent
+      210         Adjacent  clk2 ³UÃÙ                         Cell
+     I/O Cell      Cell        ÄÄ´X³ S3
+                                 ÀÄÙ
+                      Adjacent Cells                To Switch Matrix
+                     ³ ³ ³          ³                   ÚÄÄÄ¿ ³
+       ÚÄÄÄÄÄ¿ ÚÄÄÄ¿ ³ ³ ³          ³ ÚÄÄÄ¿  ÚÄÄÄÄÄÄÄÄÄÄ´ M ³ ³
+     ÄÄ´  4  ³ ³PT.ÃÄÙ ³ ³ ÚÄÄÄÄ¿   ÀÄ´ M ³  ³  ÚÄÄÄÄÄ¿ ³ U ÃÄÙ
+     ÄÄ´ PT. ÃÄ´ A ÃÄÄÄÙ ÀÄ´    ³     ³ U ³  ³  ³ D/T ÃÄ´ X ³
+     ÄÄ´ And ³ ³ l ÃÄÄÄÄÄÄÄ´ Or ÃÄÄÄÄÄ´ X ÃÄÄÁÄÄ´Latch³ ÀÄÄÄÙ
+     ÄÄ´  Or ³ ³ l ÃÄ¿ ÚÄÄÄ´    ³     ÀÄÄÄÙ     ³  FF ³   S1
+       ÀÄÄÄÄÄÙ ÀÄÄÄÙ ³ ³ ÚÄ´    ³      S2     ÚÄ´Clk  ³
+               S5/4  ³ ³ ³ ÀÄÄÄÄÙ             ³ ÀÄÄÄÄÄÙ
+                     ³ ³ ³          clk1 ÚÄÄ¿ ³   S0
+      MACH           ³ ³ ³             ÄÄ´M ³ ³
+      210           Adjacent        clk2 ³U ÃÄÙ
+     Buried Cell      Cells            ÄÄ´X ³ S3
+                                         ÀÄÄÙÿ
+

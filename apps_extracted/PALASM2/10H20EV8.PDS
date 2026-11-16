@@ -1,0 +1,202 @@
+;
+;      PAL 10H20EV8 MACRO CELL  
+;
+;  ____________________________________________    Tri-state
+;                                              |   controled    
+;                                 ______       |   by TRST  
+;                                |      |      |      ___    
+;                         |\o____| 1 0  |      |_____| A |    
+;             ____________|  >   |      |            | N |_______ O
+;            |            |/_____| 1 1  |____________| D |     |
+;            |                   |      |            |___|     |
+;            |       +----+      |      |                      |
+; I  ________|_______|D  Q|______| 0 1  |                      |
+;                    |   _|      |      | Bypass &             |
+;               CLK__|>  Q|______| 0 0  | Polarity             |
+;                    +----+  |   |______| Mux                  |
+;                   Register |   s1| |s0                       |
+;                   feedback |    _|_|_____                    |
+;                      ___   |     | |    |                    |
+;                     |   |  |     |      |GND                 | 
+; FB ________/|       | 0 |__|     |                           |  
+; __        < |_______|   |        |                           | 
+; FB _______o\|       | 1 |________|___________________________|
+;                     |___|  Combinatorial feedback / Input     
+;           Feedback    |          |
+;           Mux         |__________|
+;
+;
+;
+; How to define output equations:
+;
+;
+;
+;       Combinatorial output equations are defined at the output pin, O.
+;       eg.   O = < expression >  
+;
+;      (see above diagram)
+;     
+;     
+;
+;      Registered output equations are defined at the output pin, O.
+;      eg.   O := < expression >  
+;
+;      (see above diagram)
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+; 
+;      
+;
+;The Polarity of the Output signal (O) is determined by the combination
+;of the signal definitions in the Pin/Node list and the Boolean equation.
+;
+;  
+; ______________________________________________________  
+;|OE| INPUT  | REG.     |   COMB. | PIN LIST | EQUATION |
+;|  | SIGNAL | OUTPUT   | OUTPUT  | POLARITY | POLARITY |
+;|__|________|__[O]_____|___[O]___|__________|__________|
+;|H |   I    |    I     |   I     |   O      |   O      |
+;|H |   I    |   /I     |  /I     |   O      |  /O      |
+;|H |   I    |   /I     |  /I     |  /O      |   O      |
+;|H |   I    |    I     |   I     |  /O      |  /O      |
+;|__|___________________________________________________|
+;
+; NOTE : 
+; The above table describes the situation when I/O pins are used as outputs 
+; i.e.  output enable (OE) product term is assumed high at all times.
+; There are two more cases to be considered when OE is assumed low:
+;    1. The case when I/O pins are used as inputs. In this case it is 
+;       important to remember that the corresponding output must be defined
+;       in Boolean equations as COMBINATORIAL. This is due to a particular
+;       architecture of this part (see above diagram).
+;    2. The case when we make use of the internal register. In this case
+;       the state of the corresponding register cannot be seen through its
+;       output pin.
+;The following table summarizes how the resultant output polarity can be
+;calculated .
+;
+;             PIN LIST POLARITY         
+;             _________________         
+;             |   | O      /O |         
+;   BOOLEAN   |___|___________|         
+;   EQUATION  | O |HIGH   LOW |         
+;   POLARITY  |/O |LOW    HIGH|         
+;             |___|___________|         
+;                                                                            
+;            POLARITY OF OUTPUT  
+;
+;The Design below shows how to write the Boolean equations to generate the
+;different polarities of the outputs and feedbacks.
+;                                         
+;DESIGN HEADER                           
+;-------------                           
+title         10h20ev8 EXAMPLE             
+pattern       10h20ev8 EXAMPLE             
+revision      a
+author        JOHN DOE
+company       MMI, SANTA CLARA
+date          Jun 22, 1987
+          
+
+;PIN LIST / NODE LIST DECLARATION
+;--------------------------------
+CHIP XXX pal10h20ev8
+     I1 I2 CLK IO4 IO5 VCC /IO7 /IO8 I9 I10 I11 GND I13 I14 I15
+     I16 IO17 /IO18 VCC IO20 /IO21 I22 I23 VCC
+     GLOBAL  
+
+
+;EXAMPLES OF HOW TO PROGRAM THE BOOLEAN EQUATIONS
+;------------------------------------------------
+EQUATIONS 
+
+;DEFAULT SIGNAL SET-UPS
+;----------------------
+;If O.TRST and output equation are not defined for a particular 
+;I/O pin then they are automatically set to GND i.e. :
+;O.TRST = GND  i.e. DEFAULT SETTING TO INPUT
+;O = GND.
+;If O.TRST is not explicitly defined but there exists an output
+;equation for a particular I/O pin then O.TRST is automatically 
+;set to VCC i.e. :
+;O.TRST = VCC  i.e. DEFAULT SETTING TO OUTPUT
+
+
+;COMBINATORIAL EQUATIONS
+;-----------------------
+ IO4.TRST = VCC        ;Set three state = Output.
+ IO4 = I1              ;Output polarity = high because Pin List Polarity matches
+                       ;equation polarity.
+
+
+ IO5.TRST = VCC    ;Set three state = Output.
+/IO5 = I2          ;Output polarity = low because Pin List Polarity is different
+                   ;to equation polarity.
+
+
+ IO7.TRST = VCC    ;Set three state = Output.
+ IO7 = I9          ;Output polarity = low because Pin List Polarity is different
+                   ;to equation polarity.
+
+
+ IO8.TRST = VCC     ;Set three state = Output.
+/IO8 = I10          ;Output polarity = high because Pin List Polarity matches
+                    ;equation polarity.
+
+
+;REGISTERED EQUATIONS
+;--------------------
+;
+ IO17.TRST = VCC        ;Set three state = Output.
+ IO17 :=  I1           ;Output polarity = high because Pin List Polarity matches
+                       ;equation polarity.
+
+
+ IO18.TRST = VCC        ;Set three state = Output.
+ IO18 :=  I2          ;Output polarity = low because Pin List Polarity is 
+                      ;different to equation polarity.
+
+
+ IO20.TRST = VCC         ;Set three state = Output.
+/IO20 := I9          ;Output polarity = low because Pin List Polarity is
+                     ;different to equation polarity.
+
+
+ IO21.TRST = VCC          ;Set three state = Output
+/IO21 := I10       ;Output polarity = high because Pin List Polarity matches
+                   ;equation polarity.
+
+
+;------------------------------------------------------------------------------
+;simulation
+;
+SIMULATION
+;CHECK COMBINATORIAL OUTPUTS
+;---------------------------
+SETF   I1 I2 I9 I10
+CHECK  IO4 /IO5 IO7 /IO8
+SETF   /I1 /I10
+CHECK  /IO4 /IO5 IO7 IO8 
+
+;CHECK REGISTERED OUTPUTS
+;------------------------
+SETF   I1 I10
+CLOCKF   CLK    
+CHECK  IO17 IO18 /IO20 /IO21
+SETF   /I2 /I9
+CLOCKF   CLK
+CHECK   IO17 /IO18 IO20 /IO21
+
+
+

@@ -1,0 +1,115 @@
+ğ
+FUNCTIONAL EQUATION
+Overview
+Functional equations control signals that cannot be regulated directly
+through a pin or node.  These are typically control signals associated
+with an input/output pin or node, such as set, clock, and three-state.
+Functional equations work like Boolean equations in that the function
+is asserted when the expression is true.
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+            EQUATIONS
+            Pn.Function   Assignment   Expression
+                           Operator
+
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Device Support:  Refer to the specific functional-equation reserved
+                 word, such as .CLKF, for supported devices.
+ú
+Syntax
+You include functional equations anywhere in the equations segment of
+Boolean and state-machine designs.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+            EQUATIONS
+            Pn.Function   Assignment   Expression
+                           Operator
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+            EQUATIONS
+            Q0.CLKF           =        CLOCK
+            Q1.SETF           =        SET * /RST
+            Q1.RSTF           =        RST * /SET
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+
+Pn.Function     Defines the pin or node name, as defined in the pin
+                and node statements, and the specific function, which
+                can be any of the following.
+
+                Function         Definition
+
+                .CLKF            Clock control
+                .CMBF            Register bypass control
+                .PRLD            Register preload control
+                .RSTF            Flip-flop power up or reset control
+                .SETF            Flip-flop preset control
+                .TRST            Three-state buffer control
+
+                You cannot include multiple functional equations for
+                the same pin or node.  If you do, an error is reported
+                during either assembly or fitting.  However, you can
+                use the GROUP, STRING, and VECTOR notation to define
+                signals, which is an excellent way to assign a
+                function to several pins and nodes.
+
+                Note: .CLKF is the only functional equation where you
+                can use negative polarity on the left side of the
+                equation to define a falling edge clock on devices
+                that support this feature.
+
+                Also:  .J, .K, .R, .S, .T, .T1, and .T2 are not
+                functional equations.  For more information on these
+                Boolean-type equations, refer to corresponding
+                individual descriptions in this guide.
+
+Assignment      A symbol that defines a specific operation as
+Operator        interpreted by the software when processing design
+                files.  Only the equal sign, =, can be used with
+                functional equations.  The registered assignment
+                operator, :=, can be used for registered operations.
+
+Expression      A group of signal values or product terms, on the
+                right side of an equation, represented as product and
+                sum lines.  The product operator, *, is a logical AND
+                function and the sum operator, +, is a logical OR
+                function.  You can use strings and vectors in an
+                expression.
+
+                All values in an expression for a PLD design are
+                signal names that must be defined before their use.
+                The name must be defined in pin and node statements in
+                the declaration segment of the PDS file.
+ú
+Use
+To use negative polarity on devices that support clock polarity, just
+omit the slash, /, after the dot, ., extension, for example, Q0./CLKF.
+For the PALCE29M16, place the slash before the equation.  For example,
+/Q0.CLKF.
+
+The defaults for each functional equation are as follows.
+
+ş    .CLKF always defaults to the default clock pin for the device.
+
+ş    .CMBF defaults to combinatorial.
+
+ş    .PRLD defaults to ground.
+
+ş    .SETF and .RSETF both default to a bank if they are part of a
+     bank expression.  Otherwise, they default to ground.
+
+ş    .TRST defaults to VCC if an output equation is defined.
+     Otherwise, it defaults to ground.
+ú
+Related Topics
+Boolean Equation
+.CLKF
+.CMBF
+EXPRESSION
+.PRLD
+.RSTF
+.SETF
+.TRST
+ú

@@ -1,0 +1,102 @@
+ğ
+PAIR
+Overview
+This is the keyword of an optional attribute in a pin or node
+statement that you use to direct input or output pairing.
+
+ş    Input pairing:  include the Pair attribute in a pin statement to
+     logically associate an input pin with a node.
+
+ş    Output pairing:  include the Pair attribute in a node statement
+     to logically associate a node with an output pin.
+
+Syntax
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+       Required Elements          |     Optional Attributes
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ|ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+    Keyword    Location_    Name  |     Storage    Pair     Pn_Name
+               Number             |
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ|ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Device support:  MACH-device designs only
+
+                Input pairing can only be implemented in  MACH devices
+                with buried macrocells.  Output pairing can be
+                implemented in all MACH devices.
+
+ú
+Syntax
+You can use the Pair keyword in the declaration segment of Boolean or
+state-machine designs as shown below.
+
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+       Required Elements          |     Optional Attributes
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ|ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+    Keyword    Location_    Name  |     Storage    Pair     Pn_Name
+               Number             |
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ|ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+Example, Input Pairing            |
+    Pin           ?           I1  |        ---     Pair       R1
+    Node          ?           R1  |        Reg     ---        ---
+                                  |
+Example, Output Pairing           |
+    Node          ?           L2  |        Comb    Pair      Output1
+    Pin           ?        Output1|        Comb    ---        ---
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ|ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+
+Location        Defines the location of the pin or node.  When both
+                the pin and node locations are fixed, you must assign
+                both to the same macrocell.
+
+Name            Defines the name of the pin or node.
+
+                Note:  An optional polarity slash is supported here.
+
+Storage         Defines the optional storage type for the pin or node;
+                the default is combinatorial.
+
+                Important:  Combinatorial is not a valid node storage
+                attribute for input pairing. When specifying an input
+                pair, use the registered or latched attribute in the
+                node statement.
+
+Pair            Include this optional keyword to indicate input
+                pairing in a pin statement or output pairing in a node
+                statement.  PAIR cannot be abbreviated.  The keywords
+                OPAIR and IPAIR are also valid, and denote output and
+                input pairing, respectively.
+
+                ş    Output pairs are generated when there are
+                     duplicate pin/node equations.
+
+                ş    Input pairs are generated when a buried input
+                     node is equated to an input pin.
+
+                Pairing occurs automatically during compilation unless
+                you enable manual pairing by typing the letter N
+                beside the Use automatic pin/node pairing field on the
+                Logic synthesis options form.
+
+                Recommendation:  It is best to enable the automatic
+                pin/node pairing option on the Logic Synthesis Options
+                form.
+
+Pn_Name         Define the pin or node that completes the pair.  Each
+                name must be unique and follow the keyword PAIR.
+
+                Note:  A node and its corresponding output pin should
+                not be paired if the three-state control line is tied
+                to ground.  This permanently disables the output pin.
+
+                Also:  No polarity slash, /, is allowed in the pin or
+                node name following the keyword PAIR.
+ú
+Use
+When paired, the pin and node are logically associated with the same
+macrocell.  Input pairing applies only to registered or latched
+inputs.
+ú
+Related Topics
+ú

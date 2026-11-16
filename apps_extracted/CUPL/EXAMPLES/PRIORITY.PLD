@@ -1,0 +1,73 @@
+Name      Priority;
+Partno    CA0021;
+Date      10/09/86;
+Rev       01;
+Designer  Woolhiser;
+Company   Personal CAD Systems, Inc.;
+Assembly  None;
+Location  None;
+Device    p19l8r;
+
+/****************************************************************/
+/*                                                              */
+/* Priority Interrupt Encoder for the Motorola M68000           */
+/*                                                              */
+/* Implemented using both "equations method" and "conditional	*/
+/* syntax".							*/
+/****************************************************************/
+/* Allowable Target Device Types :  PAL19L8R                    */
+/****************************************************************/
+
+$define  EQUATIONS      1
+
+/**  Inputs  **/
+
+Pin [2..8] = ![IREQ1..7];       /* External Interrupt Request Lines */
+Pin [16..18] = [FC0..2];        /* M68000 Processor Status          */
+Pin 19 = !AS;                   /* M68000 Address Strobe            */
+Pin 14 = CPUCLK;		/* M68000 Processor Clock	    */
+
+/**  Outputs  **/
+
+Pin [15,21,22] = ![IPL0..2];    /* M68000 Interrupt Priority Level  */
+Pin 20 = !VPA;                  /* M68000 Valid Peripheral Address  */
+
+/**  Declarations and Intermediate Variable Definitions  **/
+
+LEVEL7INT =  IREQ7.dq;
+LEVEL6INT = !IREQ7.dq &  IREQ6.dq;
+LEVEL5INT = !IREQ7.dq & !IREQ6.dq &  IREQ5.dq;
+LEVEL4INT = !IREQ7.dq & !IREQ6.dq & !IREQ5.dq &  IREQ4.dq;
+LEVEL3INT = !IREQ7.dq & !IREQ6.dq & !IREQ5.dq & !IREQ4.dq &  IREQ3.dq;
+LEVEL2INT = !IREQ7.dq & !IREQ6.dq & !IREQ5.dq & !IREQ4.dq & !IREQ3.dq &  IREQ2.dq;
+LEVEL1INT = !IREQ7.dq & !IREQ6.dq & !IREQ5.dq & !IREQ4.dq & !IREQ3.dq & !IREQ2.dq &  IREQ1.dq;
+
+/**  Logic Equations  **/
+
+VPA    = 'b'1;			/* By asserting VPA the processor   */
+VPA.OE = [FC2..0]:'b'111 & AS;	/* executes an Auto-Vector routine  */   
+
+$ifdef EQUATIONS	/* If the string "EQUATIONS" is defined */
+			/* Use the EQUATIONS Method		*/
+
+[IPL2..0] = LEVEL7INT & 'o'7
+          # LEVEL6INT & 'o'6
+          # LEVEL5INT & 'o'5
+          # LEVEL4INT & 'o'4
+          # LEVEL3INT & 'o'3
+          # LEVEL2INT & 'o'2
+          # LEVEL1INT & 'o'1;
+
+$else		/* Otherwise, Use CONDITIONAL SYNTAX Method */
+
+Condition {
+		if LEVEL7INT	out [IPL2,IPL1,IPL0];
+    		if LEVEL6INT	out [IPL2,IPL1     ];
+		if LEVEL5INT	out [IPL2,     IPL0];
+		if LEVEL4INT	out [IPL2          ];
+		if LEVEL3INT	out [     IPL1,IPL0];
+		if LEVEL2INT	out [     IPL1     ];
+		if LEVEL1INT	out [          IPL0];
+}
+
+$endif

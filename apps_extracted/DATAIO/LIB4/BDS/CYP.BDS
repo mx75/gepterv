@@ -1,0 +1,743 @@
+# $Header: /swpg/develop/abel/src/devsel2/newdata/RCS/cyp.chp,v 1.10 92/09/30 17:19:52 aez Exp $
+# chip report file   Released 5.1 
+#
+$MANUFACTURER CYP Cypress Semiconductor
+$CONTACT (800)952-6300 Dept C-31
+$ADDRESS1 3901 North First St. 
+$ADDRESS2 San Jose, CA 95054 
+$ADDRESS3 ------------- 
+#
+#
+# 132 column 1-line format no user info (default)
+#
+# format is:
+#$C2 mfg part type tech package devname pins spc eraseable preload family pinout did speed setup hold power price
+#
+#
+
+#the powers are calculated by the following:
+
+#f(max) = 10MHz, and Vcc(max) = ?V and Icc(max) = ?mA. Data from 1991 data book.
+#CY7C335 DATA FROM 1 MARCH 1992 DATABOOK
+
+#              COM COM COM     IND IND     MIL MIL MIL
+#              -66 -15 -25     -15 -25     -50 -20 -30
+#    "L"  COM  MHz /20 /35 IND /20 /35 MIL MHz /25 /40
+#    ---- ---- --- --- --- --- --- --- --- --- --- ---
+
+#Vcc N/A  5.25 N/A N/A N/A 5.5 N/A N/A 5.5 N/A N/A N/A    CY7C343
+#Icc N/A  120  N/A N/A N/A 200 N/A N/A 200 N/A N/A N/A
+
+#Vcc N/A  5.25 N/A N/A N/A 5.5 N/A N/A 5.5 N/A N/A N/A    CY7C341/C342
+#Icc N/A  200  N/A N/A N/A 240 N/A N/A 240 N/A N/A N/A
+
+#Vcc N/A  5.25 N/A N/A N/A N/A N/A N/A 5.5 N/A N/A N/A    CY7B326/B333
+#Icc N/A  170  N/A N/A N/A N/A N/A N/A 190 N/A N/A N/A
+
+#Vcc N/A  5.5  N/A N/A N/A N/A N/A N/A 5.5 N/A N/A N/A    CY7B336/B337/B338/B339
+#Icc N/A  180  N/A N/A N/A N/A N/A N/A 180 N/A N/A N/A
+
+#Vcc 5.5  5.5  N/A N/A N/A 5.5 N/A N/A 5.5 N/A N/A N/A    PALC 20 series
+#Icc 45   70   N/A N/A N/A 70  N/A N/A 70  N/A N/A N/A
+
+#Vcc 5.25 5.25 N/A N/A N/A 5.5 N/A N/A 5.5 N/A N/A N/A    PLDC 18G8
+#Icc 70   90   N/A N/A N/A 110 N/A N/A 110 N/A N/A N/A
+
+#Vcc N/A  N/A  N/A 5.5 5.5 N/A 5.5 5.5 N/A N/A 5.5 5.5    PLDC 20G10/20G10B
+#Icc N/A  N/A  N/A 70  55  N/A 70  55  N/A N/A 100 80
+
+#Vcc N/A  5.5  N/A N/A N/A 5.5 N/A N/A 5.5 N/A N/A N/A    PLDC 20RA10
+#Icc N/A  80   N/A N/A N/A 85  N/A N/A 85  N/A N/A N/A
+
+#Vcc 5.5  5.5  N/A N/A N/A 5.5 N/A N/A 5.5 N/A N/A N/A    PALC 22V10/22V10B
+#Icc 55   90   N/A N/A N/A 90  N/A N/A 100 N/A N/A N/A
+
+#Vcc N/A  5.25 N/A N/A N/A N/A N/A N/A 5.5 N/A N/A N/A    PAL22V10C/22VP10C
+#Icc N/A  190  N/A N/A N/A N/A N/A N/A 190 N/A N/A N/A
+
+#Vcc N/A  5.5  5.5 N/A N/A N/A N/A N/A 5.5 5.5 N/A N/A    CY7C330
+#Icc N/A  130  140 N/A N/A N/A N/A N/A 150 160 N/A N/A
+
+#Vcc N/A  5.5  N/A 5.5 N/A N/A N/A N/A 5.5 N/A 5.5 N/A    CY7C331
+#Icc N/A  120  N/A 130 N/A N/A N/A N/A 150 N/A 160 N/A
+
+#Vcc N/A  5.5  N/A 5.5 N/A N/A N/A N/A 5.5 N/A 5.5 N/A    CY7C332
+#Icc N/A  120  N/A 130 N/A N/A N/A N/A 150 N/A 160 N/A
+
+#Vcc N/A  5.25 N/A N/A N/A 5.5 N/A N/A 5.5 N/A N/A N/A    CY7C344
+#Icc N/A  150  N/A N/A N/A 170 N/A N/A 170 N/A N/A N/A
+
+#   mfg       part             type  tech  pack  devname     pins    spc  era preld fam  pin    DID#  speed set  hold pwr prc 
+$C2 CYP       PALC16L8-20KMB   PAL   CMOS  FPAK  P16L8        20     MIL  NO   NO   --   --       0   20    0    0    385  0
+$C2 CYP       PALC16L8-20LMB   PAL   CMOS  LCC   P16L8        20     MIL  NO   NO   028  717    4931  20    0    0    385  0
+$C2 CYP       PALC16L8-20QMB   PAL   CMOS  LCC   P16L8        20     MIL  UV   NO   028  717    4931  20    0    0    385  0
+$C2 CYP       PALC16L8-20WMB   PAL   CMOS  CDIP  P16L8        20     MIL  UV   NO   28   17     4929  20    0    0    385  0
+$C2 CYP       PALC16L8-20DMB   PAL   CMOS  CDIP  P16L8        20     MIL  NO   NO   28   17     4929  20    0    0    385  0
+$C2 CYP       PALC16L8-25LC    PAL   CMOS  LCC   P16L8        20     COM  NO   NO   028  717    4931  25    0    0    385  0
+$C2 CYP       PALC16L8-25PC    PAL   CMOS  DIP   P16L8        20     COM  NO   NO   28   17     4929  25    0    0    385  0
+$C2 CYP       PALC16L8-25PI    PAL   CMOS  DIP   P16L8        20     IND  NO   NO   28   17     4929  25    0    0    385  0
+$C2 CYP       PALC16L8-25VC    PAL   CMOS  SOIC  P16L8        20     COM  NO   NO   --   --       0   25    0    0    385  0
+$C2 CYP       PALC16L8-25VI    PAL   CMOS  SOIC  P16L8        20     IND  NO   NO   --   --       0   25    0    0    385  0
+$C2 CYP       PALC16L8-25WC    PAL   CMOS  CDIP  P16L8        20     COM  UV   NO   28   17     4929  25    0    0    385  0
+$C2 CYP       PALC16L8-25WI    PAL   CMOS  CDIP  P16L8        20     IND  UV   NO   28   17     4929  25    0    0    385  0
+$C2 CYP       PALC16L8-30DMB   PAL   CMOS  CDIP  P16L8        20     MIL  NO   NO   28   17     4929  30    0    0    385  0
+$C2 CYP       PALC16L8-30KMB   PAL   CMOS  FPAK  P16L8        20     MIL  NO   NO   --   --       0   30    0    0    385  0
+$C2 CYP       PALC16L8-30LMB   PAL   CMOS  LCC   P16L8        20     MIL  NO   NO   028  717    4931  30    0    0    385  0
+$C2 CYP       PALC16L8-30QMB   PAL   CMOS  LCC   P16L8        20     MIL  UV   NO   028  717    4931  30    0    0    385  0
+$C2 CYP       PALC16L8-30WMB   PAL   CMOS  CDIP  P16L8        20     MIL  UV   NO   28   17     4929  30    0    0    385  0
+$C2 CYP       PALC16L8-35LC    PAL   CMOS  LCC   P16L8        20     COM  NO   NO   028  717    4931  35    0    0    385  0
+$C2 CYP       PALC16L8-35PC    PAL   CMOS  DIP   P16L8        20     COM  NO   NO   28   17     4929  35    0    0    385  0
+$C2 CYP       PALC16L8-35PI    PAL   CMOS  DIP   P16L8        20     IND  NO   NO   28   17     4929  35    0    0    385  0
+$C2 CYP       PALC16L8-35VC    PAL   CMOS  SOIC  P16L8        20     COM  NO   NO   --   --       0   35    0    0    385  0
+$C2 CYP       PALC16L8-35VI    PAL   CMOS  SOIC  P16L8        20     IND  NO   NO   --   --       0   35    0    0    385  0
+$C2 CYP       PALC16L8-35WC    PAL   CMOS  CDIP  P16L8        20     COM  UV   NO   28   17     4929  35    0    0    385  0
+$C2 CYP       PALC16L8-35WI    PAL   CMOS  CDIP  P16L8        20     IND  UV   NO   28   17     4929  35    0    0    385  0
+$C2 CYP       PALC16L8-40DMB   PAL   CMOS  CDIP  P16L8        20     MIL  NO   NO   28   17     4929  40    0    0    385  0
+$C2 CYP       PALC16L8-40KMB   PAL   CMOS  FPAK  P16L8        20     MIL  NO   NO   --   --       0   40    0    0    385  0
+$C2 CYP       PALC16L8-40LMB   PAL   CMOS  LCC   P16L8        20     MIL  NO   NO   028  717    4931  40    0    0    385  0
+$C2 CYP       PALC16L8-40QMB   PAL   CMOS  LCC   P16L8        20     MIL  UV   NO   028  717    4931  40    0    0    385  0
+$C2 CYP       PALC16L8-40WMB   PAL   CMOS  CDIP  P16L8        20     MIL  UV   NO   28   17     4929  40    0    0    385  0
+$C2 CYP       PALC16L8L-25LC   PAL   CMOS  LCC   P16L8        20     COM  NO   NO   028  717    4931  25    0    0    247  0
+$C2 CYP       PALC16L8L-25PC   PAL   CMOS  DIP   P16L8        20     COM  NO   NO   28   17     4929  25    0    0    247  0
+$C2 CYP       PALC16L8L-25VC   PAL   CMOS  SOIC  P16L8        20     COM  NO   NO   --   --       0   25    0    0    247  0
+$C2 CYP       PALC16L8L-25WC   PAL   CMOS  CDIP  P16L8        20     COM  UV   NO   28   17     4929  25    0    0    247  0
+$C2 CYP       PALC16L8L-35LC   PAL   CMOS  LCC   P16L8        20     COM  NO   NO   028  717    4931  35    0    0    247  0
+$C2 CYP       PALC16L8L-35PC   PAL   CMOS  DIP   P16L8        20     COM  NO   NO   28   17     4929  35    0    0    247  0
+$C2 CYP       PALC16L8L-35VC   PAL   CMOS  SOIC  P16L8        20     COM  NO   NO   --   --       0   35    0    0    247  0
+$C2 CYP       PALC16L8L-35WC   PAL   CMOS  CDIP  P16L8        20     COM  UV   NO   28   17     4929  35    0    0    247  0
+$C2 CYP       PALC16R4-20DMB   PAL   CMOS  CDIP  P16R4        20     MIL  NO   YES  28   24     4938  20   20    0    385  0
+$C2 CYP       PALC16R4-20KMB   PAL   CMOS  FPAK  P16R4        20     MIL  NO   YES  --   --       0   20   20    0    385  0
+$C2 CYP       PALC16R4-20LMB   PAL   CMOS  LCC   P16R4        20     MIL  NO   YES  028  724    4940  20   20    0    385  0
+$C2 CYP       PALC16R4-20QMB   PAL   CMOS  LCC   P16R4        20     MIL  UV   YES  028  724    4940  20   20    0    385  0
+$C2 CYP       PALC16R4-20WMB   PAL   CMOS  CDIP  P16R4        20     MIL  UV   YES  28   24     4938  20   20    0    385  0
+$C2 CYP       PALC16R4-25LC    PAL   CMOS  LCC   P16R4        20     COM  NO   YES  028  724    4940  25   20    0    385  0
+$C2 CYP       PALC16R4-25PC    PAL   CMOS  DIP   P16R4        20     COM  NO   YES  28   24     4938  25   20    0    385  0
+$C2 CYP       PALC16R4-25PI    PAL   CMOS  DIP   P16R4        20     IND  NO   YES  28   24     4938  25   20    0    385  0
+$C2 CYP       PALC16R4-25VC    PAL   CMOS  SOIC  P16R4        20     COM  NO   YES  28   24     4939  25   20    0    385  0
+$C2 CYP       PALC16R4-25VI    PAL   CMOS  SOIC  P16R4        20     IND  NO   YES  28   24     4939  25   20    0    385  0
+$C2 CYP       PALC16R4-25WC    PAL   CMOS  CDIP  P16R4        20     COM  UV   YES  28   24     4938  25   20    0    385  0
+
+
+#   mfg       part             type  tech  pack  devname     pins    spc  era preld fam  pin    DID#  speed set  hold pwr prc 
+$C2 CYP       PALC16R4-25WI    PAL   CMOS  CDIP  P16R4        20     IND  UV   YES  28   24     4938  25   20    0    385  0
+$C2 CYP       PALC16R4-30DMB   PAL   CMOS  CDIP  P16R4        20     MIL  NO   YES  28   24     4938  30   25    0    385  0
+$C2 CYP       PALC16R4-30KMB   PAL   CMOS  FPAK  P16R4        20     MIL  NO   YES  --   --       0   30   25    0    385  0
+$C2 CYP       PALC16R4-30LMB   PAL   CMOS  LCC   P16R4        20     MIL  NO   YES  028  724    4940  30   25    0    385  0
+$C2 CYP       PALC16R4-30QMB   PAL   CMOS  LCC   P16R4        20     MIL  UV   YES  028  724    4940  30   25    0    385  0
+$C2 CYP       PALC16R4-30WMB   PAL   CMOS  CDIP  P16R4        20     MIL  UV   YES  28   24     4938  30   25    0    385  0
+$C2 CYP       PALC16R4-35LC    PAL   CMOS  LCC   P16R4        20     COM  NO   YES  028  724    4940  35   30    0    385  0
+$C2 CYP       PALC16R4-35PC    PAL   CMOS  DIP   P16R4        20     COM  NO   YES  28   24     4938  35   30    0    385  0
+$C2 CYP       PALC16R4-35PI    PAL   CMOS  DIP   P16R4        20     IND  NO   YES  28   24     4938  35   30    0    385  0
+$C2 CYP       PALC16R4-35VC    PAL   CMOS  SOIC  P16R4        20     COM  NO   YES  28   24     4939  35   30    0    385  0
+$C2 CYP       PALC16R4-35VI    PAL   CMOS  SOIC  P16R4        20     IND  NO   YES  28   24     4939  35   30    0    385  0
+$C2 CYP       PALC16R4-35WC    PAL   CMOS  CDIP  P16R4        20     COM  UV   YES  28   24     4938  35   30    0    385  0
+$C2 CYP       PALC16R4-35WI    PAL   CMOS  CDIP  P16R4        20     IND  UV   YES  28   24     4938  35   30    0    385  0
+$C2 CYP       PALC16R4-40DMB   PAL   CMOS  CDIP  P16R4        20     MIL  NO   YES  28   24     4938  40   35    0    385  0
+$C2 CYP       PALC16R4-40KMB   PAL   CMOS  FPAK  P16R4        20     MIL  NO   YES  --   --       0   40   35    0    385  0
+$C2 CYP       PALC16R4-40LMB   PAL   CMOS  LCC   P16R4        20     MIL  NO   YES  028  724    4940  40   35    0    385  0
+$C2 CYP       PALC16R4-40QMB   PAL   CMOS  LCC   P16R4        20     MIL  UV   YES  028  724    4940  40   35    0    385  0
+$C2 CYP       PALC16R4-40WMB   PAL   CMOS  CDIP  P16R4        20     MIL  UV   YES  28   24     4938  40   35    0    385  0
+$C2 CYP       PALC16R4L-25LC   PAL   CMOS  LCC   P16R4        20     COM  NO   YES  028  724    4940  25   20    0    247  0
+$C2 CYP       PALC16R4L-25PC   PAL   CMOS  DIP   P16R4        20     COM  NO   YES  28   24     4938  25   20    0    247  0
+$C2 CYP       PALC16R4L-25VC   PAL   CMOS  SOIC  P16R4        20     COM  NO   YES  28   24     4939  25   20    0    247  0
+$C2 CYP       PALC16R4L-25WC   PAL   CMOS  CDIP  P16R4        20     COM  UV   YES  28   24     4938  25   20    0    247  0
+$C2 CYP       PALC16R4L-35LC   PAL   CMOS  LCC   P16R4        20     COM  NO   YES  028  724    4940  35   30    0    247  0
+$C2 CYP       PALC16R4L-35PC   PAL   CMOS  DIP   P16R4        20     COM  NO   YES  28   24     4938  35   30    0    247  0
+$C2 CYP       PALC16R4L-35VC   PAL   CMOS  SOIC  P16R4        20     COM  NO   YES  28   24     4939  35   30    0    247  0
+$C2 CYP       PALC16R4L-35WC   PAL   CMOS  CDIP  P16R4        20     COM  UV   YES  28   24     4938  35   30    0    247  0
+$C2 CYP       PALC16R6-20DMB   PAL   CMOS  CDIP  P16R6        20     MIL  NO   YES  28   24     4935  20   20    0    385  0
+$C2 CYP       PALC16R6-20KMB   PAL   CMOS  FPAK  P16R6        20     MIL  NO   YES  --   --       0   20   20    0    385  0
+$C2 CYP       PALC16R6-20LMB   PAL   CMOS  LCC   P16R6        20     MIL  NO   YES  028  724    4937  20   20    0    385  0
+$C2 CYP       PALC16R6-20QMB   PAL   CMOS  LCC   P16R6        20     MIL  UV   YES  028  724    4937  20   20    0    385  0
+$C2 CYP       PALC16R6-20WMB   PAL   CMOS  CDIP  P16R6        20     MIL  UV   YES  28   24     4935  20   20    0    385  0
+$C2 CYP       PALC16R6-25LC    PAL   CMOS  LCC   P16R6        20     COM  NO   YES  028  724    4937  25   20    0    385  0
+$C2 CYP       PALC16R6-25PC    PAL   CMOS  DIP   P16R6        20     COM  NO   YES  28   24     4935  25   20    0    385  0
+$C2 CYP       PALC16R6-25PI    PAL   CMOS  DIP   P16R6        20     IND  NO   YES  28   24     4935  25   20    0    385  0
+$C2 CYP       PALC16R6-25VC    PAL   CMOS  SOIC  P16R6        20     COM  NO   YES  --   --       0   25   20    0    385  0
+$C2 CYP       PALC16R6-25VI    PAL   CMOS  SOIC  P16R6        20     IND  NO   YES  --   --       0   25   20    0    385  0
+$C2 CYP       PALC16R6-25WC    PAL   CMOS  CDIP  P16R6        20     COM  UV   YES  28   24     4935  25   20    0    385  0
+$C2 CYP       PALC16R6-25WI    PAL   CMOS  CDIP  P16R6        20     IND  UV   YES  28   24     4935  25   20    0    385  0
+$C2 CYP       PALC16R6-30DMB   PAL   CMOS  CDIP  P16R6        20     MIL  NO   YES  28   24     4935  30   25    0    385  0
+$C2 CYP       PALC16R6-30KMB   PAL   CMOS  FPAK  P16R6        20     MIL  NO   YES  --   --       0   30   25    0    385  0
+$C2 CYP       PALC16R6-30LMB   PAL   CMOS  LCC   P16R6        20     MIL  NO   YES  028  724    4937  30   25    0    385  0
+$C2 CYP       PALC16R6-30QMB   PAL   CMOS  LCC   P16R6        20     MIL  UV   YES  028  724    4937  30   25    0    385  0
+$C2 CYP       PALC16R6-30WMB   PAL   CMOS  CDIP  P16R6        20     MIL  UV   YES  28   24     4935  30   25    0    385  0
+$C2 CYP       PALC16R6-35LC    PAL   CMOS  LCC   P16R6        20     COM  NO   YES  028  724    4937  35   30    0    385  0
+$C2 CYP       PALC16R6-35PC    PAL   CMOS  DIP   P16R6        20     COM  NO   YES  28   24     4935  35   30    0    385  0
+$C2 CYP       PALC16R6-35PI    PAL   CMOS  DIP   P16R6        20     IND  NO   YES  28   24     4935  35   30    0    385  0
+$C2 CYP       PALC16R6-35VC    PAL   CMOS  SOIC  P16R6        20     COM  NO   YES  --   --       0   35   30    0    385  0
+$C2 CYP       PALC16R6-35VI    PAL   CMOS  SOIC  P16R6        20     IND  NO   YES  --   --       0   35   30    0    385  0
+$C2 CYP       PALC16R6-35WC    PAL   CMOS  CDIP  P16R6        20     COM  UV   YES  28   24     4935  35   30    0    385  0
+$C2 CYP       PALC16R6-35WI    PAL   CMOS  CDIP  P16R6        20     IND  UV   YES  28   24     4935  35   30    0    385  0
+$C2 CYP       PALC16R6-40DMB   PAL   CMOS  CDIP  P16R6        20     MIL  NO   YES  28   24     4935  40   35    0    385  0
+
+
+#   mfg       part             type  tech  pack  devname     pins    spc  era preld fam  pin    DID#  speed set  hold pwr prc 
+$C2 CYP       PALC16R6-40KMB   PAL   CMOS  FPAK  P16R6        20     MIL  NO   YES  --   --       0   40   35    0    385  0
+$C2 CYP       PALC16R6-40LMB   PAL   CMOS  LCC   P16R6        20     MIL  NO   YES  028  724    4937  40   35    0    385  0
+$C2 CYP       PALC16R6-40QMB   PAL   CMOS  LCC   P16R6        20     MIL  UV   YES  028  724    4937  40   35    0    385  0
+$C2 CYP       PALC16R6-40WMB   PAL   CMOS  CDIP  P16R6        20     MIL  UV   YES  28   24     4935  40   35    0    385  0
+$C2 CYP       PALC16R6L-25LC   PAL   CMOS  LCC   P16R6        20     COM  NO   YES  028  724    4937  25   20    0    247  0
+$C2 CYP       PALC16R6L-25PC   PAL   CMOS  DIP   P16R6        20     COM  NO   YES  28   24     4935  25   20    0    247  0
+$C2 CYP       PALC16R6L-25VC   PAL   CMOS  SOIC  P16R6        20     COM  NO   YES  --   --       0   25   20    0    247  0
+$C2 CYP       PALC16R6L-25WC   PAL   CMOS  CDIP  P16R6        20     COM  UV   YES  28   24     4935  25   20    0    247  0
+$C2 CYP       PALC16R6L-35LC   PAL   CMOS  LCC   P16R6        20     COM  NO   YES  028  724    4937  35   30    0    247  0
+$C2 CYP       PALC16R6L-35PC   PAL   CMOS  DIP   P16R6        20     COM  NO   YES  28   24     4935  35   30    0    247  0
+$C2 CYP       PALC16R6L-35VC   PAL   CMOS  SOIC  P16R6        20     COM  NO   YES  --   --       0   35   30    0    247  0
+$C2 CYP       PALC16R6L-35WC   PAL   CMOS  CDIP  P16R6        20     COM  UV   YES  28   24     4935  35   30    0    247  0
+$C2 CYP       PALC16R8-20DMB   PAL   CMOS  CDIP  P16R8        20     MIL  NO   YES  28   24     4932   0   20    0    385  0
+$C2 CYP       PALC16R8-20KMB   PAL   CMOS  FPAK  P16R8        20     MIL  NO   YES  --   --       0    0   20    0    385  0
+$C2 CYP       PALC16R8-20LMB   PAL   CMOS  LCC   P16R8        20     MIL  NO   YES  028  724    4934   0   20    0    385  0
+$C2 CYP       PALC16R8-20QMB   PAL   CMOS  LCC   P16R8        20     MIL  UV   YES  028  724    4934   0   20    0    385  0
+$C2 CYP       PALC16R8-20WMB   PAL   CMOS  CDIP  P16R8        20     MIL  UV   YES  28   24     4932   0   20    0    385  0
+$C2 CYP       PALC16R8-25LC    PAL   CMOS  LCC   P16R8        20     COM  NO   YES  028  724    4934   0   20    0    385  0
+$C2 CYP       PALC16R8-25PC    PAL   CMOS  DIP   P16R8        20     COM  NO   YES  28   24     4932   0   20    0    385  0
+$C2 CYP       PALC16R8-25PI    PAL   CMOS  DIP   P16R8        20     IND  NO   YES  28   24     4932   0   20    0    385  0
+$C2 CYP       PALC16R8-25VC    PAL   CMOS  SOIC  P16R8        20     COM  NO   YES  --   --       0    0   20    0    385  0
+$C2 CYP       PALC16R8-25VI    PAL   CMOS  SOIC  P16R8        20     IND  NO   YES  --   --       0    0   20    0    385  0
+$C2 CYP       PALC16R8-25WC    PAL   CMOS  CDIP  P16R8        20     COM  UV   YES  28   24     4932   0   20    0    385  0
+$C2 CYP       PALC16R8-25WI    PAL   CMOS  CDIP  P16R8        20     IND  UV   YES  28   24     4932   0   20    0    385  0
+$C2 CYP       PALC16R8-30DMB   PAL   CMOS  CDIP  P16R8        20     MIL  NO   YES  28   24     4932   0   25    0    385  0
+$C2 CYP       PALC16R8-30KMB   PAL   CMOS  FPAK  P16R8        20     MIL  NO   YES  --   --       0    0   25    0    385  0
+$C2 CYP       PALC16R8-30LMB   PAL   CMOS  LCC   P16R8        20     MIL  NO   YES  028  724    4934   0   25    0    385  0
+$C2 CYP       PALC16R8-30QMB   PAL   CMOS  LCC   P16R8        20     MIL  UV   YES  028  724    4934   0   25    0    385  0
+$C2 CYP       PALC16R8-30WMB   PAL   CMOS  CDIP  P16R8        20     MIL  UV   YES  28   24     4932   0   25    0    385  0
+$C2 CYP       PALC16R8-35LC    PAL   CMOS  LCC   P16R8        20     COM  NO   YES  028  724    4934   0   30    0    385  0
+$C2 CYP       PALC16R8-35PC    PAL   CMOS  DIP   P16R8        20     COM  NO   YES  28   24     4932   0   30    0    385  0
+$C2 CYP       PALC16R8-35PI    PAL   CMOS  DIP   P16R8        20     IND  NO   YES  28   24     4932   0   30    0    385  0
+$C2 CYP       PALC16R8-35VC    PAL   CMOS  SOIC  P16R8        20     COM  NO   YES  --   --       0    0   30    0    385  0
+$C2 CYP       PALC16R8-35VI    PAL   CMOS  SOIC  P16R8        20     IND  NO   YES  --   --       0    0   30    0    385  0
+$C2 CYP       PALC16R8-35WC    PAL   CMOS  CDIP  P16R8        20     COM  UV   YES  28   24     4932   0   30    0    385  0
+$C2 CYP       PALC16R8-35WI    PAL   CMOS  CDIP  P16R8        20     IND  UV   YES  28   24     4932   0   30    0    385  0
+$C2 CYP       PALC16R8-40DMB   PAL   CMOS  CDIP  P16R8        20     MIL  NO   YES  28   24     4932   0   35    0    385  0
+$C2 CYP       PALC16R8-40KMB   PAL   CMOS  FPAK  P16R8        20     MIL  NO   YES  --   --       0    0   35    0    385  0
+$C2 CYP       PALC16R8-40LMB   PAL   CMOS  LCC   P16R8        20     MIL  NO   YES  028  724    4934   0   35    0    385  0
+$C2 CYP       PALC16R8-40QMB   PAL   CMOS  LCC   P16R8        20     MIL  UV   YES  028  724    4934   0   35    0    385  0
+$C2 CYP       PALC16R8-40WMB   PAL   CMOS  CDIP  P16R8        20     MIL  UV   YES  28   24     4932   0   35    0    385  0
+$C2 CYP       PALC16R8L-25LC   PAL   CMOS  LCC   P16R8        20     COM  NO   YES  028  724    4934   0   20    0    247  0
+$C2 CYP       PALC16R8L-25PC   PAL   CMOS  DIP   P16R8        20     COM  NO   YES  28   24     4932   0   20    0    247  0
+$C2 CYP       PALC16R8L-25VC   PAL   CMOS  SOIC  P16R8        20     COM  NO   YES  --   --       0    0   20    0    247  0
+$C2 CYP       PALC16R8L-25WC   PAL   CMOS  CDIP  P16R8        20     COM  UV   YES  28   24     4932   0   20    0    247  0
+$C2 CYP       PALC16R8L-35LC   PAL   CMOS  LCC   P16R8        20     COM  NO   YES  028  724    4934   0   30    0    247  0
+$C2 CYP       PALC16R8L-35PC   PAL   CMOS  DIP   P16R8        20     COM  NO   YES  28   24     4932   0   30    0    247  0
+$C2 CYP       PALC16R8L-35VC   PAL   CMOS  SOIC  P16R8        20     COM  NO   YES  --   --       0    0   30    0    247  0
+$C2 CYP       PALC16R8L-35WC   PAL   CMOS  CDIP  P16R8        20     COM  UV   YES  28   24     4932   0   30    0    247  0
+$C2 CYP       PLDC18G8-12JC    PAL   CMOS  PLCC  P18G8        20     COM  NO   YES  --   --       0   12   10    0    472  0
+$C2 CYP       PLDC18G8-12PC    PAL   CMOS  DIP   P18G8        20     COM  NO   YES  BB   0F     5776  12   10    0    472  0
+
+
+#   mfg       part             type  tech  pack  devname     pins    spc  era preld fam  pin    DID#  speed set  hold pwr prc 
+$C2 CYP       PLDC18G8-12VC    PAL   CMOS  SOIC  P18G8        20     COM  NO   YES  --   --       0   12   10    0    472  0
+$C2 CYP       PLDC18G8-12WC    PAL   CMOS  CDIP  P18G8        20     COM  UV   YES  BB   0F     5776  12   10    0    472  0
+$C2 CYP       PLDC18G8-15DMB   PAL   CMOS  CDIP  P18G8        20     MIL  NO   YES  BB   0F     5776  15   12    0    605  0
+$C2 CYP       PLDC18G8-15JC    PAL   CMOS  PLCC  P18G8        20     COM  NO   YES  --   --       0   15   12    0    472  0
+$C2 CYP       PLDC18G8-15PI    PAL   CMOS  DIP   P18G8        20     IND  NO   YES  BB   0F     5776  15   12    0    605  0
+$C2 CYP       PLDC18G8-15WI    PAL   CMOS  CDIP  P18G8        20     IND  UV   YES  BB   0F     5776  15   12    0    605  0
+$C2 CYP       PLDC18G8-15JI    PAL   CMOS  PLCC  P18G8        20     IND  NO   YES  --   --       0   15   12    0    605  0
+$C2 CYP       PLDC18G8-15QMB   PAL   CMOS  LCC   P18G8        20     MIL  UV   YES  --   --       0   15   12    0    605  0
+$C2 CYP       PLDC18G8-15KMB   PAL   CMOS  FPAK  P18G8        20     MIL  NO   YES  --   --       0   15   12    0    605  0
+$C2 CYP       PLDC18G8-20PI    PAL   CMOS  DIP   P18G8        20     IND  NO   YES  BB   0F     5776  20   15    0    605  0
+$C2 CYP       PLDC18G8-20WI    PAL   CMOS  CDIP  P18G8        20     IND  UV   YES  BB   0F     5776  20   15    0    605  0
+$C2 CYP       PLDC18G8-20JI    PAL   CMOS  PLCC  P18G8        20     IND  NO   YES  --   --       0   20   15    0    605  0
+$C2 CYP       PLDC18G8-20QMB   PAL   CMOS  LCC   P18G8        20     MIL  UV   YES  --   --       0   20   15    0    605  0
+$C2 CYP       PLDC18G8-20KMB   PAL   CMOS  FPAK  P18G8        20     MIL  NO   YES  --   --       0   20   15    0    605  0
+$C2 CYP       PLDC18G8-15LMB   PAL   CMOS  LCC   P18G8        20     MIL  NO   YES  --   --       0   15   12    0    605  0
+$C2 CYP       PLDC18G8-15PC    PAL   CMOS  DIP   P18G8        20     COM  NO   YES  BB   0F     5776  15   12    0    472  0
+$C2 CYP       PLDC18G8-15VC    PAL   CMOS  SOIC  P18G8        20     COM  NO   YES  --   --       0   15   12    0    472  0
+$C2 CYP       PLDC18G8-15WC    PAL   CMOS  CDIP  P18G8        20     COM  UV   YES  BB   0F     5776  15   12    0    472  0
+$C2 CYP       PLDC18G8-15WMB   PAL   CMOS  CDIP  P18G8        20     MIL  UV   YES  BB   0F     5776  15   12    0    605  0
+$C2 CYP       PLDC18G8-20DMB   PAL   CMOS  CDIP  P18G8        20     MIL  NO   YES  BB   0F     5776  20   15    0    605  0
+$C2 CYP       PLDC18G8-20LMB   PAL   CMOS  LCC   P18G8        20     MIL  NO   YES  --   --       0   20   15    0    605  0
+$C2 CYP       PLDC18G8-20WMB   PAL   CMOS  CDIP  P18G8        20     MIL  UV   YES  BB   0F     5776  20   15    0    605  0
+$C2 CYP       PLDC18G8L-15JC   PAL   CMOS  PLCC  P18G8        20     COM  NO   YES  --   --       0   15   12    0    367  0
+$C2 CYP       PLDC18G8L-15PC   PAL   CMOS  DIP   P18G8        20     COM  NO   YES  BB   0F     5776  15   12    0    367  0
+$C2 CYP       PLDC18G8L-15VC   PAL   CMOS  SOIC  P18G8        20     COM  NO   YES  --   --       0   15   12    0    367  0
+$C2 CYP       PLDC18G8L-15WC   PAL   CMOS  CDIP  P18G8        20     COM  UV   YES  BB   0F     5776  15   12    0    367  0
+$C2 CYP       CG7C323-A25HC    PAL   CMOS  LCC   P20G10C      28     COM  UV   YES  --   --       0   25   15    0    302  0
+$C2 CYP       CG7C323-A25JC    PAL   CMOS  PLCC  P20G10C      28     COM  NO   YES  028  756    3067  25   15    0    302  0
+$C2 CYP       CG7C323-A25JI    PAL   CMOS  PLCC  P20G10C      28     IND  NO   YES  028  756    3067  25   15    0    302  0
+$C2 CYP       CG7C323-A35HC    PAL   CMOS  LCC   P20G10C      28     COM  UV   YES  --   --       0   35   30    0    302  0
+$C2 CYP       CG7C323-A35JC    PAL   CMOS  PLCC  P20G10C      28     COM  NO   YES  028  756    3067  35   30    0    302  0
+$C2 CYP       CG7C323-A35JI    PAL   CMOS  PLCC  P20G10C      28     IND  NO   YES  028  756    3067  35   30    0    302  0
+$C2 CYP       CG7C323B-A15HC   PAL   CMOS  LCC   P20G10C      28     COM  UV   YES  --   --       0   15   12    0    385  0
+$C2 CYP       CG7C323B-A15JC   PAL   CMOS  PLCC  P20G10C      28     COM  NO   YES  0BB  756    4473  15   12    0    385  0
+$C2 CYP       CG7C323B-A15JI   PAL   CMOS  PLCC  P20G10C      28     IND  NO   YES  0BB  756    4473  15   12    0    385  0
+$C2 CYP       CG7C323B-A20HC   PAL   CMOS  LCC   P20G10C      28     COM  UV   YES  --   --       0   20   12    0    385  0
+$C2 CYP       CG7C323B-A20JC   PAL   CMOS  PLCC  P20G10C      28     COM  NO   YES  0BB  756    4473  20   12    0    385  0
+$C2 CYP       CG7C323B-A20JI   PAL   CMOS  PLCC  P20G10C      28     IND  NO   YES  0BB  756    4473  20   12    0    385  0
+$C2 CYP       PLDC20G10-25HC   PAL   CMOS  LCC   P20G10C      28     COM  UV   YES  --   --       0   25   15    0    302  0
+$C2 CYP       PLDC20G10-25JC   PAL   CMOS  PLCC  P20G10C      28     COM  NO   YES  028  756    3067  25   15    0    302  0
+$C2 CYP       PLDC20G10-25JI   PAL   CMOS  PLCC  P20G10C      28     IND  NO   YES  028  756    3067  25   15    0    302  0
+$C2 CYP       PLDC20G10-25PC   PAL   CMOS  DIP   P20G10       24     COM  NO   YES  28   56     2199  25   15    0    302  0
+$C2 CYP       PLDC20G10-25PI   PAL   CMOS  DIP   P20G10       24     IND  NO   YES  28   56     2199  25   15    0    302  0
+$C2 CYP       PLDC20G10-25WC   PAL   CMOS  CDIP  P20G10       24     COM  UV   YES  28   56     2199  25   15    0    302  0
+$C2 CYP       PLDC20G10-25WI   PAL   CMOS  CDIP  P20G10       24     IND  UV   YES  28   56     2199  25   15    0    302  0
+$C2 CYP       PLDC20G10-30DMB  PAL   CMOS  CDIP  P20G10       24     MIL  NO   YES  28   56     2199  30   20    0    440  0
+$C2 CYP       PLDC20G10-30LMB  PAL   CMOS  LCC   P20G10C      28     MIL  NO   YES  --   --       0   30   20    0    440  0
+$C2 CYP       PLDC20G10-30WMB  PAL   CMOS  CDIP  P20G10       24     MIL  UV   YES  28   56     2199  30   20    0    440  0
+$C2 CYP       PLDC20G10-35HC   PAL   CMOS  LCC   P20G10C      28     COM  UV   YES  --   --       0   35   30    0    302  0
+$C2 CYP       PLDC20G10-35JC   PAL   CMOS  PLCC  P20G10C      28     COM  NO   YES  028  756    3067  35   30    0    302  0
+$C2 CYP       PLDC20G10-35JI   PAL   CMOS  PLCC  P20G10C      28     IND  NO   YES  028  756    3067  35   30    0    302  0
+$C2 CYP       PLDC20G10-35PC   PAL   CMOS  DIP   P20G10       24     COM  NO   YES  28   56     2199  35   30    0    302  0
+$C2 CYP       PLDC20G10-35PI   PAL   CMOS  DIP   P20G10       24     IND  NO   YES  28   56     2199  35   30    0    302  0
+$C2 CYP       PLDC20G10-35WC   PAL   CMOS  CDIP  P20G10       24     COM  UV   YES  28   56     2199  35   30    0    302  0
+$C2 CYP       PLDC20G10-35WI   PAL   CMOS  CDIP  P20G10       24     IND  UV   YES  28   56     2199  35   30    0    302  0
+$C2 CYP       PLDC20G10-40DMB  PAL   CMOS  CDIP  P20G10       24     MIL  NO   YES  28   56     2199  40   35    0    440  0
+$C2 CYP       PLDC20G10-40LMB  PAL   CMOS  LCC   P20G10C      28     MIL  NO   YES  --   --       0   40   35    0    440  0
+$C2 CYP       PLDC20G10-40WMB  PAL   CMOS  CDIP  P20G10       24     MIL  UV   YES  28   56     2199  40   35    0    440  0
+$C2 CYP       PLDC20G10B-15HC  PAL   CMOS  LCC   P20G10C      28     COM  UV   YES  --   --       0   15   12    0    385  0
+$C2 CYP       PLDC20G10B-15JC  PAL   CMOS  PLCC  P20G10C      28     COM  NO   YES  0BB  756    4473  15   12    0    385  0
+$C2 CYP       PLDC20G10B-15JI  PAL   CMOS  PLCC  P20G10C      28     IND  NO   YES  0BB  756    4473  15   12    0    385  0
+
+
+#   mfg       part             type  tech  pack  devname     pins    spc  era preld fam  pin    DID#  speed set  hold pwr prc 
+$C2 CYP       PLDC20G10B-15PC  PAL   CMOS  DIP   P20G10       24     COM  NO   YES  BB   56     4472  15   12    0    385  0
+$C2 CYP       PLDC20G10B-15PI  PAL   CMOS  DIP   P20G10       24     IND  NO   YES  BB   56     4472  15   12    0    385  0
+$C2 CYP       PLDC20G10B-15WC  PAL   CMOS  CDIP  P20G10       24     COM  UV   YES  BB   56     4472  15   12    0    385  0
+$C2 CYP       PLDC20G10B-15WI  PAL   CMOS  CDIP  P20G10       24     IND  UV   YES  BB   56     4472  15   12    0    385  0
+$C2 CYP       PLDC20G10B-20DMB PAL   CMOS  CDIP  P20G10       24     MIL  NO   YES  BB   56     4472  20   15    0    550  0
+$C2 CYP       PLDC20G10B-20HC  PAL   CMOS  LCC   P20G10C      28     COM  UV   YES  --   --       0   20   12    0    385  0
+$C2 CYP       PLDC20G10B-20JC  PAL   CMOS  PLCC  P20G10C      28     COM  NO   YES  0BB  756    4473  20   12    0    385  0
+$C2 CYP       PLDC20G10B-20JI  PAL   CMOS  PLCC  P20G10C      28     IND  NO   YES  0BB  756    4473  20   12    0    385  0
+$C2 CYP       PLDC20G10B-20LMB PAL   CMOS  LCC   P20G10C      28     MIL  NO   YES  --   --       0   20   15    0    550  0
+$C2 CYP       PLDC20G10B-20PC  PAL   CMOS  DIP   P20G10       24     COM  NO   YES  BB   56     4472  20   12    0    385  0
+$C2 CYP       PLDC20G10B-20PI  PAL   CMOS  DIP   P20G10       24     IND  NO   YES  BB   56     4472  20   12    0    385  0
+$C2 CYP       PLDC20G10B-20WC  PAL   CMOS  CDIP  P20G10       24     COM  UV   YES  BB   56     4472  20   12    0    385  0
+$C2 CYP       PLDC20G10B-20WI  PAL   CMOS  CDIP  P20G10       24     IND  UV   YES  BB   56     4472  20   12    0    385  0
+$C2 CYP       PLDC20G10B-20WMB PAL   CMOS  CDIP  P20G10       24     MIL  UV   YES  BB   56     4472  20   15    0    550  0
+$C2 CYP       PLDC20G10B-25DMB PAL   CMOS  CDIP  P20G10       24     MIL  NO   YES  BB   56     4472  25   18    0    550  0
+$C2 CYP       PLDC20G10B-25LMB PAL   CMOS  LCC   P20G10C      28     MIL  NO   YES  --   --       0   25   18    0    550  0
+$C2 CYP       PLDC20G10B-25WMB PAL   CMOS  CDIP  P20G10       24     MIL  UV   YES  BB   56     4472  25   18    0    550  0
+$C2 CYP       CG7C324-A15HC    PAL   CMOS  LCC   P20RA10C     28     COM  UV   YES  --   --       0   15    7    3    440  0
+$C2 CYP       CG7C324-A15JC    PAL   CMOS  PLCC  P20RA10C     28     COM  NO   YES  0BB  745    4945  15    7    3    440  0
+$C2 CYP       CG7C324-A20HC    PAL   CMOS  LCC   P20RA10C     28     COM  UV   YES  --   --       0   20   10    5    440  0
+$C2 CYP       CG7C324-A20JC    PAL   CMOS  PLCC  P20RA10C     28     COM  NO   YES  0BB  745    4945  20   10    5    440  0
+$C2 CYP       CG7C324-A30HC    PAL   CMOS  LCC   P20RA10C     28     COM  UV   YES  --   --       0   30   15    5    440  0
+$C2 CYP       CG7C324-A30JC    PAL   CMOS  PLCC  P20RA10C     28     COM  NO   YES  0BB  745    4945  30   15    5    440  0
+$C2 CYP       PLDC20RA10-15HC  PAL   CMOS  LCC   P20RA10C     28     COM  UV   YES  --   --       0   15    7    3    440  0
+$C2 CYP       PLDC20RA10-15JC  PAL   CMOS  PLCC  P20RA10C     28     COM  NO   YES  0BB  745    4945  15    7    3    440  0
+$C2 CYP       PLDC20RA10-15PC  PAL   CMOS  DIP   P20RA10      24     COM  NO   YES  BB   45     4943  15    7    3    440  0
+$C2 CYP       PLDC20RA10-15WC  PAL   CMOS  CDIP  P20RA10      24     COM  UV   YES  BB   45     4943  15    7    3    440  0
+$C2 CYP       PLDC20RA10-20DI  PAL   CMOS  CDIP  P20RA10      24     IND  NO   YES  BB   45     4943  20   10    3    467  0
+$C2 CYP       PLDC20RA10-20DMB PAL   CMOS  CDIP  P20RA10      24     MIL  NO   YES  BB   45     4943  20   10    3    467  0
+$C2 CYP       PLDC20RA10-20HC  PAL   CMOS  LCC   P20RA10C     28     COM  UV   YES  --   --       0   20   10    5    440  0
+$C2 CYP       PLDC20RA10-20HMB PAL   CMOS  LCC   P20RA10C     28     MIL  UV   YES  --   --       0   20   10    3    467  0
+$C2 CYP       PLDC20RA10-20JC  PAL   CMOS  PLCC  P20RA10C     28     COM  NO   YES  0BB  745    4945  20   10    5    440  0
+$C2 CYP       PLDC20RA10-20JI  PAL   CMOS  PLCC  P20RA10C     28     IND  NO   YES  0BB  745    4945  20   10    3    467  0
+$C2 CYP       PLDC20RA10-20LMB PAL   CMOS  LCC   P20RA10C     28     MIL  NO   YES  --   --       0   20   10    3    467  0
+$C2 CYP       PLDC20RA10-20PC  PAL   CMOS  DIP   P20RA10      24     COM  NO   YES  BB   45     4943  20   10    0    440  0
+$C2 CYP       PLDC20RA10-20PI  PAL   CMOS  DIP   P20RA10      24     IND  NO   YES  BB   45     4943  20   10    3    467  0
+$C2 CYP       PLDC20RA10-20QMB PAL   CMOS  LCC   P20RA10C     28     MIL  UV   YES  --   --       0   20   10    3    467  0
+$C2 CYP       PLDC20RA10-20WC  PAL   CMOS  CDIP  P20RA10      24     COM  UV   YES  BB   45     4943  20   10    5    440  0
+$C2 CYP       PLDC20RA10-20WI  PAL   CMOS  CDIP  P20RA10      24     IND  UV   YES  BB   45     4943  20   10    3    467  0
+$C2 CYP       PLDC20RA10-20WMB PAL   CMOS  CDIP  P20RA10      24     MIL  UV   YES  BB   45     4943  20   10    3    467  0
+$C2 CYP       PLDC20RA10-25DI  PAL   CMOS  CDIP  P20RA10      24     IND  NO   YES  BB   45     4943  25   15    4    467  0
+$C2 CYP       PLDC20RA10-25DMB PAL   CMOS  CDIP  P20RA10      24     MIL  NO   YES  BB   45     4943  25   15    0    467  0
+$C2 CYP       PLDC20RA10-25HMB PAL   CMOS  LCC   P20RA10C     28     MIL  UV   YES  --   --       0   25   15    5    467  0
+$C2 CYP       PLDC20RA10-25JI  PAL   CMOS  PLCC  P20RA10C     28     IND  NO   YES  0BB  745    4945  25   15    5    467  0
+$C2 CYP       PLDC20RA10-25LMB PAL   CMOS  LCC   P20RA10C     28     MIL  NO   YES  --   --       0   25   15    5    467  0
+$C2 CYP       PLDC20RA10-25PI  PAL   CMOS  DIP   P20RA10      24     IND  NO   YES  BB   45     4943  25   15    5    467  0
+$C2 CYP       PLDC20RA10-25QMB PAL   CMOS  LCC   P20RA10C     28     MIL  UV   YES  --   --       0   25   15    5    467  0
+$C2 CYP       PLDC20RA10-25WI  PAL   CMOS  CDIP  P20RA10      24     IND  UV   YES  BB   45     4943  25   15    5    467  0
+$C2 CYP       PLDC20RA10-25WMB PAL   CMOS  CDIP  P20RA10      24     MIL  UV   YES  BB   45     4943  25   15    5    467  0
+$C2 CYP       PLDC20RA10-30HC  PAL   CMOS  LCC   P20RA10C     28     COM  UV   YES  --   --       0   30   15    5    440  0
+$C2 CYP       PLDC20RA10-30JC  PAL   CMOS  PLCC  P20RA10C     28     COM  NO   YES  0BB  745    4945  30   15    5    440  0
+
+
+#   mfg       part             type  tech  pack  devname     pins    spc  era preld fam  pin    DID#  speed set  hold pwr prc 
+$C2 CYP       PLDC20RA10-30PC  PAL   CMOS  DIP   P20RA10      24     COM  NO   YES  BB   45     4943  30   15    5    440  0
+$C2 CYP       PLDC20RA10-30WC  PAL   CMOS  CDIP  P20RA10      24     COM  UV   YES  BB   45     4943  30   15    5    440  0
+$C2 CYP       PLDC20RA10-35DI  PAL   CMOS  CDIP  P20RA10      24     IND  NO   YES  BB   45     4943  35   20    5    467  0
+$C2 CYP       PLDC20RA10-35DMB PAL   CMOS  CDIP  P20RA10      24     MIL  NO   YES  BB   45     4943  35   20    5    467  0
+$C2 CYP       PLDC20RA10-35HMB PAL   CMOS  LCC   P20RA10C     28     MIL  UV   YES  --   --       0   35   20    5    467  0
+$C2 CYP       PLDC20RA10-35JI  PAL   CMOS  PLCC  P20RA10C     28     IND  NO   YES  0BB  745    4945  35   20    5    467  0
+$C2 CYP       PLDC20RA10-35LMB PAL   CMOS  LCC   P20RA10C     28     MIL  NO   YES  --   --       0   35   20    5    467  0
+$C2 CYP       PLDC20RA10-35PI  PAL   CMOS  DIP   P20RA10      24     IND  NO   YES  BB   45     4943  35   20    5    467  0
+$C2 CYP       PLDC20RA10-35QMB PAL   CMOS  LCC   P20RA10C     28     MIL  UV   YES  --   --       0   35   20    5    467  0
+$C2 CYP       PLDC20RA10-35WI  PAL   CMOS  CDIP  P20RA10      24     IND  UV   YES  BB   45     4943  35   20    5    467  0
+$C2 CYP       PLDC20RA10-35WMB PAL   CMOS  CDIP  P20RA10      24     MIL  UV   YES  BB   45     4943  35   20    5    467  0
+$C2 CYP       PAL22V10C-10DC   PAL   CMOS  CDIP  P22V10       24     COM  NO   YES  4F   28     4836  10    4    0    997  0
+$C2 CYP       PAL22V10C-10JC   PAL   CMOS  PLCC  P22V10C      28     COM  NO   YES  04F  728    5321  10    4    0    997  0
+$C2 CYP       PAL22V10C-10PC   PAL   CMOS  DIP   P22V10       24     COM  NO   YES  4F   28     4836  10    4    0    997  0
+$C2 CYP       PAL22V10C-12DC   PAL   CMOS  CDIP  P22V10       24     COM  NO   YES  4F   28     4836  12    5    0    997  0
+$C2 CYP       PAL22V10C-12DMB  PAL   CMOS  CDIP  P22V10       24     MIL  NO   YES  4F   28     4836  12    5    0    1045 0
+$C2 CYP       PAL22V10C-12JC   PAL   CMOS  PLCC  P22V10C      28     COM  NO   YES  04F  728    5321  12    5    0    997  0
+$C2 CYP       PAL22V10C-12LMB  PAL   CMOS  LCC   P22V10C      28     MIL  NO   YES  --   --       0   12    5    0    1045 0
+$C2 CYP       PAL22V10C-12PC   PAL   CMOS  DIP   P22V10       24     COM  NO   YES  4F   28     4836  12    5    0    997  0
+$C2 CYP       PAL22V10C-15DMB  PAL   CMOS  CDIP  P22V10       24     MIL  NO   YES  4F   28     4836  15    8    0    1045 0
+$C2 CYP       PAL22V10C-15LMB  PAL   CMOS  LCC   P22V10C      28     MIL  NO   YES  --   --       0   15    8    0    1045 0
+$C2 CYP       PAL22V10C-7DC    PAL   CMOS  CDIP  P22V10       24     COM  NO   YES  4F   28     4836  8     3    0    997  0
+$C2 CYP       PAL22V10C-7JC    PAL   CMOS  PLCC  P22V10C      28     COM  NO   YES  04F  728    5321  8     3    0    997  0
+$C2 CYP       PAL22V10C-7PC    PAL   CMOS  DIP   P22V10       24     COM  NO   YES  4F   28     4836  8     3    0    997  0
+$C2 CYP       PAL22VP10C-10DC  PAL   CMOS  CDIP  P22V10       24     COM  NO   YES  4F   98     4837  10    4    0    997  0
+$C2 CYP       PAL22VP10C-10JC  PAL   CMOS  PLCC  P22V10C      28     COM  NO   YES  04F  798    5323  10    4    0    997  0
+$C2 CYP       PAL22VP10C-10PC  PAL   CMOS  DIP   P22V10       24     COM  NO   YES  4F   98     4837  10    4    0    997  0
+$C2 CYP       PAL22VP10C-12DC  PAL   CMOS  CDIP  P22V10       24     COM  NO   YES  4F   98     4837  12    5    0    997  0
+$C2 CYP       PAL22VP10C-12DMB PAL   CMOS  CDIP  P22V10       24     MIL  NO   YES  4F   98     4837  12    5    0    1045 0
+$C2 CYP       PAL22VP10C-12JC  PAL   CMOS  PLCC  P22V10C      28     COM  NO   YES  04F  798    5323  12    5    0    997  0
+$C2 CYP       PAL22VP10C-12LMB PAL   CMOS  LCC   P22V10C      28     MIL  NO   YES  --   --       0   12    5    0    1045 0
+$C2 CYP       PAL22VP10C-12PC  PAL   CMOS  DIP   P22V10       24     COM  NO   YES  4F   98     4837  12    5    0    997  0
+$C2 CYP       PAL22VP10C-15DMB PAL   CMOS  CDIP  P22V10       24     MIL  NO   YES  4F   98     4837  15    8    0    1045 0
+$C2 CYP       PAL22VP10C-15LMB PAL   CMOS  LCC   P22V10C      28     MIL  NO   YES  --   --       0   15    8    0    1045 0
+$C2 CYP       PAL22VP10C-7DC   PAL   CMOS  CDIP  P22V10       24     COM  NO   YES  4F   98     4837  8     3    0    997  0
+$C2 CYP       PAL22VP10C-7JC   PAL   CMOS  PLCC  P22V10       28     COM  NO   YES  04F  798    5323  8     3    0    997  0
+$C2 CYP       PAL22VP10C-7PC   PAL   CMOS  DIP   P22V10       24     COM  NO   YES  4F   98     4837  8     3    0    997  0
+$C2 CYP       PALC22V10-20JC   PAL   CMOS  PLCC  P22V10C      28     COM  NO   YES  028  728    1503  20   12    0    495  0
+$C2 CYP       PALC22V10-20JI   PAL   CMOS  PLCC  P22V10C      28     IND  NO   YES  028  728    1503  20   12    0    495  0
+$C2 CYP       PALC22V10-20PC   PAL   CMOS  DIP   P22V10       24     COM  NO   YES  28   28      23   20   12    0    495  0
+$C2 CYP       PALC22V10-20PI   PAL   CMOS  DIP   P22V10       24     IND  NO   YES  28   28      23   20   12    0    495  0
+$C2 CYP       PALC22V10-20WC   PAL   CMOS  CDIP  P22V10       24     COM  UV   YES  28   28      23   20   12    0    495  0
+$C2 CYP       PALC22V10-20WI   PAL   CMOS  CDIP  P22V10       24     IND  UV   YES  28   28      23   20   12    0    495  0
+$C2 CYP       PALC22V10-25DMB  PAL   CMOS  CDIP  P22V10       24     MIL  NO   YES  28   28      23   25   18    0    550  0
+$C2 CYP       PALC22V10-25HC   PAL   CMOS  LCC   P22V10C      28     COM  UV   YES  --   --       0   25   15    0    495  0
+$C2 CYP       PALC22V10-25HMB  PAL   CMOS  LCC   P22V10C      28     MIL  UV   YES  --   --       0   25   18    0    550  0
+$C2 CYP       PALC22V10-25JC   PAL   CMOS  PLCC  P22V10C      28     COM  NO   YES  028  728    1503  25   15    0    495  0
+$C2 CYP       PALC22V10-25KMB  PAL   CMOS  FPAK  P22V10       24     MIL  NO   YES  --   --       0   25   18    0    550  0
+$C2 CYP       PALC22V10-25LMB  PAL   CMOS  LCC   P22V10C      28     MIL  NO   YES  028  728    1060  25   18    0    550  0
+$C2 CYP       PALC22V10-25PC   PAL   CMOS  DIP   P22V10       24     COM  NO   YES  28   28      23   25   15    0    495  0
+$C2 CYP       PALC22V10-25QMB  PAL   CMOS  LCC   P22V10C      28     MIL  UV   YES  028  728    1060  25   18    0    550  0
+
+
+#   mfg       part             type  tech  pack  devname     pins    spc  era preld fam  pin    DID#  speed set  hold pwr prc 
+$C2 CYP       PALC22V10-25WC   PAL   CMOS  CDIP  P22V10       24     COM  UV   YES  28   28      23   25   15    0    495  0
+$C2 CYP       PALC22V10-25WMB  PAL   CMOS  CDIP  P22V10       24     MIL  UV   YES  28   28      23   25   18    0    550  0
+$C2 CYP       PALC22V10-20HC   PAL   CMOS  LCC   P22V10C      28     COM  UV   YES  --   --       0   20   12    0    495  0
+$C2 CYP       PALC22V10-30DMB  PAL   CMOS  CDIP  P22V10       24     MIL  NO   YES  28   28      23   30   20    0    550  0
+$C2 CYP       PALC22V10-30HMB  PAL   CMOS  LCC   P22V10C      28     MIL  UV   YES  --   --       0   30   20    0    550  0
+$C2 CYP       PALC22V10-30KMB  PAL   CMOS  FPAK  P22V10       24     MIL  NO   YES  --   --       0   30   20    0    550  0
+$C2 CYP       PALC22V10-30LMB  PAL   CMOS  LCC   P22V10C      28     MIL  NO   YES  028  728    1060  30   20    0    550  0
+$C2 CYP       PALC22V10-30QMB  PAL   CMOS  LCC   P22V10C      28     MIL  UV   YES  028  728    1060  30   20    0    550  0
+$C2 CYP       PALC22V10-30WMB  PAL   CMOS  CDIP  P22V10       24     MIL  UV   YES  28   28      23   30   20    0    550  0
+$C2 CYP       PALC22V10-35HC   PAL   CMOS  LCC   P22V10C      28     COM  UV   YES  --   --       0   35   30    0    495  0
+$C2 CYP       PALC22V10-35JC   PAL   CMOS  PLCC  P22V10C      28     COM  NO   YES  028  728    1503  35   30    0    495  0
+$C2 CYP       PALC22V10-35JI   PAL   CMOS  PLCC  P22V10C      28     IND  NO   YES  028  728    1503  35   30    0    495  0
+$C2 CYP       PALC22V10-35PC   PAL   CMOS  DIP   P22V10       24     COM  NO   YES  28   28      23   35   30    0    495  0
+$C2 CYP       PALC22V10-35PI   PAL   CMOS  DIP   P22V10       24     IND  NO   YES  28   28      23   35   30    0    495  0
+$C2 CYP       PALC22V10-35WC   PAL   CMOS  CDIP  P22V10       24     COM  UV   YES  28   28      23   35   30    0    495  0
+$C2 CYP       PALC22V10-35WI   PAL   CMOS  CDIP  P22V10       24     IND  UV   YES  28   28      23   35   30    0    495  0
+$C2 CYP       PALC22V10-40DMB  PAL   CMOS  CDIP  P22V10       24     MIL  NO   YES  28   28      23   40   30    0    550  0
+$C2 CYP       PALC22V10-40HMB  PAL   CMOS  LCC   P22V10C      28     MIL  UV   YES  --   --       0   40   30    0    550  0
+$C2 CYP       PALC22V10-40KMB  PAL   CMOS  FPAK  P22V10       24     MIL  NO   YES  --   --       0   40   30    0    550  0
+$C2 CYP       PALC22V10-40LMB  PAL   CMOS  LCC   P22V10C      28     MIL  NO   YES  028  728    1060  40   30    0    550  0
+$C2 CYP       PALC22V10-40QMB  PAL   CMOS  LCC   P22V10C      28     MIL  UV   YES  028  728    1060  40   30    0    550  0
+$C2 CYP       PALC22V10-40WMB  PAL   CMOS  CDIP  P22V10       24     MIL  UV   YES  28   28      23   40   30    0    550  0
+$C2 CYP       PALC22V10-25JI   PAL   CMOS  PLCC  P22V10C      28     IND  NO   YES  028  728    1503  25   15    0    495  0
+$C2 CYP       PALC22V10-25PI   PAL   CMOS  DIP   P22V10       24     IND  NO   YES  28   28      23   25   15    0    495  0
+$C2 CYP       PALC22V10-25WI   PAL   CMOS  CDIP  P22V10       24     IND  UV   YES  28   28      23   25   15    0    495  0
+$C2 CYP       PALC22V10B-15HC  EPLD  CMOS  LCC   P22V10C      28     COM  UV   YES  0BB  728    5650  15   10    0    495  0
+$C2 CYP       PALC22V10B-15JC  EPLD  CMOS  PLCC  P22V10C      28     COM  NO   YES  0BB  728    4463  15   10    0    495  0
+$C2 CYP       PALC22V10B-15JI  EPLD  CMOS  PLCC  P22V10C      28     IND  NO   YES  0BB  728    4463  15   10    0    495  0
+$C2 CYP       PALC22V10B-15PC  EPLD  CMOS  DIP   P22V10       24     COM  NO   YES  BB   28     4462  15   10    0    495  0
+$C2 CYP       PALC22V10B-15PI  EPLD  CMOS  DIP   P22V10       24     IND  NO   YES  BB   28     4462  15   10    0    495  0
+$C2 CYP       PALC22V10B-15WC  EPLD  CMOS  CDIP  P22V10       24     COM  UV   YES  BB   28     4462  15   10    0    495  0
+$C2 CYP       PALC22V10B-15WI  EPLD  CMOS  CDIP  P22V10       24     IND  UV   YES  BB   28     4462  15   10    0    495  0
+$C2 CYP       PALC22V10B-20DMB EPLD  CMOS  CDIP  P22V10       24     MIL  NO   YES  BB   28     4462  20   17    0    550  0
+$C2 CYP       PALC22V10B-20HMB EPLD  CMOS  LCC   P22V10C      28     MIL  UV   YES  0BB  728    5650  20   17    0    550  0
+$C2 CYP       PALC22V10B-20KMB EPLD  CMOS  FPAK  P22V10       24     MIL  NO   YES  --   --       0   20   17    0    550  0
+$C2 CYP       PALC22V10B-20LMB EPLD  CMOS  LCC   P22V10C      28     MIL  NO   YES  --   --       0   20   17    0    550  0
+$C2 CYP       PALC22V10B-20QMB EPLD  CMOS  LCC   P22V10C      28     MIL  UV   YES  --   --       0   20   17    0    550  0
+$C2 CYP       PALC22V10B-20WMB EPLD  CMOS  CDIP  P22V10       24     MIL  UV   YES  BB   28     4462  20   17    0    550  0
+$C2 CYP       PALC22V10L-25HC  PAL   CMOS  LCC   P22V10C      28     COM  UV   YES  --   --       0   25   15    0    302  0
+$C2 CYP       PALC22V10L-25JC  PAL   CMOS  PLCC  P22V10C      28     COM  NO   YES  028  728    1503  25   15    0    302  0
+$C2 CYP       PALC22V10L-25PC  PAL   CMOS  DIP   P22V10       24     COM  NO   YES  28   28      23   25   15    0    302  0
+$C2 CYP       PALC22V10L-25WC  PAL   CMOS  CDIP  P22V10       24     COM  UV   YES  28   28      23   25   15    0    302  0
+$C2 CYP       PALC22V10L-35HC  PAL   CMOS  LCC   P22V10C      28     COM  UV   YES  --   --       0   35   30    0    302  0
+$C2 CYP       PALC22V10L-35JC  PAL   CMOS  PLCC  P22V10C      28     COM  NO   YES  028  728    1503  35   30    0    302  0
+$C2 CYP       PALC22V10L-35PC  PAL   CMOS  DIP   P22V10       24     COM  NO   YES  28   28      23   35   30    0    302  0
+$C2 CYP       PALC22V10L-35WC  PAL   CMOS  CDIP  P22V10       24     COM  UV   YES  28   28      23   35   30    0    302  0
+$C2 CYP       CY7C330-28DMB    EPLD  CMOS  CDIP  P330         24     MIL  NO   NO   28   1A     1236  25   10    5    825  0
+$C2 CYP       CY7C330-28HMB    EPLD  CMOS  LCC   P330         28     MIL  UV   NO   028  71A    5642  25   10    5    825  0
+$C2 CYP       CY7C330-28LMB    EPLD  CMOS  LCC   P330         28     MIL  NO   NO   028  71A    2817  25   10    5    825  0
+
+
+#   mfg       part             type  tech  pack  devname     pins    spc  era preld fam  pin    DID#  speed set  hold pwr prc 
+$C2 CYP       CY7C330-28QMB    EPLD  CMOS  LCC   P330         28     MIL  UV   NO   028  71A    2817  25   10    5    825  0
+$C2 CYP       CY7C330-28TMB    EPLD  CMOS  FPAK  P330         24     MIL  UV   NO   --   --       0   25   10    5    825  0
+$C2 CYP       CY7C330-28WMB    EPLD  CMOS  CDIP  P330         24     MIL  UV   NO   28   1A     1236  25   10    5    825  0
+$C2 CYP       CY7C330-33PC     EPLD  CMOS  DIP   P330         24     COM  NO   NO   28   1A     1236  20   10    5    715  0
+$C2 CYP       CY7C330-33HC     EPLD  CMOS  LCC   P330         28     COM  UV   NO   028  71A    5642  20   10    5    715  0
+$C2 CYP       CY7C330-33JC     EPLD  CMOS  PLCC  P330         28     COM  NO   NO   028  71A    4616  20   10    5    715  0
+$C2 CYP       CY7C330-33WC     EPLD  CMOS  CDIP  P330         24     COM  UV   NO   28   1A     1236  20   10    5    715  0
+$C2 CYP       CY7C330-40DMB    EPLD  CMOS  CDIP  P330         24     MIL  NO   NO   28   1A     1236  20    5    5    825  0
+$C2 CYP       CY7C330-40HMB    EPLD  CMOS  LCC   P330         28     MIL  UV   NO   028  71A    5642  20    5    5    825  0
+$C2 CYP       CY7C330-40LMB    EPLD  CMOS  LCC   P330         28     MIL  NO   NO   028  71A    2817  20    5    5    825  0
+$C2 CYP       CY7C330-40QMB    EPLD  CMOS  LCC   P330         28     MIL  UV   NO   028  71A    2817  20    5    5    825  0
+$C2 CYP       CY7C330-40TMB    EPLD  CMOS  FPAK  P330         24     MIL  UV   NO   --   --       0   20    5    5    825  0
+$C2 CYP       CY7C330-40WMB    EPLD  CMOS  CDIP  P330         24     MIL  UV   NO   28   1A     1236  20    5    5    825  0
+$C2 CYP       CY7C330-50PC     EPLD  CMOS  DIP   P330         24     COM  NO   NO   28   1A     1236  15    5    5    715  0
+$C2 CYP       CY7C330-50HC     EPLD  CMOS  LCC   P330         28     COM  UV   NO   028  71A    5642  15    5    5    715  0
+$C2 CYP       CY7C330-50DMB    EPLD  CMOS  CDIP  P330         24     MIL  NO   NO   28   1A     1236  15    5    5    880  0
+$C2 CYP       CY7C330-50HMB    EPLD  CMOS  LCC   P330         28     MIL  UV   NO   028  71A    5642  15    5    5    880  0
+$C2 CYP       CY7C330-50JC     EPLD  CMOS  PLCC  P330         28     COM  NO   NO   028  71A    4616  15    5    5    715  0
+$C2 CYP       CY7C330-50LMB    EPLD  CMOS  LCC   P330         28     MIL  NO   NO   028  71A    2817  15    5    5    880  0
+$C2 CYP       CY7C330-50QMB    EPLD  CMOS  LCC   P330         28     MIL  UV   NO   028  71A    2817  15    5    5    880  0
+$C2 CYP       CY7C330-50TMB    EPLD  CMOS  FPAK  P330         24     MIL  UV   NO   --   --       0   15    5    5    880  0
+$C2 CYP       CY7C330-50WC     EPLD  CMOS  CDIP  P330         24     COM  UV   NO   28   1A     1236  15    5    5    715  0
+$C2 CYP       CY7C330-50WMB    EPLD  CMOS  CDIP  P330         24     MIL  UV   NO   28   1A     1236  15    5    5    880  0
+$C2 CYP       CY7C330-66PC     EPLD  CMOS  DIP   P330         24     COM  NO   NO   28   1A     1236  12    3    5    770  0
+$C2 CYP       CY7C330-66HC     EPLD  CMOS  LCC   P330         28     COM  UV   NO   028  71A    5642  12    3    5    770  0
+$C2 CYP       CY7C330-66JC     EPLD  CMOS  PLCC  P330         28     COM  NO   NO   028  71A    4616  12    3    5    770  0
+$C2 CYP       CY7C330-66WC     EPLD  CMOS  CDIP  P330         24     COM  UV   NO   28   1A     1236  12    3    5    770  0
+$C2 CYP       CY7C331-20PC     EPLD  CMOS  DIP   P331         24     COM  NO   NO   28   5C     1724  20   12    8    715  0
+$C2 CYP       CY7C331-20HC     EPLD  CMOS  LCC   P331         28     COM  UV   NO   028  75C    6336  20   12    8    715  0
+
+
+#   mfg       part             type  tech  pack  devname     pins    spc  era preld fam  pin    DID#  speed set  hold pwr prc 
+$C2 CYP       CY7C331-20JC     EPLD  CMOS  PLCC  P331         28     COM  NO   NO   028  75C    1058  20   12    8    715  0
+$C2 CYP       CY7C331-20WC     EPLD  CMOS  CDIP  P331         24     COM  UV   NO   28   5C     1724  20   12    8    715  0
+$C2 CYP       CY7C331-25HC     EPLD  CMOS  LCC   P331         28     COM  UV   NO   028  75C    6336  25   12    8    660  0
+$C2 CYP       CY7C331-25HMB    EPLD  CMOS  LCC   P331         28     MIL  UV   NO   028  75C    6336  25   15   10    880  0
+$C2 CYP       CY7C331-25PC     EPLD  CMOS  DIP   P331         24     COM  NO   NO   28   5C     1724  25   12    8    660  0
+$C2 CYP       CY7C331-25JC     EPLD  CMOS  PLCC  P331         28     COM  NO   NO   028  75C    1058  25   12    8    660  0
+$C2 CYP       CY7C331-25DMB    EPLD  CMOS  CDIP  P331         24     MIL  NO   NO   28   5C     1724  25   15   10    880  0
+$C2 CYP       CY7C331-25LMB    EPLD  CMOS  LCC   P331         28     MIL  NO   NO   028  75C    4617  25   15   10    880  0
+$C2 CYP       CY7C331-25QMB    EPLD  CMOS  LCC   P331         28     MIL  UV   NO   028  75C    4617  25   15   10    880  0
+$C2 CYP       CY7C331-25TMB    EPLD  CMOS  FPAK  P331         24     MIL  UV   NO   --   --       0   25   15   10    880  0
+$C2 CYP       CY7C331-25WC     EPLD  CMOS  CDIP  P331         24     COM  UV   NO   28   5C     1724  25   12    8    660  0
+$C2 CYP       CY7C331-25WMB    EPLD  CMOS  CDIP  P331         24     MIL  UV   NO   28   5C     1724  25   15   10    880  0
+$C2 CYP       CY7C331-30HMB    EPLD  CMOS  LCC   P331         28     MIL  UV   NO   028  75C    6336  30   15   10    825  0
+$C2 CYP       CY7C331-30LMB    EPLD  CMOS  LCC   P331         28     MIL  NO   NO   028  75C    4617  30   15   10    825  0
+$C2 CYP       CY7C331-30QMB    EPLD  CMOS  LCC   P331         28     MIL  UV   NO   028  75C    4617  30   15   10    825  0
+$C2 CYP       CY7C331-30TMB    EPLD  CMOS  FPAK  P331         24     MIL  UV   NO   --   --       0   30   15   10    825  0
+$C2 CYP       CY7C331-30DMB    EPLD  CMOS  CDIP  P331         24     MIL  NO   NO   28   5C     1724  30   15   10    825  0
+$C2 CYP       CY7C331-30WMB    EPLD  CMOS  CDIP  P331         24     MIL  UV   NO   28   5C     1724  30   15   10    825  0
+$C2 CYP       CY7C331-35PC     EPLD  CMOS  DIP   P331         24     COM  NO   NO   28   5C     1724  35   15   10    660  0
+$C2 CYP       CY7C331-35HC     EPLD  CMOS  LCC   P331         28     COM  UV   NO   028  75C    6336  35   15   10    660  0
+$C2 CYP       CY7C331-35JC     EPLD  CMOS  PLCC  P331         28     COM  NO   NO   028  75C    1058  35   15   10    660  0
+$C2 CYP       CY7C331-35WC     EPLD  CMOS  CDIP  P331         24     COM  UV   NO   28   5C     1724  35   15   10    660  0
+$C2 CYP       CY7C331-40DMB    EPLD  CMOS  CDIP  P331         24     MIL  NO   NO   28   5C     1724  40   20   12    825  0
+$C2 CYP       CY7C331-40HMB    EPLD  CMOS  LCC   P331         28     MIL  UV   NO   028  75C    6336  40   20   12    825  0
+$C2 CYP       CY7C331-40LMB    EPLD  CMOS  LCC   P331         28     MIL  NO   NO   028  75C    4617  40   20   12    825  0
+$C2 CYP       CY7C331-40QMB    EPLD  CMOS  LCC   P331         28     MIL  UV   NO   028  75C    4617  40   20   12    825  0
+$C2 CYP       CY7C331-40TMB    EPLD  CMOS  FPAK  P331         24     MIL  UV   NO   --   --       0   40   20   12    825  0
+$C2 CYP       CY7C331-40WMB    EPLD  CMOS  CDIP  P331         24     MIL  UV   NO   28   5C     1724  40   20   12    825  0
+
+
+#   mfg       part             type  tech  pack  devname     pins    spc  era preld fam  pin    DID#  speed set  hold pwr prc 
+$C2 CYP       CY7C332-15HC     EPLD  CMOS  LCC   P332         28     COM  UV   NO   028  78B    6761  15    0    0    715  0
+$C2 CYP       CY7C332-15JC     EPLD  CMOS  PLCC  P332         28     COM  NO   NO   028  78B    4171  15    0    0    715  0
+$C2 CYP       CY7C332-15PC     EPLD  CMOS  DIP   P332         24     COM  NO   NO   28   8B     1333  15    0    0    715  0
+$C2 CYP       CY7C332-15WC     EPLD  CMOS  CDIP  P332         24     COM  UV   NO   28   8B     1333  15    0    0    715  0
+$C2 CYP       CY7C332-20DMB    EPLD  CMOS  CDIP  P332         24     MIL  NO   NO   28   8B     1333  20    0    0    880  0
+$C2 CYP       CY7C332-20HC     EPLD  CMOS  LCC   P332         28     COM  UV   NO   028  78B    6761  20    0    0    660  0
+$C2 CYP       CY7C332-20HMB    EPLD  CMOS  LCC   P332         28     MIL  UV   NO   028  78B    6761  20    0    0    880  0
+$C2 CYP       CY7C332-20JC     EPLD  CMOS  PLCC  P332         28     COM  NO   NO   028  78B    4171  20    0    0    660  0
+$C2 CYP       CY7C332-20LMB    EPLD  CMOS  LCC   P332         28     MIL  NO   NO   028  78B    1460  20    0    0    880  0
+$C2 CYP       CY7C332-20PC     EPLD  CMOS  DIP   P332         24     COM  NO   NO   28   8B     1333  20    0    0    660  0
+$C2 CYP       CY7C332-20QMB    EPLD  CMOS  LCC   P332         28     MIL  UV   NO   028  78B    1460  20    0    0    880  0
+$C2 CYP       CY7C332-20TMB    EPLD  CMOS  FPAK  P332         24     MIL  UV   NO   --   --       0   20    0    0    880  0
+$C2 CYP       CY7C332-20WC     EPLD  CMOS  CDIP  P332         24     COM  UV   NO   28   8B     1333  20    0    0    660  0
+$C2 CYP       CY7C332-20WMB    EPLD  CMOS  CDIP  P332         24     MIL  UV   NO   28   8B     1333  20    0    0    880  0
+$C2 CYP       CY7C332-25DMB    EPLD  CMOS  CDIP  P332         24     MIL  NO   NO   28   8B     1333  25    0    0    825  0
+$C2 CYP       CY7C332-25HC     EPLD  CMOS  LCC   P332         28     COM  UV   NO   028  78B    6761  25    0    0    660  0
+$C2 CYP       CY7C332-25HMB    EPLD  CMOS  LCC   P332         28     MIL  UV   NO   028  78B    6761  25    0    0    825  0
+$C2 CYP       CY7C332-25JC     EPLD  CMOS  PLCC  P332         28     COM  NO   NO   028  78B    4171  25    0    0    660  0
+$C2 CYP       CY7C332-25LMB    EPLD  CMOS  LCC   P332         28     MIL  NO   NO   028  78B    1460  25    0    0    825  0
+$C2 CYP       CY7C332-25PC     EPLD  CMOS  DIP   P332         24     COM  NO   NO   28   8B     1333  25    0    0    660  0
+$C2 CYP       CY7C332-25QMB    EPLD  CMOS  LCC   P332         28     MIL  UV   NO   028  78B    1460  25    0    0    825  0
+$C2 CYP       CY7C332-25TMB    EPLD  CMOS  FPAK  P332         24     MIL  UV   NO   --   --       0   25    0    0    825  0
+$C2 CYP       CY7C332-25WC     EPLD  CMOS  CDIP  P332         24     COM  UV   NO   28   8B     1333  25    0    0    660  0
+$C2 CYP       CY7C332-25WMB    EPLD  CMOS  CDIP  P332         24     MIL  UV   NO   28   8B     1333  25    0    0    825  0
+$C2 CYP       CY7C332-30DMB    EPLD  CMOS  CDIP  P332         24     MIL  NO   NO   28   8B     1333  30    0    0    825  0
+
+
+#   mfg       part             type  tech  pack  devname     pins    spc  era preld fam  pin    DID#  speed set  hold pwr prc 
+$C2 CYP       CY7C332-30HMB    EPLD  CMOS  LCC   P332         28     MIL  UV   NO   028  78B    6761  30    0    0    825  0
+$C2 CYP       CY7C332-30LMB    EPLD  CMOS  LCC   P332         28     MIL  NO   NO   028  78B    1460  30    0    0    825  0
+$C2 CYP       CY7C332-30QMB    EPLD  CMOS  LCC   P332         28     MIL  UV   NO   028  78B    1460  30    0    0    825  0
+$C2 CYP       CY7C332-30TMB    EPLD  CMOS  FPAK  P332         24     MIL  UV   NO   --   --       0   30    0    0    825  0
+$C2 CYP       CY7C332-30WMB    EPLD  CMOS  CDIP  P332         24     MIL  UV   NO   28   8B     1333  30    0    0    825  0
+$C2 CYP       CY7C335-83HC     EPLD  CMOS  LCC   P335         28     COM  UV   YES   --   --    8025  15    10   0    980  0
+$C2 CYP       CY7C335-83JC     EPLD  CMOS  PLCC  P335         28     COM  NO   YES   --   --    8026  15    10   0    980  0
+$C2 CYP       CY7C335-83PC     EPLD  CMOS  DIP   P335         24     COM  NO   YES   --   --    7357  15    10   0    980  0
+$C2 CYP       CY7C335-83WC     EPLD  CMOS  CDIP  P335         24     COM  UV   YES   --   --    7357  15    10   0    980  0
+$C2 CYP       CY7C335-66DI     EPLD  CMOS  CDIP  P335         24     IND  NO   YES   --   --    7357  20    12   0    1120  0
+$C2 CYP       CY7C335-66HI     EPLD  CMOS  LCC   P335         28     IND  UV   YES   --   --    8025  20    12   0    1120  0
+$C2 CYP       CY7C335-66PI     EPLD  CMOS  DIP   P335        24      IND  NO   YES   --   --    7357  20    12   0    1120  0
+$C2 CYP       CY7C335-66WI     EPLD  CMOS  CDIP  P335        24      IND  UV   YES   --   --    7357  20    12   0    1120  0
+$C2 CYP       CY7C335-66DMB    EPLD  CMOS  CDIP  P335        24      MIL  NO   YES   --   --    7357  20    12   0    1120  0
+$C2 CYP       CY7C335-66HMB    EPLD   CMOS  LCC  P335          28      MIL    UV     YES   --   --   8025  20    12  0       1120  0
+$C2 CYP       CY7C335-66LMB    EPLD  CMOS  LCC  P335          28      MIL   NO      YES   --   --  7356  20    12  0       1120  0
+$C2 CYP       CY7C335-66QMB    EPLD  CMOS  LCC  P335           28      MIL  UV       YES   --   --   7356  20    12  0       1120  0
+$C2 CYP      CY7C335-66WMB     EPLD   CMOS  CDIP  P335         24     MIL  UV       YES   --   --   7357  20    12  0       1120  0
+$C2 CYP       CY7C335-66HC     EPLD     CMOS  LCC   P335          28     COM  UV      YES   --   --   8025  20    12  0       980   0
+$C2 CYP      CY7C335-66JC      EPLD     CMOS  PLCC   P335        28     COM  NO      YES   --   --   8026  20    12  0       980   0
+$C2 CYP      CY7C335-66PC      EPLD     CMOS  DIP     P335          24     COM  NO      YES   --   --   7357  20    12  0       980  0
+$C2 CYP      CY7C335-66WC      EPLD     CMOS  CDIP   P335         24     COM  UV      YES   --   --   7357  20    12  0      980  0
+$C2 CYP      CY7C335-50HC      EPLD     CMOS  LCC   P335           28     COM  UV       YES   --   --   8025  25    15  0      980  0
+$C2 CYP      CY7C335-50JC      EPLD     CMOS  PLCC  P335           28    COM  NO       YES   --   --   8026  25    15  0      980  0
+$C2 CYP      CY7C335-50PC      EPLD     CMOS  DIP     P335           24     COM  NO       YES   --   --   7357  25    15  0      980  0
+$C2 CYP     CY7C335-50WC       EPLD     CMOS  CDIP   P335          24     COM   UV       YES   --   --   7357  25    15  0     980  0
+$C2 CYP     CY7C335-50DI       EPLD     CMOS  CDIP   P335          24     IND     NO       YES   --   --   7357  25    15  0     1120  0
+$C2 CYP      CY7C335-50HI      EPLD     CMOS  LCC    P335          28     IND     UV       YES   --   --   8025  25    15  0     1120  0
+$C2 CYP      CY7C335-50PI      EPLD      CMOS  DIP    P335           24    IND    NO      YES   --   --   7357  25    15  0     1120  0
+$C2 CYP      CY7C335-50WI      EPLD      CMOS  CDIP  P335          24    IND     UV      YES   --   --   7357  25    15  0     1120  0
+$C2 CYP      CY7C335-50DMB    EPLD      CMOS  CDIP  P335          24    MIL     NO      YES   --   --   7357  25    15  0     1120  0
+$C2 CYP      CY7C335-50HMB    EPLD      CMOS   LCC   P335          28    MIL     UV      YES   --   --   8025  25    15  0     1120  0
+$C2 CYP      CY7C335-50LMB     EPLD      CMOS   LCC   P335          28    MIL     NO      YES   --   --   7356  25    15  0      1120  0
+$C2 CYP      CY7C335-50QMB    EPLD      CMOS   LCC   P335          28    MIL     UV       YES   --   --   7356  25    15  0      1120  0
+$C2 CYP     CY7C335-50WMB   EPLD      CMOS    CDIP  P335         24    MIL     UV       YES   --   --   7357  25    15  0      1120  0
+$C2 CYP     CY7C335-40DI      EPLD     CMOS  CDIP   P335          24     IND     NO       YES   --   --   7357  30    20  0     1120  0
+$C2 CYP      CY7C335-40HI     EPLD     CMOS  LCC    P335          28     IND     UV       YES   --   --   8025  30    20  0     1120  0
+$C2 CYP      CY7C335-40PI     EPLD      CMOS  DIP    P335           24    IND    NO      YES   --   --   7357  30    20  0     1120  0
+$C2 CYP      CY7C335-40WI     EPLD      CMOS  CDIP  P335          24    IND     UV      YES   --   --   7357  30    20  0     1120  0
+$C2 CYP      CY7C335-40DMB    EPLD      CMOS  CDIP  P335          24    MIL     NO      YES   --   --   7357  30    20  0     1120  0
+$C2 CYP      CY7C335-40HMB    EPLD      CMOS   LCC   P335          28    MIL     UV      YES   --   --   8025  30    20  0     1120  0
+$C2 CYP      CY7C335-40LMB     EPLD      CMOS   LCC   P335          28    MIL     NO      YES   --   --   7356  30    20  0      1120  0
+$C2 CYP      CY7C335-40QMB    EPLD      CMOS   LCC   P335          28    MIL     UV       YES   --   --   7356  30    20  0      1120  0
+$C2 CYP     CY7C335-40WMB   EPLD      CMOS    CDIP  P335         24    MIL     UV       YES   --   --   7357  30    20  0      1120  0
+$C2 CYP       CY7C344-20DC     EPLD  CMOS  CDIP  P5032_GEN    24     COM  NO   NO   180  0AE    4946  20   12    9    787  0
+$C2 CYP       CY7C344-20DI     EPLD  CMOS  CDIP  P5032_GEN    24     IND  NO   NO   180  0AE    4946  20   12    9    935  0
+$C2 CYP       CY7C344-20HC     EPLD  CMOS  LCC   P5032C_GEN   28     COM  UV   NO   --   --       0   20   12    9    787  0
+$C2 CYP       CY7C344-20HI     EPLD  CMOS  LCC   P5032C_GEN   28     IND  UV   NO   --   --       0   20   12    9    935  0
+$C2 CYP       CY7C344-20JC     EPLD  CMOS  PLCC  P5032C_GEN   28     COM  NO   NO   --   --       0   20   12    9    787  0
+$C2 CYP       CY7C344-20JI     EPLD  CMOS  PLCC  P5032C_GEN   28     IND  NO   NO   --   --       0   20   12    9    935  0
+$C2 CYP       CY7C344-20PC     EPLD  CMOS  DIP   P5032_GEN    24     COM  NO   NO   180  0AE    4946  20   12    9    787  0
+$C2 CYP       CY7C344-20PI     EPLD  CMOS  DIP   P5032_GEN    24     IND  NO   NO   180  0AE    4946  20   12    9    935  0
+$C2 CYP       CY7C344-20WC     EPLD  CMOS  CDIP  P5032_GEN    24     COM  UV   NO   180  0AE    4946  20   12    9    787  0
+$C2 CYP       CY7C344-20WI     EPLD  CMOS  CDIP  P5032_GEN    24     IND  UV   NO   180  0AE    4946  20   12    9    935  0
+$C2 CYP       CY7C344-25DC     EPLD  CMOS  CDIP  P5032_GEN    24     COM  NO   NO   180  0AE    4946  25   15   12    787  0
+$C2 CYP       CY7C344-25DI     EPLD  CMOS  CDIP  P5032_GEN    24     IND  NO   NO   180  0AE    4946  25   15   12    935  0
+$C2 CYP       CY7C344-25DMB    EPLD  CMOS  CDIP  P5032_GEN    24     MIL  NO   NO   180  0AE    4946  25   15   12    935  0
+$C2 CYP       CY7C344-25HC     EPLD  CMOS  LCC   P5032_GEN    28     COM  UV   NO   --   --       0   25   15   12    787  0
+$C2 CYP       CY7C344-25HI     EPLD  CMOS  LCC   P5032_GEN    28     IND  UV   NO   --   --       0   25   15   12    935  0
+$C2 CYP       CY7C344-25HMB    EPLD  CMOS  LCC   P5032_GEN    28     MIL  UV   NO   --   --       0   25   15   12    935  0
+$C2 CYP       CY7C344-25JC     EPLD  CMOS  PLCC  P5032_GEN    28     COM  NO   NO   --   --       0   25   15   12    787  0
+$C2 CYP       CY7C344-25JI     EPLD  CMOS  PLCC  P5032_GEN    28     IND  NO   NO   --   --       0   25   15   12    935  0
+$C2 CYP       CY7C344-25PC     EPLD  CMOS  DIP   P5032_GEN    24     COM  NO   NO   180  0AE    4946  25   15   12    787  0
+$C2 CYP       CY7C344-25PI     EPLD  CMOS  DIP   P5032_GEN    24     IND  NO   NO   180  0AE    4946  25   15   12    935  0
+$C2 CYP       CY7C344-25WC     EPLD  CMOS  CDIP  P5032_GEN    24     COM  UV   NO   180  0AE    4946  25   15   12    787  0
+$C2 CYP       CY7C344-25WI     EPLD  CMOS  CDIP  P5032_GEN    24     IND  UV   NO   180  0AE    4946  25   15   12    935  0
+$C2 CYP       CY7C344-25WMB    EPLD  CMOS  CDIP  P5032_GEN    24     MIL  UV   NO   180  0AE    4946  25   15   12    935  0
+$C2 CYP       CY7C344-35DMB    EPLD  CMOS  CDIP  P5032_GEN    24     MIL  NO   NO   180  0AE    4946  35   21   18    935  0
+$C2 CYP       CY7C344-35HMB    EPLD  CMOS  LCC   P5032_GEN    28     MIL  UV   NO   --   --       0   35   21   18    935  0
+$C2 CYP       CY7C344-35WMB    EPLD  CMOS  CDIP  P5032_GEN    24     MIL  UV   NO   180  0AE    4946  35   21   18    935  0
+
+
+#   mfg       part             type  tech  pack  devname     pins    spc  era preld fam  pin    DID#  speed set  hold pwr prc 
+$C2 CYP       CY7B336-10DMB    PAL   CMOS  CDIP  P336         24     MIL  No   NO   --   --       0   10    3    3    990  0
+$C2 CYP       CY7B336-10LMB    PAL   CMOS  LCC   P336         28     MIL  No   NO   --   --       0   10    3    3    990  0
+$C2 CYP       CY7B336-12DMB    PAL   CMOS  CDIP  P336         24     MIL  No   NO   --   --       0   12    4    4    990  0
+$C2 CYP       CY7B336-12LMB    PAL   CMOS  LCC   P336         28     MIL  No   NO   --   --       0   12    4    4    990  0
+$C2 CYP       CY7B336-6DC      PAL   CMOS  CDIP  P336         24     COM  No   NO   --   --       0    6    2    2    990  0
+$C2 CYP       CY7B336-6JC      PAL   CMOS  PLCC  P336         28     COM  No   NO   --   --       0    6    2    2    990  0
+$C2 CYP       CY7B336-6PC      PAL   CMOS  DIP   P336         24     COM  No   NO   --   --       0    6    2    2    990  0
+$C2 CYP       CY7B336-6VC      PAL   CMOS  SOIC  P336         24     COM  No   NO   --   --       0    6    2    2    990  0
+$C2 CYP       CY7B336-7DMB     PAL   CMOS  CDIP  P336         24     MIL  No   NO   --   --       0    7    3    3    990  0
+$C2 CYP       CY7B336-7LMB     PAL   CMOS  LCC   P336         28     MIL  No   NO   --   --       0    7    3    3    990  0
+$C2 CYP       CY7B336-8DC      PAL   CMOS  CDIP  P336         24     COM  No   NO   --   --       0    8    3    3    990  0
+$C2 CYP       CY7B336-8JC      PAL   CMOS  PLCC  P336         28     COM  No   NO   --   --       0    8    3    3    990  0
+$C2 CYP       CY7B336-8PC      PAL   CMOS  DIP   P336         24     COM  No   NO   --   --       0    8    3    3    990  0
+$C2 CYP       CY7B336-8VC      PAL   CMOS  SOIC  P336         24     COM  No   NO   --   --       0    8    3    3    990  0
+$C2 CYP       CY7B337-10DMB    PAL   CMOS  CDIP  P337         24     MIL  No   NO   --   --       0   10    3    3    990  0
+$C2 CYP       CY7B337-10LMB    PAL   CMOS  LCC   P337         28     MIL  No   NO   --   --       0   10    3    3    990  0
+$C2 CYP       CY7B337-12DMB    PAL   CMOS  CDIP  P337         24     MIL  No   NO   --   --       0   12    4    4    990  0
+$C2 CYP       CY7B337-12LMB    PAL   CMOS  LCC   P337         28     MIL  No   NO   --   --       0   12    4    4    990  0
+$C2 CYP       CY7B337-7DC      PAL   CMOS  CDIP  P337         24     COM  No   NO   --   --       0    7    2    2    990  0
+$C2 CYP       CY7B337-7JC      PAL   CMOS  PLCC  P337         28     COM  No   NO   --   --       0    7    2    2    990  0
+$C2 CYP       CY7B337-7PC      PAL   CMOS  DIP   P337         24     COM  No   NO   --   --       0    7    2    2    990  0
+$C2 CYP       CY7B337-7VC      PAL   CMOS  SOIC  P337         24     COM  No   NO   --   --       0    7    2    2    990  0
+$C2 CYP       CY7B337-8DMB     PAL   CMOS  CDIP  P337         24     MIL  No   NO   --   --       0    8    3    3    990  0
+$C2 CYP       CY7B337-8LMB     PAL   CMOS  LCC   P337         28     MIL  No   NO   --   --       0    8    3    3    990  0
+$C2 CYP       CY7B337-9DC      PAL   CMOS  CDIP  P337         24     COM  No   NO   --   --       0    9    3    3    990  0
+$C2 CYP       CY7B337-9JC      PAL   CMOS  PLCC  P337         28     COM  No   NO   --   --       0    9    3    3    990  0
+$C2 CYP       CY7B337-9PC      PAL   CMOS  DIP   P337         24     COM  No   NO   --   --       0    9    3    3    990  0
+$C2 CYP       CY7B337-9VC      PAL   CMOS  SOIC  P337         24     COM  No   NO   --   --       0    9    3    3    990  0
+$C2 CYP       CY7B338-10DMB    PAL   CMOS  CDIP  P338         24     MIL  No   NO   --   --       0   10    5    1    990  0
+$C2 CYP       CY7B338-10LMB    PAL   CMOS  LCC   P338         28     MIL  No   NO   --   --       0   10    5    1    990  0
+$C2 CYP       CY7B338-12DMB    PAL   CMOS  CDIP  P338         24     MIL  No   NO   --   --       0   12    6    1    990  0
+$C2 CYP       CY7B338-12LMB    PAL   CMOS  LCC   P338         28     MIL  No   NO   --   --       0   12    6    1    990  0
+$C2 CYP       CY7B338-6DC      PAL   CMOS  CDIP  P338         24     COM  No   NO   --   --       0    6    3    1    990  0
+$C2 CYP       CY7B338-6JC      PAL   CMOS  PLCC  P338         28     COM  No   NO   --   --       0    6    3    1    990  0
+$C2 CYP       CY7B338-6PC      PAL   CMOS  DIP   P338         24     COM  No   NO   --   --       0    6    3    1    990  0
+$C2 CYP       CY7B338-6VC      PAL   CMOS  SOIC  P338         24     COM  No   NO   --   --       0    6    3    1    990  0
+$C2 CYP       CY7B338-7DMB     PAL   CMOS  CDIP  P338         24     MIL  No   NO   --   --       0    7    4    1    990  0
+$C2 CYP       CY7B338-7LMB     PAL   CMOS  LCC   P338         28     MIL  No   NO   --   --       0    7    4    1    990  0
+$C2 CYP       CY7B338-8DC      PAL   CMOS  CDIP  P338         24     COM  No   NO   --   --       0    8    5    1    990  0
+$C2 CYP       CY7B338-8JC      PAL   CMOS  PLCC  P338         28     COM  No   NO   --   --       0    8    5    1    990  0
+$C2 CYP       CY7B338-8PC      PAL   CMOS  DIP   P338         24     COM  No   NO   --   --       0    8    5    1    990  0
+$C2 CYP       CY7B338-8VC      PAL   CMOS  SOIC  P338         24     COM  No   NO   --   --       0    8    5    1    990  0
+$C2 CYP       CY7B339-10DMB    PAL   CMOS  CDIP  P339         24     MIL  No   NO   --   --       0   10    6    1    990  0
+$C2 CYP       CY7B339-10LMB    PAL   CMOS  LCC   P339         28     MIL  No   NO   --   --       0   10    6    1    990  0
+$C2 CYP       CY7B339-12DMB    PAL   CMOS  CDIP  P339         24     MIL  No   NO   --   --       0   12    7    1    990  0
+$C2 CYP       CY7B339-12LMB    PAL   CMOS  LCC   P339         28     MIL  No   NO   --   --       0   12    7    1    990  0
+$C2 CYP       CY7B339-7DC      PAL   CMOS  CDIP  P339         24     COM  No   NO   --   --       0    7    4    1    990  0
+$C2 CYP       CY7B339-7JC      PAL   CMOS  PLCC  P339         28     COM  No   NO   --   --       0    7    4    1    990  0
+$C2 CYP       CY7B339-7PC      PAL   CMOS  DIP   P339         24     COM  No   NO   --   --       0    7    4    1    990  0
+$C2 CYP       CY7B339-7VC      PAL   CMOS  SOIC  P339         24     COM  No   NO   --   --       0    7    4    1    990  0
+$C2 CYP       CY7B339-8DMB     PAL   CMOS  CDIP  P339         24     MIL  No   NO   --   --       0    8    5    1    990  0
+$C2 CYP       CY7B339-8LMB     PAL   CMOS  LCC   P339         28     MIL  No   NO   --   --       0    8    5    1    990  0
+$C2 CYP       CY7B339-9DC      PAL   CMOS  CDIP  P339         24     COM  No   NO   --   --       0    9    6    1    990  0
+$C2 CYP       CY7B339-9JC      PAL   CMOS  PLCC  P339         28     COM  No   NO   --   --       0    9    6    1    990  0
+$C2 CYP       CY7B339-9PC      PAL   CMOS  DIP   P339         24     COM  No   NO   --   --       0    9    6    1    990  0
+$C2 CYP       CY7B339-9VC      PAL   CMOS  SOIC  P339         24     COM  No   NO   --   --       0    9    6    1    990  0
+$C2 CYP       CY7B326-12DC     PLD   CMOS  CDIP  E0600        24     COM  No   NO   --   --       0   12   10   10    892  0
+$C2 CYP       CY7B326-12JC     PLD   CMOS  PLCC  E0600C       28     COM  No   NO   --   --       0   12   10   10    892  0
+$C2 CYP       CY7B326-12PC     PLD   CMOS  DIP   E0600        24     COM  No   NO   --   --       0   12   10   10    892  0
+$C2 CYP       CY7B326-15DC     PLD   CMOS  CDIP  E0600        24     COM  No   NO   --   --       0   15   12   12    892  0
+$C2 CYP       CY7B326-15DMB    PLD   CMOS  CDIP  E0600        24     MIL  No   NO   --   --       0   15   12   12    1045 0
+$C2 CYP       CY7B326-15JC     PLD   CMOS  PLCC  E0600C       28     COM  No   NO   --   --       0   15   12   12    892  0
+$C2 CYP       CY7B326-15LMB    PLD   CMOS  LCC   E0600C       28     MIL  No   NO   --   --       0   15   12   12    1045 0
+$C2 CYP       CY7B326-15PC     PLD   CMOS  DIP   E0600        24     COM  No   NO   --   --       0   15   12   12    892  0
+$C2 CYP       CY7B326-17DMB    PLD   CMOS  CDIP  E0600        24     MIL  No   NO   --   --       0   17   15   14    1045 0
+$C2 CYP       CY7B326-17LMB    PLD   CMOS  LCC   E0600C       28     MIL  No   NO   --   --       0   17   15   14    1045 0
+$C2 CYP       CY7B333-10DC     PLD   CMOS  CDIP  P333         24     COM  No   NO   --   --    7385   10    8    0    892  0
+$C2 CYP       CY7B333-10JC     PLD   CMOS  PLCC  P333         28     COM  No   NO   --   --    7386   10    8    0    892  0
+$C2 CYP       CY7B333-10PC     PLD   CMOS  DIP   P333         24     COM  No   NO   --   --    7385   10    8    0    892  0
+$C2 CYP       CY7B333-12DC     PLD   CMOS  CDIP  P333         28     COM  No   NO   --   --    7385   12   10    0    892  0
+$C2 CYP       CY7B333-12DMB    PLD   CMOS  CDIP  P333         28     MIL  No   NO   --   --    7385   12   10    0    1045 0
+$C2 CYP       CY7B333-12JC     PLD   CMOS  PLCC  P333        28     COM  No   NO   --   --    7386   12   10    0    892  0
+$C2 CYP       CY7B333-12LMB    PLD   CMOS  LCC   P333        28     MIL  No   NO   --   --    7387   12   10    0    1045 0
+$C2 CYP       CY7B333-12PC     PLD   CMOS  DIP   P333         28     COM  No   NO   --   --    7385   12   10    0    892  0
+$C2 CYP       CY7B333-15DMB    PLD   CMOS  CDIP  P333         28     MIL  No   NO   --   --    7385   15   12    0    1045 0
+$C2 CYP       CY7B333-15LMB    PLD   CMOS  LCC   P333        28     MIL  No   NO   --   --    7387   15   12    0    1045 0
+$C2 CYP       CY7C341-30GC     EPLD  CMOS  PGA   NO_ABEL      84     COM  NO   NO   --   --       0   45   22   15    1050 0
+$C2 CYP       CY7C341-30HC     EPLD  CMOS  LCC   NO_ABEL      84     COM  UV   NO   --   --       0   45   22   15    1050 0
+$C2 CYP       CY7C341-30JC     EPLD  CMOS  PLCC  NO_ABEL      84     COM  NO   NO   --   --       0   45   22   15    1050 0
+$C2 CYP       CY7C341-30RC     EPLD  CMOS  PGA   NO_ABEL      84     COM  NO   NO   --   --       0   45   22   15    1050 0
+$C2 CYP       CY7C341-35GC     EPLD  CMOS  PGA   NO_ABEL      84     COM  NO   NO   --   --       0   55   25   15    1050 0
+$C2 CYP       CY7C341-35HC     EPLD  CMOS  LCC   NO_ABEL      84     COM  UV   NO   --   --       0   55   25   15    1050 0
+$C2 CYP       CY7C341-35HMB    EPLD  CMOS  LCC   NO_ABEL      84     MIL  UV   NO   --   --       0   55   25   15    1320 0
+$C2 CYP       CY7C341-35JC     EPLD  CMOS  PLCC  NO_ABEL      84     COM  NO   NO   --   --       0   55   25   15    1050 0
+$C2 CYP       CY7C341-35RC     EPLD  CMOS  PGA   NO_ABEL      84     COM  NO   NO   --   --       0   55   25   15    1050 0
+$C2 CYP       CY7C341-35RMB    EPLD  CMOS  PGA   NO_ABEL      84     MIL  NO   NO   --   --       0   55   25   15    1320 0
+$C2 CYP       CY7C341-40HMB    EPLD  CMOS  LCC   NO_ABEL      84     MIL  UV   NO   --   --       0   65   28   15    1320 0
+$C2 CYP       CY7C341-40RMB    EPLD  CMOS  PGA   NO_ABEL      84     MIL  NO   NO   --   --       0   65   28   15    1320 0
+$C2 CYP       CY7C342-30GC     EPLD  CMOS  PGA   NO_ABEL      68     COM  NO   NO   --   --       0   45   22   15    1050 0
+$C2 CYP       CY7C342-30GI     EPLD  CMOS  PGA   NO_ABEL      68     IND  NO   NO   --   --       0   45   22   15    1320 0
+$C2 CYP       CY7C342-30HC     EPLD  CMOS  LCC   NO_ABEL      68     COM  UV   NO   180  0B7   4952   45   22   15    1050 0
+$C2 CYP       CY7C342-30HI     EPLD  CMOS  LCC   NO_ABEL      68     IND  UV   NO   180  0B7   4952   45   22   15    1329 0
+$C2 CYP       CY7C342-30JC     EPLD  CMOS  PLCC  NO_ABEL      68     COM  NO   NO   --   --       0   45   22   15    1050 0
+$C2 CYP       CY7C342-30JI     EPLD  CMOS  PLCC  NO_ABEL      68     IND  NO   NO   --   --       0   45   22   15    1320 0
+$C2 CYP       CY7C342-30RC     EPLD  CMOS  PGA   NO_ABEL      68     COM  NO   NO   --   --       0   45   22   15    1050 0
+$C2 CYP       CY7C342-30RI     EPLD  CMOS  PGA   NO_ABEL      68     IND  NO   NO   --   --       0   45   22   15    1320 0
+$C2 CYP       CY7C342-35GC     EPLD  CMOS  PGA   NO_ABEL      68     COM  NO   NO   --   --       0   55   25   15    1050 0
+$C2 CYP       CY7C342-35GI     EPLD  CMOS  PGA   NO_ABEL      68     IND  NO   NO   --   --       0   55   25   15    1320 0
+$C2 CYP       CY7C342-35HC     EPLD  CMOS  LCC   NO_ABEL      68     COM  UV   NO   180  0B7   4952   55   25   15    1050 0
+$C2 CYP       CY7C342-35HI     EPLD  CMOS  LCC   NO_ABEL      68     IND  UV   NO   180  0B7   4952   55   25   15    1320 0
+$C2 CYP       CY7C342-35HMB    EPLD  CMOS  LCC   NO_ABEL      68     MIL  UV   NO   180  0B7   4952   55   25   15    1320 0
+$C2 CYP       CY7C342-35JC     EPLD  CMOS  PLCC  NO_ABEL      68     COM  NO   NO   --   --       0   55   25   15    1050 0
+$C2 CYP       CY7C342-35JI     EPLD  CMOS  PLCC  NO_ABEL      68     IND  NO   NO   --   --       0   55   25   15    1320 0
+$C2 CYP       CY7C342-35RC     EPLD  CMOS  PGA   NO_ABEL      68     COM  NO   NO   --   --       0   55   25   15    1050 0
+$C2 CYP       CY7C342-35RI     EPLD  CMOS  PGA   NO_ABEL      68     IND  NO   NO   --   --       0   55   25   15    1320 0
+$C2 CYP       CY7C342-35RMB    EPLD  CMOS  PGA   NO_ABEL      68     MIL  NO   NO   --   --       0   55   25   15    1320 0
+$C2 CYP       CY7C342-40HMB    EPLD  CMOS  LCC   NO_ABEL      68     MIL  UV   NO   180  0B7   4952   65   28   15    1320 0
+$C2 CYP       CY7C342-40RMB    EPLD  CMOS  PGA   NO_ABEL      68     MIL  NO   NO   --   --       0   65   28   15    1320 0
+$C2 CYP       CY7C343-30HC     EPLD  CMOS  LCC   NO_ABEL      44     COM  UV   NO   180  0B8   4949   45   22   15    630  0
+$C2 CYP       CY7C343-30HI     EPLD  CMOS  LCC   NO_ABEL      44     IND  UV   NO   180  0B8   4949   45   22   15    1100 0
+$C2 CYP       CY7C343-30JC     EPLD  CMOS  PLCC  NO_ABEL      44     COM  NO   NO   --   --       0   45   22   15    630  0
+$C2 CYP       CY7C343-30JI     EPLD  CMOS  PLCC  NO_ABEL      44     IND  NO   NO   --   --       0   45   22   15    1100 0
+$C2 CYP       CY7C343-35HC     EPLD  CMOS  LCC   NO_ABEL      44     COM  UV   NO   180  0B8   4949   55   25   15    630  0
+$C2 CYP       CY7C343-35HI     EPLD  CMOS  LCC   NO_ABEL      44     IND  UV   NO   180  0B8   4949   55   25   15    1100 0
+$C2 CYP       CY7C343-35HMB    EPLD  CMOS  LCC   NO_ABEL      44     MIL  UV   NO   180  0B8   4949   55   25   15    1100 0
+$C2 CYP       CY7C343-35JC     EPLD  CMOS  PLCC  NO_ABEL      44     COM  NO   NO   --   --       0   55   25   15    630  0
+$C2 CYP       CY7C343-35JI     EPLD  CMOS  PLCC  NO_ABEL      44     IND  NO   NO   --   --       0   55   25   15    1100 0
+$C2 CYP       CY7C343-40HMB    EPLD  CMOS  LCC   NO_ABEL      44     MIL  UV   NO   180  0B8   4949   65   28   15    1100 0
+$C2 CYP       CY10E301-4YC     PLD   ECL   LCC   EC16P8C      28     COM  NO   NO   --   --    4202    4    0    0    1080  0
+$C2 CYP       CY100E301-4YC    PLD   ECL   LCC   EC16P8C      28     COM  NO   NO   --   --    4202    4    0    0    1080  0
+$C2 CYP       CY10E301-5YC     PLD   ECL   LCC   EC16P8C      28     COM  NO   NO   --   --    4202    5    0    0    1080  0
+$C2 CYP       CY10E301-6JC     PLD   ECL   PLCC  EC16P8C      28     COM  NO   NO   --   --    4202    6    0    0    1080  0
+$C2 CYP       CY100E301-6JC    PLD   ECL   PLCC  EC16P8C      28     COM  NO   NO   --   --    4202    6    0    0    1080  0
+#
+$END
+

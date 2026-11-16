@@ -1,0 +1,753 @@
+#
+# 5C031 JEDEC File Disassembler
+# 
+# Created:  09-20-89
+#
+#
+
+#
+# Return the Jedec address of a Macrocell
+#
+func mc_addr( ) {
+
+     if ( $1 == 1 ) {
+    return( 0 )
+     }
+     else if ( $1 == 2 ) {
+    return( 324 )
+     }
+     else if ( $1 == 3 ) {
+    return( 648 )
+     }
+     else if ( $1 == 4 ) {
+    return( 972 )
+     }
+     else if ( $1 == 5 ) {
+    return( 1296 )
+     }
+     else if ( $1 == 6 ) {
+    return( 1620 )
+     }
+     else if ( $1 == 7 ) {
+    return( 1944 )
+     }
+     else if ( $1 == 8 ) {
+    return( 2268 )
+     }
+     return( 0 )
+}
+
+#
+# Return the address of a macrocell's architecture bits
+#
+func mc_arch( ) {
+
+     if ( $1 == 1 ) {
+    return( 2664 )
+     }
+     else if ( $1 == 2 ) {
+    return( 2671 )
+     }
+     else if ( $1 == 3 ) {
+    return( 2678 )
+     }
+     else if ( $1 == 4 ) {
+    return( 2685 )
+     }
+     else if ( $1 == 5 ) {
+    return( 2692 )
+     }
+     else if ( $1 == 6 ) {
+    return( 2699 )
+     }
+     else if ( $1 == 7 ) {
+    return( 2706 )
+     }
+     else if ( $1 == 8 ) {
+    return( 2713 )
+     }
+     return( 0 )
+}
+
+#
+# Return 1 if the macrocell's term is used otherwise 0
+#
+func mc_term_used( ) {
+     mta = mc_addr( $1 ) + ( $2 * 36 )
+     mta_i = .
+     . = mta
+     while ( . < mta + 36 ) {
+    if ( @. == 0 ) {
+         . = . + 1
+         if ( @. == 1 ) {
+            return( 1 )
+         }
+         . = . + 1
+    }
+    else if ( @. == 1 ) {
+         . = . + 1
+         if ( @. == 0 ) {
+              return( 1 )
+         }
+         . = . + 1
+        }
+    else {
+         . = . + 2
+    }
+     }
+     . = mta_i
+     return( 0 )
+}
+
+#
+# Return 1 if the macrocell is used otherwise 0 
+#
+func mc_used( ) {
+     ma_i = .
+     ma_term_a = 0
+     while ( ma_term_a < 8 ) {
+       if ( mc_term_used( $1, ma_term_a ) == 1 ) {    
+            return( 1 )
+       }
+       ma_term_a = ma_term_a + 1
+     }
+     . = ma_i
+     return( 0 )
+}
+
+#
+# Return 1 if the macrocell term's factor is programmed otherwise 0
+#
+func mc_term_inp( ) {
+     mtia_i = .
+     . = ( mc_addr( $1 ) + (( $2 * 36 ) + $3) )
+     if ( @. == 0 )
+        return( 1 )
+     . = mtia_i
+     return( 0 )
+}
+
+#
+# Return the address of the clear or preset term
+#      $1 == 0   then return preset term address
+#      $1 == 1   then return clear term address
+#
+func mcell_cntl( ) {
+     mcntl_i = .
+     if ( $1 == 0 ) {
+          . = 2592 + $2        # preset pterm
+     }
+     else {
+          . = 2628 + $2        # clear pterm
+     }
+     if ( @. == 0 )
+        return( 1 )
+     . = mcntl_i
+     return( 0 )
+}
+
+#
+# Return an integer representing the macrocell's architecture bits
+#
+func mc_arch_bits( ) {
+    mat_i = .
+    . = mc_arch( $1 )
+    bitmap = 0
+
+    bitmap = @.
+    . = . + 1
+    bitmap =  bitmap | ( @. << 1 )
+    . = . + 1
+    bitmap =  bitmap | ( @. << 2 )
+    . = . + 1
+    bitmap =  bitmap | ( @. << 3 )
+    . = . + 1
+    bitmap =  bitmap | ( @. << 4 )
+    . = . + 1
+    bitmap =  bitmap | ( @. << 5 )
+    . = . + 1
+    bitmap =  bitmap | ( @. << 6 )
+    . = mat_i
+
+    return( bitmap )
+}
+
+#
+# Return the macrocell's architecture type
+#
+func mc_arch_type( ) {
+    bits = mc_arch_bits( $1 )
+    if (((bits & 0x01) == 0) || ((bits & 0x02) == 0 )) {
+        if ((bits & 0x70) == 0x70) {
+        return( 1 )            # CONF
+        }
+        else if ((bits & 0x10) == 0) {     # COCF
+        return( 2 )
+        }
+        else if ((bits & 0x20) == 0) {     # CORF
+        return( 3 )
+        }
+        else if ((bits & 0x40) == 0) {     # COIF
+        return( 4 )
+        }
+    }
+    else if (((bits & 0x04) == 0) || ((bits & 0x08) == 0)) {
+        if ((bits & 0x70) == 0x70) {
+        return( 5 )            # RONF
+        }
+        else if ((bits & 0x10) == 0) {     # ROCF
+        return( 6 )
+        }
+        else if ((bits & 0x20) == 0) {     # RORF
+        return( 7 )
+        }
+        else if ((bits & 0x40) == 0) {     # ROIF
+        return( 8 )
+        }
+    }
+    else if ((bits & 0x10) == 0) {         # NOCF
+        return( 9 )
+    }
+    else if ((bits & 0x20) == 0) {         # NORF
+        return( 10 )
+    }
+    else {
+        return( 0 )                # NONF
+    }
+    
+    return( 0 )
+}
+
+#
+# Return 1 if the macrocell's output is inverted
+#
+func mc_arch_invert( ) {
+    mc_inv = .
+    . = mc_arch( $1 )
+    . = .
+    if ( @. == 0 ) {
+       . = mc_inv
+       return( 1 )
+    }
+    . = . + 2
+    if ( @. == 0 ) {
+       . = mc_inv
+       return( 1 )
+    }
+    . = mc_inv
+    return( 0 )
+}
+
+#
+# Output the turbo bit field
+#
+proc turbo_bit( ) {
+     print "OPTIONS: TURBO=OFF\n"
+}
+
+#
+# Return 1 if the macrocell's feedback is used
+#
+func mc_fb_used( ) {
+     mcfb_i = 1
+     feedback = ( ( $1 - 1 ) * 4 ) + 6
+     while ( mcfb_i < 9 ) {
+      mcfb_term = 0
+      if ( mcfb_i != $1 ) {
+          if ( mc_used( mcfb_i ) == 1 ) {
+              while ( mcfb_term < 9 ) {
+                  if ( mc_term_used( mcfb_i, mcfb_term ) == 1 ) {
+                       if ( mc_term_inp( mcfb_i, mcfb_term,
+                                                     feedback ) == 1 ) {
+                        return( 1 )
+                   } 
+                       else if ( mc_term_inp( mcfb_i, mcfb_term,
+                                                 feedback + 1 ) == 1 ) {
+                       return( 1 )
+                  } 
+              }
+              mcfb_term = mcfb_term + 1
+              }
+          }
+      }
+      mcfb_i = mcfb_i + 1
+     }
+     return( 0 )
+}
+
+#
+# Return the macrocell number if the array index is a macrocell
+# otherwise return 0
+#
+func is_mc_fb( ) {
+    if ( $1 == 6 ) {
+         return( 1 )
+    }
+    else if ( $1 == 10 ) {
+         return( 2 )
+    }
+    else if ( $1 == 14 ) {
+         return( 3 )
+    }
+    else if ( $1 == 18 ) {
+         return( 4 )
+    }
+    else if ( $1 == 22 ) {
+         return( 5 )
+    }
+    else if ( $1 == 26 ) {
+         return( 6 )
+    }
+    else if ( $1 == 30 ) {
+         return( 7 )
+    }
+    else if ( $1 == 34 ) {
+         return( 8 )
+    }
+    return( 0 )
+}
+
+#
+# Output the clear and preset equations
+#
+proc mc_clr_pre( ) {
+   clr_pre = 0
+   while ( clr_pre < 2 ) {
+       if ( clr_pre == 0 ) {
+            print "preset ="
+       }
+       else {
+            print "clear ="
+       }
+       need_and = 0
+       factor_found = 0
+       fac_inp_i = 0
+       while ( fac_inp_i < 36 ) {
+		   is_gnd = 0
+           if ( mcell_cntl( clr_pre, fac_inp_i ) == 1 ) {
+               factor_found = 1
+               if ( need_and == 1 ) {
+                 print "*"
+                 need_and = 0
+               }
+               if (mcell_cntl (clr_pre, fac_inp_i + 1) == 1 ) { # GND
+                   print " GND ;\n\n"
+				   need_and = 1
+				   is_gnd = 1
+               }
+               else {
+				    need_and = 1
+                    io_i = is_mc_fb( fac_inp_i )
+                    if ( io_i != 0 ) {
+                        i_bits = mc_arch_bits( io_i ) 
+                        if ((mc_arch_invert(io_i) == 1) && (i_bits & 0x40)) {
+                          print " in%dp ", fac_inp_i
+                        }
+                        else {
+                          print " in%dp' ", fac_inp_i
+                        }
+                    }
+                    else {
+                        print " in%dp' ", fac_inp_i
+                    }
+			   }
+			}
+		    if ( (!is_gnd) && (mcell_cntl( clr_pre, fac_inp_i + 1 ) == 1 )) {
+				factor_found = 1
+				if ( need_and == 1 ) {
+				 print "*"
+				 need_and = 0
+				}
+				need_and = 1
+				io_i = is_mc_fb( fac_inp_i )
+				if ( io_i != 0 ) {
+					 i_bits = mc_arch_bits( io_i ) 
+						 if ((mc_arch_invert(io_i) == 1) && (i_bits & 0x40)) {
+							 print " in%dp' ", fac_inp_i
+						 }
+						 else {
+							  print " in%dp ", fac_inp_i
+						 }
+				 }
+				 else {
+					 print " in%dp ", fac_inp_i
+				 }
+			}
+		   if (is_gnd) fac_inp_i = 36
+		   else fac_inp_i = fac_inp_i + 2
+       }
+       if ( factor_found == 0 ) {
+            print " VCC"
+       }
+       if (!is_gnd) print ";\n\n"
+       clr_pre = clr_pre + 1
+   }
+}
+
+#
+# Output the network section of the ADF
+#
+proc network( ) {
+     mcell_i = 1
+     net_i = 6
+     docntl = 0
+     mcarchtyp = 0
+     while ( net_i < 36 ) {
+        if ( mc_used( mcell_i ) == 1 ) {
+         mcarchtyp = mc_arch_type( mcell_i )
+         if ( mcarchtyp == 1 ) {
+                  print "       io%d", net_i
+                  print " = CONF( eq%d,", net_i
+                  print " eq%d.oe )\n", net_i
+         }
+         else if ( mcarchtyp == 2 ) {
+                  print "       io%d, ", net_i
+                  print "in%dp", net_i
+                  print " = COCF( eq%d,", net_i
+                  print " eq%d.oe )\n", net_i
+         }
+         else if ( mcarchtyp == 3 ) {
+                  print "       io%d, ", net_i
+                  print "in%dp", net_i
+                  print " = CORF( eq%d, in0p, clear, preset,", net_i
+                  print " eq%d.oe )\n", net_i
+         }
+         else if ( mcarchtyp == 4 ) {
+                  print "       io%d, ", net_i
+                  print "in%dp", net_i
+                  print " = COIF( eq%d,", net_i
+                  print " eq%d.oe )\n", net_i
+         }
+         else if ( mcarchtyp == 5 ) {
+                  print "       io%d", net_i
+                  print " = RONF( eq%d, in0p, clear, preset,", net_i
+                  print " eq%d.oe )\n", net_i
+         }
+         else if ( mcarchtyp == 6 ) {
+                  print "       io%d, ", net_i
+                  print "in%dp", net_i
+                  print " = ROCF( eq%d, in0p, clear, preset,", net_i
+                  print " eq%d.oe )\n", net_i
+          docntl = 1
+         }
+         else if ( mcarchtyp == 7 ) {
+                  print "       io%d, ", net_i
+                  print "in%dp", net_i
+                  print " = RORF( eq%d, in0p, clear, preset,", net_i
+                  print " eq%d.oe )\n", net_i
+          docntl = 1
+         }
+         else if ( mcarchtyp == 8 ) {
+                  print "       io%d, ", net_i
+                  print "in%dp", net_i
+                  print " = ROIF( eq%d, in0p, clear, preset,", net_i
+                  print " eq%d.oe )\n", net_i
+          docntl = 1
+         }
+         else if ( mcarchtyp == 9 ) {
+                  print "       in%dp", net_i
+                  print " = NOCF( eq%d,", net_i
+                  print " eq%d.oe )\n", net_i
+         }
+         else if ( mcarchtyp == 10 ) {
+                  print "       in%dp", net_i
+                  print " = NORF( eq%d, in0p, clear, preset,", net_i
+                  print " eq%d.oe )\n", net_i
+          docntl = 1
+         }
+         else if ( mcarchtyp == 0 ) {
+                  print "       in%dp", net_i
+                  print " = NONF( eq%d,", net_i
+                  print " eq%d.oe )\n", net_i
+         }
+        }
+    else if ( mc_fb_used( mcell_i ) == 1 ) {
+             print "       in%dp = ", net_i
+             print "INP( io%d )\n", net_i
+    }
+    else {                    # ground the output
+             print "       in%dp = ", net_i
+             print "NORF( in%dp, in0p, , )\n", net_i
+    }
+    mcell_i = mcell_i + 1
+    net_i = net_i + 4
+     }
+
+     print "\n"
+     print "EQUATIONS:\n"
+     print "\n"
+
+     if ( docntl == 1 )
+          mc_clr_pre( )
+}
+
+#
+# Output the macrocell's oe control equation
+#
+proc mc_oe( ) {
+      need_and = 0
+          print "eq%d.oe =", ( ( $1 - 1 ) * 4 ) + 6
+      mc_oe_i = 0
+      oe_factor = 0
+      while ( mc_oe_i < 36 ) {
+         if ( mc_term_inp( $1, 8, mc_oe_i ) == 1 ) {
+            if ( need_and == 1 ) {
+               print "*"
+        }
+        io_i = is_mc_fb( mc_oe_i )
+        if ( io_i != 0 ) {
+             i_bits = mc_arch_bits( io_i ) 
+                 if ((mc_arch_invert(io_i) == 1) && (i_bits & 0x40)) {
+                  print " in%dp ", mc_oe_i
+             }
+             else {
+                  print " in%dp' ", mc_oe_i
+             }
+        }
+        else {
+             print " in%dp' ", mc_oe_i
+        }
+            oe_factor = 1
+        need_and = 1
+         }
+         if ( mc_term_inp( $1, 8, mc_oe_i + 1 ) == 1 ) {
+            if ( need_and == 1 ) {
+               print "*"
+            }
+        io_i = is_mc_fb( mc_oe_i )
+        if ( io_i != 0 ) {
+             i_bits = mc_arch_bits( io_i ) 
+                 if ((mc_arch_invert(io_i) == 1) && (i_bits & 0x40)) {
+                  print " in%dp' ", mc_oe_i
+             }
+             else {
+                  print " in%dp ", mc_oe_i
+             }
+        }
+        else {
+             print " in%dp ", mc_oe_i
+        }
+            oe_factor = 1
+            need_and = 1
+         }
+         mc_oe_i = mc_oe_i + 2
+     }
+     if ( oe_factor == 0 ) {
+          print " VCC"
+     }
+     print ";\n\n"
+}
+
+proc            errmsg()
+{
+        if ($1 == 1)
+                message "ERROR JDBMAC: "
+        if ($1 == 2)
+                message "JEDEC Disassembly Errors Occurred.\n"
+}
+ 
+proc            infomsg()
+{
+        if ($1 == 1)
+                message "INFO JDBMAC: "
+        if ($1 == 2)
+                message "JEDEC Disassembly in progress...\n"
+        if ($1 == 3)
+                message "JEDEC Disassembly Successfully Completed\n"
+}
+
+#
+# Output all the equations that drive macrocell's
+#
+proc equations( ) {
+     eq_i = 1
+     while ( eq_i < 9 ) {
+        message "Processing Macrocell [ %d ]\n",eq_i
+        if ( mc_used( eq_i ) == 1 ) {
+           print "eq%d", ( ( eq_i - 1 ) * 4 ) + 6
+       if ( mc_arch_invert( eq_i ) == 1 ) {
+                print "'"
+       }
+           print " ="
+       eq_term_i = 0
+       need_or = 0
+       need_and = 0
+       factor_found = 0
+       while ( eq_term_i < 8 ) {
+          if ( mc_term_used( eq_i, eq_term_i ) == 1 ) {
+         if ( need_or ) {
+            print "\n+ "
+            need_and = 0
+         }
+         eq_term_inp_i = 0
+         while ( eq_term_inp_i < 36 ) {
+            if ( mc_term_inp( eq_i, eq_term_i, eq_term_inp_i ) == 1 ) {
+             if ( need_and == 1 ) {
+                  print "*"
+                  need_and = 0
+             }
+             io_i = is_mc_fb( eq_term_inp_i )
+                 if ( io_i != 0 ) {
+                  i_bits = mc_arch_bits( io_i ) 
+                          if ((mc_arch_invert(io_i) == 1) && (
+                                                 (i_bits & 0x40))) {
+                           print " in%dp ", eq_term_inp_i
+                  }
+                  else {
+                           print " in%dp' ", eq_term_inp_i
+                  }
+             }
+             else {
+                      print " in%dp' ", eq_term_inp_i
+             }
+             factor_found = 1
+             need_and = 1
+             need_or = 1
+            }
+            if ( mc_term_inp( eq_i, eq_term_i, 
+                                            eq_term_inp_i + 1 ) == 1 ) {
+             if ( need_and == 1 ) {
+                  print "*"
+                  need_and = 0
+             }
+             io_i = is_mc_fb( eq_term_inp_i )
+                 if ( io_i != 0 ) {
+                  i_bits = mc_arch_bits( io_i ) 
+                          if ((mc_arch_invert(io_i) == 1) && (
+                                                 (i_bits & 0x40))) {
+                           print " in%dp' ", eq_term_inp_i
+                  }
+                  else {
+                           print " in%dp ", eq_term_inp_i
+                  }
+             }
+             else {
+                      print " in%dp ", eq_term_inp_i
+             }
+             factor_found = 1
+             need_and = 1
+             need_or = 1
+            }
+            eq_term_inp_i = eq_term_inp_i + 2
+         }
+         need_and = 0
+          }
+              eq_term_i = eq_term_i + 1
+       }
+       if ( factor_found == 0 ) {
+            print " VCC"
+       }
+       print ";\n\n"
+       mc_oe( eq_i )
+        }
+        eq_i = eq_i + 1
+     }
+}
+
+#
+# Output all the used outputs in the OUTPUTS section of the ADF
+#
+proc fetch_outpins( ) {
+     mcell_i = 1
+     inp_i = 6
+     pin_i = 19
+     need_comma = 0
+     while ( inp_i < 35 ) {
+        if ( mc_used( mcell_i ) == 1 ) {
+         if ( need_comma == 1 ) {
+                  print ",\n"
+         }
+             print "       io%d", inp_i
+         print "@%d", pin_i
+         need_comma = 1
+    }
+    else if ( mc_fb_used( mcell_i ) == 0 ) {
+         if ( need_comma == 1 ) {
+                  print ",\n"
+         }
+             print "       in%dp", ( 19 - inp_i )
+         print "@%d", pin_i
+         need_comma = 1
+    }
+    mcell_i = mcell_i + 1
+    inp_i = inp_i + 4
+    pin_i = pin_i - 1
+     }
+}
+
+#
+# Output all the used inputs in the INPUTS section of the ADF
+#
+proc fetch_inpins( ) {
+     mcell_i = 1
+     inp_i = 6
+     pin_i = 19
+     need_comma = 1
+     while ( inp_i < 35 ) {
+        if ( mc_used( mcell_i ) == 0 ) {
+         if ( mc_fb_used( mcell_i ) == 1 ) {
+             if ( need_comma == 1 ) {
+                      print ",\n"
+             }
+                 print "       io%d", inp_i
+             print "@%d", pin_i
+             need_comma = 1
+         }
+    }
+    mcell_i = mcell_i + 1
+    inp_i = inp_i + 4
+    pin_i = pin_i - 1
+     }
+}
+
+#
+# Disassemble a 5C031 JEDEC file into ADF source code
+#
+proc da031( ) {
+     turbo_bit( )
+     print "\n"
+     print "PART: 5C031\n"
+     infomsg(1)
+     message "5C031 "
+     infomsg(2)
+     if (jedec_fuses() != 2720) {
+        errmsg(1)
+        message "The source JEDEC file is incompatible with the 5C031 device.\n"
+        errmsg(1)
+        errmsg(2)
+        exit 1
+     }
+     print "\n"
+     print "INPUTS:\n"
+     print "       in0@1, in4@2, in8@3, in12@4, in16@5,\n"
+     print "       in20@6, in24@7, in28@8, in32@9, in2@11"
+     
+     fetch_inpins( )
+     
+     print "\n\n"
+     print "OUTPUTS:\n"
+     
+     fetch_outpins( )
+     
+     print "\n\n"
+     print "NETWORK:\n"
+     print "       in0p = INP(in0)\n"
+     print "       in2p = INP(in2)\n"
+     print "       in4p = INP(in4)\n"
+     print "       in8p = INP(in8)\n"
+     print "       in12p = INP(in12)\n"
+     print "       in16p = INP(in16)\n"
+     print "       in20p = INP(in20)\n"
+     print "       in24p = INP(in24)\n"
+     print "       in28p = INP(in28)\n"
+     print "       in32p = INP(in32)\n"
+     print "\n"
+     
+     network( )        # will set docntl if needed
+     
+     equations( )
+     
+     print "END$\n"
+
+     infomsg(3)
+}

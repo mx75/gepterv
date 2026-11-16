@@ -1,0 +1,91 @@
+MODULE POL2
+
+        TITLE   'ABEL V4.10 EXAMPLE FILE DEMONSTRATING THE ANSWERS TO 
+                 THE QUESTIONS MOST OFTEN ASKED BY CUSTOMERS, REGARDING
+                 POLARITY AND DETAILED-REGISTER SYNTAX'
+
+        POL2        device 'P22V10';
+
+"Inputs
+        CLK             pin 1;
+        D0,D1           pin 2,3;
+        RESET           pin 4;   "Asynchronous register reset
+
+"Outputs
+        QAND0           pin 23 istype 'REG_D,BUFFER';
+        QAND1           pin 22 istype 'REG_D,INVERT';
+        QAND2           pin 21 istype 'REG_D,BUFFER'; "Active-low
+        QAND3           pin 20 istype 'REG_D,INVERT'; "Active-low
+
+"Constants
+        C,X,Z,H,L       = .C.,.X.,.Z.,1,0;
+
+EQUATIONS
+
+"Programmed equations using On-sets (positive-polarity)
+
+        QAND0.D     = D0 & D1;    "QAND0 =                 (D0 & D1)
+        QAND1.D     = D0 & D1;    "QAND1 = !( D0 &  D1) = !(D0 & D1)
+
+"Programmed equations using Off-sets (demorgen equivalents of ON-sets)
+
+       !QAND2.D     = D0 & D1;    "QAND2 =  (!D0 # !D1) = !(D0 & D1)
+       !QAND3.D     = D0 & D1;    "QAND3 = !(!D0 # !D1) =  (D0 & D1)
+
+        [QAND0..QAND3].clk    = CLK;
+        [QAND0..QAND3].ar     = RESET;
+
+TEST_VECTORS 'AND-function using detailed register syntax'
+
+       ([CLK, D0, D1,RESET] -> [QAND0,QAND1,QAND2,QAND3])
+        [ 0 , 0 , 0 ,  0  ] -> [  X  ,  X  ,  X  ,  X  ]; "Power-up
+        [ 0 , 0 , 0 ,  1  ] -> [  L  ,  H  ,  L  ,  H  ]; "Reset
+        [ 0 , 0 , 0 ,  0  ] -> [  L  ,  H  ,  L  ,  H  ]; 
+        [ C , 0 , 0 ,  0  ] -> [  L  ,  H  ,  H  ,  L  ]; "Begin Clocking
+        [ C , 1 , 0 ,  0  ] -> [  L  ,  H  ,  H  ,  L  ]; "
+        [ C , 0 , 1 ,  0  ] -> [  L  ,  H  ,  H  ,  L  ]; "
+        [ C , 1 , 1 ,  0  ] -> [  H  ,  L  ,  L  ,  H  ]; "
+        [ 0 , 1 , 1 ,  0  ] -> [  H  ,  L  ,  L  ,  H  ]; "Stop Clocking
+        [ 0 , 0 , 1 ,  0  ] -> [  H  ,  L  ,  L  ,  H  ]; "
+        [ 0 , 0 , 0 ,  0  ] -> [  H  ,  L  ,  L  ,  H  ]; "
+        [ C , 0 , 0 ,  0  ] -> [  L  ,  H  ,  H  ,  L  ]; "Resume Clocking
+
+DECLARATIONS
+
+"Outputs
+        QOR0            pin 19 istype 'REG_D,BUFFER';
+        QOR1            pin 18 istype 'REG_D,INVERT'; 
+        QOR2            pin 17 istype 'REG_D,BUFFER'; "Active-low
+        QOR3            pin 16 istype 'REG_D,INVERT'; "Active-low
+
+EQUATIONS
+
+"Programmed equations using Off-sets (demorgen equivalents of ON-sets)
+
+        QOR0.D      = D0 # D1;    "QOR0  = !(!D0 & !D1) =  (D0 # D1)
+        QOR1.D      = D0 # D1;    "QOR1  =  (!D0 & !D1) = !(D0 # D1)
+
+"Programmed equations using On-sets (positive-polarity)
+
+       !QOR2.D      = D0 # D1;    "QOR2  =  (!D0 & !D1) = !(D0 # D1)
+       !QOR3.D      = D0 # D1;    "QOR3  = !(!D0 & !D1) =  (D0 # D1)
+
+        [QOR0..QOR3].clk      = CLK;
+        [QOR0..QOR3].ar       = RESET;
+
+TEST_VECTORS 'OR-function using detailed register syntax'
+
+       ([CLK, D0, D1,RESET] -> [QOR0 ,QOR1 ,QOR2 ,QOR3 ])
+        [ 0 , 0 , 0 ,  0  ] -> [  X  ,  X  ,  X  ,  X  ]; "Power-up
+        [ 0 , 0 , 0 ,  1  ] -> [  L  ,  H  ,  L  ,  H  ]; "Reset
+        [ 0 , 0 , 0 ,  0  ] -> [  L  ,  H  ,  L  ,  H  ]; 
+        [ C , 0 , 0 ,  0  ] -> [  L  ,  H  ,  H  ,  L  ]; "Begin Clocking
+        [ C , 1 , 0 ,  0  ] -> [  H  ,  L  ,  L  ,  H  ]; "
+        [ C , 0 , 1 ,  0  ] -> [  H  ,  L  ,  L  ,  H  ]; "
+        [ C , 1 , 1 ,  0  ] -> [  H  ,  L  ,  L  ,  H  ]; "
+        [ 0 , 1 , 1 ,  0  ] -> [  H  ,  L  ,  L  ,  H  ]; "Stop Clocking
+        [ 0 , 0 , 1 ,  0  ] -> [  H  ,  L  ,  L  ,  H  ]; "
+        [ 0 , 0 , 0 ,  0  ] -> [  H  ,  L  ,  L  ,  H  ]; "
+        [ C , 0 , 0 ,  0  ] -> [  L  ,  H  ,  H  ,  L  ]; "Resume Clocking
+
+END POL2

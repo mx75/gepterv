@@ -1,0 +1,162 @@
+latch.pds
+
+PALASM PARSER V2.23D - MARKET RELEASE (2-14-89)
+ (C) - COPYRIGHT ADVANCED MICRO DEVICES INC., 1989
+
+
+                    ***********************************
+                    *     PALASM PARSER LISTING       *
+                    ***********************************
+
+LINE #   |----+----1----+----2----+----3----+----4----+----5----+----6----+
+   1     |Title    Octal_Latch
+   2     |Pattern  8latch.pds
+   3     |Revision A
+   4     |Author   Mehrnaz Hada
+   5     |Company  Monolithic Memories Inc. Santa Clara, CA
+   6     |Date     1/15/85
+   7     |  
+   8     |CHIP OctalLatch PAL10H20P8
+   9     |  
+  10     |/LATCH0 D1 D0 Q0 Q1 VCC1 Q2 Q3 D3 D2 CLR0 GND
+  11     |/LATCH1 D6 D7 D4 Q7 Q6 VCC2 Q5 Q4 D5 CLR1 VCC3
+  12     |  
+  13     |EQUATIONS
+  14     |  
+  15     |Q0 = D0 * /CLR0 * LATCH0               ;Load
+  16     |   + D0 * /CLR0 * Q0                   ;Transition
+  17     |   + Q0 * /CLR0 * /LATCH0              ;Hold
+  18     |  
+  19     |Q1 = D1 * /CLR0 * LATCH0               ;Load
+  20     |   + D1 * /CLR0 * Q1                   ;Transition
+  21     |   + Q1 * /CLR0 * /LATCH0              ;Hold
+  22     |  
+  23     |Q2 = D2 * /CLR0 * LATCH0               ;Load
+  24     |   + D2 * /CLR0 * Q2                   ;Transition
+  25     |   + Q2 * /CLR0 * /LATCH0              ;Hold
+  26     |  
+  27     |Q3 = D3 * /CLR0 * LATCH0               ;Load
+  28     |   + D3 * /CLR0 * Q3                   ;Transition
+  29     |   + Q3 * /CLR0 * /LATCH0              ;Hold
+  30     |  
+  31     |Q4 = D4 * /CLR1 * LATCH1               ;Load
+  32     |   + D4 * /CLR1 * Q4                   ;Transition
+  33     |   + Q4 * /CLR1 * /LATCH1              ;Hold
+  34     |  
+  35     |Q5 = D5 * /CLR1 * LATCH1               ;Load
+  36     |   + D5 * /CLR1 * Q5                   ;Transition
+  37     |   + Q5 * /CLR1 * /LATCH1              ;Hold
+  38     |  
+  39     |Q6 = D6 * /CLR1 * LATCH1               ;Load
+  40     |   + D6 * /CLR1 * Q6                   ;Transtion
+  41     |   + Q6 * /CLR1 * /LATCH1              ;Hold
+  42     |  
+  43     |Q7 = D7 * /CLR1 * LATCH1               ;Load
+  44     |   + D7 * /CLR1 * Q7                   ;Transition
+  45     |   + Q7 * /CLR1 * /LATCH1              ;Hold
+  46     |  
+  47     |SIMULATION
+  48     |  
+  49     |TRACE_ON CLR0 LATCH0 Q0 Q1 Q2 Q3 CLR1 LATCH1 Q4 Q5 Q6 Q7
+  50     |  
+  51     |SETF CLR0 LATCH0 D0 D1 D2 D3 D4 D5 D6 D7 VCC1 VCC2 VCC3
+  52     |  
+  53     |SETF CLR1 LATCH1                       ;Clear Latch
+  54     |  
+  55     |SETF /CLR0 /CLR1                       ;Clear Latches
+  56     |  
+  57     |SETF LATCH0 LATCH1
+  58     |  
+  59     |CHECK Q0 Q1 Q2 Q3 Q4 Q5 Q6 Q7
+  60     |  
+  61     |SETF /LATCH1 D0 /D1 /D2 D3
+  62     |  
+  63     |SETF /LATCH0 LATCH1 /D4 /D5 /D6 D7
+  64     |  
+  65     |SETF CLR0 CLR1                          ;Clear Latches
+  66     |  
+  67     |SETF /CLR0 /CLR1 /LATCH0 /LATCH1        ;Hold values
+  68     |  
+  69     |SETF CLR0                               ;Clear Q0,Q1,Q2,Q3
+  70     |  
+  71     |SETF CLR1                               ;Clear Q4,Q5,Q6,Q7
+  72     |  
+  73     |TRACE_OFF
+  74     |  
+  75     |;The octal latch is an 8-bit latch with load, hold and clear
+  76     |;capability. Clear sets all outputs to low and overrides
+  77     |;hold. Load operation loads inputs (D0-D7) into the latch.
+  78     |;The hold operation holds the previous values of (Q0-Q7).
+  79     |  
+  80     |  
+  81     |  
+
+ %% PARSE %%    No errors    No warnings
+
+ %% PARSE %%    File Processed Successfully.    File : latch.pds
+PALASM EXPAND V2.23D - MARKET RELEASE (2-14-89)
+ (C) - COPYRIGHT ADVANCED MICRO DEVICES INC., 1989
+
+.....................
+
+ %%  EXPAND  %% Program Successful.  File: latch.pds.
+ %%  EXPAND  %% ERROR count: 0  WARNING count: 0
+PALASM MINIMIZE V2.23D - MARKET RELEASE (2-14-89)
+ (C) - COPYRIGHT ADVANCED MICRO DEVICES INC., 1989
+
+.....................
+
+ %%  MINIMIZE  %% Program Successful.  File: latch.pds.
+ %%  MINIMIZE  %% ERROR count: 0  WARNING count: 0
+
+PALASM XPLOT, V2.23D - MARKET RELEASE (2-14-89)
+(C) - COPYRIGHT ADVANCED MICRO DEVICES INC., 1989
+
+File being processed: latch
+Title    : Octal_Latch             
+
+Equation being processed is for output==>> Q0             
+Equation being processed is for output==>> Q1             
+Equation being processed is for output==>> Q2             
+Equation being processed is for output==>> Q3             
+Equation being processed is for output==>> Q7             
+Equation being processed is for output==>> Q6             
+Equation being processed is for output==>> Q5             
+Equation being processed is for output==>> Q4             
+
+The fuseplot is stored in ===>latch.XPT
+The jedec is stored in    ===>latch.JED
+
+ %%% XPLOT %%% FILE PROCESSED SUCCESSFULLY : latch.pds      
+
+
+PALASM2 SIMULATION, V2.23D - MARKET RELEASE (2-14-89)
+(C) - COPYRIGHT ADVANCED MICRO DEVICES INC., 1989
+
+File being processed: 
+Title    : Octal_Latch             
+
+  1 - TRACE_ON
+  1 - SETF
+  2 - SETF
+  3 - SETF
+  4 - SETF
+  5 - CHECK
+  5 - SETF
+  6 - SETF
+  7 - SETF
+  8 - SETF
+  9 - SETF
+ 10 - SETF
+ 11 - TRACE_OFF
+
+END OF SIMULATION
+Total memory used       ==>   6765 bytes
+
+
+Simulation result (History) is in ===>latch.HST
+Simulation result (Trace) is in ===>latch.TRF
+Merged results (JEDEC) is in      ===>latch.JDC
+
+ %%%% SIM %%%% FILE PROCESSED SUCCESSFULLY : latch.pds           
+

@@ -1,0 +1,74 @@
+ğ
+SETF
+Overview
+SETF assigns values to specific inputs during simulation.  
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+    SETF Prefix_Pn 
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Device Support:  All PLD devices.
+ú
+Syntax
+Include the SETF command in the simulation segment or auxiliary 
+simulation file of Boolean and state-machine designs.
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+    SETF Prefix_Pn 
+
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+    SIMULATION
+    SETF IN1 /OE
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+
+If the signal being set is defined with the same polarity as defined
+in the pin/node declaration segment, the signal is set to a logical 1.
+If the polarity is reversed, the signal is set to a logical 0.
+
+Note:  The following examples are valid only if the signals are
+       defined as active-high in the pin/node declaration segment.
+
+Prefix          The prefix specifies the logic state of the associated
+                input pin or node.  There are two prefixes:  null and
+                forward slash.
+
+
+                ş    The null prefix sets the corresponding input to a
+                     logical 1.  In the syntax example, IN1 has a null
+                     prefix.
+
+                ş    The forward slash, /, sets the corresponding
+                     input to a logical 0.  In the syntax example, OE
+                     has a forward slash prefix. setf
+
+Pn              This identifies the input pin or node to be set.
+ú
+Use
+You can list more than one pin or node.  Separate multiple pins or
+nodes with a blank space.  You can also use groups and strings.
+
+If the signal being set is defined with the same polarity as in the
+Pin/Node Declaration segment, the signal is set to a logical 1.  If
+the polarity is reversed, the signal is set to a logical 0.
+
+You cannot SETF states.  Rather, you SETF state inputs.  
+
+PALASM shows each occurrence of SETF by placing a "g" in the header of
+the waveform and text simulation files.  
+ú
+Related Topics
+Boolean Equation
+EXPRESSION
+Functional Equation
+GROUP
+.RSTF
+STRING
+VECTOR
+ú

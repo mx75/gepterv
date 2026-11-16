@@ -1,0 +1,156 @@
+$PALASM PARSER -
+ %% PARSE %%
+                    ***********************************
+                    *     PALASM PARSER LISTING       *
+LINE #   |----+----1----+----2----+----3----+----4----+----5----+----6----+
+$ %% PARSE %%    Error Count : %I     Warning Count : %I
+$ %% PARSE %%    No errors    No warnings
+$ %% PARSE %%    File Processed Successfully.    File : %S
+$ %% PARSE %%    File Processing Terminated.     File : %S
+$ %% PARSE %%    Processing Design File ......%S
+$ %% PARSE %%    Listing File ................%S
+>> WARNING
+>> ERROR
+** ERROR
+>> PALASM HELP : Input file not specified.
+>> Command format to invoke parse :
+$      parse <pdsfile[.pds]> [OPTION ...]
+$   OPTION  : -nolis
+             -lis [ <listingfile[.lis]> ]
+             -log [ <logfile[.log]> ]
+             -tre [ <treefile[.tre]> ]
+$   Option flag description :
+      -nolis : suppress the default listing generation.
+      -lis   : rename the listing file.
+      -log   : capture screen messages to disk file.
+      -tre   : rename the PALASM tree file.
+27
+28
+>> WARNING: cannot open listing file "%S"
+>> WARNING: invalid log file name "%S" is ignored
+>> WARNING: design file not specified, default "%S" is assumed
+>> WARNING: unknown flag "%S" on command line is ignored 
+>> WARNING: redundant file name "%S" on command line is ignored
+>> WARNING: invalid tree file name "%S" is ignored
+>> WARNING: missing I/O signal declarations in tabular header
+>> WARNING: state condition "%S" is defined but never used
+>> WARNING: no output is defined for state "%S"
+>> WARNING: output is defined on non-existing state "%S"
+>> WARNING: missing title declaration in header
+>> WARNING: missing pattern declaration in header
+>> WARNING: missing revision declaration in header
+>> WARNING: missing author declaration in header
+>> WARNING: missing company declaration in header
+>> WARNING: missing date declaration in header
+>> WARNING: missing header section in design file
+>> WARNING: design file "%S" cannot be used as listing, listing is ignored
+>> WARNING: log file name "%S" is not unique, screen log is ignored
+>> WARNING: tree file name "%S" is not unique, "PALASM2.TRE" is asssumed
+>> WARNING: identifier name "%S" is truncated to 14 characters
+>> REPAIR: replacing the error symbol or character with "%S"
+>> REPAIR: inserting a missing symbol or character "%S"
+>> REPAIR: deleting the error symbol or character "%S"
+53
+54
+>> ERROR : unexpected symbol "%S" in malformed statement 
+>> ERROR : illegal character "%S" detected
+>> ERROR : illegal symbol "%S" detected
+>> ERROR : unexpected end of design file "%S" is reached
+>> ERROR : unexpected end of file, possibly missing "END" or ")"
+>> ERROR : undeclared pin name "%S" 
+>> ERROR : illegal use of reserved name "%S" as state name 
+>> ERROR : illegal use of pin name "%S" as state name
+>> ERROR : illegal use of reserved name "%S" as state condition
+>> ERROR : illegal use of pin name "%S" as state condition 
+>> ERROR : unexpected reserved name "%S" in malformed statement
+>> ERROR : too few tabular characters in tabular entry
+>> ERROR : too many tabular characters in tabular entry
+>> ERROR : duplicate title declaration in header
+>> ERROR : duplicate pattern declaration in header
+>> ERROR : duplicate revision declaration in header
+>> ERROR : duplicate author declaration in header
+>> ERROR : duplicate company declaration in header
+>> ERROR : duplicate date declaration in header
+>> ERROR : missing design name in chip section
+>> ERROR : missing device type declaration in chip section
+>> ERROR : no pin name is declared in the chip section
+>> ERROR : device type "%S" is invalid
+>> ERROR : duplicate pin name "%S" in pin list
+>> ERROR : state condition variable "%S" is used but not defined
+>> ERROR : index variable "%S" is not defined within context
+>> ERROR : undeclared name "%S" in simulation section
+>> ERROR : missing macro or chip declaration found
+>> ERROR : duplicate index variable "%S" 
+>> ERROR : illegal use of don't care operator "%S"
+>> ERROR : output (.outf) has already been defined for state "%S"
+>> ERROR : condition variable "%S" has already been defined
+>> ERROR : illegal recursive string call, string symbol "%S" is ignored
+>> ERROR : unexpected reserved keyword or operator "%S"
+>> ERROR : illegal use of pin name "%S" as string name 
+>> ERROR : unexpected number symbol "%S" in malformed statement
+>> ERROR : string "%S" is empty, definition is ignored
+>> ERROR : unexpected state name "%S" in malformed statement
+>> ERROR : unexpected condition name "%S" in malformed statement
+94
+>> ERROR : cannot open design file "%S"
+** ERROR : system fails to close opened file "%S"
+** ERROR : cannot write to an unopened file "%S"
+** ERROR : cannot write to file "%S", it is opened for read
+** ERROR : system fails to read file "%S"
+** ERROR : file "%S" is already opened
+>> ERROR : severe damage caused by previous error(s) !! processing abort !
+>> ERROR : too many syntax errors !! processing abort !
+** ERROR : sorry ! out of system memory !!
+** ERROR : fail to free memory space !!
+105
+106
+>>WARNING : Using PAL32VX10 device 
+            All combinations of polarity of output and feedback 
+            are available.
+$            However, not all syntax combinations for defining polarity
+            are valid in this release (2.23) of the software.
+$            Please see the manual under "special consideration for
+            32VX10" section 4.3.7 for the allowable combinations for
+            selecting polarity.
+>> WARNING : too many slashes used for a signal "%S"
+>> WARNING : signature multiply defined; previous one overridden
+>> WARNING : the string is restricted to 72 char. ignore the rest of char.
+118
+119
+>> ERROR : attribute multiply defined
+>> ERROR : incorrectly declared "NC" pin label
+>> ERROR : missing macro type declaration in macro section
+>> ERROR : missing macro name in macro section
+>> ERROR : macro type "%S" is invalid
+>> ERROR : undeclared or illegal macro name "%S"
+>> ERROR : parameter mismatch between definition and call of macro "%S"
+>> ERROR : invalid pin number for this device or macro
+>> ERROR : invalid node number for this device or macro
+>> ERROR : instance name "%S" is used more than once
+>> WARNING: misplaced declaration found - ignored
+>> WARNING: incorrect use of':=' for a combinatorial output - ignored
+>> WARNING: incorrect use of':=' for a latched output - ignored
+>> WARNING: incorrect use of'*=' for a combinatorial output - ignored
+>> WARNING: incorrect use of'*=' for a registered output - ignored
+>> WARNING: no equation or state sections found for the macro defined
+>> WARNING: no equation or state section found for the chip defined
+>> WARNING: incorrectly declared pin label for an "NC" pin - ignored
+>> ERROR : too many pins defined
+>> WARNING: too few pins defined: undefined pins assumed as "NC"
+>> WARNING : too many nodes defined for the macro
+>> WARNING: duplicate PIN/NODE statement found: previous one overridden
+>> WARNING: active low polarity in CHIP overridden by default active high
+>> WARNING: pin/node attributes not allowed: ignored
+144
+>> ERROR : invalid digit for this radix number
+>> ERROR : number of pins defined do not equal to the number of names
+>> ERROR : duplicate PIN/NODE names "%S"
+>> ERROR : missing value clause in case statement
+>> ERROR : The names or vectors can not be repeated in this condition
+>> ERROR : Missing pin numbers in PIN/NODE section
+>> ERROR : Pin name here is restricted to single vector only
+>> ERROR : Duplicate range numbers
+>> ERROR : One or more range numbers are not declared for vector "%S"
+>> ERROR : The vector string "%S" is not declared
+>> ERROR : Slash is not allowed in signature string
+

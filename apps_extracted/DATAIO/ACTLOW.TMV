@@ -1,0 +1,12 @@
+#$ TOOL EZ-ABEL 4.30
+#$ MODULE actlow
+#$ TITLE Functional example of active low output signals, 22 July 1992
+#$ TITLE          John Gromala, Data I/O Corporation.
+S7;
+clock in1 in2 -> out1 out2 out3 out4 
+$
+0XX->XXXX;
+C00->1010;
+C11->0101;
+C01->1010;
+$

@@ -1,0 +1,57 @@
+module FIELD
+title 'Vertical Sync Detector  Location U007
+Michael Holley and Dave Pellerin   14 Sep 1993'
+
+        field                 device  'P18CV8';
+        Osc                   pin 1;
+        VertClr,Inc,ATC       pin 2,3,5;
+        AD7..AD4              pin 6,7,8,9;
+        Q6..Q0                pin 18..12 istype 'reg';
+        VertSync              pin 19 istype 'reg';
+
+        CountZ = [Q6..Q0];
+        Data   = [AD7..AD4,.X.,.X.,.X.,.X.];
+
+        Zero   = (Data == 0);
+
+Equations
+        CountZ   := (CountZ.fb + 1) & Zero & VertClr & !ATC &  Inc
+                  #  CountZ.fb      & Zero & VertClr & !ATC & !Inc;
+
+        VertSync := (CountZ.fb == 127) & VertClr & !ATC
+                  #  VertSync.fb       & VertClr & !ATC;
+
+        CountZ.clk = Osc;
+
+        VertSync.clk = Osc;
+
+Test_Vectors
+       ([Osc,VertClr,Inc,Data,ATC] -> [CountZ,VertSync])
+        [.c.,   0   , 0 ,  0 , 0 ] -> [   0  ,   0    ];
+        [.c.,   1   , 0 ,  0 , 0 ] -> [   0  ,   0    ];
+        [.c.,   1   , 0 ,  0 , 0 ] -> [   0  ,   0    ];
+        [.c.,   1   , 1 ,  0 , 0 ] -> [   1  ,   0    ];
+        [.c.,   1   , 1 ,  0 , 0 ] -> [   2  ,   0    ];
+        [.c.,   1   , 1 ,  0 , 0 ] -> [   3  ,   0    ];
+        [.c.,   1   , 1 ,  0 , 0 ] -> [   4  ,   0    ];
+        [.c.,   1   , 1 ,  0 , 0 ] -> [   5  ,   0    ];
+        [.c.,   1   , 1 , 33 , 0 ] -> [   0  ,   0    ];
+        [.c.,   1   , 1 ,  0 , 0 ] -> [   1  ,   0    ];
+        [.c.,   1   , 1 ,  0 , 0 ] -> [   2  ,   0    ];
+        [.c.,   1   , 1 ,  0 , 0 ] -> [   3  ,   0    ];
+        [.c.,   1   , 1 ,  0 , 0 ] -> [   4  ,   0    ];
+        [.c.,   1   , 1 ,  0 , 0 ] -> [   5  ,   0    ];
+        [.c.,   1   , 1 ,  0 , 1 ] -> [   0  ,   0    ];
+
+@const i=1; @repeat 125 {
+        [.c.,   1   , 1 ,  0 , 0 ] -> [@expr i;, 0 ]; @const i=i+1;}
+
+        [.c.,   1   , 1 ,  0 , 0 ] -> [   126,   0    ];
+        [.c.,   1   , 1 ,  0 , 0 ] -> [   127,   0    ];
+        [.c.,   1   , 1 ,  0 , 0 ] -> [   0  ,   1    ];
+        [.c.,   1   , 1 ,  0 , 0 ] -> [   1  ,   1    ];
+        [.c.,   1   , 1 ,  0 , 0 ] -> [   2  ,   1    ];
+        [.c.,   1   , 1 ,  0 , 0 ] -> [   3  ,   1    ];
+        [.c.,   1   , 1 ,  0 , 0 ] -> [   4  ,   1    ];
+        [.c.,   0   , 1 ,  0 , 0 ] -> [   0  ,   0    ];
+ End

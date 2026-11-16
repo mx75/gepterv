@@ -1,0 +1,57 @@
+Name      Sample;
+Partno    P9000183;
+Date      03/14/85;
+Revision  02;
+Designer  Osann;
+Company   ATI;
+Assembly  PC Memory;
+Location  U106;
+Device    F155;
+
+/********************************************************/
+/* This device generates chip select signals for one    */
+/* 8Kx8 ROM and two 2Kx8 static RAMs.  It also drives   */
+/* the system READY line to insert a wait-state of at   */
+/* least one CPU clock for ROM accesses.                */
+/********************************************************/
+
+ORDER:
+        cpu_clk, %2, a15, %2, a14, %2,
+        a13, %2, a12, %2, a11, %2,
+        !memw, %2, !memr, %2, reset, %2, !oe,
+        %4, !ram_cs1, %2, !ram_cs0, %2, !rom_cs, %2,
+        wait1, %2, wait2, %2, ready;
+
+VECTORS:
+   /* 123456-leave six blanks to allow for vector No's in .SO file */
+$msg "                                      !  !            ";
+$msg "      c                               r  r  !         ";
+$msg "      p                               a  a  r         ";
+$msg "      u                 !  !  r       m  m  o  w  w  r";
+$msg "      _                 m  m  e       _  _  m  a  a  e";
+$msg "      c  a  a  a  a  a  e  e  s  !    c  c  _  i  i  a";
+$msg "      l  1  1  1  1  1  m  m  e  o    s  s  c  t  t  d";
+$msg "      k  5  4  3  2  1  w  r  t  e    1  0  s  1  2  y";
+$msg "      ____________________________    ________________";
+$msg "     Power On Reset                                   ";
+            0  X  X  X  X  X  1  1  1  0    H  H  H  *  *  Z
+$msg "     Reset Flip Flops                                 ";
+            C  X  X  X  X  X  1  1  0  0    H  H  H  L  L  Z
+$msg "     Write RAM0                                       ";
+            0  0  0  1  0  0  0  1  0  0    H  L  H  L  L  Z
+$msg "     Read  RAM0                                       ";
+            0  0  0  1  0  0  1  0  0  0    H  L  H  L  L  Z
+$msg "     Write RAM1                                       ";
+            0  0  0  1  0  1  0  1  0  0    L  H  H  L  L  Z
+$msg "     Read  RAM1                                       ";
+            0  0  0  1  0  1  1  0  0  0    L  H  H  L  L  Z
+$msg "     Begin ROM Read                                   ";
+            0  0  0  0  0  0  1  0  0  0    H  H  L  L  L  L
+$msg "  Two Clocks For Wait State, Then Drive READY High    ";
+$repeat 2;
+            C  0  0  0  0  0  1  0  0  0    H  H  L  *  *  *
+$msg "     End ROM Read                                     ";
+            0  0  0  0  0  0  1  1  0  0    H  H  H  H  H  Z
+$msg "     End ROM Read                                     ";
+            C  0  0  0  0  0  1  1  0  0    H  H  H  L  L  Z
+

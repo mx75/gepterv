@@ -1,0 +1,7 @@
+# execute disassembly for plcc N5AC312
+
+
+load "da312.jdb"
+
+de312(1)
+

@@ -1,0 +1,42 @@
+module ex215d
+title 'Buried register example  Data I/O Corp.'
+
+
+ex215d   device  'mach215a';
+
+        A            pin 2 ;
+        B,C,D,E,F    pin;
+        Clk,Set,Clr  pin;
+
+        R1           pin     istype 'reg_D,buffer';
+        B1           node 2  istype 'reg_D,buffer';
+        F1,F2        pin     istype 'com';
+
+equations
+        R1.d    = A & B;
+        R1.clk  = Clk;
+        R1.ar   = Clr;
+        R1.ap   = Set;
+
+        F1      = R1.Q & E;
+
+        B1.d    = C & D;
+        B1.clk  = Clk;
+        B1.ar   = Clr;
+        B1.ap   = Set;
+
+        F2      = B1.Q & F;
+
+test_vectors
+       ([Clk,Clr,Set,A,B,C,D,E,F] -> [ R1, B1, F1, F2])
+        [ 0 , 1 , 0 ,0,0,0,0,0,0] -> [ 0 , 0 , 0 , 0 ];
+        [ 0 , 0 , 1 ,0,0,0,0,0,0] -> [ 1 , 1 , 0 , 0 ];
+        [ 0 , 0 , 0 ,0,0,0,0,1,0] -> [ 1 , 1 , 1 , 0 ];
+        [ 0 , 0 , 0 ,0,0,0,0,1,1] -> [ 1 , 1 , 1 , 1 ];
+        [.C., 0 , 0 ,0,0,0,0,1,1] -> [ 0 , 0 , 0 , 0 ];
+        [.C., 0 , 0 ,1,1,0,0,1,1] -> [ 1 , 0 , 1 , 0 ];
+        [.C., 0 , 0 ,1,1,1,1,1,1] -> [ 1 , 1 , 1 , 1 ];
+        [.C., 0 , 0 ,0,0,1,1,1,1] -> [ 0 , 1 , 0 , 1 ];
+        [ 0 , 1 , 0 ,0,0,1,1,1,1] -> [ 0 , 0 , 0 , 0 ];
+end
+

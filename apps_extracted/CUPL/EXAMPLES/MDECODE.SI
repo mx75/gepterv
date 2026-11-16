@@ -1,0 +1,52 @@
+Name	     Mdecode;
+Partno	     CA0011;
+Revision     01;
+Date	     5/12/82;
+Designer     Osann/Kahl;
+Company	     Assisted Technology, Inc.;
+Assembly     PC Expansion Memory;
+Location     16A;
+
+/************************************************************************/
+/* This device generates the memory RAS signals and initiates the	*/
+/* generation of CAS. It also enables the data bus transceiver for	*/
+/* both the memory and I/O read cycles. 				*/
+/************************************************************************/
+/* Allowable Target Device Types:	PAL16L8   82S153		*/
+/************************************************************************/
+
+ORDER:	a19, %1, a18, %1, a17, %1, a16, %2,
+	!memw, %1, !memr, %1, !ior, %1, !ioacc, %1, !memacc, %2,
+	!refcyc, %1, raminh, %1, altloc, %2,
+
+	!ras3, %1, !ras2, %1, !ras1, %1, !ras0, %1, !casacc, %1, rdbuff;
+
+VECTORS:
+
+$msg "                       !  !              !";
+$msg "                     ! m  r r a          c r";
+$msg "               ! !   i e  e a l  ! ! ! ! a d";
+$msg "               m m ! o m  f m t  r r r r s b";
+$msg "      a a a a  e e i a a  c i l  a a a a a u";
+$msg "      1 1 1 1  m m o c c  y n o  s s s s c f";
+$msg "      9 8 7 6  w r r c c  c h c  3 2 1 0 c f";
+$msg "     ----------------------------------------";
+0 0 0 0  0 1 1 1 0  1 0 0  H H H L L L	/* memory access wr 00000-0FFFF */
+0 0 0 0  1 0 1 1 0  1 0 0  H H H L L H	/* memory access rd 00000-0FFFF */
+0 0 0 1  0 1 1 1 0  1 0 0  H H L H L L	/* memory access wr 10000-1FFFF */
+0 0 0 1  1 0 1 1 0  1 0 0  H H L H L H	/* memory access rd 10000-1FFFF */
+0 0 1 0  0 1 1 1 0  1 0 0  H L H H L L	/* memory access wr 20000-2FFFF */
+0 0 1 0  1 0 1 1 0  1 0 0  H L H H L H	/* memory access rd 20000-2FFFF */
+0 0 1 1  0 1 1 1 0  1 0 0  L H H H L L	/* memory access wr 30000-3FFFF */
+0 0 1 1  1 0 1 1 0  1 0 0  L H H H L H	/* memory access rd 30000-3FFFF */
+0 1 0 0  0 1 1 1 0  1 0 1  H H H L L L	/* memory access wr 40000-4FFFF */
+0 1 0 0  1 0 1 1 0  1 0 1  H H H L L H	/* memory access rd 40000-4FFFF */
+0 1 0 1  0 1 1 1 0  1 0 1  H H L H L L	/* memory access wr 50000-5FFFF */
+0 1 0 1  1 0 1 1 0  1 0 1  H H L H L H	/* memory access rd 50000-5FFFF */
+0 1 1 0  0 1 1 1 0  1 0 1  H L H H L L	/* memory access wr 60000-6FFFF */
+0 1 1 0  1 0 1 1 0  1 0 1  H L H H L H	/* memory access rd 60000-6FFFF */
+0 1 1 1  0 1 1 1 0  1 0 1  L H H H L L	/* memory access wr 70000-7FFFF */
+0 1 1 1  1 0 1 1 0  1 0 1  L H H H L H	/* memory access rd 70000-7FFFF */
+X X X X  1 1 1 1 1  0 0 0  L L L L H L	/* memory refresh cycle 	*/
+X X X X  1 1 1 1 1  0 0 1  L L L L H L	/* memory refresh cycle 	*/
+0 0 0 0  1 1 0 0 1  1 0 0  H H H H H H	/* i/o read cycle		*/

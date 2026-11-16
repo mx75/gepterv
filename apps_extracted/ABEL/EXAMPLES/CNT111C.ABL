@@ -1,0 +1,37 @@
+module cnt111c
+title 'Arbitrary length counter, 0 to 110'
+
+    count111       device 'P20R8';
+    Clk,Clr,Short  pin 1,2,15;
+    Q6..Q0         pin 16..22;
+
+    Count = [Q6..Q0];
+
+equations
+
+    Count := (Count.fb + 1) & !Short.fb;
+    Short := (Count.fb == 109) # Clr;   "Synchronous preset term
+
+    [Count,Short].clk = Clk;
+
+test_vectors ([Clk,Clr] -> Count)
+              [.c., 1 ] ->   0;
+              [.c., 0 ] ->   0; "Extra cycle in 0 because of short
+              [.c., 0 ] ->   1;
+              [.c., 0 ] ->   2;
+              [.c., 0 ] ->   3;
+              [.c., 0 ] ->   4;
+              [.c., 0 ] ->   5;
+              [.c., 1 ] ->   6;
+              [.c., 0 ] ->   0;
+
+@const i=1; @repeat 107 {
+              [.c., 0 ] -> @expr i;; @const i=i+1; }
+
+              [.c., 0 ] -> 108;
+              [.c., 0 ] -> 109;
+              [.c., 0 ] -> 110;
+              [.c., 0 ] ->   0;
+              [.c., 0 ] ->   1;
+              [.c., 0 ] ->   2;
+end

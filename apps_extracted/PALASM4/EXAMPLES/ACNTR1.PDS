@@ -1,0 +1,56 @@
+; NET2PDS - vers 4.05.21 (12/06/1990) - (c)1990 Advanced Micro Devices, Inc.
+; PDS file created    2/24/1991   5:43p
+; Sourcefile: "acntr1.jnf"
+
+TITLE            ?
+REVISION         ?
+PATTERN          ?
+AUTHOR           ?
+COMPANY          ?
+DATE            2/24/1991
+
+CHIP     _acntr1    MACH210
+
+  PIN     ?       Q3                   REGISTERED     
+  PIN     ?       Q2                   REGISTERED     
+  PIN     ?       Q1                   REGISTERED     
+  PIN     ?       CO                   COMBINATORIAL  
+  PIN     ?       Q0                   REGISTERED     
+  PIN     ?       CIN                                 
+  PIN     ?       CLOCK                               
+  PIN     ?       D3                                  
+  PIN     ?       LOAD                                
+  PIN     ?       D2                                  
+  PIN     ?       D1                                  
+  PIN     ?       D0                                  
+  PIN     ?       TCIN                                
+  PIN     ?       ENABLE                              
+
+EQUATIONS
+
+ CO = Q3 * Q2 * Q1 * Q0 * CIN
+
+ Q3 = ((Q3 :+: (Q2 * Q1 * Q0 * CIN)) * ((/TCIN * ENABLE) * /LOAD)) + (Q3 * 
+        (/(/TCIN * ENABLE) * /LOAD)) + (D3 * LOAD)
+ Q3.clkf = CLOCK
+ Q3.setf = GND
+ Q3.rstf = GND
+
+ Q2 = ((Q2 :+: (Q1 * Q0 * CIN)) * ((/TCIN * ENABLE) * /LOAD)) + (Q2 * 
+        (/(/TCIN * ENABLE) * /LOAD)) + (D2 * LOAD)
+ Q2.clkf = CLOCK
+ Q2.setf = GND
+ Q2.rstf = GND
+
+ Q1 = ((Q1 :+: (Q0 * CIN)) * ((/TCIN * ENABLE) * /LOAD)) + (Q1 * (/(/TCIN * 
+        ENABLE) * /LOAD)) + (D1 * LOAD)
+ Q1.clkf = CLOCK
+ Q1.setf = GND
+ Q1.rstf = GND
+
+ Q0 = ((Q0 :+: CIN) * ((/TCIN * ENABLE) * /LOAD)) + (Q0 * (/(/TCIN * ENABLE)
+         * /LOAD)) + (D0 * LOAD)
+ Q0.clkf = CLOCK
+ Q0.setf = GND
+ Q0.rstf = GND
+

@@ -1,0 +1,17 @@
+    Welcome to the PLACE (tm) Development Software from ICT!
+
+PLACE (PEEL Logic Architectural Compiler and Editor) is an advanced
+development software product for ICT's family of PEEL (Programmable
+Electrically Erasable Logic) Arrays and Devices.
+
+PLACE features include:
+      (1) an architectural editor,
+      (2) a logic compiler with logic reduction and minimization,
+      (3) a waveform display logic editor and simulator,
+      (4) a documentation operation, and
+      (5) a programmer interface.
+
+The PLACE On-Line Help facility allows quick references for all
+functions and operations. Press the <F1> key for the general Help
+instructions. If you are not already familiar with the features of
+the PEEL Arrays and Devices, please refer to the ICT Data Book.

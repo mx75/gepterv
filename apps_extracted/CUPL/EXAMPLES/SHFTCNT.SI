@@ -1,0 +1,57 @@
+Name		Shftcnt;
+Partno		CA0003;
+Date		6/15/84;
+Revision	01;
+Designer	T. Kahl;
+Company		Assisted Technology, Inc.;
+Assembly	None;
+Location	None;
+
+ORDER: 		clk,%1,I3..0,%1,!oe,%2,
+		P3..0,%1,F3..0;
+
+VECTORS:
+
+$msg"      c      !";
+$msg"      l IIII o  PPPP FFFF";
+$msg"      k 3210 e  3210 3210";
+$msg"      -------------------";
+	   c 1xxx 1  llll zzzz	/* clear and hi-z output */
+	   c 1xxx 0  llll llll
+	   c 0011 0  lllh lllh	/* up */
+	   c 0011 0  llhl llhl
+	   c 0100 0  lhll lhll	/* left */
+$msg 				"test shift right";
+	   c 1xxx 0  llll llll	/* clear */
+	   c 1xxx 0  llll llll
+	   c 0101 0  hhhh hhhh	/* down */
+	   c 0101 0  hhhl hhhl	/* down */
+	   c 0010 0  lhhh lhhh	/* right */
+	   c 0010 0  hlhh hlhh
+	   c 0010 0  hhlh hhlh
+	   c 0010 0  hhhl hhhl
+$msg 				"test shift left";
+	   c 1xxx 0  llll llll	/* clear */
+	   c 0011 0  lllh lllh	/* up */
+	   c 0100 0  llhl llhl	/* left */
+	   c 0100 0  lhll lhll
+	   c 0100 0  hlll hlll
+	   c 0100 0  lllh lllh
+$msg 				"test up counter";
+	   c 1xxx 0  llll llll	/* clear */
+	   c 0011 0  lllh lllh	/* up */
+	   c 0011 0  llhl llhl
+	   c 0011 0  llhh llhh
+	   c 0011 1  lhll zzzz	/* hi-z output */
+	   c 0011 1  lhlh zzzz
+	   c 0011 1  lhhl zzzz
+	   c 0011 0  lhhh lhhh
+	   c 0011 0  hlll hlll
+	   c 0011 0  hllh hllh
+	   c 0011 0  hlhl hlhl
+	   c 0011 0  hlhh hlhh
+	   c 0011 0  hhll hhll
+	   c 0011 0  hhlh hhlh
+	   c 0011 0  hhhl hhhl
+	   c 0011 0  hhhh hhhh
+	   c 0011 0  llll llll

@@ -1,0 +1,14 @@
+9004     MACHTPL2+  CONVERTING  %s  TO  %s.\n\n
+9005  Intermediate filename (default = MACHXL.TRE)\n
+9006  Output filename (default = OUT.PDS)\n
+9007 |> INTERNAL_ERROR T9007  PTRE collection error.
+9007    	  	      Call AMD, 1-800-222-9323.\n
+9008  %s.\n
+9009 |> ERROR T9009  Unable to open Intermediate File (.TRE)
+9010 |> SYSTEM_ERROR T9010  Out of memory.  Call AMD, 1-800-222-9323.\n
+9011 |> ERROR T9011  Invalid or corrupt tre file.\n
+9012 |> ERROR T9012  Filename length is too long.\n
+9013 |> ERROR T9013  Intermediate file (.TRE) error.\n
+9013                 Please run MACHPAR (Check Syntax) first.\n
+9014 |> SYSTEM_ERROR T9017  Cannot open PARSE.MSG file for device information.
+9014                       Call AMD, 1-800-222-9323.\n

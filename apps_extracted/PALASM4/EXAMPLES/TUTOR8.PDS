@@ -1,0 +1,112 @@
+;--------------------- IMPORTANT NOTICE --------------------
+; This file must be run with the Logic Synthesis option
+; for Polarity to be set "AS SPECIFIED IN DESIGN FILE".
+; Otherwise, the minimizer will alter the polarity of several
+; outputs, invalidating the CHECK statements present in the
+; Simulation section (Leading to Check Clashes).
+;-----------------------------------------------------------
+
+;************* MODIFICATIONS - 1/27/92 *****************************
+;* Added default conditions to "WAITING", "PLAYING", "RECORDING"
+;* states
+;*******************************************************************
+
+;PALASM Design Description
+;---------------------------------- Declaration Segment ------------
+TITLE    TUTOR8.PDS
+PATTERN  A
+REVISION 1.0
+AUTHOR   J.ENGINEER
+COMPANY  ADVANCED MICRO DEVICES
+DATE     01/01/90
+
+CHIP   ANSWER   PAL22V10
+
+;---------------------------------- PIN Declarations ---------------
+PIN  1          CLOCK                COMBINATORIAL             ; INPUT
+PIN  2          DIALTONE             COMBINATORIAL             ; INPUT
+PIN  3          RING                 COMBINATORIAL             ; INPUT
+PIN  4          ENDGREETING          COMBINATORIAL             ; INPUT
+PIN  5          ENDMESSAGE           COMBINATORIAL             ; INPUT
+PIN  12         GND                                            ; INPUT
+PIN  17         ANSWER               REGISTERED                ; OUTPUTS
+PIN  18         PLAY                 REGISTERED                ; OUTPUTS
+PIN  19         RECORD               REGISTERED                ; OUTPUTS
+PIN  24         VCC                                            ; INPUT
+
+;-----------------------------------State Segment ------------------
+STATE
+MOORE_MACHINE
+START_UP := POWER_UP -> WAITING
+
+;begin transition equations
+WAITING         := BEGINPLAY   -> PLAYING
+                +  IDLE        -> WAITING
+                +->               WAITING       ; *** added 1/27/92 ***
+
+PLAYING         := BEGINRECORD -> RECORDING
+                +  RUNPLAYER   -> PLAYING
+                +  IDLE        -> WAITING
+                +->               PLAYING       ; *** added 1/27/92 ***
+
+RECORDING       := DONE        -> WAITING
+                +  RUNRECORDER -> RECORDING
+                +->               RECORDING     ; *** added 1/27/92 ***
+
+;begin output equations
+WAITING.OUTF    = /ANSWER * /PLAY * /RECORD
+
+PLAYING.OUTF    =  ANSWER *  PLAY * /RECORD
+
+RECORDING.OUTF  =  ANSWER * /PLAY *  RECORD
+
+;begin condition equations
+
+CONDITIONS
+IDLE            =  DIALTONE     * /RING
+BEGINPLAY       =  RING         * /DIALTONE
+RUNPLAYER       = /DIALTONE     * /ENDGREETING
+BEGINRECORD     =  ENDGREETING  * /DIALTONE
+RUNRECORDER     = /ENDMESSAGE   * /DIALTONE
+DONE            =  ENDMESSAGE   +  DIALTONE
+
+;----------------------------------- Simulation Segment ------------
+SIMULATION
+TRACE_ON DIALTONE RING ENDMESSAGE ENDGREETING ANSWER PLAY RECORD
+SETF /CLOCK /RING DIALTONE /ENDGREETING /ENDMESSAGE
+CLOCKF CLOCK
+CHECK WAITING                    ; VERIFY WAITING STATE
+CLOCKF CLOCK
+CHECK /ANSWER /PLAY /RECORD      ; VERIFY OUTPUTS FOR WAITING STATE
+CLOCKF CLOCK
+
+SETF RING /DIALTONE
+CLOCKF CLOCK
+CHECK PLAYING                    ; VERIFY PLAYING STATE 
+CLOCKF CLOCK
+CHECK ANSWER PLAY /RECORD        ; VERIFY OUTPUTS FOR PLAYING STATE
+CLOCKF CLOCK
+
+SETF /RING
+CLOCKF CLOCK
+CHECK PLAYING                    ; VERIFY THAT STATE DID NOT ADVANCE
+CLOCKF CLOCK
+CHECK ANSWER PLAY /RECORD        ; VERIFY THAT OUTPUTS DID NOT CHANGE
+CLOCKF CLOCK
+
+SETF ENDGREETING
+CLOCKF CLOCK
+CHECK RECORDING                  ; VERIFY RECORDING STATE
+CLOCKF CLOCK
+CHECK ANSWER /PLAY RECORD        ; VERIFY OUTPUTS FOR RECORDING STATE
+CLOCKF CLOCK
+
+SETF ENDMESSAGE
+CLOCKF CLOCK
+CHECK WAITING                    ; VERIFY RETURN TO WAITING STATE
+CLOCKF CLOCK
+CHECK /ANSWER /PLAY /RECORD      ; VERIFY OUTPUTS FOR WAITING STATE
+CLOCKF CLOCK
+TRACE_OFF
+;-------------------------------------------------------------------
+

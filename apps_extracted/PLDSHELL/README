@@ -1,0 +1,508 @@
+PLDshell Plus V5.0 README FILE
+------------------------------
+
+Thank you for your interest in PLDshell Plus development software. In 
+addition to supporting the FLEXlogic device family, PLDshell Plus 
+provides support for all Altera Classic devices.
+
+If you have any questions that are not answered by this README file
+or in the PLDshell Plus/PLDasm V5.0 User's Guide, contact Altera 
+Applications:
+
+Altera Corporation
+Applications Department
+2610 Orchard Parkway
+San Jose, CA. 95134-2020
+Tel: (800) 800-EPLD or (408) 894-7000
+
+This README file contains the following sections:
+
+o   PLDshell Plus Installation
+o   Troubleshooting Installation/Operation/Memory Problems
+o   PLDshell Plus Device Support
+o   PLDshell Features Not Described in the PLDshell Plus/PLDasm V5.0
+    User's Guide
+o   Known Problems in PLDshell Plus V5.0
+o   Additional Product Notes
+o   FLEXlogic Prototyping (Download) Cable Support
+o	Available FLEXlogic Application Notes & Briefs
+
+
+PLDshell Plus Installation
+--------------------------
+
+To install the PLDshell Plus software, insert disk #1 into the A:\ 
+drive and type:
+
+A:\install <Enter>
+
+This command starts a self-extracting and uncompressing installation 
+process. Simply follow the instructions provided on screen.
+
+NOTE: If you have an earlier version of PLDshell Plus and you wish to 
+      continue to use the Intel iUP-GUPI module base and GUPI programming 
+	  adapters to program Classic devices, you should not overwrite your
+	  earlier version of PLDshell Plus with V5.0. For more information, see
+	  "Device Programming with Intel Hardware" under "Additional 
+	  Product Notes" later in this README file.
+
+
+Troubleshooting Installation/Operation/Memory Problems
+------------------------------------------------------
+
+If you have problems with running PLDshell Plus after installation, 
+check the following items:
+
+1) Environment Variables
+
+Ensure that the environment variable points to the correct 
+configuration file with the following environment variable:
+
+   set PLDSHELL=C:\PLDSHELL\PLDSHELL.CFG
+
+2) Ensure that the configuration file points to the correct directory:
+
+   IPLSPATH C:\\PLDSHELL\\
+
+3) Keyboard/PLDshell Plus Mismatch
+
+Keyboards on some DOS systems use a non-standard BIOS interface 
+that can cause a mismatch between PLDshell Plus and the BIOS. When 
+this mismatch occurs, keystrokes will not invoke the menus properly.
+If this mismatch is apparent on your system, exit PLDshell Plus (or
+reboot the system), then reinvoke PLDshell Plus as follows:
+
+PLDSHELL fixkbd <Enter>
+
+The "fixkbd" option instructs PLDshell Plus to use an alternate BIOS
+interface to correct the keyboard mismatch.
+
+4) Printing or Running Other TSRs from PLDshell Plus
+
+When "print" is invoked from the Run Menu, the print will fail if the 
+PRINT device driver has not previously been loaded. The solution
+is to execute "print" BEFORE PLDshell Plus is invoked. This can be 
+done by running a batch file from the DOS command line that
+invokes PLDshell Plus after executing the command "print /d:prn", 
+or by placing "print /d:prn" in your AUTOEXEC.BAT file.
+
+This same guideline applies to other TSRs. All TSRs must be loaded
+before PLDshell Plus is invoked.
+
+5) Failure to Load the STDWYOUT.SYS File
+
+When PLDshell Plus is installed on a network drive, the path to the
+STDWYOUT.SYS file appended to the CONFIG.SYS file points to 
+the network drive. When rebooting your system, however, the
+CONFIG.SYS file is executed before the network drivers are loaded. 
+The result is that the STDWYOUT.SYS driver is never loaded and 
+PLDshell Plus does not operate properly. To correct this problem, 
+copy STDWYOUT.SYS to the local drive and edit your CONFIG.SYS file 
+to point to the local drive.
+
+6) Insufficient Memory
+
+Depending on the size of the design, some PLDasm compiler 
+sub-modules may fail with unexplained messages if you do not have
+enough available memory. Most of the modules in PLDshell Plus require 
+Extended Memory and some sort of Memory Manager. The PLDshell Plus
+installation includes a utility called MEMCHK.EXE, which can be 
+used to quickly determine how much memory will be available to the 
+software. As a general rule, you should have about 4 Mbytes
+of available memory, but more may be needed for larger designs.
+
+    |  Note that a '4 Mbyte' machine has only three Mbytes      |
+    |  of extended memory, since the first Mbyte is used for    |
+    |  DOS and Upper Memory. If you are working on designs      |
+    |  that need more memory than is installed in your          |
+    |  machine, see the section below on Microsoft Windows 3.x. |
+
+The memory manager included with Microsoft's MS-DOS 5.0, EMM386,
+provides adequate support if properly configured. It also has
+the capability to provide Expanded Memory (EMS) emulation. 
+However, any memory used for EMS will not be usable by the 
+PLDshell Plus software, which uses Extended Memory. 
+Please refer to your DOS manual for details on configuring EMM386.
+In addition, you may wish to try running PLDshell Plus from
+Windows in a DOS box (see next item).
+
+If you run programs that MUST have Expanded Memory (EMS), you 
+may wish to consider installing Quarterdeck's QEMM-386 v6.x or 
+higher. In addition to providing memory management, it provides 
+Expanded and Extended memory support within the same memory 
+pool. 
+   
+    |  Some problems have been noted on some machines     |
+    |  with QEMM-386 and PLDshell Plus software when the  |
+    |  Stealth mode is used. Disable this feature if you  |
+    |  are having any problems with PLDshell Plus.        |
+
+6) Windows 3.x Problems
+
+In general, Altera does not recommend running PLDshell Plus software
+under Windows 3.x. Currently, there is a minor problem with screen
+updates in the Waveform Viewer (PLDV), but there are no known
+serious problems. 
+
+If you are working on designs that need more memory than is 
+installed in your computer, try running PLDshell Plus software
+from Windows in a DOS box. Windows provides virtual memory 
+support to DOS applications, so it can provide much more extended
+memory to programs than is physically installed in your computer.
+This feature has been tested on machines running DOS 5.0, 
+QEMM-386, and Windows 3.1 (Enhanced Mode), but will probably
+also work with other setups.
+
+
+PLDshell Plus Device Support
+----------------------------
+
+PLDshell Plus supports the following devices:
+
+Classic Family:
+
+EP1810     EP330
+EP1800     EP320
+EP910      EP310
+EP900      EP220
+EP610      EP220
+EP600      EP224
+EP324
+EP22V10
+EP22V10E
+
+FLEXlogic Family:
+
+EPX740
+EPX780
+EPX8160
+EPX880
+
+
+Intel device name synonyms are accepted for all devices. (See Table
+1-1 in the PLDshell Plus/PLDasm User's Guide V5.0 for a complete list of
+accepted device names.)
+
+PLDshell Plus also supports a wide range of conversions from
+common 20- and 24-pin PAL and GAL devices. PLDshell Plus can 
+provide either JEDEC conversion or direct compilation of .PDS source 
+files into an Altera device supported by PLDshell Plus.
+
+
+PLDshell Features Not Described in the PLDshell Plus/PLDasm V5.0 
+User's Guide
+-----------------------------------------------------------------
+
+MPIN KEYWORD
+
+The MPIN keyword can be used to specify one clock signal feeding 
+multiple device groups, for such large devices as the EPX8160. 
+It is used in place of the PIN keyword in the declarations. For 
+example, if a clock has to feed two clocks signals on the device, 
+this may be specified as follows:
+
+   MPIN [184, 80] CLOCK_SIG
+
+   Alternatively, pin numbers may also be symbolic data sheet values.
+
+   MPIN [CLK1, CLK4] CLOCK_SIG
+
+   Note, however, that the MPIN declaration will work only on 
+   FLEXlogic devices, and is not usable with other devices that 
+   use multiple clocks.
+
+ALTERA DEVICE NAMES
+
+Table 1-1 in the PLDshell Plus/PLDasm User's Guide V5.0 lists Altera
+device names such as EPX740LC68 and EPX780QC132. In these device names,
+the "C" should not be interpreted to imply that compilation is available 
+only for commercial (C) temperature grades. Any design compiled for a "C"
+temperature grade is JEDEC-compatible with devices that have industrial (I)
+and military (M) temperature grades.
+
+USING BOOLEAN EXPRESSIONS IN STATE TRANSITIONS
+
+State Machine syntax now allows Boolean expressions to be used in the
+State Transitions section, and Boolean expressions are not
+restricted to the Conditions section. This feature allows you to 
+choose the method you prefer. The following example shows the original
+syntax and the new option:
+
+PALASM-Compatible Method:   (uses Conditions section):
+
+  (transition section)
+
+  S1  :=  COND_ONE  ->  S2
+
+  (conditions section) 
+
+  COND_ONE = A * /B * C
+
+Superset Method:            (uses Boolean signals directly):
+
+  (transition section)
+
+  S1  :=  ( A * /B * C )  ->  S2
+
+
+Known Problems in PLDshell Plus V5.0
+------------------------------------
+
+Large Pin Numbers
+
+   PLDshell Plus may misprocess signal names that end with a very 
+   large number. The largest supported number is 2,000,000,000.
+
+   For example, the signal name: X987654321[0] will cause PLDshell Plus
+   to do unusual things, since the end of the name plus the subscript 
+   will be a number greater than 2,000,000,000. If you have signals 
+   that end with large numbers, a naming convention should be used to 
+   differentiate the signal name from the subscript. For example,
+   x987654321_[0], would not cause a problem.
+
+User Electronic Signature (UES) Bits in FLEXlogic Devices
+
+   The information in the PLDshell Plus/PLDasm User's Guide V5.0 on
+   UES bits is slightly unclear. The SIGNATURE statement specifying
+   the bits must be given after the first OPTIONS or CHIP keyword 
+   in a .PDS file. The following example shows the correct placement
+   of a SIGNATURE statement:
+
+   OPTIONS
+   CHIP Mychip EPX740
+   SIGNATURE = 0xffae2
+   PIN       51  en
+
+Simulation
+
+   -- Simulation of I/O feedback may be incorrect with the "Simulate
+      Only" option in the "Processing" section of the Compile/Sim 
+      dialog (titled "PLDasm". Some nodes/pins may show incorrect 
+      values. The workaround for this problem is to use the "Compile
+      Then Simulate" option instead of "Simulate Only".
+
+   -- T flip-flops cannot be monitored in a .TRF file using the 
+      TRACE_ON simulation command when the .FB signal is tri-stated.
+
+   -- When simulating results of pin declarations or vectors in a 
+      module, care must be taken. For example, avoid using a 
+      macrocell with a statement of the following format:
+
+      TEMP1_[7:0] = [ A7, A6, A5, A4, A3, A2, A1, A0 ];
+
+      Instead, a vector should be defined (following the PIN 
+      declaration section):
+
+      VECTOR TEMP1_ := [ A7, A6, A5, A4, A3, A2, A1, A0 ];
+
+      The call would then be:
+
+      MODULE CLA ( IN1_[7:0] = TEMP1_[7:0] );
+
+      By declaring TEMP1_ as a vector, it is possible to simulate 
+      it globally as IN1_ in the example shown above.
+
+   -- In the Simulation section of a .PDS file, it is possible to 
+      represent constants as decimal, octal, and hexadecimal, but not 
+      binary. No errors will be reported. A workaround is to 
+      use constants represented in the following formats:
+
+      hexadecimal:  0x                    0xf = decimal 15
+      octal:        0 (zero)              017 = decimal 15
+      decimal:      no leading sequence   15  = decimal 15
+
+
+Additional Product Notes
+------------------------
+
+Observe the following tips to help ensure that your PLDshell Plus
+usage will be as trouble-free as possible.
+
+
+PLDASM LANGUAGE SUPPORT
+
+The PLDasm compiler is only compatible with PALASM1 and PALASM2. PLDasm
+does not support PALASM90's or PALASM4's enhancements.
+
+The .PDS language does not support PALASM1 vector format for 
+simulation. The .PDS language only supports the PALASM2 syntax for 
+simulation.
+
+POLARITY OF RAM DEFAULTS
+
+When a RAM default table is specified, the values placed into the 
+SRAM locations are entered exactly as specified, with no polarity
+processing. A bit in the SRAM will be set on the device to a '1',
+where a '1' is specified, and a '0' where a '0' is specified in 
+the defaults.
+
+USING FEEDBACKS FOR COMPARATOR AND SRAM CONTROL LINE INPUTS
+
+If a feedback will be used for comparator inputs or inputs for 
+SRAM control signals, the .FB extension cannot be used. When 
+specifying an input signal in these cases, use the signal name 
+without an extension. The equation will be logically the same 
+as using the .FB extension. 
+
+
+I/O PROMOTION OF PRIMITIVES
+ 
+When trying to use combinatorial feedback on a device that does not
+support it, the fitter will "promote" the output to I/O feedback. The
+.RPT file will show the OE for that output as being connected to ground.
+In reality, the OE was changed to VCC in order to maintain the valid
+data at the pin, and therefore the feedback. While the setting of the
+OE to VCC does actually occur in the JEDEC file, it does not get updated
+in the .RPT file.
+
+COMPILING WITH THE "IGNORE ALL PIN ASSIGNMENTS" OPTION
+
+If a design is compiled, disassembled, then recompiled using the
+"IGNORE ALL PIN ASSIGNMENTS" option, the design may not fit. This 
+problem is more likely to occur when designing with the EP312 or 
+EP324 devices. The workaround is to recompile the design with the
+original pin assignments.
+
+USE OF VCC AND/OR GND IN A P-TERM EQUATION
+
+When using VCC or GND in an equation, PLDshell Plus software will 
+reduce the equations appropriately. If, however, the compile options are 
+set to
+
+Minimize = No
+Expand Equations = No       or
+Automatic Inversion = No
+
+then the p-term with the GND or VCC in it will be implemented as
+specified, except that VCC/GND will be missing. This combination of
+options thus results in an incorrect implementation of the design. 
+The workaround is to NOT include VCC or GND as part of an equation, 
+or, if it must be included, to run the compiler with Minimization = Yes.  
+Either of these two options results in a correct implementation 
+of the design.
+
+USE OF VCC AND/OR GND IN A CLOCK EQUATION
+
+You should not use VCC or GND in a clock equation when Expand
+Equations = No. If VCC or GND is used in a clock equation, set
+Expand Equations = Yes.
+
+GAL22V10ES DESIGNS:
+
+PLDshell Plus/PLDasm supports the standard EP22V10 features that are
+also supported by the GAL22V10ES. It does not, however, support the
+User-Defined Electronic Signature bits in the GAL22V10ES. When
+disassembling GAL22V10ES JEDEC files, the signature bits are ignored.
+
+SIMULATION EFFECTS OF TRANSITIONING FROM UNKNOWN TO KNOWN STATES OF A
+CLOCK
+
+When the state of a clock signal transitions from an X or Z state to a
+valid state, the simulator will interpret it as a valid clock. For
+example, X/Z -> 1 will be seen as if 0->1, X/Z->0 will be seen as if
+1->0. Always set all clock signals to a known state before using
+them.
+
+SIMULATING REGISTERED AND LATCHED INPUTS
+
+If you are simulating EP312 or EP324 Registered or Latched Inputs,
+be aware that the signal values in the .HST file are the input pin
+values. If you want to observe the output values of these signals as
+they enter the logic array, you must create combinatorial output
+signals using the signal name as the input with the OE enabled. Then
+reprocess the file using the "Simulate Only" option.
+
+SIMULATION OF DUAL FEEDBACK WITH BIDIRECTIONAL I/O
+
+In dual-feedback designs, you can drive the input feedback paths for 
+simulation only. The simulation statements that drive input
+feedback pins, however, should be deleted (or commented out) of the
+source file before final compilation. If this is not done, the test
+vectors in the JEDEC file will cause errors during programming tests.
+
+DEVICE PROGRAMMING WITH INTEL HARDWARE
+
+PLDshell Plus V5.0 does not include the APT program that 
+supported Classic device programming, either via the command line or
+the Program command, in earlier versions of PLDshell Plus.
+(The PLDshell Plus/PLDasm User's Guide V5.0 erroneously states that
+APT is included in the current release.) The APT program command 
+can operate only with Intel GUPI programming hardware, which is no 
+longer available. If you wish to continue to use APT to program 
+Classic devices with Intel programming hardware, you must keep 
+your installed copy of PLDshell Plus V4.0 for programming purposes. 
+In addition, in PLDshell Plus V5.0 you must always specify Intel 
+device names rather than Altera device names when you compile a 
+design that you wish to program with APT from PLDshell Plus V4.0. 
+For a list of Intel device names, refer to the User's Guide for 
+PLDshell Plus V4.0 or earlier.
+
+
+FLEXlogic Prototyping (Download) Cable Support
+----------------------------------------------
+
+Two batch files that simplify operation of the FLEXlogic
+Prototyping (Download) Cable are included with the PLDshell 
+Plus/PLDasm software.
+
+The SRAM_W.BAT and SRAM_R.BAT files are used to write a JEDEC file 
+to an EPX780 configuration SRAM, and to read an EPX780 configuration
+SRAM into a JEDEC file, respectively. Type the following text
+at the DOS command line to run these batch files:
+
+SRAM_W name
+
+SRAM_R name
+
+where "name" is the basename of the JEDEC file name (without the 
+.JED extension).
+
+Both of these batch files call the executable file PENGN with the
+proper parameters. Refer to the actual batch files for more 
+information.
+
+
+Available FLEXlogic Application Notes & Briefs
+----------------------------------------------
+
+The following three documents are available from Altera Applications to help 
+you work with Altera's FLEXlogic devices. Please note that Intel-specific 
+information in these documents is no longer valid.
+
+Altera also offers the Altera Express fax-back service, which can fax documents
+directly to you. Call 1-800-5-ALTERA at any time to reach Altera Express.
+
+
+FLEXlogic Application Notes & Briefs:
+
+1) AP396 Implementing PCI Interface Designs Using Intel's [Altera's] FLEXlogic
+         FPGAs [Devices]
+
+2) AP394 Overview of In-Circuit Reconfiguration and Reprogramming for the 
+         FLEXlogic iFX8160 [EPX8160]
+
+3) FLEXlogic Application Support Manual
+
+   This manual contains the following application briefs:
+
+   AB27  Using FLEXlogic FPGAs in Hybrid 3.3V/5V Systems
+
+   AB28  Implementing FIFOs Using the iFX780 [EPX780] and iFX740 [EPX740] 
+         FLEXlogic FPGAs
+
+   AB30  80960CA DRAM Controller Using the FLEXlogic iFX780 [EPX780] and
+         iFX740 [EPX740] FPGAs
+
+   AB51  FLEXlogic iFX780/iFX740 [EPX780/EPX740] Logic Configuration Timing
+
+   AB52  Overview of In-Circuit Reconfiguration and Programming for the
+         FLEXlogic iFX780 [EPX780] and iFX740 [EPX740]
+
+   AB55  How to Use Registered SRAM Macrocells on the FLEXlogic iFX780 [EPX780]
+         and iFX740 [EPX740] via PLDshell Plus Keywords
+
+   AP390 JTAG 1149.1 Specifications for In-Circuit Reconfiguration and
+         Programming FLEXlogic FPGAs
+
+   AP392 Designing FLEXlogic Loader Circuits
+

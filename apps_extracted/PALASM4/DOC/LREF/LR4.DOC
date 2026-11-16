@@ -1,0 +1,239 @@
+ğ
+CASE
+Overview
+This is the keyword of a statement that provides a condition-testing
+structure for Boolean equations that is more efficient than nesting
+IF-THEN-ELSE statements for each condition.  The CASE statement more
+efficiently supports multiple values than the nested IF-THEN-ELSE
+statement.
+
+For additional details about specifying outputs in CASE and
+IF-THEN-ELSE statements, refer to the PALASM 4 User's Manual, Chapter
+10, introduction.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+                   CASE (Condition signals)
+                   BEGIN
+                   Value:   BEGIN
+                                Action statement
+                            END
+                   Value:   BEGIN
+                                Action statement
+                            END
+                   Keyword: BEGIN
+                                Action statement
+                            END
+                   END
+
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Device support:  All PLD devices.
+ú
+Syntax
+You can only use the CASE statement in the equations segment of
+Boolean designs.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+                   CASE (Condition signals)
+                   BEGIN
+                   Value:   BEGIN
+                                Action statement
+                            END
+                   Value:   BEGIN
+                                Action statement
+                            END
+                   Keyword: BEGIN
+                                Action statement
+                            END
+                   END
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+                   CASE (A,D)
+                   BEGIN
+                   0: BEGIN
+                         C = A * B
+                      END
+                   3: BEGIN
+                         C = A + B
+                      END
+                   2: BEGIN
+                         C = 1
+                      END
+                   OTHERWISE: BEGIN
+                         C = 0
+                      END
+                   END
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+
+You can use GROUP, STRING, and VECTOR notation in a CASE statement.
+
+Condition       Defines a set of signals that will be tested against a
+Signals         list of values to determine which of the actions in
+                following statements should be implemented.
+
+                The set is concatenated into a single binary value
+                using signal values as individual bits.  Each signal
+                value in the set is represented by a name and has a
+                binary value of either 0 or 1.  Each signal name can
+                be either an input or an output.  The following rules
+                must be observed.
+
+                ş  Follow the keyword in a CASE statement with the
+                   condition signals.
+
+                ş  Enclose signal names or vector notation in
+                   parentheses separated by commas: for example,
+                   (A,B,C[0..4])
+
+                   Important: Signal names or vector notation must be
+                   separated by commas.
+
+                ş  Define each signal name or vector notation and it's
+                   value in a pin or node statement in the declaration
+                   segment.
+
+Value           Define the constant from the following action
+                statement.  This value will be tested against the
+                present value of the condition signals to determine
+                whether that action is taken or skipped.  The rules
+                below apply.
+
+                ş  The value can be any constant; however, do not
+                   duplicate values.  The default constant is decimal.
+                   Non-decimal constants are expressed with the
+                   following prefixes.#b Binary#h Hexadecimal#o
+                   OctalAll values are converted to binary during
+                   compilation.
+
+                ş  The value must end with a colon and precede an
+                   action statement.
+
+Action          Defines the logic for a particular condition-signal
+Statement       value.  This logic is implemented when the value
+                preceding this statement matches the current value of
+                the condition signals.  The following rules apply.
+
+                ş  Precede each action statement with a value.
+
+                ş  Enclose each statement with BEGIN and END.
+
+                Action statements inside the BEGIN-END block can be
+                any expression that is valid within the equations
+                section of the design.
+
+                An action is a series of any PALASM statements that
+                are legal within the equations section.
+
+Otherwise       Use this keyword to identify the beginning of an
+                optional statement that indicates the action for
+                default values of the CASE statement.  When you define
+                every possible value, you do not need this statement.
+                However, any unspecified conditions are assumed to be
+                "don't care"; they are not assumed to be false.
+                Signals for which default conditions are not specified
+                are eliminated from the design during the logic
+                reduction process.
+
+                The otherwise statement generates the condition as
+                identified and shown below.
+
+                ş  OR all conditions for values defined in action
+                   statements before this statement.
+
+                ş  Complement the entire OR term, then AND it with the
+                   right side of the Otherwise statement.
+
+                   CASE (A,D)
+                    BEGIN
+                         0: BEGIN
+                                C = A * B
+                            END
+                         3: BEGIN
+                                C = A + B
+                            END
+                         2: BEGIN
+                                C = 1
+                            END
+                         OTHERWISE: BEGIN
+                                C = 0
+                            END
+                    END
+
+                At each clock cycle, or anytime the signals change,
+                the condition signals (A,B) are evaluated.  When the
+                value of the signals matches the value in one of
+                the following action statements, the logic defined
+                in that statement is implemented.  Otherwise, C = 0.
+
+                The syntax example is expanded during compilation
+                into the following Boolean equation.
+
+                C = (VCC * /A * /B)
+                    + /(VCC * A * B)
+                    + (D * /(/A * /B + A * B))
+ú
+Use
+You can specify how the software treats default values for the
+IF...THEN...ELSE and CASE statements.  All examples used in this
+section assume the "Don't Care" default to be in effect.
+
+From the Logic Synthesis Options form (accessed from the Setup menu),
+fill in the "Use 'IF-THEN-ELSE', 'CASE' default as" field as follows:
+
+Don't care      Unspecified default conditions are assumed to be don't
+                care.
+
+Off             Unspecified default conditions are assumed to be
+                false.
+
+The don't-care option requires that you specify both the on and off
+sets. The off option requires you to specify only the on sets; the
+software assumes all other conditions to be off.
+
+You may lose signals from the design if you select the Don't-care
+option and do not specify all of the default conditions.  If the
+software treats these signals as don't care, they will be eliminated
+from the design during logic reduction.
+
+Important:  When translating designs created with PLPL, you must
+select the Off option because PLPL treats unspecified default
+conditions as false.
+
+You can nest CASE statements within IF-THEN-ELSE statements and other
+CASE statements.
+
+For example,
+
+            CASE (A,D)
+            BEGIN
+                0:  BEGIN   C=A*B   END
+                1:  CASE (C,D)
+                    BEGIN
+                    0:      BEGIN   E=C*D   END
+                    1:      BEGIN   E=C+D   END
+                    OTHERWISE:      E=1     END
+                    END
+                 OTHERWISE:         C=0     END
+            END
+
+There is no limit to the number of nested statements you can include
+in a design; however, too many nests may cause you to run out of
+memory.
+
+If any equations are incompletely specified or ambiguous, the
+unspecified signals are assumed to be "don't care." This increases
+the amount of logic reduction possible during the minimization
+process.  However, if you have not fully evaluated the consequences of
+these "don't care" signals, the equations resulting from compilation
+may be very different than you intended.
+ú
+Related Topics
+GROUP
+IF-THEN-ELSE, EQUATIONS
+VECTOR
+ú
+

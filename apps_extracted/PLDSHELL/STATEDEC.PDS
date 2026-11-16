@@ -1,0 +1,70 @@
+Title		2-bit counter with decoder
+Pattern		1
+Revision	A
+Author		Altera Apps
+Company		Altera
+Date		Current Date
+
+OPTIONS
+    TURBO = ON
+
+CHIP  STATEDEC  EP600
+
+PIN        CLK   	; clock
+PIN        ENABLE	; decoder enable
+
+PIN        Y0		; decoder output 0   
+PIN        Y1    
+PIN        Y2    
+PIN        Y3		; decoder output 3     
+PIN        OUT1 	; lsb from counter 
+PIN        OUT2 	; msb from counter 
+
+
+EQUATIONS
+
+; counter equations
+
+OUT1.T := /OUT1 * OUT2
+        + OUT1 * OUT2
+OUT1.CLKF = CLK
+
+OUT2.T := VCC
+OUT2.CLKF = CLK
+
+; decoder equations
+
+/Y0 = /ENABLE * /OUT2 * /OUT1
+/Y1 = /ENABLE * OUT2 * /OUT1
+/Y2 = /ENABLE * /OUT2 * OUT1
+/Y3 = /ENABLE * OUT2 * OUT1
+
+; end of design
+
+SIMULATION
+
+; set circuit to know state
+
+SETF  ENABLE  /CLK
+PRLDF  /OUT1  /OUT2
+
+; count with decoder disabled
+
+FOR COUNT := 1 TO 4 DO
+    BEGIN
+        CLOCKF CLK
+    END
+
+; enable decoder
+
+SETF /ENABLE
+
+; count with decoder enabled
+
+FOR COUNT := 1 TO 9 DO
+    BEGIN
+        CLOCKF CLK
+    END
+
+; end simulation
+

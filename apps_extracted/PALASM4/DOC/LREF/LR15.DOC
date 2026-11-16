@@ -1,0 +1,101 @@
+ð
+CONDITIONS
+Overview
+This keyword identifies the beginning of the state condition-
+equations segment.
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+     CONDITIONS    Name      Assignment Operator    Expression
+
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Device Support:  All synchronous registered PAL devices.
+ú
+Syntax
+This keyword must begin the condition-equations segment, and must be
+the last part of the state segment in a PDS file.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+     CONDITIONS    Name      Assignment Operator    Expression
+
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+     STATE
+     ...
+     CONDITIONS    QRUN               =             Q2 * /Q1 * /Q0
+                                                    + Q3 * Q2
+                                                    + Q3 * Q1
+                                                    + Q3 * Q0
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+
+Name            Condition equations define the branching conditions
+                that determine transitions and outputs.
+
+                þ  Ensure that each name is unique.
+
+                þ  Include up to fourteen, 14, alphanumeric
+                   characters.Do not include operators or reserved
+                   words.
+
+Assignment      A symbol that defines a specific operation as
+Operator        interpreted by the software when processing design
+                files.
+
+Expression      Assign a Boolean expression to define the condition.
+
+                þ  All signal names in the expression must be defined
+                   in pin and node statements in the declaration
+                   segment of the PDS file.
+
+                þ  Parentheses are allowed in the expression.
+
+                þ  VCC can be specified for unconditional-high
+                   signals.
+
+                þ  Multiple product terms are allowed in the
+                   expression.
+ú
+Use
+The condition equations define condition names that are used in state
+transition equations, as shown in the example below.
+
+        S1 := C1 -> S2
+              C2 -> S3
+
+        CONDITIONS       ;begin conditions segment
+        C1 = I1
+        C2 = /I1
+
+If the condition consists of a single input, the input name can be
+used in place of a condition name.  As shown in the example below.
+
+        S4 := /I3 -> S5
+
+If the condition consists of more than a single input, you must write
+a condition equation and use the condition name in the state
+transition equation.
+
+You must avoid conflicting conditions for branching, as shown below:
+the design must be changed to prevent overlapping conditions.  In this
+example, it is impossible to determine whether S1 goes to S2, or S1
+goes to S3, when A, B, and C all equal 1 or 0.
+
+        ;conflicting conditions example
+        S1 := C1 -> S2
+              + C2 -> S3
+        CONDITIONS       ;begin conditions segment
+        C1 = A * B
+        C2 = A * C
+ú
+Related Topics
+DEFAULT_BRANCH
+DEFAULT_OUTPUT
+EXPRESSION
+Local Default
+OPERATOR
+STATE
+State Equation
+State Transition Equation
+ú

@@ -1,0 +1,245 @@
+
+
+       ABEL V4.10/4.20 FINITE STATE MACHINE (FSM) EXAMPLE
+
+                          by ALEX KINE
+                     of DATA I/O CORPORATION
+                             3/16/92
+
+PURPOSE:  To demonstrate  the syntax  recommended for  describing
+          and verifying a finite state machine(FSM) in ABEL-HDL.
+
+STRUCTURE:For the  purpose of demonstration, we will use a simple
+          2-speed  motor  controller,  which  has  the  following
+          inputs and outputs:
+
+          CLOCK - 60 Hz input, used as the system clock
+
+          START -  active-high input  from a  push-button switch,
+          used by  the operator  to start  the motor  on a rising
+          edge of CLOCK
+
+          STOP - active-low input from a push-button switch, used
+          by  the  operator  to  stop  the  motor  at  any  time,
+          independent of CLOCK
+
+          RPM3,RPM2,RPM1,RPM0 -  active-high motor  speed inputs,
+          converted to digital form and scaled, measured in RPM
+
+          TEST -  Active-high output buffer enable input, used to
+          tri-state outputs  Q2, Q1  and Q0 during simulation and
+          programmer verification.
+
+          Q2,Q1,Q0  -   Active-high  registered  outputs  of  the
+          controller used to control the motor
+
+          ON -  active-high combinatorial  output used to light a
+          status indicator light whenever the motor is not in the
+          IDLE state
+
+     Here's how  it works.   The  motor controller  starts in the
+IDLE state, with RPM = 0 and the ON light extinguished.  When the
+operator presses  the START button, the controller transitions to
+the SLOW  state, the  ON light  is lit  and the  motor starts  to
+rotate.   At this  point, the  operator  may  release  the  START
+button.   When the  motor's speed  increases to 10 RPM, the motor
+controller automatically  transitions to the FAST state, where it
+remains until  the STOP  button is pressed.  When the STOP button
+is pressed,  the motor  controller immediately transitions to the
+BRAKE state,  where it remains until the motor has stopped, RPM =
+0.   On the  next clock  cycle, the controller transitions to the
+IDLE state, where the ON light is again extinguished.
+
+     Let's begin  the design  description by examining the syntax
+used to  declare the  controller inputs.   First,  the meaning of
+
+each input  implies something  about its  function.  CLOCK is the
+system clock  signal; START,  STOP  and  TEST  are  mode  control
+inputs, while  RPM3 to  RPM0  are  motor  speed  inputs.    Using
+meaningful names  to describe  the input signals makes the entire
+design description easier to understand.
+
+     Second,  motor  speed  inputs  RPM3  to  RPM0  are  numbered
+sequentially, allowing  them to  be defined as the set RPM, using
+the syntax  RPM = [RPM3..RPM0].  Adding an additional motor speed
+input to set RPM would be as simple as changing RPM3 to RPM4.
+
+     Like the  motor speed  inputs, controller outputs Q2, Q1 and
+Q0 are  numbered sequentially  for easy grouping.  In contrast to
+the inputs, these outputs require an ISTYPE statement to describe
+their function  and macrocell  architecture.    In  our  example,
+outputs  Q2   to  Q0   are  declared  as  ISTYPE  'REG_D,INVERT',
+indicating  that   they  are   D-type  registered  outputs,  with
+inverting output buffers.  This will cause outputs Q2 to Q0 to go
+to a  logical one (high) on a reset and a logical zero (low) on a
+preset.   Using reset/preset  in conjunction with ISTYPE 'BUFFER'
+or 'INVERT'  allows you  to jump  to any state and its complement
+ranging from binary 111 to 000.
+
+     The remaining controller output ON is combinatorial and only
+requires an  ISTYPE 'COM'  declaration to  describe its function.
+This frees  ABEL to choose the best polarity for the programmable
+output buffer  based on  the fewest  product  terms  required  to
+synthesize the output equation.
+
+     Under Constants, we see the complete syntax for grouping the
+motor speed  inputs into  a single  set RPM.  Valid signal values
+for RPM cover the following range:
+
+               Radix                    Range
+
+               Decimal                  0 to     15
+               Binary              ^b0000 to ^b1111
+               Octal                 ^o00 to   ^o17
+               Hexadecimal            ^h0 to    ^hF
+
+     State register  outputs Q2 to Q0 are also grouped into a set
+SREG.   But, unlike  set RPM,  SREG's values  are state constants
+that correspond  to each defined state in the state machine.  The
+four constants  immediately following  SREG correspond to each of
+the four  defined states in the state machine.  Once again, using
+meaningful state  constant names  makes it easier for everyone to
+understand the  flow of  the state  machine and,  ultimately, the
+designer's intent.
+
+     One important point to remember about the state constants is
+that  they   describe  the   signal  levels   MEASURED   AT   THE
+CORRESPONDING OUTPUT  PINS.  Thus, they are the complement of the
+signals measured  at the  Q-outputs of the state registers.  This
+is due  to the  inverting output  buffer between the register and
+the pin.
+
+     Under  EQUATIONS,   we  begin   by  describing   the  clock,
+asynchronous reset  and output enable equations for state machine
+SREG.   Active-low input  STOP is  used to  asynchronously  reset
+SREG, while  active-high input TEST is used to enable\disable the
+output buffers of SREG.
+
+     Of greater interest is the equation describing the ON status
+indicator light.   Recalling  (1) that  state registers  Q2 to Q0
+were declared  as ISTYPE  'REG_D,INVERT' and  (2) that  the state
+constants reference  the signal  levels measured  at the pins, we
+see that  the .Q-feedback  of set  SREG must  be inverted  in the
+equation for  output ON.   This  ensures that the ON light is lit
+when the controller is not in state IDLE and extinguished when it
+is in IDLE.
+
+     The following table provides a list of alternate declaration
+and feedback syntaxes that could be used to describe SREG:
+
+          DESCRIPTION TYPE    ISTYPE SYNTAX       FEEDBACK SYNTAX
+
+          1.  Pin-to-Pin      'REG'                SREG.FB
+          2.  Detailed(1)     'REG_D,BUFFER'       SREG.Q
+          3.  Detailed(2)     'REG_D,INVERT'      !SREG.Q
+
+     Failure to match the state register feedback syntax with the
+register declaration  syntax may generate Warning 5087: "Only one
+feedback is  allowed on  pin ##;  mapping xxx  to  xxx.Q"  during
+processing in  the FPGA\PLDmap  module.   It could  result in  an
+unexpected  test  vector  failure  during  the  JEDEC  simulation
+(JEDSIM), too.  Most often, this warning results from ambiguities
+in the  ABEL source  file; as  a result of these ambiguities, the
+"device independent"  compiler synthesizes  equations that cannot
+be  mapped   into  the   desired  device   architecture,  without
+modification.  Matching the two syntaxes will avoid this problem.
+
+     Next, we  focus  our  attention  of  the  @DCSET  directive.
+Unlike ABEL  V3.x and  2.x, ABEL-HDL  supports use  of the "Don't
+Care" set,  in addition to the ON and OFF-sets.  For on-line help
+explaining @DCSET,  locate the  cursor on  any part  of DCSET and
+press the  F1 key.   It's only important that you know the @DCSET
+directive  will  help  to  reduce  the  number  of  product-terms
+required  to  synthesize  the  reduced  equations,  by  assigning
+optimum values to the undefined states in the state machine.
+
+     Omitting the  @DCSET  directive  will  cause  the  undefined
+states to  assume a default value, dependent upon their macrocell
+architecture.    Signals  declared  as  ISTYPE  'REG'  or  ISTYPE
+'REG_D,BUFFER' will default to zero(0), while signals declared as
+ISTYPE 'REG_D,INVERT' will default to one(1).
+
+     WARNING:   using the  @DCSET directive  precludes  you  from
+using the  reset/preset functions  or other decoding equations to
+detect an  illegal state  and then jump to a defined one.  If you
+are concerned  about how  your state  machine responds to illegal
+state  transitions,  then  you  should  avoid  using  the  @DCSET
+directive.   The trade-off  is that you may have too many product
+terms to fit the device you have chosen or will ultimately chose.
+
+     The  last   section  in   the  design   description  is  the
+STATE_DIAGRAM itself.   We  have chosen  to use  the CASE-ENDCASE
+syntax in  order to  demonstrate that  is can be used to describe
+binary transition  conditions (START,STOP)  as well as relational
+transition conditions(RPM).   Once  again, the  use of meaningful
+input\output signal  names and  state  constants  simplifies  the
+state diagram description.
+
+     The process  of verifying  the design  is divided  into  two
+sections.   In the  first section, we verify the normal operation
+of the  motor controller.  In the second section, we use the TEST
+signal to preload state machine SREG to an arbitrary state.
+
+     We begin  be examining  the test  vector header in the first
+section.   On the  left side,  we see  the inputs  and the state-
+registers SREG.   SREG  will only  be used  as an  output in this
+section, thus  its value  will be don't care(X) in all cases.  On
+the right-hand  side of  the header, we see the outputs, SREG and
+ON.   Notice how  using SREG  in the  header allows us to use the
+state constants  as the  expected values  for the  state machine;
+notice how easy it is to read?
+
+     The first two vectors are used to initialize SREG; the first
+vector captures the value of the power-up state, while the second
+vector uses the asynchronous reset(STOP) to force SREG to a known
+state.   This is useful information when your state machine fails
+the second  and all  following vectors.   Ask  yourself, "Did the
+second vector  force my state machine to a known state?"  Getting
+your state machine to a known state is essential to verifying the
+remainder of the design.
+
+     The second  section starts  just like  the first; we capture
+the power-up  state and  force SREG to a known state.  Unlike the
+first section,  we use a five (5) step process to preload SREG to
+an arbitrary  state, BRAKE.  Please recognize that PRELOAD is NOT
+an operational mode for most devices.  PRELOAD is used solely for
+the purpose  of testing  the  operation  of  the  design  through
+simulation and programmer verification.
+
+     The first  step requires  that the clock signal CLOCK be set
+low.
+
+     The next step tri-states the output buffers by setting input
+TEST low.  This is verified by reading a high-impedance(Z) output
+on outputs  SREG.   Please note that output ON was changed from a
+low (L) to a Don't Care (X), in order to reduce the likelihood of
+a Structured  Test Vector  Error (STVE)  being  detected  on  the
+programmer.   The programmer applies a high (1) input to the tri-
+stated pin,  reads it  back and the repeats these steps for a low
+(0) input.   If we were using a device that supports pin-feedback
+of a registered signal (i.e. P20RA10, P26V12 or MACH) then output
+ON could have failed the second part of the HIGH-Z test.
+
+     The third  step applies  the desired  register state  to the
+outputs of  SREG.   Please note  that  ABEL  assumes  the  output
+buffers for the preload registers are ISTYPE 'INVERT'.  If we had
+declared outputs  Q2 to  Q0 as  ISTYPE 'BUFFER', then the desired
+output state  would be !BRAKE, versus BRAKE.  Did you notice that
+the expected  output for  SREG was changed from high-impedance(Z)
+to don't  care(X)?   This eliminates  any ambiguity about whether
+the programmer  should test for a high-impedance condition on the
+outputs SREG or apply the preload state BRAKE.
+
+     The fourth  step preloads  SREG by  applying a preload-clock
+constant P to input CLOCK.
+
+     The fifth  and final  step tests  that  SREG  was  preloaded
+properly by setting TEST high and reading BRAKE on its outputs.
+
+     If  you  found  this  example  file  helpful,  then  let  us
+recommend a comprehensive textbook authored by David Pellerin and
+Mike Holley,  two of  DATA I/O's engineering experts on PLD's and
+FPGA's.  The book is titled, "Practical Design Using Programmable
+Logic" and  can be  ordered directly  from DATA  I/O or from your
+local bookstore (ISBN: 0-13-723834-7).
+

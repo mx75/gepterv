@@ -1,0 +1,65 @@
+    Source    Device    Load        Description               ABEL PLD 4.30
+    File      Type      File
+   |---------|---------|---------|-----------------------------------------|
+    actlow    P22V10    actlow    Example of active low output signals
+  * barrel    P20R8     barrel    Set Notation in Equations
+  * bcd7      P16P8     bcd7      7 Segment Truth Table
+  * binbcd    P16L8     binbcd    Blackjack Machine Binary to BCD Converter
+  * bjack     P16R6     bjack     Blackjack Machine Controler
+  * cnt10p    P16R4     cnt10p    Test Vector Super-voltage Preload
+    cnt507    F507      cnt507    TexIns PSG507 FPLS counter
+    cnt600    E0600     cnt600    4-bit toggle flip-flop counter
+    cntbuf    E0320     cntbuf    Test Case for 20 Pin PLDs
+    cnt10rom  RA10R8    cnt10rom  Up/down counter State Machine in Reg PROM
+    comp4     P16HD8    ic1       4-bit look-ahead comparator
+  * comp4a    F153      comp4a    Relational Operators, Group Reduction
+    count116  P16R8     count116  Counter Equations
+  * count4    P16R4     count4    4-bit counter with 2 input mux
+  * count4a   P16R4     count4a   Multiple equations for One Output
+  * decade    F105      decade    Complement Array & Transition Equations
+    demo600   E0600     demo600   4-bit counters and bidirectional buffer
+  * dmux1t8   P16L8     dmux1t8   Sets in Equations
+  * dstate2a  P16R4     dstate    State machine with illegal state recovery 
+  * dstate2b  P16R4     dstate2b  State machine with pin-to-pin description
+    exampgds  ISPGDS22  ispgds    Example design for ISPGDS22 device
+    fdback2   P22V10    fdback2   Register feedback and combo feedback
+  * feedback  P16HD8    feedback  Simulator Example
+  * findout   P16L8     f1        Don't Cares in Simulation
+    fpls      F157      fpls      Logic Sequencer Features
+    fsm1      p22V10    fsm1      Finite state machine example
+    fsm1_not  P22V10    fsm1_not  Finite state machine with active low bits
+  * inreg     P19L8R    inreg     Input registers use
+  * langref    ...        ...     Collections of ABEL-HDL examples
+  * m6809a    P14L4     m6809a    Sets, Relational Operators
+  * m6809b    P14L4     m6809b    Macros with Test Vectors
+  * m6809c    P14L4     m6809c    Macros with Test Vectors
+    m6809d    P16HD8    m6809d    Device type from Command Line
+  * mac       P16H8     m1        Macros and Declared Equations
+  * mealy     F105      mealy     Mealy state machine description 
+  * moore     P22V10    moore     Moore state machine description
+  * mux12t4   P16V8S    mux12t4   12 to 4 multiplexer
+  * muxadd    P22V10    muxadd    Blackjack Machine Adder
+  * octalf    P20X8     octalf    Exclusive OR Factoring
+    p20ra10   P20RA10   p20ra10   Combinational feedback clocking reg output
+    pol1      P22V10    pol1      Often asked pin-to-pin polarity questions
+    pol2      P22v10    pol2      Often asked detailed-description questions
+    port      P20RA10   port      Test Vectors for Asyncronous PLDs
+  * preset    F167      preset    Async Preset of 105 & 167
+  * regfb     P16R4     fb2       Simulator Example
+  * reset22a  P22V10    reset22a  Register Preset and Reset (.RE and .PR)
+  * sequence  P16R4     sequence  State Machine Example
+    shiftcnt  F159      ifl4      Control of D and JK Flip Flops
+    simple    P14H4     u7        A simple introductory ABEL example
+    sn74190   P22V10    sn74190   Synch. 4-bit up/down counter
+  * traffic   F167      traffic   Traffic signal controller (complement array)
+  * traffic1  F167      traffic1  Traffic signal controller (@DCSET)
+  * tsbuffer  F153      tsb1      Bi-directional three state buffer
+  * ttlload   F159      ttl59     Loading Registers with Data
+    xorpol    P20X10    xorpol    Polarity control with XORs
+
+* Example from ABEL Manual
+
+    Langref.abl contains the following ABEL files:
+    act_low1, act_low2, declare, detail1, detail2, foo_1, foo_2, foo_3, 
+    foo_5, foo_7, par_det, pin2pin, sm1, sm2, source, source2, statema, 
+    tt1, x1, x2, xorfact

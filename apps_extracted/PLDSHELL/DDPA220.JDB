@@ -1,0 +1,8 @@
+# execute disassembly for dip D85C220
+
+load "220_lib.jdb"
+load "plfg_lib.jdb"
+load "dpa220.jdb"
+
+dpa220(0)
+

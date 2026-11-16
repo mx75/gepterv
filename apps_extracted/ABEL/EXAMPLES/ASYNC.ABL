@@ -1,0 +1,117 @@
+module async
+title 'Asynchronous state machine example - pattern detector'
+
+// The pattern we want to detect is 11010.  The data bit is
+// monitored on input Data, and the data is checked when
+// the input Valid is strobed.
+
+Q5..Q0      pin istype 'com';  "Must use pin for 18CV8.
+
+Data,Valid  pin;
+DetectFlag  pin istype 'com';
+
+Qstate  = [Q5..Q0];
+X = .x.;
+
+// The state encodings are written to guarantee a single bit change for
+// all transitions, including transistions back to the initial state.  To
+// allow this, interim states are provided between what is otherwise a
+// one-hot encoding for states State1 through Detect.
+
+Reset   = [0,0,0,0,0,0];
+Initial = [0,0,0,0,0,1];
+State1a = [0,0,0,0,1,1];
+State1  = [0,0,0,0,1,0];
+State2a = [0,0,0,1,1,0];
+State2  = [0,0,0,1,0,0];
+State3a = [0,0,1,1,0,0];
+State3  = [0,0,1,0,0,0];
+State4a = [0,1,1,0,0,0];
+State4  = [0,1,0,0,0,0];
+Detecta = [1,1,0,0,0,0];
+Detect  = [1,0,0,0,0,0];
+
+state_diagram Qstate.pin->Qstate
+
+    state Reset:   if (!Valid) then Initial
+                   else Reset;
+
+    state Initial: if (Valid) then
+                       if (Data) then State1a  "1
+                       else Reset;
+                   else Initial;
+
+    state State1a: if (!Valid) then State1
+                   else State1a;
+
+    state State1:  if (Valid) then
+                       if (Data) then State2a  "1
+                       else Reset;
+                   else State1;
+
+    state State2a: if (!Valid) then State2
+                   else State2a;          "Wait until strobe goes low
+
+    state State2:  if (Valid) then
+                       if (!Data) then State3a "0
+                       else Reset;
+                   else State2;
+
+    state State3a: if (!Valid) then State3
+                   else State3a;          "Wait until strobe goes low
+
+    state State3:  if (Valid) then
+                       if (Data) then State4a  "1
+                       else Reset;
+                   else State3;
+
+    state State4a: if (!Valid) then State4
+                   else State4a;          "Wait until strobe goes low
+
+    state State4:  if (Valid) then
+                       if (!Data) then Detecta "0
+                       else Reset;
+                   else State4;
+
+    state Detecta: if (!Valid) then Detect
+                   else Detecta;          "Wait until strobe goes low
+
+    state Detect:  DetectFlag = 1;
+                   if (Valid) then Reset  "Wait for next bit (will be skipped)
+                   else Detect;
+
+test_vectors([Data,Valid]->[ Qstate,DetectFlag])
+             [  0 ,  0  ]->[  .x.  ,    .x.   ];  "Initialization sequence...
+             [  0 ,  0  ]->[  .x.  ,    .x.   ];
+             [  0 ,  0  ]->[  .x.  ,    .x.   ];
+             [  0 ,  0  ]->[Initial,    .x.   ];  "Now we're ready...
+
+             [  1 ,  1  ]->[  .x.  ,    .x.   ];  "Got a 1
+             [  1 ,  0  ]->[ State1,     0    ];
+
+             [  1 ,  1  ]->[  .x.  ,    .x.   ];  "Got another 1
+             [  1 ,  0  ]->[ State2,     0    ];
+
+             [  1 ,  0  ]->[  .x.  ,    .x.   ];
+             [  1 ,  1  ]->[  .x.  ,    .x.   ];  "Oops, looking for a 0
+             [ .x.,  0  ]->[Initial,     0    ];  "Try again...
+
+             [  1 ,  1  ]->[  .x.  ,    .x.   ];  "Got a 1
+             [  1 ,  0  ]->[ State1,     0    ];
+
+             [  1 ,  1  ]->[  .x.  ,    .x.   ];  "Got another 1
+             [  1 ,  0  ]->[ State2,     0    ];
+
+             [  0 ,  1  ]->[  .x.  ,    .x.   ];  "Got a 0
+             [  0 ,  0  ]->[ State3,     0    ];
+
+             [  1 ,  1  ]->[  .x.  ,    .x.   ];  "Got a 1
+             [  1 ,  0  ]->[ State4,     0    ];
+
+             [  0 ,  1  ]->[  .x.  ,    .x.   ];  "Got a 0!
+             [  0 ,  0  ]->[ Detect,     1    ];
+             [ .x.,  1  ]->[ Reset ,     0    ];  "Back to Reset on next Valid
+
+
+end
+

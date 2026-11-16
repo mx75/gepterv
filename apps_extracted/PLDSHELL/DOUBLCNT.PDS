@@ -1,0 +1,193 @@
+Title		Synch. and Asynch. 4-Bit Counters
+Pattern		pds		
+Revision	1
+Author		Your Name
+Company		Your Company
+Date		Date
+
+CHIP two_counters EP610
+
+; pin assignments
+
+PIN   1  SCLK		; Synch. Clock Input
+PIN   2  ACLK		; Asynch. Clock Input 
+PIN  11  ACLKEN 	; Enable for Asynch. Counter
+PIN  14  SOE		; Synch. Output Enable 
+PIN  23  NC 
+PIN  22  SCLR		; Synch. Reset 
+PIN  21  ACLR 		; Asynch. Reset
+PIN  20  NC 
+PIN   3  SOUT0		; Synch. Counter - LSB 
+PIN   4  SOUT1 
+PIN   5  SOUT2 
+PIN   6  SOUT3		; Synch. Counter - MSB 
+PIN   7  AOUT0		; Asynch. Counter - LSB
+PIN   8  AOUT1 
+PIN   9  AOUT2 
+PIN  10  AOUT3		; Asynch. Counter - MSB 
+PIN  15  SCOUNT5 	; Synch. Counter - Got to Ten
+PIN  16  ACOUNT5 	; Asynch. Counter - Got to Ten
+
+; State machine for synchronous counter
+
+STATE
+
+MOORE_MACHINE
+DEFAULT_BRANCH S0
+
+; state assignments
+
+	S0 = /SOUT3 * /SOUT2 * /SOUT1 * /SOUT0
+	S1 = /SOUT3 * /SOUT2 * /SOUT1 *  SOUT0
+	S2 = /SOUT3 * /SOUT2 *  SOUT1 * /SOUT0
+	S3 = /SOUT3 * /SOUT2 *  SOUT1 *  SOUT0
+	S4 = /SOUT3 *  SOUT2 * /SOUT1 * /SOUT0
+	S5 = /SOUT3 *  SOUT2 * /SOUT1 *  SOUT0
+	S6 = /SOUT3 *  SOUT2 *  SOUT1 * /SOUT0
+	S7 = /SOUT3 *  SOUT2 *  SOUT1 *  SOUT0
+	S8 =  SOUT3 * /SOUT2 * /SOUT1 * /SOUT0
+	S9 =  SOUT3 * /SOUT2 * /SOUT1 *  SOUT0
+	SA =  SOUT3 * /SOUT2 *  SOUT1 * /SOUT0
+	SB =  SOUT3 * /SOUT2 *  SOUT1 *  SOUT0
+	SC =  SOUT3 *  SOUT2 * /SOUT1 * /SOUT0
+	SD =  SOUT3 *  SOUT2 * /SOUT1 *  SOUT0
+	SE =  SOUT3 *  SOUT2 *  SOUT1 * /SOUT0
+	SF =  SOUT3 *  SOUT2 *  SOUT1 *  SOUT0
+
+; state transitions
+
+	S0 := VCC	-> S1
+	S1 := VCC	-> S2
+	S2 := VCC	-> S3
+	S3 := VCC	-> S4
+	S4 := VCC	-> S5
+	S5 := VCC	-> S6
+	S6 := VCC	-> S7
+	S7 := VCC	-> S8
+	S8 := VCC	-> S9
+	S9 := VCC	-> SA
+	SA := VCC	-> SB
+	SB := VCC	-> SC
+	SC := VCC	-> SD
+	SD := VCC	-> SE
+	SE := VCC	-> SF
+	SF := VCC	-> S0
+
+; Boolean equations for asynchronous counter
+; and synchronous counter controls
+
+EQUATIONS
+      
+; S prefix designates synchronous counter
+
+SOUT0.CLKF = SCLK			; Synch. Clock
+SOUT1.CLKF = SCLK
+SOUT2.CLKF = SCLK
+SOUT3.CLKF = SCLK
+
+SOUT0.TRST = SOE			; Synch. Enables
+SOUT1.TRST = SOE
+SOUT2.TRST = SOE
+SOUT3.TRST = SOE
+
+SOUT0.RSTF = SCLR			; Synch Resets
+SOUT1.RSTF = SCLR
+SOUT2.RSTF = SCLR
+SOUT3.RSTF = SCLR
+
+; Goes high when Synch. counter gets to five
+
+SCOUNT5 = SOUT0.fb * /SOUT1.fb * SOUT2.fb * /SOUT3.fb
+
+; A prefix designates asynchronous counter
+
+AOUT0.T := VCC				; Asynch. Counter Using
+AOUT1.T := VCC				; T Flip-Flops
+AOUT2.T := VCC
+AOUT3.T := VCC
+
+AOUT0.CLKF = ACLK * ACLKEN		; Asynch. Clocks
+AOUT1.CLKF = /AOUT0.fb
+AOUT2.CLKF = /AOUT1.fb
+AOUT3.CLKF = /AOUT2.fb
+
+AOUT0.RSTF = ACLR			; Asynch. Resets
+AOUT1.RSTF = ACLR
+AOUT2.RSTF = ACLR
+AOUT3.RSTF = ACLR
+
+; Goes high when Asynch. counter gets to five
+
+ACOUNT5 = AOUT0.fb * /AOUT1.fb * AOUT2.fb * /AOUT3.fb
+
+
+SIMULATION
+
+; Assign a vector for each counter and
+; set inputs to known states
+
+VECTOR SOUTS := [SOUT3,SOUT2,SOUT1,SOUT0]
+VECTOR AOUTS := [AOUT3,AOUT2,AOUT1,AOUT0]
+SETF SOE ACLR SCLR
+
+	FOR x := 0 TO 8 DO
+	    BEGIN
+	    IF x=1 then
+	        BEGIN
+	        SETF /ACLR /SCLR
+	        END
+	    SETF ACLKEN ACLK /SCLK
+	    SETF /ACLK SCLK
+	    END
+
+	FOR X:=0 TO 3 DO
+	    BEGIN
+	    SETF /ACLKEN ACLK /SCLK
+	    SETF /ACLK SCLK
+	    END
+
+	FOR X:=0 TO 16 DO
+	    BEGIN
+	    IF X=9 THEN
+	        BEGIN
+	        SETF /SOE
+	        END
+
+	    IF X=13 THEN
+	        BEGIN
+	        SETF SOE
+	        END
+	
+	    SETF ACLKEN ACLK /SCLK
+	    SETF /ACLK SCLK
+	    END
+
+	FOR X:=0 TO 16 DO
+	    BEGIN
+	
+	    IF X=3 THEN 
+	        BEGIN
+	        SETF ACLR
+	        END  
+	         
+	    IF X=6 THEN 
+	        BEGIN
+	        SETF /ACLR
+	        END  
+	         
+	    IF X=8 THEN 
+	        BEGIN
+	        SETF SCLR
+	        END  
+	         
+	    IF X=12 THEN 
+	        BEGIN
+	        SETF /SCLR
+	        END  
+         
+	    SETF ACLK /SCLK
+	    SETF /ACLK SCLK
+	    END
+
+; end simulation
+

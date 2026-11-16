@@ -1,0 +1,207 @@
+*Header,A
+$Header: /swpg/develop/abel/src/ade/RCS/abelchip.mnu,v 9.27 1993/03/31 17:56:19 stiehl Exp $
+*Global Keys,A
+Global Keys
+    <<F1>>          Context sensitive, multi-level help    
+    <<ESC>>         Toggles between Editor Window and Menu Bar
+    <<^L>>          Redraw screen
+    <<_Alt-l>>etter Pops up menu with highlighted character that
+                matches letter
+*Devices,A
+Devices
+
+Press <<F2>> to choose from a list of devices, or type in a    
+valid ABEL device name.
+*Devices Help,A
+--ABEL Devices--
+p16l8
+p16h8
+p16p8
+p16r4
+p16r6
+p16r8
+p20x8
+p18cv8
+e0320
+mach215a
+*--ABEL Devices--,A
+*p16l8,A
+     ------------            P16L8
+  1 | In     Vcc | 20
+  2 | In     Out | 19
+  3 | In     I/O | 18
+  4 | In     I/O | 17
+  5 | In     I/O | 16
+  6 | In     I/O | 15
+  7 | In     I/O | 14
+  8 | In     I/O | 13
+  9 | In     Out | 12
+ 10 | Gnd     In | 11
+     ------------
+
+*p16h8,A
+     ------------            P16H8
+  1 | In     Vcc | 20
+  2 | In     Out | 19
+  3 | In     I/O | 18
+  4 | In     I/O | 17
+  5 | In     I/O | 16
+  6 | In     I/O | 15
+  7 | In     I/O | 14
+  8 | In     I/O | 13
+  9 | In     Out | 12
+ 10 | Gnd     In | 11
+     ------------
+
+*p16p8,A
+     ------------            P16P8
+  1 | In     Vcc | 20
+  2 | In     Out | 19
+  3 | In     I/O | 18
+  4 | In     I/O | 17
+  5 | In     I/O | 16
+  6 | In     I/O | 15
+  7 | In     I/O | 14
+  8 | In     I/O | 13
+  9 | In     Out | 12
+ 10 | Gnd     In | 11
+     ------------
+
+*p16r4,A
+     ------------            P16R4
+  1 | Clk    Vcc | 20
+  2 | In     I/O | 19
+  3 | In     I/O | 18
+  4 | In     Out | 17
+  5 | In     Out | 16
+  6 | In     Out | 15
+  7 | In     Out | 14
+  8 | In     I/O | 13
+  9 | In     I/O | 12
+ 10 | Gnd     OE | 11
+     ------------
+
+*p16r6,A
+     ------------            P16R6
+  1 | Clk    Vcc | 20
+  2 | In     I/O | 19
+  3 | In     Out | 18
+  4 | In     Out | 17
+  5 | In     Out | 16
+  6 | In     Out | 15
+  7 | In     Out | 14
+  8 | In     Out | 13
+  9 | In     I/O | 12
+ 10 | Gnd     OE | 11
+     ------------
+
+*p16r8,A
+     ------------            P16R8
+  1 | Clk    Vcc | 20
+  2 | In     Out | 19
+  3 | In     Out | 18
+  4 | In     Out | 17
+  5 | In     Out | 16
+  6 | In     Out | 15
+  7 | In     Out | 14
+  8 | In     Out | 13
+  9 | In     Out | 12
+ 10 | Gnd     OE | 11
+     ------------
+
+*p20x8,A
+     ------------            P20X8
+  1 | Clk    Vcc | 24
+  2 | In     I/O | 23
+  3 | In     Out | 22
+  4 | In     Out | 21
+  5 | In     Out | 20
+  6 | In     Out | 19
+  7 | In     Out | 18
+  8 | In     Out | 17
+  9 | In     Out | 16
+ 10 | In     Out | 15
+ 11 | In     I/O | 14
+ 12 | Gnd     OE | 13
+     ------------
+
+*p18cv8,A
+     ------------            P18CV8
+  1 | Clk    Vcc | 20
+  2 | In     I/O | 19
+  3 | In     I/O | 18
+  4 | In     I/O | 17
+  5 | In     I/O | 16
+  6 | In     I/O | 15
+  7 | In     I/O | 14
+  8 | In     I/O | 13
+  9 | In     I/O | 12
+ 10 | Gnd     In | 11
+     ------------
+
+*e0320,A
+     ------------            E0320
+  1 | Clk    Vcc | 20
+  2 | In     I/O | 19
+  3 | In     I/O | 18
+  4 | In     I/O | 17
+  5 | In     I/O | 16
+  6 | In     I/O | 15
+  7 | In     I/O | 14
+  8 | In     I/O | 13
+  9 | In     I/O | 12
+ 10 | Gnd     In | 11
+     ------------
+
+*mach215a,A
+
+MACH215A - Asynchronous MACH device.
+
+
+           I  I  I  I  I  G  V  I  I  I  I
+           /  /  /  /  /  N  C  /  /  /  /
+           O  O  O  O  O  D  C  O  O  O  O
+           |  |  |  |  |  |  |  |  |  |  |         
+      /----|--|--|--|--|--|--|--|--|--|--|----+
+      |                      4  4  4  4  4    |     
+      |    6  5  4  3  2  1  4  3  2  1  0    |     
+I/O  -| 7                                   39|- I/O 
+I/O  -| 8                                   38|- I/O 
+I/O  -| 9                                   37|- I/O 
+I0   -|10                                   36|- I/O   
+I1   -|11                                   35|- CLK1 
+GND  -|12            MACH-215               34|- GND 
+CLK0 -|13                                   33|- I4  
+I/O  -|14                                   32|- I3   
+I/O  -|15                                   31|- I/O 
+I/O  -|16                                   30|- I/O 
+I/O  -|17                                   29|- I/O 
+      |    1  1  2  2  2  2  2  2  2  2  2    |     
+      |    8  9  0  1  2  3  4  5  6  7  8    |     
+      +----|--|--|--|--|--|--|--|--|--|--|----+
+           |  |  |  |  |  |  |  |  |  |  |           
+           I  I  I  I  V  G  I  I  I  I  I  
+           /  /  /  /  C  N  /  /  /  /  /  
+           O  O  O  O  C  D  O  O  O  O  O  
+
+ 32 Pin Registers, nodes 45-76.          
+ 32 I/Os, pins 2-43    
+ 4  GNDs
+ 2  VCCs 
+ 2  Clocks (CLK0, CLK1) (may be used as inputs)         
+ 4  Dedicated inputs (I0,I1,I3,I4) 
+ 4  Product terms per macrocell. With 
+    steering, up to 12 product terms.
+
+  o Fitter will split up equations with more than 
+    12 product terms.
+                                               
+  o Logic Cells can be configured as DFF, TFF, Latch  
+    or combinational.
+
+  o Logic Cells have individual clock, reset, and preset
+    product terms.
+
+  o Clocks have polarity controls. 
+
+  o Pin Registers can be configured as DFF, Latch

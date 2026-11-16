@@ -1,0 +1,83 @@
+Name      Count13;
+Partno    CA0013;
+Date      11/27/84;
+Revision  01;
+Designer  Kahl;
+Company   Assisted Technology;
+Assembly  None;
+Location  None;
+Device    P32R16;
+
+/****************************************************************/
+/*                                                              */
+/* Thirteen Bit Counter                                         */
+/*                                                              */
+/* 13-bit synchronous counter with parallel load, clear, and    */
+/* hold capability.  The LOAD operation loads the inputs        */
+/* (D12-D0) into the output register (Q12-Q0).  The HOLD        */
+/* operation holds the previous value regardless of clock       */
+/* transitions.  The CARRY is true (co=HI) when the output      */
+/* register (Q12-Q0) is all HIGHs, otherwise false (co=LO).     */
+/* The HALF-CARRY is true (hc=HI) when the all but the most     */
+/* significant output register (Q11-Q0) is all HIGHs, otherwise */
+/* false (hc=LO).                                               */
+/****************************************************************/
+/** Allowable Target Device Types :  PAL32R16                   */
+/****************************************************************/
+
+ORDER:
+
+clk1,clk2,%1,!pl1,!pl2,%1,!oe1,!oe2,%1,instr0..2,%1,D,%2,
+so,%1,carry,%1,half_carry,%1,Q;
+
+VECTORS:
+
+cc 11 00 000 '1FFF' X L L "0000"        /* clear */
+cc 11 00 000 '1FFE' L L L "0000"
+cc 11 00 011 '1555' H L L "1555"        /* load */
+cc 11 00 011 '0000' L L L "0000"
+cc 11 00 001 '0001' H L L "0001"        /* count */
+cc 11 00 101 '1ffd' L L L "0001"        /* hold */
+cc 11 00 001 '0002' H L L "0002"
+cc 11 00 001 '1ffb' L L L "0003"
+cc 11 00 001 '0008' H L L "0004"
+cc 11 00 001 '1fef' L L L "0005"
+cc 11 00 001 '0020' H L L "0006"
+cc 11 00 001 '1fbf' L L L "0007"
+cc 11 00 001 '0080' H L L "0008"
+cc 11 00 001 '1ffe' L L L "0009"
+cc 11 00 011 '000b' H L L "000b"
+cc 11 00 001 '1ff7' L L L "000c"
+cc 11 00 011 '000f' L L L "000f"
+cc 11 00 001 '0080' H L L "0010"
+cc 11 00 011 '001f' H L L "001f"
+cc 11 00 001 '1f7f' L L L "0020"
+cc 11 00 011 '009f' H L L "009f"
+cc 11 00 001 '1f7f' L L L "00a0"
+cc 11 00 011 '00bf' H L L "00bf"
+cc 11 00 001 '1f7f' L L L "00c0"
+cc 11 00 011 '007f' H L L "007f"
+cc 11 00 001 '1f7f' L L L "0080"
+cc 11 00 011 '01ff' H L L "01ff"
+cc 11 00 001 '1f7f' L L L "0200"
+cc 11 00 011 '03ff' H L L "03ff"
+cc 11 00 001 '1f7f' L L L "0400"
+cc 11 00 011 '07ff' H L L "07ff"
+cc 11 00 001 '1f7f' L L L "0800"
+cc 11 00 011 '0ffe' L L L "0ffe"
+cc 11 00 001 '0040' H L L "0fff"
+cc 11 00 001 '1f7f' L L H "1000"
+cc 11 00 001 '0001' H L L "1001"
+cc 11 00 011 '1fff' H L L "1fff"
+cc 11 00 101 '00f0' H L L "1fff"
+cc 11 00 001 '1f7f' L H H "0000"
+cc 11 00 001 '0001' H L L "0001"
+cc 11 00 011 '0aaa' H L L "0aaa"
+cc 11 01 101 '0000' L Z Z  ZZZZLHLHLHLZZ
+cc 11 10 101 '0000' Z L L  LHLHZZZZZZZHL
+cc 11 11 xxx 'xxxx' Z Z Z  ZZZZZZZZZZZZZ
+00 kk 11 xxx 'xxxx' 0 0 0  0101010101010        /* TTL level preload */
+00 11 00 xxx 'xxxx' L L L  LHLHLHLHLHLHL
+00 kk 11 xxx 'xxxx' 1 1 1  1010101010101        /* TTL level preload */
+00 11 00 xxx 'xxxx' H H H  HLHLHLHLHLHLH
+

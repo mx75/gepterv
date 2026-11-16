@@ -1,0 +1,164 @@
+Name	  Keyboard;
+Partno    CA0023;
+Date      10/3/86;
+Revision  01;
+Designer  Kahl;
+Company   Personal CAD Systems, Inc.;
+Assembly  Keyboard Interface;
+Location  IC4;
+Device	  F100;
+
+/************************************************************************/
+/*                                                                      */
+/* Keyboard Encoder                                                     */
+/*                                                                      */
+/* This chip takes as its input the rows and columns of a matrix        */
+/* keyboard and generates the corresponding ASCII code required for the */
+/* key.                                                                 */
+/************************************************************************/
+/* Allowable Target Device Types: Signetics 82S100                      */
+/************************************************************************/
+
+ORDER:	shift_key, %1, control_key, %1, row, %1, col, %2, ascii;
+
+VECTORS:
+
+$msg"        c";
+$msg"        o";
+$msg"      s n";
+$msg"      h t";
+$msg"      i r";
+$msg"      f o";
+$msg"      t l";
+$msg"      k k";
+$msg"      e e   row   column    ascii  ";
+$msg"      y y 543210 76543210  76543210";
+$msg"      -----------------------------";
+           0 1 '4' '0'  "00"                	/* ASCII NUL  		*/
+           0 1 '4' '1'  "01"                	/* ASCII SOH		*/
+           0 1 '4' '2'  "02"                	/* ASCII STX		*/
+           0 1 '4' '3'  "03"                	/* ASCII ETX		*/
+           0 1 '4' '4'  "04"                	/* ASCII EOT		*/
+           0 1 '4' '5'  "05"                	/* ASCII ENG		*/
+           0 1 '4' '6'  "06"                 	/* ASCII ACK		*/
+           0 1 '4' '7'  "07"                	/* ASCII BEL		*/
+           0 1 '4' '8'  "08"                	/* ASCII BS		*/
+           0 1 '4' '9'  "09"                	/* ASCII HT		*/
+           0 1 '4' 'A'  "0A"                	/* ASCII LF		*/
+           0 1 '4' 'B'  "0B"                	/* ASCII VT		*/
+           0 1 '4' 'C'  "0C"                	/* ASCII FF		*/
+           0 1 '4' 'D'  "0D"                	/* ASCII CR		*/
+           0 1 '4' 'E'  "0E"                	/* ASCII SO		*/
+           0 1 '4' 'F'  "0F"                	/* ASCII SI		*/
+           0 1 '5' '0'  "10"                 	/* ASCII DLE		*/
+           0 1 '5' '1'  "11"                	/* ASCII DC1		*/
+           0 1 '5' '2'  "12"                	/* ASCII DC2		*/
+           0 1 '5' '3'  "13"                	/* ASCII DC3		*/
+           0 1 '5' '4'  "14"                	/* ASCII DC4		*/
+           0 1 '5' '5'  "15"                	/* ASCII NAK		*/
+           0 1 '5' '6'  "16"                	/* ASCII SYN		*/
+           0 1 '5' '7'  "17"                	/* ASCII ETB		*/
+           0 1 '5' '8'  "18"                	/* ASCII CAN		*/
+           0 1 '5' '9'  "19"                	/* ASCII EM 		*/
+           0 1 '5' 'A'  "1A"                	/* ASCII SUB		*/
+           0 1 '5' 'B'  "1B"                	/* ASCII ESC		*/
+           0 1 '5' 'C'  "1C"                	/* ASCII FS		*/
+           0 1 '5' 'D'  "1D"                	/* ASCII GS		*/
+           0 1 '5' 'E'  "1E"                	/* ASCII RS		*/
+           0 1 '5' 'F'  "1F"                	/* ASCII VS		*/
+           0 0 '1' '0'  "20"              	/* ASCII SPACE		*/
+           1 0 '2' '1'  "21"              	/* ASCII !		*/
+           1 0 '2' '2'  "22"              	/* ASCII "		*/
+           1 0 '2' '3'  "23"              	/* ASCII #		*/
+           1 0 '2' '4'  "24"              	/* ASCII $		*/
+           1 0 '2' '5'  "25"              	/* ASCII %		*/
+           1 0 '2' '6'  "26"              	/* ASCII &		*/
+           1 0 '2' '7'  "27"              	/* ASCII '		*/
+           1 0 '2' '8'  "28"              	/* ASCII (		*/
+           1 0 '2' '9'  "29"              	/* ASCII )		*/
+           1 0 '2' 'A'  "2A"              	/* ASCII *		*/
+           1 0 '2' 'B'  "2B"              	/* ASCII +		*/
+           1 0 '2' 'C'  "2C"              	/* ASCII ,		*/
+           1 0 '2' 'D'  "2D"              	/* ASCII -		*/
+           1 0 '2' 'E'  "2E"              	/* ASCII .		*/
+           1 0 '2' 'F'  "2F"              	/* ASCII /		*/
+           0 0 '2' '0'  "30"              	/* ASCII 0    		*/
+           0 0 '2' '1'  "31"              	/* ASCII 1		*/
+           0 0 '2' '2'  "32"              	/* ASCII 2		*/
+           0 0 '2' '3'  "33"              	/* ASCII 3		*/
+           0 0 '2' '4'  "34"              	/* ASCII 4		*/
+           0 0 '2' '5'  "35"              	/* ASCII 5		*/
+           0 0 '2' '6'  "36"              	/* ASCII 6		*/
+           0 0 '2' '7'  "37"              	/* ASCII 7		*/
+           0 0 '2' '8'  "38"              	/* ASCII 8		*/
+           0 0 '2' '9'  "39"              	/* ASCII 9		*/
+           0 0 '2' 'A'  "3A"              	/* ASCII :		*/
+           0 0 '2' 'B'  "3B"              	/* ASCII ;		*/
+           0 0 '2' 'C'  "3C"              	/* ASCII <		*/
+           0 0 '2' 'D'  "3D"              	/* ASCII =		*/
+           0 0 '2' 'E'  "3E"              	/* ASCII >		*/
+           0 0 '2' 'F'  "3F"              	/* ASCII ?		*/
+           1 0 '4' '0'  "40"              	/* ASCII @		*/
+           1 0 '4' '1'  "41"               	/* ASCII A		*/
+           1 0 '4' '2'  "42"              	/* ASCII B		*/
+           1 0 '4' '3'  "43"              	/* ASCII C		*/
+           1 0 '4' '4'  "44"              	/* ASCII D		*/
+           1 0 '4' '5'  "45"              	/* ASCII E		*/
+           1 0 '4' '6'  "46"              	/* ASCII F		*/
+           1 0 '4' '7'  "47"              	/* ASCII G		*/
+           1 0 '4' '8'  "48"              	/* ASCII H		*/
+           1 0 '4' '9'  "49"              	/* ASCII I		*/
+           1 0 '4' 'A'  "4A"              	/* ASCII J		*/
+           1 0 '4' 'B'  "4B"              	/* ASCII K		*/
+           1 0 '4' 'C'  "4C"              	/* ASCII L		*/
+           1 0 '4' 'D'  "4D"              	/* ASCII M		*/
+           1 0 '4' 'E'  "4E"              	/* ASCII N		*/
+           1 0 '4' 'F'  "4F"              	/* ASCII O		*/
+           1 0 '5' '0'  "50"              	/* ASCII P		*/
+           1 0 '5' '1'  "51"              	/* ASCII Q		*/
+           1 0 '5' '2'  "52"              	/* ASCII R		*/
+           1 0 '5' '3'  "53"              	/* ASCII S		*/
+           1 0 '5' '4'  "54"              	/* ASCII T		*/
+           1 0 '5' '5'  "55"              	/* ASCII U		*/
+           1 0 '5' '6'  "56"               	/* ASCII V		*/
+           1 0 '5' '7'  "57"              	/* ASCII W		*/
+           1 0 '5' '8'  "58"              	/* ASCII X		*/
+           1 0 '5' '9'  "59"              	/* ASCII Y		*/
+           1 0 '5' 'A'  "5A"              	/* ASCII Z		*/
+           1 0 '5' 'B'  "5B"              	/* ASCII [		*/
+           1 0 '5' 'C'  "5C"              	/* ASCII \		*/
+           1 0 '5' 'D'  "5D"              	/* ASCII ]		*/
+           1 0 '5' 'E'  "5E"               	/* ASCII ^		*/
+           1 0 '5' 'F'  "5F"              	/* ASCII _		*/
+           0 0 '4' '0'  "60"              	/* ASCII `		*/
+           0 0 '4' '1'  "61"              	/* ASCII a		*/
+           0 0 '4' '2'  "62"              	/* ASCII b		*/
+           0 0 '4' '3'  "63"              	/* ASCII c		*/
+           0 0 '4' '4'  "64"              	/* ASCII d		*/
+           0 0 '4' '5'  "65"              	/* ASCII e		*/
+           0 0 '4' '6'  "66"              	/* ASCII f		*/
+           0 0 '4' '7'  "67"              	/* ASCII g		*/
+           0 0 '4' '8'  "68"              	/* ASCII h		*/
+           0 0 '4' '9'  "69"              	/* ASCII i		*/
+           0 0 '4' 'A'  "6A"              	/* ASCII j		*/
+           0 0 '4' 'B'  "6B"              	/* ASCII k		*/
+           0 0 '4' 'C'  "6C"              	/* ASCII l		*/
+           0 0 '4' 'D'  "6D"              	/* ASCII m		*/
+           0 0 '4' 'E'  "6E"              	/* ASCII n		*/
+           0 0 '4' 'F'  "6F"              	/* ASCII o		*/
+           0 0 '5' '0'  "70"              	/* ASCII p		*/
+           0 0 '5' '1'  "71"              	/* ASCII q		*/
+           0 0 '5' '2'  "72"              	/* ASCII r		*/
+           0 0 '5' '3'  "73"              	/* ASCII s		*/
+           0 0 '5' '4'  "74"              	/* ASCII t		*/
+           0 0 '5' '5'  "75"              	/* ASCII u		*/
+           0 0 '5' '6'  "76"              	/* ASCII v		*/
+           0 0 '5' '7'  "77"              	/* ASCII w		*/
+           0 0 '5' '8'  "78"              	/* ASCII x		*/
+           0 0 '5' '9'  "79"              	/* ASCII y		*/
+           0 0 '5' 'A'  "7A"              	/* ASCII z		*/
+           0 0 '5' 'B'  "7B"              	/* ASCII {		*/
+           0 0 '5' 'C'  "7C"              	/* ASCII |		*/
+           0 0 '5' 'D'  "7D"              	/* ASCII }		*/
+           0 0 '5' 'E'  "7E"              	/* ASCII ~		*/
+           0 0 '5' 'F'  "7F"              	/* ASCII DELETE		*/

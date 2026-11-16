@@ -1,0 +1,44 @@
+Name      Count10;
+Partno    CA0018;
+Date      12/19/89;
+Revision  02;
+Designer  Kahl;
+Company   Logical Devices, Inc.;
+Assembly  None;
+Location  None;
+Device    g16v8;
+
+/****************************************************************/
+/*                                                              */
+/* Decade Counter                                               */
+/*                                                              */
+/****************************************************************/
+
+ORDER:  clk,clr,dir,!oe,%2,Q3..0,%1,carry;
+
+VECTORS:
+        C 100  LLLL L           /* synchronous clear to state 0 */
+        C 000  LLLH L           /* count up to state 1          */
+        C 000  LLHL L           /* count up to state 2          */
+        C 000  LLHH L           /* count up to state 3          */
+        C 000  LHLL L           /* count up to state 4          */
+        C 000  LHLH L           /* count up to state 5          */
+        C 000  LHHL L           /* count up to state 6          */
+        C 000  LHHH L           /* count up to state 7          */
+        C 000  HLLL L           /* count up to state 8          */
+        C 000  HLLH H           /* count up to state 9 - carry  */
+        C 000  LLLL L           /* count up to state 0          */
+        C 010  HLLH L           /* count down to state 9        */
+        C 010  HLLL L           /* count down to state 8        */
+        C 010  LHHH L           /* count down to state 7        */
+        C 010  LHHL L           /* count down to state 6        */
+        C 010  LHLH L           /* count down to state 5        */
+        C 010  LHLL L           /* count down to state 4        */
+        C 010  LLHH L           /* count down to state 3        */
+        C 010  LLHL L           /* count down to state 2        */
+        C 010  LLLH L           /* count down to state 1        */
+        C 010  LLLL H           /* count down to state 0 - carry*/
+        C 001  ZZZZ L           /* test tri-state               */
+        C 000  LLHL L           /* count up to state 2          */
+        C 100  LLLL L           /* synchronous clear to state 0 */
+

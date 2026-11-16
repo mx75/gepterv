@@ -1,0 +1,151 @@
+ð
+.OUTF
+Overview
+This keyword defines state output equations for Mealy and Moore
+machines.
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+        Moore machines
+            Statename.OUTF  =   Output expression
+        Mealy machines
+            Statename.OUTF  =   Condition 1 -> Output 1
+                                + Condition 2 -> Output 2
+                                ...
+                                + Condition n -> Output n
+                                +-> Local default
+
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Device Support:
+
+  PAL10H20EV8  PAL16R4    PAL16R6     PAL16R8     PAL16RP4  PAL16RP6
+  PAL16RP8     PALCE16V8  PAL18U8     PAL20R4     PAL20R6   PAL20R8
+  PAL20RS4     PAL20RS8   PAL20RS1    PALCE20V8   PAL20X4   PAL20X8
+  PAL20X10     PAL22RX8   PAL22V10    PAL23S8     PAL24R10  PAL24R4
+  PAL24R8      PAL26V12   PALCE29M16  PALCE29MA16 PAL32R16  PAL32VX10
+  PALCE610     PLS105     PLS167      PLS168      PLS30S16  MACH 1
+  MACH 2
+ú
+Syntax
+Include .OUTF in output equations in the state segment of
+state-machine designs.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+        Moore machines
+            Statename.OUTF  =   Output expression
+        Mealy machines
+            Statename.OUTF  =   Condition 1 -> Output 1
+                                + Condition 2 -> Output 2
+                                ...
+                                + Condition n -> Output n
+                                +-> Local default
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+        ...
+        Moore machines
+            TWO.OUTF        =   /CNT2 * CNT1 * /CNT0
+        Mealy machines
+            TWO.OUTF        =   RUN_UP -> /CNT2 * CNT1 * /CNT0
+                                ...
+                                TEST -> CNT2 * CNT1 * CNT0
+                                +-> /CNT2 * /CNT1 * /CNT0
+            ...
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+
+Statename       Identifies the name of the state as specified in the
+                state assignments or state-transition equations.  It
+                must be unique and it can have up to 14 alphanumeric
+                characters.
+
+Outputs         These are pin names with their appropriate logic sense
+                to create the desired logic values.  Outputs are
+                separated by an asterisk, *.  In the syntax example,
+                when the Moore machine is in state TWO, the output
+                bits CNT2, CNT1 and CNT0 will be 0, 1, and 0
+                respectively.
+
+                When the Mealy machine is in state TWO and the inputs
+                match the condition defined as RUN_UP, the output bits
+                CNT2, CNT1 and CNT0 will be 0, 1, and 0 respectively.
+
+                You specify the output values regardless of pin
+                polarity.  The software adjusts polarity as necessary.
+
+Conditions      In a Mealy machine, the outputs depend on the current
+                state and the current input conditions.  This field
+                defines the condition under which the specified output
+                will occur.  The condition names must be defined in
+                the conditions section of the state machine design.
+
+                If the condition consists of a single input, the input
+                name may be used in place of the condition name.  You
+                can use VCC to specify an unconditional output.
+
+                Moore machine outputs do not have conditions since
+                their outputs are determined only by the present
+                state.
+
+Local Default   This output is generated if none of the conditions is
+                satisfied.  Local defaults are valid only for Mealy
+                machines and will override global defaults.
+ú
+Use
+You can place output equations anywhere within the state segment.  You
+may prefer to have all the output equations after all the state
+equations or have a state equation and then its corresponding output
+equation.
+
+You can use the following operators in state output equations.
+
+    Operator      Definition
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+    ->            Conditional output for Mealy machines
+    +->           Local default for a Mealy machine
+    =             Combinatorial assignment operator
+    :=            Registered assignment operator
+
+For Mealy machines, conditions in an .OUTF equation don't have to
+match conditions in the state-transition equations.  However,
+conditions that don't match are unusual.
+
+You can omit the output equations if you use the state bits as
+outputs.  You do this by making the output pins the same as the state
+bits and preforming manual state bit assignment.
+
+If you omit output equations, don't use the following constructs.
+
+þ    DEFAULT_OUTPUT
+
+þ    OUTPUT_HOLD
+
+You can define some outputs with state bits and some with output
+equations.
+
+If you don't use the state bits as outputs, you must specify output
+equations.  Default output specifications are optional.
+
+Registered Mealy machine outputs are valid one clock cycle after
+reaching the new state.  Combinatorial Mealy and Moore machine outputs
+and registered Moore machine outputs are valid upon reaching the new
+state.  Undefined output pins have a don't-care value.
+ú
+Related Topics
+CONDITIONS
+DEFAULT_BRANCH
+DEFAULT_OUTPUT
+Local Default
+MEALY_MACHINE
+MOORE_MACHINE
+OPERATOR
+OUTPUT_HOLD
+STATE
+State Assignment Equation
+State Equation
+State Output Equation
+State Transition Equation
+ú
+

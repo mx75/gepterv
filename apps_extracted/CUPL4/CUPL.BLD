@@ -1,0 +1,28 @@
+/*
+ *  Build cupl.dl from pld20.dl, pld24.dl,
+ *  pld28.dl, pld40.dl, and proms.dl.
+ *  This .BLD file is used in BUILD.BAT
+ */
+
+/*
+ * Target library -- what is to be built
+ */
+
+target CUPL.DL
+
+/*
+ * Source libraries -- input libraries
+ * and devices to build the target from
+ */
+
+source  PLD20.dl
+        *
+source  PLD24.dl
+        *
+source  PLD28.dl
+        *
+source  PLD40.dl
+        *
+source  PROMS.dl
+        *
+

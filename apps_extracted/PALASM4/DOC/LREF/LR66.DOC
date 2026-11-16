@@ -1,0 +1,59 @@
+ğ
+.T EQUATION
+Overview
+This equation defines when to set the T input on T-type flip-flops to
+high.  
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+        Pn.T         Assignment operator     Expression
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Device Support:  PALCE610.
+ú
+Syntax
+Use the .T EQUATION in the equations segment of Boolean or
+state-machine designs.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+        Pn.T         Assignment operator     Expression
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+    EQUATIONS
+        ...
+        Q1.T                 =               IN1 * /IN2
+        ...
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+
+Pn.T            The pin or node associated with the T-type flip-flop.
+                The name must be defined in an earlier pin or node
+                statement in the declaration segment.
+
+Expression      Identifies the logic that defines when the input on
+                .T-type flip-flops is set high.  In the syntax
+                example, when IN1 is true and IN2 is false, the
+                flip-flop associated with the pin or node Q1 is set
+                high.
+ú
+Use
+You can place the .T EQUATION anywhere in the equations segment.
+Observe the following rules.
+
+ş    You cannot have multiple equations for the same pin.  If you do,
+     the software reports an error during compilation and processing
+     is halted.
+
+ş    You cannot use negative polarity on the left side of the
+     equation.  For example, /Q1.T is not allowed.
+
+ş    You can use the GROUP, STRING, and VECTOR notation to define
+     signals.  This is an excellent way to assign a .T equation to
+     several pins.
+ú
+Related Topics
+Boolean Equation
+EXPRESSION
+.S Equation
+ú

@@ -1,0 +1,5011 @@
+%!
+%%BoundingBox: (atend)
+%%Pages: (atend)
+%%DocumentFonts: (atend)
+%%EndComments
+%%BeginProlog
+%
+% FrameMaker postscript_prolog 3.0, for use with FrameMaker 3.0
+% This postscript_prolog file is Copyright (c) 1986-1991 Frame Technology
+% Corporation.  All rights reserved.  This postscript_prolog file may be
+% freely copied and distributed in conjunction with documents created using
+% FrameMaker.
+%
+% Known Problems:
+%	Due to bugs in Transcript, the 'PS-Adobe-' is omitted from line 1
+/FMversion (3.0) def 
+
+% Set up Color vs. Black-and-White
+
+/FMPrintInColor false def
+/colorimage where { pop
+    /currentcolortransfer where { pop
+	/FMPrintInColor true def
+	statusdict begin 
+	    /processcolors where { 
+		pop processcolors 1 le {
+		    /FMPrintInColor false def
+		} if
+	    }{
+		/deviceinfo where {
+		    pop deviceinfo /Colors known { 
+			deviceinfo /Colors get 1 le {
+			    /FMPrintInColor false def
+			} if
+		    } if
+		} if
+	    } ifelse
+	end
+	/currentcanvas where {  % NeWSprint?
+	    pop systemdict /separationdict known not {
+		/FMPrintInColor false def
+	    } if
+	} if
+    } if
+} if
+
+
+% Uncomment this line to force b&w on color printer
+%   /FMPrintInColor false def
+
+/FrameDict 195 dict def 
+systemdict /errordict known not {/errordict 10 dict def
+		errordict /rangecheck {stop} put} if
+% The readline in 23.0 doesn't recognize cr's as nl's on AppleTalk
+FrameDict /tmprangecheck errordict /rangecheck get put 
+errordict /rangecheck {FrameDict /bug true put} put 
+FrameDict /bug false put 
+mark 
+% Some PS machines read past the CR, so keep the following 3 lines together!
+currentfile 5 string readline
+00
+0000000000
+cleartomark 
+errordict /rangecheck FrameDict /tmprangecheck get put 
+FrameDict /bug get { 
+	/readline {
+		/gstring exch def
+		/gfile exch def
+		/gindex 0 def
+		{
+			gfile read pop 
+			dup 10 eq {exit} if 
+			dup 13 eq {exit} if 
+			gstring exch gindex exch put 
+			/gindex gindex 1 add def 
+		} loop
+		pop 
+		gstring 0 gindex getinterval true 
+		} def
+	} if
+/FMVERSION {
+	FMversion ne {
+		/Times-Roman findfont 18 scalefont setfont
+		100 100 moveto
+		(FrameMaker version does not match postscript_prolog!)
+		dup =
+		show showpage
+		} if
+	} def 
+/FMLOCAL {
+	FrameDict begin
+	0 def 
+	end 
+	} def 
+	/gstring FMLOCAL
+	/gfile FMLOCAL
+	/gindex FMLOCAL
+	/orgxfer FMLOCAL
+	/orgproc FMLOCAL
+	/organgle FMLOCAL
+	/orgfreq FMLOCAL
+	/yscale FMLOCAL
+	/xscale FMLOCAL
+	/manualfeed FMLOCAL
+	/paperheight FMLOCAL
+	/paperwidth FMLOCAL
+/FMDOCUMENT { 
+	array /FMfonts exch def 
+	/#copies exch def
+	FrameDict begin
+	0 ne dup {setmanualfeed} if
+	/manualfeed exch def
+	/paperheight exch def
+	/paperwidth exch def
+	/yscale exch def
+	/xscale exch def
+	currenttransfer cvlit /orgxfer exch def
+	currentscreen cvlit /orgproc exch def
+	/organgle exch def /orgfreq exch def
+	setpapername 
+	manualfeed {true} {papersize} ifelse 
+	{manualpapersize} {false} ifelse 
+	{desperatepapersize} if
+	end 
+	} def 
+	/pagesave FMLOCAL
+	/orgmatrix FMLOCAL
+	/landscape FMLOCAL
+/FMBEGINPAGE { 
+	FrameDict begin 
+	/pagesave save def
+	3.86 setmiterlimit
+	/landscape exch 0 ne def
+	landscape { 
+		90 rotate 0 exch neg translate pop 
+		}
+		{pop pop}
+		ifelse
+	xscale yscale scale
+	/orgmatrix matrix def
+	gsave 
+	} def 
+/FMENDPAGE {
+	grestore 
+	pagesave restore
+	end 
+	showpage
+	} def 
+/FMFONTDEFINE { 
+	FrameDict begin
+	findfont 
+	ReEncode 
+	1 index exch 
+	definefont 
+	FMfonts 3 1 roll 
+	put
+	end 
+	} def 
+/FMFILLS {
+	FrameDict begin
+	array /fillvals exch def
+	end 
+	} def 
+/FMFILL {
+	FrameDict begin
+	 fillvals 3 1 roll put
+	end 
+	} def 
+/FMNORMALIZEGRAPHICS { 
+	newpath
+	0.0 0.0 moveto
+	1 setlinewidth
+	0 setlinecap
+	0 0 0 sethsbcolor
+	0 setgray 
+	} bind def
+	/fx FMLOCAL
+	/fy FMLOCAL
+	/fh FMLOCAL
+	/fw FMLOCAL
+	/llx FMLOCAL
+	/lly FMLOCAL
+	/urx FMLOCAL
+	/ury FMLOCAL
+/FMBEGINEPSF { 
+	end 
+	/FMEPSF save def 
+	/showpage {} def 
+	FMNORMALIZEGRAPHICS 
+	[/fy /fx /fh /fw /ury /urx /lly /llx] {exch def} forall 
+	fx fy translate 
+	rotate
+	fw urx llx sub div fh ury lly sub div scale 
+	llx neg lly neg translate 
+	} bind def
+/FMENDEPSF {
+	FMEPSF restore
+	FrameDict begin 
+	} bind def
+FrameDict begin 
+/setmanualfeed {
+%%BeginFeature *ManualFeed True
+	 statusdict /manualfeed true put
+%%EndFeature
+	} def
+/max {2 copy lt {exch} if pop} bind def
+/min {2 copy gt {exch} if pop} bind def
+/inch {72 mul} def
+/pagedimen { 
+	paperheight sub abs 16 lt exch 
+	paperwidth sub abs 16 lt and
+	{/papername exch def} {pop} ifelse
+	} def
+	/papersizedict FMLOCAL
+/setpapername { 
+	/papersizedict 14 dict def 
+	papersizedict begin
+	/papername /unknown def 
+		/Letter 8.5 inch 11.0 inch pagedimen
+		/LetterSmall 7.68 inch 10.16 inch pagedimen
+		/Tabloid 11.0 inch 17.0 inch pagedimen
+		/Ledger 17.0 inch 11.0 inch pagedimen
+		/Legal 8.5 inch 14.0 inch pagedimen
+		/Statement 5.5 inch 8.5 inch pagedimen
+		/Executive 7.5 inch 10.0 inch pagedimen
+		/A3 11.69 inch 16.5 inch pagedimen
+		/A4 8.26 inch 11.69 inch pagedimen
+		/A4Small 7.47 inch 10.85 inch pagedimen
+		/B4 10.125 inch 14.33 inch pagedimen
+		/B5 7.16 inch 10.125 inch pagedimen
+	end
+	} def
+/papersize {
+	papersizedict begin
+		/Letter {lettertray letter} def
+		/LetterSmall {lettertray lettersmall} def
+		/Tabloid {11x17tray 11x17} def
+		/Ledger {ledgertray ledger} def
+		/Legal {legaltray legal} def
+		/Statement {statementtray statement} def
+		/Executive {executivetray executive} def
+		/A3 {a3tray a3} def
+		/A4 {a4tray a4} def
+		/A4Small {a4tray a4small} def
+		/B4 {b4tray b4} def
+		/B5 {b5tray b5} def
+		/unknown {unknown} def
+	papersizedict dup papername known {papername} {/unknown} ifelse get
+	end
+	/FMdicttop countdictstack 1 add def 
+	statusdict begin stopped end 
+	countdictstack -1 FMdicttop {pop end} for 
+	} def
+/manualpapersize {
+	papersizedict begin
+		/Letter {letter} def
+		/LetterSmall {lettersmall} def
+		/Tabloid {11x17} def
+		/Ledger {ledger} def
+		/Legal {legal} def
+		/Statement {statement} def
+		/Executive {executive} def
+		/A3 {a3} def
+		/A4 {a4} def
+		/A4Small {a4small} def
+		/B4 {b4} def
+		/B5 {b5} def
+		/unknown {unknown} def
+	papersizedict dup papername known {papername} {/unknown} ifelse get
+	end
+	stopped 
+	} def
+/desperatepapersize {
+	statusdict /setpageparams known
+		{
+		paperwidth paperheight 0 1 
+		statusdict begin
+		{setpageparams} stopped pop 
+		end
+		} if
+	} def
+/savematrix {
+	orgmatrix currentmatrix pop
+	} bind def
+/restorematrix {
+	orgmatrix setmatrix
+	} bind def
+/dmatrix matrix def
+/dpi    72 0 dmatrix defaultmatrix dtransform
+    dup mul exch   dup mul add   sqrt def
+/freq dpi 18.75 div 8 div round dup 0 eq {pop 1} if 8 mul dpi exch div def
+/sangle 1 0 dmatrix defaultmatrix dtransform exch atan def
+/DiacriticEncoding [
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /space /exclam /quotedbl
+/numbersign /dollar /percent /ampersand /quotesingle /parenleft
+/parenright /asterisk /plus /comma /hyphen /period /slash /zero /one
+/two /three /four /five /six /seven /eight /nine /colon /semicolon
+/less /equal /greater /question /at /A /B /C /D /E /F /G /H /I /J /K
+/L /M /N /O /P /Q /R /S /T /U /V /W /X /Y /Z /bracketleft /backslash
+/bracketright /asciicircum /underscore /grave /a /b /c /d /e /f /g /h
+/i /j /k /l /m /n /o /p /q /r /s /t /u /v /w /x /y /z /braceleft /bar
+/braceright /asciitilde /.notdef /Adieresis /Aring /Ccedilla /Eacute
+/Ntilde /Odieresis /Udieresis /aacute /agrave /acircumflex /adieresis
+/atilde /aring /ccedilla /eacute /egrave /ecircumflex /edieresis
+/iacute /igrave /icircumflex /idieresis /ntilde /oacute /ograve
+/ocircumflex /odieresis /otilde /uacute /ugrave /ucircumflex
+/udieresis /dagger /.notdef /cent /sterling /section /bullet
+/paragraph /germandbls /registered /copyright /trademark /acute
+/dieresis /.notdef /AE /Oslash /.notdef /.notdef /.notdef /.notdef
+/yen /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/ordfeminine /ordmasculine /.notdef /ae /oslash /questiondown
+/exclamdown /logicalnot /.notdef /florin /.notdef /.notdef
+/guillemotleft /guillemotright /ellipsis /.notdef /Agrave /Atilde
+/Otilde /OE /oe /endash /emdash /quotedblleft /quotedblright
+/quoteleft /quoteright /.notdef /.notdef /ydieresis /Ydieresis
+/fraction /currency /guilsinglleft /guilsinglright /fi /fl /daggerdbl
+/periodcentered /quotesinglbase /quotedblbase /perthousand
+/Acircumflex /Ecircumflex /Aacute /Edieresis /Egrave /Iacute
+/Icircumflex /Idieresis /Igrave /Oacute /Ocircumflex /.notdef /Ograve
+/Uacute /Ucircumflex /Ugrave /dotlessi /circumflex /tilde /macron
+/breve /dotaccent /ring /cedilla /hungarumlaut /ogonek /caron
+] def
+/ReEncode { 
+	dup 
+	length 
+	dict begin 
+	{
+	1 index /FID ne 
+		{def} 
+		{pop pop} ifelse 
+	} forall 
+	0 eq {/Encoding DiacriticEncoding def} if 
+	currentdict 
+	end 
+	} bind def
+/graymode true def
+	/bwidth FMLOCAL
+	/bpside FMLOCAL
+	/bstring FMLOCAL
+	/onbits FMLOCAL
+	/offbits FMLOCAL
+	/xindex FMLOCAL
+	/yindex FMLOCAL
+	/x FMLOCAL
+	/y FMLOCAL
+/setpattern {
+	 /bwidth  exch def
+	 /bpside  exch def
+	 /bstring exch def
+	 /onbits 0 def  /offbits 0 def
+	 freq sangle landscape {90 add} if 
+		{/y exch def
+		 /x exch def
+		 /xindex x 1 add 2 div bpside mul cvi def
+		 /yindex y 1 add 2 div bpside mul cvi def
+		 bstring yindex bwidth mul xindex 8 idiv add get
+		 1 7 xindex 8 mod sub bitshift and 0 ne
+		 {/onbits  onbits  1 add def 1}
+		 {/offbits offbits 1 add def 0}
+		 ifelse
+		}
+		setscreen
+	 {} settransfer
+	 offbits offbits onbits add div FMsetgray
+	/graymode false def
+	} bind def
+/grayness {
+	FMsetgray
+	graymode not {
+		/graymode true def
+		orgxfer cvx settransfer
+		orgfreq organgle orgproc cvx setscreen
+		} if
+	} bind def
+	/HUE FMLOCAL
+	/SAT FMLOCAL
+	/BRIGHT FMLOCAL
+	/Colors FMLOCAL
+FMPrintInColor 
+	
+	{
+	/HUE 0 def
+	/SAT 0 def
+	/BRIGHT 0 def
+	% array of arrays Hue and Sat values for the separations [HUE BRIGHT]
+	/Colors   
+	[[0    0  ]    % black
+	 [0    0  ]    % white
+	 [0.00 1.0]    % red
+	 [0.37 1.0]    % green
+	 [0.60 1.0]    % blue
+	 [0.50 1.0]    % cyan
+	 [0.83 1.0]    % magenta
+	 [0.16 1.0]    % comment / yellow
+	 ] def
+      
+	/BEGINBITMAPCOLOR { 
+		BITMAPCOLOR} def
+	/BEGINBITMAPCOLORc { 
+		BITMAPCOLORc} def
+	/BEGINBITMAPTRUECOLOR { 
+		BITMAPTRUECOLOR } def
+	/BEGINBITMAPTRUECOLORc { 
+		BITMAPTRUECOLORc } def
+	/K { 
+		Colors exch get dup
+		0 get /HUE exch store 
+		1 get /BRIGHT exch store
+		  HUE 0 eq BRIGHT 0 eq and
+			{1.0 SAT sub setgray}
+			{HUE SAT BRIGHT sethsbcolor} 
+		  ifelse
+		} def
+	/FMsetgray { 
+		/SAT exch 1.0 exch sub store 
+		  HUE 0 eq BRIGHT 0 eq and
+			{1.0 SAT sub setgray}
+			{HUE SAT BRIGHT sethsbcolor} 
+		  ifelse
+		} bind def
+	}
+	
+	{
+	/BEGINBITMAPCOLOR { 
+		BITMAPGRAY} def
+	/BEGINBITMAPCOLORc { 
+		BITMAPGRAYc} def
+	/BEGINBITMAPTRUECOLOR { 
+		BITMAPTRUEGRAY } def
+	/BEGINBITMAPTRUECOLORc { 
+		BITMAPTRUEGRAYc } def
+	/FMsetgray {setgray} bind def
+	/K { 
+		pop
+		} def
+	}
+ifelse
+/normalize {
+	transform round exch round exch itransform
+	} bind def
+/dnormalize {
+	dtransform round exch round exch idtransform
+	} bind def
+/lnormalize { 
+	0 dtransform exch cvi 2 idiv 2 mul 1 add exch idtransform pop
+	} bind def
+/H { 
+	lnormalize setlinewidth
+	} bind def
+/Z {
+	setlinecap
+	} bind def
+	/fillvals FMLOCAL
+/X { 
+	fillvals exch get
+	dup type /stringtype eq
+	{8 1 setpattern} 
+	{grayness}
+	ifelse
+	} bind def
+/V { 
+	gsave eofill grestore
+	} bind def
+/N { 
+	stroke
+	} bind def
+/M {newpath moveto} bind def
+/E {lineto} bind def
+/D {curveto} bind def
+/O {closepath} bind def
+	/n FMLOCAL
+/L { 
+ 	/n exch def
+	newpath
+	normalize
+	moveto 
+	2 1 n {pop normalize lineto} for
+	} bind def
+/Y { 
+	L 
+	closepath
+	} bind def
+	/x1 FMLOCAL
+	/x2 FMLOCAL
+	/y1 FMLOCAL
+	/y2 FMLOCAL
+	/rad FMLOCAL
+/R { 
+	/y2 exch def
+	/x2 exch def
+	/y1 exch def
+	/x1 exch def
+	x1 y1
+	x2 y1
+	x2 y2
+	x1 y2
+	4 Y 
+	} bind def
+/RR { 
+	/rad exch def
+	normalize
+	/y2 exch def
+	/x2 exch def
+	normalize
+	/y1 exch def
+	/x1 exch def
+	newpath
+	x1 y1 rad add moveto
+	x1 y2 x2 y2 rad arcto
+	x2 y2 x2 y1 rad arcto
+	x2 y1 x1 y1 rad arcto
+	x1 y1 x1 y2 rad arcto
+	closepath
+	16 {pop} repeat
+	} bind def
+/C { 
+	grestore
+	gsave
+	R 
+	clip
+	} bind def
+	/FMpointsize FMLOCAL
+/F { 
+	FMfonts exch get
+	FMpointsize scalefont
+	setfont
+	} bind def
+/Q { 
+	/FMpointsize exch def
+	F 
+	} bind def
+/T { 
+	moveto show
+	} bind def
+/RF { 
+	rotate
+	0 ne {-1 1 scale} if
+	} bind def
+/TF { 
+	gsave
+	moveto 
+	RF
+	show
+	grestore
+	} bind def
+/P { 
+	moveto
+	0 32 3 2 roll widthshow
+	} bind def
+/PF { 
+	gsave
+	moveto 
+	RF
+	0 32 3 2 roll widthshow
+	grestore
+	} bind def
+/S { 
+	moveto
+	0 exch ashow
+	} bind def
+/SF { 
+	gsave
+	moveto
+	RF
+	0 exch ashow
+	grestore
+	} bind def
+/B { 
+	moveto
+	0 32 4 2 roll 0 exch awidthshow
+	} bind def
+/BF { 
+	gsave
+	moveto
+	RF
+	0 32 4 2 roll 0 exch awidthshow
+	grestore
+	} bind def
+/G { 
+	gsave
+	newpath
+	normalize translate 0.0 0.0 moveto 
+	dnormalize scale 
+	0.0 0.0 1.0 5 3 roll arc 
+	closepath fill
+	grestore
+	} bind def
+/A { 
+	gsave
+	savematrix
+	newpath
+	2 index 2 div add exch 3 index 2 div sub exch 
+	normalize 2 index 2 div sub exch 3 index 2 div add exch 
+	translate 
+	scale 
+	0.0 0.0 1.0 5 3 roll arc 
+	restorematrix
+	stroke
+	grestore
+	} bind def
+	/x FMLOCAL
+	/y FMLOCAL
+	/w FMLOCAL
+	/h FMLOCAL
+	/xx FMLOCAL
+	/yy FMLOCAL
+	/ww FMLOCAL
+	/hh FMLOCAL
+	/FMsaveobject FMLOCAL
+	/FMoptop FMLOCAL
+	/FMdicttop FMLOCAL
+/BEGINPRINTCODE { 
+	/FMdicttop countdictstack 1 add def 
+	/FMoptop count 4 sub def 
+	/FMsaveobject save def
+	userdict begin 
+	/showpage {} def 
+	FMNORMALIZEGRAPHICS 
+	3 index neg 3 index neg translate
+	} bind def
+/ENDPRINTCODE {
+	count -1 FMoptop {pop pop} for 
+	countdictstack -1 FMdicttop {pop end} for 
+	FMsaveobject restore 
+	} bind def
+/gn { 
+	0 
+	{	46 mul 
+		cf read pop 
+		32 sub 
+		dup 46 lt {exit} if 
+		46 sub add 
+		} loop
+	add 
+	} bind def
+	/str FMLOCAL
+/cfs { 
+	/str sl string def 
+	0 1 sl 1 sub {str exch val put} for 
+	str def 
+	} bind def
+/ic [ 
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0223
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0223
+	0
+	{0 hx} {1 hx} {2 hx} {3 hx} {4 hx} {5 hx} {6 hx} {7 hx} {8 hx} {9 hx}
+	{10 hx} {11 hx} {12 hx} {13 hx} {14 hx} {15 hx} {16 hx} {17 hx} {18 hx}
+	{19 hx} {gn hx} {0} {1} {2} {3} {4} {5} {6} {7} {8} {9} {10} {11} {12}
+	{13} {14} {15} {16} {17} {18} {19} {gn} {0 wh} {1 wh} {2 wh} {3 wh}
+	{4 wh} {5 wh} {6 wh} {7 wh} {8 wh} {9 wh} {10 wh} {11 wh} {12 wh}
+	{13 wh} {14 wh} {gn wh} {0 bl} {1 bl} {2 bl} {3 bl} {4 bl} {5 bl} {6 bl}
+	{7 bl} {8 bl} {9 bl} {10 bl} {11 bl} {12 bl} {13 bl} {14 bl} {gn bl}
+	{0 fl} {1 fl} {2 fl} {3 fl} {4 fl} {5 fl} {6 fl} {7 fl} {8 fl} {9 fl}
+	{10 fl} {11 fl} {12 fl} {13 fl} {14 fl} {gn fl}
+	] def
+	/sl FMLOCAL
+	/val FMLOCAL
+	/ws FMLOCAL
+	/im FMLOCAL
+	/bs FMLOCAL
+	/cs FMLOCAL
+	/len FMLOCAL
+	/pos FMLOCAL
+/ms { 
+	/sl exch def 
+	/val 255 def 
+	/ws cfs 
+	/im cfs 
+	/val 0 def 
+	/bs cfs 
+	/cs cfs 
+	} bind def
+400 ms 
+/ip { 
+	is 
+	0 
+	cf cs readline pop 
+	{	ic exch get exec 
+		add 
+		} forall 
+	pop 
+	
+	} bind def
+/wh { 
+	/len exch def 
+	/pos exch def 
+	ws 0 len getinterval im pos len getinterval copy pop
+	pos len 
+	} bind def
+/bl { 
+	/len exch def 
+	/pos exch def 
+	bs 0 len getinterval im pos len getinterval copy pop
+	pos len 
+	} bind def
+/s1 1 string def
+/fl { 
+	/len exch def 
+	/pos exch def 
+	/val cf s1 readhexstring pop 0 get def
+	pos 1 pos len add 1 sub {im exch val put} for
+	pos len 
+	} bind def
+/hx { 
+	3 copy getinterval 
+	cf exch readhexstring pop pop 
+	} bind def
+	/h FMLOCAL
+	/w FMLOCAL
+	/d FMLOCAL
+	/lb FMLOCAL
+	/bitmapsave FMLOCAL
+	/is FMLOCAL
+	/cf FMLOCAL
+/wbytes { 
+	dup 
+	8 eq {pop} {1 eq {7 add 8 idiv} {3 add 4 idiv} ifelse} ifelse
+	} bind def
+/BEGINBITMAPBWc { 
+	1 {} COMMONBITMAPc
+	} bind def
+/BEGINBITMAPGRAYc { 
+	8 {} COMMONBITMAPc
+	} bind def
+/BEGINBITMAP2BITc { 
+	2 {} COMMONBITMAPc
+	} bind def
+/COMMONBITMAPc { 
+	/r exch def
+	/d exch def
+	gsave
+	translate rotate scale /h exch def /w exch def
+	/lb w d wbytes def 
+	sl lb lt {lb ms} if 
+	/bitmapsave save def 
+	r                    
+	/is im 0 lb getinterval def 
+	ws 0 lb getinterval is copy pop 
+	/cf currentfile def 
+	w h d [w 0 0 h neg 0 h] 
+	{ip} image 
+	bitmapsave restore 
+	grestore
+	} bind def
+/BEGINBITMAPBW { 
+	1 {} COMMONBITMAP
+	} bind def
+/BEGINBITMAPGRAY { 
+	8 {} COMMONBITMAP
+	} bind def
+/BEGINBITMAP2BIT { 
+	2 {} COMMONBITMAP
+	} bind def
+/COMMONBITMAP { 
+	/r exch def
+	/d exch def
+	gsave
+	translate rotate scale /h exch def /w exch def
+	/bitmapsave save def 
+	r                    
+	/is w d wbytes string def
+	/cf currentfile def 
+	w h d [w 0 0 h neg 0 h] 
+	{cf is readhexstring pop} image
+	bitmapsave restore 
+	grestore
+	} bind def
+	/proc1 FMLOCAL
+	/proc2 FMLOCAL
+	/newproc FMLOCAL
+/Fmcc {
+    /proc2 exch cvlit def
+    /proc1 exch cvlit def
+    /newproc proc1 length proc2 length add array def
+    newproc 0 proc1 putinterval
+    newproc proc1 length proc2 putinterval
+    newproc cvx
+} bind def
+/ngrayt 256 array def
+/nredt 256 array def
+/nbluet 256 array def
+/ngreent 256 array def
+	/gryt FMLOCAL
+	/blut FMLOCAL
+	/grnt FMLOCAL
+	/redt FMLOCAL
+	/indx FMLOCAL
+	/cynu FMLOCAL
+	/magu FMLOCAL
+	/yelu FMLOCAL
+	/k FMLOCAL
+	/u FMLOCAL
+/colorsetup {
+	currentcolortransfer
+	/gryt exch def
+	/blut exch def
+	/grnt exch def
+	/redt exch def
+	0 1 255 {
+		/indx exch def
+		/cynu 1 red indx get 255 div sub def
+		/magu 1 green indx get 255 div sub def
+		/yelu 1 blue indx get 255 div sub def
+		/k cynu magu min yelu min def
+		/u k currentundercolorremoval exec def
+		nredt indx 1 0 cynu u sub max sub redt exec put
+		ngreent indx 1 0 magu u sub max sub grnt exec put
+		nbluet indx 1 0 yelu u sub max sub blut exec put
+		ngrayt indx 1 k currentblackgeneration exec sub gryt exec put
+	} for
+	{255 mul cvi nredt exch get}
+	{255 mul cvi ngreent exch get}
+	{255 mul cvi nbluet exch get}
+	{255 mul cvi ngrayt exch get}
+	setcolortransfer
+	{pop 0} setundercolorremoval
+	{} setblackgeneration
+	} bind def
+	/tran FMLOCAL
+/fakecolorsetup {
+	/tran 256 string def
+	0 1 255 {/indx exch def 
+		tran indx
+		red indx get 77 mul
+		green indx get 151 mul
+		blue indx get 28 mul
+		add add 256 idiv put} for
+	currenttransfer
+	{255 mul cvi tran exch get 255.0 div}
+	exch Fmcc settransfer
+} bind def
+/BITMAPCOLOR { 
+	/d 8 def
+	gsave
+	translate rotate scale /h exch def /w exch def
+	/bitmapsave save def 
+	colorsetup
+	/is w d wbytes string def
+	/cf currentfile def 
+	w h d [w 0 0 h neg 0 h] 
+	{cf is readhexstring pop} {is} {is} true 3 colorimage 
+	bitmapsave restore 
+	grestore
+	} bind def
+/BITMAPCOLORc { 
+	/d 8 def
+	gsave
+	translate rotate scale /h exch def /w exch def
+	/lb w d wbytes def 
+	sl lb lt {lb ms} if 
+	/bitmapsave save def 
+	colorsetup
+	/is im 0 lb getinterval def 
+	ws 0 lb getinterval is copy pop 
+	/cf currentfile def 
+	w h d [w 0 0 h neg 0 h] 
+	{ip} {is} {is} true 3 colorimage
+	bitmapsave restore 
+	grestore
+	} bind def
+/BITMAPTRUECOLORc { 
+        gsave
+        translate rotate scale /h exch def /w exch def
+        /bitmapsave save def 
+        
+        /is w string def
+        
+        ws 0 w getinterval is copy pop 
+        /cf currentfile def 
+        w h 8 [w 0 0 h neg 0 h] 
+        {ip} {gip} {bip} true 3 colorimage
+        bitmapsave restore 
+        grestore
+        } bind def
+/BITMAPTRUECOLOR { 
+        gsave
+        translate rotate scale /h exch def /w exch def
+        /bitmapsave save def 
+        /is w string def
+        /gis w string def
+        /bis w string def
+        /cf currentfile def 
+        w h 8 [w 0 0 h neg 0 h] 
+        { cf is readhexstring pop } 
+        { cf gis readhexstring pop } 
+        { cf bis readhexstring pop } 
+        true 3 colorimage 
+        bitmapsave restore 
+        grestore
+        } bind def
+/BITMAPTRUEGRAYc { 
+        gsave
+        translate rotate scale /h exch def /w exch def
+        /bitmapsave save def 
+        
+        /is w string def
+        
+        ws 0 w getinterval is copy pop 
+        /cf currentfile def 
+        w h 8 [w 0 0 h neg 0 h] 
+        {ip gip bip w gray} image
+        bitmapsave restore 
+        grestore
+        } bind def
+/ww FMLOCAL
+/r FMLOCAL
+/g FMLOCAL
+/b FMLOCAL
+/i FMLOCAL
+/gray { 
+        /ww exch def
+        /b exch def
+        /g exch def
+        /r exch def
+        0 1 ww 1 sub { /i exch def r i get .299 mul g i get .587 mul
+			b i get .114 mul add add r i 3 -1 roll floor cvi put } for
+        r
+        } bind def
+/BITMAPTRUEGRAY { 
+        gsave
+        translate rotate scale /h exch def /w exch def
+        /bitmapsave save def 
+        /is w string def
+        /gis w string def
+        /bis w string def
+        /cf currentfile def 
+        w h 8 [w 0 0 h neg 0 h] 
+        { cf is readhexstring pop 
+          cf gis readhexstring pop 
+          cf bis readhexstring pop w gray}  image
+        bitmapsave restore 
+        grestore
+        } bind def
+/BITMAPGRAY { 
+	8 {fakecolorsetup} COMMONBITMAP
+	} bind def
+/BITMAPGRAYc { 
+	8 {fakecolorsetup} COMMONBITMAPc
+	} bind def
+/ENDBITMAP {
+	} bind def
+end 
+	/ALDsave FMLOCAL
+	/ALDmatrix matrix def ALDmatrix currentmatrix pop
+/StartALD {
+	/ALDsave save def
+	 savematrix
+	 ALDmatrix setmatrix
+	} bind def
+/InALD {
+	 restorematrix
+	} bind def
+/DoneALD {
+	 ALDsave restore
+	} bind def
+%%EndProlog
+%%BeginSetup
+(3.0) FMVERSION
+1 1 612 792 0 1 19 FMDOCUMENT
+0 0 /Times-Roman FMFONTDEFINE
+1 0 /Helvetica FMFONTDEFINE
+2 0 /Helvetica-Bold FMFONTDEFINE
+3 1 /Symbol FMFONTDEFINE
+4 0 /Helvetica-Oblique FMFONTDEFINE
+5 0 /Helvetica-BoldOblique FMFONTDEFINE
+6 0 /Courier FMFONTDEFINE
+7 0 /Courier-Bold FMFONTDEFINE
+32 FMFILLS
+0 0 FMFILL
+1 0.1 FMFILL
+2 0.3 FMFILL
+3 0.5 FMFILL
+4 0.7 FMFILL
+5 0.9 FMFILL
+6 0.97 FMFILL
+7 1 FMFILL
+8 <0f1e3c78f0e1c387> FMFILL
+9 <0f87c3e1f0783c1e> FMFILL
+10 <cccccccccccccccc> FMFILL
+11 <ffff0000ffff0000> FMFILL
+12 <8142241818244281> FMFILL
+13 <03060c183060c081> FMFILL
+14 <8040201008040201> FMFILL
+16 1 FMFILL
+17 0.9 FMFILL
+18 0.7 FMFILL
+19 0.5 FMFILL
+20 0.3 FMFILL
+21 0.1 FMFILL
+22 0.03 FMFILL
+23 0 FMFILL
+24 <f0e1c3870f1e3c78> FMFILL
+25 <f0783c1e0f87c3e1> FMFILL
+26 <3333333333333333> FMFILL
+27 <0000ffff0000ffff> FMFILL
+28 <7ebddbe7e7dbbd7e> FMFILL
+29 <fcf9f3e7cf9f3f7e> FMFILL
+30 <7fbfdfeff7fbfdfe> FMFILL
+%%EndSetup
+%%Page: "0" 1
+%%BeginPaperSize: Letter
+%%EndPaperSize
+612 792 0 FMBEGINPAGE
+0 10 Q
+0 X
+0 K
+(0) 303.5 36.66 T
+1 24 Q
+(Designing FLEXlogic Loader Circuits) 93.1 380 T
+2 10 Q
+(RICHARD VIREDA) 93.6 165.33 T
+(Y) 179.34 165.33 T
+(JOHN LOGUE) 388.8 165.33 T
+1 F
+(INTEL CORPORA) 91 153.33 T
+(TION) 171.94 153.33 T
+(ST) 360 153.33 T
+(AR POINT TECHNOLOGY) 372.04 153.33 T
+2 F
+(JIM BURNELL) 254.38 141.33 T
+1 F
+(A) 247.79 129.33 T
+(T&T BELL LABS) 253.72 129.33 T
+73 73 504 576 R
+0.5 H
+0 Z
+N
+%%BeginBinary:  5883     
+488 675 65.12 82 0 261 594 BEGINBITMAPBWc
+
+
+
+
+
+
+
+
+
+
+
+
+
+J$
+O)C0007FJ"b"
+O%C003J#
+O$8000J#
+O#8000J#
+O"F000J"
+O"00J"
+O!F0J#
+O FE00J"
+O F0J"
+O 80J#
+MFE00J"
+MF8J"
+MC0J"
+M00J"
+LF8J"
+LF0J"
+LC0J"
+L80J#
+KFE00J"
+KFCJ"
+KF8J"
+KE0J"
+KC0J"
+K80J#
+JFE00J#
+ICFFCJ"
+I8FJ#
+I1FF8J$
+HFE3FF0J$
+HFC3FE0J#
+HF87FJ$
+HF07FC0J$
+HE0FF80J"
+HC0J$
+H81FF00J"
+H03J$
+GFE03FEJ#
+GFC07J$
+GF807FCJ#
+GF00FJ$
+GE00FF8J#
+GC01FJ"
+G80J"
+G00J%
+FFE003FF0J"
+FFCJ"
+FF8J$
+FF0007FJ"8"
+FE0E0J"
+FC0J"
+F80J%
+F0000FFC0J"
+EFEJ"
+EFCJ"
+EF8J&
+EF00001FF80J"
+EE0J"
+EC0J$
+E800003J"9"
+E0000J"
+DFEJ"
+DFCJ"8"
+DF807J"
+DF0J"
+DE0J"9"
+DC0FEJ"
+D80J"
+D00J"
+CFEJ"
+CFCJ"9"
+CF80FJ"
+CF0J"
+CE0J"
+CC0J":"
+C80FCJ"
+C00J"
+BFEJ":"
+BFC1FJ"
+BF8J"
+BF0J"
+BE0J"
+BC0J"
+B80J";"
+B00F8J"
+AFEJ"
+AFCJ"
+AF8J"
+AF0J";"
+AE03FJ"
+AC0J"
+A80J"
+A00J"
+@FEJ"
+@FCJ"
+@F8J"
+@F0J"
+@E0J"
+@C0J"
+@80J"
+@00J"
+?FEJ"
+?FCJ"
+?F8J"
+?F0J"
+?E0J"
+?C0J"
+?80J"
+?00J"
+>FEJ"
+>FCJ"
+>F8J"
+>F0J"
+>E0J"
+>C0J"
+>80J"
+>00J"
+=FEJ"
+=FCJ"
+=F8J"
+=F0J"
+=E0J"
+=C0J"
+=80J"
+=00J"
+<FEJ"
+<FCJ"
+<F8J"
+<F0J"
+<E0J"
+<C0J"
+<80J"
+<00J"
+;FEJ"
+;FCJ"
+;F8J"
+;F0J"
+;E0J"
+;C0J"
+;80J"
+;00J"
+:FEJ"
+:FCJ"
+:F8J"
+:F0J"
+:E0J"
+:C0J"
+:80J"
+:00J"
+9FEJ"
+9FCJ"
+9F8J"
+9F0J"
+9E0J"
+9C0J"
+980J"
+900J"
+8FEJ"
+8FCJ"
+8F8J"
+8F0J"
+8E0J"
+8C0J"
+880J"
+800J"
+7FEJ"
+7FCJ"
+7F8J"
+7F0J"
+7E0J"FZ
+7C04J"
+780J"
+700J"
+6FEJ"
+6FC
+J"
+6F8J"
+6F0J"
+6E0J"
+6C0J"
+680
+J"
+600J"
+5FEJ"
+5FCJ"
+5F8J"
+5F0
+J"
+5E0J"
+5C0J"
+580J"
+500
+J"
+4FE
+J"
+4FCJ"
+4F8
+J"
+4F0
+J"
+4E0
+J"
+4C0
+J"
+480
+J"
+400I"
+FE
+I"
+FC
+I"
+F8
+I"
+F0
+I"
+E0
+
+I"J"e"
+C05E07FJ"@#
+IF0003FJ"A"
+IF807I"J"A"
+805FE00J"B"
+IFF0FJ"A"
+JC003J"A"
+JE001I"J"A#
+006F8007FJ"
+O)1FJ"B"
+JFC07H"J"B"
+FE7FE03J"B"
+JFF00J"B"
+K807FH"J"
+FCE3FJ"B"
+KC00FJ"B"
+KE007H"J"B"
+F88F003J"B"
+KF801J"B"
+KFC00H"
+F0J"
+O+7FJ"C"
+KFE3FJ"
+O+1FJ"C"
+KFF0FJ"
+O+07H"J"
+E0980J"
+O+03J"
+O+01J"B"
+LC000J"
+O,7FJ"C"
+LE03F
+J"C"
+LF01FJ"
+O,0F
+H"J"C"
+C09F807
+J"
+O,03
+J"
+O,01
+J"
+O,00J"
+LFCJ"
+O-7F
+H"J"
+80H3F
+J"
+O-1F
+J"
+O-0FJ"
+LFE
+J"
+O-07
+J"
+O-03
+
+J"
+O-07
+J"
+O-0F
+J"D"
+LFC1F
+
+J"
+O-3F
+J"
+O-7F
+J"D"
+LF8FF
+J"
+O,01
+J"
+O,03
+J"
+O,07
+J"C"
+LF00F
+J"C"
+LE01FJ"
+O,3FJ"
+O,7FJ"
+LC0J"
+O,FFJ"B"
+L8001J"
+O+03J"B"
+L0007J"
+O+0F
+J"C"
+KFE1FJ"
+O+3FJ"C"
+KFC7FJ"
+O+FFJ"
+KF8J"
+O*01J"B"
+KF003J"B"
+KE007J"B"
+KC01FJ"B"
+K803FJ"
+O*7FJ"B"
+K00FFJ"B"
+JFE03J"B"
+JFC07J"B"
+JF81FJ"B"
+JF07FJ"A#
+JE001FFJ"A"
+J8007J"A"
+J001FJ"B"
+IFCFFJ"A"
+IF807J"A"
+IE07FJ$
+O%01FFFFJV
+I
+
+
+
+
+
+
+
+
+
+J"
+G7F
+
+H"
+00
+
+
+
+
+
+J"
+GFF
+
+G"
+FE
+
+
+
+
+
+J"
+F01
+G"
+FC
+
+
+G"J"
+F8403
+
+G"
+F0J"
+F07
+G"
+E0J"
+F0F
+G"
+C0J"
+F1F
+G"
+80J"
+F3F
+G"
+00
+J"
+F7FF"
+FE
+J"
+FFFF"
+FC
+F"J"
+F8401F"
+F0J"
+E03F"
+E0J"
+E07F"
+C0F"J"
+8040F
+F"J"
+0041FJ"
+E3FE"
+FEE"J"
+FC57F
+E"J"
+F85FF
+E"J"
+F0401
+E"J"
+E0403E"
+C0E"J"
+80407E"J"
+0040FD"
+FEJ"
+D1FD"
+FCD"J"
+F853FD"J"
+F057FD"J"
+E05FFD"J"
+C0401D"
+80D"J"
+00403C"J"
+FE507C"J"
+FC50FC"J"
+F851FC"J"
+F053FC"
+E0C"J"
+C057FC"J"
+805FFC"J"
+00401B"J"
+FC503B"
+F8B"J"
+F0507B"J"
+C050FB"J"
+8051FA#J"
+FE0053FA"J"
+FC67FA"J"
+F86FFA"J"
+E0503A"J"
+C0507A"J"
+0050F@"J"
+FE61F@"J"
+F867F@"J"
+E06FF@"J"
+80501?#J"
+FC00503?"J"
+F0607?"J"
+C061F?"J"
+0063F>"J"
+FC77F>"J"
+F07FF>"J"
+80603=#J"
+FE0060F="J"
+E071F<#J"
+FE0077F<"J#
+E0701FF;#J"
+FE00707;"J"
+E081F:#J"
+FE0087F9#J"
+E0009FF7$J"
+FE00009037"J"
+F0;0FJ"
+=3FJ"
+=FFJ"
+<07J"
+<7FJ#
+;03FFJ"
+;1FJ"
+;FFJ"
+:07J"
+:7FJ#
+91FFFJ#
+87FFFJ$
+601FFFF7Z
+6
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+J"
+O&F8J#
+O&E03F"b'9"a/D#
+FE38000000003F8007F8000000003F0000001E00001F800FJ#
+O&0007
+J"
+O%FE#<":"9"="9$8#G"
+FF803FFFE0FE03FFF07F80037"8#9"8":"9"9#8(
+F803E0F01FFFFEFF801FFFFC0007FFE07"8$;"=$9":$G"
+FC1FFFC03F07FFF8E0FE000FFC7"8$8"8";"9"<"9$G"
+FE3FFFF0F87F80FE3F1FFFF001<"8">"9#8"<"
+FCFCC0FFC0F07F<";"="8"8"8"9"
+FEFF0FE0F81FFF:%E">"H$
+7FFFFF80F001FE00037"J"
+FF8FC="E";%J"
+C0F80FFFFC03407J"8";"H"
+7FCFE07FF="E"8"8$
+E0FEFF07FFF8="J#I#
+F07F00F800FJ$8"I#
+;8000031FE03FJ";$J#
+7FF01FFE04F8FF="I":"I"
+F8C03FFFJ&
+;E00000FFC0<"E">#
+1FE1807FJ"8"8$
+887F07F80FF;$J"
+FE1FFC700J"8#
+;F83F01J"=#?";"?#
+6C13E03E7F9FC7F=#E"8"8"?$9$>#
+FFFFFFFC1CFE007FFE001F8003J"8#>$9$8$8$
+;FE0C07E00007F00000C00003FC0000;"J#>$9"8#;"8"
+FC8080F800001C00001F83FJ"8"?$9"?"8"
+;FF0000000080E01F;"F">"=*>%
+F8811FFE0008007FFFFE0004C002000FJ";"8"=+8":%
+601803FFC007E003FFFFC001F80E0000F8007J+8"9&
+GF000FF001FFFF8003FC0FCFE003F8003;"E"<"8"=#8$?"8"
+F0FEC07FE00107FFF0FCC0;"J"8"="8":#>$
+E06E0FFC0807FE07FC001;"E"J$:":"
+C0FC503FFE0FFF8;"E"<"@%>"9$
+80F0F08003FFC0FEF000FF:#E"?"A&8"
+7C00C07F01FFC000FF7F:"E#<"8"=#D"9"
+000000F83F0007E000J"D":$:#
+<FC00F0003FC001J"<"<"B"
+?1FFE80E0J"E"@"9"
+<FE7F8001J"<"
+?0FFCJ"E"
+<FF3F:"E#?"H">"
+780FC0071F03:"F"="B"E#
+7FE080E0F007;"E"?"J"8#
+80F803700FC1F;"E"?"<"I#
+E0FC01F8FFFF;"E"="J"
+F0FE00:03;"E"<"8"B";"
+F8FFFE001F3F
+J";"9"E"
+681FC7FE0;"J#E":"9$
+FC6F808C07FFE0001J"<"8"="
+6C11C3F0F;"J"?"<$
+FE6F0F0E0007FF"A#8"
+83E03E1FJ"E"8$
+=7EF0C000FFF"=#8#8";$:$
+87FC3FC07F0FF80007F8003FF";";#8"B"8#
+07E180FF07FC8001J";"D&
+8F880FF000E0003;"?"B"9"C%
+FFFE010380000007J"8%E"8"<"
+8F0FE03FFC0C00F00<"E"8"<"A$8":"
+FFFF7F013FFFE03FFFE#="8%E"8"
+FC0FE0FC07FFE0F0FFJ":";"=$>"
+;F800FCE007FF7FE">"9$E#
+F8C00FFFF0807FE"A%8"A$
+F0F01FFFF87FFE00FFJ"8"D&@"
+880E0C0007FFC013FE">#8$8":"<"?"
+E000FF3FFFFC3FFEF880E"="9";"@$@$
+C0FEC01FFFF0031FFFFCF"<"9%="<"?'
+1FFC807FFFFEFFE0C0000FFFF87FE"="?"?%@$
+80F80F01FFC00107FFF07"8"@"="9#:"9$E&
+FE3F00F000FF070FFF80E00003FFE0D">"8"9"?"8"8#A#
+FCE0FEFF0303003FC0FFB$;"8%<";"8":.
+7FFFF807C001FFFC03C08000001FFFFC0001FFF00000FE01?":"9":"8"<$:"8$9">#
+F8E08000F801FFE00107FF800300037"8"?$;"9"B"?#:"9"
+FC1FC0003FFCF0E0007FF8077"8":"8$8'9&8,<'9"
+F80FE01FF800FE000000FFE0E0003FFFFE00FFC00007FFF000FF000F3FF80000FFFC0F7"8#9"8#9"9#9&9+<#8#9"
+80007F000000F00000000007FFF83F000001FFF8007E003F1FE03FFE1F#9"8">"="8$9"8*:#8#9"
+FE0007F880F800FF000E00FFFC0018007FFFC00FC01FFF3FJ"D&<";"
+803FF000000FF0780J$C"8"
+H800001C07FJ$8":";%
+HC00003E003F00003FFQ8Z8$>P$
+>FC003FFE000FJ$8"@$
+HFFC3FFF0FFE0FFJ"9"A"
+IFFF8FFJ":"
+MFE01J"
+MFFJ"
+MF8J%
+ME007FFFCJ&
+MC00FFFFFE0J"8"
+O 1FF0J"9#
+M80F803J"
+O 3FJ"9"
+M00FC
+J#
+O#F807J"
+O 1FJ"
+O#F0J"
+O$0FJ#8#
+M8007C01FJ"8#
+O 01003FJ'
+MC0001FC0007FJ'
+ME000000000FFJ"9"
+MF803J"9"
+MFE1FJ#8"
+MFFC0FFJ$
+O FF007FJ#
+O!FFFF
+
+
+
+ENDBITMAP
+%%EndBinary
+(July 1993) 448.3 587.19 T
+85.22 698.33 90.11 714 R
+V
+85.22 715.87 90.11 719.9 R
+V
+90.88 698.33 95.77 714.01 R
+V
+132.17 698.22 137.05 720 R
+V
+108.19 702.7 113.08 719.69 R
+V
+101.65 698.33 106.53 708.85 R
+V
+90 450 8.77 8.67 124.06 699.88 G
+7 X
+90 450 3.99 4.8 124.18 699.82 G
+114.3 698.22 132.06 701.73 R
+0 X
+V
+126.73 696.56 132.72 698.21 R
+7 X
+V
+105.97 711.15 116.07 714.44 R
+0 X
+V
+94.93 708.65 106.53 712.47 R
+V
+7 X
+3 175 2.91 2.33 98.74 708.28 G
+0 X
+19 164 5.43 3.9 100.84 711.15 G
+108.21 702.7 M
+ 108.19 700.33 109.13 698.47 112.01 698.22 D
+V
+108.21 702.7 114.46 702.81 114.52 698.22 111.91 698.22 109.53 700.15 5 Y
+V
+7 X
+180 385 1.35 1.09 114.4 702.83 G
+0 X
+90 450 3.21 3.37 140.79 701.04 G
+7 X
+90 450 2.79 2.92 140.78 701.04 G
+138.9 703 M
+ 138.9 703.17 138.89 703.12 140.13 703.12 D
+ 141.38 703.12 141.39 703.17 141.76 702.96 D
+ 142.13 702.76 142.13 702.76 142.3 702.52 D
+ 142.46 702.29 142.46 702.29 142.48 701.94 D
+ 142.5 701.59 142.5 701.59 142.26 701.35 D
+ 142.02 701.12 142.02 701.12 141.76 701 D
+ 141.5 700.88 141.5 700.88 142.15 700.08 D
+ 142.8 699.28 142.8 699.28 143.01 699.28 D
+ 143.21 699.28 143.21 699.28 143.01 699.08 D
+ 142.81 698.87 142.81 698.9 142.51 698.9 D
+ 142.21 698.9 142.11 698.79 141.81 699.29 D
+ 141.58 699.7 141.42 699.71 141.1 700.24 D
+ 140.79 700.78 140.57 700.78 140.3 700.75 D
+ 140.02 700.73 140.09 700.73 140.09 700.14 D
+ 140.09 699.56 140.07 699.51 140.2 699.34 D
+ 140.33 699.16 140.49 699.2 140.7 699.2 D
+ 140.9 699.2 140.9 699.2 140.9 699.05 D
+ 140.9 698.89 140.83 698.96 139.88 698.95 D
+ 138.93 698.94 139 698.87 139 699.02 D
+ 139 699.16 139 699.16 139.15 699.16 D
+ 139.29 699.16 139.29 699.16 139.39 699.28 D
+ 139.49 699.4 139.49 699.4 139.49 701.02 D
+ 139.49 702.64 139.49 702.64 139.35 702.74 D
+ 139.23 702.84 139.23 702.84 139.06 702.84 D
+ 138.89 702.84 138.89 702.84 138.9 703 D
+O
+0 X
+V
+140.04 701.92 M
+ 140.02 702.64 140.01 702.68 140.42 702.69 D
+ 140.94 702.71 141.05 702.73 141.41 702.54 D
+ 141.76 702.35 141.62 702.42 141.75 702.25 D
+ 141.87 702.08 141.87 702.08 141.85 701.87 D
+ 141.83 701.66 141.87 701.6 141.64 701.45 D
+ 141.41 701.29 141.4 701.3 141.15 701.23 D
+ 140.9 701.16 140.67 701.2 140.31 701.19 D
+ 139.96 701.17 140.06 701.2 140.04 701.92 D
+O
+7 X
+V
+1 12 Q
+0 X
+(APPLICA) 189 704.63 T
+(TION BRIEF) 238.8 704.63 T
+(AB-398) 445.98 704.63 T
+293.33 30.33 320 50.33 R
+7 X
+V
+72 28 510 72 R
+V
+75.74 29.8 504.37 68.41 R
+V
+1 10 Q
+0 X
+(Copyright) 75.74 61.74 T
+3 F
+(\343) 121.31 61.74 T
+1 F
+( Intel Corporation, 19) 129.21 61.74 T
+(93) 222.59 61.74 T
+(Order Number: 292120-001) 373.08 61.74 T
+FMENDPAGE
+%%EndPage: "0" 2
+%%Page: "1" 2
+612 792 0 FMBEGINPAGE
+0 10 Q
+0 X
+0 K
+(1) 303.5 36.66 T
+139 710.73 73 710.73 2 L
+V
+0.88 H
+0 Z
+N
+2 12 Q
+(CONTENTS) 73 712 T
+287.99 710.84 261.3 710.84 2 L
+V
+N
+1 F
+(page) 261.3 712 T
+2 10 Q
+(INTRODUCTION) 73 695.33 T
+(2) 283.58 695.33 T
+(JED2JT) 73 679.33 T
+(AG) 108.94 679.33 T
+(2) 283.58 679.33 T
+1 F
+(Creating JT) 73 663.33 T
+(AG Chain Description Files \050.SDL\051) 123.94 663.33 T
+(2) 283.58 663.33 T
+(JED2JT) 73 647.33 T
+(AG Installation) 107.82 647.33 T
+(3) 283.58 647.33 T
+(JT) 73 631.33 T
+(AG Device Library) 83.37 631.33 T
+(3) 283.58 631.33 T
+2 F
+(EXAMPLE: THE INTEL DOWNLOAD BOARD) 73 615.33 T
+-2.45 (3) 284.44 615.33 S
+1 F
+(Steps to use the Intel Download Board) 73 599.33 T
+(3) 283.58 599.33 T
+(How to Build the Intel Download Board) 73 583.33 T
+(3) 283.58 583.33 T
+(Intel Download Board Bill-of-Materials) 73 567.33 T
+(4) 283.58 567.33 T
+2 F
+(USING THE P) 73 551.33 T
+(ARALLEL PORT FLEXlogic) 136.16 551.33 T
+(CABLE KIT) 73 539.33 T
+(4) 283.58 539.33 T
+(CUST) 73 523.33 T
+(OMIZED LOADER CIRCUITS) 100.04 523.33 T
+(4) 283.58 523.33 T
+(ORDERING INFORMA) 73 507.33 T
+(TION) 175.59 507.33 T
+(4) 283.58 507.33 T
+(HEX FILE DOWNLOAD ALGORITHM) 73 491.33 T
+(6) 283.58 491.33 T
+(BIN FILE DOWNLOAD ALGORITHM) 73 475.33 T
+(7) 283.58 475.33 T
+(DOWNLOAD BOARD SCHEMA) 73 459.33 T
+(TICS) 217.8 459.33 T
+-0.39 (8) 282.05 459.33 P
+FMENDPAGE
+%%EndPage: "1" 3
+%%Page: "2" 3
+612 792 0 FMBEGINPAGE
+0 10 Q
+0 X
+0 K
+(2) 303.5 36.66 T
+2 14 Q
+(INTRODUCTION) 73 711.33 T
+1 10 Q
+(This Application Note shows how to create) 73 690 T
+(Recon\336guration Loader circuits for the Intel) 73 678 T
+(FLEXlogic FPGAs. There are several possible) 73 666 T
+(circuits that can be used or created. All can use) 73 654 T
+(the JED2JT) 73 642 T
+(AG software to control the process.) 124.5 642 T
+2 14 Q
+(JED2JT) 73 330.83 T
+(AG) 123.32 330.83 T
+1 10 Q
+(The JED2JT) 73 309.5 T
+(AG program is a front-end coordina-) 127.83 309.5 T
+-0.37 (tor to several other programs. It handles all of the) 73 297.5 P
+-0.15 (protocols and coordinates generation of the inter-) 73 285.5 P
+(mediate and download \336les.) 73 273.5 T
+(C:> jed2jtag <project.sdl>) 73 257.5 T
+133.57 240.44 73 240.44 2 L
+V
+0.73 H
+0 Z
+N
+4 F
+(INPUT FILES) 73 241.5 T
+1 F
+(project.SDL) 73 225.5 T
+(File describing JT) 139.17 225.5 T
+(AG chain.) 216.78 225.5 T
+(*.JED) 73 209.5 T
+(Device con\336guration \336le\050s\051) 139.17 209.5 T
+(JT) 73 193.5 T
+(AG.DVC) 83.37 193.5 T
+(Library of JT) 139.17 193.5 T
+(AG devices) 194 193.5 T
+(project.DVC) 73 177.5 T
+(Local project library of JT) 139.17 177.5 T
+(AG) 250.13 177.5 T
+(devices. If present in the local) 137.8 165.5 T
+(directory) 137.8 153.5 T
+(, it is used instead of) 175.4 153.5 T
+(JT) 137.8 141.5 T
+(AG.DVC.) 148.17 141.5 T
+100.78 124.44 73 124.44 2 L
+V
+N
+4 F
+(CREA) 73 125.5 T
+150.61 124.44 100.04 124.44 2 L
+V
+N
+(TED FILES) 100.04 125.5 T
+1 F
+(project.HEX) 73 109.5 T
+(Hex \336le for FLASH Memory) 139.17 109.5 T
+(project.BIN) 73 93.5 T
+(JED2JT) 139.17 93.5 T
+(AG Stream of JT) 173.99 93.5 T
+(AG sig-) 247.72 93.5 T
+-0.43 (nals that is used to create HEX \336le) 137.8 81.5 P
+73 72.24 290 720.67 C
+73 354.17 290 638.67 C
+1 H
+0 Z
+0 X
+0 K
+90 450 21.24 5.53 186.96 560.88 A
+208.2 560.88 208.2 524.96 2 L
+N
+180 270 20.88 6.63 186.6 525.51 A
+270 360 21.6 6.63 186.6 525.51 A
+165.72 560.88 165.72 524.96 2 L
+N
+1 7 Q
+(.HEX) 179.59 542.47 T
+(File) 182.12 534.16 T
+193.69 594.13 277.38 635.17 R
+N
+(JED2JTAG) 213.9 619.41 T
+(Software) 217.6 611.09 T
+182.9 612.63 190.69 608.13 182.9 603.63 182.9 608.13 4 Y
+V
+154.69 608.13 182.9 608.13 2 L
+2 H
+1 Z
+N
+(.SDL) 97.32 611.48 T
+(File) 99.47 603.16 T
+1 H
+0 Z
+90 450 21.24 5.53 106.31 629.96 A
+127.55 629.96 127.55 594.04 2 L
+N
+180 270 20.88 6.63 105.95 594.59 A
+270 360 21.6 6.63 105.95 594.59 A
+85.07 629.96 85.07 594.04 2 L
+N
+198.62 569.39 191.66 563.67 190.19 572.54 194.4 570.96 4 Y
+V
+202.46 592.61 194.4 570.96 2 L
+2 H
+1 Z
+N
+(JEDEC) 91.63 554.19 T
+(File\050s\051) 93.39 545.88 T
+1 H
+0 Z
+90 450 21.24 5.53 104.31 572.67 A
+125.55 572.67 125.55 536.76 2 L
+N
+180 270 20.88 6.63 103.95 537.31 A
+270 360 21.6 6.63 103.95 537.31 A
+83.07 572.67 83.07 536.76 2 L
+N
+(JTAG.DVC) 85.6 499.05 T
+(\050Part LIbrary\051) 82.29 490.73 T
+90 450 20.89 5.53 104.1 517.53 A
+124.98 517.53 124.98 481.61 2 L
+N
+180 270 20.53 6.63 103.74 482.16 A
+270 360 21.24 6.63 103.74 482.16 A
+83.21 517.53 83.21 481.61 2 L
+N
+154.11 609.04 M
+ 130.09 577.09 160.83 514.43 123.72 492.61 D
+1 Z
+N
+126.58 554.04 M
+ 134.47 558.62 139.28 568.57 144.44 576.9 D
+N
+128.01 595.47 M
+ 135.39 598.21 144.94 596.05 150.15 603.33 D
+N
+0 Z
+90 450 21.24 5.53 261.63 558.71 A
+282.87 558.71 282.87 522.8 2 L
+N
+180 270 20.88 6.63 261.27 523.35 A
+270 360 21.6 6.63 261.27 523.35 A
+240.39 558.71 240.39 522.8 2 L
+N
+(.BIN) 255.61 540.31 T
+(File) 256.79 531.99 T
+142.07 469.41 143.52 473.24 0.72 RR
+7 X
+V
+0.5 H
+2 Z
+0 X
+N
+145.23 469.41 146.68 473.24 0.72 RR
+7 X
+V
+0 X
+N
+148.39 469.41 149.84 473.24 0.72 RR
+7 X
+V
+0 X
+N
+152.07 469.41 153.52 473.24 0.72 RR
+7 X
+V
+0 X
+N
+155.23 469.41 156.68 473.24 0.72 RR
+7 X
+V
+0 X
+N
+158.91 469.41 160.36 473.24 0.72 RR
+7 X
+V
+0 X
+N
+162.6 469.41 164.04 473.24 0.72 RR
+7 X
+V
+0 X
+N
+165.75 469.41 167.2 473.24 0.72 RR
+7 X
+V
+0 X
+N
+142.07 498.62 143.52 501.74 0.72 RR
+7 X
+V
+0 X
+N
+145.23 498.62 146.68 501.74 0.72 RR
+7 X
+V
+0 X
+N
+148.39 498.62 149.84 501.74 0.72 RR
+7 X
+V
+0 X
+N
+152.07 498.62 153.52 501.74 0.72 RR
+7 X
+V
+0 X
+N
+155.23 498.62 156.68 501.74 0.72 RR
+7 X
+V
+0 X
+N
+158.91 498.62 160.36 501.74 0.72 RR
+7 X
+V
+0 X
+N
+162.6 498.62 164.04 501.74 0.72 RR
+7 X
+V
+0 X
+N
+165.75 498.62 167.2 501.74 0.72 RR
+7 X
+V
+0 X
+N
+163.71 495.45 170.29 496.77 0.66 RR
+7 X
+V
+0 X
+N
+163.71 492.58 170.29 493.89 0.66 RR
+7 X
+V
+0 X
+N
+163.71 489.71 170.29 491.02 0.66 RR
+7 X
+V
+0 X
+N
+163.71 486.35 170.29 487.67 0.66 RR
+7 X
+V
+0 X
+N
+163.71 483.48 170.29 484.8 0.66 RR
+7 X
+V
+0 X
+N
+163.71 480.13 170.29 481.45 0.66 RR
+7 X
+V
+0 X
+N
+163.71 476.78 170.29 478.09 0.66 RR
+7 X
+V
+0 X
+N
+163.71 473.9 170.29 475.22 0.66 RR
+7 X
+V
+0 X
+N
+138.72 496.89 152.4 498.2 0.66 RR
+7 X
+V
+0 X
+N
+138.72 494.01 152.4 495.33 0.66 RR
+7 X
+V
+0 X
+N
+138.72 491.14 152.4 492.46 0.66 RR
+7 X
+V
+0 X
+N
+138.72 487.79 152.4 489.11 0.66 RR
+7 X
+V
+0 X
+N
+138.72 484.92 152.4 486.23 0.66 RR
+7 X
+V
+0 X
+N
+138.72 481.57 152.4 482.88 0.66 RR
+7 X
+V
+0 X
+N
+138.72 478.21 152.4 479.53 0.66 RR
+7 X
+V
+0 X
+N
+138.72 475.34 152.4 476.66 0.66 RR
+7 X
+V
+0 X
+N
+140.17 471.27 168.98 500.12 R
+7 X
+V
+0 X
+N
+(FLASH) 145.38 485.67 T
+169.08 506.23 163.33 504.5 164.71 510.34 166.89 508.29 4 Y
+V
+177.5 519.5 166.9 508.28 2 L
+1 H
+N
+264.13 573.35 262.49 564.5 255.65 570.34 259.89 571.85 4 Y
+V
+252.5 592.83 259.89 571.84 2 L
+2 H
+1 Z
+N
+222.45 430.33 218.99 425.43 216.47 430.88 219.46 430.61 4 Y
+V
+216.22 592.57 216.22 506.8 227.29 516.15 219.46 430.6 4 L
+0.5 H
+N
+259.98 409.5 256.66 404.51 254 409.88 256.99 409.69 4 Y
+V
+263.83 517.33 257 409.68 2 L
+1 H
+2 Z
+N
+2 8 Q
+(Circuit T) 76.67 457 T
+(ype) 108.52 457 T
+1 F
+(\0501\051 Intel Download Board -or-) 88.33 445.33 T
+(\0502\051 Custom Circuit) 88.33 435.33 T
+(\0503\051 Parallel Port Recon\336guration) 137.5 419.83 T
+(\0504\051 Custom Recon\336guration Scheme) 155.83 396.33 T
+(\050i.e. Board T) 155.83 388.33 T
+(ester) 198.96 388.33 T
+(, or other process\051) 216.31 388.33 T
+133.74 453.23 128 451.5 129.38 457.34 131.56 455.29 4 Y
+V
+142.17 466.5 131.56 455.28 2 L
+N
+2 10 Q
+(Figure 1: Different Recon\336guration Circuits) 73.88 368.44 T
+73 72.24 290 720.67 C
+73 354.17 290 638.67 R
+0.5 H
+0 Z
+0 X
+0 K
+N
+0 0 612 792 C
+1 10 Q
+0 X
+0 K
+0.09 (or is sent to Parallel Port. Created) 387.8 713.33 P
+(from .BIT \336les.) 387.8 701.33 T
+(*.BIT) 323 685.33 T
+(JED2JT) 389.17 685.33 T
+(AG Intermediate \336le. One) 423.99 685.33 T
+(for every .JED \336le. JED2JT) 387.8 673.33 T
+(AG) 507.09 673.33 T
+-0.43 (checks the time of each .BIT \336le to) 387.8 661.33 P
+(each .JED. If the .JED is newer) 387.8 649.33 T
+(, it) 525.64 649.33 T
+(will recreate the .BIT) 387.8 637.33 T
+(.) 477.83 637.33 T
+2 F
+(Creating JT) 323 619.33 T
+(AG Chain Description Files \050.SDL\051) 377.27 619.33 T
+1 F
+(It is assumed that JEDEC \336le\050s\051 for devices in) 323 603.33 T
+-0.16 (the JT) 323 591.33 P
+-0.16 (AG chain have been generated from some) 349.89 591.33 P
+-0.6 (design software. The string description \336le \050.SDL\051) 323 579.33 P
+(describes the JT) 323 567.33 T
+(AG chain on your circuit board.) 395.62 567.33 T
+-0.11 (The \336le) 323 551.33 P
+5 F
+-0.11 (example.sdl) 358.35 551.33 P
+1 F
+-0.11 ( contains an example of the) 415.6 551.33 P
+(chain on a prototype board, shown in Figure 2.) 323 539.33 T
+6 8 Q
+(|FILE: example.sdl --Simple Prototype Board) 323 336.29 T
+({) 323 326.29 T
+(|) 323 316.29 T
+(Port_Num) 377.5 316.29 T
+(Port_Type) 432.5 316.29 T
+(STRING) 323 306.29 T
+(3) 377.5 306.29 T
+(HEX_FILE) 432.5 306.29 T
+(|) 323 286.29 T
+(Loc.) 360.83 286.29 T
+(Ref) 393.33 286.29 T
+(Device) 424.33 286.29 T
+(JEDEC File) 476.67 286.29 T
+(DEVICE) 323 276.29 T
+(0) 360.83 276.29 T
+(U3) 393.33 276.29 T
+(FX780_132) 424.33 276.29 T
+(RIGHT.JED) 476.67 276.29 T
+(DEVICE) 323 266.29 T
+(1) 360.83 266.29 T
+(U4) 393.33 266.29 T
+(FX780_84) 424.33 266.29 T
+(LEFT.JED) 476.67 266.29 T
+(DEVICE) 323 256.29 T
+(2) 360.83 256.29 T
+(U1) 393.33 256.29 T
+(PENTIUM) 424.33 256.29 T
+(}) 323 246.29 T
+1 10 Q
+(A \324|\325 indicates a comment line.) 323 236.29 T
+(This prototype board could connect to the Intel) 323 220.95 T
+(Download Board. Figure 2 also shows the con-) 323 208.95 T
+(nections for the Download Board, and the FLEX-) 323 196.95 T
+(logic Cable kit.) 323 184.95 T
+(Note that DEVICE 2 does not have a JEDEC \336le) 323 168.95 T
+(associated with it. Non-FLEXlogic Devices and) 323 156.95 T
+(those without JEDEC \336les, JED2JT) 323 144.95 T
+(AG will not) 478.42 144.95 T
+(recon\336gure.) 323 132.95 T
+323 343.62 540 536 C
+370.06 468.36 394.74 493.1 R
+1 H
+0 Z
+0 X
+0 K
+N
+377.77 493.1 377.77 503 2 L
+N
+387.03 493.1 387.03 503 2 L
+N
+391.66 493.1 391.66 503 2 L
+N
+373.14 493.1 373.14 503 2 L
+N
+382.4 493.1 382.4 503 2 L
+N
+404 476.09 394.74 476.09 2 L
+N
+404 485.37 394.74 485.37 2 L
+N
+404 490.01 394.74 490.01 2 L
+N
+404 471.45 394.74 471.45 2 L
+N
+404 480.73 394.74 480.73 2 L
+N
+377.77 459.08 377.77 468.36 2 L
+N
+387.03 459.08 387.03 468.36 2 L
+N
+391.66 459.08 391.66 468.36 2 L
+N
+373.14 459.08 373.14 468.36 2 L
+N
+382.4 459.08 382.4 468.36 2 L
+N
+370.06 476.09 360.8 476.09 2 L
+N
+370.06 485.37 360.8 485.37 2 L
+N
+370.06 490.01 360.8 490.01 2 L
+N
+370.06 471.45 360.8 471.45 2 L
+N
+370.06 480.73 360.8 480.73 2 L
+N
+341 453.57 341 521 2 L
+2 Z
+N
+2 8 Q
+(JT) 482.86 520.6 T
+(AG) 491.6 520.6 T
+2 10 Q
+(Figure 2: example.sdl JT) 348.71 356.19 T
+(AG chain) 464.68 356.19 T
+328.29 521.14 361.57 527.57 R
+8 X
+V
+5 7 Q
+0 X
+(external connector) 362.83 523.98 T
+467.26 468.36 491.94 493.1 R
+0 Z
+N
+474.97 493.1 474.97 503 2 L
+N
+484.23 493.1 484.23 503 2 L
+N
+488.86 493.1 488.86 503 2 L
+N
+470.34 493.1 470.34 503 2 L
+N
+479.6 493.1 479.6 503 2 L
+N
+501.2 476.09 491.94 476.09 2 L
+N
+501.2 485.37 491.94 485.37 2 L
+N
+501.2 490.01 491.94 490.01 2 L
+N
+501.2 471.45 491.94 471.45 2 L
+N
+501.2 480.73 491.94 480.73 2 L
+N
+474.97 459.08 474.97 468.36 2 L
+N
+484.23 459.08 484.23 468.36 2 L
+N
+488.86 459.08 488.86 468.36 2 L
+N
+470.34 459.08 470.34 468.36 2 L
+N
+479.6 459.08 479.6 468.36 2 L
+N
+467.26 476.09 458 476.09 2 L
+N
+467.26 485.37 458 485.37 2 L
+N
+467.26 490.01 458 490.01 2 L
+N
+467.26 471.45 458 471.45 2 L
+N
+467.26 480.73 458 480.73 2 L
+N
+462.97 408.93 487.66 433.67 R
+N
+470.68 433.67 470.68 443.57 2 L
+N
+479.94 433.67 479.94 443.57 2 L
+N
+484.57 433.67 484.57 443.57 2 L
+N
+466.06 433.67 466.06 443.57 2 L
+N
+475.31 433.67 475.31 443.57 2 L
+N
+496.91 416.66 487.66 416.66 2 L
+N
+496.91 425.94 487.66 425.94 2 L
+N
+496.91 430.58 487.66 430.58 2 L
+N
+496.91 412.02 487.66 412.02 2 L
+N
+496.91 421.3 487.66 421.3 2 L
+N
+470.68 399.65 470.68 408.93 2 L
+N
+479.94 399.65 479.94 408.93 2 L
+N
+484.57 399.65 484.57 408.93 2 L
+N
+466.06 399.65 466.06 408.93 2 L
+N
+475.31 399.65 475.31 408.93 2 L
+N
+462.97 416.66 453.71 416.66 2 L
+N
+462.97 425.94 453.71 425.94 2 L
+N
+462.97 430.58 453.71 430.58 2 L
+N
+462.97 412.02 453.71 412.02 2 L
+N
+462.97 421.3 453.71 421.3 2 L
+N
+1 F
+(TDI) 355.07 492.21 T
+(TDO) 401.93 493.07 T
+(TMS&TCK) 403.29 456.57 T
+(DEV. 0) 463.67 419.24 T
+(TDI) 447.72 492.43 T
+(TDO) 496.86 491.57 T
+(TDI) 440 432.53 T
+(TDO) 496.01 432.01 T
+346.14 522.14 346.14 491.43 2 L
+0.5 H
+2 Z
+N
+452.38 493 457.57 490 452.38 487 452.38 490 4 Y
+V
+402.57 490 452.38 490 2 L
+N
+493.5 490.29 520.5 490.29 2 L
+N
+521 490 521 449 2 L
+N
+521 449 440 449 2 L
+N
+440 449 440 431 2 L
+N
+452.8 434 458 431 452.8 428 452.8 431 4 Y
+V
+452.8 431 440 431 2 L
+N
+339 452.86 475.43 452.86 2 L
+1 H
+N
+470 462.57 470 454.5 2 L
+0.5 H
+N
+474.5 462.07 474.5 454 2 L
+N
+465 403.07 465 395 2 L
+N
+469.5 402.57 469.5 394.5 2 L
+N
+372 460.57 372 452.5 2 L
+N
+378 461.57 378 453.5 2 L
+N
+413.5 454 413.5 393.5 2 L
+1 H
+N
+412.5 394 468.5 394 2 L
+N
+497 431 519.5 431 2 L
+0.5 H
+N
+519.5 431.5 519.5 383 2 L
+N
+518.5 383 331.5 383 2 L
+N
+327 516.8 330 522 333 516.8 330 516.8 4 Y
+V
+330 383 330 516.8 2 L
+N
+(DEV. 1) 467.67 480.24 T
+(DEV. 2) 371 478.57 T
+356.3 493.5 361.5 490.5 356.3 487.5 356.3 490.5 4 Y
+V
+356.3 490.5 345.5 490.5 2 L
+N
+(J1-8 \050TDO_PORT\051) 346.57 512.21 T
+(J1-6 \050TDI_PORT\051) 332.07 415.71 T
+0 0 612 792 C
+323 343.62 540 536 R
+0.5 H
+0 Z
+0 X
+0 K
+N
+FMENDPAGE
+%%EndPage: "2" 4
+%%Page: "3" 4
+612 792 0 FMBEGINPAGE
+0 10 Q
+0 X
+0 K
+(3) 303.5 36.66 T
+2 F
+(STRING Instruction) 73 713.33 T
+1 F
+(The STRING instruction in SDL \336les controls) 73 697.33 T
+(what operations JED2JT) 73 685.33 T
+(AG will take for the) 181.19 685.33 T
+(JT) 73 673.33 T
+(AG chain.) 83.37 673.33 T
+-0.25 (T) 73 657.33 P
+-0.25 (o create an example.HEX \336le, which can be pro-) 78 657.33 P
+(grammed into a FLASH PROM.) 73 645.33 T
+7 8 Q
+(STRING 3 HEX_FILE) 91 634.67 T
+1 10 Q
+(T) 73 619.33 T
+(o just create an example.BIN \336le, and no .HEX) 78 619.33 T
+(\336le, specify the following.) 73 607.33 T
+7 8 Q
+(STRING 3 BIN_FILE) 91 596.67 T
+1 10 Q
+(When the chain is similar to that used by the) 73 581.33 T
+(FLEXlogic Cable Kit, and can be hooked up to a) 73 569.33 T
+(PC parallel port, use the following commands.) 73 557.33 T
+(T) 73 541.33 T
+(o recon\336gure a chain on LPT1:) 78 541.33 T
+7 8 Q
+(STRING 1 PARALLEL_PORT) 91 530.67 T
+1 10 Q
+(T) 73 515.33 T
+(o recon\336gure a chain on LPT2:) 78 515.33 T
+7 8 Q
+(STRING 2 PARALLEL_PORT) 91 504.67 T
+2 10 Q
+(JT) 73 487.33 T
+(AG Device Library) 83.93 487.33 T
+1 F
+(The \336le JT) 73 471.33 T
+(AG.DVC included with JED2JT) 118.94 471.33 T
+(AG,) 255.46 471.33 T
+(contains a description of several common JT) 73 459.33 T
+(AG) 270.11 459.33 T
+(devices. Others can be added easily) 73 447.33 T
+(. There are) 233.45 447.33 T
+(directions included in the \336le that show what) 73 435.33 T
+-0.53 (information is needed. T) 73 423.33 P
+-0.53 (ypically only the length of) 178.14 423.33 P
+-0.53 (the Instruction Register is needed. If a device you) 73 411.33 P
+0.07 (are using is not in the library) 73 399.33 P
+0.07 (, the information can) 196.9 399.33 P
+(be gathered from the BSDL \336le or datasheet for) 73 387.33 T
+(the device.) 73 375.33 T
+2 F
+(JED2JT) 73 357.33 T
+(AG Installation) 108.94 357.33 T
+1 F
+(JED2JT) 73 341.33 T
+(AG is included on the FLEXlogic Cable) 107.82 341.33 T
+(Kit  media. Install the software as indicated. The) 73 329.33 T
+(software is also available via BBS. See the) 73 317.33 T
+(Ordering Information section below) 73 305.33 T
+(.) 227.51 305.33 T
+2 14 Q
+(EXAMPLE: THE INTEL) 73 278.67 T
+(DOWNLOAD BOARD) 73 262.67 T
+1 10 Q
+(An example Download Board using an 87C51 is) 73 241.33 T
+(shown to illustrate how to build your own cus-) 73 229.33 T
+(tomer Download circuit. The Download Board) 73 217.33 T
+(provides for prototyping hardware systems with) 73 205.33 T
+(FLEXlogic FPGAs already soldered in, but the) 73 193.33 T
+(system hardware logic is not completely) 73 181.33 T
+(debugged.) 73 169.33 T
+-0.32 (The Download Board, shown in Figure 3, reloads) 73 153.33 P
+(con\336gurations for Intel FLEXlogic devices in pro-) 73 141.33 T
+-0.32 (totype circuit boards. Power for the Loader board) 73 129.33 P
+(is provided by the host environment.) 73 117.33 T
+(The JT) 73 101.33 T
+(AG chain is described in the .SDL \336le for) 103.38 101.33 T
+(the board. This tells the JED2JT) 73 89.33 T
+(AG software) 214.54 89.33 T
+(what devices are in the chain. JED2JT) 73 77.33 T
+(AG then) 242.33 77.33 T
+0.03 (uses this information to create a .HEX \336le, which) 324 713.33 P
+(is programmed into a FLASH memory chip.) 324 701.33 T
+(Upon power-up, or when a reset button on the) 324 685.33 T
+(FPGA Loader Board is pressed, the con\336gura-) 324 673.33 T
+(tion\050s\051 stored in the FLASH memory on the) 324 661.33 T
+(Loader Board is shifted down the JT) 324 649.33 T
+(AG chain) 483.34 649.33 T
+(into the FPGAs on the circuit board. After the) 324 637.33 T
+(con\336guration has been sent, then the) 324 625.33 T
+524.67 634.45 491.33 634.45 2 L
+V
+0.73 H
+0 Z
+N
+(RESET) 491.33 625.33 T
+(signal on the Parallel Port Cable is enabled.) 324 613.33 T
+(A Custom Download circuit, such as that shown) 324 597.33 T
+(in Figure 4, could be built similarly using other) 324 585.33 T
+-0.18 (CPUs, such as an i960, other Intel Architectures,) 324 573.33 P
+(or even PLD logic. The pseudo-code for the) 324 561.33 T
+(download algorithm is shown in the HEX FILE) 324 549.33 T
+(DOWNLOAD ALGORITHM Section described) 324 537.33 T
+(later) 324 525.33 T
+(.) 342.9 525.33 T
+2 F
+(Steps to use the Intel Download Board) 324 278.29 T
+1 F
+(\0501\051  Create JEDEC \336le\050s\051.) 324 262.29 T
+(\0502\051  Create the .SDL \336le describing the circuit) 324 246.29 T
+(chain. i.e.,) 342 234.29 T
+4 F
+(project1.sdl) 390.36 234.29 T
+1 F
+(\0503\051  Run) 324 218.29 T
+4 F
+(jed2jtag) 362.9 218.29 T
+1 F
+( and create the .HEX \336le.) 397.92 218.29 T
+1 8 Q
+(1) 509.09 222.29 T
+7 10 Q
+(C:> jed2jtag project1) 361.83 202.29 T
+1 F
+(\0504\051  Program the Loader Board FLASH EPROM) 324 178.29 T
+(with the .HEX \336le, and insert it into the) 342 166.29 T
+(Loader Board socket.) 342 154.29 T
+(\0505\051  Connect the Loader Board to your Circuit) 324 138.29 T
+(Board, and power-up!) 342 126.29 T
+324 83 541 90.5 C
+333 88.5 477 88.5 2 L
+0.5 H
+2 Z
+0 X
+0 K
+N
+0 0 612 792 C
+0 8 Q
+0 X
+0 K
+0.08 (1. The examples assume the software  runs on PC-DOS .) 342 77.67 P
+324 308.95 541 522 C
+346.71 333.26 515.29 413.26 R
+0.5 H
+0 Z
+0 X
+0 K
+N
+336.48 446.69 453.41 490.56 R
+V
+N
+335.4 460.11 452.33 503.97 R
+7 X
+V
+0 X
+N
+415.16 464.82 416.61 468.65 0.72 RR
+7 X
+V
+2 Z
+0 X
+N
+418.32 464.82 419.77 468.65 0.72 RR
+7 X
+V
+0 X
+N
+421.48 464.82 422.92 468.65 0.72 RR
+7 X
+V
+0 X
+N
+425.16 464.82 426.61 468.65 0.72 RR
+7 X
+V
+0 X
+N
+428.32 464.82 429.76 468.65 0.72 RR
+7 X
+V
+0 X
+N
+432 464.82 433.45 468.65 0.72 RR
+7 X
+V
+0 X
+N
+435.68 464.82 437.13 468.65 0.72 RR
+7 X
+V
+0 X
+N
+438.84 464.82 440.29 468.65 0.72 RR
+7 X
+V
+0 X
+N
+415.16 494.03 416.61 497.14 0.72 RR
+7 X
+V
+0 X
+N
+418.32 494.03 419.77 497.14 0.72 RR
+7 X
+V
+0 X
+N
+421.48 494.03 422.92 497.14 0.72 RR
+7 X
+V
+0 X
+N
+425.16 494.03 426.61 497.14 0.72 RR
+7 X
+V
+0 X
+N
+428.32 494.03 429.76 497.14 0.72 RR
+7 X
+V
+0 X
+N
+432 494.03 433.45 497.14 0.72 RR
+7 X
+V
+0 X
+N
+435.68 494.03 437.13 497.14 0.72 RR
+7 X
+V
+0 X
+N
+438.84 494.03 440.29 497.14 0.72 RR
+7 X
+V
+0 X
+N
+436.8 490.85 443.38 492.17 0.66 RR
+7 X
+V
+0 X
+N
+436.8 487.98 443.38 489.3 0.66 RR
+7 X
+V
+0 X
+N
+436.8 485.11 443.38 486.42 0.66 RR
+7 X
+V
+0 X
+N
+436.8 481.76 443.38 483.07 0.66 RR
+7 X
+V
+0 X
+N
+436.8 478.88 443.38 480.2 0.66 RR
+7 X
+V
+0 X
+N
+436.8 475.53 443.38 476.85 0.66 RR
+7 X
+V
+0 X
+N
+436.8 472.18 443.38 473.5 0.66 RR
+7 X
+V
+0 X
+N
+436.8 469.31 443.38 470.62 0.66 RR
+7 X
+V
+0 X
+N
+411.81 492.29 425.49 493.61 0.66 RR
+7 X
+V
+0 X
+N
+411.81 489.42 425.49 490.73 0.66 RR
+7 X
+V
+0 X
+N
+411.81 486.54 425.49 487.86 0.66 RR
+7 X
+V
+0 X
+N
+411.81 483.19 425.49 484.51 0.66 RR
+7 X
+V
+0 X
+N
+411.81 480.32 425.49 481.64 0.66 RR
+7 X
+V
+0 X
+N
+411.81 476.97 425.49 478.29 0.66 RR
+7 X
+V
+0 X
+N
+411.81 473.62 425.49 474.93 0.66 RR
+7 X
+V
+0 X
+N
+411.81 470.74 425.49 472.06 0.66 RR
+7 X
+V
+0 X
+N
+413.26 466.67 442.06 495.52 R
+7 X
+V
+0 X
+N
+1 H
+0 Z
+90 450 21.24 5.53 516.5 503.55 A
+537.74 503.55 537.74 467.63 2 L
+N
+180 270 20.88 6.63 516.14 468.18 A
+270 360 21.6 6.63 516.14 468.18 A
+495.26 503.55 495.26 467.63 2 L
+N
+1 7 Q
+(.HEX) 509.13 485.14 T
+(File) 511.67 476.83 T
+426.34 365.18 451.02 389.93 R
+N
+434.05 389.93 434.05 399.83 2 L
+N
+443.31 389.93 443.31 399.83 2 L
+N
+447.94 389.93 447.94 399.83 2 L
+N
+429.42 389.93 429.42 399.83 2 L
+N
+438.68 389.93 438.68 399.83 2 L
+N
+460.28 372.92 451.02 372.92 2 L
+N
+460.28 382.2 451.02 382.2 2 L
+N
+460.28 386.83 451.02 386.83 2 L
+N
+460.28 368.28 451.02 368.28 2 L
+N
+460.28 377.56 451.02 377.56 2 L
+N
+434.05 355.9 434.05 365.18 2 L
+N
+443.31 355.9 443.31 365.18 2 L
+N
+447.94 355.9 447.94 365.18 2 L
+N
+429.42 355.9 429.42 365.18 2 L
+N
+438.68 355.9 438.68 365.18 2 L
+N
+426.34 372.92 417.08 372.92 2 L
+N
+426.34 382.2 417.08 382.2 2 L
+N
+426.34 386.83 417.08 386.83 2 L
+N
+426.34 368.28 417.08 368.28 2 L
+N
+426.34 377.56 417.08 377.56 2 L
+N
+468.98 384.17 463.36 382.08 464.36 388 466.67 386.08 4 Y
+V
+477.52 404.03 483.14 406.12 482.14 400.2 479.83 402.12 4 Y
+V
+466.68 386.08 479.83 402.11 2 L
+N
+(FLEXlogic FPGAs) 404.75 346.7 T
+451.4 488.05 446 490.67 450.96 494.04 451.18 491.05 4 Y
+V
+491.83 494 451.18 491.04 2 L
+2 Z
+N
+2 8 Q
+(JT) 476 384 T
+(AG) 484.74 384 T
+2 10 Q
+(Figure 3: Intel Download Board Example) 333.79 319.02 T
+1 7 Q
+(FLASH) 418.46 479.4 T
+5 F
+(LOADER BOARD) 351.16 489.29 T
+338.98 465.4 345.41 494.69 R
+8 X
+V
+478.29 403.83 513.41 410.26 R
+V
+370.77 364.33 395.45 389.07 R
+0 Z
+0 X
+N
+378.48 389.07 378.48 398.97 2 L
+N
+387.74 389.07 387.74 398.97 2 L
+N
+392.36 389.07 392.36 398.97 2 L
+N
+373.85 389.07 373.85 398.97 2 L
+N
+383.11 389.07 383.11 398.97 2 L
+N
+404.71 372.06 395.45 372.06 2 L
+N
+404.71 381.34 395.45 381.34 2 L
+N
+404.71 385.98 395.45 385.98 2 L
+N
+404.71 367.42 395.45 367.42 2 L
+N
+404.71 376.7 395.45 376.7 2 L
+N
+378.48 355.05 378.48 364.33 2 L
+N
+387.74 355.05 387.74 364.33 2 L
+N
+392.36 355.05 392.36 364.33 2 L
+N
+373.85 355.05 373.85 364.33 2 L
+N
+383.11 355.05 383.11 364.33 2 L
+N
+370.77 372.06 361.51 372.06 2 L
+N
+370.77 381.34 361.51 381.34 2 L
+N
+370.77 385.98 361.51 385.98 2 L
+N
+370.77 367.42 361.51 367.42 2 L
+N
+370.77 376.7 361.51 376.7 2 L
+N
+(CIRCUIT BOARD) 455.2 336.58 T
+486 418.17 M
+ 475.59 440.83 461.06 429.04 436.83 428.17 D
+ 406 427.06 382.71 424.74 351 428.17 D
+ 337.09 429.67 349.08 469.95 335.17 460.67 D
+2 Z
+N
+371.82 464.67 373.39 466.98 0.79 RR
+7 X
+V
+0.5 H
+0 X
+N
+375.25 464.67 376.83 466.98 0.79 RR
+7 X
+V
+0 X
+N
+378.69 464.67 380.26 466.98 0.79 RR
+7 X
+V
+0 X
+N
+382.7 464.67 384.27 466.98 0.79 RR
+7 X
+V
+0 X
+N
+386.13 464.67 387.71 466.98 0.79 RR
+7 X
+V
+0 X
+N
+390.14 464.67 391.72 466.98 0.79 RR
+7 X
+V
+0 X
+N
+394.15 464.67 395.72 466.98 0.79 RR
+7 X
+V
+0 X
+N
+397.58 464.67 399.16 466.98 0.79 RR
+7 X
+V
+0 X
+N
+371.82 482.26 373.39 484.14 0.79 RR
+7 X
+V
+0 X
+N
+375.25 482.26 376.83 484.14 0.79 RR
+7 X
+V
+0 X
+N
+378.69 482.26 380.26 484.14 0.79 RR
+7 X
+V
+0 X
+N
+382.7 482.26 384.27 484.14 0.79 RR
+7 X
+V
+0 X
+N
+386.13 482.26 387.71 484.14 0.79 RR
+7 X
+V
+0 X
+N
+390.14 482.26 391.72 484.14 0.79 RR
+7 X
+V
+0 X
+N
+394.15 482.26 395.72 484.14 0.79 RR
+7 X
+V
+0 X
+N
+397.58 482.26 399.16 484.14 0.79 RR
+7 X
+V
+0 X
+N
+395.37 480.35 402.52 481.15 0.4 RR
+7 X
+V
+0 X
+N
+395.37 478.62 402.52 479.42 0.4 RR
+7 X
+V
+0 X
+N
+395.37 476.89 402.52 477.68 0.4 RR
+7 X
+V
+0 X
+N
+395.37 474.87 402.52 475.67 0.4 RR
+7 X
+V
+0 X
+N
+395.37 473.14 402.52 473.93 0.4 RR
+7 X
+V
+0 X
+N
+395.37 471.12 402.52 471.92 0.4 RR
+7 X
+V
+0 X
+N
+395.37 469.1 402.52 469.9 0.4 RR
+7 X
+V
+0 X
+N
+395.37 467.37 402.52 468.17 0.4 RR
+7 X
+V
+0 X
+N
+368.17 481.22 383.05 482.01 0.4 RR
+7 X
+V
+0 X
+N
+368.17 479.49 383.05 480.28 0.4 RR
+7 X
+V
+0 X
+N
+368.17 477.76 383.05 478.55 0.4 RR
+7 X
+V
+0 X
+N
+368.17 475.74 383.05 476.53 0.4 RR
+7 X
+V
+0 X
+N
+368.17 474.01 383.05 474.8 0.4 RR
+7 X
+V
+0 X
+N
+368.17 471.99 383.05 472.78 0.4 RR
+7 X
+V
+0 X
+N
+368.17 469.97 383.05 470.76 0.4 RR
+7 X
+V
+0 X
+N
+368.17 468.24 383.05 469.03 0.4 RR
+7 X
+V
+0 X
+N
+369.74 465.79 401.09 483.17 R
+7 X
+V
+0 X
+N
+1 F
+(87C51) 377.37 472.74 T
+0 0 612 792 C
+324 308.95 541 522 R
+0.5 H
+0 Z
+0 X
+0 K
+N
+FMENDPAGE
+%%EndPage: "3" 5
+%%Page: "4" 5
+612 792 0 FMBEGINPAGE
+0 10 Q
+0 X
+0 K
+(4) 303.5 36.66 T
+2 F
+(How to Build the Intel Download Board) 73 713.33 T
+1 F
+(The PCB drawings for the Intel Download board) 73 697.33 T
+(are  provided on the North American Marketing) 73 685.33 T
+(BBS. They are Gerber \336les, and have been pro-) 73 673.33 T
+0.09 (vided with no guarantees of support or accuracy) 73 661.33 P
+0.09 (.) 284.53 661.33 P
+(The Bill-of-Materials shown below is also) 73 649.33 T
+(included with the Gerber \336les.) 73 637.33 T
+-0.2 (Schematics for the Download board are included) 73 621.33 P
+(at the end of this document.) 73 609.33 T
+(With a 256K EPROM, the Download Board has) 73 593.33 T
+(enough capacity to handle approximately 30) 73 581.33 T
+-0.57 (FLEXlogic devices in a JT) 73 569.33 P
+-0.57 (AG chain. For instance,) 185.01 569.33 P
+(each FX780 device con\336guration takes roughly) 73 557.33 T
+(8K of the FLASH EPROM memory) 73 545.33 T
+(.) 225.64 545.33 T
+2 F
+(Intel Download Board Bill-of-Materials) 73 527.33 T
+2 14 Q
+(USING THE P) 73 158.67 T
+(ARALLEL PORT) 161.42 158.67 T
+(FLEXlogic CABLE KIT) 73 142.67 T
+1 10 Q
+(The Intel Download board is designed in such a) 73 121.33 T
+(way that it can be directly connected to the host) 73 109.33 T
+(system, or to a \337at ribbon cable similar to that) 73 97.33 T
+(used in the FLEXlogic Cable Kit.. This makes it) 73 85.33 T
+73 192 290.5 198 C
+0 0 612 792 C
+0 8 Q
+0 X
+0 K
+(1. AMP part number 1-535542-2, or equivalent.) 91 186.67 T
+(item) 80.28 493.67 T
+(quant) 108 498.67 T
+(ity) 112.66 488.67 T
+(Part/Doc) 142.89 498.67 T
+(Number) 144.01 488.67 T
+(Part Name) 195.65 493.67 T
+(value) 258.11 493.67 T
+(1) 79 468.67 T
+(4) 107.79 468.67 T
+(C7,C6,C5,) 137.99 468.67 T
+(C4) 137.99 458.67 T
+(CAP) 188.24 468.67 T
+(.1 micro-) 249.06 468.67 T
+(farad \050uF\051) 249.06 458.67 T
+(2) 79 440.67 T
+(5) 107.79 440.67 T
+(R4-R8) 137.99 440.67 T
+(CAP) 188.24 440.67 T
+(30.1 Ohms) 249.06 440.67 T
+(3) 79 422.67 T
+(1) 107.79 422.67 T
+(R2) 137.99 422.67 T
+(CAP) 188.24 422.67 T
+(215 Ohms) 249.06 422.67 T
+(4) 79 404.67 T
+(1) 107.79 404.67 T
+(R3) 137.99 404.67 T
+(CAP) 188.24 404.67 T
+(237 Ohms) 249.06 404.67 T
+(5) 79 386.67 T
+(1) 107.79 386.67 T
+(C3) 137.99 386.67 T
+(CAP) 188.24 386.67 T
+(4.7 uF) 249.06 386.67 T
+(6) 79 368.67 T
+(2) 107.79 368.67 T
+(R1, R9) 137.99 368.67 T
+(RESIST) 188.24 368.67 T
+(OR) 214.77 368.67 T
+(21.5K) 249.06 368.67 T
+(7) 79 350.67 T
+(2) 107.79 350.67 T
+(C1, C2) 137.99 350.67 T
+(CAP) 188.24 350.67 T
+(33 pF) 249.06 350.67 T
+(8) 79 332.67 T
+(1) 107.79 332.67 T
+(S1) 137.99 332.67 T
+(SWITCH) 188.24 332.67 T
+(9) 79 314.67 T
+(1) 107.79 314.67 T
+(U3) 137.99 314.67 T
+(256X8) 188.24 314.67 T
+(FLASH) 188.24 304.67 T
+(10) 79 286.67 T
+(1) 107.79 286.67 T
+(U2) 137.99 286.67 T
+(74ALS573B) 188.24 286.67 T
+(or equiva-) 249.06 286.67 T
+(lent) 249.06 276.67 T
+(1) 79 258.67 T
+(1) 82.7 258.67 T
+(1) 107.79 258.67 T
+(U1) 137.99 258.67 T
+(87C51F) 188.24 258.67 T
+(A) 213.43 258.67 T
+(12) 79 240.67 T
+(1) 107.79 240.67 T
+(U1) 137.99 240.67 T
+(LED) 188.24 240.67 T
+(13) 79 222.67 T
+(1) 107.79 222.67 T
+(J1) 137.99 222.67 T
+(CON20PIN) 188.24 222.67 T
+0 6 Q
+(1) 226.02 225.87 T
+0 8 Q
+(14) 79 204.67 T
+(1) 107.79 204.67 T
+(Y1) 137.99 204.67 T
+(XT) 188.24 204.67 T
+(AL) 198.27 204.67 T
+(12MHz) 249.06 204.67 T
+73 511.75 73 198.25 2 L
+V
+0.5 H
+0 Z
+N
+101.79 512.25 101.79 197.75 2 L
+V
+N
+131.99 512.25 131.99 197.75 2 L
+V
+N
+182.24 512.25 182.24 197.75 2 L
+V
+N
+243.06 512.25 243.06 197.75 2 L
+V
+N
+290.5 511.75 290.5 198.25 2 L
+V
+N
+72.75 512 290.75 512 2 L
+V
+N
+73.25 481.25 290.25 481.25 2 L
+V
+N
+73.25 478.75 290.25 478.75 2 L
+V
+N
+72.75 452 290.75 452 2 L
+V
+N
+72.75 434 290.75 434 2 L
+V
+N
+72.75 416 290.75 416 2 L
+V
+N
+72.75 398 290.75 398 2 L
+V
+N
+72.75 380 290.75 380 2 L
+V
+N
+72.75 362 290.75 362 2 L
+V
+N
+72.75 344 290.75 344 2 L
+V
+N
+72.75 326 290.75 326 2 L
+V
+N
+72.75 298 290.75 298 2 L
+V
+N
+72.75 270 290.75 270 2 L
+V
+N
+72.75 252 290.75 252 2 L
+V
+N
+72.75 234 290.75 234 2 L
+V
+N
+72.75 216 290.75 216 2 L
+V
+N
+72.75 198 290.75 198 2 L
+V
+N
+1 10 Q
+(interchangeable with the Cable Kit, and both) 324 713.33 T
+(methods can be used interchangably for proto-) 324 701.33 T
+(typing.) 324 689.33 T
+(When using the FLEXlogic Cable Kit, a PC is) 324 673.33 T
+(connected directly to your circuit board with a) 324 661.33 T
+(cable from the Parallel Printer Port.) 324 649.33 T
+-0.49 (Instead of creating a .HEX \336le,  the .SDL \336le must) 324 633.33 P
+(be changed so that it will send the con\336guration) 324 621.33 T
+(via the Parallel Printer Port instead.) 324 609.33 T
+(Example:) 324 593.33 T
+2 8 Q
+(STRING 1 P) 368.46 593.33 T
+(ARALLEL_PORT) 412.32 593.33 T
+1 10 Q
+(See the STRING commands in the JED2JT) 324 577.33 T
+(AG) 515.55 577.33 T
+(section for further information.) 324 565.33 T
+2 14 Q
+(CUST) 324 538.67 T
+(OMIZED LOADER) 361.86 538.67 T
+(CIRCUITS) 324 522.67 T
+1 10 Q
+(As mentioned previously) 324 501.33 T
+(, custom load circuits) 432.19 501.33 T
+0.04 (can be built, similar to the Intel Download Board.) 324 489.33 P
+(There are two choices: 1\051 a custom circuit with a) 324 477.33 T
+(FLASH memory) 324 465.33 T
+(, or 2\051 a software download-able) 394.38 465.33 T
+(circuit.) 324 453.33 T
+(1\051 A custom FLASH loader can be built similarly) 324 437.33 T
+(to the Loader board using a dif) 324 425.33 T
+(ferent CPU, or dif-) 459.46 425.33 T
+(ferent memory) 324 413.33 T
+(. For this, you may use the HEX) 387.72 413.33 T
+(FILE DOWNLOAD ALGORITHM.) 324 401.33 T
+(2\051 An example of a software download-able cir-) 324 385.33 T
+(cuit would be an add-in card, where the con\336gu-) 324 373.33 T
+(ration is downloaded from the disk of a host) 324 361.33 T
+(CPU. In this case, the BIN FILE DOWNLOAD) 324 349.33 T
+(ALGORITHM should be used.) 324 337.33 T
+(The .BIN \336le contains TMS/TDI pairs for each) 324 170.99 T
+(each JT) 324 158.99 T
+(AG clock \050TCK.\051 All that is required is a) 358.83 158.99 T
+(host CPU that drive these signals accordingly) 324 146.99 T
+(.) 524.45 146.99 T
+(The BIN \336le download algorithm describes the) 324 130.99 T
+(contents of these \336les.) 324 118.99 T
+324 183.66 540 334 C
+356 271.97 M
+ 388.4 265.23 432.33 276.5 461.83 252.82 D
+ 464.8 250.43 451.15 237.94 444.33 235.47 D
+ 415.84 225.14 382.97 218.32 355.17 234.83 D
+ 352.57 236.38 356.25 244 352.67 251.07 D
+ 349.46 257.4 350.45 265.51 356.83 270.23 D
+6 X
+0 K
+V
+0.5 H
+2 Z
+0 X
+N
+347.38 221.25 515.95 325.41 R
+0 Z
+N
+470.34 281.5 495.02 306.25 R
+1 H
+N
+478.05 306.25 478.05 316.14 2 L
+N
+487.31 306.25 487.31 316.14 2 L
+N
+491.94 306.25 491.94 316.14 2 L
+N
+473.42 306.25 473.42 316.14 2 L
+N
+482.68 306.25 482.68 316.14 2 L
+N
+504.28 289.24 495.02 289.24 2 L
+N
+504.28 298.52 495.02 298.52 2 L
+N
+504.28 303.15 495.02 303.15 2 L
+N
+504.28 284.6 495.02 284.6 2 L
+N
+504.28 293.88 495.02 293.88 2 L
+N
+478.05 272.23 478.05 281.51 2 L
+N
+487.31 272.23 487.31 281.51 2 L
+N
+491.94 272.23 491.94 281.51 2 L
+N
+473.42 272.23 473.42 281.51 2 L
+N
+482.68 272.23 482.68 281.51 2 L
+N
+470.34 289.24 461.08 289.24 2 L
+N
+470.34 298.52 461.08 298.52 2 L
+N
+470.34 303.15 461.08 303.15 2 L
+N
+470.34 284.6 461.08 284.6 2 L
+N
+470.34 293.88 461.08 293.88 2 L
+N
+1 7 Q
+(FLEXlogic FPGAs) 448.75 263.02 T
+2 10 Q
+(Figure 4: A Custom Download Circuit) 344.19 207.84 T
+414.77 280.65 439.45 305.39 R
+N
+422.48 305.39 422.48 315.29 2 L
+N
+431.74 305.39 431.74 315.29 2 L
+N
+436.36 305.39 436.36 315.29 2 L
+N
+417.85 305.39 417.85 315.29 2 L
+N
+427.11 305.39 427.11 315.29 2 L
+N
+448.71 288.38 439.45 288.38 2 L
+N
+448.71 297.66 439.45 297.66 2 L
+N
+448.71 302.3 439.45 302.3 2 L
+N
+448.71 283.74 439.45 283.74 2 L
+N
+448.71 293.02 439.45 293.02 2 L
+N
+422.48 271.37 422.48 280.65 2 L
+N
+431.74 271.37 431.74 280.65 2 L
+N
+436.36 271.37 436.36 280.65 2 L
+N
+417.85 271.37 417.85 280.65 2 L
+N
+427.11 271.37 427.11 280.65 2 L
+N
+414.77 288.38 405.51 288.38 2 L
+N
+414.77 297.66 405.51 297.66 2 L
+N
+414.77 302.3 405.51 302.3 2 L
+N
+414.77 283.74 405.51 283.74 2 L
+N
+414.77 293.02 405.51 293.02 2 L
+N
+5 7 Q
+(CIRCUIT BOARD) 459.2 225.4 T
+363.74 230.84 365.18 234.67 0.72 RR
+7 X
+V
+0.5 H
+2 Z
+0 X
+N
+366.89 230.84 368.34 234.67 0.72 RR
+7 X
+V
+0 X
+N
+370.05 230.84 371.5 234.67 0.72 RR
+7 X
+V
+0 X
+N
+373.73 230.84 375.18 234.67 0.72 RR
+7 X
+V
+0 X
+N
+376.89 230.84 378.34 234.67 0.72 RR
+7 X
+V
+0 X
+N
+380.57 230.84 382.02 234.67 0.72 RR
+7 X
+V
+0 X
+N
+384.26 230.84 385.7 234.67 0.72 RR
+7 X
+V
+0 X
+N
+387.41 230.84 388.86 234.67 0.72 RR
+7 X
+V
+0 X
+N
+363.74 260.05 365.18 263.16 0.72 RR
+7 X
+V
+0 X
+N
+366.89 260.05 368.34 263.16 0.72 RR
+7 X
+V
+0 X
+N
+370.05 260.05 371.5 263.16 0.72 RR
+7 X
+V
+0 X
+N
+373.73 260.05 375.18 263.16 0.72 RR
+7 X
+V
+0 X
+N
+376.89 260.05 378.34 263.16 0.72 RR
+7 X
+V
+0 X
+N
+380.57 260.05 382.02 263.16 0.72 RR
+7 X
+V
+0 X
+N
+384.26 260.05 385.7 263.16 0.72 RR
+7 X
+V
+0 X
+N
+387.41 260.05 388.86 263.16 0.72 RR
+7 X
+V
+0 X
+N
+385.38 256.88 391.95 258.19 0.66 RR
+7 X
+V
+0 X
+N
+385.38 254 391.95 255.32 0.66 RR
+7 X
+V
+0 X
+N
+385.38 251.13 391.95 252.45 0.66 RR
+7 X
+V
+0 X
+N
+385.38 247.78 391.95 249.09 0.66 RR
+7 X
+V
+0 X
+N
+385.38 244.9 391.95 246.22 0.66 RR
+7 X
+V
+0 X
+N
+385.38 241.55 391.95 242.87 0.66 RR
+7 X
+V
+0 X
+N
+385.38 238.2 391.95 239.52 0.66 RR
+7 X
+V
+0 X
+N
+385.38 235.33 391.95 236.65 0.66 RR
+7 X
+V
+0 X
+N
+360.38 258.31 374.06 259.63 0.66 RR
+7 X
+V
+0 X
+N
+360.38 255.44 374.06 256.76 0.66 RR
+7 X
+V
+0 X
+N
+360.38 252.57 374.06 253.88 0.66 RR
+7 X
+V
+0 X
+N
+360.38 249.21 374.06 250.53 0.66 RR
+7 X
+V
+0 X
+N
+360.38 246.34 374.06 247.66 0.66 RR
+7 X
+V
+0 X
+N
+360.38 242.99 374.06 244.31 0.66 RR
+7 X
+V
+0 X
+N
+360.38 239.64 374.06 240.96 0.66 RR
+7 X
+V
+0 X
+N
+360.38 236.76 374.06 238.08 0.66 RR
+7 X
+V
+0 X
+N
+361.83 232.69 390.64 261.54 R
+7 X
+V
+0 X
+N
+1 F
+(FLASH) 365.88 245.89 T
+(On-Board Loader) 396.25 248.52 T
+(Sub-Circuit) 396.25 241.52 T
+2 8 Q
+(JT) 374 301 T
+(AG) 382.74 301 T
+395.95 297.9 401 294.67 395.67 291.91 395.81 294.91 4 Y
+V
+395.79 294.9 M
+ 381.36 293.69 381.49 275.33 377.67 263 D
+N
+1 F
+(292139-2) 493.5 191.88 T
+0 0 612 792 C
+324 183.66 540 334 R
+1 H
+0 Z
+0 X
+0 K
+N
+FMENDPAGE
+%%EndPage: "4" 6
+%%Page: "5" 6
+612 792 0 FMBEGINPAGE
+0 10 Q
+0 X
+0 K
+(5) 303.5 36.66 T
+2 14 Q
+(ORDERING INFORMA) 73 710.67 T
+(TION) 216.63 710.67 T
+1 10 Q
+(For Intel Literature call \050800\051 548-4725. Outside) 73 689.33 T
+(of the USA/Canada, please call your local Intel) 73 677.33 T
+(sales of) 73 665.33 T
+(\336ce.) 107.28 665.33 T
+5 F
+(\322JT) 73 649.33 T
+(AG 1) 88.93 649.33 T
+(149.1 Speci\336cations for In-Circuit) 111.53 649.33 T
+-0.72 (Recon\336guration and Programming the iFX780) 73 637.33 P
+(FPGA\323) 73 625.33 T
+2 F
+(,) 105.78 625.33 T
+1 F
+( Application Note 390, Order Number) 108.56 625.33 T
+(292122-001. I) 73 613.33 T
+(This App-Note contains detailed JT) 73 597.33 T
+(AG timings,) 227.88 597.33 T
+-0.5 (and shows how to build JT) 73 585.33 P
+-0.5 (AG instruction streams) 187.58 585.33 P
+(from FLEXlogic bitmaps.) 73 573.33 T
+2 F
+(FLEXlogic Prototyping Cable Kit, Order Num-) 73 541.33 T
+(ber EVF780CBL) 73 529.33 T
+1 F
+(Be sure to get the FLEXlogic Cable Kit Software) 73 513.33 T
+(V1.1 or later to get the JED2JT) 73 501.33 T
+(AG software.) 209.55 501.33 T
+2 F
+(FLEXlogic Demo Board Kit, Order Number) 73 483.33 T
+(EVFX780BDUS) 73 471.33 T
+1 F
+-0.52 (This is a demonstration board which contains two) 73 455.33 P
+(FX780 sockets, 84 and 132 pin, and 2 LCD dis-) 73 443.33 T
+(plays. The board can be used to demonstrate) 73 431.33 T
+(recon\336guration, and can also be used for pro-) 73 419.33 T
+(gramming.) 73 407.33 T
+2 F
+(Intel\325) 73 371.33 T
+(s Application BBS) 95.97 371.33 T
+1 F
+(\050916\051 356-3600) 73 355.33 T
+(Settings: 9600 baud, N, 8, 1) 73 339.33 T
+(Auto con\336guration supports 1200-9600 baud.) 73 323.33 T
+(The FLEXlogic Cable Kit Software can also be) 73 307.33 T
+(downloaded from the BBS. Follow all directions) 73 295.33 T
+(to download from the PLD/FPGA \336le area.) 73 283.33 T
+(The DOS Cable Kit Software is delivered in a) 73 267.33 T
+(compressed format. The regular install program) 73 255.33 T
+(should be run in order to uncompress the \336les.) 73 243.33 T
+1 8 Q
+(READEV) 91 228.67 T
+(AL.ME) 123.3 228.67 T
+(JED2JT) 91 214.67 T
+(AG.EXE) 118.86 214.67 T
+(BIN2HEX.EXE) 91 200.67 T
+(BIN2PP) 91 186.67 T
+(.EXE) 118.42 186.67 T
+(PENGN.EXE) 91 172.67 T
+(EXAMPLE.SDL) 91 158.67 T
+(JT) 91 144.67 T
+(AG.DVC) 99.3 144.67 T
+1 10 Q
+(Other \336les may be included in later versions of) 73 129.33 T
+(the software.) 73 117.33 T
+(The Intel Download Board Gerber \336les are avail-) 324 713.33 T
+(able on the BBS as a compressed \336le.) 324 701.33 T
+(The 87C51 Assembler Code \050with .OBJ and) 324 685.33 T
+-0.39 (.HEX \336les\051 for the example Intel Download Board) 324 673.33 P
+(is also provided in a separate compressed \336le.) 324 661.33 T
+FMENDPAGE
+%%EndPage: "5" 7
+%%Page: "6" 7
+612 792 0 FMBEGINPAGE
+0 10 Q
+0 X
+0 K
+(6) 303.5 36.66 T
+2 14 Q
+(HEX FILE DOWNLOAD ALGORITHM) 73 701.67 T
+1 10 Q
+(This pseudo-code shows the algorithm used in the Intel Download Board to read the contents of the) 73 684.33 T
+(FLASH memory) 73 672.33 T
+(, and control the JT) 143.38 672.33 T
+(AG pin signals.) 228.24 672.33 T
+6 8 Q
+(;********************************************************************) 73 661.67 T
+(;* JTAG STAND-ALONE LOADER PSEUDO CODE) 73 653.67 T
+(;* *) 73 645.67 T
+(;* Author: John Logue) 73 637.67 T
+(;* Revision Record: 06/17/93 JDL Initial Release - Version 1.0) 73 629.67 T
+(;* *) 73 621.67 T
+(;* This program typically executes in an embedded controller from an executable memory bank.) 73 613.67 T
+(;* It transmits data from a local nonvolatile data memory bank to a JTAG \050IEEE 1149.1\051 chain,) 73 605.67 T
+(;* typically to load the SRAM control memory in the FLEXlogic FPGAs in the chain.) 73 597.67 T
+(;* *) 73 589.67 T
+(;* Data is stored in the nonvolatile memory off-line, e.g., with a PROM programmer. It is) 73 581.67 T
+(;* formatted as a JTAG data stream. Each byte contains TDO/TMS data for 4 TCKs. Bit 0 of) 73 573.67 T
+(;* each byte is the f) 73 565.67 T
+(irst TDO, bit 1 is the f) 173.8 565.67 T
+(irst TMS, bit 2 is the second TDO,) 289 565.67 T
+(;* etc. No inversion occurs between memory and TMS/TDO.) 73 557.67 T
+(;* *) 73 549.67 T
+(;* The f) 73 541.67 T
+(irst four bytes in the nonvolatile memory specify the Ending Address + 1. The least) 111.4 541.67 T
+(;* signif) 73 533.67 T
+(icant byte is at data address 0. The JTAG data stream starts at data address 4.) 116.2 533.67 T
+(;* *) 73 525.67 T
+(;* The down-load operation takes place automatically each time the embedded controller is) 73 517.67 T
+(; *reset, including power-on.) 73 509.67 T
+(;********************************************************************) 73 501.67 T
+(; Initialization) 73 493.67 T
+( SET LED# port bit ; turn off LED) 73 485.67 T
+( DELAY \050500\051 ; delay 500 ms.) 73 469.67 T
+(; Give time for host JTAG string to completely power-up before beginning.) 73 461.67 T
+( CLR TCK port bit ; init TCK to LOW) 73 445.67 T
+( CLR RESET# port bit ; init RESET# to LOW \050activate host RESET\051) 73 437.67 T
+( CLR CE# port bit ; enable Flash memory) 73 429.67 T
+( CLR LED# port bit ; turn on LED) 73 421.67 T
+(; Transmit data) 73 405.67 T
+( adrs = 0; ; initialize data address and) 73 389.67 T
+( last_adrs = \050adrs\051 ; last address + 1 \050these are 32 bit values\051) 73 381.67 T
+( adrs = adrs + 4;) 73 373.67 T
+( WHILE \050adrs < last_adrs\051) 73 357.67 T
+( { ; loop until all data is moved from memory to JTAG chain) 73 349.67 T
+( ; output 1st TMS/TDO) 73 333.67 T
+( MOVE bit 0 of \050adrs\051 to TDO port bit) 73 325.67 T
+( MOVE bit 1 of \050adrs\051 to TMS port bit) 73 317.67 T
+( SET TCK port bit ; pulse TCK) 73 309.67 T
+( CLR TCK port bit) 73 301.67 T
+( ; output 2nd TMS/TDO) 73 285.67 T
+( MOVE bit 2 of \050adrs\051 to TDO port bit) 73 277.67 T
+( MOVE bit 3 of \050adrs\051 to TMS port bit) 73 269.67 T
+( SET TCK port bit ; pulse TCK) 73 261.67 T
+( CLR TCK port bit) 73 253.67 T
+( ; output 3rd TMS/TDO) 73 237.67 T
+( MOVE bit 4 of \050adrs\051 to TDO port bit) 73 229.67 T
+( MOVE bit 5 of \050adrs\051 to TMS port bit) 73 221.67 T
+( SET TCK port bit ; pulse TCK) 73 213.67 T
+( CLR TCK port bit) 73 205.67 T
+( ; output 4th TMS/TDO) 73 189.67 T
+( MOVE bit 6 of \050adrs\051 to TDO port bit) 73 181.67 T
+( MOVE bit 7 of \050adrs\051 to TMS port bit) 73 173.67 T
+( SET TCK port bit ; pulse TCK) 73 165.67 T
+( CLR TCK port bit) 73 157.67 T
+( adrs = adrs + 1) 73 141.67 T
+( }) 73 133.67 T
+(; Completion) 73 117.67 T
+( SET RESET# port bit ; release host) 73 109.67 T
+( SET LED# port bit ; turn off LED) 73 101.67 T
+( SET CE# port bit ; disable memory to save power) 73 93.67 T
+( SLEEP ; disable embedded controller to save power) 73 85.67 T
+FMENDPAGE
+%%EndPage: "6" 8
+%%Page: "7" 8
+612 792 0 FMBEGINPAGE
+0 10 Q
+0 X
+0 K
+(7) 303.5 36.66 T
+2 14 Q
+(BIN FILE DOWNLOAD ALGORITHM) 73 710.67 T
+1 10 Q
+(This pseudo-code shows the algorithm translate a .BIN \336le into JT) 73 693.33 T
+(AG pin signals.) 363.49 693.33 T
+6 8 Q
+(;********************************************************************) 73 682.67 T
+(;* *) 73 674.67 T
+(;* JTAG BINARY FILE DOWNLOAD PSEUDO CODE) 73 666.67 T
+(;* *) 73 658.67 T
+(;* Author: John Logue) 73 650.67 T
+(;* Revision Record) 73 642.67 T
+(;* 06/21/93 JDL Initial Release - Version 1.0) 73 634.67 T
+(;* *) 73 626.67 T
+(;********************************************************************) 73 618.67 T
+(;* *) 73 610.67 T
+(;* This program typically executes in a computer, such as a PC,) 73 602.67 T
+(;* that is capable of reading disk f) 73 594.67 T
+(iles. It transmits data from) 245.8 594.67 T
+(;* a binary f) 73 586.67 T
+(ile to a JTAG \050IEEE 1149.1\051 chain. Typically, this) 135.4 586.67 T
+(;* is to load the SRAM control memory in the FLEXlogic FPGAs in) 73 578.67 T
+(;* the chain. Normally, the binary f) 73 570.67 T
+(ile was generated by JED2JTAG.) 245.8 570.67 T
+(;* *) 73 562.67 T
+(;* Data in the binary f) 73 554.67 T
+(ile is formatted as a JTAG data stream.) 183.4 554.67 T
+(;* Each byte contains TDO/TMS data for 4 TCKs. Bit 0 of each) 73 546.67 T
+(;* byte is the f) 73 538.67 T
+(irst TDO, bit 1 is the f) 149.8 538.67 T
+(irst TMS, bit 2 is the) 265 538.67 T
+(;* second TDO, etc. No inversion occurs between the f) 73 530.67 T
+(ile data) 327.4 530.67 T
+(;* and TMS/TDO.) 73 522.67 T
+(;* *) 73 514.67 T
+(;* Note that the hardware interface to the JTAG chain is not) 73 506.67 T
+(;* def) 73 498.67 T
+(ined. Examples are: Processor port pins, ISA or) 101.8 498.67 T
+(;* Microchannel ports, etc. Refer to Standard IEEE 1149.1 for) 73 490.67 T
+(;* more information on signals TCK, TMS, and TDO.) 73 482.67 T
+(;* *) 73 474.67 T
+(;********************************************************************) 73 466.67 T
+(; Initialization) 73 450.67 T
+( CLR TCK hw bit ; init TCK to LOW) 73 434.67 T
+( SET RESET hw bit ; activate RESET to FLEXlogic circuitry) 73 426.67 T
+( OPEN bin_f) 73 418.67 T
+(ile ; open binary f) 125.8 418.67 T
+(ile) 217 418.67 T
+(; Transmit data) 73 402.67 T
+( DO) 73 386.67 T
+( { ; loop until all data is read from the binary f) 73 378.67 T
+(ile) 313 378.67 T
+( READ byte of bin_f) 109 362.67 T
+(ile into data_byte) 200.2 362.67 T
+( IF\050END_OF_FILE bin_f) 109 346.67 T
+(ile\051 break; exit DO loop if end of f) 209.8 346.67 T
+(ile) 382.6 346.67 T
+( ; output 1st TMS/TDO) 109 330.67 T
+( MOVE bit 0 of data_byte to TDO hw bit) 109 322.67 T
+( MOVE bit 1 of data_byte to TMS hw bit) 109 314.67 T
+( SET TCK hw bit ; pulse TCK) 109 306.67 T
+( CLR TCK hw bit) 109 298.67 T
+( ; output 2nd TMS/TDO) 109 282.67 T
+( MOVE bit 2 of data_byte to TDO hw bit) 109 274.67 T
+( MOVE bit 3 of data_byte to TMS hw bit) 109 266.67 T
+( SET TCK hw bit ; pulse TCK) 109 258.67 T
+( CLR TCK hw bit) 109 250.67 T
+( ; output 3rd TMS/TDO) 109 234.67 T
+( MOVE bit 4 of data_byte to TDO hw bit) 109 226.67 T
+( MOVE bit 5 of data_byte to TMS hw bit) 109 218.67 T
+( SET TCK hw bit ; pulse TCK) 109 210.67 T
+( CLR TCK hw bit) 109 202.67 T
+( ; output 4th TMS/TDO) 109 186.67 T
+( MOVE bit 6 of data_byte to TDO hw bit) 109 178.67 T
+( MOVE bit 7 of data_byte to TMS hw bit) 109 170.67 T
+( SET TCK hw bit ; pulse TCK) 109 162.67 T
+( CLR TCK hw bit) 109 154.67 T
+(}) 73 146.67 T
+(; Completion) 73 130.67 T
+( CLR RESET hw bit ; release RESET to FLEXlogic circuitry) 73 114.67 T
+( CLOSE bin_f) 73 106.67 T
+(ile ; close binary f) 130.6 106.67 T
+(ile) 226.6 106.67 T
+( MOV TMS,C) 73 98.67 T
+( SETB TCK) 73 90.67 T
+FMENDPAGE
+%%EndPage: "7" 9
+%%Page: "8" 9
+612 792 0 FMBEGINPAGE
+0 10 Q
+0 X
+0 K
+(8) 303.5 36.66 T
+0 -14 -8 14 8 579 778 BEGINPRINTCODE
+%%BeginDocument: /u/rvireday/misc/appnotes/ab398.sch.ps
+%!PS-Adobe-2.0 EPSF-1.2
+%%BoundingBox: 18 18 594 774
+%%Creator: Viewlogic Systems Inc.
+%%Title: SAL_MAG.01P
+%%EndComments
+/l{%def
+gsave moveto lineto setlinewidth stroke grestore
+}bind def
+/mt{%def
+gsave moveto
+}bind def
+/lt{%def
+lineto
+}bind def
+/pu{%def
+setlinewidth stroke grestore
+}bind def
+/c{
+gsave newpath 0 360 arc
+dup 1 eq
+{ pop setlinewidth stroke grestore }
+{ gsave setgray fill grestore setlinewidth stroke grestore }
+ifelse
+}bind def
+/arcdict 8 dict def
+arcdict /mtrx matrix put
+/a{
+arcdict begin
+gsave
+/savematrix mtrx currentmatrix def
+newpath
+translate
+scale
+atan 3 1 roll atan 0.0 0.0 1.0 5 3 roll arc
+savematrix setmatrix
+setlinewidth stroke grestore
+end
+}bind def
+/f{
+findfont setfont
+}bind def
+/fz{
+/yscale exch def
+/xscale exch def
+findfont setfont currentfont [xscale 0 0 yscale 0 0] makefont setfont
+}bind def
+/t{
+gsave moveto currentpoint translate rotate show grestore
+}bind def
+/sh{
+showpage
+}bind def
+% x1,y1,x2,y2,x3,y3,x4,y4
+/bc{
+gsave
+newpath
+moveto
+lineto
+lineto
+lineto
+closepath clip newpath
+}bind def
+/ec{
+grestore
+}bind def
+/rb{
+    gsave
+    translate
+    /pdensity exch def
+    /iscale exch def
+    /height exch def
+    /width exch def
+    72 pdensity div dup scale
+    width iscale mul height iscale mul scale
+    /picstr % picstr holds one scan line
+        width 7 add 8 idiv % width of image in bytes = ceiling(width/8)
+        string
+    def
+    width height 1 [width 0 0 height neg 0 height]
+    { currentfile picstr readhexstring pop }bind
+    image
+}bind def
+/re{%def
+grestore
+}bind def
+/elpdict 8 dict def
+elpdict /mtrx matrix put
+/e{
+elpdict begin
+gsave
+/savematrix mtrx currentmatrix def
+newpath
+translate
+scale
+0.0 0.0 1.0 0 360 arc
+savematrix setmatrix
+dup 1 eq
+{ pop setlinewidth stroke grestore }
+{ gsave setgray fill grestore setlinewidth stroke grestore }
+ifelse
+end
+}bind def
+/b{
+gsave newpath
+moveto 1 index 0 rlineto 0 exch rlineto neg 0 rlineto closepath
+dup 1 eq
+{ pop }
+{ gsave setgray fill grestore }
+ifelse
+setlinewidth stroke grestore
+}bind def
+%%EndProlog
+
+0.50 462.2 195.2 462.2 192.1 l
+0.50 456.7 199.7 456.7 187.6 l
+0.50 459.7 198.2 459.7 189.1 l
+0.50 450.6 193.6 456.7 193.6 l
+0.50 353.9 193.6 341.8 193.6 l
+0.50 341.8 187.6 341.8 193.6 l
+0.50 366.0 193.6 353.9 193.6 l
+0.50 353.9 187.6 353.9 193.6 l
+0.50 390.2 193.6 366.0 193.6 l
+0.50 366.0 187.6 366.0 193.6 l
+0.50 402.3 193.6 390.2 193.6 l
+0.50 390.2 187.6 390.2 193.6 l
+0.50 414.4 193.6 402.3 193.6 l
+0.50 402.3 187.6 402.3 193.6 l
+0.50 426.5 193.6 414.4 193.6 l
+0.50 414.4 187.6 414.4 193.6 l
+0.50 426.5 187.6 426.5 193.6 l
+0.50 450.6 193.6 426.5 193.6 l
+0.50 1.00 1.26 1.26 426.46 193.64 e
+0.50 0.00 1.26 1.26 426.46 193.64 e
+0.50 1.00 1.26 1.26 414.36 193.64 e
+0.50 0.00 1.26 1.26 414.36 193.64 e
+0.50 1.00 1.26 1.26 402.26 193.64 e
+0.50 0.00 1.26 1.26 402.26 193.64 e
+0.50 1.00 1.26 1.26 390.17 193.64 e
+0.50 0.00 1.26 1.26 390.17 193.64 e
+0.50 1.00 1.26 1.26 365.98 193.64 e
+0.50 0.00 1.26 1.26 365.98 193.64 e
+0.50 1.00 1.26 1.26 353.88 193.64 e
+0.50 0.00 1.26 1.26 353.88 193.64 e
+/Courier f
+/Courier 5.0 3.0 fz
+(RESET#) 90 419.4 196.7 t
+0.50 420.4 187.6 420.4 223.9 l
+(J1) 90 321.9 163.9 t
+447.6 160.4 mt 447.6 178.5 lt 326.7 178.5 lt 326.7 160.4 lt 447.6 160.4 lt 0.50 pu
+0.50 396.2 187.6 396.2 178.5 l
+0.50 402.3 187.6 402.3 178.5 l
+0.50 408.3 187.6 408.3 178.5 l
+0.50 414.4 187.6 414.4 178.5 l
+0.50 420.4 187.6 420.4 178.5 l
+0.50 426.5 187.6 426.5 178.5 l
+0.50 432.5 187.6 432.5 178.5 l
+0.50 438.6 187.6 438.6 178.5 l
+0.50 444.6 187.6 444.6 178.5 l
+0.50 390.2 187.6 390.2 178.5 l
+0.50 329.7 187.6 329.7 178.5 l
+0.50 384.1 187.6 384.1 178.5 l
+0.50 378.1 187.6 378.1 178.5 l
+0.50 372.0 187.6 372.0 178.5 l
+0.50 366.0 187.6 366.0 178.5 l
+0.50 359.9 187.6 359.9 178.5 l
+0.50 353.9 187.6 353.9 178.5 l
+0.50 347.8 187.6 347.8 178.5 l
+0.50 341.8 187.6 341.8 178.5 l
+0.50 335.7 187.6 335.7 178.5 l
+(2) 90 334.2 181.0 t
+(3) 90 340.3 181.0 t
+(4) 90 346.3 181.0 t
+(5) 90 352.4 181.0 t
+(6) 90 358.4 181.0 t
+(7) 90 364.5 181.0 t
+(8) 90 370.5 181.0 t
+(9) 90 376.6 181.0 t
+(10) 90 382.6 180.5 t
+(1) 90 328.2 181.0 t
+(11) 90 388.7 181.0 t
+(20) 90 443.1 180.5 t
+(19) 90 437.1 181.0 t
+(18) 90 431.0 181.0 t
+(17) 90 425.0 181.0 t
+(16) 90 418.9 181.0 t
+(15) 90 412.9 181.0 t
+(14) 90 406.8 181.0 t
+(13) 90 400.8 181.0 t
+(12) 90 394.7 181.0 t
+491.2 545.9 mt 491.2 704.7 lt 445.9 704.7 lt 445.9 545.9 lt 491.2 545.9 lt 0.50 pu
+/Courier 6.3 3.8 fz
+(XXXXXX) 90 506.4 658.1 t
+(6-9-1993_13:37) 90 505.1 548.5 t
+(1) 90 505.1 697.1 t
+(C) 90 250.6 76.0 t
+0.50 306.0 79.7 306.0 74.7 l
+308.5 77.2 mt 306.0 79.7 lt 303.5 77.2 lt 0.50 pu
+308.3 77.2 mt 306.0 79.5 lt 303.7 77.2 lt 0.50 pu
+0.50 508.9 689.6 498.8 689.6 l
+0.50 508.9 649.3 498.8 649.3 l
+508.9 636.7 mt 498.8 636.7 lt 498.8 712.3 lt 0.50 pu
+513.9 74.7 mt 513.9 717.3 lt 512.6 717.3 lt 512.6 74.7 lt 513.9 74.7 lt 0.50 pu
+0.50 0.00 1.26 642.60 512.64 74.70 b
+513.9 74.7 mt 513.9 76.0 lt 98.1 76.0 lt 98.1 74.7 lt 513.9 74.7 lt 0.50 pu
+0.50 0.00 415.80 1.26 98.10 74.70 b
+(8) 90 102.1 125.4 t
+(7) 90 102.1 201.0 t
+(6) 90 102.1 276.6 t
+(5) 90 102.1 352.2 t
+513.9 716.0 mt 513.9 717.3 lt 98.1 717.3 lt 98.1 716.0 lt 513.9 716.0 lt 0.50 pu
+0.50 0.00 415.80 1.26 98.10 716.04 b
+/Courier 4.2 2.5 fz
+(SIZE) 90 501.7 637.9 t
+(REV) 90 501.7 704.7 t
+(SHEET) 90 501.7 690.6 t
+(DOCUMENT NUMBER) 90 501.7 650.5 t
+100.6 398.3 mt 102.9 396.0 lt 100.6 393.7 lt 0.50 pu
+100.6 398.5 mt 103.1 396.0 lt 100.6 393.5 lt 0.50 pu
+0.50 513.9 396.0 508.9 396.0 l
+511.4 398.3 mt 509.1 396.0 lt 511.4 393.7 lt 0.50 pu
+511.4 398.5 mt 508.9 396.0 lt 511.4 393.5 lt 0.50 pu
+0.50 306.0 717.3 306.0 712.3 l
+308.3 714.8 mt 306.0 712.5 lt 303.7 714.8 lt 0.50 pu
+308.5 714.8 mt 306.0 712.3 lt 303.5 714.8 lt 0.50 pu
+/Courier 8.4 5.0 fz
+(B) 90 506.7 640.7 t
+0.50 508.9 703.4 498.8 703.4 l
+/Courier 6.3 3.8 fz
+(D) 90 154.8 76.0 t
+(B) 90 356.4 76.0 t
+(A) 90 449.7 76.0 t
+0.50 409.8 79.7 409.8 74.7 l
+0.50 202.2 79.7 202.2 74.7 l
+0.50 202.2 717.3 202.2 712.3 l
+0.50 409.8 717.3 409.8 712.3 l
+(A) 90 450.2 712.3 t
+(B) 90 356.9 711.8 t
+(D) 90 155.3 712.3 t
+0.50 103.1 396.0 98.1 396.0 l
+99.4 74.7 mt 99.4 717.3 lt 98.1 717.3 lt 98.1 74.7 lt 99.4 74.7 lt 0.50 pu
+0.50 0.00 1.26 642.60 98.10 74.70 b
+0.50 103.1 235.5 98.1 235.5 l
+0.50 103.1 155.3 98.1 155.3 l
+0.50 103.1 315.6 98.1 315.6 l
+0.50 513.9 315.6 508.9 315.6 l
+0.50 513.9 235.5 508.9 235.5 l
+0.50 513.9 155.3 508.9 155.3 l
+(8) 90 511.6 126.1 t
+(7) 90 511.6 199.2 t
+(6) 90 511.6 275.3 t
+(5) 90 511.6 351.9 t
+0.50 103.1 556.5 98.1 556.5 l
+0.50 103.1 476.4 98.1 476.4 l
+0.50 103.1 636.7 98.1 636.7 l
+(2) 90 102.1 591.6 t
+(1) 90 102.1 674.2 t
+0.50 508.9 476.4 513.9 476.4 l
+0.50 508.9 556.5 513.9 556.5 l
+0.50 508.9 636.7 513.9 636.7 l
+(1) 90 511.6 675.0 t
+(2) 90 511.6 591.8 t
+(3) 90 102.1 512.4 t
+(3) 90 511.6 512.2 t
+(4) 90 102.1 434.3 t
+(4) 90 511.4 434.3 t
+508.9 79.7 mt 508.9 712.3 lt 103.1 712.3 lt 103.1 79.7 lt 508.9 79.7 lt 0.50 pu
+(C) 90 250.1 712.3 t
+/Courier 4.2 2.5 fz
+(A) 90 505.5 707.2 t
+0.50 491.2 558.5 445.9 558.5 l
+0.50 483.7 704.7 483.7 545.9 l
+0.50 491.2 583.7 445.9 583.7 l
+0.50 476.1 704.7 476.1 545.9 l
+(A) 90 457.6 551.0 t
+(INITIAL RELEASE) 90 457.6 591.3 t
+0.50 453.4 704.7 453.4 545.9 l
+(REV    DATE                   DESCRIPTION) 90 450.1 548.5 t
+0.50 461.0 704.7 461.0 545.9 l
+0.50 468.5 704.7 468.5 545.9 l
+/Courier 12.6 7.6 fz
+(STAND ALONE LOADER) 90 440.8 553.5 t
+/Courier 4.2 2.5 fz
+(06/09/93) 90 457.6 561.1 t
+/Courier 5.0 3.0 fz
+(VCC) 90 238.0 293.4 t
+0.50 239.0 290.4 239.0 308.6 l
+240.2 289.2 mt 240.2 291.7 lt 237.7 291.7 lt 237.7 289.2 lt 240.2 289.2 lt 0.50 pu
+0.50 0.00 2.52 2.52 237.71 289.15 b
+(C51_RESET) 90 271.2 287.4 t
+0.50 272.2 278.3 260.1 278.3 l
+0.50 272.2 257.1 269.5 256.9 l
+0.50 272.2 257.1 272.2 278.3 l
+0.50 278.3 278.1 272.2 278.3 l
+0.50 272.2 278.3 272.2 347.9 l
+0.50 1.00 1.26 1.26 272.23 278.32 e
+0.50 0.00 1.26 1.26 272.23 278.32 e
+(Y1) 90 233.4 169.5 t
+(12MHZ) 90 227.4 164.9 t
+245.0 154.3 mt 245.0 190.6 lt 205.7 190.6 lt 205.7 154.3 lt 245.0 154.3 lt 0.50 pu
+0.50 235.9 142.2 235.9 154.3 l
+0.50 235.9 202.7 235.9 190.6 l
+0.50 214.8 142.2 214.8 154.3 l
+0.50 220.8 178.5 208.7 178.5 l
+220.8 169.5 mt 220.8 175.5 lt 208.7 175.5 lt 208.7 169.5 lt 220.8 169.5 lt 0.50 pu
+0.50 220.8 166.4 208.7 166.4 l
+0.50 214.8 166.4 214.8 154.3 l
+0.50 214.8 190.6 214.8 178.5 l
+0.50 214.8 202.7 214.8 190.6 l
+(4) 90 218.3 192.1 t
+(1) 90 218.3 149.8 t
+(2) 90 239.5 149.8 t
+(3) 90 239.5 192.1 t
+0.50 441.1 425.0 441.1 422.0 l
+0.50 435.5 429.5 435.5 417.4 l
+0.50 438.6 428.0 438.6 418.9 l
+0.50 429.5 423.5 435.5 423.5 l
+0.50 429.5 423.5 423.4 423.5 l
+0.50 423.4 399.3 423.4 423.5 l
+0.50 423.4 423.5 417.4 423.5 l
+0.50 423.4 375.1 423.4 399.3 l
+0.50 423.4 399.3 417.4 399.3 l
+0.50 423.4 350.9 417.4 350.9 l
+0.50 423.4 350.9 423.4 375.1 l
+0.50 423.4 375.1 417.4 375.1 l
+0.50 1.00 1.26 1.26 423.43 423.47 e
+0.50 0.00 1.26 1.26 423.43 423.47 e
+0.50 1.00 1.26 1.26 423.43 399.28 e
+0.50 0.00 1.26 1.26 423.43 399.28 e
+0.50 1.00 1.26 1.26 423.43 375.08 e
+0.50 0.00 1.26 1.26 423.43 375.08 e
+(C6) 90 408.8 387.2 t
+(.1UF) 90 411.9 381.1 t
+0.50 411.3 396.3 411.3 402.3 l
+0.50 408.3 402.3 408.3 396.3 l
+0.50 402.3 399.3 408.3 399.3 l
+0.50 417.4 399.3 411.3 399.3 l
+(2) 90 414.9 394.7 t
+(1) 90 407.3 394.7 t
+(.1UF) 90 411.9 405.3 t
+(C7) 90 408.8 411.4 t
+0.50 411.3 420.4 411.3 426.5 l
+0.50 408.3 426.5 408.3 420.4 l
+0.50 402.3 423.5 408.3 423.5 l
+0.50 417.4 423.5 411.3 423.5 l
+(1) 90 407.3 418.9 t
+(2) 90 414.9 418.9 t
+(C5) 90 408.8 363.0 t
+(.1UF) 90 411.9 356.9 t
+0.50 411.3 372.1 411.3 378.1 l
+0.50 408.3 378.1 408.3 372.1 l
+0.50 402.3 375.1 408.3 375.1 l
+0.50 417.4 375.1 411.3 375.1 l
+(2) 90 414.9 370.5 t
+(1) 90 407.3 370.5 t
+(RESET_R#) 90 346.8 314.6 t
+0.50 347.8 269.2 347.8 347.9 l
+0.50 420.4 269.2 347.8 269.2 l
+0.50 420.4 245.1 420.4 269.2 l
+(TDI_PORT_R) 90 352.9 314.6 t
+0.50 353.9 251.1 353.9 347.9 l
+0.50 359.9 251.1 353.9 251.1 l
+0.50 359.9 245.1 359.9 251.1 l
+(TDO_PORT_R) 90 358.9 314.6 t
+0.50 359.9 257.1 359.9 347.9 l
+0.50 372.0 257.1 359.9 257.1 l
+0.50 372.0 245.1 372.0 257.1 l
+(TMS_R) 90 365.0 314.6 t
+0.50 366.0 275.3 366.0 347.9 l
+0.50 366.0 275.3 335.7 275.3 l
+0.50 335.7 245.1 335.7 275.3 l
+(TDO_PORT) 90 371.0 196.7 t
+0.50 372.0 187.6 372.0 223.9 l
+(TDI_PORT) 90 358.9 196.7 t
+0.50 359.9 187.6 359.9 223.9 l
+(TCK) 90 346.8 196.7 t
+0.50 347.8 187.6 347.8 223.9 l
+(TMS) 90 334.7 196.7 t
+0.50 335.7 187.6 335.7 223.9 l
+(30.1) 90 331.7 229.4 t
+(R7) 90 340.3 230.7 t
+0.50 335.7 223.9 335.7 229.9 l
+0.50 335.7 245.1 335.7 239.0 l
+334.2 230.4 mt 337.2 231.9 lt 334.2 233.5 lt 337.2 235.0 lt 334.2 236.5 lt 337.2 238.0 lt 335.7 239.0 lt 0.50 pu
+0.50 335.7 229.9 334.2 230.4 l
+(1) 90 334.5 224.9 t
+(2) 90 334.5 242.0 t
+(R4) 90 425.0 230.7 t
+(30.1) 90 416.4 229.4 t
+0.50 420.4 223.9 420.4 229.9 l
+0.50 420.4 245.1 420.4 239.0 l
+418.9 230.4 mt 421.9 231.9 lt 418.9 233.5 lt 421.9 235.0 lt 418.9 236.5 lt 421.9 238.0 lt 420.4 239.0 lt 0.50 pu
+0.50 420.4 229.9 418.9 230.4 l
+(2) 90 419.2 242.0 t
+(1) 90 419.2 224.9 t
+(237) 90 289.4 208.3 t
+(R3) 90 297.9 203.5 t
+0.50 293.4 196.7 293.4 202.7 l
+0.50 293.4 217.8 293.4 211.8 l
+291.9 203.2 mt 294.9 204.7 lt 291.9 206.2 lt 294.9 207.8 lt 291.9 209.3 lt 294.9 210.8 lt 293.4 211.8 lt 0.50 pu
+0.50 293.4 202.7 291.9 203.2 l
+(1) 90 292.2 197.7 t
+(2) 90 292.2 214.8 t
+(READ#) 90 371.0 435.6 t
+0.50 372.0 417.4 372.0 571.6 l
+0.50 372.0 571.6 196.6 571.6 l
+0.50 196.6 571.6 196.6 574.7 l
+(WRITE#) 90 365.0 432.5 t
+0.50 366.0 417.4 366.0 565.6 l
+0.50 366.0 565.6 202.7 565.6 l
+0.50 202.7 565.6 202.7 574.7 l
+(A17) 90 358.9 441.6 t
+0.50 359.9 417.4 359.9 559.5 l
+0.50 329.7 559.5 329.7 574.7 l
+0.50 359.9 559.5 329.7 559.5 l
+(A16) 90 352.9 441.6 t
+0.50 353.9 417.4 353.9 553.5 l
+0.50 323.6 553.5 323.6 574.7 l
+0.50 353.9 553.5 323.6 553.5 l
+(FLASH_CE#) 90 346.8 423.5 t
+0.50 347.8 417.4 347.8 547.5 l
+0.50 190.6 547.5 190.6 574.7 l
+0.50 347.8 547.5 190.6 547.5 l
+(DS1) 90 299.2 159.6 t
+0.50 293.4 157.4 293.4 163.4 l
+0.50 293.4 175.5 293.4 169.5 l
+288.9 174.0 mt 287.4 174.0 lt 287.4 172.5 lt 0.50 pu
+288.9 169.5 mt 287.4 169.5 lt 287.4 167.9 lt 0.50 pu
+0.50 287.4 174.0 290.4 171.0 l
+0.50 287.4 169.5 290.4 166.4 l
+293.4 169.5 mt 296.4 163.4 lt 290.4 163.4 lt 293.4 169.5 lt 0.50 pu
+0.50 297.2 169.5 289.9 169.5 l
+(1) 90 291.9 172.5 t
+(2) 90 291.9 157.9 t
+(U1) 90 381.1 378.4 t
+(AL/PROG-) 90 215.3 384.2 t
+0.50 214.8 417.4 214.8 408.3 l
+(P00/AD0) 90 221.3 387.2 t
+0.50 220.8 417.4 220.8 408.3 l
+(P01/AD1) 90 227.4 387.2 t
+0.50 226.9 417.4 226.9 408.3 l
+(P02/AD2) 90 233.4 387.2 t
+0.50 232.9 417.4 232.9 408.3 l
+(P03/AD4) 90 239.5 387.2 t
+0.50 239.0 417.4 239.0 408.3 l
+(P04/AD5) 90 245.5 387.2 t
+0.50 245.0 417.4 245.0 408.3 l
+(P05/AD5) 90 251.6 387.2 t
+0.50 251.1 417.4 251.1 408.3 l
+(P06/AD6) 90 257.6 387.2 t
+0.50 257.1 417.4 257.1 408.3 l
+(P07/AD7) 90 263.7 387.2 t
+0.50 263.2 417.4 263.2 408.3 l
+(P10/T2) 90 330.2 356.9 t
+0.50 329.7 347.9 329.7 356.9 l
+(P11/T2EX) 90 336.3 356.9 t
+0.50 335.7 347.9 335.7 356.9 l
+(P12/ECI) 90 342.3 356.9 t
+0.50 341.8 347.9 341.8 356.9 l
+(P13/CEX0) 90 348.3 356.9 t
+0.50 347.8 347.9 347.8 356.9 l
+(P14/CEX1) 90 354.4 356.9 t
+0.50 353.9 347.9 353.9 356.9 l
+(P15/CEX2) 90 360.4 357.2 t
+0.50 359.9 347.9 359.9 356.9 l
+(P16/CEX3) 90 366.5 356.9 t
+0.50 366.0 347.9 366.0 356.9 l
+(P17/CEX4) 90 372.5 356.9 t
+0.50 372.0 347.9 372.0 356.9 l
+(P20/A8) 90 275.8 390.2 t
+0.50 275.3 417.4 275.3 408.3 l
+(P21/A9) 90 281.8 390.2 t
+0.50 281.3 417.4 281.3 408.3 l
+(P22/A10) 90 287.9 387.2 t
+0.50 287.4 417.4 287.4 408.3 l
+(P23/A11) 90 293.9 387.2 t
+0.50 293.4 417.4 293.4 408.3 l
+(P24/A12) 90 300.0 387.2 t
+0.50 299.4 417.4 299.4 408.3 l
+(P25/A13) 90 306.0 387.2 t
+0.50 305.5 417.4 305.5 408.3 l
+(P26/A14) 90 312.1 387.2 t
+0.50 311.5 417.4 311.5 408.3 l
+(P27/A15) 90 318.1 387.2 t
+0.50 317.6 417.4 317.6 408.3 l
+(P30/RXD) 90 330.2 387.2 t
+0.50 329.7 417.4 329.7 408.3 l
+(P31/TDX) 90 336.3 387.2 t
+0.50 335.7 417.4 335.7 408.3 l
+(P32/INO-) 90 342.3 384.2 t
+0.50 341.8 417.4 341.8 408.3 l
+(P33/INI-) 90 348.3 384.2 t
+0.50 347.8 417.4 347.8 408.3 l
+(P34/T0) 90 354.4 390.2 t
+0.50 353.9 417.4 353.9 408.3 l
+(P35/T1) 90 360.4 390.2 t
+0.50 359.9 417.4 359.9 408.3 l
+(P36/WR-) 90 366.5 387.2 t
+0.50 366.0 417.4 366.0 408.3 l
+(P37/RD-) 90 372.5 387.2 t
+0.50 372.0 417.4 372.0 408.3 l
+(PSEN-) 90 203.2 393.2 t
+0.50 1.00 1.51 1.51 202.68 409.86 e
+0.50 202.7 417.4 202.7 411.4 l
+(XTAL1) 90 203.2 357.2 t
+0.50 202.7 347.9 202.7 356.9 l
+(XTAL2) 90 209.2 357.2 t
+0.50 208.7 347.9 208.7 356.9 l
+(87C51FA) 90 195.1 369.3 t
+378.1 356.9 mt 378.1 408.3 lt 196.6 408.3 lt 196.6 356.9 lt 378.1 356.9 lt 0.50 pu
+(EA-/VPP) 90 239.5 356.9 t
+0.50 1.00 1.51 1.51 238.97 355.43 e
+0.50 239.0 347.9 239.0 353.9 l
+(RESET) 90 272.7 356.9 t
+0.50 272.2 347.9 272.2 356.9 l
+(20) 90 207.5 347.9 t
+(18) 90 364.5 410.6 t
+(17) 90 358.7 410.6 t
+(16) 90 352.6 410.6 t
+(15) 90 346.6 410.6 t
+(14) 90 340.3 410.6 t
+(13) 90 334.5 410.6 t
+(11) 90 328.4 410.6 t
+(31) 90 316.3 410.6 t
+(30) 90 310.0 410.6 t
+(29) 90 304.2 410.6 t
+(28) 90 297.9 410.6 t
+(27) 90 292.2 410.6 t
+(26) 90 286.1 410.6 t
+(25) 90 280.1 410.6 t
+(24) 90 274.0 410.6 t
+(9) 90 370.8 350.9 t
+(8) 90 364.5 350.9 t
+(7) 90 358.7 350.9 t
+(6) 90 352.6 350.9 t
+(5) 90 346.6 350.9 t
+(4) 90 340.3 350.9 t
+(3) 90 334.5 350.9 t
+(2) 90 328.4 350.9 t
+(32) 90 201.4 410.6 t
+(33) 90 213.5 410.6 t
+(43) 90 219.6 410.6 t
+(42) 90 225.6 410.6 t
+(41) 90 231.7 410.6 t
+(40) 90 237.7 410.6 t
+(39) 90 243.5 410.6 t
+(38) 90 249.8 410.6 t
+(37) 90 255.6 410.6 t
+(36) 90 261.9 410.6 t
+(21) 90 201.4 347.9 t
+(35) 90 237.7 347.9 t
+(10) 90 270.7 347.9 t
+(19) 90 370.8 410.6 t
+(R1) 90 290.1 283.4 t
+(21.5K) 90 292.9 281.3 t
+0.50 299.4 278.1 293.4 278.1 l
+0.50 278.3 278.1 284.3 278.1 l
+292.9 276.6 mt 291.4 279.6 lt 289.9 276.6 lt 288.4 279.6 lt 286.8 276.6 lt 285.3 279.6 lt 284.3 278.1 lt 0.50 pu
+0.50 293.4 278.1 292.9 276.6 l
+/Courier 5.0 3.0 fz
+(2) 180 281.3 276.8 t
+(1) 180 298.4 276.8 t
+0.50 253.6 131.7 253.6 128.6 l
+0.50 248.0 136.2 248.0 124.1 l
+0.50 251.1 134.7 251.1 125.6 l
+0.50 242.0 130.1 248.0 130.1 l
+/Courier 5.0 3.0 fz
+(VCC) 90 292.4 136.2 t
+0.50 293.4 133.2 293.4 157.4 l
+294.7 131.9 mt 294.7 134.4 lt 292.1 134.4 lt 292.1 131.9 lt 294.7 131.9 lt 0.50 pu
+0.50 0.00 2.52 2.52 292.14 131.90 b
+(33PF) 90 227.4 220.9 t
+(C2) 90 224.4 226.9 t
+0.50 226.9 211.8 226.9 217.8 l
+0.50 223.8 217.8 223.8 211.8 l
+0.50 217.8 214.8 223.8 214.8 l
+0.50 232.9 214.8 226.9 214.8 l
+(1) 90 222.9 210.3 t
+(2) 90 230.4 210.3 t
+0.50 208.2 621.5 208.2 618.5 l
+0.50 202.7 626.1 202.7 614.0 l
+0.50 205.7 624.6 205.7 615.5 l
+0.50 196.6 620.0 202.7 620.0 l
+0.50 338.3 488.5 338.3 485.5 l
+0.50 332.7 493.0 332.7 480.9 l
+0.50 335.7 491.5 335.7 482.4 l
+0.50 326.7 487.0 332.7 487.0 l
+(AD07) 90 262.2 420.4 t
+0.50 133.1 438.6 133.1 674.5 l
+0.50 263.2 438.6 263.2 496.0 l
+0.50 263.2 417.4 263.2 438.6 l
+0.50 263.2 438.6 133.1 438.6 l
+0.50 269.2 674.5 133.1 674.5 l
+0.50 269.2 614.0 269.2 674.5 l
+0.50 1.00 1.26 1.26 263.16 438.59 e
+0.50 0.00 1.26 1.26 263.16 438.59 e
+(AD06) 90 256.1 420.4 t
+0.50 139.2 444.6 139.2 668.4 l
+0.50 263.2 668.4 139.2 668.4 l
+0.50 257.1 444.6 257.1 496.0 l
+0.50 257.1 417.4 257.1 444.6 l
+0.50 257.1 444.6 139.2 444.6 l
+0.50 263.2 614.0 263.2 668.4 l
+0.50 1.00 1.26 1.26 257.11 444.64 e
+0.50 0.00 1.26 1.26 257.11 444.64 e
+(AD05) 90 250.1 420.4 t
+0.50 145.2 450.7 145.2 662.4 l
+0.50 257.1 662.4 145.2 662.4 l
+0.50 251.1 450.7 251.1 496.0 l
+0.50 251.1 417.4 251.1 450.7 l
+0.50 251.1 450.7 145.2 450.7 l
+0.50 257.1 614.0 257.1 662.4 l
+0.50 1.00 1.26 1.26 251.06 450.68 e
+0.50 0.00 1.26 1.26 251.06 450.68 e
+(AD04) 90 244.0 420.4 t
+0.50 251.1 656.3 151.3 656.3 l
+0.50 245.0 456.7 245.0 496.0 l
+0.50 245.0 417.4 245.0 456.7 l
+0.50 245.0 456.7 151.3 456.7 l
+0.50 151.3 456.7 151.3 656.3 l
+0.50 251.1 614.0 251.1 656.3 l
+0.50 1.00 1.26 1.26 245.02 456.73 e
+0.50 0.00 1.26 1.26 245.02 456.73 e
+(AD03) 90 238.0 420.4 t
+0.50 245.0 650.3 157.3 650.3 l
+0.50 239.0 462.8 239.0 496.0 l
+0.50 239.0 417.4 239.0 462.8 l
+0.50 239.0 462.8 157.3 462.8 l
+0.50 157.3 462.8 157.3 650.3 l
+0.50 245.0 614.0 245.0 650.3 l
+0.50 1.00 1.26 1.26 238.97 462.78 e
+0.50 0.00 1.26 1.26 238.97 462.78 e
+(A15) 90 316.6 420.4 t
+0.50 317.6 417.4 317.6 574.7 l
+(A14) 90 310.5 420.4 t
+0.50 311.5 417.4 311.5 574.7 l
+(A13) 90 304.5 420.4 t
+0.50 305.5 417.4 305.5 574.7 l
+(A12) 90 298.5 420.4 t
+0.50 299.4 417.4 299.4 574.7 l
+(A11) 90 292.4 420.4 t
+0.50 293.4 417.4 293.4 574.7 l
+(A10) 90 286.4 420.4 t
+0.50 287.4 417.4 287.4 574.7 l
+(A09) 90 280.3 420.4 t
+0.50 281.3 417.4 281.3 574.7 l
+(A08) 90 274.3 420.4 t
+0.50 275.3 417.4 275.3 574.7 l
+(A07) 90 262.2 535.4 t
+0.50 263.2 532.3 263.2 574.7 l
+(A06) 90 256.1 535.4 t
+0.50 257.1 532.3 257.1 574.7 l
+(A05) 90 250.1 535.4 t
+0.50 251.1 532.3 251.1 574.7 l
+(A04) 90 244.0 535.4 t
+0.50 245.0 532.3 245.0 574.7 l
+(A03) 90 238.0 535.4 t
+0.50 239.0 532.3 239.0 574.7 l
+(A02) 90 231.9 535.4 t
+0.50 232.9 532.3 232.9 574.7 l
+(A01) 90 225.9 535.4 t
+0.50 226.9 532.3 226.9 574.7 l
+(A00) 90 219.8 535.4 t
+0.50 220.8 532.3 220.8 574.7 l
+(AD02) 90 231.9 420.4 t
+0.50 232.9 468.8 232.9 496.0 l
+0.50 232.9 417.4 232.9 468.8 l
+0.50 232.9 468.8 163.4 468.8 l
+0.50 163.4 468.8 163.4 644.2 l
+0.50 239.0 614.0 239.0 644.2 l
+0.50 239.0 644.2 163.4 644.2 l
+0.50 1.00 1.26 1.26 232.92 468.83 e
+0.50 0.00 1.26 1.26 232.92 468.83 e
+(AD01) 90 225.9 420.4 t
+0.50 226.9 474.9 226.9 496.0 l
+0.50 226.9 417.4 226.9 474.9 l
+0.50 226.9 474.9 169.4 474.9 l
+0.50 232.9 638.2 169.4 638.2 l
+0.50 169.4 474.9 169.4 638.2 l
+0.50 232.9 614.0 232.9 638.2 l
+0.50 1.00 1.26 1.26 226.87 474.88 e
+0.50 0.00 1.26 1.26 226.87 474.88 e
+(AD00) 90 219.8 420.4 t
+0.50 220.8 480.9 220.8 496.0 l
+0.50 220.8 417.4 220.8 480.9 l
+0.50 226.9 614.0 226.9 632.1 l
+0.50 226.9 632.1 175.5 632.1 l
+0.50 175.5 480.9 175.5 632.1 l
+0.50 220.8 480.9 175.5 480.9 l
+0.50 1.00 1.26 1.26 220.82 480.92 e
+0.50 0.00 1.26 1.26 220.82 480.92 e
+(ALE) 90 213.8 420.4 t
+0.50 214.8 417.4 214.8 496.0 l
+(U3) 90 338.8 584.0 t
+(VPP) 90 191.1 595.8 t
+0.50 190.6 614.0 190.6 604.9 l
+(OE) 90 197.1 583.7 t
+0.50 1.00 1.51 1.51 196.63 582.23 e
+0.50 196.6 574.7 196.6 580.7 l
+(I/O8) 90 269.7 592.8 t
+0.50 269.2 614.0 269.2 604.9 l
+(I/O7) 90 263.7 592.8 t
+0.50 263.2 614.0 263.2 604.9 l
+(I/O6) 90 257.6 592.8 t
+0.50 257.1 614.0 257.1 604.9 l
+(I/O5) 90 251.6 592.8 t
+0.50 251.1 614.0 251.1 604.9 l
+(I/O4) 90 245.5 592.8 t
+0.50 245.0 614.0 245.0 604.9 l
+(I/O3) 90 239.5 592.8 t
+0.50 239.0 614.0 239.0 604.9 l
+(I/O2) 90 233.4 592.8 t
+0.50 232.9 614.0 232.9 604.9 l
+(A9) 90 281.8 583.7 t
+0.50 281.3 574.7 281.3 583.7 l
+(A8) 90 275.8 583.7 t
+0.50 275.3 574.7 275.3 583.7 l
+(A7) 90 263.7 583.7 t
+0.50 263.2 574.7 263.2 583.7 l
+(A6) 90 257.6 583.7 t
+0.50 257.1 574.7 257.1 583.7 l
+(A5) 90 251.6 583.7 t
+0.50 251.1 574.7 251.1 583.7 l
+(A4) 90 245.5 583.7 t
+0.50 245.0 574.7 245.0 583.7 l
+(A3) 90 239.5 583.7 t
+0.50 239.0 574.7 239.0 583.7 l
+(A2) 90 233.4 583.7 t
+0.50 232.9 574.7 232.9 583.7 l
+(A15) 90 318.1 584.0 t
+0.50 317.6 574.7 317.6 583.7 l
+(A14) 90 312.1 583.7 t
+0.50 311.5 574.7 311.5 583.7 l
+(A13) 90 306.0 583.7 t
+0.50 305.5 574.7 305.5 583.7 l
+(A12) 90 300.0 583.7 t
+0.50 299.4 574.7 299.4 583.7 l
+(A11) 90 293.9 583.7 t
+0.50 293.4 574.7 293.4 583.7 l
+(A10) 90 287.9 583.7 t
+0.50 287.4 574.7 287.4 583.7 l
+(A1) 90 227.4 583.7 t
+0.50 226.9 574.7 226.9 583.7 l
+(A0) 90 221.3 583.7 t
+0.50 220.8 574.7 220.8 583.7 l
+(256KX8) 90 183.0 584.0 t
+(CE) 90 191.1 583.7 t
+0.50 1.00 1.51 1.51 190.58 582.23 e
+0.50 190.6 574.7 190.6 580.7 l
+(WE) 90 203.2 584.0 t
+0.50 1.00 1.51 1.51 202.68 582.23 e
+0.50 202.7 574.7 202.7 580.7 l
+(A16) 90 324.2 584.0 t
+0.50 323.6 574.7 323.6 583.7 l
+(A17) 90 330.2 584.0 t
+0.50 329.7 574.7 329.7 583.7 l
+(I/O1) 90 227.4 592.8 t
+0.50 226.9 614.0 226.9 604.9 l
+335.7 583.7 mt 335.7 604.9 lt 184.5 604.9 lt 184.5 583.7 lt 335.7 583.7 lt 0.50 pu
+(1) 90 189.3 607.2 t
+(24) 90 195.4 574.7 t
+(21) 90 268.0 607.2 t
+(20) 90 261.9 607.2 t
+(19) 90 255.9 607.2 t
+(18) 90 249.8 607.2 t
+(17) 90 243.8 607.2 t
+(15) 90 237.7 607.2 t
+(14) 90 231.7 607.2 t
+(26) 90 280.1 574.7 t
+(27) 90 274.0 574.7 t
+(5) 90 261.9 577.7 t
+(6) 90 255.9 577.7 t
+(7) 90 249.8 577.7 t
+(8) 90 243.8 577.7 t
+(9) 90 237.7 577.7 t
+(10) 90 231.7 574.7 t
+(3) 90 316.3 577.7 t
+(29) 90 310.3 574.7 t
+(28) 90 304.2 574.7 t
+(4) 90 298.2 577.7 t
+(25) 90 292.2 574.7 t
+(23) 90 286.1 574.7 t
+(11) 90 225.6 574.7 t
+(12) 90 219.6 574.7 t
+(22) 90 189.3 574.7 t
+(31) 90 201.4 574.7 t
+(2) 90 322.4 577.7 t
+(30) 90 328.4 574.7 t
+(13) 90 225.6 607.2 t
+(U2) 90 268.2 505.1 t
+266.2 505.1 mt 266.2 523.3 lt 205.7 523.3 lt 205.7 505.1 lt 266.2 505.1 lt 0.50 pu
+(OC-) 90 209.2 506.6 t
+0.50 1.00 1.51 1.51 208.73 503.60 e
+0.50 208.7 496.0 208.7 502.1 l
+(C) 90 215.3 506.6 t
+0.50 214.8 496.0 214.8 505.1 l
+(8Q) 90 263.7 515.7 t
+0.50 263.2 532.3 263.2 523.3 l
+(8D) 90 263.7 506.6 t
+0.50 263.2 496.0 263.2 505.1 l
+(7Q) 90 257.6 515.7 t
+0.50 257.1 532.3 257.1 523.3 l
+(7D) 90 257.6 506.6 t
+0.50 257.1 496.0 257.1 505.1 l
+(6Q) 90 251.6 515.7 t
+0.50 251.1 532.3 251.1 523.3 l
+(6D) 90 251.6 506.6 t
+0.50 251.1 496.0 251.1 505.1 l
+(5Q) 90 245.5 515.7 t
+0.50 245.0 532.3 245.0 523.3 l
+(5D) 90 245.5 506.6 t
+0.50 245.0 496.0 245.0 505.1 l
+(4Q) 90 239.5 515.7 t
+0.50 239.0 532.3 239.0 523.3 l
+(4D) 90 239.5 506.6 t
+0.50 239.0 496.0 239.0 505.1 l
+(3Q) 90 233.4 515.7 t
+0.50 232.9 532.3 232.9 523.3 l
+(3D) 90 233.4 506.6 t
+0.50 232.9 496.0 232.9 505.1 l
+(2Q) 90 227.4 515.7 t
+0.50 226.9 532.3 226.9 523.3 l
+(2D) 90 227.4 506.6 t
+0.50 226.9 496.0 226.9 505.1 l
+(1Q) 90 221.3 515.7 t
+0.50 220.8 532.3 220.8 523.3 l
+(1D) 90 221.3 506.6 t
+0.50 220.8 496.0 220.8 505.1 l
+(74HCT573) 90 204.7 502.1 t
+(1) 90 207.7 499.1 t
+(11) 90 213.8 496.0 t
+(12) 90 262.2 526.3 t
+(9) 90 262.2 499.1 t
+(13) 90 256.1 526.3 t
+(8) 90 256.1 499.1 t
+(14) 90 250.1 526.3 t
+(7) 90 250.1 499.1 t
+(15) 90 244.0 526.3 t
+(6) 90 244.0 499.1 t
+(16) 90 238.0 526.3 t
+(5) 90 238.0 499.1 t
+(17) 90 231.9 526.3 t
+(4) 90 231.9 499.1 t
+(18) 90 225.9 526.3 t
+(3) 90 225.9 499.1 t
+(19) 90 219.8 526.3 t
+(2) 90 219.8 499.1 t
+0.50 326.7 487.0 208.7 487.0 l
+0.50 208.7 487.0 208.7 496.0 l
+0.50 196.6 620.0 190.6 620.0 l
+0.50 190.6 614.0 190.6 620.0 l
+0.50 235.9 130.1 235.9 142.2 l
+0.50 235.9 130.1 232.9 130.1 l
+0.50 242.0 130.1 235.9 130.1 l
+0.50 1.00 1.26 1.26 235.94 130.14 e
+0.50 0.00 1.26 1.26 235.94 130.14 e
+0.50 235.9 214.8 232.9 214.8 l
+0.50 235.9 202.7 235.9 214.8 l
+0.50 242.0 214.8 235.9 214.8 l
+0.50 1.00 1.26 1.26 235.94 214.81 e
+0.50 0.00 1.26 1.26 235.94 214.81 e
+0.50 253.6 216.3 253.6 213.3 l
+0.50 248.0 220.9 248.0 208.8 l
+0.50 251.1 219.3 251.1 210.3 l
+0.50 242.0 214.8 248.0 214.8 l
+(R8) 90 352.4 230.7 t
+(30.1) 90 343.8 229.4 t
+0.50 347.8 223.9 347.8 229.9 l
+0.50 347.8 245.1 347.8 239.0 l
+346.3 230.4 mt 349.3 231.9 lt 346.3 233.5 lt 349.3 235.0 lt 346.3 236.5 lt 349.3 238.0 lt 347.8 239.0 lt 0.50 pu
+0.50 347.8 229.9 346.3 230.4 l
+(2) 90 346.6 242.0 t
+(1) 90 346.6 224.9 t
+(30.1) 90 368.0 229.4 t
+(R6) 90 376.6 230.7 t
+0.50 372.0 223.9 372.0 229.9 l
+0.50 372.0 245.1 372.0 239.0 l
+370.5 230.4 mt 373.5 231.9 lt 370.5 233.5 lt 373.5 235.0 lt 370.5 236.5 lt 373.5 238.0 lt 372.0 239.0 lt 0.50 pu
+0.50 372.0 229.9 370.5 230.4 l
+(1) 90 370.8 224.9 t
+(2) 90 370.8 242.0 t
+(R5) 90 364.5 230.7 t
+(30.1) 90 355.9 229.4 t
+0.50 359.9 223.9 359.9 229.9 l
+0.50 359.9 245.1 359.9 239.0 l
+358.4 230.4 mt 361.4 231.9 lt 358.4 233.5 lt 361.4 235.0 lt 358.4 236.5 lt 361.4 238.0 lt 359.9 239.0 lt 0.50 pu
+0.50 359.9 229.9 358.4 230.4 l
+(2) 90 358.7 242.0 t
+(1) 90 358.7 224.9 t
+0.50 302.5 278.3 299.4 278.1 l
+(TCK_R) 90 371.0 314.6 t
+0.50 372.0 263.2 347.8 263.2 l
+0.50 347.8 245.1 347.8 263.2 l
+0.50 372.0 263.2 372.0 347.9 l
+(XTAL1) 90 201.7 311.6 t
+0.50 214.8 130.1 214.8 142.2 l
+0.50 217.8 130.1 214.8 130.1 l
+0.50 214.8 130.1 202.7 130.1 l
+0.50 202.7 130.1 202.7 347.9 l
+0.50 1.00 1.26 1.26 214.78 130.14 e
+0.50 0.00 1.26 1.26 214.78 130.14 e
+(XTAL2) 90 207.7 311.6 t
+0.50 217.8 214.8 214.8 214.8 l
+0.50 214.8 202.7 214.8 214.8 l
+0.50 214.8 214.8 208.7 214.8 l
+0.50 208.7 214.8 208.7 347.9 l
+0.50 1.00 1.26 1.26 214.78 214.81 e
+0.50 0.00 1.26 1.26 214.78 214.81 e
+(LED) 90 292.4 178.5 t
+0.50 293.4 175.5 293.4 196.7 l
+(VCC) 90 328.7 199.7 t
+0.50 329.7 187.6 329.7 211.8 l
+330.9 210.5 mt 330.9 213.0 lt 328.4 213.0 lt 328.4 210.5 lt 330.9 210.5 lt 0.50 pu
+0.50 0.00 2.52 2.52 328.43 210.53 b
+0.50 314.1 279.8 314.1 276.8 l
+0.50 308.5 284.4 308.5 272.3 l
+0.50 311.5 282.9 311.5 273.8 l
+0.50 302.5 278.3 308.5 278.3 l
+(C1) 90 224.4 118.0 t
+(33PF) 90 227.4 112.0 t
+0.50 226.9 127.1 226.9 133.2 l
+0.50 223.8 133.2 223.8 127.1 l
+0.50 217.8 130.1 223.8 130.1 l
+0.50 232.9 130.1 226.9 130.1 l
+(2) 90 230.4 125.6 t
+(1) 90 222.9 125.6 t
+(.1UF) 90 411.9 332.7 t
+(C4) 90 408.8 338.8 t
+0.50 411.3 347.9 411.3 353.9 l
+0.50 408.3 353.9 408.3 347.9 l
+0.50 402.3 350.9 408.3 350.9 l
+0.50 417.4 350.9 411.3 350.9 l
+(1) 90 407.3 346.4 t
+(2) 90 414.9 346.4 t
+(VCC) 90 395.2 335.8 t
+0.50 396.2 399.3 396.2 423.5 l
+0.50 402.3 423.5 396.2 423.5 l
+0.50 396.2 375.1 396.2 399.3 l
+0.50 402.3 399.3 396.2 399.3 l
+0.50 402.3 350.9 396.2 350.9 l
+0.50 396.2 350.9 396.2 375.1 l
+0.50 402.3 375.1 396.2 375.1 l
+0.50 396.2 332.7 396.2 350.9 l
+397.5 331.5 mt 397.5 334.0 lt 395.0 334.0 lt 395.0 331.5 lt 397.5 331.5 lt 0.50 pu
+0.50 0.00 2.52 2.52 394.96 331.49 b
+0.50 1.00 1.26 1.26 396.22 399.28 e
+0.50 0.00 1.26 1.26 396.22 399.28 e
+0.50 1.00 1.26 1.26 396.22 350.89 e
+0.50 0.00 1.26 1.26 396.22 350.89 e
+0.50 1.00 1.26 1.26 396.22 375.08 e
+0.50 0.00 1.26 1.26 396.22 375.08 e
+/Courier 5.0 3.0 fz
+(S1) 180 257.6 244.1 t
+0.50 255.9 247.8 255.9 253.9 l
+0.50 260.4 253.9 251.3 253.9 l
+263.4 250.8 mt 263.4 259.9 lt 248.3 259.9 lt 248.3 250.8 lt 263.4 250.8 lt 0.50 pu
+0.50 269.5 256.9 263.4 256.9 l
+0.50 1.00 1.51 1.51 252.83 256.90 e
+0.50 1.00 1.51 1.51 258.88 256.90 e
+0.50 251.3 256.9 248.3 256.9 l
+0.50 263.4 256.9 260.4 256.9 l
+0.50 242.0 256.9 248.3 256.9 l
+(2) 180 269.5 255.6 t
+(1) 180 246.3 255.6 t
+/Courier 5.0 3.0 fz
+(215) 90 229.4 245.1 t
+(R2) 90 226.6 247.1 t
+0.50 239.0 256.9 232.9 256.9 l
+0.50 217.8 256.9 223.8 256.9 l
+232.4 255.4 mt 230.9 258.4 lt 229.4 255.4 lt 227.9 258.4 lt 226.4 255.4 lt 224.9 258.4 lt 223.8 256.9 lt 0.50 pu
+0.50 232.9 256.9 232.4 255.4 l
+/Courier 5.0 3.0 fz
+(1) 180 238.0 255.6 t
+(2) 180 220.8 255.6 t
+/Courier 5.0 3.0 fz
+(R9) 90 243.5 315.4 t
+(21.5K) 90 234.9 314.1 t
+0.50 239.0 308.6 239.0 314.6 l
+0.50 239.0 329.7 239.0 323.7 l
+237.5 315.1 mt 240.5 316.6 lt 237.5 318.1 lt 240.5 319.6 lt 237.5 321.2 lt 240.5 322.7 lt 239.0 323.7 lt 0.50 pu
+0.50 239.0 314.6 237.5 315.1 l
+(1) 90 237.7 309.6 t
+(2) 90 237.7 326.7 t
+(EA#) 90 238.0 335.8 t
+0.50 239.0 329.7 239.0 347.9 l
+(VCC) 90 213.8 242.0 t
+0.50 245.0 278.3 214.8 278.3 l
+0.50 214.8 257.1 214.8 278.3 l
+0.50 217.8 256.9 214.8 257.1 l
+0.50 214.8 239.0 214.8 257.1 l
+216.0 237.7 mt 216.0 240.3 lt 213.5 240.3 lt 213.5 237.7 lt 216.0 237.7 lt 0.50 pu
+0.50 0.00 2.52 2.52 213.52 237.74 b
+0.50 1.00 1.26 1.26 214.78 257.15 e
+0.50 0.00 1.26 1.26 214.78 257.15 e
+(C3) 90 251.6 290.4 t
+(4.7UF) 90 254.6 282.9 t
+0.50 254.1 275.3 254.1 281.3 l
+0.50 251.1 281.3 251.1 275.3 l
+0.50 245.0 278.3 251.1 278.3 l
+0.50 260.1 278.3 254.1 278.3 l
+(2) 90 257.6 273.8 t
+(1) 90 250.1 273.8 t
+(S1) 90 241.0 257.1 t
+0.50 242.0 256.9 239.0 256.9 l
+(LED_R) 90 328.7 314.6 t
+0.50 293.4 217.8 293.4 263.2 l
+0.50 329.7 263.2 293.4 263.2 l
+0.50 329.7 263.2 329.7 347.9 l
+sh
+%%Trailer
+%%EndDocument
+
+
+ENDPRINTCODE
+FMENDPAGE
+%%EndPage: "8" 10
+%%Trailer
+%%BoundingBox: 0 0 612 792
+%%Pages: 9 1
+%%DocumentFonts: Times-Roman
+%%+ Helvetica
+%%+ Helvetica-Bold
+%%+ Symbol
+%%+ Helvetica-Oblique
+%%+ Helvetica-BoldOblique
+%%+ Courier
+%%+ Courier-Bold

@@ -1,0 +1,68 @@
+%A4 Page Frame Portrait mode
+
+/plainframe
+{
+1.5 setlinewidth
+newpath        % ! _
+closepath
+stroke
+} def
+
+/mgraphic      % Mask Graphics
+{
+gsave
+0 0 moveto
+-90 rotate
+0 setgray
+     % $ this character initiate PLACE software to enter x,y scale values
+     % Imagemask parameters also passed from PLACE
+{
+<>
+}
+imagemask
+grestore
+} def          % mgraphic
+
+/equations
+{
+ /points exch def
+ /margin exch def
+ /ypos exch def
+ /ycur ypos def
+ /leading
+ points 2 add
+ def
+
+ /Courier findfont 10 scalefont setfont
+
+ /newline
+ {
+  /ycur
+  ycur leading sub
+  def
+  margin ycur
+  moveto
+  ycur 50 lt
+  {
+   /ycur ypos def
+   showpage
+   margin ycur moveto
+  } if
+ } def
+
+ margin ypos moveto
+
+() show   %enter equations here
+newline
+} def  %end equations
+
+
+plainframe        %page border
+
+%# - 2nd character to send scale values from PLACE
+0 0 moveto
+
+%&: PLACE to send starting ycurs, full screen starts at 360 50 10
+
+showpage
+

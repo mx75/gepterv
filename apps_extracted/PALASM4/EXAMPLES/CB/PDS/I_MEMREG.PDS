@@ -1,0 +1,206 @@
+; NET2PDS - vers 4.05.21 (12/06/1990) - (c)1990 Advanced Micro Devices, Inc.
+; PDS file created    2/21/1991   9:47p
+; Sourcefile: "I_MEMREG.jnf"
+
+TITLE            memory registers and data path multiplexers
+REVISION         1
+PATTERN          1
+AUTHOR           john davis
+COMPANY          SIVAD for AMD
+DATE            2/21/1991
+
+CHIP     _I_MEMREG    MACH210
+
+  PIN     ?       GL_SEL                              
+  PIN     ?       Z_CBUS                              
+  PIN     ?       TRACEA0              REGISTERED     
+  PIN     35      CLK1                                
+  PIN     ?       SAMPLE0                              IPAIR _2_X20_Q
+  NODE    ?       _2_X20_Q             REGISTERED     
+  PIN     ?       TRACEA1              REGISTERED     
+  PIN     ?       SAMPLE1                              IPAIR _2_X21_Q
+  NODE    ?       _2_X21_Q             REGISTERED     
+  PIN     ?       TRACEA2              REGISTERED     
+  PIN     ?       SAMPLE2                              IPAIR _2_X22_Q
+  NODE    ?       _2_X22_Q             REGISTERED     
+  PIN     ?       TRACEA3              REGISTERED     
+  PIN     ?       SAMPLE3                              IPAIR _2_X23_Q
+  NODE    ?       _2_X23_Q             REGISTERED     
+  PIN     ?       TRACEB0              REGISTERED     
+  PIN     ?       SAMPLE4                              IPAIR _5_X32_Q
+  NODE    ?       _5_X32_Q             REGISTERED     
+  PIN     ?       TRACEB1              REGISTERED     
+  PIN     ?       SAMPLE5                              IPAIR _5_X33_Q
+  NODE    ?       _5_X33_Q             REGISTERED     
+  PIN     ?       TRACEB2              REGISTERED     
+  PIN     ?       SAMPLE6                              IPAIR _5_X34_Q
+  NODE    ?       _5_X34_Q             REGISTERED     
+  PIN     ?       TRACEB3              REGISTERED     
+  PIN     ?       SAMPLE7                              IPAIR _5_X35_Q
+  NODE    ?       _5_X35_Q             REGISTERED     
+  PIN     ?       Z_G_MEM                             
+  PIN     ?       GLITA0                              
+  PIN     ?       GL_MEMA0             COMBINATORIAL  
+  PIN     ?       GLITA1                              
+  PIN     ?       GL_MEMA1             COMBINATORIAL  
+  PIN     ?       GLITA2                              
+  PIN     ?       GL_MEMA2             COMBINATORIAL  
+  PIN     ?       GLITA3                              
+  PIN     ?       GL_MEMA3             COMBINATORIAL  
+  PIN     ?       GL_IE                               
+  PIN     ?       GLITB0                              
+  PIN     ?       GL_MEMB0             COMBINATORIAL  
+  PIN     ?       GLITB1                              
+  PIN     ?       GL_MEMB1             COMBINATORIAL  
+  PIN     ?       GLITB2                              
+  PIN     ?       GL_MEMB2             COMBINATORIAL  
+  PIN     ?       GLITB3                              
+  PIN     ?       GL_MEMB3             COMBINATORIAL  
+  NODE    ?       __AB1_O              COMBINATORIAL   OPAIR GL_MEMA0
+  NODE    ?       __AB2_O              COMBINATORIAL   OPAIR GL_MEMA1
+  NODE    ?       __AB3_O              COMBINATORIAL   OPAIR GL_MEMA2
+  NODE    ?       __AB4_O              COMBINATORIAL   OPAIR GL_MEMA3
+  NODE    ?       __AB5_O              COMBINATORIAL   OPAIR GL_MEMB0
+  NODE    ?       __AB6_O              COMBINATORIAL   OPAIR GL_MEMB1
+  NODE    ?       __AB7_O              COMBINATORIAL   OPAIR GL_MEMB2
+  NODE    ?       __AB8_O              COMBINATORIAL   OPAIR GL_MEMB3
+
+EQUATIONS
+
+ TRACEA0.trst = Z_CBUS
+
+ TRACEA0 = (GL_SEL * (GL_IE * GL_MEMA0)) + (_2_X20_Q * /GL_SEL)
+ TRACEA0.clkf = CLK1
+ TRACEA0.setf = GND
+ TRACEA0.rstf = GND
+
+ _2_X20_Q = SAMPLE0
+ _2_X20_Q.clkf = CLK1
+ _2_X20_Q.setf = GND
+ _2_X20_Q.rstf = GND
+
+ TRACEA1.trst = Z_CBUS
+
+ TRACEA1 = (GL_SEL * (GL_IE * GL_MEMA1)) + (_2_X21_Q * /GL_SEL)
+ TRACEA1.clkf = CLK1
+ TRACEA1.setf = GND
+ TRACEA1.rstf = GND
+
+ _2_X21_Q = SAMPLE1
+ _2_X21_Q.clkf = CLK1
+ _2_X21_Q.setf = GND
+ _2_X21_Q.rstf = GND
+
+ TRACEA2.trst = Z_CBUS
+
+ TRACEA2 = (GL_SEL * (GL_IE * GL_MEMA2)) + (_2_X22_Q * /GL_SEL)
+ TRACEA2.clkf = CLK1
+ TRACEA2.setf = GND
+ TRACEA2.rstf = GND
+
+ _2_X22_Q = SAMPLE2
+ _2_X22_Q.clkf = CLK1
+ _2_X22_Q.setf = GND
+ _2_X22_Q.rstf = GND
+
+ TRACEA3.trst = Z_CBUS
+
+ TRACEA3 = (GL_SEL * (GL_IE * GL_MEMA3)) + (_2_X23_Q * /GL_SEL)
+ TRACEA3.clkf = CLK1
+ TRACEA3.setf = GND
+ TRACEA3.rstf = GND
+
+ _2_X23_Q = SAMPLE3
+ _2_X23_Q.clkf = CLK1
+ _2_X23_Q.setf = GND
+ _2_X23_Q.rstf = GND
+
+ TRACEB0.trst = Z_CBUS
+
+ TRACEB0 = (GL_SEL * (GL_IE * GL_MEMB0)) + (_5_X32_Q * /GL_SEL)
+ TRACEB0.clkf = CLK1
+ TRACEB0.setf = GND
+ TRACEB0.rstf = GND
+
+ _5_X32_Q = SAMPLE4
+ _5_X32_Q.clkf = CLK1
+ _5_X32_Q.setf = GND
+ _5_X32_Q.rstf = GND
+
+ TRACEB1.trst = Z_CBUS
+
+ TRACEB1 = (GL_SEL * (GL_IE * GL_MEMB1)) + (_5_X33_Q * /GL_SEL)
+ TRACEB1.clkf = CLK1
+ TRACEB1.setf = GND
+ TRACEB1.rstf = GND
+
+ _5_X33_Q = SAMPLE5
+ _5_X33_Q.clkf = CLK1
+ _5_X33_Q.setf = GND
+ _5_X33_Q.rstf = GND
+
+ TRACEB2.trst = Z_CBUS
+
+ TRACEB2 = (GL_SEL * (GL_IE * GL_MEMB2)) + (_5_X34_Q * /GL_SEL)
+ TRACEB2.clkf = CLK1
+ TRACEB2.setf = GND
+ TRACEB2.rstf = GND
+
+ _5_X34_Q = SAMPLE6
+ _5_X34_Q.clkf = CLK1
+ _5_X34_Q.setf = GND
+ _5_X34_Q.rstf = GND
+
+ TRACEB3.trst = Z_CBUS
+
+ TRACEB3 = (GL_SEL * (GL_IE * GL_MEMB3)) + (_5_X35_Q * /GL_SEL)
+ TRACEB3.clkf = CLK1
+ TRACEB3.setf = GND
+ TRACEB3.rstf = GND
+
+ _5_X35_Q = SAMPLE7
+ _5_X35_Q.clkf = CLK1
+ _5_X35_Q.setf = GND
+ _5_X35_Q.rstf = GND
+
+ GL_MEMA0.trst = Z_G_MEM
+
+ GL_MEMA1.trst = Z_G_MEM
+
+ GL_MEMA2.trst = Z_G_MEM
+
+ GL_MEMA3.trst = Z_G_MEM
+
+ GL_MEMB0.trst = Z_G_MEM
+
+ GL_MEMB1.trst = Z_G_MEM
+
+ GL_MEMB2.trst = Z_G_MEM
+
+ GL_MEMB3.trst = Z_G_MEM
+
+ __AB1_O = GLITA0
+
+ __AB2_O = GLITA1
+
+ __AB3_O = GLITA2
+
+ __AB4_O = GLITA3
+
+ __AB5_O = GLITB0
+
+ __AB6_O = GLITB1
+
+ __AB7_O = GLITB2
+
+ __AB8_O = GLITB3
+
+
+ GL_MEMA0 = { __AB1_O }
+ GL_MEMA1 = { __AB2_O }
+ GL_MEMA2 = { __AB3_O }
+ GL_MEMA3 = { __AB4_O }
+ GL_MEMB0 = { __AB5_O }
+ GL_MEMB1 = { __AB6_O }
+ GL_MEMB2 = { __AB7_O }
+ GL_MEMB3 = { __AB8_O }

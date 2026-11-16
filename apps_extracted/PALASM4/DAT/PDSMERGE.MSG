@@ -1,0 +1,97 @@
+; pdsmerge.msg %I% -- message strings for PDSMERGE
+;
+; The format is:
+;
+;	<number><space><string><newline>
+;
+; Where:
+;	<number>	identifies the string
+;	<space>		is a separator, and is discarded
+;	<string>	is the string that will be used
+;	<newline>	separates "records", and is discarded
+;
+; A line beginning with ';' is ignored
+;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+1 Start editor.                                   [ <Enter> Select <Esc> Exit ]
+2 View the contents of the output buffer.         [ <Enter> Select <Esc> Exit ]
+3 Specify file name for next input file.          [ <Enter> Select <Esc> Exit ]
+4 Combine input and output file buffers.          [ <Enter> Select <Esc> Exit ]
+5 Show list of combined files in output buffer.   [ <Enter> Select <Esc> Exit ]
+6 Write output file and return to main menu.      [ <Enter> Select <Esc> Exit ]
+7 Discard contents of input file buffer.          [ <Enter> Select <Esc> Exit ]
+8 Return to main menu.                            [ <Enter> Select <Esc> Exit ]
+;
+9 Go to conflict screen.                          [ <Enter> Select <Esc> Exit ]
+10 Go to bind screen.                              [ <Enter> Select <Esc> Exit ]
+11 Go to pin/node screen.                          [ <Enter> Select <Esc> Exit ]
+;
+12 Enter text of TITLE declaration.                         [ <F10> Prev. Menu ]
+13 Enter text of PATTERN declaration.                       [ <F10> Prev. Menu ]
+14 Enter text of REVISION declaration.                      [ <F10> Prev. Menu ]
+15 Enter text of AUTHOR declaration.                        [ <F10> Prev. Menu ]
+16 Enter text of COMPANY declaration.                       [ <F10> Prev. Menu ]
+17 Enter text of DATE declaration.                          [ <F10> Prev. Menu ]
+18 Enter descriptive name for design.                       [ <F10> Prev. Menu ]
+19 Enter device name.                  [ <F2> for choice list <F10> Prev. Menu ]
+;
+20 Press F2 for choice list to select pin type.             [ <F10> Prev. Menu ]
+21 Enter pin/node number, or ? for floating.                [ <F10> Prev. Menu ]
+22 Enter name for pin/node, with or without leading slash.  [ <F10> Prev. Menu ]
+23 Press F2 for choice list to select pin configuration.    [ <F10> Prev. Menu ]
+24 Enter text of comment associated with pin.               [ <F10> Prev. Menu ]
+;
+25 Go to options screen.                           [ <Enter> Select <Esc> Exit ]
+26 Inspect or change rename template.              [ <Enter> Select <Esc> Exit ]
+;
+27 Type new rename template ($=original name, #=unique number).
+28 Select sort order for pin screen.                    [ <F2> for choice list ]
+29 Automatically float pin numbers when a file is read.
+30 Include files already combined in list of next input files.
+31 Input file ignored because it contains errors.
+32 The conflict screen is not empty.  Continue
+33 No files have been combined.
+34 New name cannot be the same as original name.
+35 Output pin name field                                [ <F2> for choice list ]
+36 Input pin name field                                 [ <F2> for choice list ]
+37 Action field                                         [ <F2> for choice list ]
+38 The input file already contains a pin by this name.
+39 Cannot start Bind Screen if input buffer and/or output buffer is empty.
+40 Cannot start Conflict Screen if input buffer and/or output buffer is empty.
+41 There are no conflicts between input buffer & output buffer.
+42 Moved %d BIND specifications to BIND screen.
+43 The input file already contains a pin by this name.
+44 Action field                                         [ <F2> for choice list ]
+45 Substitution field
+46 Can't use illegal name for rename.
+47 Enter file name or file name pattern.             [ <F10> Select <Esc> Exit ]
+48 You must combine or discard before reading new input.
+49 No such file.
+50 Can't allocate memory for file list.
+51 These files are in output buffer.
+52 Input file name invalid.
+53 Invalid or missing input file name extension.
+54 File already read.  Read it again
+55 File already read
+56 ERROR: Could not run parser
+57 Logfile
+58 Reading 'tre' file...
+59 Error reading 'tre' file -- file ignored.
+60 Could not create temporary file %s.
+61 Design exceeds device capacity.  Continue
+62 Unknown device type.
+63 Invalid entry.
+64 Invalid name.  Name already exists in pin list.
+65 Duplicate pin number.  Pin number will be '?'.
+66 Invalid chip name.
+67 Use F10 when finished with this screen.
+68 To exit Merge Design Files and return to Main Menu answer 'Y'
+69 No such file.
+70 Illegal file name.
+71 Cannot delete a pin that is referenced in the design equations.
+72 No such file.
+73 <Enter> select, <> move, <PgUp,PgDn> page, <Esc> prev. menu, <F10> close
+74 Sorry, help not available for this field.
+75 Could not locate help information.
+76 Stack overflow, no more pages can be stored.
+;======== end of file ==========

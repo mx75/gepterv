@@ -1,0 +1,322 @@
+Title ' BLACKJACK MACHINE EXAMPLE'
+Designer ' JOE PEEL'
+Date ' MAY 10TH, 1991'
+
+Description
+                       Blackjack Machine Example
+
+This design example was based on C.R. Clare's design in Designing Logic
+Systems Using State Machines (McGraw Hill, 1972). The blackjack machine
+plays the dealer's hand, using typical dealer strategies to decide whether
+to draw another card (hit) or stand after each round.
+
+The example contains the following logic designs:
+    1. A State Machine that controls the game logic which include:
+        (a) checking the status of the card reader.
+        (c) making the decision of what action to take for a hit, stand or
+            bust. An example is to draw a card if the hit signal is true.
+        (b) making the decision of when to use the value 1 or 11 for an ace
+            card.
+    1. A Multiplexer/Comparator which compares the point total and sends the
+       hit, stand or bust signal to the state machine. If the point total is
+       greater than 21, it's a bust. If it is equal or less than 16, then hit
+       else stand.
+    2. A 5-Bit Adder that adds the value of the drawn card.
+    3. A Binary-to-BCD converter for converting the 5-bit binary score and
+       converts it to 2-digit BCD for the digital display.
+
+This design example was also implemented by Data I/O Corp. using its ABEL(tm)
+software. In its example, three PLDs which include a PAL22V10 for Multiplexer,
+Comparator and Adder, a PAL16L8 for the Binary-to-BCD converter, and a
+PAL16R6 for the state machine were used instead.
+
+End_Desc;
+
+PA7024
+
+CK1 PIN 13
+
+"IOC CONFIGURATION DECLARATION
+"IOC (PIN_NO 'PIN_NAME' POLARITY IO_TYPE) <- LCC_NO
+              
+IOC ( 2 '' Pos IO) <- 1A
+IOC ( 3 '' Pos IO) <- 2A
+IOC ( 4 'V4' Pos IO) <- 3A
+IOC ( 5 'V3' Pos IO) <- 4A
+IOC ( 6 'V2' Pos IO) <- 5A
+IOC ( 7 'V1' Pos InCom) <- 1B
+IOC ( 8 'V0' Pos InCom) <- 2B
+IOC ( 9 '~CLR' Pos InCom) <- 3B
+IOC (10 'CARDIN' Pos InCom) <- 4B
+IOC (11 'CARDOUT' Pos InCom) <- 5B
+IOC (14 'HIT' Pos Out) <- 1C
+IOC (15 'BUST' Pos Out) <- 2C
+IOC (16 '' Pos IO) <- 3C
+IOC (17 '' Pos IO) <- 4C
+IOC (18 'D0' Pos Out) <- 5C
+IOC (19 'D1' Pos Out) <- 1D
+IOC (20 'D2' Pos Out) <- 2D
+IOC (21 'D3' Pos Out) <- 3D
+IOC (22 'D4' Pos Out) <- 4D
+IOC (23 'D5' Pos Out) <- 5D
+
+"LCC CONFIGURATION DECLARATION
+"LCC (LCC_NO 'LCC_NAME' REG_TYPE CLK_TYPE BUR_OUT EXT_OUT)
+
+LCC (1A 'ADD10' D   SumC Reg  Reg )
+LCC (2A 'SUB10' D   SumC Reg  Reg )
+LCC (3A 'Q2' D   SumD Reg  SumC)
+LCC (4A 'Q1' D   SumD Reg  SumC)
+LCC (5A 'Q0' D   SumD Reg  SumC)
+LCC (1B 'C4' D   SumC SumB SumA)
+LCC (2B 'C3' D   SumC SumB SumA)
+LCC (3B 'C2' D   SumC SumB SumA)
+LCC (4B 'C1' D   SumC SumB SumA)
+LCC (5B '' D   SumC Reg  Reg )
+LCC (1C '' D   SumC Reg  SumA)
+LCC (2C '' D   SumC Reg  SumA)
+LCC (3C '' D   NEG  REG  REG )
+LCC (4C '' D   NEG  REG  REG )
+LCC (5C 'ACE' D   SumD Reg  SumC)
+LCC (1D 'S0' T   SumD Reg  SumC)
+LCC (2D 'S1' T   SumD Reg  SumC)
+LCC (3D 'S2' T   SumD Reg  SumC)
+LCC (4D 'S3' T   SumD Reg  SumC)
+LCC (5D 'S4' T   SumD Reg  SumC)
+
+"GBC CONFIGURATION FDECLARATION
+"GBC (GROUP LCC_CLK IOC_CLK)
+
+Global = 1
+GBC (A Clk1 Clk1)
+GBC (B Clk1 Clk1)
+
+
+DEFINE
+QSTATE    =  [ADD10 SUB10 Q2 Q1 Q0]   "State Machine Assignment
+Clear     =  ^B00000                  "State Machine Constant Assignments
+ShowHit   =  ^B00001
+AddCard   =  ^B11011
+Add_10    =  ^B10010
+Wait      =  ^B00010
+Test_17   =  ^B00110
+Test_22   =  ^B00111
+ShowStand =  ^B00101
+ShowBust  =  ^B00100
+Sub_10    =  ^B01111
+
+is_Ace = !V4 & !V3 & !V2 & !V1 & V0;   "
+
+SCORE = [S4 S3 S2 S1 S0]               "Truth table input assignment
+BCD2  = [D5 D4]                        "Truth table ouput assignment
+BCD1  = [D3 D2 D1 D0]                  "Truth table ouput assignment
+
+
+STATE_DIAGRAM QSTATE
+"Enter your design here
+  State Clear:    Ace = 0;
+		  goto ShowHit;
+
+  State ShowHit:  Ace = Ace;
+		  if (!CARDIN) then AddCard
+		               else ShowHit;
+
+  State AddCard:  Ace = Ace;
+		  if (is_Ace & !Ace) then Add_10
+		                     else Wait;
+
+  State Add_10:   Ace = 1;
+		  goto Wait;
+
+  State Wait:     Ace = Ace;
+		  if (!CARDOUT) then Test_17
+                                else Wait;
+
+  State Test_17:  Ace = Ace;
+		  if HIT then ShowHit
+		         else Test_22;
+
+  State Test_22:  Ace = Ace;
+		  case
+                    !BUST:       ShowStand;
+		    BUST & !Ace: ShowBust;
+		    BUST &  Ace: Sub_10;
+		  endcase;
+
+  State Sub_10:   Ace = 0;
+		  goto Test_17;
+
+  State ShowBust: Ace = Ace;
+		  goto ShowBust;   "Loop until reset
+
+  State ShowStand:
+                  Ace = Ace;
+		  goto ShowStand;  "Loop until reset
+END;
+
+TRUTH_TABLE BIN2BCD   "Binary-to-BCD Converter
+(SCORE -> BCD2 BCD1)
+     0 ->  0    0;
+     1 ->  0    1;
+     2 ->  0    2;
+     3 ->  0    3;
+     4 ->  0    4;
+     5 ->  0    5;
+     6 ->  0    6;
+     7 ->  0    7;
+     8 ->  0    8;
+     9 ->  0    9;
+    10 ->  1    0;
+    11 ->  1    1;
+    12 ->  1    2;
+    13 ->  1    3;
+    14 ->  1    4;
+    15 ->  1    5;
+    16 ->  1    6;
+    17 ->  1    7;
+    18 ->  1    8;
+    19 ->  1    9;
+    20 ->  2    0;
+    21 ->  2    1;
+    22 ->  2    2;
+    23 ->  2    3;
+    24 ->  2    4;
+    25 ->  2    5;
+    26 ->  2    6;
+    27 ->  2    7;
+    28 ->  2    8;
+    29 ->  2    9;
+    30 ->  3    0;
+    31 ->  3    1;
+END;
+
+
+EQUATIONS
+
+"Global output names specified in the equations below are reserved words.
+RTA = 0;        "Reg-Type Product Term - unused
+PCLKA = 0;      "I/O Clock Product Term - unused
+PRESETA = 0;    "Preset Sum Term - unused
+RESETA = !~CLR;  "Reset Sum Term - unused
+
+RTB = 0;        "Reg-Type Product Term - unused
+PCLKB = 0;      "I/O Clock Product Term - unused
+PRESETB = 0;    "Preset Sum Term - unused
+RESETB = !~CLR;  "Reset Sum Term - unused
+
+Q2.D = 0;
+Q2.AP = 0;
+Q2.SumC = 0;
+Q2.CLK = CK1;
+
+Q1.D = 0;
+Q1.AP = 0;
+V3.SumC = 0;
+Q1.CLK = CK1;
+
+Q0.D = 0;
+Q0.AP = 0;
+V2.SumC = 0;
+Q0.CLK = CK1;
+
+C4.SumA = 0;
+C4.COM = (C3 & S3
+        # C3 & Add10 & !Sub10
+        # C3 & V3 & Add10
+        # S3 & Add10 & !Sub10
+        # S3 & V3 & Add10);
+C4.SumC = 0;
+C4.SumD = 0;
+
+V0.SumA = 0;
+C3.COM = (C2 & S2
+        # C2 & !Add10 & Sub10
+        # V2 & C2 & Sub10
+        # !Add10 & Sub10 & S2
+        # V2 & Sub10 & S2);
+V0.SumC = 0;
+V0.SumD = 0;
+
+~CLR.SumA = 0;
+C2.COM = (C1 & S1
+        # C1 & !Add10 & Sub10
+        # C1 & Add10 & !Sub10
+        # V1 & C1 & Add10
+        # !Add10 & Sub10 & S1
+        # Add10 & !Sub10 & S1
+        # V1 & Add10 & S1);
+~CLR.SumC = 0;
+~CLR.SumD = 0;
+
+CARDIN.SumA = 0;
+C1.COM = (V0 & Add10 & Sub10 & S0);
+CARDIN.SumC = 0;
+CARDIN.SumD = 0;
+
+CARDOUT.SumA = 0;
+CARDOUT.SumB = 0;
+CARDOUT.SumC = 0;
+CARDOUT.SumD = 0;
+
+S4.T = (!C4 & !Add10 & Sub10
+       # V4 & !C4 & Sub10
+       # C4 & !Sub10
+       # !V4 & C4 & Add10);
+S4.AP = 0;
+D5.COM = 0;
+S4.CLK = CK1;
+
+S3.T = (!C3 & Add10 & !Sub10
+       # V3 & !C3 & Add10
+       # !V3 & C3 & Sub10
+       # C3 & !Add10);
+S3.AP = 0;
+D4.COM = 0;
+S3.CLK = CK1;
+
+S2.T = (!C2 & !Add10 & Sub10
+       # V2 & !C2 & Sub10
+       # C2 & !Sub10
+       # !V2 & C2 & Add10);
+S2.AP = 0;
+D3.COM = 0;
+S2.CLK = CK1;
+
+S1.T = (!C1 & !Add10 & Sub10
+      # !C1 & Add10 & !Sub10
+      # V1 & !C1 & Add10
+      # C1 & !Add10 & !Sub10
+      # !V1 & C1 & Add10 & Sub10);
+S1.AP = 0;
+D2.COM = 0;
+S1.CLK = CK1;
+
+S0.T = (V0 & Add10 & Sub10);
+S0.AP = 0;
+D1.COM = 0;
+S0.CLK = CK1;
+
+ACE.D = 0;
+ACE.AP = 0;
+D0.COM = 0;
+ACE.CLK = CK1;
+
+HIT.COM = (!S3 & !S2 & !S1 & !S0 # !S4)
+HIT.SumB = 0;
+HIT.SumC = 0;
+HIT.SumD = 1;
+
+BUST.COM = (S4 & S2 & S1 # S4 & S3);
+BUST.SumB = 0;
+BUST.SumC = 0;
+BUST.SumD = 1;
+
+ADD10.D = 0;
+ADD10.AP = 0;
+ADD10.CLK = CK1;
+ADD10.SumD = 0;
+
+SUB10.D = 0;
+SUB10.AP = 0;
+SUB10.CLK = CK1;
+SUB10.SumD = 0;

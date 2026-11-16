@@ -1,0 +1,116 @@
+;PALASM Design Description
+
+;---------------------------------- Declaration Segment ------------
+TITLE    Logic Analyzer States
+PATTERN  
+REVISION 
+AUTHOR   john davis
+COMPANY  SIVAD for AMD
+DATE     10/15/90
+
+CHIP  _la_state  MACH110
+
+;---------------------------------- PIN Declarations ---------------
+PIN  ?  /POR	COMBINATORIAL			; Power On Reset
+NODE 1 POR_INIT
+PIN  35 CLK1							; Default Clock on pin 35
+PIN  ?  K_CLK COMBINATORIAL             ; 
+
+PIN  ?  MSW[0] REGISTERED                 ; 
+PIN  ?  MSW[1] REGISTERED                 ; 
+PIN  ?  MSW[2] REGISTERED                 ; 
+PIN  ?  MSW[3] REGISTERED                 ; 
+PIN  ?  MSW[4] REGISTERED                 ; 
+PIN  ?  MSW[5] REGISTERED                 ; 
+PIN  ?  MSW[6] REGISTERED                 ; 
+PIN  ?  MSW[7] REGISTERED                 ; 
+PIN  ?  MSW[8] REGISTERED                 ; 
+PIN  ?  MSW[9] REGISTERED                 ; 
+PIN  ?  MSW[10] REGISTERED                ; 
+PIN  ?  MSW[11] REGISTERED                ; 
+PIN  ?  MSW[13] REGISTERED                ; 
+PIN  ?  MSW[14] REGISTERED                ; 
+PIN  ?  MSW[15] REGISTERED                ; 
+PIN  ?  ACK    REGISTERED                 ; 
+PIN  ?  HIT    COMBINATORIAL              ; 
+
+PIN ?  K0 REGISTERED                   ; 
+PIN ?  K1 REGISTERED                   ; 
+PIN ?  K2 REGISTERED                   ; 
+PIN ?  K3 REGISTERED                   ; 
+;NODE ?  K0 REGISTERED                   ; 
+;NODE ?  K1 REGISTERED                   ; 
+;NODE ?  K2 REGISTERED                   ; 
+;NODE ?  K3 REGISTERED                   ; 
+NODE ?  K_C0_0 REGISTERED                 ; 
+NODE ?  K_C0_1 REGISTERED                 ; 
+NODE ?  K_C1   REGISTERED                 ; 
+NODE ?  K_C2_0 REGISTERED                 ; 
+NODE ?  K_C2_1 REGISTERED                 ; 
+NODE ?  K_C3 REGISTERED                   ; 
+NODE ?  K_C4 REGISTERED                   ; 
+
+;STRING DECLARATIONS.
+STRING GL '(MSW[0])'
+STRING DL '(MSW[1])'
+STRING BF '(MSW[2])'
+STRING TR0 'MSW[3]'
+STRING TR1 'MSW[4]'
+STRING TR2 'MSW[5]'
+STRING ST '(MSW[6])'
+STRING XCK '(MSW[7])'
+STRING TG '(MSW[8])'
+STRING SM '(MSW[9])'
+STRING XS '(MSW[10])'
+STRING CS '(MSW[11])'
+STRING EQ '(MSW[12])'
+STRING TA '(MSW[13])'
+STRING TD '(MSW[14])'
+
+STRING S_K0  '/K3*/K2*/K1*/K0'		;Main Control State Bits
+STRING S_K1  '/K3*/K2*/K1* K0'
+STRING S_K2  '/K3*/K2* K1*/K0'
+STRING S_K3  '/K3*/K2* K1* K0'
+STRING S_K4  '/K3* K2*/K1*/K0'
+STRING S_K5  '/K3* K2*/K1* K0'
+STRING S_K6  '/K3* K2* K1*/K0'
+STRING S_K7  '/K3* K2* K1* K0'
+STRING S_K8  ' K3*/K2*/K1*/K0'
+
+STRING S_TDD	'/TR2*/TR1*/TR0'		;Operational Mode Bits
+STRING S_TTD	'/TR2*/TR1* TR0'
+STRING S_TAD	'/TR2* TR1*/TR0'
+STRING S_TBD 	'/TR2* TR1* TR0'
+STRING S_LD_RG 	' TR2*/TR1*/TR0'
+STRING S_LD_AT 	' TR2*/TR1* TR0'
+STRING S_LSA 	'(S_TDD+S_TTD+S_TAD+S_TBD)'
+STRING S_SET 	'(S_LD_RG+S_LD_AT)'
+
+;----------------------------------- Boolean Equation Segment ------
+EQUATIONS
+
+STATE
+
+M_C2_0  = /K_C2_1*/K_C2_0	;C2 Control State Definition
+M_C2_1  = /K_C2_1* K_C2_0
+M_C2_2  =  K_C2_1*/K_C2_0
+
+
+MOORE_MACHINE			;Trace State Machine
+
+M_C2_0 := TRACE -> M_C2_1
+		+-> M_C2_0;
+
+M_C2_1 := TRACE -> M_C2_2
+		+-> M_C2_0;
+
+M_C2_2 := TRACE -> M_C2_0;
+		+-> M_C2_0;
+
+;---------------------------- CONDITIONs Sub Segment ------------
+
+CONDITIONS
+
+TRACE =     S_LSA*(S_TDD*S_K3 + S_TTD*S_K2 + S_TAD*S_K3 + S_TBD*S_K3)
+
+

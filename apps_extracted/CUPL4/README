@@ -1,0 +1,178 @@
+      Release Notes for CUPL - Universal Compiler for Programmable Logic
+      Copyright (C) 1983, 1990 Logical Devices, Inc.
+
+      Version 4.0a    10/19/90
+
+
+      Routine	    NOTES
+      --------------------------------------------------------------------
+
+      CUPL Executables
+		    Increased operation speeds.
+
+      Installation
+                    Installation  has  been  modified  to  recoginize  the
+                    difference between  an update  and a  brand new  copy.
+                    When the package is an update, the install queries for
+                    original serial number.  The install also queries  for
+                    company name which is displayed during compilation.
+
+      Menu
+                    Menu operation has been modified to improve the method
+                    of  moving  around  the  directory  structure.  If the
+                    directory  mask  is  set  to  *.*, the directories are
+                    displayed along  with the  files.   It is  possible to
+                    change  to   any  of   those  directories   simply  by
+                    highlighting and selecting the desired directory.
+
+                    Menu operation  now expects  to find  the INCLUDE  and
+                    individual user library  files in the  current working
+		    directory.
+
+      EZEDIT
+                    The exiting procedure for EZEDIT has been improved  to
+                    allow for either highlighting the SAVE or QUIT  option
+                    or typing 'S' or 'Q'.  If the quit option is selected,
+		    EZEDIT queries whether or not to save the file.
+
+      Simulation
+                    The  simulation  waveform  displayer  now  displays 10
+                    waveforms.  It can also allow the user to  arbitrarily
+                    change the order of the waveforms and combine up to  8
+		    waveforms to form a BUS with hex output.
+
+		    The waveform hardcopy supports additional printers.
+
+		    CSIM recognizes the symbol '.' as a valid path symbol.
+
+      Architecture
+                    Automatic product  term allocation  is now  supported.
+                    Intel's  5AC312  and  5AC324,  and Altera's EP512 have
+                    this capability.
+
+                    Some devices have sharable  product terms that can  be
+                    isolated for single  use by a  buried register.   This
+                    makes  the  product  term  unuseable by anything else.
+                    CUPL determines when these types of product terms  are
+                    being  used  by  more  than  one storage component and
+                    generates an error message.  The best example of  this
+                    is the ATV2500.
+
+      DOC file
+                    The DOC file will now show the total number of product
+		    terms  used in a FPLA device.
+
+      SYNTAX
+                    The OUT  equations generated  from a  D-CE type  state
+                    machine  have  been   corrected.   This  affects   the
+                    GAL6001.
+
+      OUTPUT Formats
+                    Interfaceing to  PCAD 4.5  is supported  by CUPL  PDIF
+                    files.
+
+		    Virtual device supports PLA output format.
+
+
+
+      New Device Architectures
+
+                    Manufacturer  Device Name            Device Mnemonic
+                    ------------  ---------------------  ---------------
+                    Cypress       CY10E301/100E301       P16P8C, P16P8CLCC
+                                  CY10E302/100E302       P16P4C, P16P4CLCC
+                                  PLDC18G8               P18G8
+                    Exel          XL78C800               XL78C800
+                    Intel         85C224                 PC224, PC224LCC
+                    National      PAL1016C4/10016C4      P1016C4
+                                  PAL1016PE8/10016PE8    P1016PE8
+                                  PAL1020RP4/10020RP4    P1020RP4
+                    Signetics     PHD48N22               F48N22
+
+      New Devices
+
+                    Manufacturer  Device Name            Device Mnemonic
+                    ------------  ---------------------  ---------------
+                    Altera        EP330                  EP320
+                                  EP630                  EP600
+                    AMD/MMI       PALCE630               EP600
+                    Cypress       PAL22V10C              P22V10
+                                  PAL22VP10C             P22VP10
+                    Intel         85C060                 EP600
+                                  85C090                 EP900
+                    Signetics     10020EV8               P1020EV8
+                                  10H20EV8               P1020EV8
+                    Texas Inst.   EP330                  EP320
+                                  TIBPAL1602             P16L8
+
+
+      Device changes
+
+		    SGS-Thomson changed the name of GAL36V18 to GAL6001.
+
+                    The  mnemonic  PC220  was  removed.   Use EP320 as the
+                    mnemonic for the Intel 85C220.
+
+                    The incorrectly  listed P20RP10  mnemonic was  removed
+                    from the menu.
+
+                    The P1016 family can now correctly simulate the active
+                    high common  reset pin.   It previously  was simulated
+                    using an active low reset pin.
+
+		    The G20V8A LCC and G16Z8 LCC mnemonics were added.
+
+                    PA7024 support will be available on CUPL-386.
+
+      Mnemonic Revision Changes:
+
+		    Mnemonic  Rev     Description
+		    -------- ------   -----------
+                    ep1800   rev 09   Corrected AR simulation for buried
+                                      nodes.  Added INT for global
+                                      macrocells.  Defaulted buried
+                                      registers to use synchronous Clock.
+                                      Corrected polarity definition of
+				      buried registers.
+		    ep312    rev 05   Corrected pin 16 combinatorial
+				      feedback column number.
+		    f18v8z   rev 04   Corrected configuration bits.
+		    f20v8    rev 03   Improved mode selection.
+		    f30s16   rev 02   Added automatic defaulting of OE
+				      terms to 'b'1.
+		    f273     rev 02   Corrected total number of fuses.
+		    f415     rev 03   Corrected AR and AP default.
+				      Corrected buried node feedback.
+		    g16v8    rev 09   Changed device to power-up to
+				      zero in the registers.
+		    g20v8    rev 03   Changed device to power-up to
+				      zero in the registers.
+		    g22v10   rev 02   Corrected common clock pin.
+				      Corrected DOC file fuse map.
+		    g6001    rev 13   Corrected feedback polarity of
+				      output registers defined as
+				      buried nodes.
+		    p1016rm4 rev 02   Corrected clocking of registers
+				      using all clock pins.
+				      Corrected DOC file fuse map.
+		    p20cg10  rev 02   Corrected definition of input
+				      only on an I/O pin.
+		    p20l8lcc rev 09   Corrected DOC file fuse map.
+		    p20r6lcc rev 11   Corrected clocking of registers.
+		    p20r8lcc rev 10   Corrected DOC file fuse map.
+		    p24l10   rev 02   Changed to new specifications.
+		    p24r10   rev 02   Changed to new specifications.
+		    p26v12   rev 03   Exchanged pins 7(VCC) and 21(GND).
+                    p29ma16  rev 11   Corrected AP definition for node 31.
+		    p32vx10  rev 10   Corrected pin 16 registered
+				      feedback column number.
+		    p7c330   rev 05   Improved simulation for IOD.
+		    p7c331   rev 04   Corrected total number of fuses.
+		    v750lcc  rev 05   Corrected buried node numbers.
+				      Corrected DOC file fuse map.
+		    v2500    rev 07   Corrected fuse array number for
+				      pinnodes 51, 55, 71, 75, 76.
+				      Corrected configuration of I/O
+				      pins for dedicated input.
+		    v2500lcc rev 08   Corrected pin 89 AR array number.
+

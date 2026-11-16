@@ -1,0 +1,1342 @@
+;-------------------------------- Declaration Segment ------------
+TITLE    EPX8160QC208 EVALUATION BOARD
+PATTERN
+REVISION B
+AUTHOR   John Logue
+COMPANY  Altera Corp.
+DATE     11/03/94
+
+CHIP     LCD01 EPX8160QC208
+
+; This is the source file for the EPX8160QC208 Demo Board.  Flashing
+; and scrolling LCD displays can be created by modifying the
+; RAM_DEFAULTS section, below.
+
+;---------------------------------- PIN Declarations ---------------
+
+
+; Global pins
+PIN   IN0         /RESET  INPUT
+PIN   IN2         /STEP   INPUT
+; NODE  IO28         PO_RESET_
+
+; EPX8160QC208.0 pins
+; Buried Macrocell list
+; 21 22 24 26 28 31 32 34 36 38 61 62 64 66 68 71 72 74 76 78
+PIN   CLK1         R_SYNC_CLK
+
+PIN   IO00         R_LCD_ENAB
+PIN   IO01         R_LCD_CNTRL0
+PIN   IO02         R_INC_GP
+PIN   IO03         R_LCD_READ
+PIN   IO04         R_SHFT1
+PIN   IO05         R_LCD_DATA
+PIN   IO06         R_QUIET
+PIN   IO07         R_SHFT2
+PIN   IO08         R_HOLD_X
+
+
+PIN   IO10        R_GP_L_CY
+PIN   IO11        R_LCD0 COMB PINFBK
+PIN   IO12        R_LCD1 COMB PINFBK
+PIN   IO13        R_LCD2 COMB PINFBK
+PIN   IO14        R_LCD3 COMB PINFBK
+PIN   IO15        R_LCD4 COMB PINFBK
+PIN   IO16        R_LCD5 COMB PINFBK
+PIN   IO17        R_LCD6 COMB PINFBK
+PIN   IO18        R_LCD7 COMB
+
+NODE  IO21        R_X_LATCH0
+NODE  IO22        R_X_LATCH1
+PIN   IO23        R_X_LATCH2
+NODE  IO24        R_X_LATCH3
+PIN   IO25        R_X_LATCH4
+NODE  IO26        R_X_LATCH5
+PIN   IO27        R_X_LATCH6
+;     IO28 assigned to PO_RESET_
+
+PIN   IO30        R_GP_EXIT
+NODE  IO31        R_GP04  ; SHIFT ADDRESS
+NODE  IO32        R_GP05
+PIN   IO33        R_GP06
+NODE  IO34        R_GP07
+PIN   IO35        R_GP08
+NODE  IO36        R_GP09
+PIN   IO37        R_GP10
+NODE  IO38        R_GP11
+PIN   IO39        R_GP12
+
+PIN   IO40        R_INC_CP
+PIN   IO41        R_CLCD1  ; Cycle LCD State Machine
+PIN   IO42        R_CLCD0
+PIN   IO43        R_LCD_CNTRL1
+PIN   IO44        R_WDD0
+PIN   IO45        R_WDD1
+PIN   IO46        R_GP00
+PIN   IO47        R_GP01
+PIN   IO48        R_GP02
+PIN   IO49        R_GP03
+
+PIN   IO50        R_P_CNTR0
+PIN   IO51        R_P_CNTR1
+PIN   IO52        R_P_CNTR2
+PIN   IO53        R_P_CNTR3
+PIN   IO54        R_P_CNTR4
+PIN   IO55        R_P_CNTR5
+PIN   IO56        R_P_CNTR6
+
+PIN   IO60        R_INC_P_CNTR
+NODE  IO61        R_CP0  ; CURSOR POSITION
+NODE  IO62        R_CP1
+PIN   IO63        R_CP2
+NODE  IO64        R_CP3
+PIN   IO65        R_DLY0
+NODE  IO66        R_START_WDD  ; Start WDD State Machine
+PIN   IO67        R_LD_GP
+NODE  IO68        R_SHFT0
+PIN   IO69        R_START_CLCD  ; Start Cycle LCD State Mach.
+
+NODE  [IO70,IO71,IO72,IO73,IO74,IO75,IO76,IO77,IO78,IO79] R_PROM[9:0] RAM
+
+; EPX8160QC208.1 pins
+; Buried Macrocell list
+; 101 102 104 106 108 111 112 114 116 118 141 142 144 146 148
+; 151 152 154 156 158
+
+PIN   CLK3        L_SYNC_CLK
+
+PIN   IO80        L_INC_CP
+PIN   IO81        L_CLCD1  ; Cycle LCD State Machine
+PIN   IO82        L_CLCD0
+PIN   IO83        L_LCD_CNTRL1
+PIN   IO84        L_WDD0
+PIN   IO85        L_WDD1
+PIN   IO86        L_GP00
+PIN   IO87        L_GP01
+PIN   IO88        L_GP02
+PIN   IO89        L_GP03
+
+PIN   IO90        L_P_CNTR0
+PIN   IO91        L_P_CNTR1
+PIN   IO92        L_P_CNTR2
+PIN   IO93        L_P_CNTR3
+PIN   IO94        L_P_CNTR4
+PIN   IO95        L_P_CNTR5
+PIN   IO96        L_P_CNTR6
+
+PIN   IO100        L_LCD_ENAB
+NODE  IO101        L_LCD_CNTRL0
+NODE  IO102        L_INC_GP
+PIN   IO103        L_LCD_READ
+NODE  IO104        L_SHFT1
+PIN   IO105        L_LCD_DATA
+NODE  IO106        L_QUIET
+PIN   IO107        L_SHFT2
+NODE  IO108        L_HOLD_X
+
+NODE  [IO110,IO111,IO112,IO113,IO114,IO115,IO116,IO117,IO118,IO119] L_PROM[9:0] RAM
+
+PIN   IO120        L_GP_L_CY
+PIN   IO121        L_LCD0 COMB PINFBK
+PIN   IO122        L_LCD1 COMB PINFBK
+PIN   IO123        L_LCD2 COMB PINFBK
+PIN   IO124        L_LCD3 COMB PINFBK
+PIN   IO125        L_LCD4 COMB PINFBK
+PIN   IO126        L_LCD5 COMB PINFBK
+PIN   IO127        L_LCD6 COMB PINFBK
+PIN   IO128        L_LCD7 COMB
+
+PIN   IO131        L_X_LATCH0
+PIN   IO132        L_X_LATCH1
+PIN   IO133        L_X_LATCH2
+PIN   IO134        L_X_LATCH3
+PIN   IO135        L_X_LATCH4
+PIN   IO136        L_X_LATCH5
+PIN   IO137        L_X_LATCH6
+
+PIN   IO140        L_GP_EXIT
+NODE  IO141        L_GP04  ; SHIFT ADDRESS
+NODE  IO142        L_GP05
+PIN   IO143        L_GP06
+NODE  IO144        L_GP07
+PIN   IO145        L_GP08
+NODE  IO146        L_GP09
+PIN   IO147        L_GP10
+NODE  IO148        L_GP11
+PIN   IO149        L_GP12
+
+PIN   IO150        L_INC_P_CNTR
+NODE  IO151        L_CP0  ; CURSOR POSITION
+NODE  IO152        L_CP1
+PIN   IO153        L_CP2
+NODE  IO154        L_CP3
+PIN   IO155        L_DLY0
+NODE  IO156        L_START_WDD  ; Start WDD State Machine
+PIN   IO157        L_LD_GP
+NODE  IO158        L_SHFT0
+PIN   IO159        L_START_CLCD  ; Start Cycle LCD State Mach.
+
+; Start of global STRING definitions
+
+; The following strings are used to initialize locations in the SRAM
+; to send various commands to the LCD.
+
+STRING LCD_function '0x038' ; LCD Function Set - 8 bit I/F, Dual line
+STRING LCD_clear    '0x001' ; LCD Display Clear (1.64 ms)
+STRING LCD_entry    '0x006' ; LCD Entry Mode, inc dd adrs, no shift
+STRING LCD_display  '0x00C' ; LCD Display on & Cursor off
+
+; The following strings are used to initialize locations in the SRAM
+; to Data_to_LCD commands.  These commands are used when no time
+; delay is needed between characters; e.g., a flashing display.
+
+STRING dl_space        '0x0A0' ; (space)
+STRING dl_exclam       '0x0A1' ; !
+STRING dl_d_quote      '0x0A2' ; "
+STRING dl_pound        '0x0A3' ; #
+STRING dl_dollar       '0x0A4' ; $
+STRING dl_percent      '0x0A5' ; %
+STRING dl_amper        '0x0A6' ; &
+STRING dl_s_quote      '0x0A7' ; '
+STRING dl_l_paren      '0x0A8' ; (
+STRING dl_r_paren      '0x0A9' ; )
+STRING dl_aster        '0x0AA' ; *
+STRING dl_plus         '0x0AB' ; +
+STRING dl_comma        '0x0AC' ; ,
+STRING dl_dash         '0x0AD' ; -
+STRING dl_period       '0x0AE' ; .
+STRING dl_slash        '0x0AF' ; /
+STRING dl_0            '0x0B0' ; 0
+STRING dl_1            '0x0B1' ; 1
+STRING dl_2            '0x0B2' ; 2
+STRING dl_3            '0x0B3' ; 3
+STRING dl_4            '0x0B4' ; 4
+STRING dl_5            '0x0B5' ; 5
+STRING dl_6            '0x0B6' ; 6
+STRING dl_7            '0x0B7' ; 7
+STRING dl_8            '0x0B8' ; 8
+STRING dl_9            '0x0B9' ; 9
+STRING dl_colon        '0x0BA' ; :
+STRING dl_semi_colon   '0x0BB' ; ;
+STRING dl_less_than    '0x0BC' ; <
+STRING dl_equal        '0x0BD' ; =
+STRING dl_greater_than '0x0BE' ; >
+STRING dl_question     '0x0BF' ; ?
+STRING dl_at_sign      '0x0C0' ; @
+STRING du_A            '0x0C1' ; A
+STRING du_B            '0x0C2' ; B
+STRING du_C            '0x0C3' ; C
+STRING du_D            '0x0C4' ; D
+STRING du_E            '0x0C5' ; E
+STRING du_F            '0x0C6' ; F
+STRING du_G            '0x0C7' ; G
+STRING du_H            '0x0C8' ; H
+STRING du_I            '0x0C9' ; I
+STRING du_J            '0x0CA' ; J
+STRING du_K            '0x0CB' ; K
+STRING du_L            '0x0CC' ; L
+STRING du_M            '0x0CD' ; M
+STRING du_N            '0x0CE' ; N
+STRING du_O            '0x0CF' ; O
+STRING du_P            '0x0D0' ; P
+STRING du_Q            '0x0D1' ; Q
+STRING du_R            '0x0D2' ; R
+STRING du_S            '0x0D3' ; S
+STRING du_T            '0x0D4' ; T
+STRING du_U            '0x0D5' ; U
+STRING du_V            '0x0D6' ; V
+STRING du_W            '0x0D7' ; W
+STRING du_X            '0x0D8' ; X
+STRING du_Y            '0x0D9' ; Y
+STRING du_Z            '0x0DA' ; Z
+STRING dl_l_bracket    '0x0DB' ; [
+STRING dl_y_bar        '0x0DC' ; (try it and see)
+STRING dl_r_bracket    '0x0DD' ; ]
+STRING dl_carot        '0x0DE' ; ^
+STRING dl_underscore   '0x0DF' ; _
+STRING dl_backslash    '0x0E0' ; \
+STRING dl_a            '0x0E1' ; a
+STRING dl_b            '0x0E2' ; b
+STRING dl_c            '0x0E3' ; c
+STRING dl_d            '0x0E4' ; d
+STRING dl_e            '0x0E5' ; e
+STRING dl_f            '0x0E6' ; f
+STRING dl_g            '0x0E7' ; g
+STRING dl_h            '0x0E8' ; h
+STRING dl_i            '0x0E9' ; i
+STRING dl_j            '0x0EA' ; j
+STRING dl_k            '0x0EB' ; k
+STRING dl_l            '0x0EC' ; l
+STRING dl_m            '0x0ED' ; m
+STRING dl_n            '0x0EE' ; n
+STRING dl_o            '0x0EF' ; o
+STRING dl_p            '0x0F0' ; p
+STRING dl_q            '0x0F1' ; q
+STRING dl_r            '0x0F2' ; r
+STRING dl_s            '0x0F3' ; s
+STRING dl_t            '0x0F4' ; t
+STRING dl_u            '0x0F5' ; u
+STRING dl_v            '0x0F6' ; v
+STRING dl_w            '0x0F7' ; w
+STRING dl_x            '0x0F8' ; x
+STRING dl_y            '0x0F9' ; y
+STRING dl_z            '0x0FA' ; z
+STRING dl_l_brace      '0x0FB' ; {
+STRING dl_vertical     '0x0FC' ; |
+STRING dl_r_brace      '0x0FD' ; }
+STRING dl_r_arrow      '0x0FE' ; (right arrow)
+STRING dl_l_arrow      '0x0FF' ; (left arrow)
+
+; The following strings are used to initialize locations in the SRAM
+; to Shft_Data_Dly commands.  These commands are used when a time
+; delay is needed between characters; e.g., a scrolling display.
+
+STRING sl_space        '0x320' ; (space)
+STRING sl_exclam       '0x321' ; !
+STRING sl_d_quote      '0x322' ; "
+STRING sl_pound        '0x323' ; #
+STRING sl_dollar       '0x324' ; $
+STRING sl_percent      '0x325' ; %
+STRING sl_amper        '0x326' ; &
+STRING sl_s_quote      '0x327' ; '
+STRING sl_l_paren      '0x328' ; (
+STRING sl_r_paren      '0x329' ; )
+STRING sl_aster        '0x32A' ; *
+STRING sl_plus         '0x32B' ; +
+STRING sl_comma        '0x32C' ; ,
+STRING sl_dash         '0x32D' ; -
+STRING sl_period       '0x32E' ; .
+STRING sl_slash        '0x32F' ; /
+STRING sl_0            '0x330' ; 0
+STRING sl_1            '0x331' ; 1
+STRING sl_2            '0x332' ; 2
+STRING sl_3            '0x333' ; 3
+STRING sl_4            '0x334' ; 4
+STRING sl_5            '0x335' ; 5
+STRING sl_6            '0x336' ; 6
+STRING sl_7            '0x337' ; 7
+STRING sl_8            '0x338' ; 8
+STRING sl_9            '0x339' ; 9
+STRING sl_colon        '0x33A' ; :
+STRING sl_semi_colon   '0x33B' ; ;
+STRING sl_less_than    '0x33C' ; <
+STRING sl_equal        '0x33D' ; =
+STRING sl_greater_than '0x33E' ; >
+STRING sl_question     '0x33F' ; ?
+STRING sl_at_sign      '0x340' ; @
+STRING su_A            '0x341' ; A
+STRING su_B            '0x342' ; B
+STRING su_C            '0x343' ; C
+STRING su_D            '0x344' ; D
+STRING su_E            '0x345' ; E
+STRING su_F            '0x346' ; F
+STRING su_G            '0x347' ; G
+STRING su_H            '0x348' ; H
+STRING su_I            '0x349' ; I
+STRING su_J            '0x34A' ; J
+STRING su_K            '0x34B' ; K
+STRING su_L            '0x34C' ; L
+STRING su_M            '0x34D' ; M
+STRING su_N            '0x34E' ; N
+STRING su_O            '0x34F' ; O
+STRING su_P            '0x350' ; P
+STRING su_Q            '0x351' ; Q
+STRING su_R            '0x352' ; R
+STRING su_S            '0x353' ; S
+STRING su_T            '0x354' ; T
+STRING su_U            '0x355' ; U
+STRING su_V            '0x356' ; V
+STRING su_W            '0x357' ; W
+STRING su_X            '0x358' ; X
+STRING su_Y            '0x359' ; Y
+STRING su_Z            '0x35A' ; Z
+STRING sl_l_bracket    '0x35B' ; [
+STRING sl_y_bar        '0x35C' ; (try it and see)
+STRING sl_r_bracket    '0x35D' ; ]
+STRING sl_carot        '0x35E' ; ^
+STRING sl_underscore   '0x35F' ; _
+STRING sl_backslash    '0x360' ; \
+STRING sl_a            '0x361' ; a
+STRING sl_b            '0x362' ; b
+STRING sl_c            '0x363' ; c
+STRING sl_d            '0x364' ; d
+STRING sl_e            '0x365' ; e
+STRING sl_f            '0x366' ; f
+STRING sl_g            '0x367' ; g
+STRING sl_h            '0x368' ; h
+STRING sl_i            '0x369' ; i
+STRING sl_j            '0x36A' ; j
+STRING sl_k            '0x36B' ; k
+STRING sl_l            '0x36C' ; l
+STRING sl_m            '0x36D' ; m
+STRING sl_n            '0x36E' ; n
+STRING sl_o            '0x36F' ; o
+STRING sl_p            '0x370' ; p
+STRING sl_q            '0x371' ; q
+STRING sl_r            '0x372' ; r
+STRING sl_s            '0x373' ; s
+STRING sl_t            '0x374' ; t
+STRING sl_u            '0x375' ; u
+STRING sl_v            '0x376' ; v
+STRING sl_w            '0x377' ; w
+STRING sl_x            '0x378' ; x
+STRING sl_y            '0x379' ; y
+STRING sl_z            '0x37A' ; z
+STRING sl_l_brace      '0x37B' ; {
+STRING sl_vertical     '0x37C' ; |
+STRING sl_r_brace      '0x37D' ; }
+STRING sl_r_arrow      '0x37E' ; (right arrow)
+STRING sl_l_arrow      '0x37F' ; (left arrow)
+
+; The following strings are used to initialize locations in the SRAM
+; for miscellaneous purposes.
+
+STRING cp_eq_00     '0x181' ; Clear the cursor position to 00
+STRING cp_eq_15     '0x182' ; Set   the cursor position to 15
+STRING goto_0       '0x380' ; Branch to location 0
+STRING goto_1       '0x381' ; Branch to location 1
+STRING goto_2       '0x382' ; Branch to location 2
+STRING goto_3       '0x383' ; Branch to location 3
+STRING goto_4       '0x384' ; Branch to location 4
+STRING goto_5       '0x385' ; Branch to location 5
+STRING dly_0051     '0x200' ; Delay for approximately   51 ms
+STRING dly_0102     '0x201' ; Delay for approximately  102 ms
+STRING dly_0154     '0x202' ; Delay for approximately  154 ms
+STRING dly_0205     '0x203' ; Delay for approximately  205 ms
+STRING dly_0256     '0x204' ; Delay for approximately  256 ms
+STRING dly_0307     '0x205' ; Delay for approximately  307 ms
+STRING dly_0358     '0x206' ; Delay for approximately  358 ms
+STRING dly_0410     '0x207' ; Delay for approximately  410 ms
+STRING dly_0461     '0x208' ; Delay for approximately  461 ms
+STRING dly_0512     '0x209' ; Delay for approximately  512 ms
+STRING dly_0563     '0x20A' ; Delay for approximately  563 ms
+STRING dly_0614     '0x20B' ; Delay for approximately  614 ms
+STRING dly_0665     '0x20C' ; Delay for approximately  665 ms
+STRING dly_0717     '0x20D' ; Delay for approximately  717 ms
+STRING dly_0768     '0x20E' ; Delay for approximately  768 ms
+STRING dly_0819     '0x20F' ; Delay for approximately  819 ms
+
+; End of global STRING definitions
+
+; Start of EPX8160QC208.0 STRING definitions
+
+; The following strings define values for the 3-bit command field in
+; the SRAM.
+
+;        Command               Translation           St Machines
+;      ---------------   ------------------------    ------------
+STRING R_Cmd_to_LCD      '(/R_PROM9 * /R_PROM8 * /R_PROM7)' ;CLCD
+STRING R_Data_to_LCD     '(/R_PROM9 * /R_PROM8 *  R_PROM7)' ;WDD
+STRING R_Shft_Data       '(/R_PROM9 *  R_PROM8 * /R_PROM7)' ;SHFT/WDD
+STRING R_Function        '(/R_PROM9 *  R_PROM8 *  R_PROM7)' ;(none)
+STRING R_Delay           '( R_PROM9 * /R_PROM8 * /R_PROM7)' ;DLY
+STRING R_DATA_to_LCD_Dly '( R_PROM9 * /R_PROM8 *  R_PROM7)' ;WDD/DLY
+STRING R_Shft_Data_Dly   '( R_PROM9 *  R_PROM8 * /R_PROM7)' ;SHFT/WDD/DLY
+STRING R_Branch          '( R_PROM9 *  R_PROM8 *  R_PROM7)' ;(none)
+
+; The following strings define values for the 2-bit sub-field for
+; the Function command.
+
+;        Function          Translation
+;      ---------------   ----------------
+STRING R_Nop             '(/R_PROM1 * /R_PROM0)'
+STRING R_Clr_CP          '(/R_PROM1 *  R_PROM0)'
+STRING R_Set_CP          '( R_PROM1 * /R_PROM0)'
+STRING R_Unassigned      '( R_PROM1 *  R_PROM0)'
+
+; The following strings define values for the X mux control.
+
+STRING R_Mux_in_PROM   '(/R_LCD_READ)'
+STRING R_Mux_in_LCD_Rd '( R_LCD_READ)'
+
+; The following strings define values for the LCD mux control.
+
+STRING R_En_X_Mux     '(/R_LCD_CNTRL1 * /R_LCD_CNTRL0)'
+STRING R_En_CP        '(/R_LCD_CNTRL1 *  R_LCD_CNTRL0)'
+STRING R_En_GP        '( R_LCD_CNTRL1 * /R_LCD_CNTRL0)'
+STRING R_En_GP_Plus1  '( R_LCD_CNTRL1 *  R_LCD_CNTRL0)'
+
+STRING R_LCD_is_Busy    '(GND)' ; LCD is never busy because of slow clk
+
+; The following strings define state assignments for all the state
+; machines.  Values are not enclosed in parentheses, because this
+; causes a parse error in the state assignment sections.  To ensure
+; proper operation, each string name should be enclosed in
+; parentheses when it is used elsewhere.
+
+STRING R_CLCD_St_0      '/R_CLCD1 * /R_CLCD0'
+STRING R_CLCD_St_1      '/R_CLCD1 *  R_CLCD0'
+STRING R_CLCD_St_2      ' R_CLCD1 * /R_CLCD0'
+STRING R_CLCD_St_3      ' R_CLCD1 *  R_CLCD0'
+
+STRING R_CLCD_Busy      '(R_CLCD1 + R_CLCD0)'  ; /R_CLCD_St_0
+
+STRING R_SHFT_St_0      '/R_SHFT2 * /R_SHFT1 * /R_SHFT0'
+STRING R_SHFT_St_1      '/R_SHFT2 * /R_SHFT1 *  R_SHFT0'
+STRING R_SHFT_St_2      '/R_SHFT2 *  R_SHFT1 * /R_SHFT0'
+STRING R_SHFT_St_3      '/R_SHFT2 *  R_SHFT1 *  R_SHFT0'
+STRING R_SHFT_St_4      ' R_SHFT2 * /R_SHFT1 * /R_SHFT0'
+STRING R_SHFT_St_5      ' R_SHFT2 * /R_SHFT1 *  R_SHFT0'
+
+STRING R_WDD_St_0       '/R_WDD1 * /R_WDD0'
+STRING R_WDD_St_1       '/R_WDD1 *  R_WDD0'
+STRING R_WDD_St_2       ' R_WDD1 * /R_WDD0'
+STRING R_WDD_St_3       ' R_WDD1 *  R_WDD0'
+
+STRING R_DLY_St_0       '/R_DLY0'
+STRING R_DLY_St_1       ' R_DLY0'
+
+; End of EPX8160QC208.0 STRING definitions
+
+; Start of EPX8160QC208.1 STRING definitions
+
+; The following strings define values for the 3-bit command field in
+; the SRAM.
+
+;        Command               Translation           St Machines
+;      ---------------   ------------------------    ------------
+STRING L_Cmd_to_LCD      '(/L_PROM9 * /L_PROM8 * /L_PROM7)' ;CLCD
+STRING L_Data_to_LCD     '(/L_PROM9 * /L_PROM8 *  L_PROM7)' ;WDD
+STRING L_Shft_Data       '(/L_PROM9 *  L_PROM8 * /L_PROM7)' ;SHFT/WDD
+STRING L_Function        '(/L_PROM9 *  L_PROM8 *  L_PROM7)' ;(none)
+STRING L_Delay           '( L_PROM9 * /L_PROM8 * /L_PROM7)' ;DLY
+STRING L_DATA_to_LCD_Dly '( L_PROM9 * /L_PROM8 *  L_PROM7)' ;WDD/DLY
+STRING L_Shft_Data_Dly   '( L_PROM9 *  L_PROM8 * /L_PROM7)' ;SHFT/WDD/DLY
+STRING L_Branch          '( L_PROM9 *  L_PROM8 *  L_PROM7)' ;(none)
+
+; The following strings define values for the 2-bit sub-field for
+; the Function command.
+
+;        Function          Translation
+;      ---------------   ----------------
+STRING L_Nop             '(/L_PROM1 * /L_PROM0)'
+STRING L_Clr_CP          '(/L_PROM1 *  L_PROM0)'
+STRING L_Set_CP          '( L_PROM1 * /L_PROM0)'
+STRING L_Unassigned      '( L_PROM1 *  L_PROM0)'
+
+; The following strings define values for the X mux control.
+
+STRING L_Mux_in_PROM   '(/L_LCD_READ)'
+STRING L_Mux_in_LCD_Rd '( L_LCD_READ)'
+
+; The following strings define values for the LCD mux control.
+
+STRING L_En_X_Mux     '(/L_LCD_CNTRL1 * /L_LCD_CNTRL0)'
+STRING L_En_CP        '(/L_LCD_CNTRL1 *  L_LCD_CNTRL0)'
+STRING L_En_GP        '( L_LCD_CNTRL1 * /L_LCD_CNTRL0)'
+STRING L_En_GP_Plus1  '( L_LCD_CNTRL1 *  L_LCD_CNTRL0)'
+
+STRING L_LCD_is_Busy    '(GND)' ; LCD is never busy because of slow clk
+
+; The following strings define state assignments for all the state
+; machines.  Values are not enclosed in parentheses, because this
+; causes a parse error in the state assignment sections.  To ensure
+; proper operation, each string name should be enclosed in
+; parentheses when it is used elsewhere.
+
+STRING L_CLCD_St_0      '/L_CLCD1 * /L_CLCD0'
+STRING L_CLCD_St_1      '/L_CLCD1 *  L_CLCD0'
+STRING L_CLCD_St_2      ' L_CLCD1 * /L_CLCD0'
+STRING L_CLCD_St_3      ' L_CLCD1 *  L_CLCD0'
+
+STRING L_CLCD_Busy      '(L_CLCD1 + L_CLCD0)'  ; /L_CLCD_St_0
+
+STRING L_SHFT_St_0      '/L_SHFT2 * /L_SHFT1 * /L_SHFT0'
+STRING L_SHFT_St_1      '/L_SHFT2 * /L_SHFT1 *  L_SHFT0'
+STRING L_SHFT_St_2      '/L_SHFT2 *  L_SHFT1 * /L_SHFT0'
+STRING L_SHFT_St_3      '/L_SHFT2 *  L_SHFT1 *  L_SHFT0'
+STRING L_SHFT_St_4      ' L_SHFT2 * /L_SHFT1 * /L_SHFT0'
+STRING L_SHFT_St_5      ' L_SHFT2 * /L_SHFT1 *  L_SHFT0'
+
+STRING L_WDD_St_0       '/L_WDD1 * /L_WDD0'
+STRING L_WDD_St_1       '/L_WDD1 *  L_WDD0'
+STRING L_WDD_St_2       ' L_WDD1 * /L_WDD0'
+STRING L_WDD_St_3       ' L_WDD1 *  L_WDD0'
+
+STRING L_DLY_St_0       '/L_DLY0'
+STRING L_DLY_St_1       ' L_DLY0'
+
+; End of EPX8160QC208.1 STRING definitions
+
+; The RAM_DEFAULTS section is used to program the desired LCD
+; display, using strings defined above.
+
+RAM_DEFAULTS L_PROM
+
+#BEGIN_FLASH
+USE ALTERA PLDs!
+#END_FLASH
+
+RAM_DEFAULTS R_PROM
+
+#BEGIN_SCROLL
+EPX8160 10ns FLEXlogic FPGA with SRAM option -- 80MHz System Clock -- IEEE 1149.1 (JTAG) -- 16 24V10 Logic Blocks
+#END_SCROLL
+
+EQUATIONS
+
+; Global equations
+
+; PO_RESET_.D := GND  ; PO_RESET_ goes high at end of Power On Reset
+; PO_RESET_.SETF = VCC
+; PO_RESET_.ACLK = GND
+
+; Start of EPX8160QC208.0 equations
+
+R_PROM[6:0].ADDR = R_P_CNTR[6:0]
+R_PROM.WE = GND
+R_PROM.BE = VCC
+
+; P Counter.  This up-counter provides the PROM address.  It is
+; incremented at the end of each non-Branch instruction, and it is
+; loaded with R_PROM[0:6] when a Branch instruction is encountered.
+
+R_INC_P_CNTR = (R_WDD_St_3)  * /R_PROM9
+             + (R_DLY_St_1)  * R_GP_EXIT
+             + (R_CLCD_St_3) * R_Cmd_to_LCD
+             + R_Function
+
+R_P_CNTR0.T := R_INC_P_CNTR
+             + R_Branch * (R_P_CNTR0 :+: R_PROM0)
+
+R_P_CNTR1.T := R_INC_P_CNTR * R_P_CNTR0
+             + R_Branch * (R_P_CNTR1 :+: R_PROM1)
+
+R_P_CNTR2.T := R_INC_P_CNTR * R_P_CNTR0 * R_P_CNTR1
+             + R_Branch * (R_P_CNTR2 :+: R_PROM2)
+
+R_P_CNTR3.T := R_INC_P_CNTR * R_P_CNTR0 * R_P_CNTR1 * R_P_CNTR2
+             + R_Branch * (R_P_CNTR3 :+: R_PROM3)
+
+R_P_CNTR4.T := R_INC_P_CNTR * R_P_CNTR0 * R_P_CNTR1 * R_P_CNTR2 * R_P_CNTR3
+             + R_Branch * (R_P_CNTR4 :+: R_PROM4)
+
+R_P_CNTR5.T := R_INC_P_CNTR * R_P_CNTR0 * R_P_CNTR1 * R_P_CNTR2 * R_P_CNTR3
+                        * R_P_CNTR4
+             + R_Branch * (R_P_CNTR5 :+: R_PROM5)
+
+R_P_CNTR6.T := R_INC_P_CNTR * R_P_CNTR0 * R_P_CNTR1 * R_P_CNTR2 * R_P_CNTR3
+                        * R_P_CNTR4 * R_P_CNTR5
+             + R_Branch * (R_P_CNTR6 :+: R_PROM6)
+
+R_P_CNTR[0:6].RSTF = RESET
+R_P_CNTR[0:6].CLKF = R_SYNC_CLK
+
+; The R_X_LATCH block serves two purposes.  The latches hold
+; the display data temporarily during a shift operation, and the
+; product terms provide access to the PROM.
+
+R_X_LATCH[0:6] = /R_HOLD_X * R_Mux_in_LCD_Rd *  R_LCD[0:6]
+               + /R_HOLD_X * R_Mux_in_PROM   * R_PROM[0:6]
+               +  R_HOLD_X *                R_X_LATCH[0:6]
+
+  R_HOLD_X :=  (  R_SHFT_St_2) * (  R_CLCD_St_3)
+            + /(  R_SHFT_St_5) *   R_HOLD_X
+
+  R_HOLD_X.CLKF = R_SYNC_CLK
+  R_HOLD_X.RSTF = RESET
+
+; Cursor Position Counter.  This is a 4-bit up-counter.  It keeps
+; track of the cursor position, and it is written to the DD RAM Adrs
+; as required.  (R_CP3 is fed to R_LCD6 to account for the discontinuity
+; in the DD RAM Adrs/Display).
+
+; A Clr_CP Function Command is provided to clear this counter at the
+; beginning of a display cycle.  When R_CP reaches cursor position 15
+; (DD RAM Adrs 47 hex), it stops incrementing until it is cleared
+; again.
+
+; A Set_CP Function Command is provided to set this counter to its
+; maximum value at the beginning of a display cycle.  This is
+; useful for scrolling displays.
+
+; R_CP increments at the end of the Write Display Data cycle,
+; unless it is already at its maximum value.
+  R_INC_CP = (R_WDD_St_3) * /(R_CP3 * R_CP2 * R_CP1 * R_CP0)
+
+R_CP0.T := R_INC_CP
+         + R_Function * R_Clr_CP *  R_CP0
+         + R_Function * R_Set_CP * /R_CP0
+R_CP0.RSTF = RESET
+R_CP0.CLKF = R_SYNC_CLK
+
+R_CP1.T := R_INC_CP * R_CP0
+         + R_Function * R_Clr_CP *  R_CP1
+         + R_Function * R_Set_CP * /R_CP1
+R_CP1.RSTF = RESET
+R_CP1.CLKF = R_SYNC_CLK
+
+R_CP2.T := R_INC_CP * R_CP0 * R_CP1
+         + R_Function * R_Clr_CP *  R_CP2
+         + R_Function * R_Set_CP * /R_CP2
+R_CP2.RSTF = RESET
+R_CP2.CLKF = R_SYNC_CLK
+
+R_CP3.T := R_INC_CP * R_CP0 * R_CP1 * R_CP2
+         + R_Function * R_Clr_CP *  R_CP3
+         + R_Function * R_Set_CP * /R_CP3
+
+R_CP3.RSTF = RESET
+R_CP3.CLKF = R_SYNC_CLK
+
+; General Purpose Counter.  R_GP is used as a delay counter,
+; and the lower 4 bits are used as the DD RAM address while
+; shifting the display characters left (R_GP03 is fed to R_LCD6 to
+; account for the discontinuity in the DD RAM Adrs/Display).
+
+R_INC_GP = (R_SHFT_St_4) * /R_CLCD_Busy
+         + (R_DLY_St_1)
+
+R_LD_GP = R_QUIET * R_Shft_Data     ; clr GP[00:03] for DD adrs
+        + R_QUIET * R_Shft_Data_Dly ; clr GP[00:03] for DD adrs
+        + R_QUIET * R_Delay     ; clr GP[00:08], PROM[0:3] -> GP[09:12]
+        + (R_WDD_St_3) * R_PROM9    ; /QUIET
+
+R_GP_L_CY = R_GP00 * R_GP01 * R_GP02 * R_GP03
+
+R_GP_EXIT = (R_DLY_St_1) * R_GP12 * R_GP11 * R_GP10 * R_GP09 * R_GP08 * R_GP07 * R_GP06
+                 * R_GP05 * R_GP04 * R_GP_L_CY
+          + R_SHFT2 * R_GP_L_CY  ; Shift state 5
+
+R_GP00.T := R_INC_GP
+          + R_LD_GP * R_GP00
+R_GP01.T := R_INC_GP * R_GP00
+          + R_LD_GP * R_GP01
+R_GP02.T := R_INC_GP * R_GP00 * R_GP01
+          + R_LD_GP * R_GP02
+R_GP03.T := R_INC_GP * R_GP00 * R_GP01 * R_GP02
+          + R_LD_GP * R_GP03
+R_GP04.T := R_INC_GP * R_GP_L_CY
+          + R_LD_GP * R_GP04
+R_GP05.T := R_INC_GP * R_GP_L_CY * R_GP04
+          + R_LD_GP * R_GP05
+R_GP06.T := R_INC_GP * R_GP_L_CY * R_GP04 * R_GP05
+          + R_LD_GP * R_GP06
+R_GP07.T := R_INC_GP * R_GP_L_CY * R_GP04 * R_GP05 * R_GP06
+          + R_LD_GP * R_GP07
+R_GP08.T := R_INC_GP * R_GP_L_CY * R_GP04 * R_GP05 * R_GP06 * R_GP07
+          + R_LD_GP * R_GP08
+R_GP09.T := R_INC_GP * R_GP_L_CY * R_GP04 * R_GP05 * R_GP06 * R_GP07 * R_GP08
+          + R_LD_GP *  R_QUIET * (R_GP09 :+: /R_PROM0)
+          + R_LD_GP * /R_QUIET *  R_GP09  ; R_GP09 to clear, /R_GP09 to set
+R_GP10.T := R_INC_GP * R_GP_L_CY * R_GP04 * R_GP05 * R_GP06 * R_GP07 * R_GP08 * R_GP09
+          + R_LD_GP *  R_QUIET * (R_GP10 :+: /R_PROM1)
+          + R_LD_GP * /R_QUIET *  R_GP10  ; R_GP10 to clear, /R_GP10 to set
+R_GP11.T := R_INC_GP * R_GP_L_CY * R_GP04 * R_GP05 * R_GP06 * R_GP07 * R_GP08 * R_GP09
+                 * R_GP10
+          + R_LD_GP *  R_QUIET * (R_GP11 :+: /R_PROM2)
+          + R_LD_GP * /R_QUIET * /R_GP11  ; R_GP11 to clear, /R_GP11 to set
+R_GP12.T := R_INC_GP * R_GP_L_CY * R_GP04 * R_GP05 * R_GP06 * R_GP07 * R_GP08 * R_GP09
+                 * R_GP10 * R_GP11
+          + R_LD_GP *  R_QUIET * (R_GP12 :+: /R_PROM3)
+          + R_LD_GP * /R_QUIET *  R_GP12  ; R_GP12 to clear, /R_GP12 to set
+
+R_GP[00:12].RSTF = RESET
+R_GP[00:12].CLKF = R_SYNC_CLK
+
+R_LCD_CNTRL1 = (R_SHFT_St_1) ; Writing GP+1 to LCD
+             + (R_SHFT_St_3) ; Writing GP   to LCD
+
+R_LCD_CNTRL0 = (R_SHFT_St_1) ; Writing GP+1 to LCD
+             + (R_WDD_St_1)  ; Writing CP   to LCD
+
+; The LCD block interfaces to the Liquid Crystal Display data
+; lines.  LCD data can be read into the X Latch, and the
+; following items can be written to the LCD:
+;        R_GP register bits 0:3 (this is the Shift Address)
+;        R_GP register bits 0:3 + 1 (this is the Shift Address + 1)
+;        R_CP register (this is the Cursor Position)
+;        X Multiplexer (this is the X Latch or PROM)
+
+R_LCD0 = R_En_GP * R_GP00
+       + R_En_GP_Plus1 * /R_GP00
+       + R_En_CP * R_CP0
+       + R_En_X_Mux * R_X_LATCH0
+
+R_LCD1 = R_En_GP * R_GP01
+       + R_En_GP_Plus1 * /R_GP01 *  R_GP00
+       + R_En_GP_Plus1 *  R_GP01 * /R_GP00
+       + R_En_CP * R_CP1
+       + R_En_X_Mux * R_X_LATCH1
+
+R_LCD2 = R_En_GP * R_GP02
+       + R_En_GP_Plus1 * /R_GP02 *  R_GP00 * R_GP01
+       + R_En_GP_Plus1 *  R_GP02 * (/R_GP00 + /R_GP01)
+       + R_En_CP * R_CP2
+       + R_En_X_Mux * R_X_LATCH2
+
+R_LCD3 = R_En_X_Mux * R_X_LATCH3
+       + R_En_CP * GND
+
+R_LCD4 = R_En_X_Mux * R_X_LATCH4
+       + R_En_CP * GND
+
+R_LCD5 = R_En_X_Mux * R_X_LATCH5
+       + R_En_CP * GND
+
+R_LCD6 = R_En_GP * R_GP03
+       + R_En_GP_Plus1 * /R_GP03 *  R_GP00 * R_GP01 * R_GP02
+       + R_En_GP_Plus1 *  R_GP03 * (/R_GP00 + /R_GP01 + /R_GP02)
+       + R_En_CP * R_CP3
+       + R_En_X_Mux * R_X_LATCH6
+
+R_LCD7 = R_En_GP * VCC
+       + R_En_GP_Plus1 * VCC
+       + R_En_CP * VCC
+       + R_En_X_Mux * GND
+
+R_LCD[0:7].TRST = /R_LCD_READ
+
+; LCD_DATA, which is an LCD control line, is set in state 1 of
+; the Cycle LCD state machine, and it is held until the LCD cycle is
+; complete.
+R_LCD_DATA :=  (R_CLCD_St_1) * /R_LCD_is_Busy * (R_SHFT_St_2); Reading LCD
+            +  (R_CLCD_St_1) * /R_LCD_is_Busy * (R_SHFT_St_4); Writing X
+            +  (R_CLCD_St_1) * /R_LCD_is_Busy * (R_WDD_St_2) ; Writing direct
+            + /(R_CLCD_St_0) *  R_LCD_DATA
+
+R_LCD_DATA.RSTF = RESET
+R_LCD_DATA.CLKF = R_SYNC_CLK
+
+; LCD_READ, which is an LCD control line, is set in state 1 of
+; the Cycle LCD state machine, and it is held until the LCD cycle is
+; complete.
+R_LCD_READ :=  (R_CLCD_St_1) * /R_LCD_is_Busy * (R_SHFT_St_2) ; Reading LCD
+            + /(R_CLCD_St_0) * R_LCD_READ
+
+R_LCD_READ.RSTF = RESET
+R_LCD_READ.CLKF = R_SYNC_CLK
+
+R_LCD_ENAB := (R_CLCD_St_2)
+R_LCD_ENAB.RSTF = RESET
+R_LCD_ENAB.CLKF = R_SYNC_CLK
+
+; QUIET is true when all state machines are at state 0
+R_QUIET = /R_CLCD1 * /R_CLCD0 * /R_WDD1 * /R_WDD0 *
+          /R_SHFT2 * /R_SHFT1 * /R_SHFT0 * /R_DLY0
+
+; START_CLCD is only meaningful in CLCD_St_0, so /CLCD_Busy
+; is implied in all product terms.
+
+R_START_CLCD = R_QUIET * (R_Shft_Data + R_Shft_Data_Dly)
+             + (R_SHFT_St_1)
+             + (R_SHFT_St_2)
+             + (R_SHFT_St_3)
+             + (R_SHFT_St_5) * /R_GP_EXIT
+             + R_QUIET * R_Cmd_to_LCD
+             + R_START_WDD * (R_WDD_St_0)
+             + (R_WDD_St_1)
+
+R_CLCD[0:1].RSTF = RESET
+R_CLCD[0:1].CLKF = R_SYNC_CLK
+
+R_SHFT[0:2].RSTF = RESET
+R_SHFT[0:2].CLKF = R_SYNC_CLK
+
+R_START_WDD = (R_SHFT_St_5) * R_GP_EXIT
+            + R_QUIET * R_DATA_to_LCD
+            + R_QUIET * R_DATA_to_LCD_Dly
+
+R_WDD[0:1].RSTF = RESET
+R_WDD[0:1].CLKF = R_SYNC_CLK
+
+R_DLY0.RSTF = RESET
+R_DLY0.CLKF = R_SYNC_CLK
+
+; End of EPX8160QC208.0 equations
+
+; Start EPX8160QC208.1 equations
+
+L_PROM[6:0].ADDR = L_P_CNTR[6:0]
+L_PROM.WE = GND
+L_PROM.BE = VCC
+
+; P Counter.  This up-counter provides the PROM address.  It is
+; incremented at the end of each non-Branch instruction, and it is
+; loaded with L_PROM[0:6] when a Branch instruction is encountered.
+
+L_INC_P_CNTR = (L_WDD_St_3)  * /L_PROM9
+             + (L_DLY_St_1)  * L_GP_EXIT
+             + (L_CLCD_St_3) * L_Cmd_to_LCD
+             + L_Function
+
+L_P_CNTR0.T := L_INC_P_CNTR
+             + L_Branch * (L_P_CNTR0 :+: L_PROM0)
+
+L_P_CNTR1.T := L_INC_P_CNTR * L_P_CNTR0
+             + L_Branch * (L_P_CNTR1 :+: L_PROM1)
+
+L_P_CNTR2.T := L_INC_P_CNTR * L_P_CNTR0 * L_P_CNTR1
+             + L_Branch * (L_P_CNTR2 :+: L_PROM2)
+
+L_P_CNTR3.T := L_INC_P_CNTR * L_P_CNTR0 * L_P_CNTR1 * L_P_CNTR2
+             + L_Branch * (L_P_CNTR3 :+: L_PROM3)
+
+L_P_CNTR4.T := L_INC_P_CNTR * L_P_CNTR0 * L_P_CNTR1 * L_P_CNTR2 * L_P_CNTR3
+             + L_Branch * (L_P_CNTR4 :+: L_PROM4)
+
+L_P_CNTR5.T := L_INC_P_CNTR * L_P_CNTR0 * L_P_CNTR1 * L_P_CNTR2 * L_P_CNTR3
+                        * L_P_CNTR4
+             + L_Branch * (L_P_CNTR5 :+: L_PROM5)
+
+L_P_CNTR6.T := L_INC_P_CNTR * L_P_CNTR0 * L_P_CNTR1 * L_P_CNTR2 * L_P_CNTR3
+                        * L_P_CNTR4 * L_P_CNTR5
+             + L_Branch * (L_P_CNTR6 :+: L_PROM6)
+
+L_P_CNTR[0:6].RSTF = RESET
+L_P_CNTR[0:6].CLKF = L_SYNC_CLK
+
+; The L_X_LATCH block serves two purposes.  The latches hold
+; the display data temporarily during a shift operation, and the
+; product terms provide access to the PROM.
+
+L_X_LATCH[0:6] = /L_HOLD_X * L_Mux_in_LCD_Rd *  L_LCD[0:6]
+               + /L_HOLD_X * L_Mux_in_PROM   * L_PROM[0:6]
+               +  L_HOLD_X *                L_X_LATCH[0:6]
+
+  L_HOLD_X :=  (  L_SHFT_St_2) * (  L_CLCD_St_3)
+            + /(  L_SHFT_St_5) *   L_HOLD_X
+
+  L_HOLD_X.CLKF = L_SYNC_CLK
+  L_HOLD_X.RSTF = RESET
+
+; Cursor Position Counter.  This is a 4-bit up-counter.  It keeps
+; track of the cursor position, and it is written to the DD RAM Adrs
+; as required.  (L_CP3 is fed to L_LCD6 to account for the discontinuity
+; in the DD RAM Adrs/Display).
+
+; A Clr_CP Function Command is provided to clear this counter at the
+; beginning of a display cycle.  When L_CP reaches cursor position 15
+; (DD RAM Adrs 47 hex), it stops incrementing until it is cleared
+; again.
+
+; A Set_CP Function Command is provided to set this counter to its
+; maximum value at the beginning of a display cycle.  This is
+; useful for scrolling displays.
+
+; L_CP increments at the end of the Write Display Data cycle,
+; unless it is already at its maximum value.
+  L_INC_CP = (L_WDD_St_3) * /(L_CP3 * L_CP2 * L_CP1 * L_CP0)
+
+L_CP0.T := L_INC_CP
+         + L_Function * L_Clr_CP *  L_CP0
+         + L_Function * L_Set_CP * /L_CP0
+L_CP0.RSTF = RESET
+L_CP0.CLKF = L_SYNC_CLK
+
+L_CP1.T := L_INC_CP * L_CP0
+         + L_Function * L_Clr_CP *  L_CP1
+         + L_Function * L_Set_CP * /L_CP1
+L_CP1.RSTF = RESET
+L_CP1.CLKF = L_SYNC_CLK
+
+L_CP2.T := L_INC_CP * L_CP0 * L_CP1
+         + L_Function * L_Clr_CP *  L_CP2
+         + L_Function * L_Set_CP * /L_CP2
+L_CP2.RSTF = RESET
+L_CP2.CLKF = L_SYNC_CLK
+
+L_CP3.T := L_INC_CP * L_CP0 * L_CP1 * L_CP2
+         + L_Function * L_Clr_CP *  L_CP3
+         + L_Function * L_Set_CP * /L_CP3
+
+L_CP3.RSTF = RESET
+L_CP3.CLKF = L_SYNC_CLK
+
+; General Purpose Counter.  L_GP is used as a delay counter,
+; and the lower 4 bits are used as the DD RAM address while
+; shifting the display characters left (L_GP03 is fed to L_LCD6 to
+; account for the discontinuity in the DD RAM Adrs/Display).
+
+L_INC_GP = (L_SHFT_St_4) * /L_CLCD_Busy
+         + (L_DLY_St_1)
+
+L_LD_GP = L_QUIET * L_Shft_Data     ; clr GP[00:03] for DD adrs
+        + L_QUIET * L_Shft_Data_Dly ; clr GP[00:03] for DD adrs
+        + L_QUIET * L_Delay     ; clr GP[00:08], PROM[0:3] -> GP[09:12]
+        + (L_WDD_St_3) * L_PROM9    ; /QUIET
+
+L_GP_L_CY = L_GP00 * L_GP01 * L_GP02 * L_GP03
+
+L_GP_EXIT = (L_DLY_St_1) * L_GP12 * L_GP11 * L_GP10 * L_GP09 * L_GP08 * L_GP07 * L_GP06
+                 * L_GP05 * L_GP04 * L_GP_L_CY
+          + L_SHFT2 * L_GP_L_CY  ; Shift state 5
+
+L_GP00.T := L_INC_GP
+          + L_LD_GP * L_GP00
+L_GP01.T := L_INC_GP * L_GP00
+          + L_LD_GP * L_GP01
+L_GP02.T := L_INC_GP * L_GP00 * L_GP01
+          + L_LD_GP * L_GP02
+L_GP03.T := L_INC_GP * L_GP00 * L_GP01 * L_GP02
+          + L_LD_GP * L_GP03
+L_GP04.T := L_INC_GP * L_GP_L_CY
+          + L_LD_GP * L_GP04
+L_GP05.T := L_INC_GP * L_GP_L_CY * L_GP04
+          + L_LD_GP * L_GP05
+L_GP06.T := L_INC_GP * L_GP_L_CY * L_GP04 * L_GP05
+          + L_LD_GP * L_GP06
+L_GP07.T := L_INC_GP * L_GP_L_CY * L_GP04 * L_GP05 * L_GP06
+          + L_LD_GP * L_GP07
+L_GP08.T := L_INC_GP * L_GP_L_CY * L_GP04 * L_GP05 * L_GP06 * L_GP07
+          + L_LD_GP * L_GP08
+L_GP09.T := L_INC_GP * L_GP_L_CY * L_GP04 * L_GP05 * L_GP06 * L_GP07 * L_GP08
+          + L_LD_GP *  L_QUIET * (L_GP09 :+: /L_PROM0)
+          + L_LD_GP * /L_QUIET *  L_GP09  ; L_GP09 to clear, /L_GP09 to set
+L_GP10.T := L_INC_GP * L_GP_L_CY * L_GP04 * L_GP05 * L_GP06 * L_GP07 * L_GP08 * L_GP09
+          + L_LD_GP *  L_QUIET * (L_GP10 :+: /L_PROM1)
+          + L_LD_GP * /L_QUIET *  L_GP10  ; L_GP10 to clear, /L_GP10 to set
+L_GP11.T := L_INC_GP * L_GP_L_CY * L_GP04 * L_GP05 * L_GP06 * L_GP07 * L_GP08 * L_GP09
+                 * L_GP10
+          + L_LD_GP *  L_QUIET * (L_GP11 :+: /L_PROM2)
+          + L_LD_GP * /L_QUIET * /L_GP11  ; L_GP11 to clear, /L_GP11 to set
+L_GP12.T := L_INC_GP * L_GP_L_CY * L_GP04 * L_GP05 * L_GP06 * L_GP07 * L_GP08 * L_GP09
+                 * L_GP10 * L_GP11
+          + L_LD_GP *  L_QUIET * (L_GP12 :+: /L_PROM3)
+          + L_LD_GP * /L_QUIET *  L_GP12  ; L_GP12 to clear, /L_GP12 to set
+
+L_GP[00:12].RSTF = RESET
+L_GP[00:12].CLKF = L_SYNC_CLK
+
+L_LCD_CNTRL1 = (L_SHFT_St_1) ; Writing GP+1 to LCD
+             + (L_SHFT_St_3) ; Writing GP   to LCD
+
+L_LCD_CNTRL0 = (L_SHFT_St_1) ; Writing GP+1 to LCD
+             + (L_WDD_St_1)  ; Writing CP   to LCD
+
+; The LCD block interfaces to the Liquid Crystal Display data
+; lines.  LCD data can be read into the X Latch, and the
+; following items can be written to the LCD:
+;        L_GP register bits 0:3 (this is the Shift Address)
+;        L_GP register bits 0:3 + 1 (this is the Shift Address + 1)
+;        L_CP register (this is the Cursor Position)
+;        X Multiplexer (this is the X Latch or PROM)
+
+L_LCD0 = L_En_GP * L_GP00
+       + L_En_GP_Plus1 * /L_GP00
+       + L_En_CP * L_CP0
+       + L_En_X_Mux * L_X_LATCH0
+
+L_LCD1 = L_En_GP * L_GP01
+       + L_En_GP_Plus1 * /L_GP01 *  L_GP00
+       + L_En_GP_Plus1 *  L_GP01 * /L_GP00
+       + L_En_CP * L_CP1
+       + L_En_X_Mux * L_X_LATCH1
+
+L_LCD2 = L_En_GP * L_GP02
+       + L_En_GP_Plus1 * /L_GP02 *  L_GP00 * L_GP01
+       + L_En_GP_Plus1 *  L_GP02 * (/L_GP00 + /L_GP01)
+       + L_En_CP * L_CP2
+       + L_En_X_Mux * L_X_LATCH2
+
+L_LCD3 = L_En_X_Mux * L_X_LATCH3
+       + L_En_CP * GND
+
+L_LCD4 = L_En_X_Mux * L_X_LATCH4
+       + L_En_CP * GND
+
+L_LCD5 = L_En_X_Mux * L_X_LATCH5
+       + L_En_CP * GND
+
+L_LCD6 = L_En_GP * L_GP03
+       + L_En_GP_Plus1 * /L_GP03 *  L_GP00 * L_GP01 * L_GP02
+       + L_En_GP_Plus1 *  L_GP03 * (/L_GP00 + /L_GP01 + /L_GP02)
+       + L_En_CP * L_CP3
+       + L_En_X_Mux * L_X_LATCH6
+
+L_LCD7 = L_En_GP * VCC
+       + L_En_GP_Plus1 * VCC
+       + L_En_CP * VCC
+       + L_En_X_Mux * GND
+
+L_LCD[0:7].TRST = /L_LCD_READ
+
+; LCD_DATA, which is an LCD control line, is set in state 1 of
+; the Cycle LCD state machine, and it is held until the LCD cycle is
+; complete.
+L_LCD_DATA :=  (L_CLCD_St_1) * /L_LCD_is_Busy * (L_SHFT_St_2); Reading LCD
+            +  (L_CLCD_St_1) * /L_LCD_is_Busy * (L_SHFT_St_4); Writing X
+            +  (L_CLCD_St_1) * /L_LCD_is_Busy * (L_WDD_St_2) ; Writing direct
+            + /(L_CLCD_St_0) *  L_LCD_DATA
+
+L_LCD_DATA.RSTF = RESET
+L_LCD_DATA.CLKF = L_SYNC_CLK
+
+; LCD_READ, which is an LCD control line, is set in state 1 of
+; the Cycle LCD state machine, and it is held until the LCD cycle is
+; complete.
+L_LCD_READ :=  (L_CLCD_St_1) * /L_LCD_is_Busy * (L_SHFT_St_2) ; Reading LCD
+            + /(L_CLCD_St_0) * L_LCD_READ
+
+L_LCD_READ.RSTF = RESET
+L_LCD_READ.CLKF = L_SYNC_CLK
+
+L_LCD_ENAB := (L_CLCD_St_2)
+L_LCD_ENAB.RSTF = RESET
+L_LCD_ENAB.CLKF = L_SYNC_CLK
+
+; QUIET is true when all state machines are at state 0
+L_QUIET = /L_CLCD1 * /L_CLCD0 * /L_WDD1 * /L_WDD0 *
+          /L_SHFT2 * /L_SHFT1 * /L_SHFT0 * /L_DLY0
+
+; START_CLCD is only meaningful in CLCD_St_0, so /CLCD_Busy
+; is implied in all product terms.
+
+L_START_CLCD = L_QUIET * (L_Shft_Data + L_Shft_Data_Dly)
+             + (L_SHFT_St_1)
+             + (L_SHFT_St_2)
+             + (L_SHFT_St_3)
+             + (L_SHFT_St_5) * /L_GP_EXIT
+             + L_QUIET * L_Cmd_to_LCD
+             + L_START_WDD * (L_WDD_St_0)
+             + (L_WDD_St_1)
+
+L_CLCD[0:1].RSTF = RESET
+L_CLCD[0:1].CLKF = L_SYNC_CLK
+
+L_SHFT[0:2].RSTF = RESET
+L_SHFT[0:2].CLKF = L_SYNC_CLK
+
+L_START_WDD = (L_SHFT_St_5) * L_GP_EXIT
+            + L_QUIET * L_DATA_to_LCD
+            + L_QUIET * L_DATA_to_LCD_Dly
+
+L_WDD[0:1].RSTF = RESET
+L_WDD[0:1].CLKF = L_SYNC_CLK
+
+L_DLY0.RSTF = RESET
+L_DLY0.CLKF = L_SYNC_CLK
+
+; End EPX8160QC208.1 equations
+
+; Start of EPX8160QC208.0 state machines
+
+; Cycle LCD state machine
+;This state machine executes write and read cycles to the LCD.
+;The following table lists all of the operations, and the state of
+;various control signals when these operations take place.
+
+;                        LCD_DATA LCD_READ LCD7 LCD_CNTRL
+;                        -------- -------- ---- ---------
+;Write Direct CMD            0        0     0      00
+;Write Direct Data to DD     1        0     0      00
+;Write X to DD               1        0     0      00
+;Write GP to DD Adrs         0        0     1      10
+;Write GP+1 to DD Adrs       0        0     1      11
+;Write CP to DD Adrs         0        0     1      01
+;Read DD RAM to X            1        1     Z      XX
+
+STATE
+MOORE_MACHINE
+
+DEFAULT_BRANCH R_Z0
+
+R_Z0 = R_CLCD_St_0
+R_Z1 = R_CLCD_St_1
+R_Z2 = R_CLCD_St_2
+R_Z3 = R_CLCD_St_3
+
+R_Z0 := R_START_CLCD   -> R_Z1 ; Clear LCD_DATA and LCD_READ here
+
+R_Z1 := R_LCD_is_Busy  -> R_Z1 ; Wait for LCD not busy
+      + /R_LCD_is_Busy -> R_Z2 ; Strobe LCD_DATA and LCD_READ here
+
+R_Z2 := VCC      -> R_Z3      ; Strobe LCD_ENAB here
+
+R_Z3 := VCC      -> R_Z0
+
+; Write Display Data state machine
+; This state machine writes the current cursor position (CP) to
+; the DD RAM Adrs, then it writes the direct data to the DD RAM.
+STATE
+MOORE_MACHINE
+
+DEFAULT_BRANCH R_X0
+
+R_X0 = R_WDD_St_0
+R_X1 = R_WDD_St_1
+R_X2 = R_WDD_St_2
+R_X3 = R_WDD_St_3
+
+R_X0 := R_START_WDD  -> R_X1
+
+R_X1 := R_CLCD_Busy  -> R_X1  ; Writing CP to DD RAM Adrs
+      + /R_CLCD_Busy -> R_X2
+
+R_X2 :=  R_CLCD_Busy -> R_X2  ; Writing direct data to DD RAM
+    + /R_CLCD_Busy   -> R_X3
+
+R_X3 := VCC          -> R_X0  ; Inc. CP here, then Inc. P or start
+                              ; the Delay state machine
+
+; Shift LCD display state machine
+; This State Machine shifts the display left by 1 character.  It does
+; this by looping 15 times on the following sequence:
+;        Write GP+1 to the DD RAM Adrs
+;        Read the DD RAM into the X Register
+;        Write GP to the DD RAM Adrs
+;        Write the X Register to the DD RAM
+;        Increment the GP Counter
+
+STATE
+MOORE_MACHINE
+
+DEFAULT_BRANCH R_W0
+
+R_W0 = R_SHFT_St_0
+R_W1 = R_SHFT_St_1
+R_W2 = R_SHFT_St_2
+R_W3 = R_SHFT_St_3
+R_W4 = R_SHFT_St_4
+R_W5 = R_SHFT_St_5
+
+R_W0 := R_QUIET * (R_Shft_Data + R_Shft_Data_Dly) -> R_W1
+
+R_W1 :=  R_CLCD_Busy -> R_W1 ; Writing GP+1 to the DD RAM Adrs
+      + /R_CLCD_Busy -> R_W2
+
+R_W2 :=  R_CLCD_Busy -> R_W2 ; Reading DD RAM into the X Register
+      + /R_CLCD_Busy -> R_W3
+
+R_W3 :=  R_CLCD_Busy -> R_W3 ; Writing GP to the DD RAM Adrs
+      + /R_CLCD_Busy -> R_W4
+
+R_W4 :=  R_CLCD_Busy -> R_W4 ; Writing the X Register into the DD RAM
+      + /R_CLCD_Busy -> R_W5 ; Inc GP when going to W5
+
+R_W5 := /R_GP_EXIT   -> R_W1 ; Loop 15 times
+      +  R_GP_EXIT   -> R_W0 ; Start WDD state machine
+
+; Delay state machine
+; This state machine clears R_GP, then increments R_GP until it is
+; equal to 7F.
+STATE
+MOORE_MACHINE
+
+DEFAULT_BRANCH R_Y0
+
+R_Y0 = R_DLY_St_0
+R_Y1 = R_DLY_St_1
+
+R_Y0 := (R_QUIET * R_Delay) + ((R_WDD_St_3) * R_PROM9) -> R_Y1
+
+R_Y1 := /R_GP_EXIT -> R_Y1  ; Inc. GP here
+      +  R_GP_EXIT -> R_Y0  ; Inc. P here
+
+; End of EPX8160QC208.0 state machines
+
+; Start of EPX8160QC208.1 state machines
+
+; Cycle LCD state machine
+;This state machine executes write and read cycles to the LCD.
+;The following table lists all of the operations, and the state of
+;various control signals when these operations take place.
+
+;                        LCD_DATA LCD_READ LCD7 LCD_CNTRL
+;                        -------- -------- ---- ---------
+;Write Direct CMD            0        0     0      00
+;Write Direct Data to DD     1        0     0      00
+;Write X to DD               1        0     0      00
+;Write GP to DD Adrs         0        0     1      10
+;Write GP+1 to DD Adrs       0        0     1      11
+;Write CP to DD Adrs         0        0     1      01
+;Read DD RAM to X            1        1     Z      XX
+
+STATE
+MOORE_MACHINE
+
+DEFAULT_BRANCH L_Z0
+
+L_Z0 = L_CLCD_St_0
+L_Z1 = L_CLCD_St_1
+L_Z2 = L_CLCD_St_2
+L_Z3 = L_CLCD_St_3
+
+L_Z0 := L_START_CLCD   -> L_Z1 ; Clear LCD_DATA and LCD_READ here
+
+L_Z1 := L_LCD_is_Busy  -> L_Z1 ; Wait for LCD not busy
+      + /L_LCD_is_Busy -> L_Z2 ; Strobe LCD_DATA and LCD_READ here
+
+L_Z2 := VCC      -> L_Z3      ; Strobe LCD_ENAB here
+
+L_Z3 := VCC      -> L_Z0
+
+; Write Display Data state machine
+; This state machine writes the current cursor position (CP) to
+; the DD RAM Adrs, then it writes the direct data to the DD RAM.
+STATE
+MOORE_MACHINE
+
+DEFAULT_BRANCH L_X0
+
+L_X0 = L_WDD_St_0
+L_X1 = L_WDD_St_1
+L_X2 = L_WDD_St_2
+L_X3 = L_WDD_St_3
+
+L_X0 := L_START_WDD  -> L_X1
+
+L_X1 := L_CLCD_Busy  -> L_X1  ; Writing CP to DD RAM Adrs
+      + /L_CLCD_Busy -> L_X2
+
+L_X2 :=  L_CLCD_Busy -> L_X2  ; Writing direct data to DD RAM
+    + /L_CLCD_Busy   -> L_X3
+
+L_X3 := VCC          -> L_X0  ; Inc. CP here, then Inc. P or start
+                              ; the Delay state machine
+
+; Shift LCD display state machine
+; This State Machine shifts the display left by 1 character.  It does
+; this by looping 15 times on the following sequence:
+;        Write GP+1 to the DD RAM Adrs
+;        Read the DD RAM into the X Register
+;        Write GP to the DD RAM Adrs
+;        Write the X Register to the DD RAM
+;        Increment the GP Counter
+
+STATE
+MOORE_MACHINE
+
+DEFAULT_BRANCH L_W0
+
+L_W0 = L_SHFT_St_0
+L_W1 = L_SHFT_St_1
+L_W2 = L_SHFT_St_2
+L_W3 = L_SHFT_St_3
+L_W4 = L_SHFT_St_4
+L_W5 = L_SHFT_St_5
+
+L_W0 := L_QUIET * (L_Shft_Data + L_Shft_Data_Dly) -> L_W1
+
+L_W1 :=  L_CLCD_Busy -> L_W1 ; Writing GP+1 to the DD RAM Adrs
+      + /L_CLCD_Busy -> L_W2
+
+L_W2 :=  L_CLCD_Busy -> L_W2 ; Reading DD RAM into the X Register
+      + /L_CLCD_Busy -> L_W3
+
+L_W3 :=  L_CLCD_Busy -> L_W3 ; Writing GP to the DD RAM Adrs
+      + /L_CLCD_Busy -> L_W4
+
+L_W4 :=  L_CLCD_Busy -> L_W4 ; Writing the X Register into the DD RAM
+      + /L_CLCD_Busy -> L_W5 ; Inc GP when going to W5
+
+L_W5 := /L_GP_EXIT   -> L_W1 ; Loop 15 times
+      +  L_GP_EXIT   -> L_W0 ; Start WDD state machine
+
+; Delay state machine
+; This state machine clears L_GP, then increments L_GP until it is
+; equal to 7F.
+STATE
+MOORE_MACHINE
+
+DEFAULT_BRANCH L_Y0
+
+L_Y0 = L_DLY_St_0
+L_Y1 = L_DLY_St_1
+
+L_Y0 := (L_QUIET * L_Delay) + ((L_WDD_St_3) * L_PROM9) -> L_Y1
+
+L_Y1 := /L_GP_EXIT -> L_Y1  ; Inc. GP here
+      +  L_GP_EXIT -> L_Y0  ; Inc. P here
+
+; End of EPX8160QC208.1 state machines

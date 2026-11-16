@@ -1,0 +1,83 @@
+ğ
+.SETF
+Overview
+This is the reserved word in a functional equation that defines when
+to assert a preset signal high on devices having flip-flops or
+registers with a preset input.
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+        Pn.SETF      Assignment Operator     Expression
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Device Support:
+PAL10H20EG8    PAL10H20EV8    PAL16RA8    PAL20RA10    PAL22IP6
+PAL22RX8       PAL22V10       PAL23S8     PAL26V12     PALCE29M16
+PALCE29MA16    PAL32VX10      PALCE610    PLS105       PLS167
+PLS168         PLS30S16       MACH 1      MACH 2
+ú
+Syntax
+You use this reserved word in a functional equation in the equations 
+segment of Boolean and state-machine designs.
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+        Pn.SETF      Assignment Operator     Expression
+
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+    EQUATIONS
+        Q0                    =              /Q1 */Q2
+        Q0.SETF               =              /RST * SET
+        ...
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+
+Pn.SETF         Identifies the pin or node associated with the
+                flip-flop. The name must be defined in an earlier pin
+                or node statement in the declaration segment.
+
+
+Assignment Operator    Include a symbol that defines a specific
+                       operation as interpreted by the software when
+                       processing design files.
+
+
+Expression      Defines the logic conditions that determine when to
+                assert the preset signal high on flip-flops or
+                registers that support preset inputs.
+ú
+Use
+Multiple .SETF statements for the same pin or node are automatically
+ORed together into one statement.  This can result in an error during
+either assembly or fitting.  You can specify a global preset on
+devices with global nodes, for example, global node.SETF.
+
+You cannot use negative polarity on the left-hand side of the
+equation.   For example, /Q1.SETF is not allowed.
+
+You can use the GROUP, STRING, and VECTOR notation to define signals.
+This is an excellent way to assign a functional equation to several
+pins and nodes.
+
+Depending on the device, the preset line is synchronous or
+asynchronous.
+
+If you define the outputs as combinatorial, the default value for
+preset is VCC, unconditional high.  If you define the outputs as
+registered, the default value is GND, unconditional low.
+
+In the simulation history file, .SETF is represented by the letter H, 
+.RSTF by the letter L, and .PRLD by the letter P.
+ú
+Related Topics
+Boolean Equation
+EXPRESSION
+Functional Equation
+GROUP
+.RSTF
+STRING
+VECTOR
+ú

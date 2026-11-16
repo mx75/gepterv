@@ -1,0 +1,23 @@
+module set
+title 'Synchronous reset in a device with inverted outputs'
+
+    Q7..Q0        pin istype 'reg,invert';
+    Clk,Clear,OE  pin;
+
+    Delay = [Q7..Q0];
+
+equations
+
+    Delay := (Delay.fb + 1) & !Clear;
+
+    Delay.clk = Clk;
+    Delay.oe  = !OE;
+
+test_vectors([Clk,Clear,OE] -> Delay)
+             [.c.,  1  , 0] ->  0;
+             [.c.,  0  , 0] ->  1;
+             [.c.,  0  , 0] ->  2;
+             [.c.,  0  , 0] ->  3;
+             [.c.,  0  , 0] ->  4;
+             [.c.,  1  , 0] ->  0;
+end

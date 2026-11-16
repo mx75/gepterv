@@ -1,0 +1,79 @@
+ğ
+PRELOAD
+Overview
+This is the simulation keyword that loads specified values into the
+register outputs.  Even if a device does not physically support the
+preload feature, you can simulate the design as if it did, but JEDEC
+test vector generation is turned off.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+    PRELOAD Prefix_Pns
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Device Support:  All registered PLD devices except PAL22IP6, PAL23S8,
+                 PAL16RA10, and PAL20RA10
+ú
+Syntax
+Use the keyword in the simulation segment of Boolean and state-machine
+designs.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+    PRELOAD Prefix_Pns
+
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+    SIMULATION
+    PRELOAD Q0 /Q1 PLAYING
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+
+Prefix          The prefix specifies the logic state of the
+                corresponding pin, node, or state.  Do not leave a
+                space between Prefix and Pns.  There are two prefixes:
+                null and forward slash.
+
+                ş    You specify the null prefix to load a logical 1
+                     into the associated register output.  In the
+                     syntax example, Q0 has a null prefix.
+
+                When used in conjunction with a state name, the null
+                prefix loads the specified state.  In the syntax
+                example, PLAYING has a null prefix.
+
+                ş    You specify the forward slash, /, to load a
+                     logical 0 into the associated register output.
+                     In the syntax example, Q0 has a forward slash
+                     prefix.
+
+Pns             You specify the pin, node, or state to be preloaded
+                immediately following the corresponding prefix.  You
+                can list more than one pin or node.  You can also use
+                groups and strings.
+
+ú
+Use
+PRELOAD loads specified logic values into the corresponding device
+registers. Therefore, if the signal is inverted between the node and
+pin, the value at the pin will be the inverse of the preloaded value.
+
+Some devices provide a hardware preload feature that is activated by a
+dedicated pin or product term.  Use the SETF command for control of
+these preload features.
+
+Note:  Even if a device does not physically support the preload
+       feature, you can simulate the design as if it did.
+
+PRELOAD places a "P" in the clock field(s) of the JEDEC vector for
+PAL/PLS devices as specified in JEDEC standard 3A.  For MACH devices,
+the buried preload vector "B" is used as defined by the JEDEC standard
+3B.
+ú
+Related Topics
+CHECK
+.PRLD
+PRLDF
+SETF
+ú

@@ -1,0 +1,258 @@
+;
+;/*
+; * **************************  ALTERA PROPRIETARY  ***************************
+; *
+; *       --------------------  DO NOT REPRODUCE  ----------------------
+; *
+; *   Copyright (C) 1994 by Altera Corporation.
+; *   All rights reserved. No part of this program or publication may be 
+; *   reproduced, transmitted, transcribed, stored in a retrieval system, or
+; *   translated into any language or computer language, in any form or by any
+; *   means, electronic, mechanical, magnetic, optical,  chemical,  manual, or
+; *   otherwise,  without the prior written permission of  Altera Corporation,
+; *   2610 Orchard Parkway,  San Jose,  California 95134-2020.
+; *
+; * ***************************************************************************
+; */
+
+; Generic JK, SR, D and T Type Flip-Flops
+;
+;
+;
+; D Type Flip Flop Rising Edge Active
+;
+;    $1 :  Clock Signal   -- POINTER
+;    $2 :  SOP Input
+;    $3 :  Register State
+;
+func rd_fflop( ) {
+	if ( ( @$1 == UNKNOWN ) || isdisabled( &$1 ) )
+	   return( UNKNOWN )		; unknown
+        else if ( isrising( &$1 ) )	; if on rising edge
+           return( $2 )			; return next state
+        return( $3 )			; return current state
+}
+
+;
+; D Type Flip Flop Falling Edge Active
+;
+;    $1 :  Clock Signal   -- POINTER
+;    $2 :  SOP Input
+;    $3 :  Register State
+;
+func fd_fflop( ) {
+	if ( ( @$1 == UNKNOWN ) || isdisabled( &$1 ) )
+	   return( UNKNOWN )		; unknown
+        else if ( isfalling( &$1 ) )	; if on falling edge
+           return( $2 )			; return next state
+        return( $3 )			; return current state
+}
+
+;
+; T Type Flip Flop Rising Edge Active
+;
+;    $1 :  Clock Signal   -- POINTER
+;    $2 :  SOP Input
+;    $3 :  Register State
+;
+func rt_fflop( ) {
+	if ( ( @$1 == UNKNOWN ) || isdisabled( &$1 ) ) {
+	   return( UNKNOWN )		; unknown
+	}
+        else if ( isrising( &$1 ) ) {	; if on rising edge
+           if ( $2 == VCC )		; if SOP is active high
+              return( !$3 )    		; toggle register
+	   else if ( $2 == UNKNOWN )
+              return( UNKNOWN )  	; unknown state
+	}
+        return( $3 )			; same state
+}
+
+;
+; T Type Flip Flop Falling Edge Active
+;
+;    $1 :  Clock Signal   -- POINTER
+;    $2 :  SOP Input
+;    $3 :  Register State
+;
+func ft_fflop( ) {
+	if ( ( @$1 == UNKNOWN ) || isdisabled( &$1 ) ) {
+	   return( UNKNOWN )		; unknown
+	}
+        else if ( isfalling( &$1 ) ) {	; if on falling edge
+           if ( $2 == VCC )		; if SOP is active high
+              return( !$3 )    		; toggle register
+	   else if ( $2 == UNKNOWN )
+              return( UNKNOWN )  	; unknown state
+	}
+        return( $3 )			; same state
+}
+
+;
+; JK Type Flip Flop Rising Edge Active
+;
+;    $1 :  Clock Signal   -- POINTER
+;    $2 :  J Input
+;    $3 :  K Input
+;    $4 :  Register State
+;
+func rjk_fflop( ) {
+	if ( ( @$1 == UNKNOWN ) || isdisabled( &$1 ) ) {
+	   return( UNKNOWN )		; unknown
+	}
+        else if (isrising( &$1 )) {	; if on rising edge
+	    if ( $2 == VCC ) {
+	        if ( $3 == VCC ) {	; j=1 k=1 toggle
+		     return( !$4 )
+		}
+	        else if ( $3 == UNKNOWN ) {
+		     return( UNKNOWN )
+		}
+		else {			; j=1 k=0 set
+		     return( VCC )
+		}
+	    }
+	    else if ( $2 == UNKNOWN ) {
+		return( UNKNOWN )
+	    }
+	    else {
+	        if ( $3 == VCC ) {	; j=0 k=1 reset
+		     return( GND )
+		}
+	        else if ( $3 == UNKNOWN ) {
+		     return( UNKNOWN )
+		}
+		else {			; j=0 k=0 hold
+		     return( $4 )
+		}
+	    }
+	}
+        return( $4 )			; return current state
+}
+
+;
+; JK Type Flip Flop Falling Edge Active
+;
+;    $1 :  Clock Signal   -- POINTER
+;    $2 :  J Input
+;    $3 :  K Input
+;    $4 :  Register State
+;
+func fjk_fflop( ) {
+	if ( ( @$1 == UNKNOWN ) || isdisabled( &$1 ) ) {
+	   return( UNKNOWN )		; unknown
+	}
+        else if (isfalling( &$1 )) {	; if on falling edge
+	    if ( $2 == VCC ) {
+	        if ( $3 == VCC ) {	; j=1 k=1 toggle
+		     return( !$4 )
+		}
+	        else if ( $3 == UNKNOWN ) {
+		     return( UNKNOWN )
+		}
+		else {			; j=1 k=0 set
+		     return( VCC )
+		}
+	    }
+	    else if ( $2 == UNKNOWN ) {
+		return( UNKNOWN )
+	    }
+	    else {
+	        if ( $3 == VCC ) {	; j=0 k=1 reset
+		     return( GND )
+		}
+	        else if ( $3 == UNKNOWN ) {
+		     return( UNKNOWN )
+		}
+		else {			; j=0 k=0 hold
+		     return( $4 )
+		}
+	    }
+	}
+        return( $4 )			; return current state
+}
+
+
+;
+; SR Type Flip Flop Rising Edge Active
+;
+;    $1 :  Clock Signal   -- POINTER
+;    $2 :  S Input
+;    $3 :  R Input
+;    $4 :  Register State
+;
+func rsr_fflop( ) {
+	if ( ( @$1 == UNKNOWN ) || isdisabled( &$1 ) ) {
+	   return( UNKNOWN )		; unknown
+	}
+        else if (isrising( &$1 )) {	; if on rising edge
+	    if ( $2 == VCC ) {
+	        if ( $3 == VCC ) {	; s=1 r=1 undeterminant
+		     return( !$4 ) 	; Toggle per Dan Downum
+		}
+	        else if ( $3 == UNKNOWN ) {
+		     return( UNKNOWN )
+		}
+		else {			; s=1 r=0 set
+		     return( VCC )
+		}
+	    }
+	    else if ( $2 == UNKNOWN ) {
+		return( UNKNOWN )
+	    }
+	    else {
+	        if ( $3 == VCC ) {	; s=0 r=1 reset
+		     return( GND )
+		}
+	        else if ( $3 == UNKNOWN ) {
+		     return( UNKNOWN )
+		}
+		else {			; s=0 r=0 hold
+		     return( $4 )
+		}
+	    }
+	}
+        return( $4 )			; return current state
+}
+
+;
+; SR Type Flip Flop Falling Edge Active
+;
+;    $1 :  Clock Signal   -- POINTER
+;    $2 :  S Input
+;    $3 :  R Input
+;    $4 :  Register State
+;
+func fsr_fflop( ) {
+	if ( ( @$1 == UNKNOWN ) || isdisabled( &$1 ) ) {
+	   return( UNKNOWN )		; unknown
+	}
+        else if (isfalling( &$1 )) {	; if on falling edge
+	    if ( $2 == VCC ) {
+	        if ( $3 == VCC ) {	; s=1 r=1 undeterminant
+		     return( !$4 ) 	; Toggle per Dan Downum
+		}
+	        else if ( $3 == UNKNOWN ) {
+		     return( UNKNOWN )
+		}
+		else {			; s=1 r=0 set
+		     return( VCC )
+		}
+	    }
+	    else if ( $2 == UNKNOWN ) {
+		return( UNKNOWN )
+	    }
+	    else {
+	        if ( $3 == VCC ) {	; s=0 r=1 reset
+		     return( GND )
+		}
+	        else if ( $3 == UNKNOWN ) {
+		     return( UNKNOWN )
+		}
+		else {			; s=0 r=0 hold
+		     return( $4 )
+		}
+	    }
+	}
+        return( $4 )			; return current state
+}

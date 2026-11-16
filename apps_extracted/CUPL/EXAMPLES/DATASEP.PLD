@@ -1,0 +1,96 @@
+Name	  Datasep;
+Partno    CA0022;
+Date      10/1/86;
+Revision  01;
+Designer  Kahl;
+Company   Personal CAD Systems, Inc.;
+Assembly  Floppy Disk Interface;
+Location  U32;
+Device	  EP600;
+
+/************************************************************************/
+/*                                                                      */
+/* Single Density Floppy Disk Data Separator                            */
+/*                                                                      */
+/* This is a single chip inplementation of the data separator circuit   */
+/* which first appeared on the Tarbell S-100 Floppy Disk Interface.     */
+/* It receives raw FM data from the (single density) 8" disk drive and  */
+/* derives the floppy disk controller (Western Digital 1771B-01) clock  */
+/* and data.  The device also generates a 2 MHz square clock for the    */
+/* FDC timing.  A reset signal was added to improve initialization.     */
+/************************************************************************/
+/* Allowable Target Device Types: Altera EP600                          */
+/************************************************************************/
+
+/** Inputs **/
+
+Pin 1  = 4MHz1;				/* 4 MHz Clock Input            */
+Pin 13 = 4MHz2;				/* 4 MHz Clock Input            */
+Pin 2 = raw_data;			/* Raw Data From Floppy Disk    */
+Pin 11 = !reset;			/* Master reset                 */
+
+/** Outputs **/
+
+Pin 3 = 2MHz;				/* 2 MHz Clock Output for FDC   */
+Pin [4..10] = [q0..6];			/* Internal Counter Bits        */
+Pin 15 = fdclk;				/* FDC Clock			*/
+Pin 16 = fddata;			/* FDC Data			*/
+Pin 17 = load_lower;			/* Lower Counter Bits Load      */
+Pin 18 = load_upper;			/* Upper Counter Bits Load      */
+Pin 19 = data_sync_4;			/* Floppy Disk Data Synch by 4  */
+Pin 20 = data_sync_8;			/* Floppy Disk Data Synch by 8  */
+Pin 21 = data_sync_16;			/* Floppy Disk Data Synch by 16 */
+Pin 22 = data_div_2;			/* Floppy Disk Data Divide by 2 */
+
+/** Intermediate Variables **/
+
+rco = q3 & q2 & q1 & q0;		/* ripple carry out of lower    */
+
+/** Logic Equations **/
+
+data_div_2.d = !data_div_2 & 'b'1;	/* Force Active High Macrocell  */
+data_div_2.ck = raw_data;
+data_div_2.ar = reset;
+
+2MHz.d = !2MHz & 'b'1;			/* Force Active High Macrocell  */
+2MHz.ar = reset;
+
+load_q3 = !(!q3 & !(q4 & q6));
+load_lower = !(data_sync_4 $ !data_sync_8);
+load_upper = (data_sync_8 $ data_sync_16) & !(!q3 & !(q4 & q6));
+
+data_sync_4.d = data_div_2;		/* Synchrononize Data Input     */
+data_sync_8.d = data_sync_4;
+data_sync_16.d = data_sync_4;
+
+fdclk = (data_sync_8 $ data_sync_16) & q3;
+
+fddata = (data_sync_8 $ data_sync_16) & !q3;
+
+/* The following equations implement two cascaded 74LS161 counters */
+
+q0.d =  load_lower & 'b'0
+     # !load_lower & !q0;
+
+q1.d =  load_lower & 'b'0
+     # !load_lower & (q1 $ q0);
+
+q2.d =  load_lower & 'b'1
+     # !load_lower & (q2 $ q1 & q0);
+
+q3.d =  load_lower & load_q3
+     # !load_lower & (q3 $ q2 & q1 & q0);
+
+q4.d =  load_upper & 'b'0
+     # !load_upper & !rco & q4 
+     # !load_upper &  rco & !q4;
+
+q5.d =  load_upper & 'b'0
+     # !load_upper & !rco & q5
+     # !load_upper &  rco & (q5 $ q4);
+
+q6.d =  load_upper & 'b'0
+     # !load_upper & !rco & q6
+     # !load_upper &  rco & (q6 $ q5 & q4);
+
+[q6..0].ar = reset;

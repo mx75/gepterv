@@ -1,0 +1,80 @@
+Title		PLDasm 1-of-8 decoder
+Pattern		pds
+Revision        1
+Author		Your Name
+Company		Your Company
+Date		Current Date
+
+; OPTIONS: TURBO=ON
+
+CHIP    1_of_8_dec   EPX780LC84
+
+PIN	51	EN	; enable
+PIN	50	Q2	; decoder inputs
+PIN	49	Q1
+PIN	48	Q0
+
+PIN		Y0	; decoder outputs
+PIN		Y1
+PIN		Y2
+PIN		Y3
+PIN     	Y4
+PIN		Y5
+PIN		Y6
+PIN		Y7
+
+; truth table
+
+T_TAB
+
+( EN  Q2  Q1  Q0  >>  Y7  Y6  Y5  Y4  Y3  Y2  Y1  Y0 )
+
+; all combinations of BCD inputs
+
+   1  0   0   0   :   1   1   1   1   1   1   1   0  ; 0
+   1  0   0   1   :   1   1   1   1   1   1   0   1  ; 1
+   1  0   1   0   :   1   1   1   1   1   0   1   1  ; 2
+   1  0   1   1   :   1   1   1   1   0   1   1   1  ; 3
+   1  1   0   0   :   1   1   1   0   1   1   1   1  ; 4
+   1  1   0   1   :   1   1   0   1   1   1   1   1  ; 5
+   1  1   1   0   :   1   0   1   1   1   1   1   1  ; 6
+   1  1   1   1   :   0   1   1   1   1   1   1   1  ; 7
+
+   0  x   x   x   :   1   1   1   1   1   1   1   1  ; none
+   
+SIMULATION
+
+	SETF  /EN   Q2   Q1   Q0
+	SETF  /EN   Q2   Q1   Q0
+
+; test all combinations
+
+	SETF   EN  /Q2  /Q1  /Q0
+	SETF   EN  /Q2  /Q1  /Q0
+	SETF   EN  /Q2  /Q1   Q0
+	SETF   EN  /Q2  /Q1   Q0
+	SETF   EN  /Q2   Q1  /Q0
+	SETF   EN  /Q2   Q1  /Q0
+	SETF   EN  /Q2   Q1   Q0
+	SETF   EN  /Q2   Q1   Q0
+
+	SETF   EN   Q2  /Q1  /Q0
+	SETF   EN   Q2  /Q1  /Q0
+	SETF   EN   Q2  /Q1   Q0
+	SETF   EN   Q2  /Q1   Q0
+	SETF   EN   Q2   Q1  /Q0
+	SETF   EN   Q2   Q1  /Q0
+	SETF   EN   Q2   Q1   Q0
+	SETF   EN   Q2   Q1   Q0
+
+	SETF  /EN  /Q2  /Q1  /Q0
+	SETF  /EN  /Q2  /Q1   Q0
+	SETF  /EN  /Q2   Q1  /Q0
+	SETF  /EN  /Q2   Q1   Q0
+	SETF  /EN   Q2  /Q1  /Q0
+	SETF  /EN   Q2  /Q1   Q0
+	SETF  /EN   Q2   Q1  /Q0
+	SETF  /EN   Q2   Q1   Q0
+
+; end of simulation
+

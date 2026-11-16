@@ -1,0 +1,75 @@
+Name            Flops;
+Partno          CA0002;
+Revision        03;
+Date            9/12/83;
+Designer        G. Woolhiser;
+Company         Assisted Technology, Inc.;
+Location        None;
+Assembly        None;
+Device          P16R8;
+
+/****************************************************************/
+/*                                                              */
+/*      This example demonstrates the use of D-type flip-flops, */
+/*      and flexibilty of expression with CUPL.  The following  */
+/*      are four implementations of a two bit counter, which    */
+/*      use the following timing diagram.                       */
+/*                ______    ______    ______    _____     ___   */
+/*   clock      __|    |____|    |____|    |____|    |____|     */
+/*              ___         ___________         ___________     */
+/*      q0        |_________|         |_________|         |__   */
+/*              ___                   _____________________     */
+/*      q1        |___________________|                   |__   */
+/*                                                              */
+/****************************************************************/
+/*      Target Devices: PAL16R8, PAL16RP8, EP300                */
+/****************************************************************/
+
+
+Pin 1 =  clock;
+Pin 2 =  reset;
+Pin 11 = !enable;
+
+/*
+ * Outputs:  define outputs and output active levels
+ */
+
+Pin 19 = qa0; Pin 18 = qa1;
+Pin 17 = qb0; Pin 16 = qb1;
+Pin 15 = qc0; Pin 14 = qc1;
+Pin 13 = qd0; Pin 12 = qd1;
+
+/*
+ * Logic:  examples of two-bit counters using d-type flip-flops
+ */
+
+/* two-bit counter example no. 1 */
+/* using software emulated exclusive or's */
+
+qa0.d = !reset & !qa0;
+qa1.d = !reset & (qa1 $ qa0);
+
+/* two-bit counter example no. 2 */
+/* using expanded exclusive or's */
+
+qb0.d = !reset & (!qb0 & !qb1
+                # !qb0 & qb1);
+qb1.d = !reset & (!qb0 & qb1
+                # qb0 & !qb1);
+
+/* two-bit counter example no. 3 */
+/* using bit fields on the right hand side of the equals sign */
+
+field state = [qc1,qc0];
+
+qc0.d = !reset & (state:0 # state:2);
+qc1.d = !reset & (state:1 # state:2);
+
+/* two-bit counter example no. 4 */
+/* using bit fields on the left hand side of the equals sign */
+
+field q = [qd0,qd1];
+
+q.d = !reset & ([!qd0,qd1] & [!qd1,!qd0]
+              # [!qd0,!qd1] & [qd1,qd0]);
+

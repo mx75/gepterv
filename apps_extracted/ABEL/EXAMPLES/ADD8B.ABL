@@ -1,0 +1,28 @@
+module add8b
+title 'eight-bit adder constructed of eight one-bit adders'
+
+    a7..a0   pin;                "operand 1
+    b7..b0   pin;                "operand 2
+    c7..c1   pin istype 'com';   "Adder carry bits
+    s7..s0   pin istype 'com';   "Sum bits
+    c_out    pin istype 'com';   "Carry out
+ 
+equations
+
+  [ c1  ,s0] = [.x.,a0] + [.x.,b0] + [ 0 , 0];
+  [ c2  ,s1] = [.x.,a1] + [.x.,b1] + [ 0 ,c1];
+  [ c3  ,s2] = [.x.,a2] + [.x.,b2] + [ 0 ,c2];
+  [ c4  ,s3] = [.x.,a3] + [.x.,b3] + [ 0 ,c3];
+  [ c5  ,s4] = [.x.,a4] + [.x.,b4] + [ 0 ,c4];
+  [ c6  ,s5] = [.x.,a5] + [.x.,b5] + [ 0 ,c5];
+  [ c7  ,s6] = [.x.,a6] + [.x.,b6] + [ 0 ,c6];
+  [c_out,s7] = [.x.,a7] + [.x.,b7] + [ 0 ,c7];
+
+test_vectors([[a7..a0],[b7..b0]]->[[c_out,s7..s0]])
+             [     1  ,     1  ]->[        2     ];
+             [    24  ,   112  ]->[      136     ];
+             [    99  ,    13  ]->[      112     ];
+             [   100  ,   100  ]->[      200     ];
+             [   255  ,   255  ]->[      510     ];  "Test carry
+
+end

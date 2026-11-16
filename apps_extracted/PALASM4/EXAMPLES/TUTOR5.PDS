@@ -1,0 +1,75 @@
+;PALASM Design Description
+
+;---------------------------------- Declaration Segment ------------
+TITLE    TUTOR5.PDS
+PATTERN  A
+REVISION 1.0
+AUTHOR   J.ENGINEER
+COMPANY  ADVANCED MICRO DEVICES
+DATE     01/01/90
+
+CHIP  BUS_CTRL  PAL22V10
+
+;---------------------------------- PIN Declarations ---------------
+PIN  1          CONTROL_IN           COMBINATORIAL             ; INPUT
+PIN  12         GND                                            ; INPUT
+PIN  14         COMP_A1              COMBINATORIAL             ; I/O
+PIN  15         COMP_A2              COMBINATORIAL             ; I/O
+PIN  16         COMP_A3              COMBINATORIAL             ; I/O
+PIN  17         COMP_A4              COMBINATORIAL             ; I/O
+PIN  18         COMP_B1              COMBINATORIAL             ; I/O
+PIN  19         COMP_B2              COMBINATORIAL             ; I/O
+PIN  20         COMP_B3              COMBINATORIAL             ; I/O
+PIN  21         COMP_B4              COMBINATORIAL             ; I/O
+PIN  24         VCC                                            ; INPUT
+
+
+;----------------------------------- Boolean Equation Segment ------
+EQUATIONS
+
+ COMP_A1 = COMP_B1
+ COMP_A2 = COMP_B2
+ COMP_A3 = COMP_B3
+ COMP_A4 = COMP_B4
+/COMP_B1 = COMP_A1
+/COMP_B2 = COMP_A2
+/COMP_B3 = COMP_A3
+/COMP_B4 = COMP_A4
+
+
+COMP_A1.TRST = /CONTROL_IN
+COMP_A2.TRST = /CONTROL_IN
+COMP_A3.TRST = /CONTROL_IN
+COMP_A4.TRST = /CONTROL_IN
+
+COMP_B1.TRST =  CONTROL_IN
+COMP_B2.TRST =  CONTROL_IN
+COMP_B3.TRST =  CONTROL_IN
+COMP_B4.TRST =  CONTROL_IN
+
+;----------------------------------- Simulation Segment ------------
+SIMULATION
+
+TRACE_ON CONTROL_IN
+         COMP_A1 COMP_A2 COMP_A3 COMP_A4
+         COMP_B1 COMP_B2 COMP_B3 COMP_B4
+
+SETF   CONTROL_IN  ;ENABLE COMP_B FOR OUTPUT (COMP_A FOR INPUT)
+SETF   COMP_A1  COMP_A2  COMP_A3  COMP_A4 ;SET ALL 1s
+CHECK /COMP_B1 /COMP_B2 /COMP_B3 /COMP_B4 ;CHECK FOR ALL 0s
+
+SETF  /CONTROL_IN  ;ENABLE COMP_A FOR OUTPUT (COMP_B FOR INPUT)
+SETF   COMP_B1  COMP_B2  COMP_B3  COMP_B4 ;SET ALL 1s
+CHECK  COMP_A1  COMP_A2  COMP_A3  COMP_A4 ;CHECK FOR ALL 0s
+
+SETF   CONTROL_IN  ;ENABLE COMP_B FOR OUTPUT (COMP_A FOR INPUT)
+SETF   COMP_A1 /COMP_A2  COMP_A3  COMP_A4 ;SET 1011
+CHECK /COMP_B1  COMP_B2 /COMP_B3 /COMP_B4 ;CHECK FOR 0100
+
+SETF  /CONTROL_IN  ;ENABLE COMP_A FOR OUTPUT (COMP_B FOR INPUT)
+SETF   COMP_B1 /COMP_B2  COMP_B3  COMP_B4 ;SET 1011
+CHECK  COMP_A1 /COMP_A2  COMP_A3  COMP_A4 ;CHECK FOR 1011
+
+TRACE_OFF
+;-------------------------------------------------------------------
+

@@ -1,0 +1,57 @@
+Name            Mdecode;
+Partno          CA0011;
+Revision        01;
+Date            5/12/82;
+Designer        Osann/Kahl;
+Company         Assisted Technology, Inc.;
+Assembly        PC Expansion Memory;
+Location        16A;
+
+/************************************************************************/
+/* This device generates the memory RAS signals and initiates the       */
+/* generation of CAS. It also enables the data bus transceiver for      */
+/* both the memory and I/O read cycles.                                 */
+/************************************************************************/
+/* Allowable Target Device Types:       PAL16L8   82S153                */
+/************************************************************************/
+
+/** Inputs **/
+
+pin 1           = !ioacc ;              /* i/o cycle access             */
+pin [2..5]      = [a19..16] ;           /* system addresses a16 - a19   */
+pin 6           = altloc ;              /* map RAM to 4000 thru 7FFFF   */
+pin 7           = !refcyc ;             /* memory refresh cycle         */
+pin [8,9]       = ![memw,memr] ;        /* memory read & write strobes  */
+pin 11          = !ior ;                /* i/o read strobe              */
+pin 14          = raminh ;              /* system RAM inhibit           */
+pin 13          = !memacc ;             /* on-board memory access       */
+
+/** Outputs **/
+
+pin 12          = ! casacc ;            /* enable CAS generation        */
+pin [15..18]    = ![ras0..ras3] ;       /* RAM RAS signals              */
+pin 19          = rdbuff ;              /* xceiver enable for reads     */
+
+/** Declarations and Intermediate Variable Definitions **/
+
+field memaddr   = [a19..16] ;
+memreq          = memw # memr ;
+memacc_eqn      = !raminh & !refcyc & (memaddr:[00000..3FFFF] & !altloc
+                  # memaddr:[40000..7FFFF] & altloc) ;
+
+/** Logic Equations **/
+
+ras0            = !raminh & memreq & !refcyc & (memaddr:[00000..0FFFF] &
+                  !altloc # memaddr:[40000..4FFFF] & altloc) # refcyc ;
+
+ras1            = !raminh & memreq & !refcyc & (memaddr:[10000..1FFFF] &
+                  !altloc # memaddr:[50000..5FFFF] & altloc) # refcyc ;
+
+ras2            = !raminh & memreq & !refcyc & (memaddr:[20000..2FFFF] &
+                  !altloc # memaddr:[60000..6FFFF] & altloc) # refcyc ;
+
+ras3            = !raminh & memreq & !refcyc & (memaddr:[30000..3FFFF] &
+                  !altloc # memaddr:[70000..7FFFF] & altloc) # refcyc ;
+
+casacc          = memreq & memacc_eqn ;
+rdbuff          = memacc & memr # ioacc & ior ;

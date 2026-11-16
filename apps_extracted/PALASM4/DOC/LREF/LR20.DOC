@@ -1,0 +1,56 @@
+ğ
+EQUATIONS SEGMENT
+Overview
+This segment of the PDS file contains the Boolean equations you create
+to produce the desired device behavior.
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+            ;--------------Boolean Equations Segment-----------
+            EQUATIONS
+            Boolean equations
+
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Device Support: All PLD devices.
+ú
+Syntax
+You use the keyword, EQUATIONS, at the beginning of the equations
+segment in Boolean-based designs.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+            ;--------------Boolean Equations Segment-----------
+            EQUATIONS
+            Boolean equations
+
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+            EQUATIONS                       ;Equations Segment
+            QA = Q2 * /Q1 * /Q0
+                 + Q3 * Q2
+                 + Q3 * Q1
+                 + Q3 * Q0
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+
+Equations       You use this keyword to define the beginning of the
+                equations segment in a PDS file.
+
+Boolean         Assign equations that include an output pin or node
+Equations       name, an assignment operator, and an expression.
+                Equations can be standard Boolean, Case, or
+                IF-THEN-ELSE constructs.
+ú
+Use
+The keyword EQUATIONS is required when Boolean equations follow.
+
+Note: PALASM software does allow both Boolean equations and
+      state-machine descriptions in the same design file.
+ú
+Related Topics
+Boolean Equation
+EXPRESSION
+ú

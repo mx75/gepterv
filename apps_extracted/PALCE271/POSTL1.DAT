@@ -1,0 +1,29 @@
+%A4 Page Frame Landscape mode
+
+/Times-Italic findfont 14 scalefont setfont
+
+/plainframe
+{
+1.5 setlinewidth
+newpath        % ! _
+closepath
+stroke
+} def
+
+/mgraphic      % Mask Graphics
+{
+gsave            % " _
+{
+<>
+}
+imagemask
+grestore
+} def
+
+plainframe        %page border
+mgraphic          %bit image
+0 0 translate
+0 0 moveto        % * _
+
+showpage
+

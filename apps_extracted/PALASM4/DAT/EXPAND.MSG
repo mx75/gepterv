@@ -1,0 +1,368 @@
+000 Reserved.
+010 Reserved.
+020 Reserved.
+150 %%%% EXPAND %%%% Program successful.  File  %s
+150 %%%% EXPAND %%%% ERROR count  %d  WARNING count  %d
+160 %%%% EXPAND %%%% Program unsuccessful.  File  %s
+160 %%%% EXPAND %%%% ERROR count  %d  WARNING count  %d
+200 |> SYSTEM_ERROR E0200
+200     Output message file %s open error. Call AMD, 1-800-222-9323.
+210 |> SYSTEM_ERROR E0210
+210     Output message file close error. Call AMD, 1-800-222-9323.
+1010 |> INTERNAL_ERROR E1010
+1010     Multiple defaults in transition equations of state %s.
+1020 |> INTERNAL_ERROR E1020
+1020     Multiple state transition equations for the same state %s.
+1110 |> INTERNAL_ERROR E1110
+1110     Multiple defaults in output equation of state %s.
+1120 |> INTERNAL_ERROR E1120
+1120     Multiple state output equations for the same state %s.
+1200 |> ERROR E1200
+1200     Moore and Mealy directives both used.
+1210 |> ERROR E1210
+1210     Moore machine with conditional outputs.
+1215 |> ERROR E1215
+1215     Device %s does not support MASTER_RESET feature.
+1216 |> ERROR E1216
+1216     Device %s does not support OUTPUT_ENABLE feature.
+1217 |> ERROR E1217
+1217     MASTER_RESET and OUTPUT_ENABLE features cannot be used
+1217     together in the same design.
+1220 |> INTERNAL_ERROR E1220
+1220     Missing transition equation for state %s.
+1230 |> INTERNAL_ERROR E1230
+1230     Missing transition equation for state %s.
+1230     Using DEFAULT_BRANCH to transition into state %s.
+1250 |> ERROR E1250
+1250     Conflicting conditions in transition equation of
+1250     state %s.
+1260 |> ERROR E1260
+1260     Conflicting conditions in output equation of state %s.
+1270 |> ERROR E1270
+1270     Startup states %s and %s are different.
+1271 |> ERROR E1271
+1271     Device %s does not support programmable initialization.
+1272 |> ERROR E1272
+1272     Device %s does not support multiple condition
+1272     product terms for startup programmable initialization.
+1273 |> WARNING E1273
+1273     For Mealy machines with registered outputs
+1273     you must define a STARTUP.OUTF.
+1274 |> WARNING E1274
+1274     START_UP Initialization.
+1274     Swapping values of state %s and state %s
+1275 |> WARNING E1275
+1275     START_UP Initialization.  Setting value of the state
+1275     %s to %s's natural power up.
+1276 |> ERROR E1276
+1276     START_UP state %s is undefined.
+1276     All defined states either have a state transition
+1276     equation or a state assignment equation.
+1277 |> WARNING E1277
+1277     Output specified in START_UP.OUTF statement conflicts
+1277     with the physical power up output value of %s.
+1278 |> WARNING E1278
+1278     Startup state's outputs are defined.  Ignoring
+1278     START_UP.OUTF statement.
+1280 |> WARNING E1280
+1280     Cannot show more than 8 state bits on the screen.
+1290 |> ERROR   E1290
+1290     State bits of STATE %s and STATE %s are identical.
+1292 |> ERROR E1292
+1292     Multiple state transition equations for the
+1292     same state %s.
+1295 |> WARNING E1295
+1295     No. of states: %d  State bits reqd: %d
+1295     State bits used: %d
+1300 |> WARNING E1300
+1300     DEFAULT_BRANCH NEXT_STATE is specified, but the last
+1300     state, %s, does not have an explicit next state
+1300     defined.
+1310 |> WARNING E1310
+1310     Missing default next state in transition equations
+1310     of state %s.
+1320 |> WARNING E1320
+1320     State %s is never reached in the State Machine.
+1330 |> WARNING E1330
+1330     Hold directive specified on a combinatorial pin.
+1350 |> WARNING E1350
+1350     Automatically assigning state bit %s to pin %d.
+1351 |> WARNING E1351
+1351     Automatically assigning state bit %s to ? NODE.
+1354 |> ERROR E1354
+1354     POWER_UP feature is not supported for Device %s.
+1355 |> WARNING E1355
+1355     POWER_UP Initialization.
+1355     Swapping values of state POWER_UP and state %s.
+1356 |> WARNING E1356
+1356     POWER_UP Initialization.
+1356     Setting value of the state POWER_UP to %s's
+1356     natural power up.
+1358 |> WARNING E1358
+1358     Possible equation conflict on pin.  Output pin %s
+1358     is declared and the buried node is used for state
+1358     assignment.  Output %s and node %d are both used.
+1360 |> ERROR E1360
+1360     State bit assignment failed.
+1400 |> ERROR E1400
+1400     State bit %s assigned to combinatorial output.
+1430 |> WARNING E1430
+1430     Device %s requires START_UP syntax so that the device powers
+1430     up to a known state.
+1510 |> WARNING E1510
+1510     Creating %s pin for OUTPUT_ENABLE/MASTER_RESET feature.
+1600 |> INTERNAL_ERROR E1600
+1600     AUTO STATE BIT ASSIGNMENT:
+1600     Undefined value for state bit.
+1600     Call AMD, 1-800-222-9323.
+1610 |> WARNING E1610
+1610     State value equation of state %s is incompletely
+1610     specified. All the state bits are not explicitly
+1610     defined. Automatically assigning all unspecified
+1610     state bits.
+1620 |> INTERNAL ERROR E1620
+1620     AUTO STATE BIT ASSIGNMENT:
+1620     Cannot have more than 32 signals for state
+1620     assignment equation.  Call AMD, 1-800-222-9323
+1630 |> SYSTEM_ERROR E1630
+1630     AUTO STATE BIT ASSIGNMENT:
+1630     Memory allocation failed.  Out of memory.
+1630     Call AMD, 1-800-222-9323.
+1800 |> INTERNAL_ERROR E1800
+1800     Illegal simulation command type (%d).
+1800     Call AMD, 1-800-222-9323.
+1810 |> ERROR E1810
+1810     Condition %s present in simulation statement %s.
+1810     Condition names are not allowed in Simulation section.
+1820 |> INTERNAL_ERROR E1820
+1820     Illegal simulation element.
+1830 |> WARNING E1830
+1830     Simulation state %s not active.
+2000 |> SYSTEM_ERROR E2000
+2000     Input intermediate file (.TRE) open error.
+2010 |> SYSTEM_ERROR E2010
+2010     Input intermediate file (.TRE) close error.
+2030 |> SYSTEM_ERROR E2030
+2030     Output intermediate file (.TRE) copy error.
+2040 |> ERROR E2040
+2040     State %s has %s outputs. All previous states
+2040     have %s outputs. A state machine can either have
+2040     all REGISTERED outputs or all COMBINATORIAL outputs
+2040     or all LATCHED outputs, not a mixture of them.
+2050 |> ERROR E2050
+2050     State %s has both %s and %s pins in its
+2050     output equation. Pin %d namely %s is a %s  pin
+2050     whereas other pins are %s. An output equation cannot
+2050     contain a mixture of pintypes.
+2100 |> INTERNAL_ERROR E2100
+2100     Illegal equation for state segment.
+2110 |> INTERNAL_ERROR E2110
+2110     Illegal equation in conditions segment.
+2120 |> INTERNAL_ERROR E2120
+2120     Illegal equation in equations segment.
+2130 |> INTERNAL_ERROR E2130
+2130     Illegal equation in simulation segment.
+2140 |> SYSTEM_ERROR E2140
+2140     Input intermediate file (.TRE) read error.
+2400 |> SYSTEM_ERROR E2400
+2400     Output intermediate file (.TRE) open error.
+2410 |> SYSTEM_ERROR E2410
+2410     Output intermediate file (.TRE) write error.
+2410     Illegal equation detected.
+2420 |> SYSTEM_ERROR E2420
+2420     Output intermediate file (.TRE) write error.
+2430 |> SYSTEM_ERROR E2430
+2430     Output intermediate file (.TRE) close error.
+2440 |> SYSTEM_ERROR E2440
+2440     Output Simulation file (TBL) Open Error.
+2450 |> SYSTEM_ERROR E2450
+2450     Output Simulation file (TBL) Close Error.
+2700 |> INTERNAL_ERROR E2700
+2700     Input intermediate file (.TRE) syntax error.
+2715 |> ERROR E2715
+2715     Device %s  does not support NCLKF feature.
+2724 |> ERROR E2724
+2724     %s is an undefined STATE name.
+2724     Only defined state names can be used in the
+2724     DEFAULT_BRANCH statement.
+2725 |> ERROR E2725
+2725     %s is not a complementary array pin.
+2725     Only complementary array pins can be used in the
+2725     DEFAULT_BRANCH statement.
+2730 |> ERROR E2730
+2730     ILLEGAL Syntax in DEFAULT_BRANCH statement.
+2750 |> INTERNAL_ERROR E2750
+2750     Illegal syntax of state output equation.
+2770 |> ERROR E2770
+2770     In an OUTPUT_HOLD statement only pin names can be
+2770     specified. Not their polarities or any other logical
+2770     operator.
+2780 |> ERROR E2780
+2780     The OUTPUT_HOLD statement can only have output pins
+2780     following it.  Pin %s is not an OUTPUT pin.
+2790 |> ERROR E2790
+2790     The OUTPUT_HOLD statement can only have REGISTERED
+2790     or LATCHED pins.  Pin %s is COMBINATORIAL.
+2791 |> ERROR E2791
+2791     State %s has a state assignment equation but is
+2791     missing a transition equation.
+2792 |> ERROR E2792
+2792     State %s has a state output equation but is
+2792     missing a transition equation.
+2793 |> ERROR E2793
+2793     Transition equation of state %s shows a transition
+2793     into an unknown state %s.  All known states have
+2793     state transition equations.
+2830 |> INTERNAL_ERROR E2830
+2830     Unknown Token in TRE file.
+2830     Call AMD, 1-800-222-9323.
+2840 |> INTERNAL_ERROR E2840
+2840     Corrupt .TRE file format.  Boolean Binary
+2840     Operators do not have two children.
+2840     Call AMD, 1-800-222-9323.
+2870 |> INTERNAL_ERROR E2870
+2870     Illegal token detected in simulation segment.
+2870     Call AMD, 1-800-222-9323.
+2890 |> INTERNAL_ERROR E2890
+2890     Illegal State assignment equations.
+2890     Call AMD, 1-800-222-9323.
+3000 |> ERROR E3000
+3000     Cannot support this device.
+3001 |> SYSTEM_ERROR E3001
+3001     Cannot open PALEXMIN.PDF file.
+3001     Call AMD, 1-800-222-9323.
+3002 |> ERROR E3002
+3002     Cannot support this PAL device.
+3003 |> SYSTEM_ERROR E3003
+3003     Incorrect PALEXMIN.PDF file format.
+3003     Call AMD, 1-800-222-9323.
+3011 |> SYSTEM_ERROR E3011
+3011     Cannot open PLSPDF.PDF file.
+3011     Call AMD, 1-800-222-9323.
+3013 |> SYSTEM_ERROR E3013
+3013     Incorrect PLSPDF.PDF file format.
+3013     Call AMD, 1-800-222-9323.
+3014 |> INTERNAL_ERROR E3014
+3014     Data structure for device incorrectly formed
+3014     from PLSPDF.PDF. Call AMD, 1-800-222-9323.
+3021 |> SYSTEM_ERROR E3021
+3021     Cannot open MACHPDF.PDF file.
+3021     Call AMD, 1-800-222-9323.
+3022 |> ERROR E3022
+3022     Cannot support this MACH device.
+3023 |> SYSTEM_ERROR E3023
+3023     Incorrect MACHPDF.PDF file format.
+3023     Call AMD, 1-800-222-9323.
+3030 |> SYSTEM_ERROR E3030
+3030     Memory allocation failed.  Out of memory.
+3030     Call AMD, 1-800-222-9323.
+3060 |> ERROR E3060
+3060     Cannot support prose device.
+3400 |> INTERNAL_ERROR E3400
+3400     Boolean expression processing failed.  Illegal
+3400     token found.  Call AMD, 1-800-222-9323.
+3410 |> INTERNAL_ERROR E3410
+3410     State substitution failed.  No state value.
+3410     Call AMD, 1-800-222-9323.
+3420 |> INTERNAL_ERROR E3420
+3420     Condition substitution failed.  Recursive
+3420     definition.  Call AMD, 1-800-222-9323.
+3430 |> INTERNAL_ERROR E3430
+3430     Condition substitution failed.  Non-Boolean
+3430     condition.  Unknown condition type.
+3430     Call AMD, 1-800-222-9323.
+3500 |> ERROR E3500
+3500     Boolean expression processing failed.  More than 32
+3500     signals on a single output equation.
+3550 |> INTERNAL_ERROR E3550
+3550     Simulator Boolean expression processing failed.
+3550     Call AMD, 1-800-222-9323.
+3700 |> SYSTEM_ERROR E3700
+3700     Out of memory.  Memory allocation failed.
+3700     Call AMD, 1-800-222-9323.
+4000 |> ERROR E4000
+4000     State %s has more than one state assignment equation.
+4020 |> INTERNAL_ERROR E4020
+4020     Illegal signal in pin statements.
+4020     Call AMD, 1-800-222-9323.
+4030 |> ERROR E4030
+4030     Duplicate signal %s appears more than once in
+4030     state %s bit assignment.
+4040 |> INTERNAL_ERROR E4040
+4040     Condition has more than one equation.
+4050 |> INTERNAL_ERROR E4050
+4050     Illegal condition index. Call AMD, 1-800-222-9323.
+4100 |> INTERNAL_ERROR E4100
+4100     Illegal signal number. Call AMD, 1-800-222-9323.
+4110 |> INTERNAL_ERROR E4110
+4110     Pin has more than one equation of the same type.
+4120 |> ERROR E4120
+4120     Minimize switch is different for on and off covers.
+4130 |> ERROR E4130
+4130     Assignment operator is different for on and off covers.
+4300 |> ERROR E4300
+4300     Conflicting equations; trying to assign different values
+4300     to the same signal.
+4500 |> INTERNAL_ERROR E4500
+4500     Minimization failed.  Result incorrect.
+4500     Call AMD, 1-800-222-9323.
+4501 |> SYSTEM_ERROR E4501
+4501     Memory allocation failed. Block requested is
+4501     too large.  Call AMD, 1-800-222-9323.
+4502 |> SYSTEM_ERROR E4502
+4502     Memory allocation failed.  Out of memory.
+4502     Call AMD, 1-800-222-9323.
+4503 |> SYSTEM_ERROR E4503
+4503     Memory free failed.  Call AMD, 1-800-222-9323.
+4510 |> INTERNAL_ERROR E4510
+4510     Esp:  no solution possible (check equations).
+4511 |> INTERNAL_ERROR E4511
+4511     Esp:  inconsistent frequency table.
+4520 |> INTERNAL_ERROR E4520
+4520     Esp:  cube not covered in Reduce.
+4530 |> INTERNAL_ERROR E4530
+4530     Esp:  split_select index error.
+4531 |> INTERNAL_ERROR E4531
+4531     Esp:  split_two_select index error.
+4532 |> INTERNAL_ERROR E4532
+4532     Esp:  large_cube_index -- bestindex -1.
+4540 |> INTERNAL_ERROR E4540
+4540     Esp:  cover capacity exceeded.
+4550 |> INTERNAL_ERROR E4550
+4550     Esp:  on and off sets overlap (check equations).
+4560 |> WARNING E4560
+4560     Tree filename is not  unique. Assuming PALASM2.TRE
+4560     Use a unique tre filename on the command line.
+4570 |> WARNING E4570
+4570     Log filename is not unique.  Ignoring log output.
+4580
+4580 EXPAND Command Line parameters.
+4580     Command to invoke expand
+4580     expand   [OPTIONS...].
+4580     OPTION         [filename[.tre]].
+4580                 -tre [filename[.tre]].
+4580                 -log [filename[.log]].
+4580                 -1eqn
+4580                 -t
+4580                 -dt
+4580     Option flag description:
+4580                      [filename[.tre]] - input intermediate filename.
+4580                 -tre [filename[.tre]] - output intermediate filename.
+4580                 -log [filename[.log]] - error log filename.
+4580                 -1eqn  process one equation at a time.
+4580                 -t     generate T registered equations only, if they can
+4580                        be configured in the device.
+4580                 -dt    generate both D and T equations if both D and T
+4580                        registers can be configured in the device.
+5000 |> SYSTEM_ERROR E5000
+5000     Cannot open PARSE.MSG file for device information.
+5000     Call AMD, 1-800-222-9323.
+10000 |> ERROR E10000
+10000     State machine syntax is not supported for
+10000     device %s
+10001 |> ERROR E10001
+10001     You did not run BPP and you should have.
+10004 |> SYSTEM_ERROR E10004
+10004    Cannot access preheader information.
+10004    Call AMD, 1-800-222-9323.
+

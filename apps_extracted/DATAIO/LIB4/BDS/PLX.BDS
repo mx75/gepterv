@@ -1,0 +1,29 @@
+# $Header: /swpg/develop/abel/src/devsel2/newdata/RCS/plx.chp,v 1.3 91/10/22 20:02:13 holley Exp $
+# chip report file   Released 5.1 
+#
+$MANUFACTURER PLX PLX
+$CONTACT (000)000-0000 
+$ADDRESS1 none 1 
+$ADDRESS2 none 2 
+$ADDRESS3 none 3 
+#
+# 132 column 1-line format no user info (default)
+#
+# format is:
+#$C2 mfg part type tech package devname pins spc eraseable preload family pinout did speed setup hold power price
+#
+#
+
+#   mfg       part             type  tech  pack  devname     pins    spc  era preld fam  pin    DID#  speed set  hold pwr prc 
+$C2 PLX       PLX_448D-45      EPLD  CMOS  CDIP  P448         24     COM  UV   YES  12   2F    1299   45   30    0  420    0
+$C2 PLX       PLX_448HR-65     EPLD  CMOS  CDIP  P448         24     MIL  UV   YES  12   2F    1299   65   40    0  495    0
+$C2 PLX       PLX_448M-65      EPLD  CMOS  CDIP  P448         24     MIL  UV   YES  12   2F    1299   65   40    0  495    0
+$C2 PLX       PLX_448P-45      EPLD  CMOS  DIP   P448         24     COM  NO   YES  12   2F    1299   45   30    0  420    0
+$C2 PLX       PLX_448JP-45     EPLD  CMOS  PLCC  P448C        28     COM  NO   YES  --   --       0   45   30    0  420    0
+$C2 PLX       PLX_464D-45      EPLD  CMOS  CDIP  P464         24     COM  UV   YES  12   2F    4176   45   30    0  420    0
+$C2 PLX       PLX_464HR-65     EPLD  CMOS  CDIP  P464         24     MIL  UV   YES  12   2F    4176   65   40    0  495    0
+$C2 PLX       PLX_464M-65      EPLD  CMOS  CDIP  P464         24     MIL  UV   YES  12   2F    4176   65   40    0  495    0
+$C2 PLX       PLX_464P-45      EPLD  CMOS  DIP   P464         24     COM  NO   YES  12   2F    4176   45   30    0  420    0
+$C2 PLX       PLX_464JP-45     EPLD  CMOS  PLCC  P464C        28     COM  NO   YES  --   --       0   45   30    0  420    0
+#
+$END

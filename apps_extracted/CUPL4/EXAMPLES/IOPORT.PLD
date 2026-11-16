@@ -1,0 +1,67 @@
+Name      Ioport;
+Partno    CA0014;
+Rev       02;
+Designer  T. Kahl;
+Date      12/21/84;
+Company   Assisted Technology;
+Assembly  none;
+Location  none;
+Device    P20RA10;
+
+/****************************************************************/
+/* 7-bit register with handshake logic used to interface        */
+/* between a microprocesseor and I/O port.  The on-chip flag    */
+/* flip-flop (DRDY) provides the handshaking capability         */
+/* required in typical demand-response based data transfer.     */
+/* Both the register and the flag flip-flops are asynchronously */
+/* cleared by the CLR signal.  Input data (D0-6) is stored in   */
+/* the register (Q0-6) when the DCLK signal is applied.  At the */
+/* same time, DRDY is asserted via the asyncronous reset term.  */
+/* The stored data is transfered to the Q0-6 outputs when the   */
+/* outputs are enabled via the OE signal.  The DACK signal is   */
+/* applied to clear the DRDY flag flip-flop.                    */
+/****************************************************************/
+/** Allowable Target Device Types :  PAL20RA10                 **/
+/****************************************************************/
+
+/**  Inputs  **/
+
+pin 1 = !pl;                    /* Register Preload Pin         */
+pin [2..8] = [D0..6];           /* Input Data                   */
+pin 9 = !oe;                    /* Register Output Enable       */
+pin 10 = dclk;                  /* Register Clock and Flag Set  */
+pin 11 = clr;                   /* Asynchronous Clear for Regs  */
+pin 13 = !ce;                   /* Chip Enable - LO to enable   */
+pin 14 = dack;                  /* Data Acknowledge Input       */
+
+/**  Outputs  **/
+
+pin 15 = drdy;                  /* Data Ready Flag              */
+pin [17..23] = [Q6..0];         /* Output Register              */
+
+/** Declarations and Intermediate Variable Definitions **/
+
+field Q = [Q6..0];              /* Bit Field For All Outputs    */
+
+/** Logic Equations **/
+
+Q.ck = dclk;            /* Output Regs use dclk for clocking    */
+Q.ap = clr;             /* NOTE: Due to polarity control before */
+                        /*       register, an active-HI output  */
+                        /*       is cleared using the .ap term  */
+Q.oe = oe;              /* output enable control for registers  */
+
+Q0.d = D0;              /* Each Register input is the           */
+Q1.d = D1;              /* corresponding Data input             */
+Q2.d = D2;
+Q3.d = D3;
+Q4.d = D4;
+Q5.d = D5;
+Q6.d = D6;
+
+drdy.d = 'b'0;          /* active-HI output reset by dack clock */
+                        /* by specifying "0" on its input       */
+drdy.ck = dack;         /* flag clocked by data acknowledge     */
+drdy.ap = clr;          /* active-HI output reset with .ap term */
+drdy.ar = dclk;         /* flag sets when register clock HI     */
+

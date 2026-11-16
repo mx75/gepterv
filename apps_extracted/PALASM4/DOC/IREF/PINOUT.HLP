@@ -1,0 +1,22 @@
+=====================================================================
+PINOUT Shows All No-Connect (NC)
+---------------------------------------------------------------------
+The VIEW/PINOUT option in the menu works directly from your design
+file. If you are floating signals in the Pin/Node declaration section
+of your design file these will be displayed as NC on the pinout
+diagram. A list of all floating signals is given if you scroll to the
+bottom of the display. This is a common occurrence if processing
+designs for MACH devices.
+
+To remedy this situation you must backannotate the signal placement data
+from a successful design compilation to your design file. To do this execute
+the following steps in the PALASM menu.
+
+        1. Select 'RUN' option
+        2. Select 'Other operations ...' option
+        3. Select 'Back annotate signals ...' option
+        4. Select 'Use last successful placement' option
+
+When this task successfully completes re-try VIEW/PINOUT option.
+ÿ
+

@@ -1,0 +1,122 @@
+Module CONTROL;
+title 'Video Frame Grabber Control  Location U002
+Michael Holley and Dave Pellerin   14 Sep 1993'
+
+// Modes
+// M2   0 = Read Memory    1 = Frame Grab and Playback Mode
+//
+// M1   0 = Live Video     1 = Still Video
+//
+// M0   0 = Hold Address   1 = Step Address
+
+        control device  'P18CV8';
+
+        Osc,M2,M1,M0,!DataEna           pin 1,2,3,4,5;
+        !IOW,!IOR,VertSync              pin 6,7,8;
+
+        ClkAD,Inc,!RAMOE,!RAMWE         pin 14,13,12,19;
+        AdrClr,EnaAD,S1,VertClr         pin 15,16,17,18;
+
+        ClkAD,RAMOE,RAMWE               istype 'com';
+        Inc,S1,VertClr,AdrClr,EnaAD     istype 'dc,reg,buffer';
+
+        Sreg    = [S1,VertClr,AdrClr,EnaAD,Inc];
+        Live    = [ 0,   0   ,   0  ,  0  , 0 ];
+        GenLock = [ 0,   1   ,   0  ,  0  , 1 ];
+        Reset   = [ 0,   1   ,   0  ,  1  , 0 ];
+        Wait    = [ 0,   1   ,   1  ,  1  , 0 ];
+        Play    = [ 0,   1   ,   1  ,  1  , 1 ];
+        Scan    = [ 1,   1   ,   0  ,  0  , 1 ];
+        Record  = [ 1,   1   ,   1  ,  0  , 1 ];
+        Read    = [ 1,   1   ,   1  ,  1  , 0 ];
+        Step    = [ 1,   1   ,   1  ,  1  , 1 ];
+
+Test_Vectors
+([Osc,M2,M1,M0,VertSync,IOR,IOW,DataEna] -> [Sreg   ,RAMOE,RAMWE]);
+ [.C., 1, 0, 0,    0   , 0 , 0 ,   0   ] -> [Live   ,  0  ,  0  ];
+ [.C., 1, 0, 0,    0   , 0 , 0 ,   0   ] -> [Live   ,  0  ,  0  ];
+ [.C., 1, 1, 0,    0   , 0 , 0 ,   0   ] -> [Scan   ,  0  ,  0  ];
+ [.C., 1, 1, 0,    0   , 0 , 0 ,   0   ] -> [Scan   ,  0  ,  0  ];
+ [.C., 1, 1, 0,    1   , 0 , 0 ,   0   ] -> [Record ,  0  ,  1  ];
+ [ 0 , 1, 1, 0,    1   , 0 , 0 ,   0   ] -> [Record ,  0  ,  1  ];
+ [ 1 , 1, 1, 0,    1   , 0 , 0 ,   0   ] -> [Record ,  0  ,  0  ];
+ [.C., 1, 1, 0,    1   , 0 , 0 ,   0   ] -> [Record ,  0  ,  1  ];
+ [.C., 1, 1, 0,    0   , 0 , 0 ,   0   ] -> [Play   ,  1  ,  0  ];
+ [.C., 1, 1, 0,    1   , 0 , 0 ,   0   ] -> [Play   ,  1  ,  0  ];
+ [.C., 1, 1, 0,    1   , 0 , 0 ,   0   ] -> [Play   ,  1  ,  0  ];
+ [.C., 1, 1, 0,    0   , 0 , 0 ,   0   ] -> [GenLock,  0  ,  0  ];
+ [.C., 1, 1, 0,    0   , 0 , 0 ,   0   ] -> [GenLock,  0  ,  0  ];
+ [.C., 1, 1, 0,    1   , 0 , 0 ,   0   ] -> [Play   ,  1  ,  0  ];
+ [.C., 0, 1, 1,    0   , 0 , 0 ,   0   ] -> [Reset  ,  0  ,  0  ];
+ [.C., 0, 1, 1,    0   , 0 , 0 ,   0   ] -> [Reset  ,  0  ,  0  ];
+ [.C., 0, 1, 0,    0   , 0 , 0 ,   0   ] -> [Read   ,  0  ,  0  ];
+ [.C., 0, 1, 0,    0   , 0 , 0 ,   1   ] -> [Read   ,  0  ,  0  ];
+ [.C., 0, 1, 0,    0   , 1 , 0 ,   1   ] -> [Read   ,  1  ,  0  ];
+ [.C., 0, 1, 0,    0   , 0 , 1 ,   1   ] -> [Read   ,  0  ,  1  ];
+ [.C., 0, 1, 0,    0   , 1 , 0 ,   0   ] -> [Read   ,  0  ,  0  ];
+ [.C., 0, 1, 1,    0   , 0 , 0 ,   0   ] -> [Step   ,  0  ,  0  ];
+ [.C., 0, 1, 1,    0   , 0 , 0 ,   0   ] -> [Wait   ,  0  ,  0  ];
+ [.C., 0, 1, 1,    0   , 0 , 0 ,   0   ] -> [Wait   ,  0  ,  0  ];
+ [.C., 0, 1, 0,    0   , 0 , 0 ,   0   ] -> [Read   ,  0  ,  0  ];
+ [.C., 1, 1, 0,    0   , 0 , 0 ,   0   ] -> [Play   ,  1  ,  0  ];
+ [.C., 1, 0, 0,    0   , 0 , 0 ,   0   ] -> [Live   ,  0  ,  0  ];
+
+Equations
+        Sreg.AR  = !M1;
+        Sreg.CLK = Osc;
+        ClkAD    = Osc;
+
+State_Diagram Sreg
+
+State Live:             " Live video to monitor
+        RAMWE = 0;
+        RAMOE = 0;
+        GOTO Scan;
+
+State Scan:             " Look for start of field
+        RAMWE = 0;
+        RAMOE = 0;
+        IF (VertSync) THEN Record ELSE Scan;
+
+State Record:           " Capture one field in RAM
+        RAMWE = !Osc;
+        RAMOE = 0;
+        IF (!VertSync) THEN Play ELSE Record;
+
+State Play:             " Display field on monitor
+        RAMWE = 0;
+        RAMOE = 1;
+        CASE    !M2             : Reset;
+                 M2 &  VertSync : Play;
+                 M2 & !VertSync : GenLock;
+        ENDCASE;
+
+State GenLock:          " Wait for next vertical sync 
+        RAMWE = 0;
+        RAMOE = 0;
+        IF (VertSync) THEN Play ELSE GenLock;
+
+State Reset:            " Clear address counter
+        RAMWE = 0;
+        RAMOE = 0;
+        IF (M0) THEN Reset ELSE Read;
+
+State Read:             " PC bus can read or write RAM
+        RAMWE = IOW & DataEna;
+        RAMOE = IOR & DataEna;
+        CASE     M2             : Play;
+                !M2 & !M0       : Read;
+                !M2 &  M0       : Step;
+        ENDCASE;
+
+State Step:             " Increment to next address
+        RAMWE = 0;
+        RAMOE = 0;
+        GOTO Wait;
+
+State Wait:             " Wait for M0 to go low
+        RAMWE = 0;
+        RAMOE = 0;
+        IF (M0) THEN Wait ELSE Read;
+
+End

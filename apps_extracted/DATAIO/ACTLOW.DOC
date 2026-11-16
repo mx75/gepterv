@@ -1,0 +1,185 @@
+
+
+
+                                                                      Page 1
+EZ-ABEL 4.30  -  Device Utilization Chart         Fri Dec 20 16:31:53 19<4
+
+Functional example of active low output signals, 22 July 1992
+         John Gromala, Data I/O Corporation.
+
+    ==== P22V10 Programmed Logic ====
+
+
+out1.D   = (  !in1 
+            #   !in2 ); " ISTYPE 'BUFFER'
+out1.C   = (  clock );
+
+out2.D   = (  in1 & in2 ); " ISTYPE 'BUFFER'
+out2.C   = (  clock );
+
+out3.D   = (  in1 & in2 ); " ISTYPE 'INVERT'
+out3.C   = (  clock );
+
+out4.D   = (  !in1 
+            #   !in2 ); " ISTYPE 'INVERT'
+out4.C   = (  clock );
+
+
+
+
+                                                                      Page 2
+EZ-ABEL 4.30  -  Device Utilization Chart         Fri Dec 20 16:31:53 19<4
+
+Functional example of active low output signals, 22 July 1992
+         John Gromala, Data I/O Corporation.
+
+                         ==== P22V10 Chip Diagram ====
+
+
+
+                                    P22V10
+
+                         +---------\       /---------+
+                         |          \     /          |
+                         |           -----           |
+                   clock |  1                    24  | Vcc                     
+                         |                           |
+                     in1 |  2                    23  | out1                    
+                         |                           |
+                     in2 |  3                    22  | out2                    
+                         |                           |
+                         |  4                    21  | !out3                   
+                         |                           |
+                         |  5                    20  | !out4                   
+                         |                           |
+                         |  6                    19  |                         
+                         |                           |
+                         |  7                    18  |                         
+                         |                           |
+                         |  8                    17  |                         
+                         |                           |
+                         |  9                    16  |                         
+                         |                           |
+                         | 10                    15  |                         
+                         |                           |
+                         | 11                    14  |                         
+                         |                           |
+                     GND | 12                    13  |                         
+                         |                           |
+                         |                           |
+                         `---------------------------'
+
+                        SIGNATURE: N/A
+
+
+
+                                                                      Page 3
+EZ-ABEL 4.30  -  Device Utilization Chart         Fri Dec 20 16:31:53 19<4
+
+Functional example of active low output signals, 22 July 1992
+         John Gromala, Data I/O Corporation.
+
+                ==== P22V10 Resource Allocations ====
+
+
+        Device        | Resource  |   Design    |    Part     |  
+       Resources      | Available | Requirement | Utilization | Unused
+======================|===========|=============|=============|==============
+                      |           |             |             |
+Dedicated input pins  |     12    |       3     |     3       |     9 ( 75 %)
+Combinatorial inputs  |     12    |       3     |     3       |     9 ( 75 %)
+Registered inputs     |      -    |       0     |     -       |     -
+                      |           |             |             |
+Dedicated output pins |      -    |       4     |     -       |     -
+Bidirectional pins    |     10    |       0     |     4       |     6 ( 60 %)
+Combinatorial outputs |      -    |       0     |     -       |     -
+Registered outputs    |      -    |       4     |     -       |     -
+Reg/Com outputs       |     10    |       -     |     4       |     6 ( 60 %)
+Two-input XOR         |      -    |       0     |     -       |     -
+                      |           |             |             |
+Buried nodes          |      -    |       0     |     -       |     -
+Buried registers      |      -    |       0     |     -       |     -
+Buried combinatorials |      -    |       0     |     -       |     -
+
+
+
+                                                                      Page 4
+EZ-ABEL 4.30  -  Device Utilization Chart         Fri Dec 20 16:31:53 19<4
+
+Functional example of active low output signals, 22 July 1992
+         John Gromala, Data I/O Corporation.
+
+                ==== P22V10 Product Terms Distribution ====
+
+
+            Signal             |    Pin   | Terms | Terms | Terms
+             Name              | Assigned | Used  |  Max  | Unused
+===============================|==========|=======|=======|=======
+out1.REG                       |   23     |   2   |   8   |   6
+out2.REG                       |   22     |   1   |  10   |   9
+out3.REG                       |   21     |   1   |  12   |  11
+out4.REG                       |   20     |   2   |  14   |  12
+
+
+     ==== List of Inputs/Feedbacks ====
+
+Signal Name                    | Pin      | Pin Type
+============================== |==========|=========
+clock                          |    1     | CLK/IN
+in1                            |    2     | INPUT
+in2                            |    3     | INPUT
+
+
+
+                                                                      Page 5
+EZ-ABEL 4.30  -  Device Utilization Chart         Fri Dec 20 16:31:53 19<4
+
+Functional example of active low output signals, 22 July 1992
+         John Gromala, Data I/O Corporation.
+
+    ==== P22V10 Unused Resources ====
+
+
+ Pin   |  Pin   |   Product   | Flip-flop
+Number |  Type  |   Terms     |   Type
+=======|========|=============|==========
+    4  |  INPUT |      -      |    -   
+    5  |  INPUT |      -      |    -   
+    6  |  INPUT |      -      |    -   
+    7  |  INPUT |      -      |    -   
+    8  |  INPUT |      -      |    -   
+    9  |  INPUT |      -      |    -   
+   10  |  INPUT |      -      |    -   
+   11  |  INPUT |      -      |    -   
+   13  |  INPUT |      -      |    -   
+   14  |  BIDIR | NORMAL  8   |    D
+   15  |  BIDIR | NORMAL 10   |    D
+   16  |  BIDIR | NORMAL 12   |    D
+   17  |  BIDIR | NORMAL 14   |    D
+   18  |  BIDIR | NORMAL 16   |    D
+   19  |  BIDIR | NORMAL 16   |    D
+
+
+
+                                                                      Page 6
+EZ-ABEL 4.30  -  Device Utilization Chart         Fri Dec 20 16:31:53 19<4
+
+Functional example of active low output signals, 22 July 1992
+         John Gromala, Data I/O Corporation.
+
+    ==== I/O Files ====
+
+
+Module: 'actlow'
+
+
+Input files
+===========
+ABEL PLA file: actlow.tt3
+Vector file: actlow.tmv
+Device library: P22V10.dev
+
+Output files
+============
+Report file: actlow.doc
+Programmer load file: actlow.jed

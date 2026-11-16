@@ -1,0 +1,49 @@
+module BCD7
+title 'BCD to 7-segment display driver'
+///////////////////////////////////////////////////////
+// Seven-segment display driver with active-low      //
+// outputs. Segments:    -a-                         //
+//                      f| |b                        //
+//                       -g-                         //
+//                      e| |c                        //
+//                       -d-                         //
+/////////////////////////////////////////////////////// 
+
+    D3..D0         pin;                 "BCD input
+    a,b,c,d,e,f,g  pin istype 'dc,com'; "Segment outputs
+    OE             pin;                 "Output enable
+
+    BCD    = [D3..D0];
+    LED    = [a,b,c,d,e,f,g];
+    ON,OFF = 0,1;                       "Inverted sense
+
+equations
+
+    LED.oe = !OE;     "Define output enable
+
+truth_table(BCD->[  a ,  b ,  c ,  d ,  e ,  f ,  g ])
+             0 ->[ OFF, OFF, OFF, OFF, OFF, OFF,  ON];
+             1 ->[  ON, OFF, OFF,  ON,  ON,  ON,  ON];
+             2 ->[ OFF, OFF,  ON, OFF, OFF,  ON, OFF];
+             3 ->[ OFF, OFF, OFF, OFF,  ON,  ON, OFF];
+             4 ->[  ON, OFF, OFF,  ON,  ON, OFF, OFF];
+             5 ->[ OFF,  ON, OFF, OFF,  ON, OFF, OFF];
+             6 ->[ OFF,  ON, OFF, OFF, OFF, OFF, OFF];
+             7 ->[ OFF, OFF, OFF,  ON,  ON,  ON,  ON];
+             8 ->[ OFF, OFF, OFF, OFF, OFF, OFF, OFF];
+             9 ->[ OFF, OFF, OFF, OFF,  ON, OFF, OFF];
+
+test_vectors ([OE,BCD]->[  a ,  b ,  c ,  d ,  e ,  f ,  g ])
+              [ 0, 0 ]->[ OFF, OFF, OFF, OFF, OFF, OFF,  ON];
+              [ 0, 1 ]->[  ON, OFF, OFF,  ON,  ON,  ON,  ON];
+              [ 0, 2 ]->[ OFF, OFF,  ON, OFF, OFF,  ON, OFF];
+              [ 0, 3 ]->[ OFF, OFF, OFF, OFF,  ON,  ON, OFF];
+              [ 0, 4 ]->[  ON, OFF, OFF,  ON,  ON, OFF, OFF];
+              [ 0, 5 ]->[ OFF,  ON, OFF, OFF,  ON, OFF, OFF];
+              [ 0, 6 ]->[ OFF,  ON, OFF, OFF, OFF, OFF, OFF];
+              [ 0, 7 ]->[ OFF, OFF, OFF,  ON,  ON,  ON,  ON];
+              [ 0, 8 ]->[ OFF, OFF, OFF, OFF, OFF, OFF, OFF];
+              [ 0, 9 ]->[ OFF, OFF, OFF, OFF,  ON, OFF, OFF];
+              [ 1, 5 ]->[ .z., .z., .z., .z., .z., .z., .z.];
+
+end

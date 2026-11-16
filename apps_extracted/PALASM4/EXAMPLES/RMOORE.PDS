@@ -1,0 +1,72 @@
+;-------------------------------------------------------------------;
+;   To compare registered Mealy and registered Moore behavior:      ;
+;-------------------------------------------------------------------;
+;   Compile, simulate, and disassemble the files RMOORE.PDS and     ;
+;   RMEALY.PDS. Compare simulation results and disassembled         ;
+;   equations.                                                      ;
+;-------------------------------------------------------------------;
+
+;PALASM Design Description
+
+;---------------------------------- Declaration Segment ------------
+TITLE    RMOORE.PDS
+PATTERN  A
+REVISION 1.0
+AUTHOR   FRANK J. LACOMBE
+COMPANY  KNOWLEDGE TREE SYSTEMS for AMD
+DATE     03/01/90
+
+CHIP   REG_MOORE   PAL22V10
+
+;---------------------------------- PIN Declarations ---------------
+PIN  1          CLOCK                COMBINATORIAL             ; INPUT
+PIN  2          INA                  COMBINATORIAL             ; INPUT
+PIN  12         GND
+PIN  14         OUT1                 REGISTERED                ; OUTPUT
+PIN  15         OUT2                 REGISTERED                ; OUTPUT
+PIN  16         BITA                 REGISTERED                ; OUTPUT
+PIN  17         BITB                 REGISTERED                ; OUTPUT
+PIN  24         VCC
+
+;-----------------------------------State Segment ------------------
+STATE
+MOORE_MACHINE
+START_UP := POWER_UP -> STATE0              ;NOTE NEW START-UP STATE
+
+STATE0 = /BITA * /BITB
+STATE1 = /BITA *  BITB
+STATE2 =  BITA * /BITB
+STATE3 =  BITA *  BITB
+
+;TRANSITION EQUATIONS------------------
+STATE0    :=  GO         -> STATE1
+          +->               STATE2
+STATE1    :=  GO         -> STATE2
+          +->               STATE3
+STATE2    :=  GO         -> STATE3
+          +->               STATE0
+STATE3    :=  GO         -> STATE0
+          +->               STATE1
+
+;OUTPUT EQUATIONS----------------------
+STATE0.OUTF    =  /OUT1 * /OUT2
+STATE1.OUTF    =  /OUT1 *  OUT2
+STATE2.OUTF    =   OUT1 * /OUT2
+STATE3.OUTF    =   OUT1 *  OUT2
+
+CONDITIONS
+GO = INA
+
+;----------------------------------- Simulation Segment ------------
+
+SIMULATION
+SETF INA
+CLOCKF CLOCK
+CLOCKF CLOCK
+CLOCKF CLOCK
+CLOCKF CLOCK
+SETF /INA
+CLOCKF CLOCK
+CLOCKF CLOCK
+CLOCKF CLOCK
+CLOCKF CLOCK

@@ -1,0 +1,476 @@
+; The MACH210 implementation of the RLL 2,7 encoder/decoder
+; design integrates the logic originally contained in two
+; PAL22V10s and one PAL16HD8. One PAL22V10 had the
+; coding/decoding state machines along with the address mark
+; generation and detection logic. The address mark synchronization
+; logic was programmed into another PAL22V10.
+; Miscellaneous glue logic was placed in the PAL16HD8.
+
+; For more information, the PAL RLL 2,7 design is described
+; in the 1988 AMD PAL Device Handbook (pp. 2-651 to 2-659).
+; You can also order a reprint of the RLL article from
+; AMD (#09010A).
+
+; Added Group statements & initialized all inputs - 1/31/92
+
+
+   TITLE RLL 2,7 Codec Test Case
+ PATTERN AK.pds
+REVISION 1.0
+  AUTHOR Arthur Khu & Nick Schmitz
+ COMPANY AMD/MMI
+    DATE 12/12/89
+
+chip rll_codec mach210
+
+PIN 44 VCC
+PIN 1 GND
+;node 1  GLOBAL
+PIN ?  CLK1
+PIN ?  NCLK1
+PIN ?  RLL_IN 
+PIN ?  CD_CLK1 
+PIN ?  SRO_D 
+PIN ?  WG 
+PIN ?  RG 
+PIN ?  NRZ_IN 
+PIN ?  INP_0 
+PIN ?  INP_1 
+PIN ?  INP_2 
+PIN ?  INP_3 
+PIN ?  AMC 
+PIN ?  SRI_A 
+PIN ?  SRI_B 
+PIN ?  SRI_C 
+PIN ?  SRI_D 
+PIN ?  SELEN 
+PIN ?  PLL_REF 
+PIN ?  CLK_SET 
+PIN ?  NRZ_OUT 
+PIN ?  RLL_OUT 
+PIN ?  SRI 
+PIN ?  CD_CLK2 
+PIN ?  SHIFT_IN 
+PIN ?  RD_CLK 
+PIN ?  OUTPUT_1 
+PIN ?  OUTPUT_0 
+PIN ?  AMF 
+PIN ?  /LOAD 
+PIN ?  SHIFT_OUT 
+PIN ?  CNT_3 
+PIN ?  CNT_2 
+PIN ?  CNT_1 
+PIN ?  CNT_0 
+PIN ?  VALID 
+PIN ?  CMPLT 
+NODE ?  AM_LATCH 
+NODE ?  SR_Q2 
+NODE ?  AM_1 
+NODE ?  AM_2 
+NODE ?  ST_2 
+NODE ?  ST_1 
+NODE ?  ST_0 
+
+; Group statements to aid partitioning - NAS - 1/31/92
+; GROUP MACH_SEG_C AM_LATCH
+GROUP   MACH_SEG_A  RD_CLK CNT_0 CNT_1 CNT_2 CNT_3 CMPLT
+GROUP   MACH_SEG_B AM_1 ST_0  ST_1  ST_2 OUTPUT_1  OUTPUT_0
+GROUP   MACH_SEG_C SR_Q2  SHIFT_OUT CD_CLK2 SRI  CLK_SET PLL_REF AM_LATCH
+GROUP   MACH_SEG_D VALID LOAD SHIFT_IN RLL_OUT  NRZ_OUT AM_2 AMF 
+
+
+EQUATIONS	;	GLOBAL.RSTF = /WG*/RG	GLOBAL.RSTF =  SELEN
+
+  PLL_REF =  RG*RLL_IN
+  CLK_SET = /SR_Q2 + CD_CLK1*RLL_IN
+    SR_Q2 = /CLK_SET + SRI_A
+  NRZ_OUT =  SRO_D*RG*AM_LATCH
+  RLL_OUT =  SRO_D*WG
+      SRI =  RG*CLK_SET + WG*NRZ_IN + WG*AM_LATCH
+  CD_CLK2 = /CD_CLK1
+ SHIFT_IN =  RG*CD_CLK1 + WG*RD_CLK 
+     LOAD =  RD_CLK* WG + RG
+SHIFT_OUT = /RD_CLK* RG +/CLK1* WG
+
+OUTPUT_1.CLKF = CLK1
+OUTPUT_0.CLKF = CLK1
+VALID.CLKF    = CLK1
+AM_1.CLKF     = CLK1
+AM_2.CLKF     = CLK1
+ST_2.CLKF     = CLK1
+ST_1.CLKF     = CLK1
+ST_0.CLKF     = CLK1
+AMF.CLKF      = CLK1
+
+OUTPUT_1.RSTF = /RG*/WG
+OUTPUT_0.RSTF = /RG*/WG
+VALID.RSTF    = /RG*/WG
+AM_1.RSTF     = /RG*/WG
+AM_2.RSTF     = /RG*/WG
+ST_2.RSTF     = /RG*/WG
+ST_1.RSTF     = /RG*/WG
+ST_0.RSTF     = /RG*/WG
+AMF.RSTF      = /RG*/WG
+
+RD_CLK.CLKF   = NCLK1
+CNT_3.CLKF    = NCLK1
+CNT_2.CLKF    = NCLK1
+CNT_1.CLKF    = NCLK1
+CNT_0.CLKF    = NCLK1
+CMPLT.CLKF    = NCLK1
+AM_LATCH.CLKF = NCLK1
+
+RD_CLK.RSTF   = SELEN
+CNT_3.RSTF    = SELEN
+CNT_2.RSTF    = SELEN
+CNT_1.RSTF    = SELEN
+CNT_0.RSTF    = SELEN
+CMPLT.RSTF    = SELEN
+AM_LATCH.RSTF = SELEN
+
+  ST_2:= /ST_2* ST_1* ST_0*/INP_3* RG
+      +/ST_2* ST_1* ST_0* CMPLT* WG
+      + ST_2*/ST_1*/ST_0* CMPLT* WG
+      +/ST_2*/INP_0*/ST_1*/INP_1*/ST_0* INP_2*/INP_3* RG
+      + ST_2*/ST_1* ST_0* INP_2*/INP_3* AMC* RG
+
+  ST_1:= /ST_2*/ST_1*/INP_1*/ST_0*/INP_2*/CMPLT* WG
+      +/ST_2*/ST_1*/INP_1*/ST_0*/INP_2* AMF* WG
+      +/ST_2*/ST_1*/INP_1*/ST_0*/INP_2*/AMC* WG
+      +/ST_2*/ST_1*/ST_0* CMPLT*/AMF* AMC* WG
+      +/ST_2*/INP_0*/ST_1*/INP_1*/ST_0*/INP_2* INP_3* RG
+      +/ST_2*/ST_1*/ST_0*/INP_2*/INP_3* RG
+      +/ST_2*/ST_1* ST_0* INP_2*/INP_3* RG
+      +/ST_2*/INP_0* ST_1*/INP_1* ST_0*/INP_2* INP_3* RG
+      + ST_2*/ST_1* ST_0*/INP_2* INP_3* RG
+      + ST_2*/ST_1* ST_0* INP_2*/INP_3* AMC* RG
+
+  ST_0:= /ST_2*/ST_1*/ST_0* INP_2*/CMPLT* WG
+      +/ST_2*/ST_1*/ST_0* INP_2* AMF* WG
+      +/ST_2*/ST_1*/ST_0* INP_2*/AMC* WG
+      +/ST_2*/ST_1*/ST_0* CMPLT*/AMF* AMC* WG
+      + ST_2*/ST_1*/ST_0* CMPLT* WG
+      +/ST_2* ST_1*/INP_1*/ST_0*/INP_2* WG
+      +/ST_2* INP_0*/ST_1*/INP_1*/ST_0*/INP_2* INP_3* RG
+      +/ST_2*/ST_1*/ST_0*/INP_2*/INP_3* RG
+      +/ST_2* ST_1* ST_0*/INP_2*/INP_3* RG
+
+  AM_1:=  AM_1* VALID* CMPLT*/AMF* RG
+      + AM_1*/AMF* WG
+      + AM_1* AMC* WG
+      +/ST_2* ST_1* ST_0*/AM_1* CMPLT* WG
+      + ST_2* ST_1*/ST_0*/INP_2*/AM_1*/INP_3* AMC* RG
+
+  VALID:= /ST_0*/INP_2*/INP_3* AMC* RG
+      +/ST_2*/ST_1*/INP_1*/ST_0*/INP_2* RG
+      +/ST_2* ST_1*/INP_1* ST_0*/INP_2* RG
+      +/ST_2*/INP_0*/ST_1*/INP_1*/ST_0*/INP_3* RG
+      +/ST_1* ST_0* INP_2*/INP_3* AMC* RG
+      +/ST_1*/ST_0*/INP_2*/INP_3* RG
+      +/ST_2* ST_0* INP_2*/INP_3* RG
+      + ST_2*/ST_1* ST_0*/INP_2* INP_3* RG
+      +/ST_2* ST_1* ST_0*/INP_3* RG
+      +/ST_2* ST_1*/INP_2*/INP_3* RG
+
+  OUTPUT_1:= /ST_2*/INP_0*/ST_1*/INP_1*/ST_0*/CMPLT* WG
+      +/ST_2*/ST_1*/INP_1*/ST_0* INP_2*/CMPLT* WG
+      +/ST_2*/INP_0*/ST_1*/INP_1*/ST_0* AMF* WG
+      +/ST_2*/INP_0*/ST_1*/INP_1*/ST_0*/AMC* WG
+      +/ST_2*/ST_1*/INP_1*/ST_0* INP_2* AMF* WG
+      +/ST_2*/ST_1*/INP_1*/ST_0* INP_2*/AMC* WG
+      +/ST_2* INP_0* ST_1* INP_1*/ST_0*/INP_2* WG
+      +/ST_2*/INP_0*/ST_1*/INP_1*/ST_0*/INP_2* INP_3* RG
+      +/ST_2*/INP_0*/ST_1*/INP_1*/ST_0* INP_2*/INP_3* RG
+      +/ST_2*/INP_0* ST_1*/INP_1* ST_0*/INP_2* INP_3* RG
+      +/ST_2* ST_1* ST_0* INP_2*/INP_3* RG
+      + ST_2*/ST_1*/ST_0*/INP_2*/INP_3* RG
+      + ST_2*/ST_1* ST_0*/INP_2* INP_3* RG
+
+  OUTPUT_0:= /ST_2*/ST_1* INP_1*/ST_0* INP_2*/CMPLT* WG
+      + ST_2*/ST_1*/ST_0* CMPLT* WG
+      +/ST_2*/ST_1* INP_1*/ST_0* INP_2* AMF* WG
+      +/ST_2*/ST_1* INP_1*/ST_0* INP_2*/AMC* WG
+      +/ST_2* ST_1*/INP_1*/ST_0*/INP_2* WG
+
+  AMF:= /ST_2*/ST_1*/ST_0* AM_1* CMPLT* AMC* WG
+      + AMF* AMC
+      +/ST_2*/ST_1*/ST_0* AM_2
+
+  AM_2:=  VALID* CMPLT*/AMF* AM_2* RG
+      +/AMF* AM_2* WG
+      + ST_2* ST_1*/ST_0*/INP_2* AM_1*/INP_3* AMC* RG
+
+  RD_CLK:= /RD_CLK
+      + RG*/CMPLT*/AM_LATCH* SRI_A*/SRI_B*/SRI_C*/SRI_D
+
+  CMPLT:= /RD_CLK* RG*/SRI_A*/CNT_3*/SRI_B* CNT_2* SRI_C*/CNT_1 *
+        /SRI_D*/CNT_0*/ST_0*/ST_1*/ST_2
+      + RG* CMPLT
+      +/RD_CLK* WG* CNT_3* CNT_2* CNT_1* AMC* CNT_0*/ST_0 *
+        /ST_1*/ST_2
+      + CMPLT* WG* AMC
+
+  AM_LATCH:=   RG* AM_LATCH
+      + RG* CMPLT* AMC* AM_1
+      + WG* AMC*/AM_1*/ST_0*/ST_1*/ST_2
+      + WG* AM_LATCH* AMC*/AM_1
+
+  CNT_3:=   WG* CNT_3*/CNT_2* AMC
+      + WG* CNT_3*/CNT_1* AMC
+      + WG* CNT_3* AMC*/CNT_0
+      + RG* CMPLT*/SRI_A* CNT_3*/SRI_B*/SRI_C*/SRI_D
+      + RD_CLK* CNT_3
+      + WG* CNT_3* AMC* ST_2
+      + WG* CNT_3* AMC* ST_1
+      + WG* CNT_3* AMC* ST_0
+      + RG* CNT_3* ST_2
+      + RG* CNT_3* ST_1
+      + RG* CNT_3* ST_0
+      +/RD_CLK* WG*/CNT_3* CNT_2* CNT_1* AMC* CNT_0*/ST_0*/ST_1*/ST_2
+
+  CNT_2:=   WG* CNT_2*/CNT_1* AMC
+      + WG* CNT_2* AMC*/CNT_0
+      + RG* CMPLT*/SRI_A*/SRI_B* CNT_2*/SRI_C*/SRI_D
+      +/RD_CLK* WG*/CNT_2* CNT_1* AMC* CNT_0*/ST_0*/ST_1*/ST_2
+      + RD_CLK* CNT_2
+      + WG* CNT_2* AMC* ST_2
+      + WG* CNT_2* AMC* ST_1
+      + WG* CNT_2* AMC* ST_0
+      + RG* CNT_2* ST_2
+      + RG* CNT_2* ST_1
+      + RG* CNT_2* ST_0
+      +/RD_CLK* RG*/SRI_A*/CNT_3*/SRI_B*/CNT_2* SRI_C* CNT_1 *
+        /SRI_D* AMC* CNT_0*/ST_0*/ST_1*/ST_2
+
+  CNT_1:=   WG* CNT_1* AMC*/CNT_0
+      + RG*/SRI_A*/CNT_3*/SRI_B*/CNT_2* SRI_C* CNT_1*/SRI_D *
+          AMC*/CNT_0
+      + RG* CMPLT*/SRI_A*/SRI_B*/SRI_C* CNT_1*/SRI_D
+      +/RD_CLK* WG*/CNT_1* AMC* CNT_0*/ST_0*/ST_1*/ST_2
+      + RD_CLK* CNT_1
+      + WG* CNT_1* AMC* ST_2
+      + WG* CNT_1* AMC* ST_1
+      + WG* CNT_1* AMC* ST_0
+      + RG* CNT_1* ST_2
+      + RG* CNT_1* ST_1
+      + RG* CNT_1* ST_0
+      +/RD_CLK* RG*/SRI_A*/CNT_3*/SRI_B*/CNT_2* SRI_C*/CNT_1 *
+        /SRI_D* AMC* CNT_0*/ST_0*/ST_1*/ST_2
+
+  CNT_0:=   RG* CMPLT*/SRI_A*/SRI_B*/SRI_C*/SRI_D* CNT_0
+      +/RD_CLK* WG* AMC*/CNT_0*/ST_0*/ST_1*/ST_2
+      +/RD_CLK* RG*/SRI_A*/CNT_3*/SRI_B*/CNT_2* SRI_C*/SRI_D *
+          AMC*/CNT_0*/ST_0*/ST_1*/ST_2
+      + RD_CLK* CNT_0
+      + WG* AMC* CNT_0* ST_2
+      + WG* AMC* CNT_0* ST_1
+      + WG* AMC* CNT_0* ST_0
+      + RG* CNT_0* ST_2
+      + RG* CNT_0* ST_1
+      + RG* CNT_0* ST_0
+
+Simulation
+
+TRACE_ON AMC RG WG INP_3 INP_2 INP_1 INP_0 SRI_D SRI_C SRI_B SRI_A
+         CMPLT NCLK1 CLK1 SELEN CNT_3 CNT_2 CNT_1 CNT_0 RD_CLK
+         ST_2 ST_1 ST_0 OUTPUT_1 OUTPUT_0 VALID AMF AM_1 AM_2
+
+; 0 -> reset by setting RG and WG low
+SETF /AMC /RG /WG /clk1 /nclk1
+        /CD_CLK1 RLL_IN NRZ_IN  SRI_A SRI_B SRI_C SRI_D
+        /SRO_D /SELEN /INP_0 /INP_1 /INP_2 /INP_3 ; NAS 1/31/92
+     CHECK /ST_2 /ST_1 /ST_0 /OUTPUT_1 /OUTPUT_0 /VALID /AMF /AM_1 /AM_2
+
+;========================= ENCODE TEST ===================
+; The data-code ratio is 1:2 (1 data bit is coded into
+; 2 code bits). The data is shifted into an external
+; 4-bit shift register whose values are the inputs INP_3/2/1/0.
+; When coding, the data to be coded is in bit INP_2, with
+; INP_1 and INP_0 used as lookahead bits. The 2 code bits
+; are generated at OUTPUT_1 and OUTPUT_0.
+;=========================================================
+
+; 1 -> (1011),000,010,011,0010,0011
+SETF /AMC /RG  WG /INP_3  INP_2 /INP_1  INP_0   CLOCKF  CLK1
+     CHECK /ST_2 /ST_1  ST_0  OUTPUT_1 /OUTPUT_0 /VALID /AMF /AM_1 /AM_2
+; 2 -> 1(0110),00,010,011,0010,0011
+SETF /AMC /RG  WG  INP_3 /INP_2  INP_1  INP_0   CLOCKF  CLK1
+     CHECK /ST_2 /ST_1 /ST_0 /OUTPUT_1 /OUTPUT_0 /VALID /AMF /AM_1 /AM_2
+; 3 -> 10(1100)00,010,011,0010,0011
+SETF /AMC /RG  WG /INP_3  INP_2  INP_1 /INP_0   CLOCKF  CLK1
+     CHECK /ST_2 /ST_1  ST_0 /OUTPUT_1  OUTPUT_0 /VALID /AMF /AM_1 /AM_2
+; 4 -> 10,1(1000),010,011,0010,0011
+SETF /AMC /RG  WG  INP_3  INP_2 /INP_1 /INP_0   CLOCKF  CLK1
+     CHECK /ST_2 /ST_1 /ST_0 /OUTPUT_1 /OUTPUT_0 /VALID /AMF /AM_1 /AM_2
+; 5 -> 10,11(0000)010,011,0010,0011
+SETF /AMC /RG  WG  INP_3 /INP_2 /INP_1 /INP_0   CLOCKF  CLK1
+     CHECK /ST_2  ST_1 /ST_0  OUTPUT_1 /OUTPUT_0 /VALID /AMF /AM_1 /AM_2
+; 6 -> 10,11,0(0001)0,011,0010,0011
+SETF /AMC /RG  WG /INP_3 /INP_2 /INP_1 /INP_0   CLOCKF  CLK1
+     CHECK /ST_2 /ST_1  ST_0 /OUTPUT_1  OUTPUT_0 /VALID /AMF /AM_1 /AM_2
+; 7 -> 10,11,00(0010),011,0010,0011
+SETF /AMC /RG  WG /INP_3 /INP_2 /INP_1  INP_0   CLOCKF  CLK1
+     CHECK /ST_2 /ST_1 /ST_0 /OUTPUT_1 /OUTPUT_0 /VALID /AMF /AM_1 /AM_2
+; 8 -> 10,11,000,(0100)11,0010,0011
+SETF /AMC /RG  WG /INP_3 /INP_2  INP_1 /INP_0   CLOCKF  CLK1
+     CHECK /ST_2 /ST_1 /ST_0 /OUTPUT_1 /OUTPUT_0 /VALID /AMF /AM_1 /AM_2
+; 9 -> 10,11,000,0(1001)1,0010,0011
+SETF /AMC /RG  WG /INP_3  INP_2 /INP_1 /INP_0   CLOCKF  CLK1
+     CHECK /ST_2 /ST_1  ST_0  OUTPUT_1 /OUTPUT_0 /VALID /AMF /AM_1 /AM_2
+;10 -> 10,11,000,01(0011),0010,0011
+SETF /AMC /RG  WG  INP_3 /INP_2 /INP_1  INP_0   CLOCKF  CLK1
+     CHECK /ST_2 /ST_1 /ST_0 /OUTPUT_1 /OUTPUT_0 /VALID /AMF /AM_1 /AM_2
+;11 -> 10,11,000,010(0110),010,0011
+SETF /AMC /RG  WG /INP_3 /INP_2  INP_1  INP_0   CLOCKF  CLK1
+     CHECK /ST_2 /ST_1 /ST_0 /OUTPUT_1 /OUTPUT_0 /VALID /AMF /AM_1 /AM_2
+;12 -> 10,11,000,010,0(1100)10,0011
+SETF /AMC /RG  WG /INP_3  INP_2  INP_1 /INP_0   CLOCKF  CLK1
+     CHECK /ST_2 /ST_1  ST_0 /OUTPUT_1  OUTPUT_0 /VALID /AMF /AM_1 /AM_2
+;13 -> 10,11,000,010,01(1001)0,0011
+SETF /AMC /RG  WG  INP_3  INP_2 /INP_1 /INP_0   CLOCKF  CLK1
+     CHECK /ST_2 /ST_1 /ST_0 /OUTPUT_1 /OUTPUT_0 /VALID /AMF /AM_1 /AM_2
+;14 -> 10,11,000,010,011(0010),0011
+SETF /AMC /RG  WG  INP_3 /INP_2 /INP_1  INP_0   CLOCKF  CLK1
+     CHECK /ST_2  ST_1 /ST_0 /OUTPUT_1 /OUTPUT_0 /VALID /AMF /AM_1 /AM_2
+;15 -> 10,11,000,010,011,0(0100)011
+SETF /AMC /RG  WG /INP_3 /INP_2  INP_1 /INP_0   CLOCKF  CLK1
+     CHECK /ST_2 /ST_1 /ST_0 /OUTPUT_1 /OUTPUT_0 /VALID /AMF /AM_1 /AM_2
+;16 -> 10,11,000,010,011,00(1000)11
+SETF /AMC /RG  WG /INP_3  INP_2 /INP_1 /INP_0   CLOCKF  CLK1
+     CHECK /ST_2 /ST_1  ST_0  OUTPUT_1 /OUTPUT_0 /VALID /AMF /AM_1 /AM_2
+;17 -> 10,11,000,010,011,001(0001)1
+SETF /AMC /RG  WG /INP_3 /INP_2 /INP_1 /INP_0   CLOCKF  CLK1
+     CHECK /ST_2 /ST_1 /ST_0 /OUTPUT_1 /OUTPUT_0 /VALID /AMF /AM_1 /AM_2
+;18 -> 10,11,000,010,011,0010(0011)
+SETF /AMC /RG  WG /INP_3 /INP_2 /INP_1  INP_0   CLOCKF  CLK1
+     CHECK /ST_2  ST_1 /ST_0 /OUTPUT_1 /OUTPUT_0 /VALID /AMF /AM_1 /AM_2
+;19 -> 10,11,000,010,011,0010,0(011)00
+SETF /AMC /RG  WG /INP_3 /INP_2  INP_1  INP_0   CLOCKF  CLK1
+     CHECK /ST_2 /ST_1 /ST_0  OUTPUT_1 /OUTPUT_0 /VALID /AMF /AM_1 /AM_2
+;20 -> 10,11,000,010,011,0010,00(11)00
+SETF /AMC /RG  WG /INP_3  INP_2  INP_1 /INP_0   CLOCKF  CLK1
+     CHECK /ST_2 /ST_1  ST_0 /OUTPUT_1  OUTPUT_0 /VALID /AMF /AM_1 /AM_2
+
+;=========================================================
+;21 -> begin decode operation by resetting state machine
+;      (set RG and WG low)
+SETF /AMC /RG /WG /clk1 /nclk1
+     CHECK /ST_2 /ST_1 /ST_0 /OUTPUT_1 /OUTPUT_0 /VALID /AMF /AM_1 /AM_2
+
+;========================= DECODE TEST ===================
+; Data to decode is (0010)0100,1000,0100,001000.
+; Valid RLL 2,7 code words are separated by ','.
+; The decoded string is 0011,10,11,010. Note that
+; there the code-data ratio is 2:1. The decoded value
+; is generated at OUTPUT_1.
+;=========================================================
+
+;22 -> (0010)0100,1000,0100,001000 = data to decode
+SETF /AMC  RG /WG /INP_3 /INP_2  INP_1 /INP_0   CLOCKF  CLK1
+     CHECK /ST_2  ST_1  ST_0 /OUTPUT_1 /OUTPUT_0  VALID /AMF /AM_1 /AM_2
+;23 -> 00(1001)00,1000,0100,001000
+SETF /AMC  RG /WG  INP_3 /INP_2 /INP_1  INP_0   CLOCKF  CLK1
+     CHECK /ST_2 /ST_1 /ST_0 /OUTPUT_1 /OUTPUT_0  VALID /AMF /AM_1 /AM_2
+;24 -> 0010(0100),1000,0100,001000
+SETF /AMC  RG /WG /INP_3  INP_2 /INP_1 /INP_0   CLOCKF  CLK1
+     CHECK  ST_2 /ST_1 /ST_0  OUTPUT_1 /OUTPUT_0  VALID /AMF /AM_1 /AM_2
+;25 -> 001001(00,10)00,0100,001000
+SETF /AMC  RG /WG /INP_3 /INP_2  INP_1 /INP_0   CLOCKF  CLK1
+     CHECK /ST_2 /ST_1 /ST_0  OUTPUT_1 /OUTPUT_0  VALID /AMF /AM_1 /AM_2
+;26 -> 00100100,(1000),0100,001000
+SETF /AMC  RG /WG  INP_3 /INP_2 /INP_1 /INP_0   CLOCKF  CLK1
+     CHECK /ST_2  ST_1 /ST_0  OUTPUT_1 /OUTPUT_0  VALID /AMF /AM_1 /AM_2
+;27 -> 00100100,10(00,01)00,001000
+SETF /AMC  RG /WG /INP_3 /INP_2 /INP_1  INP_0   CLOCKF  CLK1
+     CHECK /ST_2 /ST_1 /ST_0 /OUTPUT_1 /OUTPUT_0  VALID /AMF /AM_1 /AM_2
+;28 -> 00100100,1000,(0100),001000
+SETF /AMC  RG /WG /INP_3  INP_2 /INP_1 /INP_0   CLOCKF  CLK1
+     CHECK  ST_2 /ST_1 /ST_0  OUTPUT_1 /OUTPUT_0  VALID /AMF /AM_1 /AM_2
+;29 -> 00100100,1000,01(00,00)1000
+SETF /AMC  RG /WG /INP_3 /INP_2 /INP_1 /INP_0   CLOCKF  CLK1
+     CHECK /ST_2 /ST_1 /ST_0  OUTPUT_1 /OUTPUT_0  VALID /AMF /AM_1 /AM_2
+;30 -> 00100100,1000,0100,(0010)00
+SETF /AMC  RG /WG /INP_3 /INP_2  INP_1 /INP_0   CLOCKF  CLK1
+     CHECK /ST_2  ST_1  ST_0 /OUTPUT_1 /OUTPUT_0  VALID /AMF /AM_1 /AM_2
+;31 -> 00100100,1000,0100,00(1000)
+SETF /AMC  RG /WG  INP_3 /INP_2 /INP_1 /INP_0   CLOCKF  CLK1
+     CHECK /ST_2  ST_1 /ST_0  OUTPUT_1 /OUTPUT_0  VALID /AMF /AM_1 /AM_2
+;32 -> 00100100,1000,0100,0010(00)XX
+SETF /AMC  RG /WG /INP_3 /INP_2 /INP_1 /INP_0   CLOCKF  CLK1
+     CHECK /ST_2 /ST_1 /ST_0 /OUTPUT_1 /OUTPUT_0  VALID /AMF /AM_1 /AM_2
+
+;========== ADDRESS MARK Detection TEST =================
+; Decode the address mark when AMC (address mark control)
+; is active. The address mark pattern is 00000100.
+; To detect the address mark, the counter state machine
+; CNT_3/2/1/0 should have detected the pattern 0100 at
+; the inputs SRI_D/C/B/A for 5 counts. CMPLT is HIGH
+; when the counter returns to state 0.
+; The AMF (address mark found) output is active only
+; when 2 instances of this unique pattern are detected.
+; The first pattern is detected when AM_1 is set HIGH,
+; and the second pattern when AM_2 is HIGH. AMF is set
+; HIGH on the next cycle.
+;=========================================================
+
+;33 -> reset counter state machine (set RG and WG low)
+SETF /AMC /RG /WG /clk1 /nclk1 SELEN
+     CHECK /CNT_3 /CNT_2 /CNT_1 /CNT_0  /CMPLT /RD_CLK
+;34 -> start counter state machine => COUNT = 1
+SETF  AMC RG /WG /SRI_D SRI_C /SRI_B /SRI_A /SELEN    CLOCKF  NCLK1
+     CHECK /CNT_3 /CNT_2 /CNT_1  CNT_0  /CMPLT  RD_CLK
+;34a -> start counter state machine => COUNT = 1
+SETF  AMC RG /WG /SRI_D SRI_C /SRI_B /SRI_A /SELEN    CLOCKF  NCLK1
+     CHECK /CNT_3 /CNT_2 /CNT_1  CNT_0  /CMPLT /RD_CLK
+;35 -> COUNT = 2
+SETF  AMC RG /WG /SRI_D SRI_C /SRI_B /SRI_A     CLOCKF  NCLK1
+     CHECK /CNT_3 /CNT_2  CNT_1 /CNT_0  /CMPLT  RD_CLK
+;35a -> COUNT = 2
+SETF  AMC RG /WG /SRI_D SRI_C /SRI_B /SRI_A     CLOCKF  NCLK1
+     CHECK /CNT_3 /CNT_2  CNT_1 /CNT_0  /CMPLT /RD_CLK
+;36 -> COUNT = 3
+SETF  AMC RG /WG /SRI_D SRI_C /SRI_B /SRI_A     CLOCKF  NCLK1
+     CHECK /CNT_3 /CNT_2  CNT_1  CNT_0  /CMPLT  RD_CLK
+;36s -> COUNT = 3
+SETF  AMC RG /WG /SRI_D SRI_C /SRI_B /SRI_A     CLOCKF  NCLK1
+     CHECK /CNT_3 /CNT_2  CNT_1  CNT_0  /CMPLT /RD_CLK
+;37 -> COUNT = 4
+SETF  AMC RG /WG /SRI_D SRI_C /SRI_B /SRI_A     CLOCKF  NCLK1
+     CHECK /CNT_3  CNT_2 /CNT_1 /CNT_0  /CMPLT  RD_CLK
+;37a -> COUNT = 4
+SETF  AMC RG /WG /SRI_D SRI_C /SRI_B /SRI_A     CLOCKF  NCLK1
+     CHECK /CNT_3  CNT_2 /CNT_1 /CNT_0  /CMPLT /RD_CLK
+;38 -> COUNT = 0; set CMPLT HIGH
+SETF  AMC RG /WG /SRI_D SRI_C /SRI_B /SRI_A     CLOCKF  NCLK1
+     CHECK /CNT_3 /CNT_2 /CNT_1 /CNT_0   CMPLT  RD_CLK
+
+;======= circuit synchronized, start AM detection ============
+;39 -> (0000)0100,00000100 = decode 2 address mark patterns
+SETF  AMC  RG /WG /INP_3 /INP_2 /INP_1 /INP_0   CLOCKF  CLK1
+     CHECK /ST_2  ST_1  ST_0 /OUTPUT_1 /OUTPUT_0  VALID /AMF /AM_1 /AM_2
+;40 -> 00(0001)00,00000100
+SETF  AMC  RG /WG /INP_3 /INP_2 /INP_1  INP_0   CLOCKF  CLK1
+     CHECK  ST_2 /ST_1  ST_0 /OUTPUT_1 /OUTPUT_0  VALID /AMF /AM_1 /AM_2
+;41 -> 0000(0100),00000100
+SETF  AMC  RG /WG /INP_3  INP_2 /INP_1 /INP_0   CLOCKF  CLK1
+     CHECK  ST_2  ST_1 /ST_0 /OUTPUT_1 /OUTPUT_0  VALID /AMF /AM_1 /AM_2
+;42 -> 000001(00,00)000100
+SETF  AMC  RG /WG /INP_3 /INP_2 /INP_1 /INP_0   CLOCKF  CLK1
+     CHECK /ST_2 /ST_1 /ST_0 /OUTPUT_1 /OUTPUT_0  VALID /AMF  AM_1 /AM_2
+;43 -> 00000100,(0000)0100
+SETF  AMC  RG /WG /INP_3 /INP_2 /INP_1 /INP_0   CLOCKF  CLK1
+     CHECK /ST_2  ST_1  ST_0 /OUTPUT_1 /OUTPUT_0  VALID /AMF  AM_1 /AM_2
+;44 -> 00000100,00(0001)00
+SETF  AMC  RG /WG /INP_3 /INP_2 /INP_1  INP_0   CLOCKF  CLK1
+     CHECK  ST_2 /ST_1  ST_0 /OUTPUT_1 /OUTPUT_0  VALID /AMF  AM_1 /AM_2
+;45 -> 00000100,0000(0100)
+SETF  AMC  RG /WG /INP_3  INP_2 /INP_1 /INP_0   CLOCKF  CLK1
+     CHECK  ST_2  ST_1 /ST_0 /OUTPUT_1 /OUTPUT_0  VALID /AMF  AM_1 /AM_2
+;46 -> 00000100,000001(00)0000
+SETF  AMC  RG /WG /INP_3 /INP_2 /INP_1 /INP_0   CLOCKF  CLK1
+     CHECK /ST_2 /ST_1 /ST_0 /OUTPUT_1 /OUTPUT_0  VALID /AMF  AM_1  AM_2
+;47 -> 00000100,00000100(00)00
+SETF  AMC  RG /WG /INP_3 /INP_2 /INP_1 /INP_0   CLOCKF  CLK1
+     CHECK /ST_2  ST_1  ST_0 /OUTPUT_1 /OUTPUT_0  VALID  AMF  AM_1  AM_2
+TRACE_OFF
+

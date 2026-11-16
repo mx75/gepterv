@@ -1,0 +1,63 @@
+ğ
+PATTERN
+Overview
+This is the keyword that begins the statement defining the design's
+pattern, which is useful for documentation purposes.
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+    PATTERN        Design pattern
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Device Support:  All PLD devices.
+ú
+Syntax
+Use the PATTERN keyword in the declaration segment of Boolean and
+state- machine designs.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+    PATTERN        Design Pattern
+
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+    TITLE        
+    PATTERN        F00345
+    REVISION        
+    AUTHOR        
+    COMPANY        
+    DATE        
+    CHIP  COUNTER  PAL16R8
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+
+Design Pattern  Identifies any combination of up to 60 alphanumeric
+                characters indicating the design's pattern.  The
+                following rules apply.
+
+                ş    Place the pattern statement after the title and
+                     before revision as shown in the syntax example.
+                     The software assumes this order.
+
+                ş    Write the pattern statement on one line.
+
+                ş    Do not use a dollar sign,$.
+
+                However, you can use reserved words within the pattern
+                statement.
+ú
+Use
+The PATTERN statement is optional.  If you do not include it, the
+software issues a warning and continues processing the file.  If you
+include multiple pattern statements, the software issues an error and
+stops processing the file.
+ú
+Related Topics
+AUTHOR
+COMPANY
+DATE
+Declaration Segment
+REVISION
+TITLE
+ú

@@ -1,0 +1,6 @@
+#
+load "20v8_lib.jdb"
+load "plfg_lib.jdb"
+load "dpa20v8.jdb"
+
+dpa20v8(0)

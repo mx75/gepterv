@@ -1,0 +1,124 @@
+; simple 4-byte to 1-double word buffer mapping example
+; with 3.3-volt CPU interface and 5-volt system interface
+
+Title       Byte Mapping Example
+Pattern     1
+Revision    1
+Date        Current Date
+
+CHIP    byte_map1    EPX780QC132
+
+    ; PINLIST
+
+PIN		WR_		; Write
+PIN		RD_		; Read
+
+PIN		SDATA[0:7]	5VOLT	; System Data 0-System Data 7
+PIN		SDATA[8:15]	5VOLT	; System Data 8-System Data 15
+PIN		SDATA[16:23]	5VOLT	; System Data 16-System Data 23
+PIN		SDATA[24:31]	5VOLT	; System Data 24-System Data 31
+
+PIN		LDATA[0:31]	3VOLT	; CPU Local Data 0-31
+
+EQUATIONS
+
+	SDATA[0:7]  =  LDATA[0:7] * /WR_
+	LDATA[0:7]  =  SDATA[0:7] * /RD_
+	SDATA[0:7].TRST = /WR_ * RD_
+	LDATA[0:7].TRST = /RD_ * WR_
+	
+	SDATA[8:15]  =  LDATA[8:15] * /WR_
+	LDATA[8:15]  =  SDATA[8:15] * /RD_
+	SDATA[8:15].TRST = /WR_ * RD_
+	LDATA[8:15].TRST = /RD_ * WR_
+	
+	SDATA[16:23]  =  LDATA[16:23] * /WR_
+	LDATA[16:23]  =  SDATA[16:23] * /RD_
+	SDATA[16:23].TRST = /WR_ * RD_
+	LDATA[16:23].TRST = /RD_ * WR_
+	
+	SDATA[24:31]  =  LDATA[24:31] * /WR_
+	LDATA[24:31]  =  SDATA[24:31] * /RD_
+	SDATA[24:31].TRST = /WR_ * RD_
+	LDATA[24:31].TRST = /RD_ * WR_
+	
+SIMULATION
+
+; for simulation vectors are limited to a maximum of 24 signals.
+; 32-bit buses in this simulation section are divided into two
+; 16-bit buses.
+
+VECTOR CPUDATAH := [ LDATA[31:16] ]
+VECTOR CPUDATAL := [ LDATA[15:0] ]
+VECTOR SYSDATAH := [ SDATA[31:16] ]
+VECTOR SYSDATAL := [ SDATA[15:0] ]
+SETF  CPUDATAH := 0xFFFF  CPUDATAL := 0xFFFF
+      SYSDATAH := 0x0000  SYSDATAL := 0x0000  RD_  WR_
+
+; space out simulation 
+
+SETF  WR_  RD_
+SETF  WR_  RD_
+
+; CPU write
+
+SETF CPUDATAH := 0xAAAA  CPUDATAL := 0x5555
+SETF  WR_  RD_
+SETF  WR_  RD_
+SETF /WR_
+SETF /WR_
+SETF  WR_
+SETF  WR_
+
+; space out simulation 
+
+SETF  WR_  RD_
+SETF  WR_  RD_
+
+; CPU write
+
+SETF CPUDATAH := 0x5555  CPUDATAL := 0xAAAA
+SETF  WR_  RD_
+SETF  WR_  RD_
+SETF /WR_
+SETF /WR_
+SETF  WR_
+SETF  WR_
+
+; space out simulation 
+
+SETF  WR_  RD_
+SETF  WR_  RD_
+
+; CPU read
+
+SETF SYSDATAH := 0x4444  SYSDATAL := 0x6666
+SETF  WR_  RD_
+SETF  WR_  RD_
+SETF /RD_
+SETF /RD_
+SETF  RD_
+SETF  RD_
+
+; space out simulation 
+
+SETF  WR_  RD_
+SETF  WR_  RD_
+
+; CPU read
+
+SETF SYSDATAH := 0x2222  SYSDATAL := 0x3333
+SETF  WR_  RD_
+SETF  WR_  RD_
+SETF /RD_
+SETF /RD_
+SETF  RD_
+SETF  RD_
+
+; space out simulation 
+
+SETF  WR_  RD_
+SETF  WR_  RD_
+
+; end of simulation
+

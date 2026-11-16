@@ -1,0 +1,56 @@
+ğ
+MASTER_RESET
+Overview
+This reserved word selects the preset function on PLS devices that
+provide a preset/enable pin.
+
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+            MASTER_RESET
+
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Device Support:
+
+   PLS105     PLS167     PLS168
+ú
+Syntax
+You use this reserved word in the state segment of state-machine
+designs.
+
+SyntaxÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+            MASTER_RESET
+ExampleÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+            MEALY_MACHINE
+            MASTER_RESET
+            OUTPUT_HOLD  OUT1  OUT2
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+ú
+Definitions
+
+Master_Reset    This reserved word dedicates the preset/enable pin to
+                active high preset.  Conversely, the reserved word
+                OUTPUT_ENABLE dedicates the preset/enable pin to
+                active-low output enable.
+
+                ş  You can place MASTER_RESET anywhere within the
+                   setup and default statements.  It must precede the
+                   state-assignment and transition equations.
+
+                ş  You cannot use both MASTER_RESET and OUTPUT_ENABLE
+                   in the same design file.
+
+                When the device is preset, the state machine goes to
+                the state that has a value of all 1s.
+ú
+Use
+
+If you do not use MASTER_RESET or OUTPUT_ENABLE, the software selects
+preset as the default.  If you write a .SETF equation and do not use
+MASTER_RESET or OUTPUT_ENABLE, the software selects preset.  If you
+write a .TRST equation, the software selects output enable.
+ú
+Related Topics
+OUTPUT_ENABLE
+STATE
+ú

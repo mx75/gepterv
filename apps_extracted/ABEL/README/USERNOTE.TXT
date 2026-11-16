@@ -1,0 +1,64 @@
+
+
+JEDEC Simulation of MACH Devices
+-------------------------------------------------------------------------------
+
+The JEDEC simulator (Jedsim) does not support pin macrocells that have been
+declared as nodes. This application note describes a workaround for this 
+limitation.
+
+Figure 1 demonstrates a case where a pin and its corresponding pin macrocell
+are declared with unique signal names, but share the same pin/node number.
+
+ 
+         +-------+ node             
+    -----+D      |  Q1         | \        High-Z            +---+
+         |      Q+-------o-----+   >-----o      o-----o-----+< >| Pin F1
+    -----|>      |       |\    | /                    |     +---+
+         +-------+       |  \                         |
+                         |    \__ pin for             |
+    <--------------------+        Plasim              |
+                                                      |
+    <-------------------------------------------------+
+
+                               Figure 1.
+                  Pin Macrocell of Generic MACH Device
+
+
+DECLARATIONS
+
+    F1 PIN  3;            "I/O pin used as a dedicated input
+    Q1 NODE 3;            "I/O pin macrocell used as a buried register
+
+                               Figure 2.
+                       Source File Declaration
+
+
+Using Plasim you may successfully simulate pin F1 and pin macrocell Q1 as
+separate signals and directly observe the behavior of the buried register (Q1).
+Using Jedsim, the same test vectors fail simulation and report the following
+message(s):
+
+    'Z' found 'H' expected
+    or
+    'Z' found 'L' expected
+
+In essence, the Jedec simulator now reads the expected value for Q1 at the
+High-Z point in Figure 1 insted of at the Q-feedbackpin (pin for Plasim).
+
+A workaround in the ABEL Design Environment is to disable "Use .tmv File in
+PartMap: Trace Options". Disabling this option will force the Jedec simulator
+to read the test vectors from the Jedec file (which only tests signals that
+are observable at the device's pins). It does not affect the results of 
+Plasim; you can still simulate and observe the behavior of the pin F1 and the
+pin macrocell Q1 separately.
+
+Once you have disabled the "Use .tmv File" option, you can then select
+"Macro-Cell Format in PartMap: Trace Options" to view the level of the Q-
+feedback from the pin macrocell.
+
+If you are running ABEL from the command line in batch mode, Jedsim reads the
+test vectors from the Jedec file by default. Therefore, no corrective action
+is required.
+
+                         

@@ -1,0 +1,731 @@
+#
+#
+
+# func map_pin(pin)
+# arguments: $1 is dip package pin number
+# returns:   dip package pin number if a dip package was specd.
+#            plcc pin number if plcc package specd.
+#
+func map_pin()
+{
+	if (!JDBV_pinmap)
+		return $1
+	if ($1 == 1)
+		return 2
+	if ($1 == 2)
+		return 3
+	if ($1 == 3)
+		return 4
+	if ($1 == 4)
+		return 5
+	if ($1 == 5)
+		return 6
+	if ($1 == 6)
+		return 7
+	if ($1 == 7)
+		return 9
+	if ($1 == 8)
+		return 10
+	if ($1 == 9)
+		return 11
+	if ($1 == 10)
+		return 12
+	if ($1 == 11)
+		return 13
+	if ($1 == 12)
+		return 14
+	if ($1 == 13)
+		return 16
+	if ($1 == 14)
+		return 17
+	if ($1 == 15)
+		return 18
+	if ($1 == 16)
+		return 19
+	if ($1 == 17)
+		return 20
+	if ($1 == 18)
+		return 21
+	if ($1 == 19)
+		return 23
+	if ($1 == 20)
+		return 24
+	if ($1 == 21)
+		return 25
+	if ($1 == 22)
+		return 26
+	if ($1 == 23)
+		return 27
+	if ($1 == 24)
+		return 28
+	
+}
+# func v10_type() - return integer code for flavor of v10 architecture.
+# arguments - none
+# returns: 0 -straight v10 with/without ES
+#	   1 - vp10
+#	   2 - 85c22v10
+#	   -1 - unsupported/wrong number of fuses
+#
+func v10_type( ) {
+    x = jedec_fuses() - 1
+	# message "number of fuses = %d\n",x
+    if (x == 5837) #vp10
+        return ( 1 )
+    if (x == 5847) #85c22v10
+    	return ( 2 )
+    	
+#   Fuses == 5827 is a V10 straight.   Fuses == 5891 is a GAL22V10 with ES.
+    if ((x == 5827) || (x == 5891))
+        return ( 0 )
+    return ( -1 ) # not supported
+}
+
+func mc_addr( ) {
+
+     if ( $1 == 0 ) {       # MC #0 is asynchronous clear term
+        return( 0 )
+     }
+     else if ( $1 == 1 ) {
+        return( 5368 )
+     }
+     else if ( $1 == 2 ) {
+        return( 4884 )
+     }
+     else if ( $1 == 3 ) {
+        return( 4312 )
+     }
+     else if ( $1 == 4 ) {
+        return( 3652 )
+     }
+     else if ( $1 == 5 ) {
+        return( 2904 )
+     }
+     else if ( $1 == 6 ) {
+        return( 2156 )
+     }
+     else if ( $1 == 7 ) {
+        return( 1496 )
+     }
+     else if ( $1 == 8 ) {
+        return( 924 )
+     }
+     else if ( $1 == 9 ) {
+        return( 440 )
+     }
+     else if ( $1 == 10 ) {
+        return( 44 )
+     }
+     else if ( $1 == 11 ) {     # 11 is synchronous preset term
+        return( 5764 )
+     }
+     return( 0 )
+}
+
+#
+#
+func mc_term_used( ) {
+     mta_i = .
+
+     mta = mc_addr( $1 ) + ( $2 * 44 )
+     . = mta
+     end = mta + 44
+     while ( . < end ) {
+        if ( @. == 0 ) {
+             . = . + 1
+             if ( @. == 1 ) {
+                  . = mta_i
+                  return( 1 )                # Pterm used
+             }
+             else {
+                  . = mta_i
+                  return( 0 )                # Pterm is GND
+             }
+        }
+        if ( @. == 1 ) {
+             . = . + 1
+             if ( @. == 0 ) {
+                  . = mta_i
+                  return( 1 )                # Pterm used
+             }
+             else {
+                  . = mta_i
+                  return( 1 )                # Pterm is VCC
+             }
+        }
+        . = . + 2
+     }
+     . = mta_i
+     return( 1 )        # Pterm is VCC
+}
+
+#
+#
+func mc_terms( ) {                # number of terms in macrocell
+
+     if ( $1 == 1 ) {
+          return( 9 )
+     }
+     else if ( $1 == 2 ) {
+          return( 11 )
+     }
+     else if ( $1 == 3 ) {
+          return( 13 )
+     }
+     else if ( $1 == 4 ) {
+          return( 15 )
+     }
+     else if ( $1 == 5 ) {
+          return( 17 )
+     }
+     else if ( $1 == 6 ) {
+          return( 17 )
+     }
+     else if ( $1 == 7 ) {
+          return( 15 )
+     }
+     else if ( $1 == 8 ) {
+          return( 13 )
+     }
+     else if ( $1 == 9 ) {
+          return( 11 )
+     }
+     else if ( $1 == 10 ) {
+          return( 9 )
+     }
+
+     return( 0 )
+}
+
+
+#
+#
+func mc_used( ) {                # is the macrocell used ??
+     ma_i = .
+     ma_term_a = 0
+     ma_j = mc_terms( $1 )
+     while ( ma_term_a < ma_j ) {
+           if ( mc_term_used( $1, ma_term_a ) == 1 ) {        
+                return( 1 )
+           }
+           ma_term_a = ma_term_a + 1
+     }
+     . = ma_i
+     return( 0 )
+}
+
+#
+#
+func mc_term_inp( ) {                # is the macrocell term's input used ??
+     mtia_i = .
+     . = ( mc_addr( $1 ) + (( $2 * 44 ) + $3) )
+
+     if ( @. == 0 )
+     {
+        . = mtia_i
+        return( 1 )
+     }
+     . = mtia_i
+     return( 0 )
+}
+ 
+#
+# use the negative of a feedback, if applicable
+# $1 = column address
+#
+func use_neg( ) 
+{
+    mc_num = 0
+    if      ($1  <  2 ) return 0
+    else if ($1  > 39 ) return 0
+    else if ($1 == 2 ) mc_num = 10 # which mc feeds which column
+    else if ($1 == 3 ) mc_num = 10
+    else if ($1 == 6 ) mc_num = 9
+    else if ($1 == 7 ) mc_num = 9
+    else if ($1 == 10) mc_num = 8
+    else if ($1 == 11) mc_num = 8
+    else if ($1 == 14) mc_num = 7
+    else if ($1 == 15) mc_num = 7
+    else if ($1 == 18) mc_num = 6
+    else if ($1 == 19) mc_num = 6
+    else if ($1 == 22) mc_num = 5
+    else if ($1 == 23) mc_num = 5
+    else if ($1 == 26) mc_num = 4
+    else if ($1 == 27) mc_num = 4
+    else if ($1 == 30) mc_num = 3
+    else if ($1 == 31) mc_num = 3
+    else if ($1 == 34) mc_num = 2
+    else if ($1 == 35) mc_num = 2
+    else if ($1 == 38) mc_num = 1
+    else if ($1 == 39) mc_num = 1
+
+    if (mc_num == 0) return 0
+
+    i_mci = .             # save the current address
+#
+    if (v10_type() == 2) { # Altera device
+    	. = 5838 - mc_num
+    	s2 = @.
+    }
+    else s2 = 0
+
+    mc_num = mc_num * 2   # compute macrocell address, times # arch bits
+    . = 5828 - mc_num
+    s0 = @.
+    . = . + 1
+
+    s1 = @.
+
+    . = i_mci             # restore the original current address
+	
+# if s1 = 0 then output is registered, need to flip feedbacks if registered fb
+# i.e if s2 = 0
+# OR if s1 and s2 are both 1 then registered feedback with combinatorial out
+
+    if ((( s1 == 0 ) && (s2 == 0))  || ((s1 == 1) && (s2 == 1)))
+    {
+       if ( s0 == 0 ) # active low output, feedback matches
+       {
+           return ( 0 )   
+       }
+       return( 1 )        # REGS active high  (only case to invert the feedback)
+    }
+    return( 0 )
+}
+
+#
+# $1 = macrocell number
+# $2 = pterm in macrocell
+#
+func mc_term_gnd( ) {                # is the macrocell's term ground
+     mtg = 0
+
+     while ( mtg < 44 ) {
+         if ( mc_term_inp( $1, $2, mtg ) == 1 ) {
+              if ( mc_term_inp( $1, $2, mtg + 1 ) == 1 ) {
+                   return( 1 )
+              }  
+         }
+         mtg = mtg + 2
+     }   
+
+     return( 0 )
+}
+
+#
+# print a pterm for the device
+# $1 = macrocell number, 0-11
+# $2 = which pterm in macrocell to start at [0-n] NOTE: pterm 0 is the oe pterm!
+# $3 = number of pterms to print
+#
+proc print_pterm() {
+    need_and = 0
+    need_or = 0
+    factor_found = 0
+    gnd_found = 0
+    which_pterm = $2
+	count = 0
+    mtia_i = .
+    . =  (mc_addr( $1 ) + (which_pterm * 44))
+
+    while ( count < $3 ) 
+    {
+		 #message "macrocell %d, pterm %d, start %d\n",$1,which_pterm,.
+        if (mc_term_gnd($1, which_pterm ))
+        {
+            gnd_found = 1
+			# message "was ground\n"
+        }
+        else 
+        {
+            if ( need_or ) 
+            {
+                print "\n+ "
+                need_and = 0
+            }
+            eqn_column = 0
+            while ( eqn_column < 44 ) 
+            {
+                # do the "true" wordline
+                if ( @. == 0 ) 
+                {
+                    if ( need_and == 1 ) 
+                    {
+                        print "*"
+                        need_and = 0
+                    }
+                    print " in%dp", eqn_column
+                    if (use_neg(eqn_column) == 1)  print "' "
+                    else                           print " "
+
+                    factor_found = 1
+                    need_and = 1
+                    need_or = 1
+                }
+
+                # now do the "false" wordline
+                . = . + 1
+                if ( @. == 0 ) 
+                {
+                    if ( need_and == 1 ) 
+                    {
+                        print "*"
+                        need_and = 0
+                    }
+                    print " in%dp", eqn_column
+                    if (use_neg(eqn_column) == 1) print " "
+                    else                          print "' "
+
+                    factor_found = 1
+                    need_and = 1
+                    need_or = 1
+                }
+                eqn_column = eqn_column + 2
+                . = . + 1
+            }
+        }
+        which_pterm = which_pterm + 1
+		count = count + 1
+    }
+    . = mtia_i
+    if ((gnd_found == 1) && (factor_found == 0))
+        print " GND "
+    else if (factor_found == 0) 
+        print " VCC "
+    print ";\n\n"
+}
+
+#
+#
+func mc_is_gnd( ) {
+     mgnd = 1
+     mgnd_j = mc_terms( $1 )
+     while ( mgnd < mgnd_j ) {
+           if ( mc_term_gnd( $1, mgnd ) == 0 ) {
+                return( 0 )
+           }
+           mgnd = mgnd + 1
+     }
+     return( 1 )
+}
+
+#
+#
+func mc_invert( ) {
+     i_mci = .
+     the_mc = $1  * 2      # compute macrocell address, times # arch bits
+     . = 5828 - the_mc
+     if ( @. == 0 ) {
+          . = i_mci
+          return( 1 )                # inverted SOP
+     }
+     . = i_mci
+     return( 0 )
+}
+
+#
+#
+# returns   1=RORF, 2=ROIF, 3=COIF, 4=CORF
+#
+func mc_arch_type( ) {
+     i_mc_at = .
+
+     arch_os = ($1 - 1)      # compute macrocell address
+	 # message "mc: %d\n",$1
+     part_type = v10_type()       # check for vp10-ness of JEDEC
+     s2 = 0
+
+     if ( part_type > 0  ) { # vp10 or 85cv10
+        . = 5837 - arch_os
+		# print "s2 is at %d\n",.
+        s2 = @.
+     }
+     
+     arch_os = arch_os * 2      # macrocell address, times # arch bits 
+	 . = 5827 - arch_os
+	 # print "s1 is at %d\n",.
+     s1 = @.
+
+     . = i_mc_at
+
+     # message " s2=%d, ", s2
+     # message "s1=%d %%\n", s1
+
+     if ( s1 == 0 ) {
+        if ( ( part_type >= 1 ) && ( s2 == 1 ) ) {
+           return( 2 )     # REGS I/O feedback (ROIF)
+        }
+        return( 1 )        # REGS MC feedback  (RORF)
+     }
+     else if ( s1 == 1 ) {
+        if ( ( part_type == 2 ) && ( s2 == 1 ) ) {
+           return( 4 )     # COMB  w/ REG  feedback (CORF)
+        }
+
+        return( 3 )        # COMB I/O feedback (COIF)
+     }
+
+     return( -1 )
+}
+
+# func clk_inv(mc)
+# arguments: $1 - macrocell #
+# Returns: 1 if clk invert bit set
+#	   else 0
+
+func clk_inv( ) {
+		if ( v10_type() == 2  ) { #  85cv10 - get clock polarity
+			. = 5848 - $1
+			c0 = @. 
+			#message "checking %d\n",.
+			#message "bit  is %d\n",c0
+			if (c0 == 1) 
+				return (1)
+		}
+		return (0)
+}
+
+#
+# $1 =  macrocell number
+#
+proc mc_oe( ) {
+       need_and = 0
+       print "eq%d.oe =", $1
+       if ( mc_term_used( $1, 0 ) == 1 ) 
+       {
+            print_pterm($1, 0, 1)
+       }
+       else 
+       {
+            print " GND ;\n\n"
+       }
+}
+
+# func clk_eq() - print a clock eqn.
+# arguments: $1 =  macrocell number
+#
+proc clk_eq( ) {
+	if ((mc_arch_type($1) == 1)||(mc_arch_type($1) == 2)||(mc_arch_type($1) == 4)){
+		   print "eq%d.clk", $1
+		   if (clk_inv($1))
+		   	print "' = in0p ;\n\n"
+		   else
+		   	print " = in0p ;\n\n"
+	}
+}
+#
+#
+proc network( ) {
+     net_i = 1
+     nfb_i = 38
+     while ( net_i < 11 ) {
+         if ( mc_used( net_i ) == 1 ) {
+              arch = mc_arch_type( net_i )
+              if ( arch < 1 ) {
+                  print "%% WARNING - JDB: unknown configuration on mc %d defaulted to INP %%", net_i
+                  print "       in%dp ", nfb_i
+                  print "= INP( io%d )\n", net_i
+              }
+              else if ( arch == 4 ) { # corf
+                   print "       io%d, ", net_i
+                   print "in%dp", nfb_i
+                   print " = CORF( eq%d, eq%d.clk, async_reset, sync_preset,", net_i, net_i
+                   print " eq%d.oe )\n", net_i
+              }
+              else if ( arch == 3 ) {
+                   print "       io%d, ", net_i
+                   print "in%dp", nfb_i
+                   print " = COIF( eq%d,", net_i
+                   print " eq%d.oe )\n", net_i
+              }
+              else {
+                   print "       io%d, ", net_i
+                   print "in%dp", nfb_i
+                   if ( arch == 1 ) {
+                     print " = RORF( eq%d, eq%d.clk, async_reset, sync_preset,", net_i, net_i
+                   } else {
+                     print " = ROIF( eq%d, eq%d.clk, async_reset, sync_preset,", net_i, net_i
+                   }
+                   print " eq%d.oe )\n", net_i
+              }
+         }
+         else {
+              print "       in%dp ", nfb_i
+              print "= INP( io%d )\n", net_i
+         }
+         nfb_i = nfb_i - 4
+         net_i = net_i + 1
+     }
+}
+
+#
+#
+proc cntrl_equations( ) {
+     print "async_reset = "
+     print_pterm(0, 0, 1)
+
+     print "sync_preset = "
+     print_pterm(11, 0, 1)
+}
+
+#
+#
+proc equations( ) {
+     eq_i = 1
+     while ( eq_i < 11 ) {
+		 message "Processing Macrocell [ %d ]\n", eq_i
+         if ( mc_used( eq_i ) == 1 ) {
+              print "eq%d", eq_i
+              if ( mc_invert( eq_i ) == 1 ) {
+                   print "' = "
+              }
+              else {
+                   print " = "
+              }
+              eq_j = mc_terms( eq_i ) - 1
+              print_pterm(eq_i, 1, eq_j)
+              clk_eq( eq_i)
+              mc_oe( eq_i )
+        }
+        eq_i = eq_i + 1
+     }
+}
+
+#
+#
+proc fetch_outpins( ) {
+     inp_i = 1
+     pin_i = 14
+     need_comma = 0
+     while ( inp_i < 11 ) {
+        if ( mc_used( inp_i ) == 1 ) {
+           if ( need_comma == 1 ) {
+                print ",\n"
+           }
+           print "       io%d", inp_i
+           print "@%d", map_pin(pin_i)
+           need_comma = 1
+        }
+        inp_i = inp_i + 1
+        pin_i = pin_i + 1
+     }
+}
+
+#
+#
+proc fetch_inpins( ) {
+     inp_i = 1
+     pin_i = 14
+     need_comma = 1
+
+     print "INPUTS:\n"
+     print "       clk@%d, in2@%d, in3@%d, in4@%d, in5@%d,\n",map_pin(1),map_pin(2),map_pin(3),map_pin(4),map_pin(5)
+     print "       in6@%d, in7@%d, in8@%d, in9@%d, in10@%d, in11@%d, in13@%d",map_pin(6),map_pin(7),map_pin(8),map_pin(9),map_pin(10),map_pin(11),map_pin(13)
+
+     while ( inp_i < 11 ) {
+        if ( mc_used( inp_i ) == 0 ) {
+             if ( need_comma == 1 ) {
+                  print ",\n"
+             }
+             print "       io%d", inp_i
+             print "@%d", map_pin(pin_i)
+             need_comma = 1
+        }
+        inp_i = inp_i + 1
+        pin_i = pin_i + 1
+     }
+}
+
+proc            errmsg()
+{
+        if ($1 == 1)
+                message "ERROR JDBMAC: "
+        if ($1 == 2)
+                message "JEDEC Disassembly Errors Occurred.\n"
+}
+ 
+proc            infomsg()
+{
+        if ($1 == 1)
+                message "INFO JDBMAC: "
+        if ($1 == 2)
+                message "JEDEC Disassembly in progress...\n"
+        if ($1 == 3)
+                message "JEDEC Disassembly Successfully Completed\n"
+}
+
+#
+# Disassemble a 85C22V10 JEDEC file into ADF source code
+#
+        proc            da22v10() {
+                print "\n"
+                if ($1 == 1) {
+                        JDBV_pinmap = 1
+                        print "PART: N85C22V10\n"
+                        infomsg(1)
+                        message "N85C22V10 "
+                        infomsg(2)
+                } else if ($1 == 0) {
+                        JDBV_pinmap = 0
+                        print "PART: 85C22V10\n"
+                        infomsg(1)
+                        message "85C22V10 "
+                        infomsg(2)
+                } else if ($1 == 2) {
+                        print "PART: IPLD22V10D\n"
+                        infomsg(1)
+                        message "IPLD22V10D "
+                        infomsg(2)
+                        JDBV_pinmap = 0
+                } else if ($1 == 3) {
+                        JDBV_pinmap = 1
+                        print "PART: IPLD22V10N\n"
+                        infomsg(1)
+                        message "IPLD22V10N "
+                        infomsg(2)
+                }
+                if (v10_type( ) < 0) {
+                        errmsg(1)
+                        message "The source JEDEC file is incompatible with the 85CV10 device.\n"
+                        errmsg(1)
+                        errmsg(2)
+                        exit 1
+                }
+                print "\n"
+                fetch_inpins()
+                 
+                print "\n"
+                print "OUTPUTS:\n"
+                 
+                fetch_outpins()
+              
+                print "\n\n"
+                print "NETWORK:\n"
+                print "       clk   = INP(clk)\n"
+                print "       in4p  = INP(in2)\n"
+                print "       in8p  = INP(in3)\n"
+                print "       in12p = INP(in4)\n"
+                print "       in16p = INP(in5)\n"
+                print "       in20p = INP(in6)\n"
+                print "       in24p = INP(in7)\n"
+                print "       in28p = INP(in8)\n"
+                print "       in32p = INP(in9)\n"
+                print "       in36p = INP(in10)\n"
+                print "       in40p = INP(in11)\n"
+                print "       in42p = INP(in13)\n"
+                print "\n"
+
+                network( )
+
+                print "\n"
+                print "EQUATIONS:\n\n"
+                print "in0p = clk;\n\n"
+
+                cntrl_equations( )
+ 
+                equations( )
+     
+                print "END$\n"
+                infomsg(3)
+
+}

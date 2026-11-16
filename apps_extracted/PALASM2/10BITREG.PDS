@@ -1,0 +1,93 @@
+Title    10BitRegister
+Pattern  10BitReg.pds
+Revision A
+Author   Vincent Coli/Mehrnaz Hada
+Company  Monolithic Memories Inc., Santa Clara, CA
+Date     1/28/85
+  
+;The 10-bit register loads the data (D9-D0) on the rising
+;edge of the clock(CLK) into the register(Q9-Q0). The data
+;is held in the register until the next posiyive edge of
+;the clock.
+  
+; 
+;      /OC  CLK  D9-D0  Q9-Q0    Operation
+;      ------------------------------------
+;       H    X     X      Z      HI-Z
+;       L    C     D      D      Load
+;       L    L     X      Q      Hold
+;      ------------------------------------
+  
+  
+CHIP 10BitReg PAL20X10
+  
+CLK D0 D1 D2 D3 D4 D5 D6 D7 D8 D9 GND
+/OC Q9 Q8 Q7 Q6 Q5 Q4 Q3 Q2 Q1 Q0 VCC
+  
+EQUATIONS
+  
+/Q0 := /D0                              ;Load D0
+  
+/Q1 := /D1                              ;Load D1
+  
+/Q2 := /D2                              ;Load D2
+  
+/Q3 := /D3                              ;Load D3
+  
+/Q4 := /D4                              ;Load D4
+  
+/Q5 := /D5                              ;Load D5
+  
+/Q6 := /D6                              ;Load D6
+  
+/Q7 := /D7                              ;Load D7
+  
+/Q8 := /D8                              ;Load D8
+  
+/Q9 := /D9                              ;Load D9
+  
+  
+SIMULATION
+  
+TRACE_ON /OC CLK Q9 Q8 Q7 Q6 Q5 Q4 Q3 Q2 Q1 Q0
+          D9 D8 D7 D6 D5 D4 D3 D2 D1 D0
+  
+SETF OC /D9 /D8 /D7 /D6 /D5 /D4 /D3 /D2 /D1 /D0
+CLOCKF CLK                              ;Load all zeros
+  
+SETF D9 D8 D7 D6 D5 D4 D3 D2 D1 D0
+CLOCKF CLK                              ;Load all ones
+  
+SETF D9 /D8 D7 /D6 D5 /D4 D3 /D2 D1 /D0
+CLOCKF CLK
+  
+SETF /D9 D8 /D7 D6 /D5 D4 /D3 D2 /D1 D0
+CLOCKF CLK
+  
+SETF /OC
+CLOCKF CLK                              ;Test HI-Z
+  
+TRACE_OFF
+  
+;Function Table for PALASM1
+  
+;/OC CLK D9 D8 D7 D6 D5 D4 D3 D2 D1 D0
+;Q9 Q8 Q7 Q6 Q5 Q4 Q3 Q2 Q1 Q0
+  
+;           Data In      Data Out
+;Control   DDDDDDDDDD   QQQQQQQQQQ
+;/OC CLK   9876543210   9876543210   Comment
+;-----------------------------------------------------------
+; L   C    LLLLLLLLLL   LLLLLLLLLL   Load all zeros
+; L   L    XXXXXXXXXX   LLLLLLLLLL   Hold all zeros
+; L   C    HHHHHHHHHH   HHHHHHHHHH   Load all ones
+; L   L    XXXXXXXXXX   HHHHHHHHHH   Hold all ones
+; L   C    HLHLHLHLHL   HLHLHLHLHL   Load even checkerboard
+; L   L    XXXXXXXXXX   HLHLHLHLHL   Hold even checkerboard
+; L   C    LHLHLHLHLH   LHLHLHLHLH   Load odd  checkerboard
+; L   L    XXXXXXXXXX   LHLHLHLHLH   Hold odd  checkerboard
+; H   X    XXXXXXXXXX   ZZZZZZZZZZ   Test HI-Z
+;-----------------------------------------------------------
+  
+  
+

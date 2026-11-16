@@ -1,0 +1,89 @@
+Title    PC I/O Mapper
+Pattern  MemIO.pds
+Revision A
+Author   A G Gilbert
+Company  Monolithic Memories Inc., Santa Clara,CA
+Date     1/8/85
+  
+;Personal computers which are hardware compatible with the
+;ubiquitous IBM PC share this I/O map.
+  
+CHIP PC_IO PAL8L14
+  
+NC NC A9 A8 A7 A6 A5 A4 A3 AEN /CSMONOCHRMAD GND
+/CSGAMEIOAD /CSCOLORAD /CSPRINTERAD /CS5FLOPPYAD /CSRS232AD /CSNMIMKRG
+/CSDMAPGRG /CSPPICHIP /CSTIMERCHIP /CSINTCCHIP /CSDMACCHIP VCC
+  
+Equations
+  
+CSDMACCHIP = /A9*/A8*/A7*/A6*/A5       ;DMA controller
+           * /A4*/AEN                  ;Chip select
+                                       ;HEX address 000-00F
+  
+CSINTCCHIP = /A9*/A8*/A7*/A6*A5        ;Interupt controller
+           * /A4*/A3*/AEN              ;Chip select
+                                       ;HEX address 020-021
+  
+CSTIMERCHIP = /A9*/A8*/A7*A6*/A5       ;Timer
+            * /A4*/A3*/AEN             ;Chip select
+                                       ;HEX address 040-043
+  
+CSPPICHIP = /A9*/A8*/A7*A6*A5          ;Parallel peripheral interface
+          * /A4*/A3*/AEN               ;Chip select
+                                       ;HEX address 060-063
+  
+CSDMAPGRG = /A9*/A8*A7*/A6*/A5         ;DMA page register
+          * /A4*/A3*/AEN               ;Chip select
+                                       ;HEX address 080-083
+  
+CSNMIMKRG = /A9*/A8*A7*/A6*A5          ;NMI mask register
+          * /A4*/AEN                   ;Chip select
+                                       ;HEX address 0AX
+  
+CSRS232AD = A9*A8*A7*A6*A5             ;RS 232 module
+          * A4*A3*/AEN                 ;Device select
+                                       ;HEX address 3F8-3FF
+  
+CS5FLOPPYAD = A9*A8*A7*A6*A5           ;5.25 floppy disk module
+            * A4*/A3*/AEN              ;Device select
+                                       ;HEX address 3F0-3F7
+  
+CSPRINTERAD = A9*/A8*/A7*A6*A5         ;Parallel printer module
+            * A4*A3*/AEN               ;Device select
+                                       ;HEX address 378-37F
+  
+CSCOLORAD = A9*A8*A7*A6*/A5            ;Color graphics video module
+          * A4*/AEN                    ;Device select
+                                       ;HEX address 3D0-3DF
+  
+CSGAMEIOAD = A9*/A8*/A7*/A6*/A5        ;Game I/O module
+           * /A4*/AEN                  ;Device select
+                                       ;HEX address 200-20F
+  
+CSMONOCHRMAD = A9*A8*A7*/A6*A5         ;Monochrome video module
+             * A4*/AEN                 ;Device select
+                                       ;HEX address 3B0-3BF
+  
+  
+SIMULATION
+  
+TRACE_ON  A9 A8 A7 A6 A5 A4 A3 AEN /CSMONOCHRMAD
+         /CSGAMEIOAD /CSCOLORAD /CSPRINTERAD /CS5FLOPPYAD
+         /CSRS232AD /CSNMIMKRG /CSDMAPGRG /CSPPICHIP
+         /CSTIMERCHIP /CSINTCCHIP /CSDMACCHIP
+SETF AEN
+SETF /A9 /A8 /A7 /A6 /A5 /A4 /A3 /AEN
+SETF  A5
+SETF  A6
+SETF /A5  A7
+SETF  A5
+SETF  A4 /A6
+SETF  A9  A8  A7  A6  A5  A4  A3
+SETF /A3
+SETF /A5
+SETF /A4 /A6 /A7 /A8
+SETF  A9  A8  A7 /A6  A5  A4
+  
+TRACE_OFF
+  
+

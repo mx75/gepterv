@@ -1,0 +1,49 @@
+Name            TTL-TEST;
+Partno          CA0001;
+Revision        01;
+Date            11/12/89;
+Designer        J. Liu;
+Company         Logical Devices, Inc.;
+Location        None;
+Assembly        None;
+Device          P16L8;
+
+/****************************************************************/
+/*                                                              */
+/*      This is an example to demonstrate how CUPL can be       */
+/*      used to incorporate TTL devices into CUPL syntax.       */
+/*                                                              */
+/****************************************************************/
+/*      Target Devices:  P16L8                                  */
+/****************************************************************/
+
+
+$include ttl.m
+
+
+/**  Inputs  **/
+
+Pin     1    = CLK       ;      /*                                */
+Pin     2    = INA       ;      /*                                */
+Pin     3    = INB       ;      /*                                */
+Pin     4    = INC       ;      /*                                */
+Pin     5    = IND       ;      /*                                */
+Pin     6    = INE       ;      /*                                */
+Pin     7    = INF       ;      /*                                */
+Pin     8    = ING       ;      /*                                */
+Pin     9    = INH       ;      /*                                */
+
+
+/**  Outputs  **/
+
+Pin    13    = OUT13     ;      /*                                */
+Pin    18    = OUT18     ;      /*                                */
+
+
+/**  Logic Equations  **/
+
+TTLSN7400( INA, INB, IM1, INC, IND, IM2, GND, NC, NC, NC, NC, NC, NC, VCC );
+TTLSN7402( IM1, IM2, OUT18, NC, NC, NC, GND, NC, NC, NC, NC, NC, NC, VCC );
+TTLSN7454( INA, INB, INC, IND, INE, NC, GND, OUT13, INF, ING, NC, NC, INH, VCC );
+
+

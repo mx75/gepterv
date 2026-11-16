@@ -1,0 +1,201 @@
+TITLE FIFO1 (merged design)
+
+CHIP FIFO1 EPX780QC132
+
+PIN          A0
+PIN          A1
+PIN          A2
+PIN          A3
+PIN          A4
+PIN          A5
+PIN          A6
+PIN          CLK
+PIN          DIN0
+PIN          DIN1
+PIN          DIN2
+PIN          DIN3
+PIN          DIN4
+PIN          DIN5
+PIN          DIN6
+PIN          DIN7
+PIN          DIN8
+PIN          DOUT0
+PIN          DOUT1
+PIN          DOUT2
+PIN          DOUT3
+PIN          DOUT4
+PIN          DOUT5
+PIN          DOUT6
+PIN          DOUT7
+PIN          DOUT8
+PIN         /EMPTY_
+PIN          ENABLE_
+PIN         /FULL_
+PIN         /OE_
+PIN          RD_
+PIN          WR_
+NODE         Q0                  ; buried
+NODE         Q1                  ; buried
+NODE         Q2                  ; buried
+NODE         REQW                ; buried
+PIN          RP0
+PIN          RP1
+PIN          RP2
+PIN          RP3
+PIN          RP4
+PIN          RP5
+PIN          RP6
+PIN          WP0
+PIN          WP1
+PIN          WP2
+PIN          WP3
+PIN          WP4
+PIN          WP5
+PIN          WP6
+
+module MUXCOMP ( A0=A0,
+            A1=A1,
+            A2=A2,
+            A3=A3,
+            A4=A4,
+            A5=A5,
+            A6=A6,
+            CLK=CLK,
+            EMPTY_=EMPTY_,
+            FULL_=FULL_,
+            Q0=Q0,
+            Q1=Q1,
+            Q2=Q2,
+            RD_=RD_,
+            REQW=REQW,
+            RP0=RP0,
+            RP1=RP1,
+            RP2=RP2,
+            RP3=RP3,
+            RP4=RP4,
+            RP5=RP5,
+            RP6=RP6,
+            WP0=WP0,
+            WP1=WP1,
+            WP2=WP2,
+            WP3=WP3,
+            WP4=WP4,
+            WP5=WP5,
+            WP6=WP6,
+            WR_=WR_ )
+
+module RDPTR ( EMPTY_=EMPTY_,
+            ENABLE_=ENABLE_,
+            RD_=RD_,
+            RP0=RP0,
+            RP1=RP1,
+            RP2=RP2,
+            RP3=RP3,
+            RP4=RP4,
+            RP5=RP5,
+            RP6=RP6,
+            WR_=WR_ )
+
+module SRAM ( A0=A0,
+            A1=A1,
+            A2=A2,
+            A3=A3,
+            A4=A4,
+            A5=A5,
+            A6=A6,
+            DIN0=DIN0,
+            DIN1=DIN1,
+            DIN2=DIN2,
+            DIN3=DIN3,
+            DIN4=DIN4,
+            DIN5=DIN5,
+            DIN6=DIN6,
+            DIN7=DIN7,
+            DIN8=DIN8,
+            DOUT0=DOUT0,
+            DOUT1=DOUT1,
+            DOUT2=DOUT2,
+            DOUT3=DOUT3,
+            DOUT4=DOUT4,
+            DOUT5=DOUT5,
+            DOUT6=DOUT6,
+            DOUT7=DOUT7,
+            DOUT8=DOUT8,
+            ENABLE_=ENABLE_,
+            OE_=OE_,
+            WR_=WR_ )
+
+module WTPTR ( ENABLE_=ENABLE_,
+            FULL_=FULL_,
+            RD_=RD_,
+            WP0=WP0,
+            WP1=WP1,
+            WP2=WP2,
+            WP3=WP3,
+            WP4=WP4,
+            WP5=WP5,
+            WP6=WP6,
+            WR_=WR_ )
+
+; simulation section for merged design - FIFO1.PDS
+; (RDPTR.PDS + WTPTR.PDS + SRAM.PDS + MUXCOMP.PDS)
+
+SIMULATION
+
+; form vectors for ease of description
+VECTOR INDAT  := [  DIN8  DIN7  DIN6  DIN5  DIN4  DIN3  DIN2  DIN1  DIN0 ]
+VECTOR OUTDAT := [ DOUT8 DOUT7 DOUT6 DOUT5 DOUT4 DOUT3 DOUT2 DOUT1 DOUT0 ]
+VECTOR SADDR  := [  A6  A5  A4  A3  A2  A1  A0 ]
+VECTOR MACHN  := [  EMPTY_ FULL_ Q2  Q1  Q0 ]
+VECTOR RPTR   := [ RP6 RP5 RP4 RP3 RP2 RP1 RP0 ]
+VECTOR WPTR   := [ WP6 WP5 WP4 WP3 WP2 WP1 WP0 ]
+
+; specify signals to be in trace (.TRF) file
+TRACE_ON  CLK  WR_  RD_  INDAT  OUTDAT  SADDR  MACHN  FULL_  EMPTY_ 
+          RPTR WPTR ENABLE_
+
+; initialize inputs
+SETF  INDAT := 0x1FF  CLK  ENABLE_  RD_  WR_  OE_
+
+; initialize registers
+PRLDF /RP0 /RP1 /RP2 /RP3 /RP4 /RP5 /RP6
+      /WP0 /WP1 /WP2 /WP3 /WP4 /WP5 /WP6
+      /Q2  /Q1  /Q0  /EMPTY_  /FULL_
+
+; idle for 2 clocks
+
+CLOCKF CLK
+CLOCKF CLK
+
+; write 5 consecutive locations
+
+FOR WRITELOOP := 0 TO 4 DO
+    BEGIN
+        CLOCKF CLK
+        SETF INDAT := WRITELOOP
+        SETF /WR_ 
+        SETF /ENABLE_
+        CLOCKF CLK
+        SETF  ENABLE_
+        SETF  WR_
+    END
+
+; idle for 2 clocks
+
+CLOCKF CLK
+CLOCKF CLK
+
+; read 5 consecutive locations
+
+FOR READLOOP := 0 TO 4 DO
+    BEGIN
+        SETF /RD_ /ENABLE_ /OE_
+        CLOCKF CLK
+        SETF  RD_ ENABLE_ OE_
+        CLOCKF CLK
+    END
+
+TRACE_OFF
+; end of simulation
+
+

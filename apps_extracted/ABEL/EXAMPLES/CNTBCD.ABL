@@ -1,0 +1,45 @@
+module CNTBCD
+title 'Decade counter and 7-segment decoder'
+
+    Clk, Reset, OE   pin;
+    D3..D0           pin istype 'dc,reg,invert';
+    a,b,c,d,e,f,g    pin istype 'dc,com';
+
+    bcd = [D3..D0];
+    led = [a,b,c,d,e,f,g];
+
+    ON,OFF = 0,1;    "Inverted sense for common anode LEDs
+
+equations
+
+    bcd := (bcd.fb + 1) & (bcd.fb < 9) & !Reset;
+
+    bcd.clk = Clk;
+    led.oe = !OE;
+
+truth_table (bcd.fb -> [  a,  b,  c,  d,  e,  f,  g])
+                0   -> [ ON, ON, ON, ON, ON, ON,OFF];
+                1   -> [OFF, ON, ON,OFF,OFF,OFF,OFF];
+                2   -> [ ON, ON,OFF, ON, ON,OFF, ON];
+                3   -> [ ON, ON, ON, ON,OFF,OFF, ON];
+                4   -> [OFF, ON, ON,OFF,OFF, ON, ON];
+                5   -> [ ON,OFF, ON, ON,OFF, ON, ON];
+                6   -> [ ON,OFF, ON, ON, ON, ON, ON];
+                7   -> [ ON, ON, ON,OFF,OFF,OFF,OFF];
+                8   -> [ ON, ON, ON, ON, ON, ON, ON];
+                9   -> [ ON, ON, ON, ON,OFF, ON, ON];
+
+test_vectors([Clk,OE,Reset]->[bcd,  a,  b,  c,  d,  e,  f,  g])
+             [.c., 0,  1  ]->[ 0 , ON, ON, ON, ON, ON, ON,OFF];
+             [.c., 0,  0  ]->[ 1 ,OFF, ON, ON,OFF,OFF,OFF,OFF];
+             [.c., 0,  0  ]->[ 2 , ON, ON,OFF, ON, ON,OFF, ON];
+             [.c., 0,  0  ]->[ 3 , ON, ON, ON, ON,OFF,OFF, ON];
+             [.c., 0,  0  ]->[ 4 ,OFF, ON, ON,OFF,OFF, ON, ON];
+             [.c., 0,  0  ]->[ 5 , ON,OFF, ON, ON,OFF, ON, ON];
+             [.c., 1,  0  ]->[.x.,.z.,.z.,.z.,.z.,.z.,.z.,.z.];
+             [.c., 0,  0  ]->[ 7 , ON, ON, ON,OFF,OFF,OFF,OFF];
+             [.c., 0,  0  ]->[ 8 , ON, ON, ON, ON, ON, ON, ON];
+             [.c., 0,  0  ]->[ 9 , ON, ON, ON, ON,OFF, ON, ON];
+             [.c., 0,  0  ]->[ 0 , ON, ON, ON, ON, ON, ON,OFF];
+             [.c., 0,  0  ]->[ 1 ,OFF, ON, ON,OFF,OFF,OFF,OFF];
+end

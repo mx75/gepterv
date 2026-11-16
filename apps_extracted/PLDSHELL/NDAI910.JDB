@@ -1,0 +1,7 @@
+# execute disassembly for plcc NIPLD910
+
+
+load "da090.jdb"
+
+de090(4)
+

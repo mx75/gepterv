@@ -1,0 +1,262 @@
+;PALASM Design Description
+
+;---------------------------------- Declaration Segment ------------
+TITLE    COUNTER FOLLOWED BY MULTIPLEXER
+PATTERN  B
+REVISION 1.0
+AUTHOR   GEORGE LANDERS
+COMPANY  ADVANCED MICRO DEVICES, INC.
+DATE     03/15/90
+
+CHIP  CNTMUX  MACH110
+pin 1 gnd
+pin 44 vcc
+pin 35 CLK
+
+;---------------------------------- PIN Declarations ---------------
+PIN  ?          COUNT                           ;
+PIN  ?          UP                              ;
+PIN  ?          LOAD                            ;
+PIN  ?          SELECT                          ;
+PIN  ?          I0                              ;
+PIN  ?          I1                              ;
+PIN  ?          I2                              ;
+PIN  ?          I3                              ;
+PIN  ?          I4                              ;
+PIN  ?          I5                              ;
+PIN  ?          I6                              ;
+PIN  ?          I7                              ;
+PIN  ?          I8                              ;
+PIN  ?          I9                              ;
+PIN  ?          I10                             ;
+PIN  ?          I11                             ;
+PIN  ?          I12                             ;
+PIN  ?          I13                             ;
+PIN  ?          I14                             ;
+PIN  ?          I15                             ;
+PIN  ?          O0                   COMBINATORIAL ;
+PIN  ?          O1                   COMBINATORIAL ;
+PIN  ?          O2                   COMBINATORIAL ;
+PIN  ?          O3                   COMBINATORIAL ;
+PIN  ?          O4                   COMBINATORIAL ;
+PIN  ?          O5                   COMBINATORIAL ;
+PIN  ?          O6                   COMBINATORIAL ;
+PIN  ?          O7                   COMBINATORIAL ;
+PIN  ?          O8                   COMBINATORIAL ;
+PIN  ?          O9                   COMBINATORIAL ;
+PIN  ?          O10                  COMBINATORIAL ;
+PIN  ?          O11                  COMBINATORIAL ;
+PIN  ?          O12                  COMBINATORIAL ;
+PIN  ?          O13                  COMBINATORIAL ;
+PIN  ?          O14                  COMBINATORIAL ;
+PIN  ?          O15                  COMBINATORIAL ;
+NODE ?          Q0                   REGISTERED ;
+NODE ?          Q1                   REGISTERED ;
+NODE ?          Q2                   REGISTERED ;
+NODE ?          Q3                   REGISTERED ;
+NODE ?          Q4                   REGISTERED ;
+NODE ?          Q5                   REGISTERED ;
+NODE ?          Q6                   REGISTERED ;
+NODE ?          Q7                   REGISTERED ;
+NODE ?          Q8                   REGISTERED ;
+NODE ?          Q9                   REGISTERED ;
+NODE ?          Q10                  REGISTERED ;
+NODE ?          Q11                  REGISTERED ;
+NODE ?          Q12                  REGISTERED ;
+NODE ?          Q13                  REGISTERED ;
+NODE ?          Q14                  REGISTERED ;
+NODE ?          Q15                  REGISTERED ;
+group mach_seg_a o7 o6 o5 o4 o3 o2 o1 o0  q7 q6 q5 q4 q3 q2 q1 q0
+group mach_seg_b o15 o14 o13 o12 o11 o10 o9 o8 q15 q14 q13 q12 q11 q10 q9 q8
+;----------------------------------- Boolean Equation Segment ------
+EQUATIONS
+
+Q0.T := COUNT
+      + LOAD * I0 * /Q0
+      + LOAD * /I0 * Q0
+Q0.CLKF=CLK
+Q0.RSTF=GND
+Q0.SETF=GND
+
+Q1.T := COUNT * UP * Q0
+      + COUNT * /UP * /Q0
+      + LOAD * I1 * /Q1
+      + LOAD * /I1 * Q1
+Q1.CLKF=CLK
+Q1.RSTF=GND
+Q1.SETF=GND
+
+Q2.T := COUNT * UP * Q0 * Q1
+      + COUNT * /UP * /Q0 * /Q1
+      + LOAD * I2 * /Q2
+      + LOAD * /I2 * Q2
+Q2.CLKF=CLK
+Q2.RSTF=GND
+Q2.SETF=GND
+
+Q3.T := COUNT * UP * Q0 * Q1 * Q2
+      + COUNT * /UP * /Q0 * /Q1 * /Q2
+      + LOAD * I3 * /Q3
+      + LOAD * /I3 * Q3
+Q3.CLKF=CLK
+Q3.RSTF=GND
+Q3.SETF=GND
+
+Q4.T := COUNT * UP * Q0 * Q1 * Q2 * Q3
+      + COUNT * /UP * /Q0 * /Q1 * /Q2 * /Q3
+      + LOAD * I4 * /Q4
+      + LOAD * /I4 * Q4
+Q4.CLKF=CLK
+Q4.RSTF=GND
+Q4.SETF=GND
+
+Q5.T := COUNT * UP * Q0 * Q1 * Q2 * Q3 * Q4
+      + COUNT * /UP * /Q0 * /Q1 * /Q2 * /Q3 * /Q4
+      + LOAD * I5 * /Q5
+      + LOAD * /I5 * Q5
+Q5.CLKF=CLK
+Q5.RSTF=GND
+Q5.SETF=GND
+
+Q6.T := COUNT * UP * Q0 * Q1 * Q2 * Q3 * Q4 * Q5
+      + COUNT * /UP * /Q0 * /Q1 * /Q2 * /Q3 * /Q4 * /Q5
+      + LOAD * I6 * /Q6
+      + LOAD * /I6 * Q6
+Q6.CLKF=CLK
+Q6.RSTF=GND
+Q6.SETF=GND
+
+Q7.T := COUNT * UP * Q0 * Q1 * Q2 * Q3 * Q4 * Q5 *Q6
+      + COUNT * /UP * /Q0 * /Q1 * /Q2 * /Q3 * /Q4 * /Q5 * /Q6
+      + LOAD * I7 * /Q7
+      + LOAD * /I7 * Q7
+Q7.CLKF=CLK
+Q7.RSTF=GND
+Q7.SETF=GND
+
+Q8.T := COUNT
+      + LOAD * I8 * /Q8
+      + LOAD * /I8 * Q8
+Q8.CLKF=CLK
+Q8.RSTF=GND
+Q8.SETF=GND
+
+Q9.T := COUNT * UP * Q8
+      + COUNT * /UP * /Q8
+      + LOAD * I9 * /Q9
+      + LOAD * /I9 * Q9
+Q9.CLKF=CLK
+Q9.RSTF=GND
+Q9.SETF=GND
+
+Q10.T := COUNT * UP * Q8 * Q9
+      + COUNT * /UP * /Q8 * /Q9
+      + LOAD * I10 * /Q10
+      + LOAD * /I10 * Q10
+Q10.CLKF=CLK
+Q10.RSTF=GND
+Q10.SETF=GND
+
+Q11.T := COUNT * UP * Q8 * Q9 * Q10
+      + COUNT * /UP * /Q8 * /Q9 * /Q10
+      + LOAD * I11 * /Q11
+      + LOAD * /I11 * Q11
+Q11.CLKF=CLK
+Q11.RSTF=GND
+Q11.SETF=GND
+
+Q12.T := COUNT * UP * Q8 * Q9 * Q10 * Q11
+      + COUNT * /UP * /Q8 * /Q9 * /Q10 * /Q11
+      + LOAD * I12 * /Q12
+      + LOAD * /I12 * Q12
+Q12.CLKF=CLK
+Q12.RSTF=GND
+Q12.SETF=GND
+
+Q13.T := COUNT * UP * Q8 * Q9 * Q10 * Q11 * Q12
+      + COUNT * /UP * /Q8 * /Q9 * /Q10 * /Q11 * /Q12
+      + LOAD * I13 * /Q13
+      + LOAD * /I13 * Q13
+Q13.CLKF=CLK
+Q13.RSTF=GND
+Q13.SETF=GND
+
+Q14.T := COUNT * UP * Q8 * Q9 * Q10 * Q11 * Q12 * Q13
+      + COUNT * /UP * /Q8 * /Q9 * /Q10 * /Q11 * /Q12 * /Q13
+      + LOAD * I14 * /Q14
+      + LOAD * /I14 * Q14
+Q14.CLKF=CLK
+Q14.RSTF=GND
+Q14.SETF=GND
+
+Q15.T := COUNT * UP * Q8 * Q9 * Q10 * Q11 * Q12 * Q13 *Q14
+      + COUNT * /UP * /Q8 * /Q9 * /Q10 * /Q11 * /Q12 * /Q13 * /Q14
+      + LOAD * I15 * /Q15
+      + LOAD * /I15 * Q15
+Q15.CLKF=CLK
+Q15.RSTF=GND
+Q15.SETF=GND
+
+O0 = SELECT * I0
+   + /SELECT * Q0
+
+O1 = SELECT * I1
+   + /SELECT * Q1
+
+O2 = SELECT * I2
+   + /SELECT * Q2
+
+O3 = SELECT * I3
+   + /SELECT * Q3
+
+O4 = SELECT * I4
+   + /SELECT * Q4
+
+O5 = SELECT * I5
+   + /SELECT * Q5
+
+O6 = SELECT * I6
+   + /SELECT * Q6
+
+O7 = SELECT * I7
+   + /SELECT * Q7
+
+O8 = SELECT * I8
+   + /SELECT * Q8
+
+O9 = SELECT * I9
+   + /SELECT * Q9
+
+O10 = SELECT * I10
+   + /SELECT * Q10
+
+O11 = SELECT * I11
+   + /SELECT * Q11
+
+O12 = SELECT * I12
+   + /SELECT * Q12
+
+O13 = SELECT * I13
+   + /SELECT * Q13
+
+O14 = SELECT * I14
+   + /SELECT * Q14
+
+O15 = SELECT * I15
+   + /SELECT * Q15
+
+;----------------------------------- Simulation Segment ------------
+SIMULATION
+TRACE_ON LOAD COUNT SELECT I0 I1 I2 I3 I4 I5 I6 I7 I8 I9 I10 I11 I12 I13 I14 I15 Q0 Q1 Q2 Q3 Q4 Q5 Q6 Q7 Q8 Q9 Q10 Q11 Q12 Q13 Q14 Q15 O1 O2 O3 O4 O5 O6 O7 O8 O9 O10 O11 O12 O13 O14 O15
+PRELOAD /Q0 /Q1 /Q2 /Q3 /Q4 /Q5 /Q6 /Q7 /Q8 /Q9 /Q10 /Q11 /Q12 /Q13 /Q14 /Q15
+SETF /LOAD COUNT UP /SELECT
+FOR I:=1 TO 64  DO BEGIN CLOCKF CLK END
+SETF LOAD /COUNT UP /SELECT /I0 /I1 /I2 /I3 /I4 /I5 /I6 /I7 I8 I9 I10 I11 I12 I13
+I14 I15
+CLOCKF CLK
+SETF /LOAD COUNT  SELECT
+FOR I:=1 TO 16 DO BEGIN CLOCKF CLK END
+SETF /SELECT /UP COUNT
+FOR I:=1 TO 64 DO BEGIN CLOCKF CLK END
+TRACE_OFF
+

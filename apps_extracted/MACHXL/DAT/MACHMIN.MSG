@@ -1,0 +1,292 @@
+101 MACHMIN [...]     Minimize tre file and put result back to tre file.
+101       -tre2pla    Convert tre file to pla file.
+101       -efast      Fast minimization (faster but not optimal).
+101       -log <file> Capture screen messages to disk file.
+101       -?          Print out help screen.
+101       -tre        [trefile[.ext]] input and output tre file
+101       -pla        [plafile[.ext]] input and output pla file
+101       -p <number> Gate splitting.
+101       -a          Polarity as specified
+101       -ao         Best polarity selection
+101       -ah         Active-high polarity selection
+101       -al         Active-low polarity selection
+101       -dt         Convert to the best of D or T register logic.
+101       -d          Convert to D register logic.
+101       -t          Convert to T register logic.
+101       -id         Convert only JK and RS to D register logic.
+101       -it         Convert only JK and RS to T register logic.
+101       -idt        Convert only JK and RS to the best of D or T.
+101     DEFAULTS:
+101       log file extension: .LOG.
+101       log file name: MACHXL2.LOG.
+101       input-output file extensions: .TRE
+101       input-output filenames: MACHXL2.TRE
+103 |> WARNING L102 Log filename %s is same as input or output filename.
+103              Defaulting log filename to PALASM2.LOG.
+104 |> ERROR L104 Input filename %s is same as output filename.
+105 |> ERROR L105 Output filename %s is same as input filename.
+106 |> ERROR L106 Auxiliary input filename %s is same as input filename.
+107 |> ERROR L107 Auxiliary output filename %s is same as output filename.
+108 |> ERROR L108 %s parameter argument "%s" is not a number.
+109 |> ERROR L109 tre to tre translation is not supported.
+110 |> ERROR L110 pla to pla translation is not supported.
+111 |> ERROR L111 blif translation is not supported.
+112 |> ERROR L112 -auxi flag is not supported for tre to pla translation.
+113 |> ERROR L113 -auxo flag is not supported for pla to tre translation.
+114 |> ERROR L114  Insufficient number of parameters (%s) specified.
+114                At least two are required, either (tre pla) or (pla tre).
+114                   For help, please use command line option -help.
+115 |> ERROR L115  Illegal use of optional parameter %s.
+116 |> ERROR L116  Unknown command line option "%s" found.
+117 |> ERROR L117  Invalid first two command-line parameters (%s) found.
+117                Should be (tre pla) or (pla tre).
+118 |> ERROR L118  No argument after %s parameter.  Should be a number.
+119 |> ERROR L119  Minimize specific processing options may not be used
+119                with any pla file translation options.
+120 %s
+121 |> ERROR L121 -th parameter argument %s is not a number.
+122 |> ERROR L122 The options -th and -p must both exist if you specify
+122              one of them.
+123 |> WARNING L123 Threshold must be greater than or equal to the 
+123                "gate split max num pterms per equation".  
+123                Resetting the latter number equal to Threshold.
+124 |> ERROR L124  No argument after -f parameter.  Must be tre2tre or tre2pla.
+125 |> WARNING L125 Error -f parameter argument %s.
+125               Must be "-f tre2tre" or "-f tre2pla".
+130 |> ERROR L130  You can specify only one or none of the following options.
+130               Register transform options: -d, -t, -dt, -id, -it, and -idt.
+135 |> ERROR L135  You can specify only one or none of the following options.
+135               Polarity control options, -a, -ao, -ah, and -al.
+200
+210 |> ERROR L210 pla to tre translation is not supported.
+215 |> ERROR L215 pla to pla translation is not supported.
+300
+400
+401 |> INTERNAL_ERROR L401 Input tre file Equations section is corrupted.
+402 |> ERROR L402 Number of signals in equation exceeds max limit (64).
+500
+501 |> ERROR L501 Cannot open input file %s
+502 |> ERROR L502 Cannot open output file %s
+502	Call AMD, 1-800-222-9323.
+503 |> SYSTEM_ERROR L503 Input file %s cannot be closed.
+503	Call AMD, 1-800-222-9323.
+504 |> SYSTEM_ERROR L504 Output file %s cannot be closed.  
+504          Possibly disk too full.
+505 |> SYSTEM_ERROR L605 Program abnormally terminated due to the
+505			 failure in executing a system call.
+505     Possibly not enough memory.
+506 |> SYSTEM_WARNING L506 Input file %s cannot be opened.
+507 |> SYSTEM_ERROR L507 Cannot rename file from %s to %s.
+508 |> SYSTEM_ERROR L508 Cannot open input file %s.
+600 
+700 
+800 
+801  \nTranslation input was read from input file %s.
+802  Auxiliary input was read from auxiliary input file %s.
+803  Translated output is stored in output file %s.
+804  Auxiliary output is stored in auxiliary output file %s.
+810 |> ERROR L810 Input file %s is corrupted.
+820 |> INTERNAL ERROR L820
+820    Duplicate equation %s found in the design.
+830 |> ERROR L830 Error clock %s (pin number = %d) found in 
+830    input register equation %s.   Must be a global clock-pin.
+830 |> ERROR L830  Equation %s is an input-register/latch.
+830               So product-term clock %s is not valid.
+835 |> ERROR L835  Equation %s has SETF and RSTF non-GND.
+835               So product-term clock %s is not valid.
+840 |> ERROR L840  Equation %s is an input-register/latch.
+840               So product-term clock %s is not valid.
+850 |> ERROR L850  Equation %s has SETF and RSTF non-GND.  
+850               So product-term clock %s is not valid.
+855 Converting TRE file %s to PLA file %s...\n
+857 Converting TRE file %s to BLIF file %s...\n
+860 Converting PLA file %s to TRE file %s...\n
+861 Converting PLA file %s to BLIF file %s...\n
+862 \nThey are equivalent.
+864 \nThey are NOT equivalent.
+865 Verifying PLA files %s and %s ...
+900
+1000
+1001 |> SYSTEM_ERROR L1001 Error in reading .i directive from  PLA file.
+1002 |> ERROR L1002 .i directive must appear before .o directive.
+1003 |> SYSTEM_ERROR L1003 Error in reading .o directive from PLA file.
+1004 |> ERROR L1004 Invalid .o outputs (%d): use -mo for multi-output PLA.
+1005 |> ERROR L1005 illegal type %s found in .type directive.
+1006 |> ERROR L1006 .i & .o directives must appear before .ilb & .ob directives.
+1007 |> SYSTEM_ERROR L1007 Error in reading labels from PLA file.
+1008 |> ERROR L1008 .i & .o directives must appear before .phase directive.
+1009 |> ERROR L1009 illegal phase found in .phase directive.
+1010 |> WARNING L1010 product term spans more than one line.
+1011 |> ERROR L1011 illegal variable size (%d) found.
+1012 |> WARNING L1012 bad character found: line no %d ignored.
+1013 |> WARNING L1013 extra .i directive found: ignored.
+1014 |> WARNING L1014 extra .o directive found: ignored.
+1015 |> WARNING L1015 extra .phase directive found: ignored.
+1016 |> ERROR L1016 DEVICE must be specified before PIN declaration.
+1017 |> ERROR L1017 PIN declaration cannot succeed NODE declaration.
+1018 |> ERROR L1018 PIN declaration must precede NODE declaration.
+1019 |> ERROR L1019 Missing #AMD DEVICE declaration in PLA file.
+1020 |> ERROR L1020 Missing #AMD PIN declaration in PLA file.
+1021 |> ERROR L1021 Invalid #AMD NODE declaration for this device.
+1022 |> ERROR L1022 Too many input variables specified: may not exceed 64.
+1023 |> ERROR L1023 Too many output variables specified: may not exceed
+1023               pin+node count for this device.                
+1024 |> ERROR L1024 Undefined input label %s found in .ilb directive.
+1025 |> ERROR L1025 Undefined output label %s found in .ob directive.
+1100
+1101 |> INTERNAL_ERROR L1101 Tre file read error.
+1101	 Call AMD, 1-800-222-9323.
+1200
+1201 Processing equation for ====>%s
+1205 Processing equation(s) for %s...
+1208 Minimizing %s...
+1210 ====> %s MIN_ON (%s, %d %s pt --> %s, %d %s pt)
+1220 ====> %s MIN_ON (%d %s pt --> %d %s pt)
+1230 ====> %s MIN_ON (%d %s pt)
+1240 ====> %s MIN_OFF (%d %s pt)
+1245 ====> %s (%d %s pt)
+1250 ====> %s MIN_OFF (%d %s pt --> %d %s pt)
+1260 |> ERROR L1260  Process stopped.  The equation has %d product terms
+1260                the largest device support has only %d product terms.
+1270 |> ERROR L1270  The %s token is not supported in MACHXL.
+1300
+1310 |> WARNING L1310  Device %s has only %d global clock pins.  
+1310           Design has %d single-literal clocks that are either 
+1310           floating or pre-placed at global clock pins.
+1310           They are: %s
+1320 |> ERROR L1320  Hard disk is full!
+1400
+1401 |> ERROR L1401  Error in TRE  file.
+1401    Please run Parse (Check Syntax).
+1500
+1600 |> ERROR L1600  Error trying to allocate %ld bytes of memory.
+1600                Cannot exceed 64K bytes.
+1601 |> INTERNAL_ERROR L1601 set size mismatch error.
+1601	 Call AMD, 1-800-222-9323.
+1620 |> WARNING L1620  Equation was not minimized since it 
+1620                  requires %ld bytes of memory.
+1620                  Cannot exceed 64K bytes.
+1700 |> ERROR L1700  Cannot support this device.
+1701 |> SYSTEM_ERROR L1701  Cannot open PALEXMIN.PDF file.
+1701    Call AMD, 1-800-222-9323.
+1702 |> INTERNAL_ERROR L1702  PAL device not supported in PALEXMIN.PDF.
+1702     Call AMD, 1-800-222-9323.
+1703 |> SYSTEM_ERROR L1703  Incorrect PALEXMIN.PDF file format.
+1703     Call AMD, 1-800-222-9323.
+1711 |> SYSTEM_ERROR L1711  Cannot open PLSPDF.PDF file.
+1711     Call AMD, 1-800-222-9323.
+1712 |> INTERNAL ERROR L1712 PLS device not supported in PLSPDF.PDF.
+1712     Call AMD, 1-800-222-9323.
+1713 |> SYSTEM_ERROR L1713  Incorrect PLSPDF.PDF file format.
+1713     Call AMD, 1-800-222-9323.
+1714 |> INTERNAL_ERROR L1714  Incorrect device data structure from
+1714                          PLSPDF.PDF.  Call AMD, 1-800-222-9323.
+1721 |> SYSTEM_ERROR L1721  Cannot open MACHPDF.PDF file.
+1721     Call AMD, 1-800-222-9323.
+1722 |> INTERNAL ERROR L1722  MACH device is not supported in MACHPDF.PDF.
+1722     Call AMD, 1-800-222-9323.
+1723 |> SYSTEM_ERROR L1723  Incorrect MACHPDF.PDF file format.
+1723     Call AMD, 1-800-222-9323.
+1730 |> SYSTEM_ERROR L1730  Memory allocation failed.  Out of memory.
+1730     Call AMD, 1-800-222-9323.
+1740 |> SYSTEM_ERROR L1740  Cannot rename design output file.
+1740     Call AMD, 1-800-222-9323.
+1760 |> INTERNAL_ERROR L1760  Cannot support PROSE device.
+1760     Call AMD, 1-800-222-9323.
+1780 |> SYSTEM_ERROR L1780  Cannot delete temporary file.
+1780     Call AMD, 1-800-222-9323.
+1785 |> INTERNAL_ERROR L1785 Cannot support PROSE device.
+1790 |> SYSTEM_ERROR L1790 Cannot open PARSE.MSG file for device information.
+1790	Call AMD, 1-800-222-9323.
+1792 |> ERROR L1792  MACHMIN support MACH devices only.  You specify %s.
+1795 |> ERROR L1795  MACHMIN does not support device %s
+1800 Gate splitting (%s %s) to (NODE ? %s).
+1810 |> WARNING L1810  Gate splitting not supported for device %s.
+1810                    Ignoring (-p) option.
+1820 |> ERROR L1820 Device %s can only support a maximum of %d product terms
+1820                for %s (%s). 
+1820                Gate splitting (-p) option specifies %d product terms.
+1830 |> ERROR L1830 Device %s can only support a maximum of %d product terms
+1830                per pin. Gate splitting option (-p) 
+1830                specifies %d product terms.
+1833 |> WARNING L1833 The %s device supports gate splitting at threshold %d
+1833                 only.  Threshold specified as %d.  Changed to %d.
+1835 |> WARNING L1835 For the %s device, the signals resulting from
+1835                 gate splitting can have no more than the specified 
+1835                 maximum of between %d and %d product terms.  
+1835                 Max pterms specified as %d.  Changed to %d.
+1837 |> WARNING L1837 The %s device supports gate splitting at threshold
+1837                 between %d and %d.  Threshold specified as %d.
+1837                 changed to %d.
+1850 Created paired node equation %s
+1851 |> INTERNAL_ERROR L1851  ERROR pin-table-size: %d.
+1851     Call AMD, 1-800-222-9323.
+1855 |> ERROR L1805  ERROR pin %s and paired-node %s: 
+1855                          Different type of equation for pair.
+1857 |> ERROR L1857  Equation %s.TRST is invalid.
+1857                MACH devices do not support TRST equation for nodes.
+1860 Created paired pin equation %s.
+1901 |> ERROR L1901  Incorrect %s equation polarity.
+1902 |> WARNING L1902 Device polarity is Non-programmable. Flipping equation
+1902                  polarity of pin %s to match device polarity.
+1910 |> WARNING L1910 Equation polarity of %s has been changed.
+1915 |> ERROR L1915 Cannot open file %s.
+2000 |> ERROR L2000  Error %s: More than one primary equation exist or
+2000              different type of primary eqns for pin and paired node.
+2001 |> WARNING L2001  Signal %s doesn't have primary equation.
+2002 |> INTERNAL ERROR L2005  Null initial state.
+2005 |> INTERNAL ERROR L2005  Unknown initial state %d.
+2010 |> INTERNAL ERROR L2010  ERROR XOR equation %s: Lost XORL.
+2010     Call AMD, 1-800-222-9323.
+2012 |> INTERNAL ERROR L2010  ERROR XOR equation %s: Lost XORR.
+2012     Call AMD, 1-800-222-9323.
+2015 |> INTERNAL ERROR L2015  ERROR %s: Pol of (XORL, XORR) are different.
+2015     Call AMD, 1-800-222-9323.
+2020 |> INTERNAL ERROR L2020  ERROR %s: PinNum of (XORL, XORR) are different.
+2020     Call AMD, 1-800-222-9323.
+2030 |> ERROR L2030  Error equation polarity %s:
+2030                   Active-low J, K, R, and S equations are prohibited.
+2040 |> WARNING L2040  %s option ignored.
+2040                   Device %s does not have %s registers.
+2050 |> WARNING L2050  Equation converted to %s register logic.
+2060 |> ERROR L2060  Incomplete JK equation %s: Both J and K must exist.
+2065 |> ERROR L2065  Incomplete RS equation %s: Both R and S must exist.
+2100 |> WARNING L2100  XOR equation %s expanded.  
+2100                      Both ON and OFF cover exist.
+2110 |> WARNING L2110  Multiple-XOR is not supported.
+2110                      Equation %s expanded to single-XOR form.
+2200 |> ERROR L2200  Equation %s: Some minterm(s) belong to both ON-set and 
+2200                OFF-set which is invalid.
+2210 |> WARNING L2210  Duplicated item %s found in group %s.  
+2210                  This item will be ignored.
+2300 \n|> ERROR L2300  Error PLA file %s in line %d: unknown character %s.
+2310 \n|> ERROR L2310  Syntax error in PLA file %s in line %d.
+2320 \n|> ERROR L2320  Syntax error in PLA file %s in line %d.
+2320                 %d binary number found in LHS plane, should be %d.
+2325 \n|> ERROR L2325  Syntax error in PLA file %s in line %d.
+2325                 %d binary number found in RHS plane, should be %d.
+2330 |> ERROR L2330  Too many signals in ".ob" directive.
+2332 |> ERROR L2330  Too many signals in ".ilb" directive.
+10000
+10001 |> ERROR L10001  Please run MACHBPP (Expand Boolean).
+10002 |> ERROR L10002  Please run MACHEXP (Expand State).
+10003 |> ERROR L10003  Please run MACHMIN without -tre2pla option first.
+10530 |> WARNING L10530  Extra .i line ignored.
+10540 |> WARNING L10540  Extra .o line ignored.
+10550 |> WARNING L10550  Extra .mv ignored.
+10560 |> WARNING L10560  Extra .phase ignored.
+10570 |> WARNING L10570  Extra .pair ignored.
+11200 |> WARNING L11200 Cannot permute columns without names.
+11210 |> ERROR L11210 PLA Verify: PLA's are not the same size.
+11215 |> ERROR L11215 Cannot compare: PLA's have different input size.
+11217 |> ERROR L11217 Cannot compare: PLA's have different output size.
+11220 |> ERROR L11220 Equation %s:
+11220               Some minterm(s) belong to both the ON-SET and DC-SET.
+11230 |> ERROR L11230 Equation %s: Some minterm(s) belong to both ON-set and 
+11230                OFF-set which is invalid.
+11240 |> ERROR L11240 Equation %s:
+11240               Some minterm(s) belong to both the OFF-SET and DC-SET.
+11250 |> ERROR L11250 There are minterms left unspecified.
+11260 |> ERROR L11260 Some minterm in F is not covered by Fold u Dold.
+11270 |> ERROR L11270 Some minterm in Fold is not covered by F u Dold
+

@@ -1,0 +1,107 @@
+Title    Basic Flip Flops
+Pattern  FlipFlop.pds
+Revision A
+Author   Vincent Coli
+Company  Monolithic Memories Inc., Santa Clara, CA
+Date     2/28/85
+  
+CHIP FlipFlop PAL16RP8
+  
+CLK J K T PR CLR D S R GND
+/OC /SRC /SRT /DC /DT /TC /TT /JKC /JKT VCC
+  
+EQUATIONS
+  
+JKT :=  J*/JKT*/CLR                     ;JK Flio-Flop
+     + /K* JKT*/CLR                     ;(JKC = /Q)
+     +  PR                              ;Preset Q
+  
+JKC := /J* K  */PR                      ;JK Flip-Flop
+     + /J*/JKT*/PR                      ;(JK = /Q)
+     +  K* JKT*/PR
+     +  CLR                             ;Clear /Q
+  
+TT  :=  T*/TT*/CLR                      ;T Flip-Flop
+     + /T* TT*/CLR                      ;(TT = Q)
+     +  PR                              ;Preset Q
+  
+TC  := /T*/TT*/CLR                      ;T Flip-Flop
+     +  T* TT*/PR                       ;(TC = /Q)
+     +  CLR                             ;Clear /Q
+  
+DT  :=  D*/CLR                          ;D Flip-Flop
+     +  PR                              ;Preset Q
+  
+DC  := /D*/PR                           ;D Flip-Flop
+     +  CLR                             ;Clear /Q
+  
+SRT :=  S*     /CLR                     ;Set-Reset Flip-Flop
+     + /R* SRT*/CLR                     ;(SRT = Q)
+     +  PR                              ;Preset Q
+  
+SRC := /S* R  */PR                      ;Set-Reset Flip-Flop
+     + /S*/SRT*/PR                      ;(SRC = /Q)
+     +  CLR                             ;Clear /Q
+  
+  
+SIMULATION
+  
+TRACE_ON /OC PR CLR J K JKT T TT D DT S R SRT
+  
+  
+SETF OC /PR CLR                         ; Clear
+CLOCKF
+SETF /CLR /J /K
+CLOCKF
+SETF K
+CLOCKF
+SETF J                                  ; Toggle
+CLOCKF
+SETF /K
+CLOCKF
+SETF /J
+CLOCKF
+SETF K
+CLOCKF
+SETF PR                                 ; Preset
+CLOCKF
+SETF /PR J K                            ; Toggle
+CLOCKF
+SETF /K
+CLOCKF
+  
+SETF CLR                                ; Clear
+CLOCKF
+SETF /CLR /T
+CLOCKF
+SETF T                                  ; Toggle
+CLOCKF
+SETF /T                                 ; Toggle
+CLOCKF
+  
+  
+SETF CLR                                ; Clear
+CLOCKF
+SETF /D
+CLOCKF
+SETF D
+CLOCKF
+SETF /D
+CLOCKF
+  
+SETF CLR                                ; Clear
+CLOCKF
+SETF /CLR /S /R
+CLOCKF
+SETF S                                  ; Set
+CLOCKF
+SETF /S R                               ; Reset
+CLOCKF
+SETF /S R                               ; Hold
+CLOCKF
+SETF /OC                                ; HI-Z
+CLOCKF
+  
+TRACE_OFF
+  
+

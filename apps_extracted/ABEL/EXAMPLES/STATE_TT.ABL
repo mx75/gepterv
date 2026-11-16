@@ -1,0 +1,51 @@
+module state_tt
+title 'Five state Mealy machine described using a state table';
+
+    Clock,Reset   pin;
+    in1,in2,hold  pin;
+    Q3..Q0        pin istype 'reg,buffer,dc';
+    out1,out2     pin istype 'com,dc';
+
+    Qstate = [Q2,Q1,Q0];
+    A      = [ 0, 0, 0];
+    B      = [ 0, 0, 1];
+    C      = [ 0, 1, 1];
+    D      = [ 0, 1, 0];
+    E      = [ 1, 0, 0];
+
+equations
+
+    Qstate.clk = Clock;
+    Qstate.ar = Reset;
+
+truth_table ([in1,in2,hold,Qstate.fb]:>[Qstate]->[out1,out2])
+             [.x.,.x.,  1 ,    A    ]:>[   A  ]->[  1 ,  1 ]; "Hold in A
+             [.x.,.x.,  0 ,    A    ]:>[   B  ]->[  1 ,  1 ];
+             [.x.,.x.,  1 ,    B    ]:>[   B  ]->[ .x., .x.]; "Hold in B
+             [.x.,.x.,  0 ,    B    ]:>[   C  ]->[ .x., .x.];
+             [.x.,.x.,  1 ,    C    ]:>[   C  ]->[ .x., .x.]; "Hold in C
+             [.x.,.x.,  0 ,    C    ]:>[   D  ]->[ .x., .x.];
+             [.x.,.x.,  1 ,    D    ]:>[   D  ]->[ .x., .x.]; "Hold in D
+             [.x.,.x.,  0 ,    D    ]:>[   E  ]->[ .x., .x.];
+             [.x.,.x.,  1 ,    E    ]:>[   E  ]->[ .x., .x.]; "Hold in E
+             [.x.,.x.,  0 ,    E    ]:>[   A  ]->[ .x., .x.];
+             [ 0 , 0 , .x.,    E    ]:>[  .x. ]->[  0 ,  0 ]; "Outputs
+             [ 0 , 1 , .x.,    E    ]:>[  .x. ]->[  0 ,  1 ]; "active in
+             [ 1 , 0 , .x.,    E    ]:>[  .x. ]->[  0 ,  1 ]; "state E
+             [ 1 , 1 , .x.,    E    ]:>[  .x. ]->[  1 ,  0 ];
+
+test_vectors ([Clock,Reset,in1,in2,hold]->[Qstate,out1,out2])
+              [ .c. ,  1  , 0 , 0 ,  0 ]->[   A  ,  1 ,  1 ];
+              [ .c. ,  0  , 0 , 0 ,  1 ]->[   A  ,  1 ,  1 ];
+              [ .c. ,  0  , 0 , 0 ,  0 ]->[   B  , .x., .x.];
+              [ .c. ,  0  , 0 , 0 ,  0 ]->[   C  , .x., .x.];
+              [ .c. ,  0  , 0 , 0 ,  0 ]->[   D  , .x., .x.];
+              [ .c. ,  0  , 0 , 0 ,  0 ]->[   E  ,  0 ,  0 ];
+              [ .c. ,  0  , 0 , 1 ,  1 ]->[   E  ,  0 ,  1 ];
+              [ .c. ,  0  , 1 , 0 ,  1 ]->[   E  ,  0 ,  1 ];
+              [ .c. ,  0  , 1 , 1 ,  1 ]->[   E  ,  1 ,  0 ];
+              [ .c. ,  0  , 0 , 0 ,  0 ]->[   A  ,  1 ,  1 ];
+              [ .c. ,  0  , 0 , 0 ,  0 ]->[   B  , .x., .x.];
+              [ .c. ,  0  , 0 , 0 ,  1 ]->[   B  , .x., .x.];
+              [ .c. ,  0  , 0 , 0 ,  0 ]->[   C  , .x., .x.];
+end

@@ -1,0 +1,53 @@
+Name       adder_tt;
+Partno     XXXXX;
+Date       05/03/90;
+Revision   01;
+Designer   Joe Engineer;
+Company    Logical Devices, Inc.;
+Assembly   XXXXX;
+Location   XXXXX;
+Device     RA9P8;
+
+/******************************************************************/
+/*                                                                */
+/*    This is a 4 bit adder using CUPL's truth table format.      */
+/*                                                                */
+/******************************************************************/
+/*  Allowable Target Device Types:  CY7C225 (512 x 8)             */
+/******************************************************************/
+
+/**  Inputs  **/
+
+Pin [16..19] = [Numbers3..0];   /*  First 4 bit number            */
+Pin  [2..5]  = [Numbers7..4];   /*  Second 4 bit number           */
+
+/**  Outputs  **/
+
+Pin  [6..9]  = [Result3..0];    /*  5 bit result                  */
+Pin    11    =  Result4    ;    /*                                */
+
+/** Declarations and Intermediate Variable Definitions **/
+
+Field INPUT = [Numbers7..0];    /* combine both numbers into one field */
+Field OUTPUT = [Result4..0];    /* result field */
+
+
+/**  Logic Equations  **/
+
+/*    A = first 4 bit number      B = second 4 bit number
+
+      A*16    B
+      ---- + ----      A must be multiplied by 16 to shift it over 4 bits
+      0000   0000      so two 4 bit numbers can be represented in 8 bits.
+ */
+
+Table  INPUT  =>  OUTPUT  {
+$repeat A = [0..15]
+$repeat B = [0..15]
+    'h'{A*16+B}  =>  'h'{A+B};
+$repend
+$repend
+}
+
+
+

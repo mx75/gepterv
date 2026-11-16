@@ -1,0 +1,58 @@
+Name       XXXXX;
+Partno     XXXXX;
+Date       XX/XX/XX;
+Revision   XX;
+Designer   XXXXX;
+Company    XXXXX;
+Assembly   XXXXX;
+Location   XXXXX;
+
+/******************************************************************/
+/*                                                                */
+/*                                                                */
+/*                                                                */
+/******************************************************************/
+/*  Allowable Target Device Types:                                */
+/******************************************************************/
+
+/**  Inputs  **/
+
+Pin          =           ;      /*                                */
+Pin          =           ;      /*                                */
+Pin          =           ;      /*                                */
+Pin          =           ;      /*                                */
+Pin          =           ;      /*                                */
+Pin          =           ;      /*                                */
+Pin          =           ;      /*                                */
+Pin          =           ;      /*                                */
+Pin          =           ;      /*                                */
+Pin          =           ;      /*                                */
+Pin          =           ;      /*                                */
+Pin          =           ;      /*                                */
+Pin          =           ;      /*                                */
+Pin          =           ;      /*                                */
+
+/**  Outputs  **/
+
+Pin          =           ;      /*                                */
+Pin          =           ;      /*                                */
+Pin          =           ;      /*                                */
+Pin          =           ;      /*                                */
+Pin          =           ;      /*                                */
+Pin          =           ;      /*                                */
+Pin          =           ;      /*                                */
+Pin          =           ;      /*                                */
+
+/** Declarations and Intermediate Variable Definitions **/
+
+
+
+
+
+
+/**  Logic Equations  **/
+
+
+
+
+

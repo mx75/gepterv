@@ -1,0 +1,49 @@
+Module crc8p
+Title '8-bit Parallel Cyclic Redundancy Check (CRC) Generator'
+
+        D7..D0     pin;
+        X15..X0    pin istype 'reg,buffer';
+        Clk,Set    pin;
+
+        CRC_Sum    = [X15..X0];
+        Data       = [D7..D0];
+
+        I = X15 $ D7;
+        J = X14 $ D6;
+        K = X13 $ D5;
+        L = X12 $ D4;
+        M = X11 $ D3 $ I;
+        N = X10 $ D2 $ J;
+        O = X9  $ D1 $ K;
+        P = X8  $ D0 $ L;
+
+Equations
+        X0  := P;
+        X1  := O;
+        X2  := N;
+        X3  := M;
+        X4  := L;
+        X5  := K  $ P;
+        X6  := J  $ O;
+        X7  := I  $ N;
+        X8  := X0 $ M;
+        X9  := X1 $ L;
+        X10 := X2 $ K;
+        X11 := X3 $ J;
+        X12 := X4 $ P $ I;
+        X13 := X5 $ O;
+        X14 := X6 $ N;
+        X15 := X7 $ M;
+
+        CRC_Sum.Clk = Clk;
+        CRC_Sum.ap  = Set;
+
+Test_Vectors ([Clk,Set,Data] -> CRC_Sum)
+              [.C., 1 ,  0 ] -> ^hFFFF; 
+              [.C., 0 , 'H'] -> ^h283C; 
+              [.C., 0 , 'e'] -> ^hA569; 
+              [.C., 0 , 'l'] -> ^h2165; 
+              [.C., 0 , 'l'] -> ^hFC69; 
+              [.C., 0 , 'o'] -> ^hDADA; 
+End
+
