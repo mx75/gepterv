@@ -66,8 +66,11 @@ def parse_machxl() -> None:
     directory = ROOT / "MACHXL" / "DAT"
     readme = ROOT / "MACHXL" / "README.DOC"
     doc = read_text(readme)
-    explicit = set(x.upper() for x in re.findall(r"\bMACH\s*\d{3}\b", doc))
-    explicit = {re.sub(r"\s+", "", x) for x in explicit}
+    explicit = set()
+    # README uses compact slash lists such as MACH355/435/445/465 and
+    # JEDEC ON MACH110/111/120/...; expand each member explicitly.
+    for match in re.finditer(r"\\bMACH\\s*(\\d{3}(?:/\\d{3})*)", doc, re.I):
+        explicit.update("MACH" + part for part in match.group(1).split("/"))
     for path in sorted(directory.glob("*.DEV")):
         SOURCE_HASHES[path.as_posix()] = hashlib.sha256(path.read_bytes()).hexdigest()
         device = path.stem.upper()
