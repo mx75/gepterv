@@ -1,0 +1,51 @@
+name: Export legacy PLD tool device evidence
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "35 6 * * *"
+
+permissions:
+  contents: read
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Generate and validate exports
+        run: |
+          python tools/legacy_pld_export/export_legacy_pld_evidence.py
+          python - <<'PY'
+          import csv, json
+          from pathlib import Path
+          csv_path = Path("build/legacy_pld_device_evidence.csv")
+          json_path = Path("build/legacy_pld_export_summary.json")
+          with csv_path.open(encoding="utf-8-sig", newline="") as f:
+              rows = list(csv.DictReader(f))
+          summary = json.loads(json_path.read_text(encoding="utf-8"))
+          required = {"tool", "device", "evidence_status", "evidence_role", "source_path", "details"}
+          assert rows, "Export is empty"
+          assert required.issubset(rows[0]), "CSV schema mismatch"
+          assert len(rows) == summary["csv_rows"], "CSV/JSON row count mismatch"
+          assert summary["source_files_hashed"] > 0, "No source files were hashed"
+          assert all(r["tool"] and r["device"] and r["evidence_status"] and r["source_path"] for r in rows), "Empty required field"
+          print(f"Validated {len(rows)} evidence rows from {summary['source_files_hashed']} source files.")
+          PY
+
+      - name: Upload export artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: legacy-pld-device-export
+          path: |
+            build/legacy_pld_device_evidence.csv
+            build/legacy_pld_export_summary.json
+          if-no-files-found: error
+          retention-days: 30
