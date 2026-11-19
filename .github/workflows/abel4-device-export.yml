@@ -1,0 +1,36 @@
+name: Export ABEL4 device database
+
+on:
+  workflow_dispatch:
+  schedule:
+    # GitHub Actions cron is UTC. 06:15 UTC is 07:15 in Budapest during CET;
+    # during CEST this runs at 08:15 local time.
+    - cron: "15 6 * * *"
+
+permissions:
+  contents: read
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Generate and validate CSV
+        run: python tools/abel4_export/export_abel4_devices.py
+
+      - name: Upload export artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: abel4-device-export
+          path: |
+            build/abel4_vendor_parts.csv
+            build/abel4_export_summary.json
+          if-no-files-found: error
+          retention-days: 30
