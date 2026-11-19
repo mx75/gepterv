@@ -69,7 +69,7 @@ def parse_machxl() -> None:
     explicit = set()
     # README uses compact slash lists such as MACH355/435/445/465 and
     # JEDEC ON MACH110/111/120/...; expand each member explicitly.
-    for match in re.finditer(r"\\bMACH\\s*(\\d{3}(?:/\\d{3})*)", doc, re.I):
+    for match in re.finditer(r"\bMACH\s*(\d{3}(?:/\d{3})*)", doc, re.I):
         explicit.update("MACH" + part for part in match.group(1).split("/"))
     for path in sorted(directory.glob("*.DEV")):
         SOURCE_HASHES[path.as_posix()] = hashlib.sha256(path.read_bytes()).hexdigest()
